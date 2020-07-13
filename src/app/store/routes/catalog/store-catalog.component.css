@@ -1,0 +1,75 @@
+.catalog-container {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: stretch;
+  background-color: var(--color-bg-dark);
+}
+
+h2 {
+  margin: 0;
+  padding: 1rem 1rem 0 1rem;
+  color: var(--color-content);
+}
+
+@media(min-width: 720px) {
+  h2 {
+    padding: 1rem;
+  }
+}
+
+app-product-filters-panel {
+  flex: 0 1 auto;
+  padding: 0.5rem;
+}
+
+.catalog {
+  flex: 1 1 auto;
+  padding: 0.5rem;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(1fr, 20rem));
+  grid-auto-rows: max-content;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: var(--color-bg-secondary);
+}
+
+@media(min-width: 800px) {
+
+  app-product-filters-panel {
+    padding: 1rem;
+  }
+
+  .catalog {
+    grid-template-columns: repeat(auto-fit, 20rem);
+    padding: 1rem;
+  }
+}
+
+.catalog mat-card {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.catalog mat-card-header {
+  flex: 0 0 auto;
+}
+
+.catalog mat-card-content {
+  flex: 1 1 auto;
+}
+
+.catalog img {
+  width: 100%;
+}
+
+.catalog mat-card-actions {
+  flex: 0 0 auto;
+  text-align: right;
+}
+
+.catalog mat-card-actions>button {
+  margin-left: 1rem;
+}

@@ -1,0 +1,11 @@
+<div class="sidenav">
+  <mat-nav-list>
+    <a mat-list-item *ngFor="let module of modules; let i = index"
+      [routerLink]="['/'+baseModule, module.path]"
+      (click)="onClickNavigate(i)"
+      [class.active]="module.active">
+      <mat-icon>{{ module.icon }}</mat-icon>
+      {{ module.text }}
+    </a>
+  </mat-nav-list>
+</div>

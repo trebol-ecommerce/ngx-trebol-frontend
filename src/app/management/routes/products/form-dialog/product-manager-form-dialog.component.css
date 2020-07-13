@@ -1,0 +1,23 @@
+form {
+  display: grid;
+  grid-template-areas:
+    'code'
+    'name'
+    'pFamily'
+    'pType'
+    'price'
+    'stock'
+    'cStock'
+    'desc';
+}
+
+@media(min-width: 800px) {
+  form {
+    grid-template-areas:
+      'code name name'
+      'pFamily pFamily pFamily'
+      'pType pType pType'
+      'price stock cStock'
+      'desc desc desc';
+  }
+}

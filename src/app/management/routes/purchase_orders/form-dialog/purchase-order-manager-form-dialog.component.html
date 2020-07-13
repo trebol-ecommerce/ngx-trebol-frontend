@@ -1,0 +1,106 @@
+<div class="dialog">
+  <h2 mat-dialog-title>{{ dialogTitle }}</h2>
+  <centered-mat-spinner *ngIf="saving$ | async">
+  </centered-mat-spinner>
+
+  <div [hidden]="saving$ | async">
+    <form [formGroup]="formGroup" (submit)="onSubmit()">
+
+      <mat-form-field style="grid-area: date">
+        <input matInput placeholder="Fecha de Solicitud" [ngModel]="fechaSolicitud"
+          [ngModelOptions]="{ standalone: true }" disabled />
+      </mat-form-field>
+
+      <mat-form-field style="grid-area: solicitee">
+        <mat-select placeholder="Solicitante" formControlName="employee">
+          <mat-option *ngFor="let e of (employees$ | async)" [value]="e.id">
+            {{ e.person.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field style="grid-area: provider">
+        <mat-select placeholder="Proveedor" formControlName="provider">
+          <mat-option *ngFor="let p of (providers$ | async)" [value]="p.id">
+            {{ p.person.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-card style="grid-area: details">
+        <div class="details-header">
+          <h3>Productos Solicitados</h3>
+          <button mat-button mat-raised-button
+            color="primary"
+            [disabled]="provider.invalid"
+            (click)="onClickAddProducts()">
+            Agregar
+          </button>
+        </div>
+        <div class="details-table-wrapper">
+          <table mat-table [dataSource]="purchaseOrderDetails$">
+            <ng-container matColumnDef="product">
+              <th mat-header-cell *matHeaderCellDef> Nombre </th>
+              <td mat-cell *matCellDef="let detail" class="left">
+                {{ detail.product.name }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef> Precio </th>
+              <td mat-cell *matCellDef="let detail" class="left">
+                ${{ detail.product.price }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="quantity">
+              <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+              <td mat-cell *matCellDef="let detail; let i=index" class="left">
+                <div>
+                  <button mat-button mat-icon-button
+                    (click)="onClickIncreaseDetailProductQuantity(i)">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                  <input matInput class="quantity" type="number"
+                    min="1"
+                    [(ngModel)]="detail.cantidadProducto"
+                    [ngModelOptions]="{ standalone: true }" />
+                  <button mat-button mat-icon-button
+                    [disabled]="detail.cantidadProducto < 2"
+                    (click)="onClickDecreaseDetailProductQuantity(i)">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> </th>
+              <td mat-cell *matCellDef="let i=index">
+                <div>
+                  <button mat-button mat-icon-button color="warn" class="delete" [disabled]="busy$ | async"
+                    (click)="onClickBorrarDetalle(i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+          </table>
+        </div>
+      </mat-card>
+
+      <div class="actions">
+        <button mat-button mat-raised-button type="submit"
+          color="primary"
+          [disabled]="formGroup.invalid">
+          Aceptar
+        </button>
+        <button mat-button mat-raised-button
+          (click)="onCancel()">
+          Cancelar
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

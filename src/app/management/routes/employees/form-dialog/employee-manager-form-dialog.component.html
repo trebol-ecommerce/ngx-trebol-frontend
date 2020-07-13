@@ -1,0 +1,33 @@
+<div class="dialog">
+  <h2 mat-dialog-title>{{ dialogTitle }}</h2>
+  <centered-mat-spinner *ngIf="saving$ | async">
+  </centered-mat-spinner>
+
+  <div [hidden]="saving$ | async">
+    <form [formGroup]="formGroup" (submit)="onSubmit()">
+
+      <mat-form-field>
+        <mat-select placeholder="Cargo" formControlName="role">
+          <mat-option *ngFor="let r of (employeeRoles$ | async)" [value]="r.id">
+            {{ r.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <app-person-form #personForm>
+      </app-person-form>
+
+      <div class="actions">
+        <button mat-button mat-raised-button type="submit"
+          color="primary"
+          [disabled]="formGroup.invalid">
+          Aceptar
+        </button>
+        <button mat-button mat-raised-button
+          (click)="onCancel()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="full-height">
+
+  <centered-mat-spinner *ngIf="loading$ | async">
+  </centered-mat-spinner>
+
+  <div class="full-width" [hidden]="loading$ | async">
+    <div class="pagina overflow">
+
+      <table mat-table class="full-width-min" [dataSource]="items$">
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef> Nombre de Usuario </th>
+          <td mat-cell *matCellDef="let usuario" class="left">
+            {{usuario.nombre}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="fechaCreacion">
+          <th mat-header-cell *matHeaderCellDef> Fecha de Creación </th>
+          <td mat-cell *matCellDef="let usuario" class="left">
+            {{usuario.fechaCreacionUsuario}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="nombreCompleto">
+          <th mat-header-cell *matHeaderCellDef> Nombre Real </th>
+          <td mat-cell *matCellDef="let usuario" class="left">
+            {{usuario.nombrePersona}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="rut">
+          <th mat-header-cell *matHeaderCellDef> Rut </th>
+          <td mat-cell *matCellDef="let usuario" class="left">
+            {{usuario.rutPersona}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let usuario">
+            <div class="acciones">
+              <button mat-button mat-icon-button
+                color="primary" class="details"
+                [disabled]="busy$ | async"
+                (click)="onClickEditar(usuario)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-button mat-icon-button
+                color="warn" class="delete"
+                [disabled]="busy$ | async"
+                (click)="onClickBorrar(usuario)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+      </table>
+    </div>
+    <app-data-actions
+      (add)="onClickAdd()">
+    </app-data-actions>
+  </div>
+
+</div>

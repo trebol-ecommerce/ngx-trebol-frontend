@@ -1,0 +1,31 @@
+.store {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+/* .store::before {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: "";
+  background-image: url('assets/img/thong-vo-Maf7wdHCmvo-unsplash.jpg');
+  background-position: center;
+  background-size: cover;
+  z-index: -1;
+} */
+
+app-store-header {
+  flex: 0 0 5.5rem;
+}
+
+.content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+app-store-footer {
+  flex: 0 0 auto;
+}

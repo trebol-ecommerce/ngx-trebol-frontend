@@ -1,0 +1,76 @@
+<div class="full-height">
+
+  <centered-mat-spinner *ngIf="loading$ | async">
+  </centered-mat-spinner>
+
+  <div class="full-width" [hidden]="loading$ | async">
+    <div class="pagina overflow">
+
+      <table mat-table class="full-width-min" [dataSource]="items$">
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef> Nombre </th>
+          <td mat-cell *matCellDef="let producto" class="left">
+            {{producto.nombre}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="codigo">
+          <th mat-header-cell *matHeaderCellDef> Codigo </th>
+          <td mat-cell *matCellDef="let producto" class="left">
+            {{producto.codigoProducto}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="precio">
+          <th mat-header-cell *matHeaderCellDef> Precio </th>
+          <td mat-cell *matCellDef="let producto" class="left">
+            {{producto.precioProducto}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="stockActual">
+          <th mat-header-cell *matHeaderCellDef> Stock Actual </th>
+          <td mat-cell *matCellDef="let producto" class="left">
+            {{producto.stockActualProducto}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="stockCritico">
+          <th mat-header-cell *matHeaderCellDef> Stock Crítico </th>
+          <td mat-cell *matCellDef="let producto" class="left">
+            {{producto.stockCriticoProducto}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="tipo">
+          <th mat-header-cell *matHeaderCellDef> Tipo </th>
+          <td mat-cell *matCellDef="let producto" class="left">
+            {{producto.descripcionTipoProducto}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let producto">
+            <div class="acciones">
+              <button mat-button mat-icon-button
+                color="primary" class="details"
+                [disabled]="busy$ | async"
+                (click)="onClickEditar(producto)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-button mat-icon-button
+                color="warn" class="delete"
+                [disabled]="busy$ | async"
+                (click)="onClickBorrar(producto)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+      </table>
+
+    </div>
+    <app-data-actions
+      (add)="onClickAdd()">
+    </app-data-actions>
+  </div>
+
+</div>

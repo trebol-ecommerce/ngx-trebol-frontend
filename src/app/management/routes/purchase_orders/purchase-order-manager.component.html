@@ -1,0 +1,58 @@
+<div class="full-height">
+
+  <centered-mat-spinner *ngIf="loading$ | async">
+  </centered-mat-spinner>
+
+  <div class="full-width" [hidden]="loading$ | async">
+    <div class="pagina overflow">
+
+      <table mat-table class="full-width-min" [dataSource]="items$">
+        <ng-container matColumnDef="numero">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let ordenCompra" class="left">
+            {{ordenCompra.id}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="fechaSolicitud">
+          <th mat-header-cell *matHeaderCellDef> Fecha Solicitud </th>
+          <td mat-cell *matCellDef="let ordenCompra" class="left">
+            {{ordenCompra.fechaSolicitudOrdenCompra}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="fechaRecepcion">
+          <th mat-header-cell *matHeaderCellDef> Fecha Recepción </th>
+          <td mat-cell *matCellDef="let ordenCompra" class="left">
+            {{ordenCompra.fechaRecepcionOrdenCompra}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let ordenCompra">
+            <div class="acciones">
+              <button mat-button mat-icon-button
+                color="primary" class="details"
+                [disabled]="busy$ | async"
+                (click)="onClickEditar(ordenCompra)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-button mat-icon-button
+                color="warn" class="delete"
+                [disabled]="busy$ | async"
+                (click)="onClickBorrar(ordenCompra)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+      </table>
+
+    </div>
+    <app-data-actions
+      (add)="onClickAdd()">
+    </app-data-actions>
+  </div>
+
+</div>

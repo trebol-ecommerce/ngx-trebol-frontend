@@ -1,0 +1,21 @@
+form {
+  display: grid;
+  grid-template-areas:
+    'nombre'
+    'rut'
+    'email'
+    'direccion'
+    'fono1'
+    'fono2';
+}
+
+@media(min-width: 800px) {
+  form {
+    grid-gap: 1rem;
+    grid-template-areas:
+      'nombre nombre nombre nombre'
+      'rut email email email'
+      'direccion direccion direccion direccion'
+      'fono1 fono1 fono2 fono2';
+  }
+}
