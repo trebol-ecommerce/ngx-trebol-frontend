@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 
 /**
- * Barra de acciones genérica. Se sitúa debajo o encima de un listado de mantenedor.
+ * Generic action buttons bar. Should be placed below data listing components.
  */
 @Component({
   selector: 'app-management-data-actions',
