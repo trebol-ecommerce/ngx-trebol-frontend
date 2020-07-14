@@ -1,10 +1,11 @@
-import { OnInit } from '@angular/core';
+import { OnInit, Directive } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { finalize, map, tap } from 'rxjs/operators';
 import { AbstractEntity } from 'src/data/models/AbstractEntity';
 import { DataManagerAbstractService } from './data-manager.abstract-service';
 
+@Directive()
 export abstract class DataManagerAbstractComponent<T extends AbstractEntity>
   implements OnInit {
 

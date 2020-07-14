@@ -1,10 +1,10 @@
 import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/internal/operators/map';
 import { delay, finalize, mergeMap, tap, toArray } from 'rxjs/operators';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 import { AbstractEntity } from 'src/data/models/AbstractEntity';
-import { OnDestroy } from '@angular/core';
+import { OnDestroy, Directive } from '@angular/core';
 
+@Directive()
 export abstract class DataManagerAbstractService<T extends AbstractEntity>
   implements OnDestroy {
 
