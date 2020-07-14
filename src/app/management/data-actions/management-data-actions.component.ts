@@ -4,11 +4,11 @@ import { Component, EventEmitter, Output } from '@angular/core';
  * Barra de acciones genérica. Se sitúa debajo o encima de un listado de mantenedor.
  */
 @Component({
-  selector: 'app-data-actions',
-  templateUrl: './data-actions.component.html',
-  styleUrls: ['./data-actions.component.css']
+  selector: 'app-management-data-actions',
+  templateUrl: './management-data-actions.component.html',
+  styleUrls: ['./management-data-actions.component.css']
 })
-export class DataActionsComponent {
+export class ManagementDataActionsComponent {
 
   @Output() public add: EventEmitter<void>;
 

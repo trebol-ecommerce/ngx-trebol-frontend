@@ -31,7 +31,7 @@ import { UserManagerFormDialogComponent } from './routes/users/form-dialog/user-
 import { UserManagerComponent } from './routes/users/user-manager.component';
 import { UserManagerService } from './routes/users/user-manager.service';
 import { ManagementSidenavComponent } from './sidenav/management-sidenav.component';
-import { DataActionsComponent } from './data-actions/data-actions.component';
+import { ManagementDataActionsComponent } from './data-actions/management-data-actions.component';
 
 const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
   duration: 5000
@@ -44,7 +44,7 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ManagementFooterComponent,
     ManagementSidenavComponent,
     ProductsArrayDialogComponent,
-    DataActionsComponent,
+    ManagementDataActionsComponent,
     ManagementDashboardComponent,
     ClientManagerComponent,
     ClientManagerFormDialogComponent,
