@@ -25,7 +25,7 @@ mat-sidenav.mat-drawer-opened {
 }
 
 .content {
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 app-management-footer {

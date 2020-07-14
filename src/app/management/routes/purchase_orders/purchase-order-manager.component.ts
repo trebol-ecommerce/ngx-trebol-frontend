@@ -14,12 +14,12 @@ import { PurchaseOrderManagerService } from './purchase-order-manager.service';
 @Component({
   selector: 'app-purchase-order-manager',
   templateUrl: './purchase-order-manager.component.html',
-  styleUrls: []
+  styleUrls: [ '../../data-manager.styles.css' ]
 })
 export class PurchaseOrderManagerComponent
   extends DataManagerAbstractComponent<PurchaseOrder> {
 
-  public tableColumns: string[] = [ 'numero', 'fechaSolicitud', 'fechaRecepcion', 'acciones' ];
+  public tableColumns: string[] = [ 'id', 'orderDate', 'receiptDate', 'actions' ];
 
   constructor(
     protected service: PurchaseOrderManagerService,

@@ -1,0 +1,18 @@
+.data-manager {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.table-wrapper {
+  flex: 1 1 auto;
+  overflow: auto;
+}
+table {
+  width: max-content;
+}
+
+app-data-actions {
+  flex: 0 0 auto;
+}

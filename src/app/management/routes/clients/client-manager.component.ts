@@ -8,12 +8,12 @@ import { ClientManagerService } from './client-manager.service';
 @Component({
   selector: 'app-client-manager',
   templateUrl: './client-manager.component.html',
-  styleUrls: []
+  styleUrls: [ '../../data-manager.styles.css' ]
 })
 export class ClientManagerComponent
   extends DataManagerAbstractComponent<Client> {
 
-  public tableColumns: string[] = [ 'nombre', 'rut' ];
+  public tableColumns: string[] = [ 'name', 'idCard' ];
 
   constructor(
     protected service: ClientManagerService,

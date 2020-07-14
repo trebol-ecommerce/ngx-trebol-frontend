@@ -12,12 +12,12 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-user-manager',
   templateUrl: './user-manager.component.html',
-  styleUrls: []
+  styleUrls: [ '../../data-manager.styles.css' ]
 })
 export class UserManagerComponent
   extends DataManagerAbstractComponent<User> {
 
-  public tableColumns: string[] = [ 'nombre', 'fechaCreacion', 'nombreCompleto', 'rut', 'acciones' ];
+  public tableColumns: string[] = [ 'name', 'creationDate', 'fullName', 'idCard', 'actions' ];
 
   constructor(
     protected service: UserManagerService,

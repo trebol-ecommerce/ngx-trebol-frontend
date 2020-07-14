@@ -1,10 +1,10 @@
-<div class="full-height">
+<div class="full-size">
 
   <centered-mat-spinner *ngIf="loading$ | async">
   </centered-mat-spinner>
 
-  <div class="full-width" [hidden]="loading$ | async">
-    <div class="pagina overflow">
+  <div class="data-manager" [hidden]="loading$ | async">
+    <div class="table-wrapper">
 
       <table mat-table class="full-width-min" [dataSource]="items$">
         <ng-container matColumnDef="name">
@@ -24,15 +24,15 @@
           <td mat-cell *matCellDef="let employee">
             <div class="acciones">
               <button mat-button mat-icon-button
-                color="primary" class="details"
+                color="primary"
                 [disabled]="busy$ | async"
-                (click)="onClickEditar(employee)">
+                (click)="onClickEdit(employee)">
                 <mat-icon>edit</mat-icon>
               </button>
               <button mat-button mat-icon-button
-                color="warn" class="delete"
+                color="warn"
                 [disabled]="busy$ | async"
-                (click)="onClickBorrar(employee)">
+                (click)="onClickDelete(employee)">
                 <mat-icon>delete</mat-icon>
               </button>
             </div>

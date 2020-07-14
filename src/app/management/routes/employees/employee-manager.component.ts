@@ -11,12 +11,12 @@ import { EmployeeManagementFormDialogData, EmployeeManagerFormDialogComponent } 
 @Component({
   selector: 'app-employee-manager',
   templateUrl: './employee-manager.component.html',
-  styleUrls: []
+  styleUrls: [ '../../data-manager.styles.css' ]
 })
 export class EmployeeManagerComponent
   extends DataManagerAbstractComponent<Employee> {
 
-  public tableColumns: string[] = [ 'nombre', 'rut', 'acciones' ];
+  public tableColumns: string[] = [ 'name', 'idCard', 'actions' ];
 
   constructor(
     protected service: EmployeeManagerService,

@@ -1,62 +1,62 @@
-<div class="full-height">
+<div class="full-size">
 
   <centered-mat-spinner *ngIf="loading$ | async">
   </centered-mat-spinner>
 
-  <div class="full-width" [hidden]="loading$ | async">
-    <div class="pagina overflow">
+  <div class="data-manager" [hidden]="loading$ | async">
+    <div class="table-wrapper">
 
       <table mat-table class="full-width-min" [dataSource]="items$">
-        <ng-container matColumnDef="nombre">
+        <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Nombre </th>
-          <td mat-cell *matCellDef="let producto" class="left">
-            {{producto.nombre}}
+          <td mat-cell *matCellDef="let product" class="left">
+            {{product.name}}
           </td>
         </ng-container>
-        <ng-container matColumnDef="codigo">
+        <ng-container matColumnDef="barcode">
           <th mat-header-cell *matHeaderCellDef> Codigo </th>
-          <td mat-cell *matCellDef="let producto" class="left">
-            {{producto.codigoProducto}}
+          <td mat-cell *matCellDef="let product" class="left">
+            {{product.barcode}}
           </td>
         </ng-container>
-        <ng-container matColumnDef="precio">
+        <ng-container matColumnDef="price">
           <th mat-header-cell *matHeaderCellDef> Precio </th>
-          <td mat-cell *matCellDef="let producto" class="left">
-            {{producto.precioProducto}}
+          <td mat-cell *matCellDef="let product" class="left">
+            {{product.price}}
           </td>
         </ng-container>
-        <ng-container matColumnDef="stockActual">
+        <ng-container matColumnDef="currentStock">
           <th mat-header-cell *matHeaderCellDef> Stock Actual </th>
-          <td mat-cell *matCellDef="let producto" class="left">
-            {{producto.stockActualProducto}}
+          <td mat-cell *matCellDef="let product" class="left">
+            {{product.currentStock}}
           </td>
         </ng-container>
-        <ng-container matColumnDef="stockCritico">
+        <ng-container matColumnDef="criticalStock">
           <th mat-header-cell *matHeaderCellDef> Stock Crítico </th>
-          <td mat-cell *matCellDef="let producto" class="left">
-            {{producto.stockCriticoProducto}}
+          <td mat-cell *matCellDef="let product" class="left">
+            {{product.criticalStock}}
           </td>
         </ng-container>
-        <ng-container matColumnDef="tipo">
+        <ng-container matColumnDef="type">
           <th mat-header-cell *matHeaderCellDef> Tipo </th>
-          <td mat-cell *matCellDef="let producto" class="left">
-            {{producto.descripcionTipoProducto}}
+          <td mat-cell *matCellDef="let product" class="left">
+            {{product.productType.name}}
           </td>
         </ng-container>
-        <ng-container matColumnDef="acciones">
+        <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let producto">
-            <div class="acciones">
+          <td mat-cell *matCellDef="let product">
+            <div>
               <button mat-button mat-icon-button
-                color="primary" class="details"
+                color="primary"
                 [disabled]="busy$ | async"
-                (click)="onClickEditar(producto)">
+                (click)="onClickEdit(product)">
                 <mat-icon>edit</mat-icon>
               </button>
               <button mat-button mat-icon-button
-                color="warn" class="delete"
+                color="warn"
                 [disabled]="busy$ | async"
-                (click)="onClickBorrar(producto)">
+                (click)="onClickDelete(product)">
                 <mat-icon>delete</mat-icon>
               </button>
             </div>

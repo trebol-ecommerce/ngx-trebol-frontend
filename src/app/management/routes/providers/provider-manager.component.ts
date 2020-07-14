@@ -11,12 +11,12 @@ import { ProviderManagerService } from './provider-manager.service';
 @Component({
   selector: 'app-provider-manager',
   templateUrl: './provider-manager.component.html',
-  styleUrls: []
+  styleUrls: [ '../../data-manager.styles.css' ]
 })
 export class ProviderManagerComponent
 extends DataManagerAbstractComponent<Provider> {
 
-  public tableColumns: string[] = [ 'nombre', 'rut', 'acciones' ];
+  public tableColumns: string[] = [ 'name', 'idCard', 'actions' ];
 
   constructor(
     protected service: ProviderManagerService,

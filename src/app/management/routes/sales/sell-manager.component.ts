@@ -11,12 +11,12 @@ import { SellManagerService } from './sell-manager.service';
 @Component({
   selector: 'app-sell-manager',
   templateUrl: './sell-manager.component.html',
-  styleUrls: []
+  styleUrls: [ '../../data-manager.styles.css' ]
 })
 export class SellManagerComponent
   extends DataManagerAbstractComponent<Sell> {
 
-  public tableColumns: string[] = [ 'numero', 'fecha', 'acciones' ];
+  public tableColumns: string[] = [ 'id', 'date', 'actions' ];
 
   constructor(
     protected service: SellManagerService,
