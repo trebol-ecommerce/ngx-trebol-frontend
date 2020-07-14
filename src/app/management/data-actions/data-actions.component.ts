@@ -16,7 +16,7 @@ export class DataActionsComponent {
     this.add = new EventEmitter();
   }
 
-  public onClickAgregar(): void {
+  public onClickAdd(): void {
     this.add.emit();
   }
 

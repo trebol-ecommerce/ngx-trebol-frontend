@@ -1,0 +1,6 @@
+.data-actions {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr;
+  padding: 0 0.5rem;
+}
