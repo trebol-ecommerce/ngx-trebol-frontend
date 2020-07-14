@@ -1,27 +1,30 @@
-
 .full-width {
   width: 100% !important;
 }
 .full-width-min {
   min-width: 100% !important;
 }
-
 .full-height {
   height: 100% !important;
 }
-
 .full-height-min {
+  min-height: 100% !important;
+}
+.full-size {
+  width: 100% !important;
+  height: 100% !important;
+}
+.full-size-min {
+  min-width: 100% !important;
   min-height: 100% !important;
 }
 
 .overflow {
   overflow: auto auto !important;
 }
-
 .overflow-x {
   overflow-x: auto !important;
 }
-
 .overflow-y {
   overflow-y: auto !important;
 }
