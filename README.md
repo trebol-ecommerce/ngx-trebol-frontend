@@ -12,4 +12,4 @@ Un completo sistema de venta e inventario web, escrito pensando en flexibilidad 
     * `http/` provee servicios que se apoyan en el servicio `HttpClient` de Angular para obtener los datos de la API desde un servidor externo.
 
 Este proyecto fue generado usando [la interfaz de comandos de Angular](https://github.com/angular/angular-cli) en la v7.3.9.
-Se ha migrado a la v9.1.9 siguiendo [la guía oficial de actualización](https://update.angular.io/).
+Se ha migrado a la v10.0.3 siguiendo [la guía oficial de actualización](https://update.angular.io/).
