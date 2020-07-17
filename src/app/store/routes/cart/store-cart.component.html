@@ -1,5 +1,5 @@
 <div class="cart">
-  <h2>Productos en el Carrito</h2>
+  <h2 class="products">Productos en el Carrito</h2>
   <div class="products overflow-y">
     <table mat-table [dataSource]="sellDetails$">
       <ng-container matColumnDef="product">
@@ -40,7 +40,7 @@
         <th mat-header-cell *matHeaderCellDef class="right"></th>
         <td mat-cell *matCellDef="let i = index" class="right">
           <button mat-button mat-icon-button
-            color="warn" class="delete"
+            color="warn"
             (click)="onClickRemoveProduct(i)">
             <mat-icon>delete</mat-icon>
           </button>
@@ -52,16 +52,12 @@
     </table>
   </div>
 
-  <h2>Resumen de tu Compra</h2>
+  <h3 class="summary">Resumen de tu Compra</h3>
   <div class="summary">
     <div>Subtotal: ${{ sellSubtotalValue$ | async }}</div>
     <div>Total: ${{ sellTotalValue$ | async }} (IVA incl.)</div>
-  </div>
-
-  <div class="cart-actions">
-    <span>(Aceptamos transferencia bancaria y WebPay)</span>
-    <button mat-button mat-raised-button color="primary"
-      type="button"
+    <button mat-button mat-raised-button type="button"
+      color="primary"
       (click)="onClickAccept()">
       Ir al Pago
     </button>

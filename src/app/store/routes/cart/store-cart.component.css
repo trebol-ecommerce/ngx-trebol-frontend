@@ -4,25 +4,25 @@
   flex-flow: column nowrap;
   align-items: stretch;
   align-content: center;
-  background-color: var(--color-bg-dark);
+  background-color: var(--color-bg-secondary);
 }
 
-h2 {
-  flex: 0 0 auto;
+h2.products {
+  flex: 0 0 2rem;
   margin: 0;
-  padding: 1rem 1rem 0 1rem;
+  padding: 0.75rem 1rem 0.25rem 1rem;
+  background-color: var(--color-bg-dark);
   color: var(--color-content);
 }
 
 @media(min-width: 720px) {
-  h2 {
+  h2.products {
     padding: 1rem;
   }
 }
 
-.products {
+div.products {
   flex: 1 1 auto;
-  background-color: var(--color-bg-secondary);
 }
 table {
   opacity: 0.8;
@@ -38,19 +38,26 @@ th, td {
 }
 
 .mat-column-price {
+  text-align: right;
   min-width: 8rem;
+  padding: 0 1rem;
 }
 
 .mat-column-quantity {
+  text-align: center;
   min-width: 6rem;
 }
 
 .mat-column-total {
-  min-width: 9rem;
+  text-align: right;
+  min-width: 6rem;
+  padding: 0 1rem;
 }
 
 .mat-column-actions {
-  width: 6rem;
+  text-align: right;
+  width: 3rem;
+  padding: 0.5rem 0 0.5rem 0 !important;
 }
 
 .mat-column-product .name {
@@ -61,39 +68,29 @@ th, td {
   color: grey;
 }
 
-.summary {
-  font-size: 1.25rem;
+h3.summary {
   flex: 0 0 auto;
-  padding: 0.5rem;
-  display: grid;
-  grid-gap: 0.5rem;
-  grid-template-columns: 1fr;
-  text-align: center;
-  align-items: center;
-  color: var(--color-content);
+  margin: 0;
+  padding: 0.25rem 1rem;
+  background-color: var(--color-bg-secondary-dark);
 }
-
-@media(min-width: 720px) {
-  .summary {
-    padding: 0 0 1rem 0;
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.cart-actions {
+div.summary {
   flex: 0 0 3rem;
-  padding: 0.5rem;
-  display: flex;
-  justify-content: flex-end;
+  padding: 0.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 0.25rem;
   align-items: center;
-  background-color: var(--color-bg);
-  color: var(--color-content);
+  align-content: center;
+  background-color: var(--color-bg-secondary);
 }
-.cart-actions span {
-  flex: 1 1 auto;
-  text-align: center;
-}
-.cart-actions button {
-  flex: 0 0 auto;
-  margin-left: 1rem;
+@media(min-width: 720px) {
+  h3.summary {
+    padding: 0.75rem;
+  }
+  div.summary {
+    text-align: center;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 0;
+  }
 }
