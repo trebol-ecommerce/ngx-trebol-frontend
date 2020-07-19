@@ -5,6 +5,9 @@ import { concatMap } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { CompositeEntityDataIService } from 'src/data/services/composite-entity.data.iservice';
+import { Sell } from 'src/data/models/entities/Sell';
+import { SellDetail } from 'src/data/models/entities/SellDetail';
 
 @Component({
   selector: 'app-store-payment-redirect-prompt-dialog',
@@ -22,7 +25,7 @@ export class StorePaymentRedirectPromptDialogComponent
     protected appUserService: AppUserService,
     protected service: StoreService,
     protected httpClient: HttpClient,
-    @Inject(DATA_INJECTION_TOKENS.sales) protected saleDataService
+    @Inject(DATA_INJECTION_TOKENS.sales) protected saleDataService: CompositeEntityDataIService<Sell, SellDetail>
   ) { }
 
   ngOnInit(): void {
