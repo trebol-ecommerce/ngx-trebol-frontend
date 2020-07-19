@@ -2,9 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { CompositeEntityDataIService } from 'src/data/services/composite-entity.data.iservice';
-import { PurchaseOrder } from 'src/data/models/entities/PurchaseOrder';
-import { PurchaseOrderDetail } from 'src/data/models/entities/PurchaseOrderDetail';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Sell } from 'src/data/models/entities/Sell';
+import { SellDetail } from 'src/data/models/entities/SellDetail';
 
 @Component({
   selector: 'app-store-receipt',
@@ -18,24 +18,24 @@ export class StoreReceiptComponent
 
   public loading$: Observable<boolean> = this.loadingSource.asObservable();
 
-  public purchaseOrder: PurchaseOrder;
+  public sell: Sell;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.purchaseOrders) protected purchaseOrderService: CompositeEntityDataIService<PurchaseOrder, PurchaseOrderDetail>,
+    @Inject(DATA_INJECTION_TOKENS.purchaseOrders) protected sellDataService: CompositeEntityDataIService<Sell, SellDetail>,
     protected route: ActivatedRoute,
   ) {
 
   }
 
   ngOnInit(): void {
-    this.fetchPurchaseOrder();
+    this.fetchSell();
   }
 
-  protected fetchPurchaseOrder(): void {
+  protected fetchSell(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.purchaseOrderService.readById(id).subscribe(
+    this.sellDataService.readById(id).subscribe(
       pOrder => {
-        this.purchaseOrder = pOrder;
+        this.sell = pOrder;
         this.loadingSource.next(false);
       }
     );

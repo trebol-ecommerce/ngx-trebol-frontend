@@ -10,7 +10,7 @@
       <span>Tu compra fue confirmada el {{ orderedOn }}.</span><br/>
       <span>Aquí están los detalles:</span>
       <mat-list>
-        <mat-list-item *ngFor="let detail of purchaseOrder.details">
+        <mat-list-item *ngFor="let detail of sell.details">
           {{ detail.productQuantity }} {{ detail.product.name }}
         </mat-list-item>
       </mat-list>
