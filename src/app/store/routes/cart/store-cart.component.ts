@@ -14,6 +14,7 @@ import { StoreGuestPromptDialogOptions } from '../../guest-prompt-dialog/StoreGu
 import { StoreGuestShippingFormDialogComponent } from '../../guest-shipping-form-dialog/store-guest-shipping-form-dialog.component';
 import { StoreLoginFormDialogComponent } from '../../login-form-dialog/store-login-form-dialog.component';
 import { StoreRegistrationFormDialogComponent } from '../../registration-form-dialog/store-registration-form-dialog.component';
+import { StorePaymentRedirectPromptDialogComponent } from '../../payment-redirect-prompt-dialog/store-payment-redirect-prompt-dialog.component';
 
 @Component({
   selector: 'app-store-cart',
@@ -120,25 +121,13 @@ export class StoreCartComponent
   }
 
   public onClickAccept(): void {
-    this.getSessionOrRequestSession().pipe(
-      concatMap(
-        (session: Session) => {
-          if (session) {
-            return this.service.generateSell(session.user.clientId);
-          } else {
-            return of(null);
-          }
-      })
-    ).subscribe(
-      (result: Sell) => {
-        if (result) {
-
-          this.snackBarService.open(
-            `¡Gracias por su compra! Esta transacción es la N° ${result.id}.`,
-            'OK',
-            { panelClass: 'super-overlay' }
+    this.getSessionOrRequestSession().subscribe(
+      (ssn: Session) => {
+        if (ssn) {
+          this.dialogService.open(
+            StorePaymentRedirectPromptDialogComponent,
+            { width: '40rem' }
           );
-          setTimeout(() => { this.router.navigateByUrl('/store'); }, 5000);
         }
       }
     );
