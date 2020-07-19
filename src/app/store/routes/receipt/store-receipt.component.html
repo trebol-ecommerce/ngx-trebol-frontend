@@ -1,0 +1,19 @@
+<div class="receipt">
+  <centered-mat-spinner *ngIf="loading$ | async">
+  </centered-mat-spinner>
+  <mat-card *ngIf="!(loading$ | async)">
+    <mat-card-header>
+      <h2 mat-card-title>¡Compra realizada con éxito!</h2>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-icon>receipt_long</mat-icon>
+      <span>Tu compra fue confirmada el {{ orderedOn }}.</span><br/>
+      <span>Aquí están los detalles:</span>
+      <mat-list>
+        <mat-list-item *ngFor="let detail of purchaseOrder.details">
+          {{ detail.productQuantity }} {{ detail.product.name }}
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>

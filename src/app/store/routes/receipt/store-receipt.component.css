@@ -1,0 +1,12 @@
+.receipt {
+  height: 100%;
+  display: grid;
+  grid-auto-rows: max-content;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+mat-card {
+
+}

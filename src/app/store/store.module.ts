@@ -13,6 +13,7 @@ import { StoreCatalogService } from './routes/catalog/store-catalog.service';
 import { StoreRoutingModule } from './store-routing.module';
 import { StoreComponent } from './store.component';
 import { StoreService } from './store.service';
+import { StoreReceiptComponent } from './routes/receipt/store-receipt.component';
 
 
 const SNACKBAR_DEFAULTS = {
@@ -29,7 +30,8 @@ const SNACKBAR_DEFAULTS = {
     StoreGuestPromptDialogComponent,
     StoreGuestShippingFormDialogComponent,
     StoreRegistrationFormDialogComponent,
-    StoreFooterComponent
+    StoreFooterComponent,
+    StoreReceiptComponent
   ],
   imports: [
     SharedModule,
