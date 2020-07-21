@@ -1,13 +1,14 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { StoreService } from '../store.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Component, Inject, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
-import { Observable, BehaviorSubject, Subject, of } from 'rxjs';
-import { CompositeEntityDataIService } from 'src/data/services/composite-entity.data.iservice';
 import { Sell } from 'src/data/models/entities/Sell';
 import { SellDetail } from 'src/data/models/entities/SellDetail';
+import { CompositeEntityDataIService } from 'src/data/services/composite-entity.data.iservice';
+import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
+import { environment } from 'src/environments/environment';
+import { StoreService } from '../store.service';
 
 @Component({
   selector: 'app-store-payment-redirect-prompt-dialog',
@@ -40,7 +41,7 @@ export class StorePaymentRedirectPromptDialogComponent
 
   protected fetchWebpayHTMLForm(data: FormData): Observable<string> {
     return this.httpClient.post(
-      'https://webpay-test.benjaminlamadrid.cl/',
+      environment.checkoutURL,
       data,
       { responseType: 'text' }
     );
