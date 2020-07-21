@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { ManagementModule } from './management/management.module';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from './store/store.module';
+import { HttpClientModule } from '@angular/common/http';
 
 const DEBUG_ROUTES = false;
 
@@ -17,7 +18,7 @@ const DEBUG_ROUTES = false;
   imports: [
     BrowserModule,
     SharedModule,
-    // HttpClientModule,
+    HttpClientModule,
     LocalMemoryDataModule,
     StoreModule,
     ManagementModule,
