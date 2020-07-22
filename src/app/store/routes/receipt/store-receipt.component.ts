@@ -1,10 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
-import { CompositeEntityDataIService } from 'src/data/services/composite-entity.data.iservice';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { map, mapTo, startWith, tap } from 'rxjs/operators';
 import { Sell } from 'src/data/models/entities/Sell';
 import { SellDetail } from 'src/data/models/entities/SellDetail';
+import { CompositeEntityDataIService } from 'src/data/services/composite-entity.data.iservice';
+import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 
 @Component({
   selector: 'app-store-receipt',
@@ -14,31 +15,32 @@ import { SellDetail } from 'src/data/models/entities/SellDetail';
 export class StoreReceiptComponent
   implements OnInit {
 
-  protected loadingSource: Subject<boolean> = new BehaviorSubject(true);
+  protected externalDataSource: Subject<Sell> = new BehaviorSubject(null);
 
-  public loading$: Observable<boolean> = this.loadingSource.asObservable();
-
-  public sell: Sell;
+  public loading$: Observable<boolean>;
+  public details$: Observable<SellDetail[]>;
+  public soldOn$: Observable<string>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.purchaseOrders) protected sellDataService: CompositeEntityDataIService<Sell, SellDetail>,
+    @Inject(DATA_INJECTION_TOKENS.sales) protected sellDataService: CompositeEntityDataIService<Sell, SellDetail>,
     protected route: ActivatedRoute,
   ) {
-
-  }
-
-  ngOnInit(): void {
-    this.fetchSell();
+    this.loading$ = this.externalDataSource.asObservable().pipe(map(s => !s));
+    this.details$ = this.externalDataSource.asObservable().pipe(map(s => s.details));
+    this.soldOn$ = this.externalDataSource.asObservable().pipe(map(s => s.soldOn));
   }
 
   protected fetchSell(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.sellDataService.readById(id).subscribe(
-      pOrder => {
-        this.sell = pOrder;
-        this.loadingSource.next(false);
+      sell => {
+        this.externalDataSource.next(sell);
       }
     );
+  }
+
+  ngOnInit(): void {
+    this.fetchSell();
   }
 
 }

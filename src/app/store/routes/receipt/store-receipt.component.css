@@ -1,12 +1,23 @@
 .receipt {
   height: 100%;
+  padding: 1em;
   display: grid;
-  grid-auto-rows: max-content;
   justify-content: center;
+  align-content: center;
   overflow-x: hidden;
   overflow-y: auto;
 }
 
 mat-card {
-
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+.icon-wrapper {
+  padding: 1em;
+}
+mat-icon {
+  width: 4rem;
+  height: 4rem;
+  font-size: 4rem;
 }
