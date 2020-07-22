@@ -5,7 +5,7 @@ export class SellDetail
   extends AbstractEntity {
 
   public id: number;
-  public product: Product;
+  public product: Partial<Product>;
   public units: number;
   public sellId?: number;
 }
