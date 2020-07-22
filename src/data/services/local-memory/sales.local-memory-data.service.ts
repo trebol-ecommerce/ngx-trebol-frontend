@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { EntityLocalMemoryDataService } from './local-memory-data.abstract-service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Sell } from 'src/data/models/entities/Sell';
 import { SellDetail } from 'src/data/models/entities/SellDetail';
 import { CompositeEntityDataIService } from '../composite-entity.data.iservice';
-import { Observable, of } from 'rxjs';
+import { EntityLocalMemoryDataService } from './local-memory-data.abstract-service';
 
 export const MOCK_SALES: Partial<Sell>[] = [
   {
@@ -45,6 +46,6 @@ export class SalesLocalMemoryDataService
   }
 
   public readDetailsById(id: number): Observable<SellDetail[]> {
-    return of([]);
+    return this.readById(id).pipe(map(s => s.details));
   }
 }
