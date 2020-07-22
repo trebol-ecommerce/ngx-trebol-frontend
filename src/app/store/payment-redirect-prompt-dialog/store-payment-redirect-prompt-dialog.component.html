@@ -2,7 +2,14 @@
   <centered-mat-spinner *ngIf="loading$ | async">
   </centered-mat-spinner>
 
-  <div id="store-payment-external-content-wrapper" [hidden]="loading$ | async">
-
+  <div [hidden]="loading$ | async">
+    <form #form [action]="webpayURL$ | async" method="POST">
+      <input type="hidden" name="token_ws" [value]="webpayToken$ | async" />
+      <button mat-button mat-raised-button type="submit"
+        (click)="form.submit()"
+        color="primary">
+        Ir a WebPay
+      </button>
+    </form>
   </div>
 </div>
