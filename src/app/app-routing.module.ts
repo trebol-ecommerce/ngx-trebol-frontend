@@ -6,7 +6,7 @@ import { SelectivePreloadingStrategyService } from './selective-preloading-strat
   imports: [
     RouterModule.forRoot(
       [
-        { path: '', pathMatch: 'full', redirectTo: '/store' }
+        { path: '', pathMatch: 'full', redirectTo: 'store' }
       ]
     )
   ],
