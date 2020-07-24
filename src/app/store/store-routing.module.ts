@@ -9,10 +9,10 @@ const storeRoutes: Routes = [
   {
     path: 'store', component: StoreComponent,
     children: [
-      { path: '', component: StoreCatalogComponent },
+      { path: 'catalog', component: StoreCatalogComponent },
       { path: 'cart', component: StoreCartComponent },
       { path: 'receipt/:id', component: StoreReceiptComponent },
-      { path: '**', pathMatch: 'prefix', redirectTo: '' }
+      { path: '**', pathMatch: 'full', redirectTo: 'catalog' }
     ]
   }
 ];
