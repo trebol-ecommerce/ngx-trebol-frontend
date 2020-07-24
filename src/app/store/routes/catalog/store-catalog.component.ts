@@ -42,4 +42,8 @@ export class StoreCatalogComponent
     this.service.addProduct(p);
   }
 
+  public onClickViewProduct(p: Product): void {
+    this.catalogService.viewProduct(p);
+  }
+
 }

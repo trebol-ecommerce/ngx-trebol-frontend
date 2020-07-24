@@ -8,11 +8,11 @@
 
   <div class="catalog" [hidden]="loading$ | async">
     <mat-card *ngFor="let product of (products$ | async)">
-      <mat-card-header>
+      <mat-card-header (click)="onClickViewProduct(product)">
         <mat-card-title>{{ product.name }}</mat-card-title>
         <mat-card-subtitle>{{ product.barcode }}</mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content>
+      <mat-card-content (click)="onClickViewProduct(product)">
         <img [src]="product.imagesURL[0]" [alt]="product.name" />
       </mat-card-content>
       <mat-card-actions>
