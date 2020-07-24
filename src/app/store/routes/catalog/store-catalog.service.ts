@@ -1,34 +1,75 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { delay, finalize, tap } from 'rxjs/operators';
+import { concatMap, delay, map, tap } from 'rxjs/operators';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { Product } from 'src/data/models/entities/Product';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
+import { StoreProductDetailsDialogComponent, StoreProductDetailsDialogData } from '../../store-product-details-dialog/store-product-details-dialog.component';
 
 @Injectable()
 export class StoreCatalogService
   implements OnDestroy {
 
-  protected loadingSource: Subject<boolean> = new BehaviorSubject(false);
-  protected itemsSource: Subject<Product[]> = new Subject();
+  protected itemsSource: Subject<Product[]> = new BehaviorSubject(null);
 
-  public loading$: Observable<boolean> = this.loadingSource.asObservable();
   public items$: Observable<Product[]> = this.itemsSource.asObservable();
+  public loading$: Observable<boolean>;
 
   public filters: ProductFilters = {};
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityDataIService<Product>
-  ) { }
+    @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityDataIService<Product>,
+    protected dialogService: MatDialog,
+    protected route: ActivatedRoute,
+    protected router: Router,
+  ) {
+    this.loading$ = this.items$.pipe(map(items => (items === null)));
+    this.checkRouteForProductIdParam();
+  }
+
+  public promptProductDetails(product: Product): Observable<any> {
+    const dialogData: StoreProductDetailsDialogData = { product };
+    return this.dialogService.open(
+      StoreProductDetailsDialogComponent,
+      {
+        width: '40rem',
+        data: dialogData
+      }
+    ).afterClosed().pipe(
+      tap(() => {
+        this.router.navigate(
+          [],
+          {
+            relativeTo: this.route,
+            queryParams: {}
+          }
+        );
+      })
+    );
+  }
+
+  protected checkRouteForProductIdParam(): void {
+    this.route.queryParamMap.subscribe(
+      (params) => {
+        if (params.has('id')) {
+          const id = Number(params.get('id'));
+          this.productDataService.readById(id).pipe(
+            concatMap(p => this.promptProductDetails(p))
+          ).subscribe();
+        }
+      }
+    );
+  }
 
   ngOnDestroy(): void {
-    this.loadingSource.complete();
     this.itemsSource.complete();
   }
 
   public reloadItems(): void {
-    this.loadingSource.next(true);
+    this.itemsSource.next(null);
 
     let p: Observable<Product[]>;
 
@@ -39,10 +80,21 @@ export class StoreCatalogService
     }
 
     p.pipe(
-      delay(0),
-      tap(items => this.itemsSource.next(items)),
-      finalize(() => { this.loadingSource.next(false); })
-    ).subscribe();
+      delay(0)
+    ).subscribe(
+      items => this.itemsSource.next(items)
+    );
+  }
+
+  public viewProduct(p: Product): void {
+    this.router.navigate(
+      [],
+      {
+        relativeTo: this.route,
+        queryParams: { id: p.id },
+        queryParamsHandling: 'merge'
+      }
+    );
   }
 
 }
