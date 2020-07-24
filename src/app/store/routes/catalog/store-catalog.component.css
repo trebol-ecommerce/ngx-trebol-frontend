@@ -23,6 +23,10 @@ app-product-filters-panel {
   padding: 0.5rem;
 }
 
+centered-mat-spinner {
+  background-color: var(--color-bg-secondary);
+}
+
 .catalog {
   flex: 1 1 auto;
   padding: 0.5rem;

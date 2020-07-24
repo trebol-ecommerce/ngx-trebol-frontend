@@ -1,29 +1,27 @@
 <div class="dialog">
-  <!-- <centered-mat-spinner *ngIf="loading$ | async">
-  </centered-mat-spinner> -->
-  <div class="content">
+  <div class="thumbnail">
     <img [src]="product.imagesURL[0]" [alt]="product.name" />
-    <div class="identity">
-      <mat-card-title>{{ product.name }}</mat-card-title>
-      <mat-card-subtitle>{{ product.barcode }}</mat-card-subtitle>
-    </div>
+  </div>
+  <div class="about">
+    <h2 class="name">{{ product.name }}</h2>
+    <h4 class="barcode">{{ product.barcode }}</h4>
     <div class="description">
-      {{ product.description }}
+      <span>{{ product.description }}</span>
     </div>
-    <div class="actions">
-      <div>${{ product.price }}</div>
-      <div class="stock">
-        <button mat-button mat-icon-button
-          (click)="onClickIncreaseProductQuantity()">
-          <mat-icon>add</mat-icon>
-        </button>
-        {{ productUnitsInCart$ | async }}
-        <button mat-button mat-icon-button
-          [disabled]="productNotInCart$ | async"
-          (click)="onClickDecreaseProductQuantity()">
-          <mat-icon>remove</mat-icon>
-        </button>
-      </div>
+  </div>
+  <div class="add-to-cart">
+    <h3>${{ product.price }}</h3>
+    <div class="quantity">
+      <button mat-button mat-icon-button
+        (click)="onClickIncreaseProductQuantity()">
+        <mat-icon>add</mat-icon>
+      </button>
+      {{ productUnitsInCart$ | async }}
+      <button mat-button mat-icon-button
+        [disabled]="productNotInCart$ | async"
+        (click)="onClickDecreaseProductQuantity()">
+        <mat-icon>remove</mat-icon>
+      </button>
     </div>
   </div>
 </div>
