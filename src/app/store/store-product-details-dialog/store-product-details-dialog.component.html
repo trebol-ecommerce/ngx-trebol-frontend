@@ -1,17 +1,17 @@
 <div class="dialog">
-  <centered-mat-spinner *ngIf="loading$ | async">
-  </centered-mat-spinner>
+  <!-- <centered-mat-spinner *ngIf="loading$ | async">
+  </centered-mat-spinner> -->
   <div class="content">
-    <img [src]="productImageURL$ | async" [alt]="productName$ | async" />
+    <img [src]="product.imagesURL[0]" [alt]="product.name" />
     <div class="identity">
-      <mat-card-title>{{ productName$ | async }}</mat-card-title>
-      <mat-card-subtitle>{{ productBarcode$ | async }}</mat-card-subtitle>
+      <mat-card-title>{{ product.name }}</mat-card-title>
+      <mat-card-subtitle>{{ product.barcode }}</mat-card-subtitle>
     </div>
     <div class="description">
-      {{ productDescription$ | async }}
+      {{ product.description }}
     </div>
     <div class="actions">
-      <div>${{ productPrice$ | async }}</div>
+      <div>${{ product.price }}</div>
       <div class="stock">
         <button mat-button mat-icon-button
           (click)="onClickIncreaseProductQuantity()">
