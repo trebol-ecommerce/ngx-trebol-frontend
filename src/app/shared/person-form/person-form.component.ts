@@ -1,5 +1,5 @@
 import { Component, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Person } from 'src/data/models/entities/Person';
 
 @Component({
@@ -15,21 +15,21 @@ export class PersonFormComponent {
     protected formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
-      nombre: ['', Validators.required],
-      rut: ['', Validators.required],
-      direccion: ['', Validators.required],
+      name: ['', Validators.required],
+      idCard: ['', Validators.required],
       email: ['', Validators.required],
-      fono1: [''],
-      fono2: ['']
+      address: ['', Validators.required],
+      phone1: [''],
+      phone2: ['']
     });
   }
 
-  public get nombre() { return this.formGroup.get('nombre'); }
-  public get rut() { return this.formGroup.get('rut'); }
-  public get direccion() { return this.formGroup.get('direccion'); }
-  public get email() { return this.formGroup.get('email'); }
-  public get fono1() { return this.formGroup.get('fono1'); }
-  public get fono2() { return this.formGroup.get('fono2'); }
+  public get name(): FormControl { return this.formGroup.get('name') as FormControl; }
+  public get idCard(): FormControl { return this.formGroup.get('idCard') as FormControl; }
+  public get email(): FormControl { return this.formGroup.get('email') as FormControl; }
+  public get address(): FormControl { return this.formGroup.get('address') as FormControl; }
+  public get phone1(): FormControl { return this.formGroup.get('phone1') as FormControl; }
+  public get phone2(): FormControl { return this.formGroup.get('phone2') as FormControl; }
 
   public asPerson(): Person {
     if (this.formGroup.invalid) {
@@ -39,29 +39,27 @@ export class PersonFormComponent {
         new Person(),
         {
           id: null,
-          name: this.nombre.value,
-          idCard: this.rut.value,
-          address: this.direccion.value,
+          name: this.name.value,
+          idCard: this.idCard.value,
           email: this.email.value,
-          phone1: this.fono1.value,
-          phone2: this.fono2.value
+          address: this.address.value,
+          phone1: this.phone1.value,
+          phone2: this.phone2.value
         });
     }
   }
 
   @Input() public set person(prs: Person) {
 
-    this.nombre.setValue(prs.name, { emitEvent: false, onlySelf: true });
-    this.rut.setValue(prs.idCard, { emitEvent: false, onlySelf: true });
-    this.direccion.setValue(prs.address, { emitEvent: false, onlySelf: true });
-    if (prs.email) {
-      this.email.setValue(prs.email, { emitEvent: false, onlySelf: true });
-    }
+    this.name.setValue(prs.name, { emitEvent: false, onlySelf: true });
+    this.idCard.setValue(prs.idCard, { emitEvent: false, onlySelf: true });
+    this.email.setValue(prs.email, { emitEvent: false, onlySelf: true });
+    this.address.setValue(prs.address, { emitEvent: false, onlySelf: true });
     if (prs.phone1) {
-      this.fono1.setValue(String(prs.phone1), { emitEvent: false, onlySelf: true });
+      this.phone1.setValue(String(prs.phone1), { emitEvent: false, onlySelf: true });
     }
     if (prs.phone2) {
-      this.fono2.setValue(String(prs.phone2), { emitEvent: false, onlySelf: true });
+      this.phone2.setValue(String(prs.phone2), { emitEvent: false, onlySelf: true });
     }
     this.formGroup.updateValueAndValidity();
   }

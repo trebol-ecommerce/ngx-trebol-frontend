@@ -9,8 +9,8 @@ export class Person
   public id: number;
   public name: string;
   public idCard: string;
-  public address: string;
   public email: string;
+  public address: string;
   public phone1?: number;
   public phone2?: number;
 }
