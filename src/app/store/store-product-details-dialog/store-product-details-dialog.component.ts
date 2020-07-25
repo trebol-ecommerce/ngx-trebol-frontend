@@ -1,10 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
 import { Product } from 'src/data/models/entities/Product';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 import { StoreService } from '../store.service';
+import { map, takeWhile, filter, switchMap, first, concatMap, tap, catchError } from 'rxjs/operators';
+import { SellDetail } from 'src/data/models/entities/SellDetail';
+import { Sell } from 'src/data/models/entities/Sell';
 
 export interface StoreProductDetailsDialogData {
   product: Product;
@@ -16,13 +19,16 @@ export interface StoreProductDetailsDialogData {
   styleUrls: ['./store-product-details-dialog.component.css']
 })
 export class StoreProductDetailsDialogComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
 
+  protected matchingCartSellDetailSource: Subject<SellDetail> = new BehaviorSubject(null);
+
+  protected matchingCartIndex: number;
   public product: Product;
 
-  public matchingCartIndex$: Observable<number>;
-  public productUnitsInCart$: Observable<number>;
+  public matchingCartSellDetail$: Observable<SellDetail> = this.matchingCartSellDetailSource.asObservable();
   public productNotInCart$: Observable<boolean>;
+  public productUnitsInCart$: Observable<number>;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data: StoreProductDetailsDialogData,
@@ -33,17 +39,38 @@ export class StoreProductDetailsDialogComponent
   }
 
   ngOnInit(): void {
-    // do rxjs magic here
-    // this.matchingCartIndex$ = this.service.sellDetails$.pipe();
-    // this.productNotInCart$ = this.matchingCartIndex$.pipe(map(i => i !== -1));
-    // this.productUnitsInCart$ = this.matchingCartIndex$.pipe();
+    this.productNotInCart$ = this.matchingCartSellDetail$.pipe(map(d => d === null));
+    this.productUnitsInCart$ = this.matchingCartSellDetail$.pipe(
+      map(d => d !== null ? d.units : 0)
+    );
+
+    this.service.sellDetails$.subscribe(
+      details => {
+        const index = details.findIndex(d => d.product?.id === this.product.id);
+        if (index !== -1) {
+
+          this.matchingCartSellDetailSource.next(details[index]);
+        } else {
+          this.matchingCartSellDetailSource.next(null);
+        }
+        this.matchingCartIndex = index;
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.matchingCartSellDetailSource.complete();
   }
 
   public onClickIncreaseProductQuantity(): void {
-    throw new Error('Not implemented');
+    if (this.matchingCartIndex !== -1) {
+      this.service.increaseProductUnits(this.matchingCartIndex);
+    } else {
+      this.service.addProduct(this.product);
+    }
   }
   public onClickDecreaseProductQuantity(): void {
-    throw new Error('Not implemented');
+    this.service.decreaseProductUnits(this.matchingCartIndex);
   }
 
 }

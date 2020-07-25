@@ -80,10 +80,15 @@ export class StoreService
 
   public decreaseProductUnits(i: number): void {
     if (i !== -1) {
-      const detalleConEsteProducto = this.sellDetails[i];
-      detalleConEsteProducto.units--;
+      const matchingDetail = this.sellDetails[i];
+      matchingDetail.units--;
 
-      this.sellDetailsSource.next(this.sellDetails);
+      if (matchingDetail.units > 0) {
+        this.sellDetailsSource.next(this.sellDetails);
+      } else {
+        this.removeProduct(i);
+      }
+
     }
   }
 
