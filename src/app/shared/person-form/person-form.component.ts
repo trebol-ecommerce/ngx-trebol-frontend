@@ -35,15 +35,17 @@ export class PersonFormComponent {
     if (this.formGroup.invalid) {
       return undefined;
     } else {
-      return Object.assign(new Person(), {
-        id: null,
-        nombre: this.nombre.value,
-        rut: this.rut.value,
-        direccion: this.direccion.value,
-        email: this.email.value,
-        fono1: this.fono1.value,
-        fono2: this.fono2.value
-      });
+      return Object.assign<Person, Partial<Person>>(
+        new Person(),
+        {
+          id: null,
+          name: this.nombre.value,
+          idCard: this.rut.value,
+          address: this.direccion.value,
+          email: this.email.value,
+          phone1: this.fono1.value,
+          phone2: this.fono2.value
+        });
     }
   }
 

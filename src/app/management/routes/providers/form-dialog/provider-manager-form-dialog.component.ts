@@ -67,11 +67,14 @@ export class ProviderManagerFormDialogComponent
     if (this.formGroup.invalid) {
       return undefined;
     } else {
-      return Object.assign(new Provider(), {
-        id: this.itemId,
-        businessCard: this.businessCard.value,
-        person: this.personForm.asPerson()
-      });
+      return Object.assign<Provider, Partial<Provider>>(
+        new Provider(),
+        {
+          id: this.itemId,
+          businessCard: this.businessCard.value,
+          person: this.personForm.asPerson()
+        }
+      );
     }
   }
 

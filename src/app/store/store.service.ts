@@ -53,15 +53,21 @@ export class StoreService
     return this.sellDetails.findIndex(d => d.product.id === p.id);
   }
 
-  public addProduct(p: Product): void {
-    let indice: number = this.findSellDetailsIndexByProduct(p);
+  public addProduct(product: Product): void {
+    let indice: number = this.findSellDetailsIndexByProduct(product);
 
     let detalleConEsteProducto: SellDetail;
     if (indice !== -1) {
       detalleConEsteProducto = this.sellDetails[indice];
       detalleConEsteProducto.units++;
     } else {
-      detalleConEsteProducto = Object.assign(new SellDetail(), { product: p, units: 1 });
+      detalleConEsteProducto = Object.assign<SellDetail, Partial<SellDetail>>(
+        new SellDetail(),
+        {
+          product,
+          units: 1
+        }
+      );
       indice = this.sellDetails.push(detalleConEsteProducto);
       indice--;
     }
@@ -100,11 +106,14 @@ export class StoreService
   }
 
   public generateSell(clientId: number): Observable<Sell> {
-    const venta = Object.assign(new Sell(), {
-      clientId,
-      detallesVenta: this.sellDetails,
-      soldOn: (new Date()).toLocaleDateString()
-    });
+    const venta = Object.assign<Sell, Partial<Sell>>(
+      new Sell(),
+      {
+        client: { id: clientId },
+        details: this.sellDetails,
+        soldOn: (new Date()).toLocaleDateString()
+      }
+    );
     return this.salesDataService.create(venta);
   }
 }

@@ -122,10 +122,13 @@ export class PurchaseOrderManagerFormDialogComponent
       (productos: Product[]) => {
         if (productos?.length > 0) {
           const newDetails = productos.map(
-            p => Object.assign(new PurchaseOrderDetail(), {
-              product: p,
-              productQuantity: 1
-            })
+            p => Object.assign<PurchaseOrderDetail, Partial<PurchaseOrderDetail>>(
+              new PurchaseOrderDetail(),
+              {
+                product: p,
+                productQuantity: 1
+              }
+            )
           );
           this.purchaseOrderDetails.push(...newDetails);
           this.purchaseOrderDetailsSource.next(this.purchaseOrderDetails);

@@ -127,9 +127,13 @@ export class SellManagerFormDialogComponent
       (newProducts: Product[]) => {
         if (newProducts && newProducts.length > 0) {
           const newSellDetails: SellDetail[] = newProducts.map(
-            (prod: Product) => {
-              return Object.assign(new SellDetail(), { product: prod, units: 1 });
-            }
+            (product: Product) => Object.assign<SellDetail, Partial<SellDetail>>(
+              new SellDetail(),
+              {
+                product,
+                units: 1
+              }
+            )
           );
           this.sellDetails.push(...newSellDetails);
           this.sellDetailsSource.next(this.sellDetails);

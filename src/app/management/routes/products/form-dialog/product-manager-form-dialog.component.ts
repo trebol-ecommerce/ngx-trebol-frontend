@@ -130,16 +130,19 @@ export class ProductManagerFormDialogComponent
     if (this.formGroup.invalid) {
       return undefined;
     } else {
-      return Object.assign(new Product(), {
-        id: this.itemId,
-        productType: { id: this.type.value, productFamily: { id: this.family.value } },
-        name: this.name.value,
-        price: this.price.value,
-        currentStock: this.stock.value,
-        criticalStock: this.criticalStock.value,
-        description: this.description.value,
-        barcode: undefined
-      });
+      return Object.assign<Product, Partial<Product>>(
+        new Product(),
+        {
+          id: this.itemId,
+          productType: { id: this.type.value, productFamily: { id: this.family.value } },
+          name: this.name.value,
+          price: this.price.value,
+          currentStock: this.stock.value,
+          criticalStock: this.criticalStock.value,
+          description: this.description.value,
+          barcode: undefined
+        }
+      );
     }
   }
 

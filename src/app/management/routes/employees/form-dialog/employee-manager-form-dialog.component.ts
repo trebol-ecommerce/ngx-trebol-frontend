@@ -76,7 +76,7 @@ export class EmployeeManagerFormDialogComponent extends DataItemFormAbstractComp
     if (this.formGroup.invalid) {
       return undefined;
     } else {
-      return Object.assign(new Employee(), {
+      return Object.assign<Employee, Partial<Employee>>(new Employee(), {
         id: this.itemId,
         role: { id: this.role.value },
         person: this.personForm.asPerson()

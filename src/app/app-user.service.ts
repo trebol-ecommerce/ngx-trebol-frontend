@@ -41,7 +41,7 @@ export class AppUserService
     return this.peopleDataService.create(details).pipe(
       concatMap(p => this.clientsDataService.create({ id: null, person: p })),
       concatMap(this.sessionDataService.open),
-      map((s: Partial<Session>) => Object.assign(new Session(), s)),
+      map((s) => Object.assign<Session, Partial<Session>>(new Session(), s)),
       tap(
         (s: Session) => {
           this.session = s;
@@ -54,7 +54,7 @@ export class AppUserService
   public register(details: User): Observable<Session> {
     return this.usersDataService.create(details).pipe(
       concatMap(this.sessionDataService.open),
-      map((s: Partial<Session>) => Object.assign(new Session(), s)),
+      map((s) => Object.assign<Session, Partial<Session>>(new Session(), s)),
       tap(
         (s: Session) => {
           this.session = s;

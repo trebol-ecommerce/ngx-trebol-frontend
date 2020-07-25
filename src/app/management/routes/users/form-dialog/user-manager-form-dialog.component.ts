@@ -75,12 +75,15 @@ export class UserManagerFormDialogComponent
     if (this.formGroup.invalid) {
       return undefined;
     } else {
-      return Object.assign(new User(), {
-        id: this.itemId,
-        name: this.name.value,
-        password: this.password.value,
-        person: { id: this.person.value }
-      });
+      return Object.assign<User, Partial<User>>(
+        new User(),
+        {
+          id: this.itemId,
+          name: this.name.value,
+          password: this.password.value,
+          person: { id: this.person.value }
+        }
+      );
     }
   }
 
