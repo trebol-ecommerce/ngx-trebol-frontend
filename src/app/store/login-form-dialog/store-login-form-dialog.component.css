@@ -40,7 +40,7 @@ form > * {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   justify-items: stretch;
 }
 @media(min-width: 480px) {
