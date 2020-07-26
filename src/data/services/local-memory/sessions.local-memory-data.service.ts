@@ -10,7 +10,6 @@ function getNewSessionId(): number {
   const localSessionId = localStorage.getItem('latestSessionId');
   const sessionId = (localSessionId !== null) ? Number(localSessionId) : 1;
   localStorage.setItem('latestSessionId', String(sessionId + 1));
-  console.log(sessionId);
 
   return sessionId;
 }

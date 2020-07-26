@@ -68,7 +68,6 @@ export class StoreLoginFormDialogComponent {
         }
       },
       err => {
-        console.log(err);
         this.loggingInSource.next(false);
         this.snackBarService.open('Hubo un problema al autenticar.', 'OK', { duration: -1 });
       }

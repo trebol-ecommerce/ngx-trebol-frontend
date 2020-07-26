@@ -109,8 +109,6 @@ export class StoreHeaderComponent
     ).afterClosed().subscribe(
       () => {
         const ssn = this.appUserService.getCurrentSession();
-        console.log(ssn);
-
         if (ssn.user?.employee?.role.id === EmployeeRolesEnum.Administrador) {
           this.promptManagementRedirect();
         }

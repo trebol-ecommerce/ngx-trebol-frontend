@@ -84,8 +84,7 @@ export class AppUserService
               return of(null);
             }
           }
-        ),
-        tap(console.log)
+        )
       );
     }
   }

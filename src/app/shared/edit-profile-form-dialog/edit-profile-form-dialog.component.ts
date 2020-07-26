@@ -46,7 +46,6 @@ export class EditProfileFormDialogComponent
     );
 
     this.invalid$ = this.personForm.formGroup.statusChanges.pipe(
-      tap(status => console.log(status)),
       map(status => status !== 'VALID')
     );
   }

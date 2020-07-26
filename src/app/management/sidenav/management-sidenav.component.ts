@@ -62,9 +62,6 @@ export class ManagementSidenavComponent {
       route => 'component' in route
     );
 
-    console.log(r2);
-
-
     return r2.map(
       (r) => {
         const meta = META_MODULOS[r.path];
