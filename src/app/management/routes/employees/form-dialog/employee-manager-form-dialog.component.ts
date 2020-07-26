@@ -23,7 +23,8 @@ export interface EmployeeManagementFormDialogData {
   templateUrl: './employee-manager-form-dialog.component.html',
   styleUrls: [ './employee-manager-form-dialog.component.css' ]
 })
-export class EmployeeManagerFormDialogComponent extends DataItemFormAbstractComponent<Employee>
+export class EmployeeManagerFormDialogComponent
+  extends DataItemFormAbstractComponent<Employee>
   implements OnInit, OnDestroy {
 
   protected itemId: number;
@@ -76,11 +77,14 @@ export class EmployeeManagerFormDialogComponent extends DataItemFormAbstractComp
     if (this.formGroup.invalid) {
       return undefined;
     } else {
-      return Object.assign<Employee, Partial<Employee>>(new Employee(), {
-        id: this.itemId,
-        role: { id: this.role.value },
-        person: this.personForm.asPerson()
-      });
+      return Object.assign<Employee, Partial<Employee>>(
+        new Employee(),
+        {
+          id: this.itemId,
+          role: { id: this.role.value },
+          person: this.personForm.asPerson()
+        }
+      );
     }
   }
 
