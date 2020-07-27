@@ -9,7 +9,8 @@ form {
     'date'
     'solicitee'
     'provider'
-    'details';
+    'details'
+    'actions';
 }
 
 @media(min-width: 800px) {
@@ -17,7 +18,8 @@ form {
     grid-template-areas:
       'date solicitee solicitee solicitee'
       'provider provider provider provider'
-      'details details details details';
+      'details details details details'
+      'actions actions actions actions';
   }
 }
 
@@ -54,4 +56,10 @@ table .quantity {
 .mat-column button {
   padding: 0 0.5rem;
   min-width: 2rem !important;
+}
+
+.actions {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
 }

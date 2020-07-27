@@ -6,6 +6,6 @@ export class PurchaseOrderDetail
 
   public id: number;
   public product: Partial<Product>;
-  public productQuantity: number;
+  public units: number;
   public purchaseOrderId?: number;
 }

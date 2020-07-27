@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTable } from '@angular/material/table';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
 import { DataItemFormAbstractComponent } from 'src/app/management/data-item-form.abstract-component';
@@ -33,11 +33,11 @@ export class PurchaseOrderManagerFormDialogComponent
 
   protected itemId: number;
   protected purchaseOrderDetails: PurchaseOrderDetail[] = [];
-  protected purchaseOrderDetailsSource: Subject<PurchaseOrderDetail[]> = new Subject();
+  protected purchaseOrderDetailsSource: Subject<PurchaseOrderDetail[]> = new BehaviorSubject([]);
   protected savingSource: Subject<boolean> = new Subject();
 
   public saving$: Observable<boolean> = this.savingSource.asObservable();
-  public purchaseOrderDetails$: Observable<PurchaseOrderDetail[]>;
+  public purchaseOrderDetails$: Observable<PurchaseOrderDetail[]> = this.purchaseOrderDetailsSource.asObservable();
   public purchaseOrderSubtotalValue$: Observable<number>;
   public employees$: Observable<Employee[]>;
   public providers$: Observable<Provider[]>;
@@ -45,7 +45,7 @@ export class PurchaseOrderManagerFormDialogComponent
   public formGroup: FormGroup;
   public get employee(): FormControl { return this.formGroup.get('employee') as FormControl; }
   public get provider(): FormControl { return this.formGroup.get('provider') as FormControl; }
-  public tableColumns: string[] = [ 'producto', 'precio', 'cantidad', 'acciones' ];
+  public tableColumns: string[] = [ 'product', 'price', 'quantity', 'actions' ];
 
   public fechaSolicitud: string;
   public dialogTitle: string;
@@ -85,12 +85,14 @@ export class PurchaseOrderManagerFormDialogComponent
       this.provider.setValue(po.provider.id, { emitEvent: false, onlySelf: true });
     }
 
-    this.dataService.readDetailsById(po.id).subscribe(
-      (details: PurchaseOrderDetail[]) => {
-        this.purchaseOrderDetails = details;
-        this.purchaseOrderDetailsSource.next(details);
-      }
-    );
+    if (this.itemId) {
+      this.dataService.readDetailsById(po.id).subscribe(
+        (details: PurchaseOrderDetail[]) => {
+          this.purchaseOrderDetails = details;
+          this.purchaseOrderDetailsSource.next(details);
+        }
+      );
+    }
   }
 
   ngOnInit(): void {
@@ -119,17 +121,20 @@ export class PurchaseOrderManagerFormDialogComponent
     this.dialogService.open(ProductsArrayDialogComponent, {
       width: '70rem'
     }).afterClosed().subscribe(
-      (productos: Product[]) => {
-        if (productos?.length > 0) {
-          const newDetails = productos.map(
-            p => Object.assign<PurchaseOrderDetail, Partial<PurchaseOrderDetail>>(
+      (newProducts: Product[]) => {
+        console.log(newProducts);
+
+        if (newProducts?.length > 0) {
+          const newDetails = newProducts.map(
+            product => Object.assign<PurchaseOrderDetail, Partial<PurchaseOrderDetail>>(
               new PurchaseOrderDetail(),
               {
-                product: p,
-                productQuantity: 1
+                product,
+                units: 1
               }
             )
           );
+          console.log(newDetails);
           this.purchaseOrderDetails.push(...newDetails);
           this.purchaseOrderDetailsSource.next(this.purchaseOrderDetails);
         }
@@ -140,7 +145,7 @@ export class PurchaseOrderManagerFormDialogComponent
   public onClickIncreaseDetailProductQuantity(index: number): void {
     const detalle: PurchaseOrderDetail = this.purchaseOrderDetails[index];
     if (detalle) {
-      detalle.productQuantity++;
+      detalle.units++;
       this.purchaseOrderDetailsSource.next(this.purchaseOrderDetails);
     }
   }
@@ -148,12 +153,12 @@ export class PurchaseOrderManagerFormDialogComponent
   public onClickDecreaseDetailProductQuantity(index: number): void {
     const detalle: PurchaseOrderDetail = this.purchaseOrderDetails[index];
     if (detalle) {
-      detalle.productQuantity--;
+      detalle.units--;
       this.purchaseOrderDetailsSource.next(this.purchaseOrderDetails);
     }
   }
 
-  public onClickBorrarDetalle(index: number) {
+  public onClickRemoveDetail(index: number) {
     this.purchaseOrderDetails.splice(index, 1);
     this.purchaseOrderDetailsSource.next(this.purchaseOrderDetails);
   }
@@ -161,7 +166,7 @@ export class PurchaseOrderManagerFormDialogComponent
   public onSubmit(): void {
     if (this.purchaseOrderDetails.length === 0) {
       this.snackBarService.open('Se requieren productos para realizar una orden de compra.', undefined, { duration: 6000 });
-    } else if (this.purchaseOrderDetails.some(dtl => dtl.productQuantity <= 0)) {
+    } else if (this.purchaseOrderDetails.some(dtl => dtl.units <= 0)) {
       this.snackBarService.open('Está solicitando 0 o menos unidades de un producto.', undefined, { duration: 8000 });
     } else {
       const item = this.asItem();
