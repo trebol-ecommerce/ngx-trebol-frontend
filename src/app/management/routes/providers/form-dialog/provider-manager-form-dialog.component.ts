@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -22,7 +22,8 @@ export interface ProviderManagerFormDialogData {
   styleUrls: [ './provider-manager-form-dialog.component.css' ]
 })
 export class ProviderManagerFormDialogComponent
-  extends DataItemFormAbstractComponent<Provider> {
+  extends DataItemFormAbstractComponent<Provider>
+  implements AfterViewInit {
 
   protected itemId: number;
   protected savingSource: Subject<boolean> = new Subject();
@@ -36,7 +37,7 @@ export class ProviderManagerFormDialogComponent
   public dialogTitle: string;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) data: ProviderManagerFormDialogData,
+    @Inject(MAT_DIALOG_DATA) protected data: ProviderManagerFormDialogData,
     @Inject(DATA_INJECTION_TOKENS.providers) protected dataService: EntityDataIService<Provider>,
     @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService,
     protected dialog: MatDialogRef<ProviderManagerFormDialogComponent>,
@@ -45,12 +46,8 @@ export class ProviderManagerFormDialogComponent
   ) {
     super();
     this.formGroup = this.formBuilder.group({
-      businessCard: ['', Validators.required],
-      person: this.personForm.formGroup
+      businessCard: ['', Validators.required]
     });
-
-    const item: Provider = (data?.provider) ? data.provider : new Provider();
-    this.load(item);
   }
 
   protected load(p: Provider): void {
@@ -61,6 +58,13 @@ export class ProviderManagerFormDialogComponent
       this.businessCard.setValue(p.businessCard, { emitEvent: false, onlySelf: true });
     }
     this.personForm.person = (p.person) ? p.person : new Person();
+  }
+
+  ngAfterViewInit(): void {
+    this.formGroup.addControl('person', this.personForm.formGroup);
+
+    const item: Provider = (this.data?.provider) ? this.data.provider : new Provider();
+    this.load(item);
   }
 
   public asItem(): Provider {
