@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -25,7 +25,7 @@ export interface EmployeeManagementFormDialogData {
 })
 export class EmployeeManagerFormDialogComponent
   extends DataItemFormAbstractComponent<Employee>
-  implements OnInit, OnDestroy {
+  implements OnInit, AfterViewInit, OnDestroy {
 
   protected itemId: number;
   protected savingSource: Subject<boolean> = new Subject();
@@ -40,7 +40,7 @@ export class EmployeeManagerFormDialogComponent
   public dialogTitle: string;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) data: EmployeeManagementFormDialogData,
+    @Inject(MAT_DIALOG_DATA) protected data: EmployeeManagementFormDialogData,
     @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService,
     @Inject(DATA_INJECTION_TOKENS.employees) protected dataService: EntityDataIService<Employee>,
     protected dialog: MatDialogRef<EmployeeManagerFormDialogComponent>,
@@ -49,12 +49,8 @@ export class EmployeeManagerFormDialogComponent
   ) {
     super();
     this.formGroup = this.formBuilder.group({
-      role: [null, Validators.required],
-      person: this.personForm.formGroup
+      role: [null, Validators.required]
     });
-
-    const item: Employee = (data?.employee) ? data.employee : new Employee();
-    this.load(item);
   }
 
   protected load(e: Employee): void {
@@ -67,6 +63,13 @@ export class EmployeeManagerFormDialogComponent
 
   ngOnInit(): void {
     this.employeeRoles$ = this.sharedDataService.readAllEmployeeRoles();
+  }
+
+  ngAfterViewInit(): void {
+    this.formGroup.addControl('person', this.personForm.formGroup);
+
+    const item: Employee = (this.data?.employee) ? this.data.employee : new Employee();
+    this.load(item);
   }
 
   ngOnDestroy(): void {
