@@ -24,7 +24,7 @@ const managementRoutes: Routes = [
       { path: 'sales', component: SellManagerComponent },
       { path: 'users', component: UserManagerComponent },
       {
-        path: '**', pathMatch: 'prefix', redirectTo: 'dashboard'
+        path: '**', pathMatch: 'full', redirectTo: 'dashboard'
       }
     ],
     canActivate: [ManagementRoutingGuard],

@@ -30,10 +30,10 @@ export class ManagementRoutingGuard
 
   }
 
-  canActivate(
+  protected isPermitted(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  ): boolean {
 
     if (!route.parent) {
       return true;
@@ -56,6 +56,18 @@ export class ManagementRoutingGuard
       return false;
 
     }
+  }
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    const result = this.isPermitted(route, state);
+
+    if (!result) {
+      this.router.navigateByUrl('/');
+    }
+    return result;
   }
 
   canActivateChild(

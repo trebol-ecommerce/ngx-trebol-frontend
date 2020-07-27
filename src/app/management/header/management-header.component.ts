@@ -61,7 +61,7 @@ export class ManagementHeaderComponent {
       confirmado => {
         if (confirmado) {
           this.appUserService.closeCurrentSession();
-          this.router.navigateByUrl('/store');
+          this.router.navigateByUrl('/');
           this.snackBarService.open('Sesión cerrada con éxito.', 'OK');
         }
       }
