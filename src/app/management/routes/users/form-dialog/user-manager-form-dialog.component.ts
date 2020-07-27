@@ -63,7 +63,9 @@ export class UserManagerFormDialogComponent
     if (this.itemId) { this.password.setValidators(null); }
 
     this.name.setValue(u.name, { emitEvent: false, onlySelf: true });
-    this.person.setValue(u.person.id, { emitEvent: false, onlySelf: true });
+    if (u.person?.id) {
+      this.person.setValue(u.person.id, { emitEvent: false, onlySelf: true });
+    }
   }
 
   ngOnInit(): void {
