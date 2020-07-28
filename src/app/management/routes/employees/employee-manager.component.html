@@ -24,11 +24,13 @@
           <td mat-cell *matCellDef="let employee">
             <button mat-button mat-icon-button type="button"
               color="primary"
+              [disabled]="busy$ | async"
               (click)="onClickEdit(employee)">
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-button mat-icon-button type="button"
               color="warn"
+              [disabled]="busy$ | async"
               (click)="onClickDelete(employee)">
               <mat-icon>delete</mat-icon>
             </button>
