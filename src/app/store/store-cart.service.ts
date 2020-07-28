@@ -8,7 +8,7 @@ import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 
 @Injectable()
-export class StoreService
+export class StoreCartService
   implements OnDestroy {
 
   protected sellDetails: SellDetail[] = [];
@@ -49,63 +49,61 @@ export class StoreService
     this.sellDetailsSource.next([]);
   }
 
-  protected findSellDetailsIndexByProduct(p: Product): number {
-    return this.sellDetails.findIndex(d => d.product.id === p.id);
+  protected findSellDetailsIndexByProductId(id: number): number {
+    return this.sellDetails.findIndex(d => d.product?.id === id);
   }
 
-  public addProduct(product: Product): void {
-    let indice: number = this.findSellDetailsIndexByProduct(product);
+  public addProductToCart(product: Product): void {
+    const index: number = this.findSellDetailsIndexByProductId(product.id);
 
-    let detalleConEsteProducto: SellDetail;
-    if (indice !== -1) {
-      detalleConEsteProducto = this.sellDetails[indice];
-      detalleConEsteProducto.units++;
+    if (index !== -1) {
+      const matchingSellDetail = this.sellDetails[index];
+      matchingSellDetail.units++;
     } else {
-      detalleConEsteProducto = Object.assign<SellDetail, Partial<SellDetail>>(
+      const newSellDetail = Object.assign<SellDetail, Partial<SellDetail>>(
         new SellDetail(),
         {
           product,
           units: 1
         }
       );
-      indice = this.sellDetails.push(detalleConEsteProducto);
-      indice--;
+      this.sellDetails.push(newSellDetail);
     }
 
     this.sellDetailsSource.next(this.sellDetails);
   }
 
-  public increaseProductUnits(i: number): void {
-    if (i !== -1) {
-      const detalleConEsteProducto = this.sellDetails[i];
+  public increaseProductUnits(index: number): void {
+    if (index !== -1) {
+      const detalleConEsteProducto = this.sellDetails[index];
       detalleConEsteProducto.units++;
 
       this.sellDetailsSource.next(this.sellDetails);
     }
   }
 
-  public decreaseProductUnits(i: number): void {
-    if (i !== -1) {
-      const matchingDetail = this.sellDetails[i];
+  public decreaseProductUnits(index: number): void {
+    if (index !== -1) {
+      const matchingDetail = this.sellDetails[index];
       matchingDetail.units--;
 
       if (matchingDetail.units > 0) {
         this.sellDetailsSource.next(this.sellDetails);
       } else {
-        this.removeProduct(i);
+        this.removeProductFromCart(index);
       }
 
     }
   }
 
-  public removeProduct(i: number): void {
+  public removeProductFromCart(i: number): void {
     if (i !== -1) {
       this.sellDetails.splice(i, 1);
       this.sellDetailsSource.next(this.sellDetails);
     }
   }
 
-  public generateSell(clientId: number): Observable<Sell> {
+  public submitCart(clientId: number): Observable<Sell> {
     const venta = Object.assign<Sell, Partial<Sell>>(
       new Sell(),
       {

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { concatMap, map, take } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
-import { StoreService } from 'src/app/store/store.service';
+import { StoreCartService } from 'src/app/store/store-cart.service';
 import { SellDetail } from 'src/data/models/entities/SellDetail';
 import { Session } from 'src/data/models/entities/Session';
 import { StoreGuestPromptDialogComponent } from '../../dialogs/guest-prompt/store-guest-prompt-dialog.component';
@@ -16,11 +16,11 @@ import { StorePaymentRedirectPromptDialogComponent } from '../../dialogs/payment
 import { StoreRegistrationFormDialogComponent } from '../../dialogs/registration-form/store-registration-form-dialog.component';
 
 @Component({
-  selector: 'app-store-cart',
-  templateUrl: './store-cart.component.html',
-  styleUrls: ['./store-cart.component.css']
+  selector: 'app-store-cart-review',
+  templateUrl: './store-cart-review.component.html',
+  styleUrls: ['./store-cart-review.component.css']
 })
-export class StoreCartComponent
+export class StoreCartReviewComponent
   implements OnInit {
 
   public sellDetails$: Observable<SellDetail[]>;
@@ -30,22 +30,22 @@ export class StoreCartComponent
   public tableColumns: string[] = [ 'product', 'price', 'quantity', 'total', 'actions' ];
 
   constructor(
-    protected service: StoreService,
+    protected cartService: StoreCartService,
     protected appUserService: AppUserService,
     protected router: Router,
     protected dialogService: MatDialog,
     protected snackBarService: MatSnackBar
   ) {
-    this.service.sellDetails$.pipe(take(1)).subscribe(
+    this.cartService.sellDetails$.pipe(take(1)).subscribe(
       array => { if (array.length === 0) { this.router.navigateByUrl('/store'); } }
     );
   }
 
   ngOnInit(): void {
-    this.sellDetails$ = this.service.sellDetails$.pipe();
-    this.sellSubtotalValue$ = this.service.sellSubtotalValue$.pipe();
+    this.sellDetails$ = this.cartService.sellDetails$.pipe();
+    this.sellSubtotalValue$ = this.cartService.sellSubtotalValue$.pipe();
 
-    this.sellTotalValue$ = this.service.sellSubtotalValue$.pipe(map(subtotal => Math.ceil(subtotal * 1.19)));
+    this.sellTotalValue$ = this.cartService.sellSubtotalValue$.pipe(map(subtotal => Math.ceil(subtotal * 1.19)));
   }
 
   protected promptLoginForm(): Observable<void> {
@@ -69,7 +69,7 @@ export class StoreCartComponent
     ).afterClosed();
   }
 
-  private pickPrompt(choice: number): Observable<void> {
+  private pickPrompt(choice: StoreGuestPromptDialogOptions): Observable<void> {
     switch (choice) {
       case StoreGuestPromptDialogOptions.login:
         return this.promptLoginForm();
@@ -108,15 +108,15 @@ export class StoreCartComponent
   }
 
   public onClickIncreaseProductQuantity(index: number): void {
-    this.service.increaseProductUnits(index);
+    this.cartService.increaseProductUnits(index);
   }
 
   public onClickDecreaseProductQuantity(index: number): void {
-    this.service.decreaseProductUnits(index);
+    this.cartService.decreaseProductUnits(index);
   }
 
   public onClickRemoveProduct(index: number): void {
-    this.service.removeProduct(index);
+    this.cartService.removeProductFromCart(index);
   }
 
   public onClickAccept(): void {

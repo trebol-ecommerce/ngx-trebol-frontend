@@ -15,7 +15,7 @@ import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { EditProfileFormDialogComponent } from '../../shared/edit-profile-form-dialog/edit-profile-form-dialog.component';
 import { StoreLoginFormDialogComponent } from '../dialogs/login-form/store-login-form-dialog.component';
-import { StoreService } from '../store.service';
+import { StoreCartService } from '../store-cart.service';
 
 @Component({
   selector: 'app-store-header',
@@ -36,7 +36,7 @@ export class StoreHeaderComponent
   constructor(
     @Inject(DATA_INJECTION_TOKENS.sessions) protected authDataService: SessionDataIService,
     @Inject(DATA_INJECTION_TOKENS.people) protected peopleDataService: EntityDataIService<Person>,
-    protected service: StoreService,
+    protected cartService: StoreCartService,
     protected appUserService: AppUserService,
     protected snackBarService: MatSnackBar,
     protected dialogService: MatDialog,
@@ -44,11 +44,11 @@ export class StoreHeaderComponent
   ) { }
 
   ngOnInit(): void {
-    this.cartHasItems$ = this.service.sellDetails$.pipe(
+    this.cartHasItems$ = this.cartService.sellDetails$.pipe(
       map(array => array.length > 0)
     );
 
-    this.itemQuantityLabel$ = this.service.itemQuantity$.pipe(
+    this.itemQuantityLabel$ = this.cartService.itemQuantity$.pipe(
       map(total => total + ' item' + (total > 1 ? 's' : ''))
     );
 
@@ -62,7 +62,7 @@ export class StoreHeaderComponent
       })
     );
 
-    this.cartSubtotalValue$ = this.service.sellSubtotalValue$.pipe();
+    this.cartSubtotalValue$ = this.cartService.sellSubtotalValue$.pipe();
 
     this.isLoggedIn$ = this.appUserService.sessionChanges$.pipe(map(s => !!(s && s.user)));
   }

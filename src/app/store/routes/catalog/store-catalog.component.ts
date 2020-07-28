@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
-import { StoreService } from 'src/app/store/store.service';
+import { StoreCartService } from 'src/app/store/store-cart.service';
 import { Product } from 'src/data/models/entities/Product';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
@@ -22,7 +22,7 @@ export class StoreCatalogComponent
   constructor(
     @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityDataIService<Product>,
     protected snackBarService: MatSnackBar,
-    protected service: StoreService,
+    protected cartService: StoreCartService,
     protected catalogService: StoreCatalogService
   ) {
     this.loading$ = this.catalogService.loading$.pipe();
@@ -39,7 +39,7 @@ export class StoreCatalogComponent
   }
 
   public onClickAddProduct(p: Product): void {
-    this.service.addProduct(p);
+    this.cartService.addProductToCart(p);
   }
 
   public onClickViewProduct(p: Product): void {

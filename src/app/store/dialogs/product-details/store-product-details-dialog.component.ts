@@ -6,7 +6,7 @@ import { Product } from 'src/data/models/entities/Product';
 import { SellDetail } from 'src/data/models/entities/SellDetail';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
-import { StoreService } from '../../store.service';
+import { StoreCartService } from '../../store-cart.service';
 
 export interface StoreProductDetailsDialogData {
   product: Product;
@@ -32,7 +32,7 @@ export class StoreProductDetailsDialogComponent
   constructor(
     @Inject(MAT_DIALOG_DATA) data: StoreProductDetailsDialogData,
     @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityDataIService<Product>,
-    public service: StoreService,
+    public cartService: StoreCartService,
   ) {
     this.product = data.product;
   }
@@ -43,7 +43,7 @@ export class StoreProductDetailsDialogComponent
       map(d => d !== null ? d.units : 0)
     );
 
-    this.service.sellDetails$.subscribe(
+    this.cartService.sellDetails$.subscribe(
       details => {
         const index = details.findIndex(d => d.product?.id === this.product.id);
         if (index !== -1) {
@@ -63,13 +63,13 @@ export class StoreProductDetailsDialogComponent
 
   public onClickIncreaseProductQuantity(): void {
     if (this.matchingCartIndex !== -1) {
-      this.service.increaseProductUnits(this.matchingCartIndex);
+      this.cartService.increaseProductUnits(this.matchingCartIndex);
     } else {
-      this.service.addProduct(this.product);
+      this.cartService.addProductToCart(this.product);
     }
   }
   public onClickDecreaseProductQuantity(): void {
-    this.service.decreaseProductUnits(this.matchingCartIndex);
+    this.cartService.decreaseProductUnits(this.matchingCartIndex);
   }
 
 }

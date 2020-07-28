@@ -9,13 +9,13 @@ import { StoreProductDetailsDialogComponent } from './dialogs/product-details/st
 import { StoreRegistrationFormDialogComponent } from './dialogs/registration-form/store-registration-form-dialog.component';
 import { StoreFooterComponent } from './footer/store-footer.component';
 import { StoreHeaderComponent } from './header/store-header.component';
-import { StoreCartComponent } from './routes/cart/store-cart.component';
+import { StoreCartReviewComponent } from './routes/cart-review/store-cart-review.component';
 import { StoreCatalogComponent } from './routes/catalog/store-catalog.component';
 import { StoreCatalogService } from './routes/catalog/store-catalog.service';
 import { StoreReceiptComponent } from './routes/receipt/store-receipt.component';
 import { StoreRoutingModule } from './store-routing.module';
 import { StoreComponent } from './store.component';
-import { StoreService } from './store.service';
+import { StoreCartService } from './store-cart.service';
 
 
 const SNACKBAR_DEFAULTS = {
@@ -28,7 +28,7 @@ const SNACKBAR_DEFAULTS = {
     StoreHeaderComponent,
     StoreFooterComponent,
     StoreCatalogComponent,
-    StoreCartComponent,
+    StoreCartReviewComponent,
     StoreReceiptComponent,
     StoreLoginFormDialogComponent,
     StoreGuestPromptDialogComponent,
@@ -43,7 +43,7 @@ const SNACKBAR_DEFAULTS = {
   ],
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: SNACKBAR_DEFAULTS},
-    StoreService,
+    StoreCartService,
     StoreCatalogService
   ]
 })

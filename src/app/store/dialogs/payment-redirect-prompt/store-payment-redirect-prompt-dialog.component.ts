@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { concatMap, map, mapTo, startWith } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
 import { environment } from 'src/environments/environment';
-import { StoreService } from '../../store.service';
+import { StoreCartService } from '../../store-cart.service';
 
 interface ExternalPaymentRedirectionData {
   url: string,
@@ -28,7 +28,7 @@ export class StorePaymentRedirectPromptDialogComponent
 
   constructor(
     protected appUserService: AppUserService,
-    protected service: StoreService,
+    protected cartService: StoreCartService,
     protected httpClient: HttpClient
   ) {
     this.loading$ = this.externalDataSource.asObservable().pipe(startWith(true), mapTo(false));
@@ -54,7 +54,7 @@ export class StorePaymentRedirectPromptDialogComponent
   }
 
   protected initiateWebpayTransaction(): void {
-    this.service.sellSubtotalValue$.pipe(
+    this.cartService.sellSubtotalValue$.pipe(
       map((subtotal) => this.parseFormData(subtotal)),
       concatMap((data) => this.fetchWebpayRedirectionData(data))
     ).subscribe(
