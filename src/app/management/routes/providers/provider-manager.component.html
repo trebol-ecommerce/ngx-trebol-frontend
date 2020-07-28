@@ -22,20 +22,18 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> </th>
           <td mat-cell *matCellDef="let provider">
-            <div>
-              <button mat-button mat-icon-button type="button"
-                color="primary"
-                [disabled]="busy$ | async"
-                (click)="onClickEdit(provider)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-button mat-icon-button type="button"
-                color="warn"
-                [disabled]="busy$ | async"
-                (click)="onClickDelete(provider)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
+            <button mat-button mat-icon-button type="button"
+              color="primary"
+              [disabled]="busy$ | async"
+              (click)="onClickEdit(provider)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-button mat-icon-button type="button"
+              color="warn"
+              [disabled]="busy$ | async"
+              (click)="onClickDelete(provider)">
+              <mat-icon>delete</mat-icon>
+            </button>
           </td>
         </ng-container>
 
