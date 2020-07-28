@@ -11,7 +11,10 @@ import { EmployeeManagementFormDialogData, EmployeeManagerFormDialogComponent } 
 @Component({
   selector: 'app-employee-manager',
   templateUrl: './employee-manager.component.html',
-  styleUrls: [ '../../data-manager.styles.css' ]
+  styleUrls: [
+    '../../data-manager.styles.css',
+    './employee-manager.component.css'
+  ]
 })
 export class EmployeeManagerComponent
   extends DataManagerComponent<Employee> {
