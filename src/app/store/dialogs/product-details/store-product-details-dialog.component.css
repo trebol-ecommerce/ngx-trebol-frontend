@@ -1,43 +1,57 @@
 .dialog {
   display: flex;
   flex-flow: column nowrap;
+  justify-content: space-between;
 }
 
-.thumbnail {
-  flex: 1 0 10rem;
-  display: flex;
-}
 img {
+  flex: 1 1 auto;
   object-fit: cover;
   width: auto;
   height: auto;
   max-width: 100%;
   max-height: 100%;
-  margin: auto;
+  margin: 0.5rem 0;
 }
 
 .about {
-  flex: 1 0 auto;
-  margin-top: 0.5rem;
-  padding: 0 0.25rem;
+  flex: 1 1 auto;
+  text-align: center;
+  margin: 0.25rem 0;
 }
-.name, .barcode {
+@media(min-width: 800px) {
+  .about {
+    text-align: initial;
+    margin: 0.5rem 0;
+    padding: 0 0.25rem;
+  }
+}
+.name, .barcode, .description {
   margin: 0;
 }
 .description {
   overflow-y: auto;
 }
 
-.add-to-cart {
+.actions {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
-
-.quantity {
+.price {
+  font-size: 1.25rem;
+  color: #558b2f;
+  margin: 0 0.5rem;
+}
+@media(min-width: 800px) {
+  .price {
+    font-size: 1.75rem;
+  }
+}
+.quantity-wrapper {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
-  padding: 0.5rem;
+  align-items: center;
 }
