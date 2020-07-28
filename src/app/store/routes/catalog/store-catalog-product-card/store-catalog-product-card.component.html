@@ -1,12 +1,12 @@
 <mat-card>
-  <mat-card-header (click)="onClickViewProduct()">
-    <mat-card-title>{{ product.name }}</mat-card-title>
-    <mat-card-subtitle>{{ product.barcode }}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content (click)="onClickViewProduct()">
+  <div class="content" (click)="onClickViewProduct()">
+    <mat-card-header>
+      <mat-card-title>{{ product.name }}</mat-card-title>
+      <mat-card-subtitle>{{ product.barcode }}</mat-card-subtitle>
+    </mat-card-header>
     <img [src]="product.imagesURL[0]" [alt]="product.name" />
-  </mat-card-content>
-  <mat-card-actions>
+  </div>
+  <div class="actions">
     <span class="price">${{ product.price }}</span>
     <button mat-button mat-icon-button type="button"
       class="add-to-cart"
@@ -14,5 +14,5 @@
       (click)="onClickAddProduct()">
       <mat-icon>add_shopping_cart</mat-icon>
     </button>
-  </mat-card-actions>
+  </div>
 </mat-card>

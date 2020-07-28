@@ -1,19 +1,48 @@
+mat-card {
+  padding: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.content {
+  cursor: pointer;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  padding: 0;
+}
+
+.content:hover {
+  background-color: rgba(0,0,0,0.2);
+}
+
+mat-card-header {
+  padding: 1rem 0.5rem 0;
+}
+
 img {
+  flex: 1 1 auto;
   width: 100%;
 }
 
-.mat-card-actions {
-  text-align: right;
+.actions {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.5rem;
+}
+@media(min-width: 800px) {
+  .actions {
+    justify-content: space-between;
+  }
 }
 
 .price {
   font-size: 1.25rem;
   font-weight: 900;
   color: #558b2f;
-}
-
-.add-to-cart {
-  margin-left: 1rem;
+  margin: 0 0.75rem;
 }
 
 .add-to-cart mat-icon {
