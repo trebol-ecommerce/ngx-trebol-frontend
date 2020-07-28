@@ -28,20 +28,18 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> </th>
           <td mat-cell *matCellDef="let pOrder">
-            <div class="acciones">
-              <button mat-button mat-icon-button
-                color="primary"
-                [disabled]="busy$ | async"
-                (click)="onClickEdit(pOrder)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-button mat-icon-button
-                color="warn"
-                [disabled]="busy$ | async"
-                (click)="onClickDelete(pOrder)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
+            <button mat-button mat-icon-button type="button"
+              color="primary"
+              [disabled]="busy$ | async"
+              (click)="onClickEdit(pOrder)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-button mat-icon-button type="button"
+              color="warn"
+              [disabled]="busy$ | async"
+              (click)="onClickDelete(pOrder)">
+              <mat-icon>delete</mat-icon>
+            </button>
           </td>
         </ng-container>
 

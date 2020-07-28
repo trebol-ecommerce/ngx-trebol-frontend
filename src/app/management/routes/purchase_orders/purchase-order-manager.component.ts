@@ -14,7 +14,10 @@ import { PurchaseOrderManagerService } from './purchase-order-manager.service';
 @Component({
   selector: 'app-purchase-order-manager',
   templateUrl: './purchase-order-manager.component.html',
-  styleUrls: [ '../../data-manager.styles.css' ]
+  styleUrls: [
+    '../../data-manager.styles.css',
+    './purchase-order-manager.component.css'
+  ]
 })
 export class PurchaseOrderManagerComponent
   extends DataManagerComponent<PurchaseOrder> {
