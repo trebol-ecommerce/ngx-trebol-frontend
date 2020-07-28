@@ -11,7 +11,10 @@ import { SellManagerService } from './sell-manager.service';
 @Component({
   selector: 'app-sell-manager',
   templateUrl: './sell-manager.component.html',
-  styleUrls: [ '../../data-manager.styles.css' ]
+  styleUrls: [
+    '../../data-manager.styles.css',
+    './sell-manager.component.css'
+  ]
 })
 export class SellManagerComponent
   extends DataManagerComponent<Sell> {
@@ -38,11 +41,11 @@ export class SellManagerComponent
     ).afterClosed();
   }
 
-  public onClickDelete(vnt: Sell) {
-    this.service.removeItems([vnt]).pipe(r => r[0]).subscribe(
+  public onClickDelete(s: Sell) {
+    this.service.removeItems([s]).pipe(r => r[0]).subscribe(
       (exito: boolean) => {
         if (exito) {
-          this.snackBarService.open('Venta N°' + vnt.id + ' (' + vnt.soldOn + ') eliminada.');
+          this.snackBarService.open('Venta N°' + s.id + ' (' + s.soldOn + ') eliminada.');
           this.service.reloadItems();
         } else {
           this.snackBarService.open('Hubo un problema al borrar la venta.');
