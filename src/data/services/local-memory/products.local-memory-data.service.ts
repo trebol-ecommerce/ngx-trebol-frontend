@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { Product } from 'src/data/models/entities/Product';
-import { EntityLocalMemoryDataService } from './local-memory-data.abstract-service';
+import { EntityLocalMemoryDataService } from './entity.local-memory-data.aservice';
 
 export const MOCK_PRODUCTS: Partial<Product>[] = [
   {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EmployeeRolesEnum } from 'src/data/enums/EmployeeRolesEnum';
 import { Employee } from 'src/data/models/entities/Employee';
-import { EntityLocalMemoryDataService } from './local-memory-data.abstract-service';
+import { EntityLocalMemoryDataService } from './entity.local-memory-data.aservice';
 
 export const MOCK_EMPLOYEES: Partial<Employee>[] = [
   {

@@ -1,4 +1,4 @@
-import { EntityLocalMemoryDataService } from './local-memory-data.abstract-service';
+import { EntityLocalMemoryDataService } from './entity.local-memory-data.aservice';
 import { Injectable } from '@angular/core';
 import { Person } from 'src/data/models/entities/Person';
 import { Observable } from 'rxjs';

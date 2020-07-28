@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { EmployeeRolesEnum } from 'src/data/enums/EmployeeRolesEnum';
 import { User } from 'src/data/models/entities/User';
-import { EntityLocalMemoryDataService } from './local-memory-data.abstract-service';
+import { EntityLocalMemoryDataService } from './entity.local-memory-data.aservice';
 
 export const MOCK_USERS: Partial<User>[] = [
   {

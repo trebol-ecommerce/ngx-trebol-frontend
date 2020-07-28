@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { PurchaseOrder } from 'src/data/models/entities/PurchaseOrder';
 import { PurchaseOrderDetail } from 'src/data/models/entities/PurchaseOrderDetail';
 import { CompositeEntityDataIService } from '../composite-entity.data.iservice';
-import { EntityLocalMemoryDataService } from './local-memory-data.abstract-service';
+import { EntityLocalMemoryDataService } from './entity.local-memory-data.aservice';
 
 export const MOCK_PURCHASE_ORDERS: Partial<PurchaseOrder>[] = [
   {

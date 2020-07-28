@@ -10,6 +10,9 @@ export abstract class EntityLocalMemoryDataService<T extends AbstractEntity>
 
   protected abstract items: T[];
 
+  /**
+   * TODO: Document this method
+   */
   protected filterItems(filter: any): Set<T> {
     let matchingItems = this.items;
     for (const propName in filter) {
@@ -37,6 +40,9 @@ export abstract class EntityLocalMemoryDataService<T extends AbstractEntity>
     return uniqueItems;
   }
 
+  /**
+   * TODO: Document this method
+   */
   public create(d: T): Observable<T> {
     return new Observable(
       observer => {
@@ -58,14 +64,23 @@ export abstract class EntityLocalMemoryDataService<T extends AbstractEntity>
     );
   }
 
+  /**
+   * TODO: Document this method
+   */
   public readById(id: number): Observable<T> {
     return of(this.items.find(d => d.id === id));
   }
 
+  /**
+   * TODO: Document this method
+   */
   public readAll(): Observable<T[]> {
     return of(this.items);
   }
 
+  /**
+   * TODO: Document this method
+   */
   public readFiltered(filter: any): Observable<T[]> {
     return new Observable(
       observer => {
@@ -78,6 +93,9 @@ export abstract class EntityLocalMemoryDataService<T extends AbstractEntity>
     );
   }
 
+  /**
+   * TODO: Document this method
+   */
   public update(d: T, id: number): Observable<T> {
     return new Observable(
       observer => {
@@ -99,6 +117,9 @@ export abstract class EntityLocalMemoryDataService<T extends AbstractEntity>
     );
   }
 
+  /**
+   * TODO: Document this method
+   */
   public deleteById(id: number): Observable<boolean> {
     return new Observable(
       observer => {
