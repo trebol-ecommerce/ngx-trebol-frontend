@@ -32,6 +32,7 @@ export abstract class DataManagerAbstractComponent<T extends AbstractEntity>
     return this.openFormDialog(item).pipe(
       tap(
         (result) => {
+          this.service.focusedItems = [];
           if (!!result) {
             this.service.reloadItems();
           }
