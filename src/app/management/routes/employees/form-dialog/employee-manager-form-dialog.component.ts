@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subject } from 'rxjs';
-import { DataItemFormAbstractComponent } from 'src/app/management/data-item-form.abstract-component';
+import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
 import { Employee } from 'src/data/models/entities/Employee';
 import { EmployeeRole } from 'src/data/models/entities/EmployeeRole';
@@ -24,7 +24,7 @@ export interface EmployeeManagementFormDialogData {
   styleUrls: [ './employee-manager-form-dialog.component.css' ]
 })
 export class EmployeeManagerFormDialogComponent
-  extends DataItemFormAbstractComponent<Employee>
+  extends DataManagerFormComponent<Employee>
   implements OnInit, AfterViewInit, OnDestroy {
 
   protected itemId: number;

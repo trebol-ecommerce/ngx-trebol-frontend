@@ -3,13 +3,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { finalize, map, tap } from 'rxjs/operators';
 import { AbstractEntity } from 'src/data/models/AbstractEntity';
-import { DataManagerAbstractService } from './data-manager.abstract-service';
+import { DataManagerService } from './data-manager.aservice';
 
 @Directive()
-export abstract class DataManagerAbstractComponent<T extends AbstractEntity>
+export abstract class DataManagerComponent<T extends AbstractEntity>
   implements OnInit {
 
-  protected abstract service: DataManagerAbstractService<T>;
+  protected abstract service: DataManagerService<T>;
   protected abstract dialogService: MatDialog;
   public abstract tableColumns: string[];
 

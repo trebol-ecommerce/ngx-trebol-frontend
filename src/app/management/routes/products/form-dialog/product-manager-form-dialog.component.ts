@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of, Subject, Subscription, merge } from 'rxjs';
 import { tap, mapTo } from 'rxjs/operators';
-import { DataItemFormAbstractComponent } from 'src/app/management/data-item-form.abstract-component';
+import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
 import { Product } from 'src/data/models/entities/Product';
 import { ProductFamily } from 'src/data/models/entities/ProductFamily';
 import { ProductType } from 'src/data/models/entities/ProductType';
@@ -23,7 +23,7 @@ export interface ProductManagerFormDialogData {
   styleUrls: [ './product-manager-form-dialog.component.css' ]
 })
 export class ProductManagerFormDialogComponent
-  extends DataItemFormAbstractComponent<Product>
+  extends DataManagerFormComponent<Product>
   implements OnInit, OnDestroy {
 
   protected itemId: number;

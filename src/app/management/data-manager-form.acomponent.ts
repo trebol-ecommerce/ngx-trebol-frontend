@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 
-export abstract class DataItemFormAbstractComponent<T extends AbstractEntity> {
+export abstract class DataManagerFormComponent<T extends AbstractEntity> {
   protected abstract itemId: number;
   protected abstract dataService: EntityDataIService<T>;
   public abstract saving$: Observable<boolean>;

@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Sell } from 'src/data/models/entities/Sell';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
-import { DataManagerAbstractComponent } from '../../data-manager.abstract-component';
+import { DataManagerComponent } from '../../data-manager.acomponent';
 import { SaleManagerFormDialogData, SellManagerFormDialogComponent } from './form-dialog/sell-manager-form-dialog.component';
 import { SellManagerService } from './sell-manager.service';
 
@@ -14,7 +14,7 @@ import { SellManagerService } from './sell-manager.service';
   styleUrls: [ '../../data-manager.styles.css' ]
 })
 export class SellManagerComponent
-  extends DataManagerAbstractComponent<Sell> {
+  extends DataManagerComponent<Sell> {
 
   public tableColumns: string[] = [ 'id', 'date', 'actions' ];
 

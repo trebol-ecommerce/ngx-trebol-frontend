@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subject } from 'rxjs';
-import { DataItemFormAbstractComponent } from 'src/app/management/data-item-form.abstract-component';
+import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
 import { Person } from 'src/data/models/entities/Person';
 import { Provider } from 'src/data/models/entities/Provider';
@@ -22,7 +22,7 @@ export interface ProviderManagerFormDialogData {
   styleUrls: [ './provider-manager-form-dialog.component.css' ]
 })
 export class ProviderManagerFormDialogComponent
-  extends DataItemFormAbstractComponent<Provider>
+  extends DataManagerFormComponent<Provider>
   implements AfterViewInit {
 
   protected itemId: number;

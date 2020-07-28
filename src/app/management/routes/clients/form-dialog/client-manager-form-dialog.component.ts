@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataItemFormAbstractComponent } from 'src/app/management/data-item-form.abstract-component';
+import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
 import { Client } from 'src/data/models/entities/Client';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 import { Observable } from 'rxjs';
@@ -11,7 +11,7 @@ import { FormGroup } from '@angular/forms';
   styleUrls: [ './client-manager-form-dialog.component.css' ]
 })
 export class ClientManagerFormDialogComponent
-  extends DataItemFormAbstractComponent<Client> {
+  extends DataManagerFormComponent<Client> {
 
   protected itemId: number;
   protected dataService: EntityDataIService<Client>;

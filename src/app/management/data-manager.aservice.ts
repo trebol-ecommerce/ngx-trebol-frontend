@@ -5,7 +5,7 @@ import { AbstractEntity } from 'src/data/models/AbstractEntity';
 import { OnDestroy, Directive } from '@angular/core';
 
 @Directive()
-export abstract class DataManagerAbstractService<T extends AbstractEntity>
+export abstract class DataManagerService<T extends AbstractEntity>
   implements OnDestroy {
 
   protected abstract dataService: EntityDataIService<T>;

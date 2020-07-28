@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { from, Observable } from 'rxjs';
 import { PurchaseOrder } from 'src/data/models/entities/PurchaseOrder';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
-import { DataManagerAbstractComponent } from '../../data-manager.abstract-component';
+import { DataManagerComponent } from '../../data-manager.acomponent';
 import {
   PurchaseOrderManagerFormDialogComponent,
   PurchaseOrderManagerFormDialogData
@@ -17,7 +17,7 @@ import { PurchaseOrderManagerService } from './purchase-order-manager.service';
   styleUrls: [ '../../data-manager.styles.css' ]
 })
 export class PurchaseOrderManagerComponent
-  extends DataManagerAbstractComponent<PurchaseOrder> {
+  extends DataManagerComponent<PurchaseOrder> {
 
   public tableColumns: string[] = [ 'id', 'orderDate', 'receiptDate', 'actions' ];
 

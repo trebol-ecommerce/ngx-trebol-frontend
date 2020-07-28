@@ -6,7 +6,7 @@ import { MatTable } from '@angular/material/table';
 import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
-import { DataItemFormAbstractComponent } from 'src/app/management/data-item-form.abstract-component';
+import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
 import { Employee } from 'src/data/models/entities/Employee';
 import { Product } from 'src/data/models/entities/Product';
 import { Provider } from 'src/data/models/entities/Provider';
@@ -28,7 +28,7 @@ export interface PurchaseOrderManagerFormDialogData {
   styleUrls: [ './purchase-order-manager-form-dialog.component.css' ]
 })
 export class PurchaseOrderManagerFormDialogComponent
-  extends DataItemFormAbstractComponent<PurchaseOrder>
+  extends DataManagerFormComponent<PurchaseOrder>
   implements OnInit {
 
   protected itemId: number;

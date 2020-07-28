@@ -6,7 +6,7 @@ import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { User } from 'src/data/models/entities/User';
 import { UserManagerFormDialogComponent, UserManagerFormDialogData } from './form-dialog/user-manager-form-dialog.component';
 import { UserManagerService } from './user-manager.service';
-import { DataManagerAbstractComponent } from '../../data-manager.abstract-component';
+import { DataManagerComponent } from '../../data-manager.acomponent';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -15,7 +15,7 @@ import { map } from 'rxjs/operators';
   styleUrls: [ '../../data-manager.styles.css' ]
 })
 export class UserManagerComponent
-  extends DataManagerAbstractComponent<User> {
+  extends DataManagerComponent<User> {
 
   public tableColumns: string[] = [ 'name', 'creationDate', 'fullName', 'idCard', 'actions' ];
 

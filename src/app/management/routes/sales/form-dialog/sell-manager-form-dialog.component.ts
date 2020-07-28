@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
 import { map as concatMap, map, switchMap, exhaust, toArray } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
-import { DataItemFormAbstractComponent } from 'src/app/management/data-item-form.abstract-component';
+import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
 import { Client } from 'src/data/models/entities/Client';
 import { Employee } from 'src/data/models/entities/Employee';
 import { Product } from 'src/data/models/entities/Product';
@@ -29,7 +29,7 @@ export interface SaleManagerFormDialogData {
   styleUrls: [ './sell-manager-form-dialog.component.css' ]
 })
 export class SellManagerFormDialogComponent
-  extends DataItemFormAbstractComponent<Sell>
+  extends DataManagerFormComponent<Sell>
   implements OnInit, OnDestroy {
 
   protected itemId: number;

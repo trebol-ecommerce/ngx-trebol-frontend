@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Product } from 'src/data/models/entities/Product';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
-import { DataManagerAbstractComponent } from '../../data-manager.abstract-component';
+import { DataManagerComponent } from '../../data-manager.acomponent';
 import { ProductManagerFormDialogComponent, ProductManagerFormDialogData } from './form-dialog/product-manager-form-dialog.component';
 import { ProductManagerService } from './product-manager.service';
 
@@ -14,7 +14,7 @@ import { ProductManagerService } from './product-manager.service';
   styleUrls: [ '../../data-manager.styles.css' ]
 })
 export class ProductManagerComponent
-  extends DataManagerAbstractComponent<Product> {
+  extends DataManagerComponent<Product> {
 
   public tableColumns: string[] = [ 'name', 'barcode', 'price', 'currentStock', 'criticalStock', 'type', 'actions' ];
 

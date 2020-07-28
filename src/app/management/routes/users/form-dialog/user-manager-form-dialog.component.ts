@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subject } from 'rxjs';
-import { DataItemFormAbstractComponent } from 'src/app/management/data-item-form.abstract-component';
+import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
 import { Person } from 'src/data/models/entities/Person';
 import { User } from 'src/data/models/entities/User';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
@@ -21,7 +21,7 @@ export interface UserManagerFormDialogData {
   styleUrls: [ './user-manager-form-dialog.component.css' ]
 })
 export class UserManagerFormDialogComponent
-  extends DataItemFormAbstractComponent<User>
+  extends DataManagerFormComponent<User>
   implements OnInit {
 
   protected itemId: number;

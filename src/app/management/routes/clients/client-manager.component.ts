@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Client } from 'src/data/models/entities/Client';
-import { DataManagerAbstractComponent } from '../../data-manager.abstract-component';
+import { DataManagerComponent } from '../../data-manager.acomponent';
 import { ClientManagerService } from './client-manager.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { ClientManagerService } from './client-manager.service';
   styleUrls: [ '../../data-manager.styles.css' ]
 })
 export class ClientManagerComponent
-  extends DataManagerAbstractComponent<Client> {
+  extends DataManagerComponent<Client> {
 
   public tableColumns: string[] = [ 'name', 'idCard' ];
 
