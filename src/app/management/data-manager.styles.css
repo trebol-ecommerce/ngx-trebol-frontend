@@ -12,6 +12,14 @@
 table {
   width: max-content;
 }
+.mat-header-cell, .mat-cell {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.mat-column-actions {
+  text-align: right;
+  width: 6rem;
+}
 
 app-management-data-actions {
   flex: 0 0 auto;
