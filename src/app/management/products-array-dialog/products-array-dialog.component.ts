@@ -20,7 +20,7 @@ export class ProductsArrayDialogComponent
 
   protected productsArray: Product[] = [];
 
-  protected productsArraySource: Subject<Product[]> = new Subject();
+  protected productsArraySource: Subject<Product[]> = new BehaviorSubject([]);
   protected productFiltersSource: Subject<ProductFilters> = new BehaviorSubject({});
 
   public productsArray$: Observable<Product[]> = this.productsArraySource.asObservable();
@@ -38,8 +38,6 @@ export class ProductsArrayDialogComponent
     protected formBuilder: FormBuilder,
     protected snackBarService: MatSnackBar
   ) {
-    this.productsArray = [];
-
     this.isArrayEmpty$ = this.productsArray$.pipe(map(array => (array.length === 0)));
   }
 
