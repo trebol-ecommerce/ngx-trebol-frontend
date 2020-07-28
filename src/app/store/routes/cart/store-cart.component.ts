@@ -6,15 +6,14 @@ import { Observable, of } from 'rxjs';
 import { concatMap, map, take } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
 import { StoreService } from 'src/app/store/store.service';
-import { Sell } from 'src/data/models/entities/Sell';
 import { SellDetail } from 'src/data/models/entities/SellDetail';
 import { Session } from 'src/data/models/entities/Session';
-import { StoreGuestPromptDialogComponent } from '../../guest-prompt-dialog/store-guest-prompt-dialog.component';
-import { StoreGuestPromptDialogOptions } from '../../guest-prompt-dialog/StoreGuestPromptDialogOptions';
-import { StoreGuestShippingFormDialogComponent } from '../../guest-shipping-form-dialog/store-guest-shipping-form-dialog.component';
-import { StoreLoginFormDialogComponent } from '../../login-form-dialog/store-login-form-dialog.component';
-import { StoreRegistrationFormDialogComponent } from '../../registration-form-dialog/store-registration-form-dialog.component';
-import { StorePaymentRedirectPromptDialogComponent } from '../../payment-redirect-prompt-dialog/store-payment-redirect-prompt-dialog.component';
+import { StoreGuestPromptDialogComponent } from '../../dialogs/guest-prompt/store-guest-prompt-dialog.component';
+import { StoreGuestPromptDialogOptions } from '../../dialogs/guest-prompt/StoreGuestPromptDialogOptions';
+import { StoreGuestShippingFormDialogComponent } from '../../dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component';
+import { StoreLoginFormDialogComponent } from '../../dialogs/login-form/store-login-form-dialog.component';
+import { StorePaymentRedirectPromptDialogComponent } from '../../dialogs/payment-redirect-prompt/store-payment-redirect-prompt-dialog.component';
+import { StoreRegistrationFormDialogComponent } from '../../dialogs/registration-form/store-registration-form-dialog.component';
 
 @Component({
   selector: 'app-store-cart',

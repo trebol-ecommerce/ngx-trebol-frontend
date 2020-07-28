@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { StoreGuestPromptDialogComponent } from './dialogs/guest-prompt/store-guest-prompt-dialog.component';
+import { StoreGuestShippingFormDialogComponent } from './dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component';
+import { StoreLoginFormDialogComponent } from './dialogs/login-form/store-login-form-dialog.component';
+import { StorePaymentRedirectPromptDialogComponent } from './dialogs/payment-redirect-prompt/store-payment-redirect-prompt-dialog.component';
+import { StoreProductDetailsDialogComponent } from './dialogs/product-details/store-product-details-dialog.component';
+import { StoreRegistrationFormDialogComponent } from './dialogs/registration-form/store-registration-form-dialog.component';
 import { StoreFooterComponent } from './footer/store-footer.component';
-import { StoreGuestPromptDialogComponent } from './guest-prompt-dialog/store-guest-prompt-dialog.component';
-import { StoreGuestShippingFormDialogComponent } from './guest-shipping-form-dialog/store-guest-shipping-form-dialog.component';
 import { StoreHeaderComponent } from './header/store-header.component';
-import { StoreLoginFormDialogComponent } from './login-form-dialog/store-login-form-dialog.component';
-import { StoreRegistrationFormDialogComponent } from './registration-form-dialog/store-registration-form-dialog.component';
 import { StoreCartComponent } from './routes/cart/store-cart.component';
 import { StoreCatalogComponent } from './routes/catalog/store-catalog.component';
 import { StoreCatalogService } from './routes/catalog/store-catalog.service';
+import { StoreReceiptComponent } from './routes/receipt/store-receipt.component';
 import { StoreRoutingModule } from './store-routing.module';
 import { StoreComponent } from './store.component';
 import { StoreService } from './store.service';
-import { StoreReceiptComponent } from './routes/receipt/store-receipt.component';
-import { StorePaymentRedirectPromptDialogComponent } from './payment-redirect-prompt-dialog/store-payment-redirect-prompt-dialog.component';
-import { StoreProductDetailsDialogComponent } from './store-product-details-dialog/store-product-details-dialog.component';
 
 
 const SNACKBAR_DEFAULTS = {
@@ -26,14 +26,14 @@ const SNACKBAR_DEFAULTS = {
   declarations: [
     StoreComponent,
     StoreHeaderComponent,
+    StoreFooterComponent,
     StoreCatalogComponent,
     StoreCartComponent,
+    StoreReceiptComponent,
     StoreLoginFormDialogComponent,
     StoreGuestPromptDialogComponent,
     StoreGuestShippingFormDialogComponent,
     StoreRegistrationFormDialogComponent,
-    StoreFooterComponent,
-    StoreReceiptComponent,
     StorePaymentRedirectPromptDialogComponent,
     StoreProductDetailsDialogComponent
   ],

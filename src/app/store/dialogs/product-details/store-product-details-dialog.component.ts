@@ -1,13 +1,12 @@
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Product } from 'src/data/models/entities/Product';
+import { SellDetail } from 'src/data/models/entities/SellDetail';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
-import { StoreService } from '../store.service';
-import { map, takeWhile, filter, switchMap, first, concatMap, tap, catchError } from 'rxjs/operators';
-import { SellDetail } from 'src/data/models/entities/SellDetail';
-import { Sell } from 'src/data/models/entities/Sell';
+import { StoreService } from '../../store.service';
 
 export interface StoreProductDetailsDialogData {
   product: Product;

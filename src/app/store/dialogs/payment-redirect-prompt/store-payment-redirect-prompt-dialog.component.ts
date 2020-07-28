@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { concatMap, map, mapTo, startWith } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
 import { environment } from 'src/environments/environment';
-import { StoreService } from '../store.service';
+import { StoreService } from '../../store.service';
 
 interface ExternalPaymentRedirectionData {
   url: string,

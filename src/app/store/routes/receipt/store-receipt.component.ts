@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { map, mapTo, startWith, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Sell } from 'src/data/models/entities/Sell';
 import { SellDetail } from 'src/data/models/entities/SellDetail';
 import { CompositeEntityDataIService } from 'src/data/services/composite-entity.data.iservice';

@@ -7,14 +7,14 @@ import { map } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
 import { TITLE } from 'src/app/app.component';
 import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
+import { EmployeeRolesEnum } from 'src/data/enums/EmployeeRolesEnum';
 import { Person } from 'src/data/models/entities/Person';
 import { SessionDataIService } from 'src/data/services/auth.data.iservice';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
-import { EmployeeRolesEnum } from 'src/data/enums/EmployeeRolesEnum';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { EditProfileFormDialogComponent } from '../../shared/edit-profile-form-dialog/edit-profile-form-dialog.component';
-import { StoreLoginFormDialogComponent } from '../login-form-dialog/store-login-form-dialog.component';
+import { StoreLoginFormDialogComponent } from '../dialogs/login-form/store-login-form-dialog.component';
 import { StoreService } from '../store.service';
 
 @Component({

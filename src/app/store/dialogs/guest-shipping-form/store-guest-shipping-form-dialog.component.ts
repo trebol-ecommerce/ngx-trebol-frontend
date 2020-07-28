@@ -1,10 +1,10 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
 import { AppUserService } from 'src/app/app-user.service';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
-import { StoreRegistrationFormDialogComponent } from '../registration-form-dialog/store-registration-form-dialog.component';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { StoreRegistrationFormDialogComponent } from '../registration-form/store-registration-form-dialog.component';
 
 @Component({
   selector: 'app-store-guest-shipping-form-dialog',

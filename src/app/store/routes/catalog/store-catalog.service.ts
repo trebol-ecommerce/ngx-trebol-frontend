@@ -7,7 +7,7 @@ import { ProductFilters } from 'src/app/shared/product-filters-panel/product-fil
 import { Product } from 'src/data/models/entities/Product';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
-import { StoreProductDetailsDialogComponent, StoreProductDetailsDialogData } from '../../store-product-details-dialog/store-product-details-dialog.component';
+import { StoreProductDetailsDialogComponent, StoreProductDetailsDialogData } from '../../dialogs/product-details/store-product-details-dialog.component';
 
 @Injectable()
 export class StoreCatalogService
