@@ -86,7 +86,7 @@ export class PurchaseOrderManagerFormDialogComponent
     }
 
     if (this.itemId) {
-      this.dataService.readDetailsById(po.id).subscribe(
+      this.dataService.readDetailsById(this.itemId).subscribe(
         (details: PurchaseOrderDetail[]) => {
           this.purchaseOrderDetails = details;
           this.purchaseOrderDetailsSource.next(details);
