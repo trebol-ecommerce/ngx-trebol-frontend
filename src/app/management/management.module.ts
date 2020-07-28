@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { MatSnackBarConfig, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { SharedModule } from '../shared/shared.module';
+import { ManagementDataActionsComponent } from './data-actions/management-data-actions.component';
+import { ProductsArrayDialogComponent } from './dialogs/products-array/products-array-dialog.component';
 import { ManagementFooterComponent } from './footer/management-footer.component';
 import { ManagementHeaderComponent } from './header/management-header.component';
 import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementRoutingModule } from './management-routing.module';
 import { ManagementComponent } from './management.component';
 import { ManagementService } from './management.service';
-import { ProductsArrayDialogComponent } from './products-array-dialog/products-array-dialog.component';
 import { ClientManagerComponent } from './routes/clients/client-manager.component';
 import { ClientManagerService } from './routes/clients/client-manager.service';
 import { ClientManagerFormDialogComponent } from './routes/clients/form-dialog/client-manager-form-dialog.component';
@@ -31,7 +32,6 @@ import { UserManagerFormDialogComponent } from './routes/users/form-dialog/user-
 import { UserManagerComponent } from './routes/users/user-manager.component';
 import { UserManagerService } from './routes/users/user-manager.service';
 import { ManagementSidenavComponent } from './sidenav/management-sidenav.component';
-import { ManagementDataActionsComponent } from './data-actions/management-data-actions.component';
 
 const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
   duration: 5000

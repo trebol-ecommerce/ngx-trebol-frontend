@@ -2,8 +2,8 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
-import { map as concatMap, map, switchMap, exhaust, toArray } from 'rxjs/operators';
+import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
+import { exhaust, map as concatMap, map, switchMap, toArray } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
 import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
 import { Client } from 'src/data/models/entities/Client';
@@ -15,9 +15,9 @@ import { SellType } from 'src/data/models/entities/SellType';
 import { CompositeEntityDataIService } from 'src/data/services/composite-entity.data.iservice';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
-import { ERR_SRV_COMM_MSG } from 'src/text/messages';
-import { ProductsArrayDialogComponent } from '../../../products-array-dialog/products-array-dialog.component';
 import { SharedDataIService } from 'src/data/services/shared.data.iservice';
+import { ERR_SRV_COMM_MSG } from 'src/text/messages';
+import { ProductsArrayDialogComponent } from '../../../dialogs/products-array/products-array-dialog.component';
 
 export interface SaleManagerFormDialogData {
   sell: Sell;
