@@ -17,13 +17,13 @@
         <table mat-table [dataSource]="filteredProductsArray$">
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Nombre </th>
-            <td mat-cell *matCellDef="let product" class="left">
+            <td mat-cell *matCellDef="let product">
               {{ product.name }}
             </td>
           </ng-container>
           <ng-container matColumnDef="price">
             <th mat-header-cell *matHeaderCellDef> Precio </th>
-            <td mat-cell *matCellDef="let product" class="left">
+            <td mat-cell *matCellDef="let product">
               ${{ product.price }}
             </td>
           </ng-container>
@@ -31,7 +31,7 @@
             <th mat-header-cell *matHeaderCellDef> </th>
             <td mat-cell *matCellDef="let product">
               <div class="acciones">
-                <button mat-button mat-icon-button
+                <button mat-button mat-icon-button type="button"
                   color="primary"
                   (click)="onClickIncludeProduct(product)">
                   <mat-icon>add</mat-icon>
@@ -58,13 +58,13 @@
       <table mat-table [dataSource]="productsArray$">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Nombre </th>
-          <td mat-cell *matCellDef="let product" class="left">
+          <td mat-cell *matCellDef="let product">
             {{ product.name }}
           </td>
         </ng-container>
         <ng-container matColumnDef="price">
           <th mat-header-cell *matHeaderCellDef> Precio </th>
-          <td mat-cell *matCellDef="let product" class="left">
+          <td mat-cell *matCellDef="let product">
             ${{ product.price }}
           </td>
         </ng-container>
@@ -72,7 +72,7 @@
           <th mat-header-cell *matHeaderCellDef> </th>
           <td mat-cell *matCellDef="let i=index">
             <div class="acciones">
-              <button mat-button mat-icon-button
+              <button mat-button mat-icon-button type="button"
                 color="warn"
                 (click)="onClickDropProduct(i)">
                 <mat-icon>remove</mat-icon>
@@ -87,12 +87,13 @@
     </mat-card-content>
   </mat-card>
   <div class="actions">
-    <button mat-button mat-raised-button color="primary"
+    <button mat-button mat-raised-button type="button"
+      color="primary"
       [disabled]="isArrayEmpty$ | async"
       (click)="onClickAccept()">
       Aceptar
     </button>
-    <button mat-button mat-raised-button
+    <button mat-button mat-raised-button type="button"
       (click)="onClickCancel()">
       Cancelar
     </button>

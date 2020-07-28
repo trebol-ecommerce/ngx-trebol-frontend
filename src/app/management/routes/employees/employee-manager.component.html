@@ -9,13 +9,13 @@
       <table mat-table class="full-width-min" [dataSource]="items$">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Nombre </th>
-          <td mat-cell *matCellDef="let employee" class="left">
+          <td mat-cell *matCellDef="let employee">
             {{ employee.person.name }}
           </td>
         </ng-container>
         <ng-container matColumnDef="idCard">
           <th mat-header-cell *matHeaderCellDef> Rut </th>
-          <td mat-cell *matCellDef="let employee" class="left">
+          <td mat-cell *matCellDef="let employee">
             {{ employee.person.idCard }}
           </td>
         </ng-container>

@@ -9,27 +9,27 @@
       <table mat-table class="full-width-min" [dataSource]="items$">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef> No. </th>
-          <td mat-cell *matCellDef="let sell" class="left">
-            {{sell.id}}
+          <td mat-cell *matCellDef="let sell">
+            {{ sell.id }}
           </td>
         </ng-container>
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef> Fecha </th>
-          <td mat-cell *matCellDef="let sell" class="left">
-            {{sell.soldOn}}
+          <td mat-cell *matCellDef="let sell">
+            {{ sell.soldOn }}
           </td>
         </ng-container>
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> </th>
           <td mat-cell *matCellDef="let sell">
             <div class="acciones">
-              <button mat-button mat-icon-button
+              <button mat-button mat-icon-button type="button"
                 color="primary"
                 [disabled]="busy$ | async"
                 (click)="onClickEdit(sell)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-button mat-icon-button
+              <button mat-button mat-icon-button type="button"
                 color="warn"
                 [disabled]="busy$ | async"
                 (click)="onClickDelete(sell)">

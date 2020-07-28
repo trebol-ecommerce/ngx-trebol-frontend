@@ -9,39 +9,39 @@
       <table mat-table class="full-width-min" [dataSource]="items$">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Nombre de Usuario </th>
-          <td mat-cell *matCellDef="let user" class="left">
-            {{user.name}}
+          <td mat-cell *matCellDef="let user">
+            {{ user.name }}
           </td>
         </ng-container>
         <ng-container matColumnDef="creationDate">
           <th mat-header-cell *matHeaderCellDef> Fecha de Creación </th>
-          <td mat-cell *matCellDef="let user" class="left">
-            {{user.createdOn}}
+          <td mat-cell *matCellDef="let user">
+            {{ user.createdOn }}
           </td>
         </ng-container>
         <ng-container matColumnDef="fullName">
           <th mat-header-cell *matHeaderCellDef> Nombre Real </th>
-          <td mat-cell *matCellDef="let user" class="left">
-            {{user.person.name}}
+          <td mat-cell *matCellDef="let user">
+            {{ user.person.name }}
           </td>
         </ng-container>
         <ng-container matColumnDef="idCard">
           <th mat-header-cell *matHeaderCellDef> Rut </th>
-          <td mat-cell *matCellDef="let user" class="left">
-            {{user.person.idCard}}
+          <td mat-cell *matCellDef="let user">
+            {{ user.person.idCard }}
           </td>
         </ng-container>
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> </th>
           <td mat-cell *matCellDef="let user">
             <div>
-              <button mat-button mat-icon-button
+              <button mat-button mat-icon-button type="button"
                 color="primary"
                 [disabled]="busy$ | async"
                 (click)="onClickEdit(user)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-button mat-icon-button
+              <button mat-button mat-icon-button type="button"
                 color="warn"
                 [disabled]="busy$ | async"
                 (click)="onClickDelete(user)">

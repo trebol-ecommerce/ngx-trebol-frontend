@@ -9,20 +9,20 @@
       <table mat-table class="full-width-min" [dataSource]="items$">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef> No. </th>
-          <td mat-cell *matCellDef="let pOrder" class="left">
-            {{pOrder.id}}
+          <td mat-cell *matCellDef="let pOrder">
+            {{ pOrder.id }}
           </td>
         </ng-container>
         <ng-container matColumnDef="orderDate">
           <th mat-header-cell *matHeaderCellDef> Fecha Solicitud </th>
-          <td mat-cell *matCellDef="let pOrder" class="left">
-            {{pOrder.orderedOn}}
+          <td mat-cell *matCellDef="let pOrder">
+            {{ pOrder.orderedOn }}
           </td>
         </ng-container>
         <ng-container matColumnDef="receiptDate">
           <th mat-header-cell *matHeaderCellDef> Fecha Recepción </th>
-          <td mat-cell *matCellDef="let pOrder" class="left">
-            {{pOrder.receivedOn}}
+          <td mat-cell *matCellDef="let pOrder">
+            {{ pOrder.receivedOn }}
           </td>
         </ng-container>
         <ng-container matColumnDef="actions">
