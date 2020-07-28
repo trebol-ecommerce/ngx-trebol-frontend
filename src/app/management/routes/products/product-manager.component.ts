@@ -11,12 +11,15 @@ import { ProductManagerService } from './product-manager.service';
 @Component({
   selector: 'app-product-manager',
   templateUrl: './product-manager.component.html',
-  styleUrls: [ '../../data-manager.styles.css' ]
+  styleUrls: [
+    './product-manager.component.css',
+    '../../data-manager.styles.css'
+  ]
 })
 export class ProductManagerComponent
   extends DataManagerComponent<Product> {
 
-  public tableColumns: string[] = [ 'name', 'barcode', 'price', 'currentStock', 'criticalStock', 'type', 'actions' ];
+  public tableColumns: string[] = [ 'name', 'barcode', 'price', 'currentStock', 'criticalStock', 'actions' ];
 
   constructor(
     protected service: ProductManagerService,

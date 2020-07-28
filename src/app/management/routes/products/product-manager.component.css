@@ -1,0 +1,21 @@
+.mat-column-name {
+  max-width: 100%;
+}
+.mat-column-barcode {
+  max-width: 8rem;
+}
+.mat-column-price {
+  max-width: 8rem;
+  text-align: right;
+}
+.mat-column-currentStock {
+  max-width: 8rem;
+  text-align: center;
+}
+.mat-column-criticalStock {
+  max-width: 8rem;
+  text-align: center;
+}
+.mat-column-type {
+  max-width: 100%;
+}
