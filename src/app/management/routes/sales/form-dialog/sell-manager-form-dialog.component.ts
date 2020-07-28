@@ -2,8 +2,8 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
+import { map as concatMap, map, switchMap, exhaust, toArray } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
 import { DataItemFormAbstractComponent } from 'src/app/management/data-item-form.abstract-component';
 import { Client } from 'src/data/models/entities/Client';
@@ -35,7 +35,7 @@ export class SellManagerFormDialogComponent
   protected itemId: number;
   protected sellDetails: SellDetail[] = [];
   protected savingSource: Subject<boolean> = new Subject();
-  protected sellDetailsSource: Subject<SellDetail[]> = new BehaviorSubject(this.sellDetails);
+  protected sellDetailsSource: Subject<SellDetail[]> = new BehaviorSubject([]);
 
   public saving$: Observable<boolean> = this.savingSource.asObservable();
   public sellDetails$: Observable<SellDetail[]> = this.sellDetailsSource.asObservable();
@@ -58,6 +58,7 @@ export class SellManagerFormDialogComponent
   constructor(
     @Inject(MAT_DIALOG_DATA) data: SaleManagerFormDialogData,
     @Inject(DATA_INJECTION_TOKENS.sales) protected dataService: CompositeEntityDataIService<Sell, SellDetail>,
+    @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityDataIService<Product>,
     @Inject(DATA_INJECTION_TOKENS.clients) protected clientDataService: EntityDataIService<Client>,
     @Inject(DATA_INJECTION_TOKENS.employees) protected employeeDataService: EntityDataIService<Employee>,
     @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService,
@@ -83,18 +84,36 @@ export class SellManagerFormDialogComponent
     this.dialogTitle = ((this.itemId) ? 'Actualizar datos de' : 'Nueva') + ' Venta';
 
     this.sellDate = s.soldOn;
-    this.type.setValue(s.type.id, { emitEvent: false, onlySelf: true });
-    this.client.setValue(s.client.id, { emitEvent: false, onlySelf: true });
-    if (s.employee) {
+    if (s.type?.id) {
+      this.type.setValue(s.type.id, { emitEvent: false, onlySelf: true });
+    }
+    if (s.client?.id) {
+      this.client.setValue(s.client.id, { emitEvent: false, onlySelf: true });
+    }
+    if (s.employee?.id) {
       this.employee.setValue(s.employee.id, { emitEvent: false, onlySelf: true });
     }
 
-    this.dataService.readDetailsById(s.id).subscribe(
-      (d: SellDetail[]) => {
-        this.sellDetails = d;
-        this.sellDetailsSource.next(d);
-      }
-    );
+    if (this.itemId) {
+      this.dataService.readDetailsById(this.itemId).pipe(
+        switchMap(sellDetails => from(sellDetails)),
+        concatMap<SellDetail, Observable<SellDetail>>(
+          detail => this.productDataService.readById(detail.product.id).pipe(
+            map((product) => {
+              detail.product = product;
+              return detail;
+            })
+          )
+        ),
+        exhaust(),
+        toArray()
+      ).subscribe(
+        sellDetails => {
+          this.sellDetails = sellDetails;
+          this.sellDetailsSource.next(sellDetails);
+        }
+      );
+    }
   }
 
   ngOnInit(): void {
@@ -103,7 +122,7 @@ export class SellManagerFormDialogComponent
     this.clients$ = this.clientDataService.readAll();
 
     this.sellSubtotalValue$ = this.sellDetails$.pipe(
-      map(
+      concatMap(
         array => {
           if (array.length === 0) { return 0; }
           return array.map(detail => detail.product.price * detail.units).reduce((a, b) => a + b);
@@ -111,7 +130,7 @@ export class SellManagerFormDialogComponent
       )
     );
 
-    this.sellTotalValue$ = this.sellSubtotalValue$.pipe(map(subtotal => Math.ceil(subtotal * 1.19)));
+    this.sellTotalValue$ = this.sellSubtotalValue$.pipe(concatMap(subtotal => Math.ceil(subtotal * 1.19)));
   }
 
   ngOnDestroy(): void {
@@ -151,9 +170,13 @@ export class SellManagerFormDialogComponent
   }
 
   public onClickDecreaseDetailProductQuantity(i: number): void {
-    const detalle: SellDetail = this.sellDetails[i];
-    if (detalle) {
-      detalle.units--;
+    const detail: SellDetail = this.sellDetails[i];
+    if (detail) {
+      detail.units--;
+
+      if (detail.units <= 0) {
+        this.sellDetails.splice(i, 0);
+      }
       this.sellDetailsSource.next(this.sellDetails);
     }
   }

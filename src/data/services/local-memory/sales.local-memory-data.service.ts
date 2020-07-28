@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Sell } from 'src/data/models/entities/Sell';
 import { SellDetail } from 'src/data/models/entities/SellDetail';
 import { CompositeEntityDataIService } from '../composite-entity.data.iservice';
@@ -12,8 +12,8 @@ export const MOCK_SALES: Partial<Sell>[] = [
     soldOn: '2020-06-16',
     employee: { id: 1, role: { id: 1 } },
     details: [
-      { id: 1, product: { id: 1, name: 'Zapatillas Nike Air Jordan Azul/Negro', barcode: 'NIKE-AZLNGR-1' }, units: 4 },
-      { id: 2, product: { id: 1, name: 'Zapatillas Nike Hi-Top Rojo/Blanco', barcode: 'NIKE-ROJBCO-1' }, units: 1 },
+      { id: 1, product: { id: 1 }, units: 4 },
+      { id: 2, product: { id: 2 }, units: 1 },
     ]
   },
   {
@@ -21,7 +21,7 @@ export const MOCK_SALES: Partial<Sell>[] = [
     soldOn: '2020-06-18',
     employee: { id: 1, role: { id: 1 } },
     details: [
-      { id: 3, product: { id: 1, name: 'Zapatillas Nike Hi-Top Rojo/Negro', barcode: 'NIKE-ROJNGR-1' }, units: 2 },
+      { id: 3, product: { id: 3 }, units: 2 },
     ]
   },
   {
@@ -29,7 +29,7 @@ export const MOCK_SALES: Partial<Sell>[] = [
     soldOn: '2020-06-18',
     employee: { id: 1, role: { id: 1 } },
     details: [
-      { id: 4, product: { id: 1, name: 'Zapatillas Nike Hi-Top Rojo/Blanco', barcode: 'NIKE-ROJBCO-1' }, units: 1 },
+      { id: 4, product: { id: 2 }, units: 1 },
     ]
   }
 ];
@@ -46,6 +46,9 @@ export class SalesLocalMemoryDataService
   }
 
   public readDetailsById(id: number): Observable<SellDetail[]> {
-    return this.readById(id).pipe(map(s => s.details));
+    return this.readById(id).pipe(
+      tap(console.log),
+      map(s => s.details)
+    );
   }
 }

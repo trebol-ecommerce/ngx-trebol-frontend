@@ -6,10 +6,24 @@ form {
   display: grid;
   grid-gap: 0.5rem 1rem;
   grid-template-areas:
-    'date type'
-    'seller seller'
-    'client client'
-    'details details';
+    'date'
+    'type'
+    'seller'
+    'seller'
+    'client'
+    'details'
+    'summary';
+}
+
+@media(min-width: 640px) {
+  form {
+    grid-template-areas:
+      'date type'
+      'seller seller'
+      'client client'
+      'details details'
+      'summary summary';
+  }
 }
 
 @media(min-width: 800px) {
@@ -17,7 +31,8 @@ form {
     grid-template-areas:
       'date date type type none none'
       'seller seller seller client client client'
-      'details details details details details details';
+      'details details details details details details'
+      'summary summary summary summary summary summary';
   }
 }
 
@@ -30,42 +45,43 @@ form {
 
 .details-table-wrapper {
   overflow-y: auto;
-  height: 1rem;
 }
 
-.mat-column-quantity>div {
-  align-items: center;
-  align-content: stretch;
+.mat-column-product {
+  max-width: 100%;
 }
-
+.mat-column-price {
+  text-align: center;
+}
+.mat-column-quantity {
+  text-align: center;
+}
 .mat-column-actions {
   padding: 0px !important;
-  width: 5rem;
   max-width: 5rem;
+  text-align: right;
 }
 
-.mat-column>div {
-  padding: 0.5rem !important;
-  display: flex;
-  justify-content: space-between;
-  justify-items: center;
-  align-items: stretch;
-}
-
-.mat-column button {
-  padding: 0 0.5rem;
-  min-width: rem !important;
-}
-
-.summary {
+.summary-data {
   border: 1px solid #ddd;
   border-radius: 0.5rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1rem;
+  grid-template-columns: 1fr;
   justify-items: stretch;
   text-align: center;
   align-items: center;
   margin: 1rem 0;
   padding: 0.5rem;
+}
+
+@media(min-width: 800px) {
+  .summary-data {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
 }
