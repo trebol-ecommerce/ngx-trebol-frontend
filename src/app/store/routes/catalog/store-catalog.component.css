@@ -41,7 +41,6 @@ centered-mat-spinner {
 }
 
 @media(min-width: 800px) {
-
   app-product-filters-panel {
     padding: 1rem;
   }
@@ -50,30 +49,4 @@ centered-mat-spinner {
     grid-template-columns: repeat(auto-fit, 20rem);
     padding: 1rem;
   }
-}
-
-.catalog mat-card {
-  display: flex;
-  flex-flow: column nowrap;
-}
-
-.catalog mat-card-header {
-  flex: 0 0 auto;
-}
-
-.catalog mat-card-content {
-  flex: 1 1 auto;
-}
-
-.catalog img {
-  width: 100%;
-}
-
-.catalog mat-card-actions {
-  flex: 0 0 auto;
-  text-align: right;
-}
-
-.catalog mat-card-actions>button {
-  margin-left: 1rem;
 }

@@ -38,12 +38,4 @@ export class StoreCatalogComponent
     this.catalogService.reloadItems();
   }
 
-  public onClickAddProduct(p: Product): void {
-    this.cartService.addProductToCart(p);
-  }
-
-  public onClickViewProduct(p: Product): void {
-    this.catalogService.viewProduct(p);
-  }
-
 }

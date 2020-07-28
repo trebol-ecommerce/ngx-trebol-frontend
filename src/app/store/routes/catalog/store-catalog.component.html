@@ -7,20 +7,8 @@
   </centered-mat-spinner>
 
   <div class="catalog" [hidden]="loading$ | async">
-    <mat-card *ngFor="let product of (products$ | async)">
-      <mat-card-header (click)="onClickViewProduct(product)">
-        <mat-card-title>{{ product.name }}</mat-card-title>
-        <mat-card-subtitle>{{ product.barcode }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content (click)="onClickViewProduct(product)">
-        <img [src]="product.imagesURL[0]" [alt]="product.name" />
-      </mat-card-content>
-      <mat-card-actions>
-        <span>${{ product.price }}</span>
-        <button mat-icon-button color="primary" (click)="onClickAddProduct(product)">
-          <mat-icon>add_shopping_cart</mat-icon>
-        </button>
-      </mat-card-actions>
-    </mat-card>
+    <app-store-catalog-product-card *ngFor="let product of (products$ | async)"
+      [product]="product">
+    </app-store-catalog-product-card>
   </div>
 </div>

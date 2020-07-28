@@ -16,6 +16,7 @@ import { StoreReceiptComponent } from './routes/receipt/store-receipt.component'
 import { StoreRoutingModule } from './store-routing.module';
 import { StoreComponent } from './store.component';
 import { StoreCartService } from './store-cart.service';
+import { StoreCatalogProductCardComponent } from './routes/catalog/store-catalog-product-card/store-catalog-product-card.component';
 
 
 const SNACKBAR_DEFAULTS = {
@@ -35,7 +36,8 @@ const SNACKBAR_DEFAULTS = {
     StoreGuestShippingFormDialogComponent,
     StoreRegistrationFormDialogComponent,
     StorePaymentRedirectPromptDialogComponent,
-    StoreProductDetailsDialogComponent
+    StoreProductDetailsDialogComponent,
+    StoreCatalogProductCardComponent
   ],
   imports: [
     SharedModule,

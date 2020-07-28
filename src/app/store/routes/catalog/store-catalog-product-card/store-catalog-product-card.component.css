@@ -1,0 +1,23 @@
+img {
+  width: 100%;
+}
+
+.mat-card-actions {
+  text-align: right;
+}
+
+.price {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #558b2f;
+}
+
+.add-to-cart {
+  margin-left: 1rem;
+}
+
+.add-to-cart mat-icon {
+  font-size: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
