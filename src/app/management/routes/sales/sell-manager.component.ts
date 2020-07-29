@@ -7,6 +7,7 @@ import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { DataManagerComponent } from '../../data-manager.acomponent';
 import { SaleManagerFormDialogData, SellManagerFormDialogComponent } from './form-dialog/sell-manager-form-dialog.component';
 import { SellManagerService } from './sell-manager.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sell-manager',
@@ -42,7 +43,9 @@ export class SellManagerComponent
   }
 
   public onClickDelete(s: Sell) {
-    this.service.removeItems([s]).pipe(r => r[0]).subscribe(
+    this.service.removeItems([s]).pipe(
+      map(results => results[0])
+    ).subscribe(
       (exito: boolean) => {
         if (exito) {
           this.snackBarService.open('Venta N°' + s.id + ' (' + s.soldOn + ') eliminada.');

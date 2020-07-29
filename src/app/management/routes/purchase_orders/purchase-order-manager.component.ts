@@ -10,6 +10,7 @@ import {
   PurchaseOrderManagerFormDialogData
 } from './form-dialog/purchase-order-manager-form-dialog.component';
 import { PurchaseOrderManagerService } from './purchase-order-manager.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-purchase-order-manager',
@@ -47,7 +48,9 @@ export class PurchaseOrderManagerComponent
   }
 
   public onClickDelete(oc: PurchaseOrder) {
-    this.service.removeItems([oc]).pipe(r => r[0]).subscribe(
+    this.service.removeItems([oc]).pipe(
+      map(results => results[0])
+    ).subscribe(
       (exito: boolean) => {
         if (exito) {
           this.snackBarService.open('Orden de compra eliminada.');

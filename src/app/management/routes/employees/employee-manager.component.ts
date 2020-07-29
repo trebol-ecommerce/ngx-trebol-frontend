@@ -7,6 +7,7 @@ import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { DataManagerComponent } from '../../data-manager.acomponent';
 import { EmployeeManagerService } from './employee-manager.service';
 import { EmployeeManagementFormDialogData, EmployeeManagerFormDialogComponent } from './form-dialog/employee-manager-form-dialog.component';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-employee-manager',
@@ -44,7 +45,9 @@ export class EmployeeManagerComponent
   }
 
   public onClickDelete(e: Employee) {
-    this.service.removeItems([e]).pipe(r => r[0]).subscribe(
+    this.service.removeItems([e]).pipe(
+      map(results => results[0])
+    ).subscribe(
       (success: boolean) => {
         if (success) {
           this.snackBarService.open('Empleado \'' + e.person.name + '\' eliminado.');

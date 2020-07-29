@@ -7,6 +7,7 @@ import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { DataManagerComponent } from '../../data-manager.acomponent';
 import { ProviderManagerFormDialogComponent, ProviderManagerFormDialogData } from './form-dialog/provider-manager-form-dialog.component';
 import { ProviderManagerService } from './provider-manager.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-provider-manager',
@@ -40,7 +41,9 @@ extends DataManagerComponent<Provider> {
   }
 
   public onClickDelete(p: Provider) {
-    this.service.removeItems([p]).pipe(r => r[0]).subscribe(
+    this.service.removeItems([p]).pipe(
+      map(results => results[0])
+    ).subscribe(
       (success: boolean) => {
         if (success) {
           this.snackBarService.open('Proveedor \'' + p.person.name + '\' eliminado.');

@@ -7,6 +7,7 @@ import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { DataManagerComponent } from '../../data-manager.acomponent';
 import { ProductManagerFormDialogComponent, ProductManagerFormDialogData } from './form-dialog/product-manager-form-dialog.component';
 import { ProductManagerService } from './product-manager.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-manager',
@@ -44,7 +45,9 @@ export class ProductManagerComponent
   }
 
   public onClickDelete(prod: Product) {
-    this.service.removeItems([prod]).pipe(r => r[0]).subscribe(
+    this.service.removeItems([prod]).pipe(
+      map(results => results[0])
+    ).subscribe(
       (exito: boolean) => {
         if (exito) {
           this.snackBarService.open('Producto \'' + prod.name + '\' eliminado.');
