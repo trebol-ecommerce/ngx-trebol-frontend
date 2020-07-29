@@ -12,11 +12,11 @@ export const MOCK_EMPLOYEE_ROLES: Partial<EmployeeRole>[] = [
 ];
 
 export const MOCK_PRODUCT_FAMILIES: Partial<ProductFamily>[] = [
-  { id: 1, description: 'Ropa y Calzado', provider: { id: 1, businessCard: 'aksdnao' } }
+  { id: 1, name: 'Ropa y Calzado', provider: { id: 1, businessCard: 'aksdnao' } }
 ];
 
 export const MOCK_PRODUCT_TYPES: Partial<ProductType>[] = [
-  { id: 1, description: 'Zapatillas Hombre', productFamily: { id: 1 } }
+  { id: 1, name: 'Zapatillas Hombre', productFamily: { id: 1 } }
 ];
 
 export const MOCK_SELL_TYPES: SellType[] = [

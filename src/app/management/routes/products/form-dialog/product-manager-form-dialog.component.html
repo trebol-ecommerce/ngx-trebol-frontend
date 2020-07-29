@@ -17,7 +17,7 @@
       <mat-form-field style="grid-area: pFamily">
         <mat-select placeholder="Familia de Producto" formControlName="family">
           <mat-option *ngFor="let f of (productFamilies$ | async)" [value]="f.id">
-            {{ f.description }}
+            {{ f.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -25,7 +25,7 @@
       <mat-form-field style="grid-area: pType">
         <mat-select placeholder="Tipo de Producto" formControlName="type">
           <mat-option *ngFor="let t of (productTypes$ | async)" [value]="t.id">
-            {{ t.description }}
+            {{ t.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -52,7 +52,7 @@
           [disabled]="formGroup.invalid">
           Aceptar
         </button>
-        <button mat-button mat-raised-button
+        <button mat-button mat-raised-button type="button"
           (click)="onCancel()">
           Cancelar
         </button>

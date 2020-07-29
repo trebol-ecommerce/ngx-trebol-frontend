@@ -76,11 +76,18 @@ export class ProductManagerFormDialogComponent
     this.dialogTitle = ((this.itemId) ? 'Actualizar datos de' : 'Nuevo') + ' Producto';
 
     this.name.setValue(p.name, { emitEvent: false, onlySelf: true });
-    this.family.setValue(p.productType.productFamily.id, { emitEvent: false, onlySelf: true });
-    this.type.setValue(p.productType, { emitEvent: false, onlySelf: true });
+    this.code.setValue(p.barcode, { emitEvent: false, onlySelf: true });
     this.price.setValue(p.price, { emitEvent: false, onlySelf: true });
     this.stock.setValue(p.currentStock, { emitEvent: false, onlySelf: true });
     this.criticalStock.setValue(p.criticalStock, { emitEvent: false, onlySelf: true });
+
+    if (p.productType?.id) {
+      this.type.setValue(p.productType.id, { emitEvent: false, onlySelf: true });
+      this.family.setValue(p.productType.productFamily.id, { emitEvent: false, onlySelf: true });
+    } else {
+      this.type.setValue(null, { emitEvent: false, onlySelf: true });
+      this.family.setValue(null, { emitEvent: false, onlySelf: true });
+    }
 
     if (p.description) {
       this.description.setValue(p.description, { emitEvent: false, onlySelf: true });
@@ -140,7 +147,7 @@ export class ProductManagerFormDialogComponent
           currentStock: this.stock.value,
           criticalStock: this.criticalStock.value,
           description: this.description.value,
-          barcode: undefined
+          barcode: this.code.value
         }
       );
     }
