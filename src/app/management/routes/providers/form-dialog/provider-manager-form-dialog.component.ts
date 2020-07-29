@@ -86,7 +86,8 @@ export class ProviderManagerFormDialogComponent
     const item = this.asItem();
     if (item) {
       this.savingSource.next(true);
-      this.dataService.create(item).subscribe(
+      const obs = ((this.itemId) ? this.dataService.update(item, this.itemId) : this.dataService.create(item));
+      obs.subscribe(
         (result: Provider) => {
           // TODO: make sure prod2 is not actually prod
           if (result.id) {

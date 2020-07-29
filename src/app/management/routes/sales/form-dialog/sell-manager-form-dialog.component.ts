@@ -205,7 +205,8 @@ export class SellManagerFormDialogComponent
     const item = this.asItem();
     if (item) {
       this.savingSource.next(true);
-      this.dataService.create(item).subscribe(
+      const obs = ((this.itemId) ? this.dataService.update(item, this.itemId) : this.dataService.create(item));
+      obs.subscribe(
         (result: Sell) => {
           // TODO: make sure vt2 is not actually vt
           if (result.id) {
