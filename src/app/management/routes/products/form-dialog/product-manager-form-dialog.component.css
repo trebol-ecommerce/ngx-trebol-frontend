@@ -8,7 +8,8 @@ form {
     'price'
     'stock'
     'cStock'
-    'desc';
+    'desc'
+    'actions';
 }
 
 @media(min-width: 800px) {
@@ -18,6 +19,13 @@ form {
       'pFamily pFamily pFamily'
       'pType pType pType'
       'price stock cStock'
-      'desc desc desc';
+      'desc desc desc'
+      'actions actions actions';
   }
+}
+
+.actions {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
 }

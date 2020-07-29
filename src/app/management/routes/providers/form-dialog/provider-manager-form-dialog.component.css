@@ -1,8 +1,5 @@
-.form-container {
-  display: grid;
-  grid-gap: 1rem;
-}
-
-.form-container>* {
-  width: 100%;
+.actions {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
 }
