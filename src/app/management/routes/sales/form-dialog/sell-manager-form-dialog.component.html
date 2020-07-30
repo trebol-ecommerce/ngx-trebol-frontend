@@ -97,7 +97,7 @@
         <div class="actions">
           <button mat-button mat-raised-button type="submit"
             color="primary"
-            [disabled]="formGroup.invalid">
+            [disabled]="sellIsntReady$ | async">
             Aceptar
           </button>
           <button mat-button mat-raised-button type="button"

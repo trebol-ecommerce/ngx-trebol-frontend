@@ -2,8 +2,8 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
-import { exhaust, map as concatMap, map, switchMap, toArray } from 'rxjs/operators';
+import { BehaviorSubject, from, Observable, Subject, merge, defer, of } from 'rxjs';
+import { exhaust, map as concatMap, map, switchMap, toArray, buffer, tap } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
 import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
 import { Client } from 'src/data/models/entities/Client';
@@ -36,6 +36,7 @@ export class SellManagerFormDialogComponent
   protected sellDetails: SellDetail[] = [];
   protected savingSource: Subject<boolean> = new Subject();
   protected sellDetailsSource: Subject<SellDetail[]> = new BehaviorSubject([]);
+  protected sellReadyStates: boolean[] = [ false, false ];
 
   public saving$: Observable<boolean> = this.savingSource.asObservable();
   public sellDetails$: Observable<SellDetail[]> = this.sellDetailsSource.asObservable();
@@ -51,6 +52,8 @@ export class SellManagerFormDialogComponent
   public get type(): FormControl { return this.formGroup.get('type') as FormControl; }
   public get employee(): FormControl { return this.formGroup.get('employee') as FormControl; }
   public get client(): FormControl { return this.formGroup.get('client') as FormControl; }
+
+  public sellIsntReady$: Observable<boolean>;
 
   public tableColumns: string[] = [ 'product', 'price', 'quantity', 'actions' ];
   public dialogTitle: string;
@@ -128,6 +131,19 @@ export class SellManagerFormDialogComponent
           return array.map(detail => detail.product.price * detail.units).reduce((a, b) => a + b);
         }
       )
+    );
+
+    this.sellIsntReady$ = merge(
+      this.formGroup.statusChanges.pipe(
+        map((status: string) => (status.toUpperCase() !== 'VALID')),
+        tap(v => { this.sellReadyStates[0] = v; })
+      ),
+      this.sellDetails$.pipe(
+        map(array => (array.length === 0)),
+        tap(v => { this.sellReadyStates[1] = v; })
+      )
+    ).pipe(
+      concatMap(() => { return (this.sellReadyStates[0] || this.sellReadyStates[1]); })
     );
 
     this.sellTotalValue$ = this.sellSubtotalValue$.pipe(concatMap(subtotal => Math.ceil(subtotal * 1.19)));
