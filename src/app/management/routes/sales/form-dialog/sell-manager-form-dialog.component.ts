@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, from, Observable, Subject, merge, defer, of } from 'rxjs';
-import { exhaust, map as concatMap, map, switchMap, toArray, buffer, tap } from 'rxjs/operators';
+import { exhaust, map as concatMap, map, switchMap, toArray, buffer, tap, mapTo } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
 import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
 import { Client } from 'src/data/models/entities/Client';
@@ -36,7 +36,7 @@ export class SellManagerFormDialogComponent
   protected sellDetails: SellDetail[] = [];
   protected savingSource: Subject<boolean> = new Subject();
   protected sellDetailsSource: Subject<SellDetail[]> = new BehaviorSubject([]);
-  protected sellReadyStates: boolean[] = [ false, false ];
+  protected sellNotReadyStates: boolean[] = [ true, true ];
 
   public saving$: Observable<boolean> = this.savingSource.asObservable();
   public sellDetails$: Observable<SellDetail[]> = this.sellDetailsSource.asObservable();
@@ -135,15 +135,13 @@ export class SellManagerFormDialogComponent
 
     this.sellIsntReady$ = merge(
       this.formGroup.statusChanges.pipe(
-        map((status: string) => (status.toUpperCase() !== 'VALID')),
-        tap(v => { this.sellReadyStates[0] = v; })
+        tap(status => { this.sellNotReadyStates[0] = (status.toUpperCase() !== 'VALID'); })
       ),
       this.sellDetails$.pipe(
-        map(array => (array.length === 0)),
-        tap(v => { this.sellReadyStates[1] = v; })
+        tap(array => { this.sellNotReadyStates[1] = (array.length === 0); })
       )
     ).pipe(
-      concatMap(() => { return (this.sellReadyStates[0] || this.sellReadyStates[1]); })
+      map(() => (this.sellNotReadyStates[0] || this.sellNotReadyStates[1]))
     );
 
     this.sellTotalValue$ = this.sellSubtotalValue$.pipe(concatMap(subtotal => Math.ceil(subtotal * 1.19)));
