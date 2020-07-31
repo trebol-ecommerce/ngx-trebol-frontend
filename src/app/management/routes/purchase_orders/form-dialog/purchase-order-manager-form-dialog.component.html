@@ -7,7 +7,7 @@
     <form [formGroup]="formGroup" (submit)="onSubmit()">
 
       <mat-form-field style="grid-area: date">
-        <input matInput placeholder="Fecha de Solicitud" [ngModel]="fechaSolicitud"
+        <input matInput placeholder="Fecha de Solicitud" [ngModel]="orderDate"
           [ngModelOptions]="{ standalone: true }" disabled />
       </mat-form-field>
 

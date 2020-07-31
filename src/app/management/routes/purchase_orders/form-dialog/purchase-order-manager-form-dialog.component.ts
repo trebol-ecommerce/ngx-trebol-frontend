@@ -45,7 +45,7 @@ export class PurchaseOrderManagerFormDialogComponent
   public get provider(): FormControl { return this.formGroup.get('provider') as FormControl; }
   public tableColumns: string[] = [ 'product', 'price', 'quantity', 'actions' ];
 
-  public fechaSolicitud: string;
+  public orderDate: string;
   public dialogTitle: string;
 
   constructor(
@@ -60,7 +60,7 @@ export class PurchaseOrderManagerFormDialogComponent
     protected dialogService: MatDialog
   ) {
     super();
-    this.fechaSolicitud = (new Date()).toLocaleDateString();
+    this.orderDate = (new Date()).toLocaleDateString();
 
     this.formGroup = this.formBuilder.group({
       employee: [null, Validators.required],
@@ -105,7 +105,7 @@ export class PurchaseOrderManagerFormDialogComponent
       return {
         id: this.itemId ? this.itemId : null,
         status: null,
-        orderedOn: this.fechaSolicitud,
+        orderedOn: this.orderDate,
         receivedOn: null,
         details: this.purchaseOrderDetails,
         provider: { id: this.provider.value },
