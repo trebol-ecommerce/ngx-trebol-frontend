@@ -2,11 +2,13 @@ import { Observable } from 'rxjs';
 import { EmployeeRole } from 'src/data/models/entities/EmployeeRole';
 import { ProductFamily } from 'src/data/models/entities/ProductFamily';
 import { ProductType } from 'src/data/models/entities/ProductType';
+import { CompanyDetails } from '../models/CompanyDetails';
 import { PurchaseOrderType } from '../models/entities/PurchaseOrderType';
 import { SellType } from '../models/entities/SellType';
 
 export interface SharedDataIService {
 
+  readCompanyDetails(): Observable<CompanyDetails>;
   readAllEmployeeRoles(): Observable<EmployeeRole[]>;
   readAllProductFamilies(): Observable<ProductFamily[]>;
   readAllProductTypes(): Observable<ProductType[]>;

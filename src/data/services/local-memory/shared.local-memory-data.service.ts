@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { CompanyDetails } from 'src/data/models/CompanyDetails';
 import { EmployeeRole } from 'src/data/models/entities/EmployeeRole';
 import { ProductFamily } from 'src/data/models/entities/ProductFamily';
 import { ProductType } from 'src/data/models/entities/ProductType';
 import { PurchaseOrderType } from 'src/data/models/entities/PurchaseOrderType';
 import { SellType } from 'src/data/models/entities/SellType';
 import { SharedDataIService } from '../shared.data.iservice';
+
+export const MOCK_COMPANY_DETAILS: CompanyDetails = {
+  name: 'Nombre de la compañía',
+  description: 'Descripción de la compañía',
+  bannerImageURL: 'assets/img/banner.png',
+  logoImageURL: 'assets/img/logo.png'
+};
 
 export const MOCK_EMPLOYEE_ROLES: Partial<EmployeeRole>[] = [
   { id: 1, name: 'Administrador' }
@@ -32,6 +40,10 @@ export const MOCK_PURCHASE_ORDER_TYPES: PurchaseOrderType[] = [
 @Injectable()
 export class SharedLocalMemoryDataService
   implements SharedDataIService {
+
+  public readCompanyDetails(): Observable<CompanyDetails> {
+    return of(MOCK_COMPANY_DETAILS);
+  }
 
   public readAllEmployeeRoles(): Observable<EmployeeRole[]> {
     return of(MOCK_EMPLOYEE_ROLES.map(r => Object.assign(new EmployeeRole(), r)));
