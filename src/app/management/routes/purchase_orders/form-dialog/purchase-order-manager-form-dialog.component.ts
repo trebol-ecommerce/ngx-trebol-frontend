@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, merge } from 'rxjs';
 import { AppUserService } from 'src/app/app-user.service';
 import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
 import { Employee } from 'src/data/models/entities/Employee';
@@ -15,6 +15,7 @@ import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { ProductsArrayDialogComponent } from '../../../dialogs/products-array/products-array-dialog.component';
+import { map, tap, concatMap } from 'rxjs/operators';
 
 export interface PurchaseOrderManagerFormDialogData {
   purchaseOrder: PurchaseOrder;
@@ -33,10 +34,12 @@ export class PurchaseOrderManagerFormDialogComponent
   protected purchaseOrderDetails: PurchaseOrderDetail[] = [];
   protected purchaseOrderDetailsSource: Subject<PurchaseOrderDetail[]> = new BehaviorSubject([]);
   protected savingSource: Subject<boolean> = new Subject();
+  protected orderNotReadyStates: boolean[] = [ true, true ];
 
   public saving$: Observable<boolean> = this.savingSource.asObservable();
   public purchaseOrderDetails$: Observable<PurchaseOrderDetail[]> = this.purchaseOrderDetailsSource.asObservable();
   public purchaseOrderSubtotalValue$: Observable<number>;
+
   public employees$: Observable<Employee[]>;
   public providers$: Observable<Provider[]>;
 
@@ -44,6 +47,8 @@ export class PurchaseOrderManagerFormDialogComponent
   public get employee(): FormControl { return this.formGroup.get('employee') as FormControl; }
   public get provider(): FormControl { return this.formGroup.get('provider') as FormControl; }
   public tableColumns: string[] = [ 'product', 'price', 'quantity', 'actions' ];
+
+  public orderIsntReady$: Observable<boolean>;
 
   public orderDate: string;
   public dialogTitle: string;
@@ -96,6 +101,17 @@ export class PurchaseOrderManagerFormDialogComponent
   ngOnInit(): void {
     this.providers$ = this.providerDataService.readAll();
     this.employees$ = this.employeeDataService.readAll();
+
+    this.orderIsntReady$ = merge(
+      this.formGroup.statusChanges.pipe(
+        tap(status => { this.orderNotReadyStates[0] = (status.toUpperCase() !== 'VALID'); })
+      ),
+      this.purchaseOrderDetails$.pipe(
+        tap(array => { this.orderNotReadyStates[1] = (array.length === 0); })
+      )
+    ).pipe(
+      map(() => (this.orderNotReadyStates[0] || this.orderNotReadyStates[1]))
+    );
   }
 
   public asItem(): PurchaseOrder {
@@ -132,7 +148,6 @@ export class PurchaseOrderManagerFormDialogComponent
               }
             )
           );
-          console.log(newDetails);
           this.purchaseOrderDetails.push(...newDetails);
           this.purchaseOrderDetailsSource.next(this.purchaseOrderDetails);
         }
@@ -141,17 +156,21 @@ export class PurchaseOrderManagerFormDialogComponent
   }
 
   public onClickIncreaseDetailProductQuantity(index: number): void {
-    const detalle: PurchaseOrderDetail = this.purchaseOrderDetails[index];
-    if (detalle) {
-      detalle.units++;
+    const detail: PurchaseOrderDetail = this.purchaseOrderDetails[index];
+    if (detail) {
+      detail.units++;
       this.purchaseOrderDetailsSource.next(this.purchaseOrderDetails);
     }
   }
 
   public onClickDecreaseDetailProductQuantity(index: number): void {
-    const detalle: PurchaseOrderDetail = this.purchaseOrderDetails[index];
-    if (detalle) {
-      detalle.units--;
+    const detail: PurchaseOrderDetail = this.purchaseOrderDetails[index];
+    if (detail) {
+      detail.units--;
+
+      if (detail.units <= 0) {
+        this.purchaseOrderDetails.splice(index, 1);
+      }
       this.purchaseOrderDetailsSource.next(this.purchaseOrderDetails);
     }
   }
@@ -162,36 +181,30 @@ export class PurchaseOrderManagerFormDialogComponent
   }
 
   public onSubmit(): void {
-    if (this.purchaseOrderDetails.length === 0) {
-      this.snackBarService.open('Se requieren productos para realizar una orden de compra.', undefined, { duration: 6000 });
-    } else if (this.purchaseOrderDetails.some(dtl => dtl.units <= 0)) {
-      this.snackBarService.open('Está solicitando 0 o menos unidades de un producto.', undefined, { duration: 8000 });
-    } else {
-      const item = this.asItem();
-      if (item) {
-        this.savingSource.next(true);
-        const obs = ((this.itemId) ? this.dataService.update(item, this.itemId) : this.dataService.create(item));
-        obs.subscribe(
-          (result: PurchaseOrder) => {
-            // TODO: make sure vnt2 is not actually vnt
-            if (result.id) {
-              if (item.id) {
-                this.snackBarService.open('Orden de compra \'' + result.id + '\' actualizada exitosamente.', 'OK', { duration: -1 });
-              } else {
-                this.snackBarService.open('Orden de compra \'' + result.id + '\' registrada exitosamente.', 'OK', { duration: -1 });
-              }
-              this.dialog.close(result);
+    const item = this.asItem();
+    if (item) {
+      this.savingSource.next(true);
+      const obs = ((this.itemId) ? this.dataService.update(item, this.itemId) : this.dataService.create(item));
+      obs.subscribe(
+        (result: PurchaseOrder) => {
+          // TODO: make sure vnt2 is not actually vnt
+          if (result.id) {
+            if (item.id) {
+              this.snackBarService.open('Orden de compra \'' + result.id + '\' actualizada exitosamente.', 'OK', { duration: -1 });
             } else {
-              this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
-              this.savingSource.next(false);
+              this.snackBarService.open('Orden de compra \'' + result.id + '\' registrada exitosamente.', 'OK', { duration: -1 });
             }
-          },
-          err => {
+            this.dialog.close(result);
+          } else {
             this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
             this.savingSource.next(false);
           }
-        );
-      }
+        },
+        err => {
+          this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
+          this.savingSource.next(false);
+        }
+      );
     }
   }
 
