@@ -1,1 +1,10 @@
-<p>store-company-details-dialog works!</p>
+<div class="dialog">
+  <div class="banner">
+    <img [src]="data.bannerImageURL" />
+  </div>
+  <div class="presentation">
+    <img class="logo" [src]="data.logoImageURL" [alt]="data.name" />
+    <span class="name">{{ data.name }}</span>
+  </div>
+  <p class="profile">{{ data.description }}</p>
+</div>
