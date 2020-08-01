@@ -14,6 +14,7 @@ import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { EditProfileFormDialogComponent } from '../../shared/edit-profile-form-dialog/edit-profile-form-dialog.component';
+import { StoreCompanyDetailsDialogComponent } from '../dialogs/company-details/store-company-details-dialog.component';
 import { StoreLoginFormDialogComponent } from '../dialogs/login-form/store-login-form-dialog.component';
 import { StoreCartService } from '../store-cart.service';
 
@@ -99,6 +100,12 @@ export class StoreHeaderComponent
           this.router.navigateByUrl('/management');
         }
       }
+    );
+  }
+
+  public onClickViewCompanyDetails(): void {
+    this.dialogService.open(
+      StoreCompanyDetailsDialogComponent
     );
   }
 
