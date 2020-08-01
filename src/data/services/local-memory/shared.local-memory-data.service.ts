@@ -11,7 +11,7 @@ import { SharedDataIService } from '../shared.data.iservice';
 export const MOCK_COMPANY_DETAILS: CompanyDetails = {
   name: 'Nombre de la compañía',
   description: 'Descripción de la compañía',
-  bannerImageURL: 'assets/img/banner.png',
+  bannerImageURL: 'assets/img/mikael-frivold-vJ1Pf0d-0HY-unsplash.jpg',
   logoImageURL: 'assets/img/logo.png'
 };
 
