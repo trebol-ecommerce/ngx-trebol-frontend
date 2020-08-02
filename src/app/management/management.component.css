@@ -15,19 +15,11 @@ mat-sidenav-container {
 mat-sidenav {
   border-right: none;
 }
-mat-sidenav.mat-drawer-opened {
-  width: 100vw;
-}
-@media(min-width: 800px) {
-  mat-sidenav.mat-drawer-opened {
-    width: auto;
-  }
-}
 
 .content {
   overflow: hidden;
 }
 
 app-management-footer {
-  flex: 0 1 auto;
+  flex: 0 0 auto;
 }

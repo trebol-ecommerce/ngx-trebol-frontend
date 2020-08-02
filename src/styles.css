@@ -5,13 +5,15 @@
 @import 'assets/styles/important.css';
 
 * {
-  font-family: 'Franklin Gothic Medium', sans-serif;
+  font-family: Roboto, sans-serif;
 }
 
-body {
+body, app-root {
   width: 100vw;
   height: 100vh;
   margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 table,
