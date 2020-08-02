@@ -1,42 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { SidenavModuleItemMetadata } from './SidenavModuleItemMetadata';
+import { ManagementChildRoute, MANAGEMENT_CHILD_ROUTES } from '../management-routing.module';
 import { SidenavModuleItem } from './SidenavModuleItem';
-
-const META_MODULOS: { [key: string]: SidenavModuleItemMetadata } = {
-  dashboard: {
-    title: 'Resumen',
-    materialIconName: 'home'
-  },
-  clients: {
-    title: 'Clientes',
-    materialIconName: 'person'
-  },
-  employees: {
-    title: 'Empleados',
-    materialIconName: 'work'
-  },
-  products: {
-    title: 'Productos',
-    materialIconName: 'store'
-  },
-  providers: {
-    title: 'Proveedores',
-    materialIconName: 'rv_hookup'
-  },
-  sales: {
-    title: 'Ventas',
-    materialIconName: 'attach_money'
-  },
-  purchase_orders: {
-    title: 'Ords. Compra',
-    materialIconName: 'assignment'
-  },
-  users: {
-    title: 'Usuarios',
-    materialIconName: 'perm_identity'
-  }
-};
 
 @Component({
   selector: 'app-management-sidenav',
@@ -51,29 +16,16 @@ export class ManagementSidenavComponent {
   constructor(
     protected router: Router
   ) {
-    this.modules = this.generateModuleList();
+    this.modules = MANAGEMENT_CHILD_ROUTES.map(this.routeToListItem);
   }
 
-  protected generateModuleList(): SidenavModuleItem[] {
-
-    const r2 = this.router.config.filter(
-      route => route.path === this.baseModule
-    )[0].children.filter(
-      route => 'component' in route
-    );
-
-    return r2.map(
-      (r) => {
-        const meta = META_MODULOS[r.path];
-        const protoModulo: SidenavModuleItem = {
-          path: r.path,
-          text: meta.title,
-          icon: meta.materialIconName,
-          active: false
-        };
-        return protoModulo;
-      }
-    );
+  protected routeToListItem(r: ManagementChildRoute): SidenavModuleItem {
+    return {
+      path: r.path,
+      text: r.data.title,
+      icon: r.data.matIcon,
+      active: false
+    };
   }
 
   public onClickNavigate(indice: number) {

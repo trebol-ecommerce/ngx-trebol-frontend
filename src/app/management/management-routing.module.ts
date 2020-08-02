@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Route, RouterModule, Routes } from '@angular/router';
 import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementComponent } from './management.component';
 import { ClientManagerComponent } from './routes/clients/client-manager.component';
@@ -11,18 +11,26 @@ import { PurchaseOrderManagerComponent } from './routes/purchase_orders/purchase
 import { SellManagerComponent } from './routes/sales/sell-manager.component';
 import { UserManagerComponent } from './routes/users/user-manager.component';
 
+export interface ManagementChildRoute extends Route {
+  data: { matIcon: string, title: string }
+}
+
+export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
+  { path: 'dashboard', component: ManagementDashboardComponent, data: { matIcon: 'home', title: 'Resumen' } },
+  { path: 'clients', component: ClientManagerComponent, data: { matIcon: 'person', title: 'Clientes' } },
+  { path: 'employees', component: EmployeeManagerComponent, data: { matIcon: 'work', title: 'Empleados' } },
+  { path: 'products', component: ProductManagerComponent, data: { matIcon: 'store', title: 'Productos' } },
+  { path: 'providers', component: ProviderManagerComponent, data: { matIcon: 'rv_hookup', title: 'Proveedores' } },
+  { path: 'purchase_orders', component: PurchaseOrderManagerComponent, data: { matIcon: 'attach_money', title: 'Ventas' } },
+  { path: 'sales', component: SellManagerComponent, data: { matIcon: 'assignment', title: 'Ords. Compra' } },
+  { path: 'users', component: UserManagerComponent, data: { matIcon: 'perm_identity', title: 'Usuarios' } }
+];
+
 const managementRoutes: Routes = [
   {
     path: 'management', component: ManagementComponent,
     children: [
-      { path: 'dashboard', component: ManagementDashboardComponent },
-      { path: 'clients', component: ClientManagerComponent },
-      { path: 'employees', component: EmployeeManagerComponent },
-      { path: 'products', component: ProductManagerComponent },
-      { path: 'providers', component: ProviderManagerComponent },
-      { path: 'purchase_orders', component: PurchaseOrderManagerComponent },
-      { path: 'sales', component: SellManagerComponent },
-      { path: 'users', component: UserManagerComponent },
+      ...MANAGEMENT_CHILD_ROUTES,
       {
         path: '**', pathMatch: 'full', redirectTo: 'dashboard'
       }
