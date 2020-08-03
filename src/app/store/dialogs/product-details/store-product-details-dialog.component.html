@@ -7,17 +7,20 @@
   </div>
   <div class="actions">
     <span class="price">${{ product.price }}</span>
-    <div class="quantity-wrapper">
-      <button mat-button mat-icon-button type="button"
-        (click)="onClickIncreaseProductQuantity()">
-        <mat-icon>add </mat-icon>
-      </button>
-      <span class="quantity">{{ productUnitsInCart$ | async }}</span>
-      <button mat-button mat-icon-button type="button"
-        [disabled]="productNotInCart$ | async"
-        (click)="onClickDecreaseProductQuantity()">
-        <mat-icon>remove</mat-icon>
-      </button>
+    <div class="add-to-cart">
+      <mat-icon>shopping_cart</mat-icon>
+      <div class="quantity-wrapper">
+        <button mat-button mat-icon-button type="button"
+          (click)="onClickIncreaseProductQuantity()">
+          <mat-icon>add </mat-icon>
+        </button>
+        <span class="quantity">{{ productUnitsInCart$ | async }}</span>
+        <button mat-button mat-icon-button type="button"
+          [disabled]="productNotInCart$ | async"
+          (click)="onClickDecreaseProductQuantity()">
+          <mat-icon>remove</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 </div>
