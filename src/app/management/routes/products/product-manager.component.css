@@ -5,15 +5,15 @@
   max-width: 8rem;
 }
 .mat-column-price {
-  max-width: 8rem;
-  text-align: right;
+  max-width: 9rem;
+  text-align: center;
 }
 .mat-column-currentStock {
-  max-width: 8rem;
+  max-width: 9rem;
   text-align: center;
 }
 .mat-column-criticalStock {
-  max-width: 8rem;
+  max-width: 9rem;
   text-align: center;
 }
 .mat-column-type {
