@@ -37,7 +37,7 @@ centered-mat-spinner {
   justify-content: center;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: var(--color-bg-secondary);
+  background-color: var(--color-bg-secondary-light);
 }
 
 @media(min-width: 800px) {

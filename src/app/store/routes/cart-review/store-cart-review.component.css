@@ -4,7 +4,7 @@
   flex-flow: column nowrap;
   align-items: stretch;
   align-content: center;
-  background-color: var(--color-bg-secondary);
+  background-color: var(--color-bg-secondary-light);
 }
 
 h2.products {
@@ -72,7 +72,8 @@ h3.summary {
   flex: 0 0 auto;
   margin: 0;
   padding: 0.25rem 1rem;
-  background-color: var(--color-bg-secondary-dark);
+  background-color: var(--color-bg-secondary);
+  font-weight: 500;
 }
 div.summary {
   flex: 0 0 3rem;
@@ -82,7 +83,7 @@ div.summary {
   grid-gap: 0.25rem;
   align-items: center;
   align-content: center;
-  background-color: var(--color-bg-secondary);
+  background-color: var(--color-bg-secondary-light);
 }
 @media(min-width: 720px) {
   h3.summary {

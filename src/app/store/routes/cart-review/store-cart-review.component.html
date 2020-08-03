@@ -10,7 +10,7 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef class="center"> Precio </th>
+        <th mat-header-cell *matHeaderCellDef class="center"> Precio / Unidad </th>
         <td mat-cell *matCellDef="let detail" class="center">
           ${{ detail.product.price }}
         </td>
@@ -31,7 +31,7 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef class="center"> Total </th>
+        <th mat-header-cell *matHeaderCellDef class="center"> Precio </th>
         <td mat-cell *matCellDef="let detail" class="center">
           ${{ detail.product.price * detail.units }}
         </td>
