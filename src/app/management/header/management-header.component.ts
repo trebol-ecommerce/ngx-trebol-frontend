@@ -15,8 +15,9 @@ import { ManagementService } from '../management.service';
 })
 export class ManagementHeaderComponent {
 
+  public moduleName$: Observable<string>;
+
   public appName = 'New Bazaar';
-  public moduleName = 'Tienda';
   public userName = 'Invitado';
 
   constructor(
@@ -25,7 +26,9 @@ export class ManagementHeaderComponent {
     protected dialogService: MatDialog,
     protected router: Router,
     protected snackBarService: MatSnackBar
-  ) { }
+  ) {
+    this.moduleName$ = this.service.currentPageName$.pipe();
+  }
 
   public switchSidenavOpenState(): void {
     this.service.switchSidenav();

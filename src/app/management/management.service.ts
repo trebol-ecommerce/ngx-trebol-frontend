@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { ActivatedRouteSnapshot, ActivationEnd, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, throttleTime } from 'rxjs/operators';
 import { SessionDataIService } from 'src/data/services/auth.data.iservice';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { AppUserService } from '../app-user.service';
@@ -14,6 +14,7 @@ export class ManagementService
   protected isSidenavOpenSource: Subject<boolean> = new BehaviorSubject(this.isSidenavOpen);
 
   public isSidenavOpen$: Observable<boolean> = this.isSidenavOpenSource.asObservable();
+  public activeRouteSnapshot$: Observable<ActivatedRouteSnapshot>;
   public currentPageName$: Observable<string>;
 
   constructor(
@@ -21,9 +22,15 @@ export class ManagementService
     protected appUserService: AppUserService,
     protected router: Router
   ) {
-    this.currentPageName$ = this.router.events.pipe(
-      filter((ev: RouterEvent) => ev instanceof NavigationEnd),
-      map((ev: NavigationEnd) => ev.urlAfterRedirects)
+
+    this.activeRouteSnapshot$ = this.router.events.pipe(
+      filter(ev => ev instanceof ActivationEnd),
+      throttleTime(50),
+      map(ev => (ev as ActivationEnd).snapshot)
+    );
+
+    this.currentPageName$ = this.activeRouteSnapshot$.pipe(
+      map(snap => snap.data.title as string)
     );
   }
 
@@ -35,10 +42,5 @@ export class ManagementService
 
   ngOnDestroy(): void {
     this.isSidenavOpenSource.complete();
-    // protected alCambiarSesion(): void {
-    //   if (!this.authService.sesion) {
-    //     this.router.navigateByUrl('/store');
-    //   }
-    // }
   }
 }

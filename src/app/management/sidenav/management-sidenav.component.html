@@ -1,8 +1,7 @@
 <div class="sidenav">
   <mat-nav-list>
-    <a mat-list-item *ngFor="let module of modules; let i = index"
-      [routerLink]="['/'+baseModule, module.path]"
-      (click)="onClickNavigate(i)"
+    <a mat-list-item *ngFor="let module of (modules$ | async)"
+      [routerLink]="[baseModule, module.path]"
       [class.active]="module.active">
       <mat-icon>{{ module.icon }}</mat-icon>
       {{ module.text }}

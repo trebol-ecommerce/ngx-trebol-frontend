@@ -10,7 +10,7 @@
     <h1>{{ appName }}</h1>
   </div>
   <div class="middle">
-    <!-- <span>{{ moduleName }}</span> -->
+    <span>{{ moduleName$ | async }}</span>
   </div>
   <mat-menu #headerMenu>
     <span mat-menu-item disabled>{{ userName }}</span>
