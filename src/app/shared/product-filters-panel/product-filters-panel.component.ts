@@ -7,6 +7,8 @@ import { ProductType } from 'src/data/models/entities/ProductType';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { SharedDataIService } from 'src/data/services/shared.data.iservice';
 
+//TODO refactor all data service interactions into a separate service
+
 export interface ProductFilters {
   name?: string;
   typeId?: number;

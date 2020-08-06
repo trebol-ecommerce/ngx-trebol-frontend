@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,8 +8,7 @@ import { map } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
 import { Session } from 'src/data/models/entities/Session';
 import { Login } from 'src/data/models/Login';
-import { SessionDataIService } from 'src/data/services/auth.data.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
+
 
 @Component({
   selector: 'app-store-login-form-dialog',
@@ -30,7 +29,6 @@ export class StoreLoginFormDialogComponent {
   public get password(): FormControl { return this.formGroup.get('password') as FormControl; }
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.sessions) protected authDataService: SessionDataIService,
     protected dialog: MatDialogRef<StoreLoginFormDialogComponent>,
     protected formBuilder: FormBuilder,
     protected router: Router,

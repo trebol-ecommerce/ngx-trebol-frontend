@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -8,11 +8,6 @@ import { AppUserService } from 'src/app/app-user.service';
 import { TITLE } from 'src/app/app.component';
 import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 import { EmployeeRolesEnum } from 'src/data/enums/EmployeeRolesEnum';
-import { Person } from 'src/data/models/entities/Person';
-import { SessionDataIService } from 'src/data/services/auth.data.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
-import { EntityDataIService } from 'src/data/services/entity.data.iservice';
-import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { EditProfileFormDialogComponent } from '../../shared/edit-profile-form-dialog/edit-profile-form-dialog.component';
 import { StoreCompanyDetailsDialogComponent } from '../dialogs/company-details/store-company-details-dialog.component';
 import { StoreLoginFormDialogComponent } from '../dialogs/login-form/store-login-form-dialog.component';
@@ -35,8 +30,6 @@ export class StoreHeaderComponent
   public userName$: Observable<string>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.sessions) protected authDataService: SessionDataIService,
-    @Inject(DATA_INJECTION_TOKENS.people) protected peopleDataService: EntityDataIService<Person>,
     protected cartService: StoreCartService,
     protected appUserService: AppUserService,
     protected snackBarService: MatSnackBar,
@@ -124,17 +117,9 @@ export class StoreHeaderComponent
   }
 
   public onClickEditProfile(): void {
-    const sesion = this.appUserService.getCurrentSession();
-    this.peopleDataService.readById(sesion.user.person.id).subscribe(
-      () => {
-        this.dialogService.open(
-          EditProfileFormDialogComponent,
-          { width: '60rem' }
-        );
-      },
-      () => {
-        this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
-      }
+    this.dialogService.open(
+      EditProfileFormDialogComponent,
+      { width: '60rem' }
     );
   }
 

@@ -19,6 +19,8 @@ import { SharedDataIService } from 'src/data/services/shared.data.iservice';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { ProductsArrayDialogComponent } from '../../../dialogs/products-array/products-array-dialog.component';
 
+//TODO refactor all data service interactions into a separate service
+
 export interface SaleManagerFormDialogData {
   sell: Sell;
 }

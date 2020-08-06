@@ -7,6 +7,8 @@ import { SellDetail } from 'src/data/models/entities/SellDetail';
 import { CompositeEntityDataIService } from 'src/data/services/composite-entity.data.iservice';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 
+//TODO refactor all data service interactions into a separate service
+
 @Component({
   selector: 'app-store-receipt',
   templateUrl: './store-receipt.component.html',

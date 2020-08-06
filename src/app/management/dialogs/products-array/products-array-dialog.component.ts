@@ -8,7 +8,8 @@ import { ProductFilters } from 'src/app/shared/product-filters-panel/product-fil
 import { Product } from 'src/data/models/entities/Product';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
-import { SharedDataIService } from 'src/data/services/shared.data.iservice';
+
+//TODO refactor all data service interactions into a separate service
 
 @Component({
   selector: 'app-products-array-dialog',
@@ -32,7 +33,6 @@ export class ProductsArrayDialogComponent
 
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService,
     @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityDataIService<Product>,
     protected dialog: MatDialogRef<ProductsArrayDialogComponent>,
     protected formBuilder: FormBuilder,

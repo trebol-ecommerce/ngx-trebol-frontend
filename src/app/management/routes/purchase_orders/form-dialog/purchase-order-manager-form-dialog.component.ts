@@ -17,6 +17,8 @@ import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { ProductsArrayDialogComponent } from '../../../dialogs/products-array/products-array-dialog.component';
 import { map, tap, concatMap } from 'rxjs/operators';
 
+//TODO refactor all data service interactions into a separate service
+
 export interface PurchaseOrderManagerFormDialogData {
   purchaseOrder: PurchaseOrder;
 }
