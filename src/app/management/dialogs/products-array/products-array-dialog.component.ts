@@ -1,77 +1,51 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, merge, Observable, Subject } from 'rxjs';
-import { concatMap, map, mapTo } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { Product } from 'src/data/models/entities/Product';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
-import { EntityDataIService } from 'src/data/services/entity.data.iservice';
-
-//TODO refactor all data service interactions into a separate service
+import { ProductsArrayService } from './products-array.service';
 
 @Component({
   selector: 'app-products-array-dialog',
   templateUrl: './products-array-dialog.component.html',
   styleUrls: [ './products-array-dialog.component.css' ]
 })
-export class ProductsArrayDialogComponent
-  implements OnInit {
+export class ProductsArrayDialogComponent {
 
   protected productsArray: Product[] = [];
 
-  protected productsArraySource: Subject<Product[]> = new BehaviorSubject([]);
-  protected productFiltersSource: Subject<ProductFilters> = new BehaviorSubject({});
-
-  public productsArray$: Observable<Product[]> = this.productsArraySource.asObservable();
-  public loading$: Observable<boolean>;
   public filteredProductsArray$: Observable<Product[]>;
+  public productsArray$: Observable<Product[]>;
+  public loading$: Observable<boolean>;
   public isArrayEmpty$: Observable<boolean>;
 
   public productTableColumns: string[] = [ 'name', 'price', 'actions' ];
 
-
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityDataIService<Product>,
+    protected service: ProductsArrayService,
     protected dialog: MatDialogRef<ProductsArrayDialogComponent>,
     protected formBuilder: FormBuilder,
     protected snackBarService: MatSnackBar
   ) {
+    this.filteredProductsArray$ = this.service.filteredProductsArray$.pipe();
+    this.productsArray$ = this.service.productsArray$.pipe();
+    this.loading$ = this.service.loading$.pipe();
     this.isArrayEmpty$ = this.productsArray$.pipe(map(array => (array.length === 0)));
   }
 
-  ngOnInit(): void {
-    this.filteredProductsArray$ = this.productFiltersSource.asObservable().pipe(
-      concatMap(
-        (filters: ProductFilters) => {
-          if (JSON.stringify(filters) !== '{}') {
-            return this.productDataService.readFiltered(filters);
-          } else {
-            return this.productDataService.readAll();
-          }
-        }
-      )
-    );
-
-    this.loading$ = merge(
-      this.productFiltersSource.asObservable().pipe(mapTo(true)),
-      this.filteredProductsArray$.pipe(mapTo(false))
-    );
+  public onFiltersChange(f: ProductFilters): void {
+    this.service.changeFiltersTo(f);
   }
 
-  public onFiltersChange(filters: ProductFilters): void {
-    this.productFiltersSource.next(filters);
+  public onClickIncludeProduct(p: Product): void {
+    this.service.includeProduct(p);
   }
 
-  public onClickIncludeProduct(prod: Product): void {
-    this.productsArray.push(prod);
-    this.productsArraySource.next(this.productsArray);
-  }
-
-  public onClickDropProduct(index: number): void {
-    this.productsArray.splice(index, 1);
-    this.productsArraySource.next(this.productsArray);
+  public onClickDropProduct(i: number): void {
+    this.service.dropProductByIndex(i);
   }
 
   public onClickAccept(): void {
