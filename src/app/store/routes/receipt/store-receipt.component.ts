@@ -1,13 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Sell } from 'src/data/models/entities/Sell';
 import { SellDetail } from 'src/data/models/entities/SellDetail';
-import { CompositeEntityDataIService } from 'src/data/services/composite-entity.data.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
-
-//TODO refactor all data service interactions into a separate service
+import { StoreReceiptService } from './store-receipt.service';
 
 @Component({
   selector: 'app-store-receipt',
@@ -17,32 +14,25 @@ import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 export class StoreReceiptComponent
   implements OnInit {
 
-  protected externalDataSource: Subject<Sell> = new BehaviorSubject(null);
+  protected sell$: Observable<Sell>;
 
   public loading$: Observable<boolean>;
   public details$: Observable<SellDetail[]>;
   public soldOn$: Observable<string>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.sales) protected sellDataService: CompositeEntityDataIService<Sell, SellDetail>,
+    protected service: StoreReceiptService,
     protected route: ActivatedRoute,
   ) {
-    this.loading$ = this.externalDataSource.asObservable().pipe(map(s => !s));
-    this.details$ = this.externalDataSource.asObservable().pipe(map(s => s.details));
-    this.soldOn$ = this.externalDataSource.asObservable().pipe(map(s => s.soldOn));
-  }
-
-  protected fetchSell(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.sellDataService.readById(id).subscribe(
-      sell => {
-        this.externalDataSource.next(sell);
-      }
-    );
+    this.sell$ = this.service.sell$.pipe();
+    this.loading$ = this.sell$.pipe(map(s => !s));
+    this.details$ = this.sell$.pipe(map(s => s.details));
+    this.soldOn$ = this.sell$.pipe(map(s => s.soldOn));
   }
 
   ngOnInit(): void {
-    this.fetchSell();
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.service.fetchSell(id);
   }
 
 }

@@ -15,6 +15,7 @@ import { StoreCatalogProductCardComponent } from './routes/catalog/product-card/
 import { StoreCatalogComponent } from './routes/catalog/store-catalog.component';
 import { StoreCatalogService } from './routes/catalog/store-catalog.service';
 import { StoreReceiptComponent } from './routes/receipt/store-receipt.component';
+import { StoreReceiptService } from './routes/receipt/store-receipt.service';
 import { StoreCartService } from './store-cart.service';
 import { StoreRoutingModule } from './store-routing.module';
 import { StoreComponent } from './store.component';
@@ -48,6 +49,7 @@ const SNACKBAR_DEFAULTS = {
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: SNACKBAR_DEFAULTS},
     StoreCartService,
+    StoreReceiptService,
     StoreCatalogService
   ]
 })
