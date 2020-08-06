@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StoreCartReviewComponent } from './store-cart-review.component';
+import { StoreCartService } from '../../store-cart.service';
 
 describe('StoreCartReviewComponent', () => {
   let component: StoreCartReviewComponent;
@@ -8,7 +9,8 @@ describe('StoreCartReviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StoreCartReviewComponent ]
+      declarations: [ StoreCartReviewComponent ],
+      providers: [ StoreCartService ]
     })
     .compileComponents();
   }));

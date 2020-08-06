@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
 import { SellManagerService } from './sell-manager.service';
+import { LOCAL_MEMORY_DATA_PROVIDERS } from 'src/data/services/local-memory/local-memory-data.module';
 
 describe('SellManagerService', () => {
   let service: SellManagerService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [ SellManagerService, ...LOCAL_MEMORY_DATA_PROVIDERS ]
+    });
     service = TestBed.inject(SellManagerService);
   });
 

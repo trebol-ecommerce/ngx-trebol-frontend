@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductsArrayDialogComponent } from './products-array-dialog.component';
 
-describe('AgregarProductoDialogComponent', () => {
+describe('ProductsArrayDialogComponent', () => {
   let component: ProductsArrayDialogComponent;
   let fixture: ComponentFixture<ProductsArrayDialogComponent>;
 
