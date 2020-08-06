@@ -1,13 +1,10 @@
-import { Component, EventEmitter, Inject, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, of, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ProductFamily } from 'src/data/models/entities/ProductFamily';
 import { ProductType } from 'src/data/models/entities/ProductType';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
-import { SharedDataIService } from 'src/data/services/shared.data.iservice';
-
-//TODO refactor all data service interactions into a separate service
+import { ProductFiltersPanelService } from './product-filters-panel.service';
 
 export interface ProductFilters {
   name?: string;
@@ -34,7 +31,7 @@ export class ProductFiltersPanelComponent
   public types$: Observable<ProductType[]>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService,
+    protected service: ProductFiltersPanelService,
     protected formBuilder: FormBuilder
   ) {
 
@@ -50,7 +47,6 @@ export class ProductFiltersPanelComponent
   public get productName() { return this.formGroup.get('productName'); }
 
   ngOnInit(): void {
-    this.families$ = this.sharedDataService.readAllProductFamilies();
 
     this.familyChangeSub = this.productFamily.valueChanges.subscribe(() => { this.onChangeProductFamily(); });
     this.typeChangeSub = this.productType.valueChanges.subscribe(() => { this.emitFiltersChange(); });
@@ -97,7 +93,7 @@ export class ProductFiltersPanelComponent
       const familyId: number = Number(this.productFamily.value);
       if (!isNaN(familyId)) {
         this.emitFiltersChange();
-        this.sharedDataService.readAllProductTypesByFamilyId(familyId).subscribe(
+        this.service.getProductTypesFromFamilyId(familyId).subscribe(
           (types: ProductType[]) => {
             if (types && types.length > 0) {
               this.types$ = of(types);
