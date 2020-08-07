@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { Product } from 'src/data/models/entities/Product';
 import { ProductsArrayService } from './products-array.service';
@@ -15,7 +15,7 @@ import { ProductsArrayService } from './products-array.service';
 })
 export class ProductsArrayDialogComponent {
 
-  protected productsArray: Product[] = [];
+  protected productsArray: Product[];
 
   public filteredProductsArray$: Observable<Product[]>;
   public productsArray$: Observable<Product[]>;
@@ -31,7 +31,7 @@ export class ProductsArrayDialogComponent {
     protected snackBarService: MatSnackBar
   ) {
     this.filteredProductsArray$ = this.service.filteredProductsArray$.pipe();
-    this.productsArray$ = this.service.productsArray$.pipe();
+    this.productsArray$ = this.service.productsArray$.pipe(tap(p => { this.productsArray = p; }));
     this.loading$ = this.service.loading$.pipe();
     this.isArrayEmpty$ = this.productsArray$.pipe(map(array => (array.length === 0)));
   }
