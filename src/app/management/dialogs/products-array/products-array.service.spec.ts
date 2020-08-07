@@ -1,14 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-
-import { ProductsArrayService } from './products-array.service';
 import { LOCAL_MEMORY_DATA_PROVIDERS } from 'src/data/services/local-memory/local-memory-data.module';
+import { ProductsArrayService } from './products-array.service';
 
 describe('ProductsArrayService', () => {
   let service: ProductsArrayService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: LOCAL_MEMORY_DATA_PROVIDERS
+      providers: [
+        ProductsArrayService,
+        ...LOCAL_MEMORY_DATA_PROVIDERS
+      ]
     });
     service = TestBed.inject(ProductsArrayService);
   });

@@ -1,14 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-
-import { ProviderManagerService } from './provider-manager.service';
 import { LOCAL_MEMORY_DATA_PROVIDERS } from 'src/data/services/local-memory/local-memory-data.module';
+import { ProviderManagerService } from './provider-manager.service';
 
 describe('ProviderManagerService', () => {
   let service: ProviderManagerService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ ProviderManagerService, ...LOCAL_MEMORY_DATA_PROVIDERS ]
+      providers: [
+        ProviderManagerService,
+        ...LOCAL_MEMORY_DATA_PROVIDERS
+      ]
     });
     service = TestBed.inject(ProviderManagerService);
   });

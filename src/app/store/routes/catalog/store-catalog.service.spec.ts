@@ -1,14 +1,22 @@
 import { TestBed } from '@angular/core/testing';
-
-import { StoreCatalogService } from './store-catalog.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { RouterTestingModule } from '@angular/router/testing';
 import { LOCAL_MEMORY_DATA_PROVIDERS } from 'src/data/services/local-memory/local-memory-data.module';
+import { StoreCatalogService } from './store-catalog.service';
 
 describe('StoreCatalogService', () => {
   let service: StoreCatalogService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: LOCAL_MEMORY_DATA_PROVIDERS
+      imports: [
+        MatDialogModule,
+        RouterTestingModule
+      ],
+      providers: [
+        StoreCatalogService,
+        ...LOCAL_MEMORY_DATA_PROVIDERS
+      ]
     });
     service = TestBed.inject(StoreCatalogService);
   });
