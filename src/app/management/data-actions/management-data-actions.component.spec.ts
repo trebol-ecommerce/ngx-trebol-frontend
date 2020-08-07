@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ManagementDataActionsComponent } from './management-data-actions.component';
 
 describe('ManagementDataActionsComponent', () => {
