@@ -1,11 +1,11 @@
-import { AbstractEntity } from 'src/data/models/AbstractEntity';
-import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
-import { EntityDataIService } from 'src/data/services/entity.data.iservice';
+import { Observable } from 'rxjs';
+import { AbstractEntity } from 'src/data/models/AbstractEntity';
+import { DataManagerFormService } from './data-manager-form.aservice';
 
 export abstract class DataManagerFormComponent<T extends AbstractEntity> {
   protected abstract itemId: number;
-  protected abstract dataService: EntityDataIService<T>;
+  protected abstract service: DataManagerFormService<T>;
   public abstract saving$: Observable<boolean>;
   public abstract formGroup: FormGroup;
   public abstract dialogTitle: string;
