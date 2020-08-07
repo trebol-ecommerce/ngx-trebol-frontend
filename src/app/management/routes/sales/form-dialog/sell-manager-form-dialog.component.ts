@@ -1,10 +1,9 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, from, Observable, Subject, merge, defer, of } from 'rxjs';
-import { exhaust, map as concatMap, map, switchMap, toArray, buffer, tap, mapTo } from 'rxjs/operators';
-import { AppUserService } from 'src/app/app-user.service';
+import { merge, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
 import { Client } from 'src/data/models/entities/Client';
 import { Employee } from 'src/data/models/entities/Employee';
@@ -12,36 +11,30 @@ import { Product } from 'src/data/models/entities/Product';
 import { Sell } from 'src/data/models/entities/Sell';
 import { SellDetail } from 'src/data/models/entities/SellDetail';
 import { SellType } from 'src/data/models/entities/SellType';
-import { CompositeEntityDataIService } from 'src/data/services/composite-entity.data.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
-import { EntityDataIService } from 'src/data/services/entity.data.iservice';
-import { SharedDataIService } from 'src/data/services/shared.data.iservice';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { ProductsArrayDialogComponent } from '../../../dialogs/products-array/products-array-dialog.component';
-
-//TODO refactor all data service interactions into a separate service
+import { SellManagerFormService } from './sell-manager-form.service';
 
 export interface SaleManagerFormDialogData {
   sell: Sell;
 }
 
 @Component({
+  providers: [ SellManagerFormService ],
   selector: 'app-sell-manager-form-dialog',
   templateUrl: './sell-manager-form-dialog.component.html',
   styleUrls: [ './sell-manager-form-dialog.component.css' ]
 })
 export class SellManagerFormDialogComponent
   extends DataManagerFormComponent<Sell>
-  implements OnInit, OnDestroy {
+  implements OnInit {
 
   protected itemId: number;
-  protected sellDetails: SellDetail[] = [];
-  protected savingSource: Subject<boolean> = new Subject();
-  protected sellDetailsSource: Subject<SellDetail[]> = new BehaviorSubject([]);
+  protected sellDetails: SellDetail[];
   protected sellNotReadyStates: boolean[] = [ true, true ];
 
-  public saving$: Observable<boolean> = this.savingSource.asObservable();
-  public sellDetails$: Observable<SellDetail[]> = this.sellDetailsSource.asObservable();
+  public saving$: Observable<boolean>;
+  public sellDetails$: Observable<SellDetail[]>;
   public sellSubtotalValue$: Observable<number>;
   public sellTotalValue$: Observable<number>;
 
@@ -62,15 +55,10 @@ export class SellManagerFormDialogComponent
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data: SaleManagerFormDialogData,
-    @Inject(DATA_INJECTION_TOKENS.sales) protected dataService: CompositeEntityDataIService<Sell, SellDetail>,
-    @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityDataIService<Product>,
-    @Inject(DATA_INJECTION_TOKENS.clients) protected clientDataService: EntityDataIService<Client>,
-    @Inject(DATA_INJECTION_TOKENS.employees) protected employeeDataService: EntityDataIService<Employee>,
-    @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService,
+    protected service: SellManagerFormService,
     protected dialog: MatDialogRef<SellManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
     protected formBuilder: FormBuilder,
-    protected appUserService: AppUserService,
     protected dialogService: MatDialog
   ) {
     super();
@@ -100,40 +88,21 @@ export class SellManagerFormDialogComponent
     }
 
     if (this.itemId) {
-      this.dataService.readDetailsById(this.itemId).pipe(
-        switchMap(sellDetails => from(sellDetails)),
-        concatMap<SellDetail, Observable<SellDetail>>(
-          detail => this.productDataService.readById(detail.product.id).pipe(
-            map((product) => {
-              detail.product = product;
-              return detail;
-            })
-          )
-        ),
-        exhaust(),
-        toArray()
-      ).subscribe(
-        sellDetails => {
-          this.sellDetails = sellDetails;
-          this.sellDetailsSource.next(sellDetails);
-        }
-      );
+      this.service.refreshSellDetailsFromId(this.itemId);
     }
   }
 
   ngOnInit(): void {
-    this.sellTypes$ = this.sharedDataService.readAllSellTypes();
-    this.employees$ = this.employeeDataService.readAll();
-    this.clients$ = this.clientDataService.readAll();
+    this.saving$ = this.service.saving$.pipe();
 
-    this.sellSubtotalValue$ = this.sellDetails$.pipe(
-      concatMap(
-        array => {
-          if (array.length === 0) { return 0; }
-          return array.map(detail => detail.product.price * detail.units).reduce((a, b) => a + b);
-        }
-      )
-    );
+    this.sellDetails$ = this.service.sellDetails$.pipe(tap(details => { this.sellDetails = details; }));
+
+    this.sellTypes$ = this.service.getAllSellTypes();
+    this.employees$ = this.service.getAllEmployees();
+    this.clients$ = this.service.getAllClients();
+
+    this.sellSubtotalValue$ = this.service.sellSubtotalValue$.pipe();
+    this.sellTotalValue$ = this.service.sellTotalValue$.pipe();
 
     this.sellIsntReady$ = merge(
       this.formGroup.statusChanges.pipe(
@@ -145,13 +114,6 @@ export class SellManagerFormDialogComponent
     ).pipe(
       map(() => (this.sellNotReadyStates[0] || this.sellNotReadyStates[1]))
     );
-
-    this.sellTotalValue$ = this.sellSubtotalValue$.pipe(concatMap(subtotal => Math.ceil(subtotal * 1.19)));
-  }
-
-  ngOnDestroy(): void {
-    this.savingSource.complete();
-    this.sellDetailsSource.complete();
   }
 
   public onClickAddProducts(): void {
@@ -160,81 +122,58 @@ export class SellManagerFormDialogComponent
       { width: '70rem' }
     ).afterClosed().subscribe(
       (newProducts: Product[]) => {
-        if (newProducts && newProducts.length > 0) {
-          const newSellDetails: SellDetail[] = newProducts.map(
-            (product: Product) => Object.assign<SellDetail, Partial<SellDetail>>(
-              new SellDetail(),
-              {
-                product,
-                units: 1
-              }
-            )
-          );
-          this.sellDetails.push(...newSellDetails);
-          this.sellDetailsSource.next(this.sellDetails);
+        if (newProducts?.length > 0) {
+          this.service.addProducts(newProducts);
         }
       }
     );
   }
 
   public onClickIncreaseDetailProductQuantity(i: number): void {
-    const detail: SellDetail = this.sellDetails[i];
-    if (detail) {
-      detail.units++;
-      this.sellDetailsSource.next(this.sellDetails);
-    }
+    this.service.increaseDetailProductQuantityAtIndex(i);
   }
 
   public onClickDecreaseDetailProductQuantity(i: number): void {
-    const detail: SellDetail = this.sellDetails[i];
-    if (detail) {
-      detail.units--;
-      this.sellDetailsSource.next(this.sellDetails);
-    }
+    this.service.decreaseDetailProductQuantityAtIndex(i);
   }
 
   public onClickRemoveDetail(i: number) {
-    this.sellDetails.splice(i, 1);
-    this.sellDetailsSource.next(this.sellDetails);
+    this.service.removeDetailAtIndex(i);
   }
 
   public asItem(): Sell {
     if (this.formGroup.invalid) {
       return undefined;
     } else {
-      return {
-        id: this.itemId,
-        type: { id: this.type.value },
-        soldOn: this.sellDate ? this.sellDate : null,
-        client: { id: this.client.value },
-        employee: { id: this.employee.value },
-        details: this.sellDetails
-      };
+      return Object.assign<Sell, Partial<Sell>>(
+        new Sell(),
+        {
+          id: this.itemId,
+          type: { id: this.type.value },
+          soldOn: this.sellDate ? this.sellDate : null,
+          client: { id: this.client.value },
+          employee: { id: this.employee.value },
+          details: this.sellDetails
+        }
+      );
     }
   }
 
   public onSubmit(): void {
     const item = this.asItem();
     if (item) {
-      this.savingSource.next(true);
-      const obs = ((this.itemId) ? this.dataService.update(item, this.itemId) : this.dataService.create(item));
-      obs.subscribe(
-        (result: Sell) => {
-          // TODO: make sure vt2 is not actually vt
-          if (result.id) {
+      this.service.submit(item).subscribe(
+        success => {
+          if (success) {
             if (item.id) {
               this.snackBarService.open('Venta N° \'' + item.id + '\' actualizada exitosamente.');
             } else {
-              this.snackBarService.open('Venta N° \'' + result.id + '\' registrada exitosamente.');
+              this.snackBarService.open('Venta N° \'' + item.id + '\' registrada exitosamente.');
             }
-            this.dialog.close(result);
+            this.dialog.close(item);
           } else {
             this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
-            this.savingSource.next(false);
           }
-        }, err => {
-          this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
-          this.savingSource.next(false);
         }
       );
     }
