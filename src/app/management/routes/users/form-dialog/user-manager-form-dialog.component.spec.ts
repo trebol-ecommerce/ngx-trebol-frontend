@@ -1,14 +1,32 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { of } from 'rxjs';
+import { MATERIAL_MODULES } from 'src/app/shared/angular-material.module';
 import { UserManagerFormDialogComponent } from './user-manager-form-dialog.component';
+import { UserManagerFormService } from './user-manager-form.service';
 
 describe('UserManagerFormDialogComponent', () => {
   let component: UserManagerFormDialogComponent;
   let fixture: ComponentFixture<UserManagerFormDialogComponent>;
+  let service: Partial<UserManagerFormService>;
 
   beforeEach(async(() => {
+    service = {
+      saving$: of(false),
+      getPeople() { return of([]); }
+    };
+
     TestBed.configureTestingModule({
-      declarations: [ UserManagerFormDialogComponent ]
+      imports: [
+        FormsModule,
+        ...MATERIAL_MODULES
+      ],
+      declarations: [ UserManagerFormDialogComponent ],
+      providers: [
+        { provide: MAT_DIALOG_DATA, useValue: null },
+        { provide: UserManagerFormService, useValue: service }
+      ]
     })
     .compileComponents();
   }));

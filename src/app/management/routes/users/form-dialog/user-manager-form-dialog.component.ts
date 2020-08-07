@@ -2,21 +2,19 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
 import { Person } from 'src/data/models/entities/Person';
 import { User } from 'src/data/models/entities/User';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
-import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
-
-//TODO refactor all data service interactions into a separate service
+import { UserManagerFormService } from './user-manager-form.service';
 
 export interface UserManagerFormDialogData {
   usuario: User;
 }
 
 @Component({
+  providers: [ UserManagerFormService ],
   selector: 'app-user-manager-form-dialog',
   templateUrl: './user-manager-form-dialog.component.html',
   styleUrls: [ './user-manager-form-dialog.component.css' ]
@@ -26,9 +24,8 @@ export class UserManagerFormDialogComponent
   implements OnInit {
 
   protected itemId: number;
-  protected savingSource: Subject<boolean> = new Subject();
 
-  public saving$: Observable<boolean> = this.savingSource.asObservable();
+  public saving$: Observable<boolean>;
   public people$: Observable<Person[]>;
 
   public formGroup: FormGroup;
@@ -40,8 +37,7 @@ export class UserManagerFormDialogComponent
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data: UserManagerFormDialogData,
-    @Inject(DATA_INJECTION_TOKENS.people) protected peopleDataService: EntityDataIService<Person>,
-    @Inject(DATA_INJECTION_TOKENS.users) protected dataService: EntityDataIService<User>,
+    protected service: UserManagerFormService,
     protected dialog: MatDialogRef<UserManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
     protected formBuilder: FormBuilder
@@ -69,8 +65,8 @@ export class UserManagerFormDialogComponent
   }
 
   ngOnInit(): void {
-    this.people$ = this.peopleDataService.readAll();
-
+    this.saving$ = this.service.saving$.pipe();
+    this.people$ = this.service.getPeople();
   }
 
   public asItem(): User {
@@ -92,25 +88,18 @@ export class UserManagerFormDialogComponent
   public onSubmit(): void {
     const item = this.asItem();
     if (item) {
-      this.savingSource.next(true);
-      const obs = ((this.itemId) ? this.dataService.update(item, this.itemId) : this.dataService.create(item));
-      obs.subscribe(
-        (result: User) => {
-          // TODO: make sure prod2 is not actually prod
-          if (result.id) {
-            if (item.id) {
+      this.service.submit(item).subscribe(
+        success => {
+          if (success) {
+            if (this.itemId) {
               this.snackBarService.open('Usuario \'' + item.name + '\' actualizado/a exitosamente.');
             } else {
-              this.snackBarService.open('Usuario \'' + result.name + '\' registrado/a exitosamente.');
+              this.snackBarService.open('Usuario \'' + item.name + '\' registrado/a exitosamente.');
             }
-            this.dialog.close(result);
+            this.dialog.close(item);
           } else {
-            this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
-            this.savingSource.next(false);
+            this.snackBarService.open(ERR_SRV_COMM_MSG);
           }
-        }, err => {
-          this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
-          this.savingSource.next(false);
         }
       );
     }
