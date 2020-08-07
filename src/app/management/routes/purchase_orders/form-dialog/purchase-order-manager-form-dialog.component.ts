@@ -169,10 +169,6 @@ export class PurchaseOrderManagerFormDialogComponent
     const detail: PurchaseOrderDetail = this.purchaseOrderDetails[index];
     if (detail) {
       detail.units--;
-
-      if (detail.units <= 0) {
-        this.purchaseOrderDetails.splice(index, 1);
-      }
       this.purchaseOrderDetailsSource.next(this.purchaseOrderDetails);
     }
   }

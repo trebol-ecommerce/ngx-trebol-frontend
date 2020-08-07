@@ -66,6 +66,7 @@
                 </button>
                 {{ detail.units }}
                 <button mat-button mat-icon-button type="button"
+                  [disabled]="detail.units < 2"
                   (click)="onClickDecreaseDetailProductQuantity(i)">
                   <mat-icon>remove</mat-icon>
                 </button>

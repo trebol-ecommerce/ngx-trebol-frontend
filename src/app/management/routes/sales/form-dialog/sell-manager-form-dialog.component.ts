@@ -189,10 +189,6 @@ export class SellManagerFormDialogComponent
     const detail: SellDetail = this.sellDetails[i];
     if (detail) {
       detail.units--;
-
-      if (detail.units <= 0) {
-        this.sellDetails.splice(i, 0);
-      }
       this.sellDetailsSource.next(this.sellDetails);
     }
   }
