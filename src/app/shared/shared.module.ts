@@ -39,5 +39,4 @@ import { CenteredMatProgressSpinnerComponent } from './centered-mat-spinner/comp
     EditProfileFormDialogComponent
   ]
 })
-
 export class SharedModule { }
