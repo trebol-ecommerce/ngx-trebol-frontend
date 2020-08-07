@@ -6,9 +6,7 @@ import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 import { concatMap, mapTo } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ProductsArrayService {
 
   protected productsArray: Product[] = [];

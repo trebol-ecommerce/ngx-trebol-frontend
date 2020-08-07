@@ -3,6 +3,7 @@ import { MatSnackBarConfig, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/mater
 import { SharedModule } from '../shared/shared.module';
 import { ManagementDataActionsComponent } from './data-actions/management-data-actions.component';
 import { ProductsArrayDialogComponent } from './dialogs/products-array/products-array-dialog.component';
+import { ProductsArrayService } from './dialogs/products-array/products-array.service';
 import { ManagementFooterComponent } from './footer/management-footer.component';
 import { ManagementHeaderComponent } from './header/management-header.component';
 import { ManagementRoutingGuard } from './management-routing.guard';
@@ -75,7 +76,8 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ProductManagerService,
     ProviderManagerService,
     UserManagerService,
-    SellManagerService
+    SellManagerService,
+    ProductsArrayService
   ]
 })
 export class ManagementModule { }
