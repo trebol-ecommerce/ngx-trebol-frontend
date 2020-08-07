@@ -5,9 +5,7 @@ import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { SharedDataIService } from 'src/data/services/shared.data.iservice';
 import { ProductType } from 'src/data/models/entities/ProductType';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ProductFiltersPanelService {
 
   constructor(
