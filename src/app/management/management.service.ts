@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, map, throttleTime } from 'rxjs/operators';
 import { SessionDataIService } from 'src/data/services/auth.data.iservice';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
-import { AppUserService } from '../app-user.service';
 
 @Injectable()
 export class ManagementService
@@ -19,7 +18,6 @@ export class ManagementService
 
   constructor(
     @Inject(DATA_INJECTION_TOKENS.sessions) protected authDataService: SessionDataIService,
-    protected appUserService: AppUserService,
     protected router: Router
   ) {
 
