@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
@@ -9,11 +6,13 @@ import { Product } from 'src/data/models/entities/Product';
 import { ProductsArrayService } from './products-array.service';
 
 @Component({
+  providers: [ ProductsArrayService ],
   selector: 'app-products-array-dialog',
   templateUrl: './products-array-dialog.component.html',
   styleUrls: [ './products-array-dialog.component.css' ]
 })
-export class ProductsArrayDialogComponent {
+export class ProductsArrayDialogComponent
+  implements OnInit {
 
   protected productsArray: Product[];
 
@@ -26,14 +25,14 @@ export class ProductsArrayDialogComponent {
 
   constructor(
     protected service: ProductsArrayService,
-    protected dialog: MatDialogRef<ProductsArrayDialogComponent>,
-    protected formBuilder: FormBuilder,
-    protected snackBarService: MatSnackBar
   ) {
-    this.filteredProductsArray$ = this.service.filteredProductsArray$.pipe();
     this.productsArray$ = this.service.productsArray$.pipe(tap(p => { this.productsArray = p; }));
-    this.loading$ = this.service.loading$.pipe();
     this.isArrayEmpty$ = this.productsArray$.pipe(map(array => (array.length === 0)));
+  }
+
+  ngOnInit(): void {
+    this.filteredProductsArray$ = this.service.filteredProductsArray$.pipe();
+    this.loading$ = this.service.loading$.pipe();
   }
 
   public onFiltersChange(f: ProductFilters): void {
@@ -46,14 +45,6 @@ export class ProductsArrayDialogComponent {
 
   public onClickDropProduct(i: number): void {
     this.service.dropProductByIndex(i);
-  }
-
-  public onClickAccept(): void {
-    this.dialog.close(this.productsArray);
-  }
-
-  public onClickCancel(): void {
-    this.dialog.close([]);
   }
 
 }

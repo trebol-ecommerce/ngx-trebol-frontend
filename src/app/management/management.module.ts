@@ -76,8 +76,7 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ProductManagerService,
     ProviderManagerService,
     UserManagerService,
-    SellManagerService,
-    ProductsArrayService
+    SellManagerService
   ]
 })
 export class ManagementModule { }

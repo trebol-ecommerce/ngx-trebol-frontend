@@ -20,9 +20,7 @@ export class ProductsArrayService {
 
   constructor(
     @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityDataIService<Product>,
-  ) { }
-
-  ngOnInit(): void {
+  ) {
     this.filteredProductsArray$ = this.productFiltersSource.asObservable().pipe(
       concatMap(
         (filters: ProductFilters) => {
