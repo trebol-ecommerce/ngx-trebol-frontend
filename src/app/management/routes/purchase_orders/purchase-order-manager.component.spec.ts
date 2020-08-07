@@ -1,14 +1,31 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { of } from 'rxjs';
+import { MATERIAL_MODULES } from 'src/app/shared/angular-material.module';
 import { PurchaseOrderManagerComponent } from './purchase-order-manager.component';
+import { PurchaseOrderManagerService } from './purchase-order-manager.service';
 
-describe('MantenedorOrdenesCompraGestionComponent', () => {
+describe('PurchaseOrderManagerComponent', () => {
   let component: PurchaseOrderManagerComponent;
   let fixture: ComponentFixture<PurchaseOrderManagerComponent>;
+  let managerService: Partial<PurchaseOrderManagerService>;
 
   beforeEach(async(() => {
+    managerService = {
+      removeItems() { return of([true]); },
+      reloadItems() {},
+      loading$: of(false),
+      focusedItems$: of([]),
+      items$: of([])
+    };
+
     TestBed.configureTestingModule({
-      declarations: [ PurchaseOrderManagerComponent ]
+      imports: [
+        ...MATERIAL_MODULES
+      ],
+      declarations: [ PurchaseOrderManagerComponent ],
+      providers: [
+        { provide: PurchaseOrderManagerService, useValue: managerService }
+      ]
     })
     .compileComponents();
   }));
