@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -9,7 +9,6 @@ import { Person } from 'src/data/models/entities/Person';
 import { Provider } from 'src/data/models/entities/Provider';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
-import { SharedDataIService } from 'src/data/services/shared.data.iservice';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 
 //TODO refactor all data service interactions into a separate service
@@ -41,7 +40,6 @@ export class ProviderManagerFormDialogComponent
   constructor(
     @Inject(MAT_DIALOG_DATA) protected data: ProviderManagerFormDialogData,
     @Inject(DATA_INJECTION_TOKENS.providers) protected dataService: EntityDataIService<Provider>,
-    @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService,
     protected dialog: MatDialogRef<ProviderManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
     protected formBuilder: FormBuilder

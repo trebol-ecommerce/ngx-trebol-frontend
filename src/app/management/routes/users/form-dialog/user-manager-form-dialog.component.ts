@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,7 +8,6 @@ import { Person } from 'src/data/models/entities/Person';
 import { User } from 'src/data/models/entities/User';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
-import { SharedDataIService } from 'src/data/services/shared.data.iservice';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 
 //TODO refactor all data service interactions into a separate service
@@ -41,7 +40,6 @@ export class UserManagerFormDialogComponent
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data: UserManagerFormDialogData,
-    @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService,
     @Inject(DATA_INJECTION_TOKENS.people) protected peopleDataService: EntityDataIService<Person>,
     @Inject(DATA_INJECTION_TOKENS.users) protected dataService: EntityDataIService<User>,
     protected dialog: MatDialogRef<UserManagerFormDialogComponent>,
