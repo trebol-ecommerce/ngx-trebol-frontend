@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { MATERIAL_MODULES } from 'src/app/shared/angular-material.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { EmployeeManagerFormDialogComponent } from './employee-manager-form-dialog.component';
 import { EmployeeManagerFormService } from './employee-manager-form.service';
 
@@ -19,12 +18,12 @@ describe('EmployeeManagerFormDialogComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
-        ...MATERIAL_MODULES
+        SharedModule
       ],
       declarations: [ EmployeeManagerFormDialogComponent ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },
+        { provide: MatDialogRef, useValue: {} },
         { provide: EmployeeManagerFormService, useValue: service }
       ]
     })

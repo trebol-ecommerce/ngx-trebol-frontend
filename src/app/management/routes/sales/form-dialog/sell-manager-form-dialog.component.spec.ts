@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { MATERIAL_MODULES } from 'src/app/shared/angular-material.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { SellManagerFormDialogComponent } from './sell-manager-form-dialog.component';
 import { SellManagerFormService } from './sell-manager-form.service';
 
@@ -30,12 +29,12 @@ describe('SellManagerFormDialogComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
-        ...MATERIAL_MODULES
+        SharedModule
       ],
       declarations: [ SellManagerFormDialogComponent ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },
+        { provide: MatDialogRef, useValue: {} },
         { provide: SellManagerFormService, useValue: service }
       ]
     })

@@ -1,10 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { MATERIAL_MODULES } from 'src/app/shared/angular-material.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { PurchaseOrderManagerFormDialogComponent } from './purchase-order-manager-form-dialog.component';
 import { PurchaseOrderManagerFormService } from './purchase-order-manager-form.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 describe('PurchaseOrderManagerFormDialogComponent', () => {
   let component: PurchaseOrderManagerFormDialogComponent;
@@ -28,12 +27,12 @@ describe('PurchaseOrderManagerFormDialogComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
-        ...MATERIAL_MODULES
+        SharedModule
       ],
       declarations: [ PurchaseOrderManagerFormDialogComponent ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },
+        { provide: MatDialogRef, useValue: {} },
         { provide: PurchaseOrderManagerFormService, useValue: service }
       ]
     })

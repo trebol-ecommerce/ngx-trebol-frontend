@@ -1,10 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { of } from 'rxjs';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { ProviderManagerFormDialogComponent } from './provider-manager-form-dialog.component';
 import { ProviderManagerFormService } from './provider-manager-form.service';
-import { of } from 'rxjs';
-import { MATERIAL_MODULES } from 'src/app/shared/angular-material.module';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 describe('ProviderManagerFormDialogComponent', () => {
   let component: ProviderManagerFormDialogComponent;
@@ -19,11 +18,12 @@ describe('ProviderManagerFormDialogComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        ...MATERIAL_MODULES
+        SharedModule
       ],
       declarations: [ ProviderManagerFormDialogComponent ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },
+        { provide: MatDialogRef, useValue: {} },
         { provide: ProviderManagerFormService, useValue: service }
       ]
     })

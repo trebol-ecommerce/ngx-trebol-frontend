@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { of } from 'rxjs';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { ProductManagerFormDialogComponent } from './product-manager-form-dialog.component';
 import { ProductManagerFormService } from './product-manager-form.service';
-import { of } from 'rxjs';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 describe('ProductManagerFormDialogComponent', () => {
   let component: ProductManagerFormDialogComponent;
@@ -19,9 +20,13 @@ describe('ProductManagerFormDialogComponent', () => {
     };
 
     TestBed.configureTestingModule({
+      imports: [
+        SharedModule
+      ],
       declarations: [ ProductManagerFormDialogComponent ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },
+        { provide: MatDialogRef, useValue: {} },
         { provide: ProductManagerFormService, useValue: service}
       ]
     })
