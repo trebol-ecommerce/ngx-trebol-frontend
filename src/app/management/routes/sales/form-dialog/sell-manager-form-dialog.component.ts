@@ -50,10 +50,10 @@ export class SellManagerFormDialogComponent
   public sellIsntReady$: Observable<boolean>;
 
   public tableColumns: string[] = [ 'product', 'price', 'quantity', 'actions' ];
-  public dialogTitle: string;
+  public get dialogTitle(): string { return ((this.data?.sell?.id) ? 'Actualizar datos de' : 'Nueva') + ' Venta'; };
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) data: SaleManagerFormDialogData,
+    @Inject(MAT_DIALOG_DATA) protected data: SaleManagerFormDialogData,
     protected service: SellManagerFormService,
     protected dialog: MatDialogRef<SellManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
@@ -67,13 +67,12 @@ export class SellManagerFormDialogComponent
       client: [null, Validators.required]
     });
 
-    const item: Sell = (data?.sell) ? data.sell : new Sell();
+    const item: Sell = (this.data?.sell) ? this.data.sell : new Sell();
     this.load(item);
   }
 
   protected load(s: Sell): void {
     this.itemId = s.id ? s.id : 0;
-    this.dialogTitle = ((this.itemId) ? 'Actualizar datos de' : 'Nueva') + ' Venta';
 
     this.sellDate = s.soldOn;
     if (s.type?.id) {

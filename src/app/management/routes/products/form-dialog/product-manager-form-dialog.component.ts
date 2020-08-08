@@ -41,10 +41,10 @@ export class ProductManagerFormDialogComponent
   public get criticalStock(): FormControl { return this.formGroup.get('criticalStock') as FormControl; }
   public get description(): FormControl { return this.formGroup.get('description') as FormControl; }
 
-  public dialogTitle: string;
+  public get dialogTitle(): string { return ((this.data?.product?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Producto'; };
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) data: ProductManagerFormDialogData,
+    @Inject(MAT_DIALOG_DATA) protected data: ProductManagerFormDialogData,
     protected service: ProductManagerFormService,
     protected dialog: MatDialogRef<ProductManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
@@ -62,13 +62,12 @@ export class ProductManagerFormDialogComponent
       description: ['']
     });
 
-    const item: Product = (data?.product) ? data.product : new Product();
+    const item: Product = (this.data?.product) ? this.data.product : new Product();
     this.load(item);
   }
 
   protected load(p: Product): void {
     this.itemId = p.id ? p.id : 0;
-    this.dialogTitle = ((this.itemId) ? 'Actualizar datos de' : 'Nuevo') + ' Producto';
 
     this.name.setValue(p.name, { emitEvent: false, onlySelf: true });
     this.code.setValue(p.barcode, { emitEvent: false, onlySelf: true });

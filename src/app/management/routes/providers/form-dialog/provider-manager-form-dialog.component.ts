@@ -31,7 +31,7 @@ export class ProviderManagerFormDialogComponent
   public get businessCard(): FormControl { return this.formGroup.get('businessCard') as FormControl; }
   @ViewChild('personForm', { static: true }) public personForm: PersonFormComponent;
 
-  public dialogTitle: string;
+  public get dialogTitle(): string { return ((this.data?.provider?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Proveedor'; };
 
   constructor(
     @Inject(MAT_DIALOG_DATA) protected data: ProviderManagerFormDialogData,
@@ -48,7 +48,6 @@ export class ProviderManagerFormDialogComponent
 
   protected load(p: Provider): void {
     this.itemId = p.id ? p.id : 0;
-    this.dialogTitle = ((this.itemId) ? 'Actualizar datos de' : 'Nuevo') + ' Proveedor';
 
     if (p.businessCard) {
       this.businessCard.setValue(p.businessCard, { emitEvent: false, onlySelf: true });

@@ -46,10 +46,10 @@ export class PurchaseOrderManagerFormDialogComponent
   public orderIsntReady$: Observable<boolean>;
 
   public tableColumns: string[] = [ 'product', 'price', 'quantity', 'actions' ];
-  public dialogTitle: string;
+  public get dialogTitle(): string { return ((this.data?.purchaseOrder?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Orden de Compra'; };
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) data: PurchaseOrderManagerFormDialogData,
+    @Inject(MAT_DIALOG_DATA) protected data: PurchaseOrderManagerFormDialogData,
     protected service: PurchaseOrderManagerFormService,
     protected dialog: MatDialogRef<PurchaseOrderManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
@@ -62,13 +62,12 @@ export class PurchaseOrderManagerFormDialogComponent
       provider: [null, Validators.required]
     });
 
-    const oc: PurchaseOrder = (data?.purchaseOrder) ? data.purchaseOrder : new PurchaseOrder();
+    const oc: PurchaseOrder = (this.data?.purchaseOrder) ? this.data.purchaseOrder : new PurchaseOrder();
     this.load(oc);
   }
 
   protected load(po: PurchaseOrder): void {
-    this.itemId = po.id;
-    this.dialogTitle = ((this.itemId) ? 'Actualizar datos de' : 'Nuevo') + ' Orden de Compra';
+    this.itemId = po.id ? po.id : 0;
 
     if (po.employee?.id) {
       this.employee.setValue(po.employee.id, { emitEvent: false, onlySelf: true });

@@ -32,10 +32,10 @@ export class UserManagerFormDialogComponent
   public get password(): FormControl { return this.formGroup.get('password') as FormControl; }
   public get person(): FormControl { return this.formGroup.get('person') as FormControl; }
 
-  public dialogTitle: string;
+  public get dialogTitle(): string { return ((this.data?.usuario?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Usuario'; };
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) data: UserManagerFormDialogData,
+    @Inject(MAT_DIALOG_DATA) protected data: UserManagerFormDialogData,
     protected service: UserManagerFormService,
     protected dialog: MatDialogRef<UserManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
@@ -48,13 +48,12 @@ export class UserManagerFormDialogComponent
       person: [undefined, Validators.required]
     });
 
-    const item: User = (data?.usuario) ? data.usuario : new User();
+    const item: User = (this.data?.usuario) ? this.data.usuario : new User();
     this.load(item);
   }
 
   protected load(u: User): void {
     this.itemId = u.id ? u.id : 0;
-    this.dialogTitle = ((this.itemId) ? 'Actualizar datos de' : 'Nuevo') + ' Usuario';
     if (this.itemId) { this.password.setValidators(null); }
 
     this.name.setValue(u.name, { emitEvent: false, onlySelf: true });

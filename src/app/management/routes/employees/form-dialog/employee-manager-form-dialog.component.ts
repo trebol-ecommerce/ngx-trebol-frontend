@@ -34,7 +34,7 @@ export class EmployeeManagerFormDialogComponent
   public get role(): FormControl { return this.formGroup.get('role') as FormControl; }
   @ViewChild('personForm', { static: true }) public personForm: PersonFormComponent;
 
-  public dialogTitle: string;
+  public get dialogTitle(): string { return ((this.data?.employee?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Empleado'; };
 
   constructor(
     @Inject(MAT_DIALOG_DATA) protected data: EmployeeManagementFormDialogData,
@@ -51,7 +51,6 @@ export class EmployeeManagerFormDialogComponent
 
   protected load(e: Employee): void {
     this.itemId = e.id ? e.id : 0;
-    this.dialogTitle = ((this.itemId) ? 'Actualizar datos de' : 'Nuevo') + ' Empleado';
 
     if (e.role?.id) { this.role.setValue(e.role.id); }
     this.personForm.person = (e.person) ? e.person : new Person();
