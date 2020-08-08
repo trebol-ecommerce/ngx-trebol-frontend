@@ -16,7 +16,6 @@ export interface EmployeeManagementFormDialogData {
 }
 
 @Component({
-  providers: [ EmployeeManagerFormService ],
   selector: 'app-employee-manager-form-dialog',
   templateUrl: './employee-manager-form-dialog.component.html',
   styleUrls: [ './employee-manager-form-dialog.component.css' ]

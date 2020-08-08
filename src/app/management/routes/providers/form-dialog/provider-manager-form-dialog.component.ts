@@ -15,7 +15,6 @@ export interface ProviderManagerFormDialogData {
 }
 
 @Component({
-  providers: [ ProviderManagerFormService ],
   selector: 'app-provider-manager-form-dialog',
   templateUrl: './provider-manager-form-dialog.component.html',
   styleUrls: [ './provider-manager-form-dialog.component.css' ]
