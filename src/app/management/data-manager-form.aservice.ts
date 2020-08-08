@@ -1,9 +1,10 @@
+import { Directive, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { AbstractEntity } from 'src/data/models/AbstractEntity';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
-import { OnDestroy } from '@angular/core';
 
+@Directive()
 export abstract class DataManagerFormService<T extends AbstractEntity>
   implements OnDestroy {
 
