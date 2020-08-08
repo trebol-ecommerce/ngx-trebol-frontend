@@ -2,24 +2,21 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, of, Subject, Subscription, merge } from 'rxjs';
-import { tap, mapTo } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
 import { Product } from 'src/data/models/entities/Product';
 import { ProductFamily } from 'src/data/models/entities/ProductFamily';
 import { ProductType } from 'src/data/models/entities/ProductType';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
-import { EntityDataIService } from 'src/data/services/entity.data.iservice';
-import { SharedDataIService } from 'src/data/services/shared.data.iservice';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
-
-//TODO refactor all data service interactions into a separate service
+import { ProductManagerFormService } from './product-manager-form.service';
 
 export interface ProductManagerFormDialogData {
   product: Product;
 }
 
 @Component({
+  providers: [ ProductManagerFormService ],
   selector: 'app-product-manager-form-dialog',
   templateUrl: './product-manager-form-dialog.component.html',
   styleUrls: [ './product-manager-form-dialog.component.css' ]
@@ -30,10 +27,8 @@ export class ProductManagerFormDialogComponent
 
   protected itemId: number;
   protected familyChangeSub: Subscription;
-  protected savingSource: Subject<boolean> = new Subject();
 
-  public saving$: Observable<boolean> = this.savingSource.asObservable();
-
+  public saving$: Observable<boolean>;
   public productFamilies$: Observable<ProductFamily[]>;
   public productTypes$: Observable<ProductType[]>;
 
@@ -51,8 +46,7 @@ export class ProductManagerFormDialogComponent
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data: ProductManagerFormDialogData,
-    @Inject(DATA_INJECTION_TOKENS.products) protected dataService: EntityDataIService<Product>,
-    @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService,
+    protected service: ProductManagerFormService,
     protected dialog: MatDialogRef<ProductManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
     protected formBuilder: FormBuilder
@@ -99,39 +93,34 @@ export class ProductManagerFormDialogComponent
   }
 
   ngOnInit(): void {
-    this.productFamilies$ = this.sharedDataService.readAllProductFamilies();
+    this.saving$ = this.service.saving$.pipe();
+    this.productFamilies$ = this.service.getAllProductFamilies();
+    this.productTypes$ = this.service.productTypes$.pipe(
+      tap(
+        (types: ProductType[]) => {
+          const productTypeId = this.type.value;
+          if (!(types?.length > 0 && types.find(t => t.id === productTypeId))) {
+            this.type.reset();
+          }
+        }
+      )
+    );
     this.familyChangeSub = this.family.valueChanges.subscribe(() => { this.onChangeFamily(); });
   }
 
   ngOnDestroy(): void {
-    this.savingSource.complete();
     if (this.familyChangeSub) { this.familyChangeSub.unsubscribe(); }
   }
 
   protected onChangeFamily(): void {
-    if (this.family.value) {
-      if (this.type.disabled) { this.type.enable({ emitEvent: false, onlySelf: true }); }
-
-      const productFamilyId = Number(this.family.value);
-      if (!isNaN(productFamilyId)) {
-        if (this.type.value) {
-          const productTypeId = Number(this.type.value);
-          this.productTypes$ = this.sharedDataService.readAllProductTypesByFamilyId(productFamilyId).pipe(
-            tap(
-              (types: ProductType[]) => {
-                if (!(types?.length > 0 && types.find(t => t.id === productTypeId))) {
-                  this.type.reset();
-                }
-              }
-            )
-          );
-        } else {
-          this.productTypes$ = this.sharedDataService.readAllProductTypesByFamilyId(productFamilyId);
-        }
+    const productFamilyId = this.family.value;
+    this.service.updateSelectedFamily(productFamilyId);
+    if (productFamilyId) {
+      if (this.type.disabled) {
+        this.type.enable({ emitEvent: false, onlySelf: true });
       }
     } else {
       this.type.reset({ value: null, disabled: true });
-      this.productTypes$ = of([]);
     }
   }
 
@@ -158,25 +147,18 @@ export class ProductManagerFormDialogComponent
   public onSubmit(): void {
     const item = this.asItem();
     if (item) {
-      this.savingSource.next(true);
-      const obs = ((this.itemId) ? this.dataService.update(item, this.itemId) : this.dataService.create(item));
-      obs.subscribe(
-        (result: Product) => {
-          // TODO: make sure prod2 is not actually prod
-          if (result.id) {
+      this.service.submit(item).subscribe(
+        success => {
+          if (success) {
             if (item.id) {
               this.snackBarService.open('Producto \'' + item.name + '\' actualizado/a exitosamente.');
             } else {
-              this.snackBarService.open('Producto \'' + result.name + '\' registrado/a exitosamente.');
+              this.snackBarService.open('Producto \'' + item.name + '\' registrado/a exitosamente.');
             }
-            this.dialog.close(result);
+            this.dialog.close(item);
           } else {
             this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
-            this.savingSource.next(false);
           }
-        }, err => {
-          this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
-          this.savingSource.next(false);
         }
       );
     }
