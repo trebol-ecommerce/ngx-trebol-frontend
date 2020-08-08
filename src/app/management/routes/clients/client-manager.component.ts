@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { Client } from 'src/data/models/entities/Client';
 import { DataManagerComponent } from '../../data-manager.acomponent';
@@ -16,8 +15,7 @@ export class ClientManagerComponent
   public tableColumns: string[] = [ 'name', 'idCard' ];
 
   constructor(
-    protected service: ClientManagerService,
-    protected dialogService: MatDialog
+    protected service: ClientManagerService
   ) {
     super();
   }

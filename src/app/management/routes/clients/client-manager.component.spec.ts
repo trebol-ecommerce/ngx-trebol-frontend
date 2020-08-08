@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { MATERIAL_MODULES } from 'src/app/shared/angular-material.module';
 import { ClientManagerComponent } from './client-manager.component';
 import { ClientManagerService } from './client-manager.service';
 
@@ -19,9 +18,6 @@ describe('ClientManagerComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-        ...MATERIAL_MODULES
-      ],
       declarations: [ ClientManagerComponent ],
       providers: [
         { provide: ClientManagerService, useValue: managerService }
