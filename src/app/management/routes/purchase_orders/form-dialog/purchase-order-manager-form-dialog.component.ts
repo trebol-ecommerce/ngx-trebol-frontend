@@ -4,7 +4,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { merge, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { AppUserService } from 'src/app/app-user.service';
 import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
 import { Employee } from 'src/data/models/entities/Employee';
 import { Product } from 'src/data/models/entities/Product';
@@ -99,11 +98,12 @@ export class PurchaseOrderManagerFormDialogComponent
       this.formGroup.statusChanges.pipe(
         tap(status => { this.orderNotReadyStates[0] = (status.toUpperCase() !== 'VALID'); })
       ),
-      this.purchaseOrderDetails$.pipe(
+      this.service.purchaseOrderDetails$.pipe(
         tap(array => { this.orderNotReadyStates[1] = (array.length === 0); })
       )
     ).pipe(
-      map(() => (this.orderNotReadyStates[0] || this.orderNotReadyStates[1]))
+      map(() => (this.orderNotReadyStates[0] || this.orderNotReadyStates[1])),
+      tap(v => { console.log(v ); })
     );
   }
 

@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
 import { DataManagerFormService } from 'src/app/management/data-manager-form.aservice';
 import { Employee } from 'src/data/models/entities/Employee';
 import { Product } from 'src/data/models/entities/Product';
@@ -9,6 +9,7 @@ import { PurchaseOrderDetail } from 'src/data/models/entities/PurchaseOrderDetai
 import { CompositeEntityDataIService } from 'src/data/services/composite-entity.data.iservice';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
+import { switchMap, concatMap, map, toArray } from 'rxjs/operators';
 
 @Injectable()
 export class PurchaseOrderManagerFormService
@@ -24,9 +25,19 @@ export class PurchaseOrderManagerFormService
   constructor(
     @Inject(DATA_INJECTION_TOKENS.purchaseOrders) protected dataService: CompositeEntityDataIService<PurchaseOrder, PurchaseOrderDetail>,
     @Inject(DATA_INJECTION_TOKENS.employees) protected employeeDataService: EntityDataIService<Employee>,
-    @Inject(DATA_INJECTION_TOKENS.providers) protected providerDataService: EntityDataIService<Provider>
+    @Inject(DATA_INJECTION_TOKENS.providers) protected providerDataService: EntityDataIService<Provider>,
+    @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityDataIService<Product>
   ) {
     super();
+
+    this.purchaseOrderSubtotalValue$ = this.purchaseOrderDetails$.pipe(
+      map(
+        array => {
+          if (array.length === 0) { return 0; }
+          return array.map(detail => detail.product.price * detail.units).reduce((a, b) => a + b);
+        }
+      )
+    );
   }
 
   public getAllEmployees(): Observable<Employee[]> {
@@ -38,10 +49,21 @@ export class PurchaseOrderManagerFormService
   }
 
   public refreshPurchaseOrderDetailsFromId(id: number): void {
-    this.dataService.readDetailsById(id).subscribe(
-      (details: PurchaseOrderDetail[]) => {
-        this.purchaseOrderDetails = details;
-        this.purchaseOrderDetailsSource.next(details);
+    this.dataService.readDetailsById(id).pipe(
+      switchMap(orderDetails => from(orderDetails)),
+      concatMap(
+        detail => this.productDataService.readById(detail.product.id).pipe(
+          map((product) => {
+            detail.product = product;
+            return detail;
+          })
+        )
+      ),
+      toArray()
+    ).subscribe(
+      (orderDetails: PurchaseOrderDetail[]) => {
+        this.purchaseOrderDetails = orderDetails;
+        this.purchaseOrderDetailsSource.next(orderDetails);
       }
     );
   }

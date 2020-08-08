@@ -75,6 +75,7 @@ export class SellManagerFormService
       toArray()
     ).subscribe(
       sellDetails => {
+        this.sellDetails = sellDetails;
         this.sellDetailsSource.next(sellDetails);
       }
     );

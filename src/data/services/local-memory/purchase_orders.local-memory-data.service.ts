@@ -11,7 +11,11 @@ export const MOCK_PURCHASE_ORDERS: Partial<PurchaseOrder>[] = [
     id: 1,
     orderedOn: '2020-06-16',
     receivedOn: '2020-06-16',
-    employee: { id: 1, role: { id: 1 } }
+    employee: { id: 1, role: { id: 1 } },
+    provider: { id: 1 },
+    details: [
+      { id: 1, product: { id: 2 }, units: 3 }
+    ]
   }
 ];
 
