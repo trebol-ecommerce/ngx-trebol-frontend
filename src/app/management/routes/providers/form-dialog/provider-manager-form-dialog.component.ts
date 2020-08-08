@@ -1,35 +1,32 @@
-import { AfterViewInit, Component, Inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
 import { Person } from 'src/data/models/entities/Person';
 import { Provider } from 'src/data/models/entities/Provider';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
-import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
-
-//TODO refactor all data service interactions into a separate service
+import { ProviderManagerFormService } from './provider-manager-form.service';
 
 export interface ProviderManagerFormDialogData {
   provider: Provider;
 }
 
 @Component({
+  providers: [ ProviderManagerFormService ],
   selector: 'app-provider-manager-form-dialog',
   templateUrl: './provider-manager-form-dialog.component.html',
   styleUrls: [ './provider-manager-form-dialog.component.css' ]
 })
 export class ProviderManagerFormDialogComponent
   extends DataManagerFormComponent<Provider>
-  implements AfterViewInit {
+  implements OnInit, AfterViewInit {
 
   protected itemId: number;
-  protected savingSource: Subject<boolean> = new Subject();
 
-  public saving$: Observable<boolean> = this.savingSource.asObservable();
+  public saving$: Observable<boolean>;
 
   public formGroup: FormGroup;
   public get businessCard(): FormControl { return this.formGroup.get('businessCard') as FormControl; }
@@ -39,7 +36,7 @@ export class ProviderManagerFormDialogComponent
 
   constructor(
     @Inject(MAT_DIALOG_DATA) protected data: ProviderManagerFormDialogData,
-    @Inject(DATA_INJECTION_TOKENS.providers) protected dataService: EntityDataIService<Provider>,
+    protected service: ProviderManagerFormService,
     protected dialog: MatDialogRef<ProviderManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
     protected formBuilder: FormBuilder
@@ -58,6 +55,10 @@ export class ProviderManagerFormDialogComponent
       this.businessCard.setValue(p.businessCard, { emitEvent: false, onlySelf: true });
     }
     this.personForm.person = (p.person) ? p.person : new Person();
+  }
+
+  ngOnInit(): void {
+    this.saving$ = this.service.saving$.pipe();
   }
 
   ngAfterViewInit(): void {
@@ -85,25 +86,18 @@ export class ProviderManagerFormDialogComponent
   public onSubmit(): void {
     const item = this.asItem();
     if (item) {
-      this.savingSource.next(true);
-      const obs = ((this.itemId) ? this.dataService.update(item, this.itemId) : this.dataService.create(item));
-      obs.subscribe(
-        (result: Provider) => {
-          // TODO: make sure prod2 is not actually prod
-          if (result.id) {
+      this.service.submit(item).subscribe(
+        success => {
+          if (success) {
             if (item.id) {
-              this.snackBarService.open('Proveedor \'' + result.person.name + '\' actualizado/a exitosamente.');
+              this.snackBarService.open('Proveedor \'' + item.person.name + '\' actualizado/a exitosamente.');
             } else {
-              this.snackBarService.open('Proveedor \'' + result.person.name + '\' registrado/a exitosamente.');
+              this.snackBarService.open('Proveedor \'' + item.person.name + '\' registrado/a exitosamente.');
             }
-            this.dialog.close(result);
+            this.dialog.close(item);
           } else {
             this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
-            this.savingSource.next(false);
           }
-        }, err => {
-          this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
-          this.savingSource.next(false);
         }
       );
       }
