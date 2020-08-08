@@ -1,19 +1,15 @@
-import { Component, Inject, OnDestroy, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
 import { Employee } from 'src/data/models/entities/Employee';
 import { EmployeeRole } from 'src/data/models/entities/EmployeeRole';
 import { Person } from 'src/data/models/entities/Person';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
-import { EntityDataIService } from 'src/data/services/entity.data.iservice';
-import { SharedDataIService } from 'src/data/services/shared.data.iservice';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
-
-//TODO refactor all data service interactions into a separate service
+import { EmployeeManagerFormService } from './employee-manager-form.service';
 
 export interface EmployeeManagementFormDialogData {
   employee: Employee;
@@ -26,12 +22,12 @@ export interface EmployeeManagementFormDialogData {
 })
 export class EmployeeManagerFormDialogComponent
   extends DataManagerFormComponent<Employee>
-  implements OnInit, AfterViewInit, OnDestroy {
+  implements OnInit, AfterViewInit {
 
   protected itemId: number;
-  protected savingSource: Subject<boolean> = new Subject();
 
-  public saving$: Observable<boolean> = this.savingSource.asObservable();
+  public saving$: Observable<boolean>;
+
   public employeeRoles$: Observable<EmployeeRole[]>;
 
   public formGroup: FormGroup;
@@ -42,8 +38,7 @@ export class EmployeeManagerFormDialogComponent
 
   constructor(
     @Inject(MAT_DIALOG_DATA) protected data: EmployeeManagementFormDialogData,
-    @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService,
-    @Inject(DATA_INJECTION_TOKENS.employees) protected dataService: EntityDataIService<Employee>,
+    protected service: EmployeeManagerFormService,
     protected dialog: MatDialogRef<EmployeeManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
     protected formBuilder: FormBuilder
@@ -63,7 +58,7 @@ export class EmployeeManagerFormDialogComponent
   }
 
   ngOnInit(): void {
-    this.employeeRoles$ = this.sharedDataService.readAllEmployeeRoles();
+    this.employeeRoles$ = this.service.getAllEmployeeRoles();
   }
 
   ngAfterViewInit(): void {
@@ -71,10 +66,6 @@ export class EmployeeManagerFormDialogComponent
 
     const item: Employee = (this.data?.employee) ? this.data.employee : new Employee();
     this.load(item);
-  }
-
-  ngOnDestroy(): void {
-    this.savingSource.complete();
   }
 
   public asItem(): Employee {
@@ -95,25 +86,18 @@ export class EmployeeManagerFormDialogComponent
   public onSubmit(): void {
     const item = this.asItem();
     if (item) {
-      this.savingSource.next(true);
-      const obs = ((this.itemId) ? this.dataService.update(item, this.itemId) : this.dataService.create(item));
-      obs.subscribe(
-        (result: Employee) => {
-          // TODO: make better logic
-          if (result.id) {
+      this.service.submit(item).subscribe(
+        success => {
+          if (success) {
             if (item.id) {
-              this.snackBarService.open('Empleado \'' + result.person.name + '\' actualizado/a exitosamente.');
+              this.snackBarService.open('Empleado \'' + item.person.name + '\' actualizado/a exitosamente.');
             } else {
-              this.snackBarService.open('Empleado \'' + result.person.name + '\' registrado/a exitosamente.');
+              this.snackBarService.open('Empleado \'' + item.person.name + '\' registrado/a exitosamente.');
             }
-            this.dialog.close(result);
+            this.dialog.close(item);
           } else {
             this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
-            this.savingSource.next(false);
           }
-        }, err => {
-          this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
-          this.savingSource.next(false);
         }
       );
     }
