@@ -10,7 +10,6 @@ export abstract class DataManagerComponent<T extends AbstractEntity>
   implements OnInit {
 
   protected abstract service: DataManagerService<T>;
-  protected abstract dialogService: MatDialog;
   public abstract tableColumns: string[];
 
   public loading$: Observable<boolean>;
