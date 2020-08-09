@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export const MOCK_PEOPLE: Partial<Person>[] = [
-  { id: 1, name: 'Anónimo' }
+  { id: 1, name: 'Anónimo' },
+  { id: 2, name: 'Administrador', idCard: '' }
 ];
 
 @Injectable()
