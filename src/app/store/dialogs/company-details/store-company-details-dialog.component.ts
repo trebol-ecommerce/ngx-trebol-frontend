@@ -3,8 +3,6 @@ import { CompanyDetails } from 'src/data/models/CompanyDetails';
 import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
 import { SharedDataIService } from 'src/data/services/shared.data.iservice';
 
-//TODO refactor all data service interactions into a separate service
-
 @Component({
   selector: 'app-store-company-details-dialog',
   templateUrl: './store-company-details-dialog.component.html',
