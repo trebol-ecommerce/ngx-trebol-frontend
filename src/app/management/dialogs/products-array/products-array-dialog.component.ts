@@ -6,7 +6,6 @@ import { Product } from 'src/data/models/entities/Product';
 import { ProductsArrayService } from './products-array.service';
 
 @Component({
-  providers: [ ProductsArrayService ],
   selector: 'app-products-array-dialog',
   templateUrl: './products-array-dialog.component.html',
   styleUrls: [ './products-array-dialog.component.css' ]
