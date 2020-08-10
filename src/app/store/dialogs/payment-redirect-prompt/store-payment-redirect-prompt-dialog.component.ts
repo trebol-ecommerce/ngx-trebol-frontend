@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { concatMap, map, mapTo, startWith } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
@@ -14,8 +14,7 @@ interface ExternalPaymentRedirectionData {
 @Component({
   selector: 'app-store-payment-redirect-prompt-dialog',
   templateUrl: './store-payment-redirect-prompt-dialog.component.html',
-  styleUrls: ['./store-payment-redirect-prompt-dialog.component.css'],
-  encapsulation: ViewEncapsulation.Emulated
+  styleUrls: ['./store-payment-redirect-prompt-dialog.component.css']
 })
 export class StorePaymentRedirectPromptDialogComponent
   implements OnInit, OnDestroy {
