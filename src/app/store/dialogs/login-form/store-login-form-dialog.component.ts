@@ -9,7 +9,6 @@ import { AppUserService } from 'src/app/app-user.service';
 import { Session } from 'src/data/models/entities/Session';
 import { Login } from 'src/data/models/Login';
 
-
 @Component({
   selector: 'app-store-login-form-dialog',
   templateUrl: './store-login-form-dialog.component.html',
