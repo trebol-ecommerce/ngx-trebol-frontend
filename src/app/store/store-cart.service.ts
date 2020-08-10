@@ -1,6 +1,6 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Product } from 'src/data/models/entities/Product';
 import { Sell } from 'src/data/models/entities/Sell';
 import { SellDetail } from 'src/data/models/entities/SellDetail';
@@ -13,6 +13,7 @@ export class StoreCartService
 
   protected sellDetails: SellDetail[] = [];
   protected sellDetailsSource: Subject<SellDetail[]> = new BehaviorSubject([]);
+  protected sellSubtotalValue: number;
 
   public sellDetails$: Observable<SellDetail[]> = this.sellDetailsSource.asObservable();
   public itemQuantity$: Observable<number>;
@@ -36,7 +37,8 @@ export class StoreCartService
           if (array.length === 0) { return 0; }
           return array.map(p => p.product.price * p.units).reduce((a, b) => a + b);
         }
-      )
+      ),
+      tap(s => { this.sellSubtotalValue = s; })
     );
   }
 
@@ -109,7 +111,7 @@ export class StoreCartService
       {
         client: { id: clientId },
         details: this.sellDetails,
-        soldOn: (new Date()).toLocaleDateString()
+        subtotalValue: this.sellSubtotalValue
       }
     );
     return this.salesDataService.create(venta);
