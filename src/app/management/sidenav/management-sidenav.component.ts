@@ -42,7 +42,7 @@ export class ManagementSidenavComponent
     this.activeRouteSubscription = this.service.activeRouteSnapshot$.subscribe(
       (route: ActivatedRouteSnapshot) => {
         console.log(route);
-        const mIndex = this.modules.findIndex(v => v.path === route.url[0].path);
+        const mIndex = this.modules.findIndex(v => v.path === route?.url[0]?.path);
         if (mIndex !== -1) {
           for (let m of this.modules) { m.active = false; }
           this.modules[mIndex].active = true;
