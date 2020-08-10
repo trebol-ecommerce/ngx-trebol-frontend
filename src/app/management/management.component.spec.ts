@@ -12,7 +12,8 @@ describe('ManagementComponent', () => {
   beforeEach(async(() => {
     service = {
       isSidenavOpen$: of(true)
-    }
+    };
+
     TestBed.configureTestingModule({
       declarations: [ ManagementComponent ],
       providers: [
