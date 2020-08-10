@@ -1,97 +1,76 @@
-import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { AppUserService } from 'src/app/app-user.service';
+import { Observable } from 'rxjs';
+import { map, tap, startWith } from 'rxjs/operators';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
-import { Person } from 'src/data/models/entities/Person';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
-import { EntityDataIService } from 'src/data/services/entity.data.iservice';
+import { EditProfileFormService } from './edit-profile-form.service';
 
 export const TIEMPO_CONFIRMACION_SALIR = 2000;
 
 @Component({
+  providers: [ EditProfileFormService ],
   selector: 'app-edit-profile-form-dialog',
   templateUrl: './edit-profile-form-dialog.component.html',
   styleUrls: ['./edit-profile-form-dialog.component.css']
 })
 export class EditProfileFormDialogComponent
-  implements OnInit, OnDestroy {
+  implements OnInit {
 
-  protected cancelarSource: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  protected guardandoSource: Subject<boolean> = new BehaviorSubject(false);
+  protected confirmCancel: boolean;
 
-  public cancelar$: Observable<boolean> = this.cancelarSource.asObservable();
-  public colorBotonCancelar$: Observable<string> = this.cancelar$.pipe(map(c => (c ? 'warn' : 'default')));
-  public guardando$: Observable<boolean> = this.guardandoSource.asObservable();
+  public saving$: Observable<boolean>;
+  public confirmCancel$: Observable<boolean>;
+  public cancelButtonColor$: Observable<string>;
 
   @ViewChild('personForm', { static: true }) public personForm: PersonFormComponent;
+
   public invalid$: Observable<boolean>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.people) protected peopleDataService: EntityDataIService<Person>,
-    protected appUserService: AppUserService,
+    protected service: EditProfileFormService,
     protected dialog: MatDialogRef<EditProfileFormDialogComponent>,
     protected snackBarService: MatSnackBar,
   ) {
+    this.saving$ = this.service.saving$.pipe();
+    this.confirmCancel$ = this.service.confirmCancel$.pipe(tap(c => { this.confirmCancel = c; }));
+    this.cancelButtonColor$ = this.service.confirmCancel$.pipe(map(c => (c ? 'warn' : 'default')))
   }
 
   ngOnInit(): void {
-    const personaId = this.appUserService.getCurrentSession().user.person.id;
-    this.peopleDataService.readById(personaId).subscribe(
+    this.service.loadProfile().subscribe(
       p => {
         this.personForm.person = p;
       }
     );
 
     this.invalid$ = this.personForm.formGroup.statusChanges.pipe(
-      map(status => status !== 'VALID')
+      map(status => status !== 'VALID'),
+      startWith(true)
     );
   }
 
-  ngOnDestroy(): void {
-    this.cancelarSource.complete();
-    this.guardandoSource.complete();
-  }
-
-  protected guardarDatos(perfil: Person): void {
-    this.guardandoSource.next(true);
-    const sessionProfile = this.appUserService.getCurrentSession().user.person;
-
-    this.peopleDataService.update(perfil, sessionProfile.id).pipe(
-      map(p => p.id)
-    ).subscribe(
-      (idUsuario: number) => {
-        if (idUsuario) {
-          this.snackBarService.open('Sus datos fueron registrados exitosamente');
-        } else {
-          this.snackBarService.open('Sus datos fueron actualizados exitosamente');
-        }
-        this.dialog.close(perfil);
-      },
-      err => {
-        this.snackBarService.open('Error al guardar usuario.', 'OK', {duration: -1});
-      }
-    );
-  }
-
-  public onClickAceptar(): void {
+  public onSubmit(): void {
     const datosUsuario = this.personForm.asPerson();
-    if (!datosUsuario) {
-      this.snackBarService.open('Hay campos sin rellenar', 'OK', { duration: -1 });
-      return null;
-    } else {
-      this.guardarDatos(datosUsuario);
+    if (datosUsuario) {
+      this.service.saveProfile(datosUsuario).subscribe(
+        success => {
+          if (success) {
+            this.snackBarService.open('Sus datos fueron registrados exitosamente');
+            this.dialog.close();
+          } else {
+            this.snackBarService.open('Hubo un error al guardar sus datos. Por favor, inténtelo nuevamente.', 'OK', {duration: -1});
+          }
+        }
+      );
     }
   }
 
-  public onClickCancelar(): void {
-    if (!this.cancelarSource.getValue()) {
-      this.cancelarSource.next(true);
-      setTimeout(() => { this.cancelarSource.next(false); }, TIEMPO_CONFIRMACION_SALIR);
+  public onCancel(): void {
+    if (!this.confirmCancel) {
+      this.service.confirmCancel();
     } else {
-      this.dialog.close(null);
+      this.dialog.close();
     }
   }
 
