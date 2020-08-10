@@ -9,6 +9,8 @@ import { Person } from 'src/data/models/entities/Person';
 })
 export class PersonFormComponent {
 
+  protected personId: number;
+
   @Output() public formGroup: FormGroup;
 
   constructor(
@@ -38,7 +40,7 @@ export class PersonFormComponent {
       return Object.assign<Person, Partial<Person>>(
         new Person(),
         {
-          id: null,
+          id: this.personId,
           name: this.name.value,
           idCard: this.idCard.value,
           email: this.email.value,
@@ -51,6 +53,7 @@ export class PersonFormComponent {
 
   @Input() public set person(prs: Person) {
 
+    this.personId = prs.id ? prs.id : 0;
     this.name.setValue(prs.name, { emitEvent: false, onlySelf: true });
     this.idCard.setValue(prs.idCard, { emitEvent: false, onlySelf: true });
     this.email.setValue(prs.email, { emitEvent: false, onlySelf: true });
