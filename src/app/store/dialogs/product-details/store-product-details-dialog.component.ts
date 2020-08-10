@@ -31,7 +31,7 @@ export class StoreProductDetailsDialogComponent
     @Inject(MAT_DIALOG_DATA) data: StoreProductDetailsDialogData,
     public cartService: StoreCartService,
   ) {
-    this.product = data.product;
+    this.product = data?.product ? data.product : null;
   }
 
   ngOnInit(): void {

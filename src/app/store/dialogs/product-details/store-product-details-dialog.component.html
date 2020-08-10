@@ -1,12 +1,12 @@
 <div class="dialog">
-  <img [src]="product.imagesURL[0]" [alt]="product.name" />
+  <img [src]="product?.imagesURL[0]" [alt]="product?.name" />
   <div class="about">
-    <h2 class="name">{{ product.name }}</h2>
-    <h4 class="barcode">{{ product.barcode }}</h4>
-    <p class="description">{{ product.description }}</p>
+    <h2 class="name">{{ product?.name }}</h2>
+    <h4 class="barcode">{{ product?.barcode }}</h4>
+    <p class="description">{{ product?.description }}</p>
   </div>
   <div class="actions">
-    <span class="price">${{ product.price }}</span>
+    <span class="price">${{ product?.price }}</span>
     <div class="add-to-cart">
       <mat-icon>shopping_cart</mat-icon>
       <div class="quantity-wrapper">
