@@ -1,14 +1,28 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductFiltersPanelComponent } from './product-filters-panel.component';
+import { ProductFiltersPanelService } from './product-filters-panel.service';
+import { SharedModule } from '../shared.module';
+import { of } from 'rxjs';
 
 describe('ProductFiltersPanelComponent', () => {
   let component: ProductFiltersPanelComponent;
   let fixture: ComponentFixture<ProductFiltersPanelComponent>;
+  let service: Partial<ProductFiltersPanelService>;
 
   beforeEach(async(() => {
+    service = {
+      getProductTypesFromFamilyId(i) { return of([]); }
+    };
+
     TestBed.configureTestingModule({
-      declarations: [ ProductFiltersPanelComponent ]
+      imports: [
+        SharedModule
+      ],
+      declarations: [ ProductFiltersPanelComponent ],
+      providers: [
+        { provide: ProductFiltersPanelService, useValue: service }
+      ]
     })
     .compileComponents();
   }));
