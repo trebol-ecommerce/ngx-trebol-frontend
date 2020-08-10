@@ -18,8 +18,6 @@ export class StoreCatalogComponent
   public products$: Observable<Product[]>;
 
   constructor(
-    protected snackBarService: MatSnackBar,
-    protected cartService: StoreCartService,
     protected catalogService: StoreCatalogService
   ) {
     this.loading$ = this.catalogService.loading$.pipe();
