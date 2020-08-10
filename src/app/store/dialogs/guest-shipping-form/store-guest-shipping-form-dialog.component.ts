@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
@@ -12,7 +12,7 @@ import { StoreRegistrationFormDialogComponent } from '../registration-form/store
   styleUrls: ['./store-guest-shipping-form-dialog.component.css']
 })
 export class StoreGuestShippingFormDialogComponent
-  implements OnDestroy {
+  implements OnInit, OnDestroy {
 
   protected savingSource: Subject<boolean> = new Subject();
 
@@ -26,9 +26,11 @@ export class StoreGuestShippingFormDialogComponent
     protected dialog: MatDialogRef<StoreRegistrationFormDialogComponent>,
     protected formBuilder: FormBuilder
   ) {
-    this.formGroup = this.formBuilder.group({
-      person: this.personForm.formGroup
-    });
+    this.formGroup = this.formBuilder.group({});
+  }
+
+  ngOnInit(): void {
+    this.formGroup.addControl('person', this.personForm.formGroup);
   }
 
   ngOnDestroy(): void {
