@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
@@ -13,7 +13,7 @@ import { passwordMatcher } from 'src/functions/passwordMatcher';
   styleUrls: ['./store-registration-form-dialog.component.css']
 })
 export class StoreRegistrationFormDialogComponent
-  implements OnDestroy {
+  implements OnInit, OnDestroy {
 
   protected registeringSource: Subject<boolean> = new Subject();
 
@@ -23,7 +23,6 @@ export class StoreRegistrationFormDialogComponent
   public get name(): FormControl { return this.formGroup.get('name') as FormControl; }
   public get pass1(): FormControl { return this.formGroup.get('pass1') as FormControl; }
   public get pass2(): FormControl { return this.formGroup.get('pass2') as FormControl; }
-  public get person(): FormGroup { return this.formGroup.get('person') as FormGroup; }
   @ViewChild('personForm', { static: true }) public personForm: PersonFormComponent;
 
   constructor(
@@ -34,25 +33,31 @@ export class StoreRegistrationFormDialogComponent
     this.formGroup = this.formBuilder.group({
       name: ['', Validators.required],
       pass1: ['', Validators.required],
-      pass2: ['', Validators.required],
-      person: this.personForm.formGroup
+      pass2: ['', Validators.required]
     }, passwordMatcher);
+  }
+
+  ngOnInit(): void {
+    this.formGroup.addControl('person', this.personForm.formGroup);
   }
 
   ngOnDestroy(): void {
     this.registeringSource.complete();
   }
 
-  public onSubmit(): void {
-    this.registeringSource.next(true);
-    const details: User = {
+  private asItem(): User {
+    return {
       id: null,
       name: this.name.value,
       password: this.pass1.value,
-      clientId: null,
       createdOn: Date.now().toLocaleString(),
       person: this.personForm.asPerson()
     };
+  }
+
+  public onSubmit(): void {
+    this.registeringSource.next(true);
+    const details: User = this.asItem();
     this.appUserService.register(details).subscribe(
       s => {
         if (s) {
