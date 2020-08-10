@@ -10,7 +10,7 @@ import { StoreCatalogService } from '../store-catalog.service';
 })
 export class StoreCatalogProductCardComponent {
 
-  @Input() public product: Product;
+  @Input() public product: Product = null;
 
   constructor(
     protected cartService: StoreCartService,
