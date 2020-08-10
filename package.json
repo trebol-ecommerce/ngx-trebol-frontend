@@ -1,6 +1,6 @@
 {
   "name": "ng-new-bazaar",
-  "version": "0.8.136",
+  "version": "0.8.137",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

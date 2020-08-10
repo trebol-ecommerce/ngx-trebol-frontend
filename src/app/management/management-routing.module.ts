@@ -17,12 +17,12 @@ export interface ManagementChildRoute extends Route {
 
 export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
   { path: 'dashboard', component: ManagementDashboardComponent, data: { matIcon: 'home', title: 'Resumen' } },
+  { path: 'sales', component: SellManagerComponent, data: { matIcon: 'attach_money', title: 'Ventas' } },
+  { path: 'products', component: ProductManagerComponent, data: { matIcon: 'store', title: 'Productos' } },
+  { path: 'purchase_orders', component: PurchaseOrderManagerComponent, data: { matIcon: 'assignment', title: 'Ords. Compra' } },
+  { path: 'providers', component: ProviderManagerComponent, data: { matIcon: 'rv_hookup', title: 'Proveedores' } },
   { path: 'clients', component: ClientManagerComponent, data: { matIcon: 'person', title: 'Clientes' } },
   { path: 'employees', component: EmployeeManagerComponent, data: { matIcon: 'work', title: 'Empleados' } },
-  { path: 'products', component: ProductManagerComponent, data: { matIcon: 'store', title: 'Productos' } },
-  { path: 'providers', component: ProviderManagerComponent, data: { matIcon: 'rv_hookup', title: 'Proveedores' } },
-  { path: 'purchase_orders', component: PurchaseOrderManagerComponent, data: { matIcon: 'assignment', title: 'Ords. Compra' } },
-  { path: 'sales', component: SellManagerComponent, data: { matIcon: 'attach_money', title: 'Ventas' } },
   { path: 'users', component: UserManagerComponent, data: { matIcon: 'perm_identity', title: 'Usuarios' } }
 ];
 
