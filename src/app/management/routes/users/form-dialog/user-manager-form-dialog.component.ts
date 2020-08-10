@@ -14,6 +14,7 @@ export interface UserManagerFormDialogData {
 }
 
 @Component({
+  providers: [ UserManagerFormService ],
   selector: 'app-user-manager-form-dialog',
   templateUrl: './user-manager-form-dialog.component.html',
   styleUrls: [ './user-manager-form-dialog.component.css' ]

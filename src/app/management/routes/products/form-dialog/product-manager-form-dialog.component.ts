@@ -16,6 +16,7 @@ export interface ProductManagerFormDialogData {
 }
 
 @Component({
+  providers: [ ProductManagerFormService ],
   selector: 'app-product-manager-form-dialog',
   templateUrl: './product-manager-form-dialog.component.html',
   styleUrls: [ './product-manager-form-dialog.component.css' ]

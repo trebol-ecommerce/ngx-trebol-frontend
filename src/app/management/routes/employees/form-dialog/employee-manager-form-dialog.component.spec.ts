@@ -23,14 +23,14 @@ describe('EmployeeManagerFormDialogComponent', () => {
       declarations: [ EmployeeManagerFormDialogComponent ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },
-        { provide: MatDialogRef, useValue: {} },
-        { provide: EmployeeManagerFormService, useValue: service }
+        { provide: MatDialogRef, useValue: {} }
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
+    TestBed.overrideProvider(EmployeeManagerFormService, { useValue: service });
     fixture = TestBed.createComponent(EmployeeManagerFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

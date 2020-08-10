@@ -34,14 +34,14 @@ describe('SellManagerFormDialogComponent', () => {
       declarations: [ SellManagerFormDialogComponent ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },
-        { provide: MatDialogRef, useValue: {} },
-        { provide: SellManagerFormService, useValue: service }
+        { provide: MatDialogRef, useValue: {} }
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
+    TestBed.overrideProvider(SellManagerFormService, { useValue: service });
     fixture = TestBed.createComponent(SellManagerFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

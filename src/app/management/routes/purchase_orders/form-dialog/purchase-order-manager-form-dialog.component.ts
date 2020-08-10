@@ -19,6 +19,7 @@ export interface PurchaseOrderManagerFormDialogData {
 }
 
 @Component({
+  providers: [ PurchaseOrderManagerFormService ],
   selector: 'app-purchase-order-manager-form-dialog',
   templateUrl: './purchase-order-manager-form-dialog.component.html',
   styleUrls: [ './purchase-order-manager-form-dialog.component.css' ]

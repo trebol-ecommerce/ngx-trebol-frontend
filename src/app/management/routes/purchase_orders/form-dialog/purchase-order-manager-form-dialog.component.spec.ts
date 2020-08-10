@@ -32,14 +32,14 @@ describe('PurchaseOrderManagerFormDialogComponent', () => {
       declarations: [ PurchaseOrderManagerFormDialogComponent ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },
-        { provide: MatDialogRef, useValue: {} },
-        { provide: PurchaseOrderManagerFormService, useValue: service }
+        { provide: MatDialogRef, useValue: {} }
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
+    TestBed.overrideProvider(PurchaseOrderManagerFormService, { useValue: service });
     fixture = TestBed.createComponent(PurchaseOrderManagerFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

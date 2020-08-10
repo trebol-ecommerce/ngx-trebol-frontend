@@ -26,14 +26,14 @@ describe('ProductManagerFormDialogComponent', () => {
       declarations: [ ProductManagerFormDialogComponent ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },
-        { provide: MatDialogRef, useValue: {} },
-        { provide: ProductManagerFormService, useValue: service}
+        { provide: MatDialogRef, useValue: {} }
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
+    TestBed.overrideProvider(ProductManagerFormService, { useValue: service });
     fixture = TestBed.createComponent(ProductManagerFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
