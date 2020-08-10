@@ -2,6 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { AppUserService } from 'src/app/app-user.service';
+import { Session } from 'src/data/models/entities/Session';
 import { StoreCartService } from '../../store-cart.service';
 import { StorePaymentRedirectPromptDialogComponent } from './store-payment-redirect-prompt-dialog.component';
 
@@ -13,7 +14,7 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
 
   beforeEach(async(() => {
     userService = {
-      getCurrentSession() { return null; }
+      getCurrentSession() { return new Session(); }
     };
     cartService = {
       sellSubtotalValue$: of(0)
