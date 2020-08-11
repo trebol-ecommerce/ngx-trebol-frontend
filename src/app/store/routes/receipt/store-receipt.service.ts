@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, pluck, startWith } from 'rxjs/operators';
 import { Sell } from 'src/data/models/entities/Sell';
@@ -19,16 +19,17 @@ export class StoreReceiptService {
 
   constructor(
     @Inject(DATA_INJECTION_TOKENS.sales) protected sellDataService: CompositeEntityDataIService<Sell, SellDetail>,
-    protected route: ActivatedRoute
+    protected router: Router
   ) {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.fetchSell(id);
   }
 
-  protected fetchSell(id: number): void {
+  public fetchSell(id: number): void {
     this.sellDataService.readById(id).subscribe(
       sell => {
         this.sellSource.next(sell);
+      },
+      err => {
+        this.router.navigateByUrl('/');
       }
     );
   }

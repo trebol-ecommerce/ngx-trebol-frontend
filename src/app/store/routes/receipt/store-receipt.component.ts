@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Sell } from 'src/data/models/entities/Sell';
 import { SellDetail } from 'src/data/models/entities/SellDetail';
@@ -18,12 +19,20 @@ export class StoreReceiptComponent {
   public soldOn$: Observable<string>;
 
   constructor(
-    protected service: StoreReceiptService
+    protected service: StoreReceiptService,
+    protected route: ActivatedRoute
   ) {
     this.sell$ = this.service.sell$.pipe();
     this.loading$ = this.service.loading$.pipe();
     this.details$ = this.service.details$.pipe();
     this.soldOn$ = this.service.soldOn$.pipe();
+
+    this.loadSell();
   }
 
+  private loadSell() {
+    console.log(this.route.snapshot);
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.service.fetchSell(id);
+  }
 }
