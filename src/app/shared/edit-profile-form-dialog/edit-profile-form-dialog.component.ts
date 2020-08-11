@@ -20,7 +20,6 @@ export class EditProfileFormDialogComponent
   protected confirmCancel: boolean;
 
   public saving$: Observable<boolean>;
-  public confirmCancel$: Observable<boolean>;
   public cancelButtonColor$: Observable<string>;
 
   @ViewChild('personForm', { static: true }) public personForm: PersonFormComponent;
@@ -33,8 +32,10 @@ export class EditProfileFormDialogComponent
     protected snackBarService: MatSnackBar,
   ) {
     this.saving$ = this.service.saving$.pipe();
-    this.confirmCancel$ = this.service.confirmCancel$.pipe(tap(c => { this.confirmCancel = c; }));
-    this.cancelButtonColor$ = this.service.confirmCancel$.pipe(map(c => (c ? 'warn' : 'default')))
+    this.cancelButtonColor$ = this.service.confirmCancel$.pipe(
+      tap(c => { this.confirmCancel = c; }),
+      map(c => (c ? 'warn' : 'default'))
+    );
   }
 
   ngOnInit(): void {
