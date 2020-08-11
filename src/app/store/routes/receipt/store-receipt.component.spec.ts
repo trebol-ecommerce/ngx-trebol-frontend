@@ -19,6 +19,9 @@ describe('StoreReceiptComponent', () => {
     };
 
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ],
       declarations: [ StoreReceiptComponent ],
       providers: [
         { provide: StoreReceiptService, useValue: service }
