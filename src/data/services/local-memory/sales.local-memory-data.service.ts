@@ -47,7 +47,6 @@ export class SalesLocalMemoryDataService
 
   public readDetailsById(id: number): Observable<SellDetail[]> {
     return this.readById(id).pipe(
-      tap(console.log),
       map(s => s.details)
     );
   }

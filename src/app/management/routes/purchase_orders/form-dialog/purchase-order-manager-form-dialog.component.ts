@@ -101,8 +101,7 @@ export class PurchaseOrderManagerFormDialogComponent
         tap(array => { this.orderNotReadyStates[1] = (array.length === 0); })
       )
     ).pipe(
-      map(() => (this.orderNotReadyStates[0] || this.orderNotReadyStates[1])),
-      tap(v => { console.log(v ); })
+      map(() => (this.orderNotReadyStates[0] || this.orderNotReadyStates[1]))
     );
   }
 
