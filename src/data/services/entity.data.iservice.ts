@@ -7,5 +7,5 @@ export interface EntityDataIService<T> {
   readAll(): Observable<T[]>;
   readFiltered(f: any): Observable<T[]>;
   update(emp: T, id: number | string): Observable<T>;
-  deleteById(id: number | string): Observable<boolean>;
+  deleteById(id: number | string): Observable<void>;
 }

@@ -58,7 +58,7 @@ export class ProductsLocalMemoryDataService
     super();
   }
 
-  protected filterItems(filter: ProductFilters): Set<Product> {
+  protected filterItems(filter: ProductFilters): Product[] {
     let matchingItems = this.items;
     if (filter.name) {
       matchingItems = matchingItems.filter(
@@ -76,10 +76,6 @@ export class ProductsLocalMemoryDataService
       );
     }
 
-    const uniqueItems = new Set<Product>();
-    for (const item of matchingItems) {
-      uniqueItems.add(item);
-    }
-    return uniqueItems;
+    return matchingItems;
   }
 }

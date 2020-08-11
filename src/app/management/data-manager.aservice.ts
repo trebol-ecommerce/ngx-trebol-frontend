@@ -1,5 +1,5 @@
-import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
-import { delay, finalize, mergeMap, tap, toArray } from 'rxjs/operators';
+import { BehaviorSubject, from, Observable, Subject, of } from 'rxjs';
+import { delay, finalize, mergeMap, tap, toArray, mapTo, catchError } from 'rxjs/operators';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 import { AbstractEntity } from 'src/data/models/AbstractEntity';
 import { OnDestroy, Directive } from '@angular/core';
@@ -46,7 +46,7 @@ export abstract class DataManagerService<T extends AbstractEntity>
   public removeItems(items: T[]): Observable<boolean[]> {
     this.focusedItems = items;
     return from(items).pipe(
-      mergeMap(item => this.dataService.deleteById(item.id)),
+      mergeMap(item => this.dataService.deleteById(item.id).pipe(mapTo(true), catchError(() => of(false)))),
       toArray(),
       tap(
         (results) => {
