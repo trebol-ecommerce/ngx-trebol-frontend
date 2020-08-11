@@ -13,13 +13,12 @@ describe('StoreReceiptComponent', () => {
   beforeEach(async(() => {
     service = {
       sell$: of(new Sell()),
-      fetchSell(i) {}
+      loading$: of(true),
+      details$: of([]),
+      soldOn$: of('')
     };
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
       declarations: [ StoreReceiptComponent ],
       providers: [
         { provide: StoreReceiptService, useValue: service }
