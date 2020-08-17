@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
-import { TITLE } from 'src/app/app.component';
+import { APP_INITIALS_TITLE, APP_LONG_TITLE } from 'src/app/app.constants';
 import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
+import { EditProfileFormDialogComponent } from 'src/app/shared/edit-profile-form-dialog/edit-profile-form-dialog.component';
 import { EmployeeRolesEnum } from 'src/data/enums/EmployeeRolesEnum';
-import { EditProfileFormDialogComponent } from '../../shared/edit-profile-form-dialog/edit-profile-form-dialog.component';
 import { StoreCompanyDetailsDialogComponent } from '../dialogs/company-details/store-company-details-dialog.component';
 import { StoreLoginFormDialogComponent } from '../dialogs/login-form/store-login-form-dialog.component';
 import { StoreCartService } from '../store-cart.service';
@@ -26,7 +26,9 @@ export class StoreHeaderComponent
   public cartSubtotalValue$: Observable<number>;
   public isLoggedIn$: Observable<boolean>;
 
-  public title: string = TITLE;
+  public readonly desktopTitle: string = APP_LONG_TITLE;
+  public readonly mobileTitle: string = APP_INITIALS_TITLE;
+
   public userName$: Observable<string>;
 
   constructor(

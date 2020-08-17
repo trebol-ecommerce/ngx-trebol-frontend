@@ -4,11 +4,11 @@
   flex-flow: row nowrap;
   align-items: stretch;
   background-color: var(--color-bg);
-  border-bottom: 1px #e0e0e06b solid;
+  border-bottom: 1px solid var(--color-content);
 }
 
 .header * {
-  color: white;
+  color: var(--color-content);
 }
 
 .header>* {
@@ -22,12 +22,11 @@
   align-items: center;
 }
 
-.logo>img {
-  height: 2.75rem;
-  width: 2.75rem;
+.logo .mobile {
+  display: block;
 }
 
-.logo>h1 {
+.logo .desktop {
   display: none;
 }
 
@@ -37,16 +36,18 @@
     justify-content: space-between;
   }
 
-  .logo>h1 {
+  .logo .desktop {
     display: block;
-    margin-left: 1rem;
+  }
+  .logo .mobile {
+    display: none;
   }
 }
 
 .action {
   flex: 0 0 auto;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   padding: 0 1rem;
 }
 .action mat-icon {

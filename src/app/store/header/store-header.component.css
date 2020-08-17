@@ -26,14 +26,19 @@
   background-color: rgba(0,0,0,0.2);
 }
 
-.logo>mat-icon {
-  font-size: 4rem;
-  width: 4rem;
-  height: 4rem;
+.logo .mobile {
+  display: block;
 }
 
-.logo>h1 {
+.logo .desktop {
   display: none;
+}
+
+.logo>* {
+  display: block;
+  height: 5rem;
+  padding-bottom: 0.5rem;
+  margin: 0;
 }
 
 @media(min-width: 800px) {
@@ -42,9 +47,11 @@
     justify-content: space-between;
   }
 
-  .logo>h1 {
+  .logo .desktop {
     display: block;
-    margin-left: 1rem;
+  }
+  .logo .mobile {
+    display: none;
   }
 }
 
@@ -79,9 +86,9 @@
 
 .action {
   flex: 0 0 auto;
-  align-items: center;
   justify-content: center;
-  padding: 0
+  align-items: center;
+  padding: 0;
 }
 .action mat-icon {
   width: 3rem;
