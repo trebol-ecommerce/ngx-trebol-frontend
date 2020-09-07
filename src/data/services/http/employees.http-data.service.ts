@@ -16,27 +16,36 @@ export class EmployeesHttpDataService
   ) {
     super();
   }
-  readById(id: string | number): Observable<Employee> {
-    throw new Error('Method not implemented.');
+
+  public create(employee: Employee): Observable<number> {
+    return this.http.post<number>(
+      this.baseURI + '/employee',
+      employee
+    );
   }
-  readFiltered(f: any): Observable<Employee[]> {
-    throw new Error('Method not implemented.');
-  }
-  update(emp: Employee, id: string | number): Observable<number> {
-    throw new Error('Method not implemented.');
+
+  public readById(employeeId: number): Observable<Employee> {
+    return this.http.get<Employee>(
+      this.baseURI + `/employee/${employeeId}`
+    );
   }
 
   public readAll(): Observable<Employee[]> {
     return this.http.get<Employee[]>(
       this.baseURI + '/employees'
-    ).pipe(
-      retry(2)
     );
   }
 
-  public create(employee: Employee): Observable<number> {
-    return this.http.post<number>(
-      this.baseURI + '/employee',
+  public readFiltered(filters: any): Observable<Employee[]> {
+    return this.http.get<Employee[]>(
+      this.baseURI + '/employees',
+      this.httpParamsOf(filters)
+    );
+  }
+
+  public update(employee: Employee, employeeId: number): Observable<number> {
+    return this.http.put<number>(
+      this.baseURI + `/employee/${employeeId}`,
       employee
     );
   }
