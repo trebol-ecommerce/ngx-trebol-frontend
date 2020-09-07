@@ -1,0 +1,21 @@
+form {
+  display: grid;
+  grid-template-areas:
+    'name'
+    'idCard'
+    'email'
+    'address'
+    'phone1'
+    'phone2';
+}
+
+@media(min-width: 800px) {
+  form {
+    grid-gap: 1rem;
+    grid-template-areas:
+      'name name name name'
+      'idCard email email email'
+      'address address address address'
+      'phone1 phone1 phone2 phone2';
+  }
+}

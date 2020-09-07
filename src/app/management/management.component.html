@@ -1,0 +1,12 @@
+<div class="management">
+  <app-management-header></app-management-header>
+  <mat-sidenav-container>
+    <mat-sidenav [opened]="isSidenavOpen$ | async" mode="side" role="navigation">
+      <app-management-sidenav></app-management-sidenav>
+    </mat-sidenav>
+    <mat-sidenav-content role="main" class="content">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <app-management-footer></app-management-footer>
+</div>

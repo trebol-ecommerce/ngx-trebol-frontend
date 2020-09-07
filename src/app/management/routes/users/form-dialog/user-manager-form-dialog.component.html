@@ -1,0 +1,38 @@
+<div>
+  <h2 mat-dialog-title>{{ dialogTitle }}</h2>
+  <centered-mat-spinner *ngIf="saving$ | async">
+  </centered-mat-spinner>
+
+  <div [hidden]="saving$ | async">
+    <form [formGroup]="formGroup" (submit)="onSubmit()">
+
+      <mat-form-field>
+        <input matInput placeholder="Nombre de Usuario" formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Clave de Usuario" formControlName="password" type="password" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Persona" formControlName="person">
+          <mat-option *ngFor="let p of (people$ | async)" [value]="p.id">
+            {{ p.name + " (" + p.idCard + ")" }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="actions">
+        <button mat-button mat-raised-button type="submit"
+          color="primary"
+          [disabled]="formGroup.invalid">
+          Aceptar
+        </button>
+        <button mat-button mat-raised-button type="button"
+          (click)="onCancel()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

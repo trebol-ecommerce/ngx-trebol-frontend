@@ -1,0 +1,50 @@
+<div class="full-size">
+
+  <centered-mat-spinner *ngIf="loading$ | async">
+  </centered-mat-spinner>
+
+  <div class="data-manager" [hidden]="loading$ | async">
+    <div class="table-wrapper">
+
+      <table mat-table class="full-width-min" [dataSource]="items$">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Nombre </th>
+          <td mat-cell *matCellDef="let provider">
+            {{ provider.person.name }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="idCard">
+          <th mat-header-cell *matHeaderCellDef> Rut </th>
+          <td mat-cell *matCellDef="let provider">
+            {{ provider.person.idCard }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let provider">
+            <button mat-button mat-icon-button type="button"
+              color="primary"
+              [disabled]="busy$ | async"
+              (click)="onClickEdit(provider)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-button mat-icon-button type="button"
+              color="warn"
+              [disabled]="busy$ | async"
+              (click)="onClickDelete(provider)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+      </table>
+
+    </div>
+    <app-management-data-actions
+      (add)="onClickAdd()">
+    </app-management-data-actions>
+  </div>
+
+</div>

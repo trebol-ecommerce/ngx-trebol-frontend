@@ -1,0 +1,65 @@
+h2 {
+  margin-top: 0;
+}
+
+form {
+  display: grid;
+  grid-gap: 0.5rem 1rem;
+  grid-template-areas:
+    'date'
+    'solicitee'
+    'provider'
+    'details'
+    'actions';
+}
+
+@media(min-width: 800px) {
+  form {
+    grid-template-areas:
+      'date solicitee solicitee solicitee'
+      'provider provider provider provider'
+      'details details details details'
+      'actions actions actions actions';
+  }
+}
+
+.details-header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.details-table-wrapper {
+  overflow-y: auto;
+  min-height: max-content;
+}
+
+table .quantity {
+  width: 3rem;
+  text-align: center;
+}
+
+.mat-column>div {
+  display: inline-flex;
+  align-items: stretch;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+
+.mat-column-actions {
+  padding: 0px !important;
+  width: 5rem;
+  max-width: 5rem;
+}
+
+.mat-column button {
+  padding: 0 0.5rem;
+  min-width: 2rem !important;
+}
+
+.actions {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}

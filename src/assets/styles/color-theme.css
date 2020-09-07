@@ -1,0 +1,12 @@
+/** Palettes as described from https://material.io/resources/color */
+
+:root {
+  --color-bg: #6a1b9a;
+  --color-bg-light: #9c4dcc;
+  --color-bg-dark: #38006b;
+  --color-bg-secondary: #ccc;
+  --color-bg-secondary-light: #eee;
+  --color-bg-secondary-dark: #aaa;
+  --color-content: #fff;
+  --color-content-secondary: #6a1b9a;
+}
