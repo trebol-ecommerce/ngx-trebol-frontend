@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { retry } from 'rxjs/operators';
 import { User } from 'src/data/models/entities/User';
 import { HttpService } from 'src/data/services/http/http.abstract-service';
 import { EntityDataIService } from '../entity.data.iservice';
@@ -16,28 +15,37 @@ export class UsersHttpDataService
   ) {
     super();
   }
-  readById(id: string | number): Observable<User> {
-    throw new Error('Method not implemented.');
+
+  public create(user: User): Observable<number> {
+    return this.http.post<number>(
+      this.baseURI + '/user',
+      user
+    );
   }
-  readFiltered(f: any): Observable<User[]> {
-    throw new Error('Method not implemented.');
-  }
-  update(emp: User, id: string | number): Observable<number> {
-    throw new Error('Method not implemented.');
+
+  public readById(userId:  number): Observable<User> {
+    return this.http.get<User>(
+      this.baseURI + `/user/${userId}`
+    );
   }
 
   public readAll(): Observable<User[]> {
     return this.http.get<User[]>(
       this.baseURI + '/users'
-    ).pipe(
-      retry(2)
     );
   }
 
-  public create(usr: User): Observable<number> {
-    return this.http.post<number>(
-      this.baseURI + '/user',
-      usr
+  public readFiltered(filters: any): Observable<User[]> {
+    return this.http.get<User[]>(
+      this.baseURI + '/users',
+      this.httpParamsOf(filters)
+    );
+  }
+
+  public update(user: User, userId: string | number): Observable<number> {
+    return this.http.put<number>(
+      this.baseURI + `/user/${userId}`,
+      user
     );
   }
 
