@@ -105,7 +105,7 @@ export class StoreCartService
     }
   }
 
-  public submitCart(clientId: number): Observable<Sell> {
+  public submitCart(clientId: number): Observable<number> {
     const venta = Object.assign<Sell, Partial<Sell>>(
       new Sell(),
       {

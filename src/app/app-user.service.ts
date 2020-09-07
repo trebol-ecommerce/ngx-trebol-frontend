@@ -24,7 +24,6 @@ export class AppUserService
   constructor(
     @Inject(DATA_INJECTION_TOKENS.sessions) protected sessionDataService: SessionDataIService,
     @Inject(DATA_INJECTION_TOKENS.users) protected usersDataService: EntityDataIService<User>,
-    @Inject(DATA_INJECTION_TOKENS.people) protected peopleDataService: EntityDataIService<Person>,
     @Inject(DATA_INJECTION_TOKENS.clients) protected clientsDataService: EntityDataIService<Client>
   ) { }
 
@@ -37,9 +36,8 @@ export class AppUserService
     return this.session;
   }
 
-  public guestLogin(details: Person): Observable<Session> {
-    return this.peopleDataService.create(details).pipe(
-      concatMap(p => this.clientsDataService.create({ id: null, person: p })),
+  public guestLogin(person: Person): Observable<Session> {
+    return this.clientsDataService.create({ id: null, person }).pipe(
       concatMap(this.sessionDataService.open),
       map((s) => Object.assign<Session, Partial<Session>>(new Session(), s)),
       tap(
