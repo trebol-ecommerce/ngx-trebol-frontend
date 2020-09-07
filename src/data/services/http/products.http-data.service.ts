@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { retry } from 'rxjs/operators';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { Product } from 'src/data/models/entities/Product';
 import { HttpService } from 'src/data/services/http/http.abstract-service';
@@ -17,18 +16,23 @@ export class ProductsHttpDataService
   ) {
     super();
   }
-  readById(id: string | number): Observable<Product> {
-    throw new Error('Method not implemented.');
+
+  public create(product: Product): Observable<number> {
+    return this.http.post<number>(
+      this.baseURI + '/product',
+      product
+    );
   }
-  update(emp: Product, id: string | number): Observable<number> {
-    throw new Error('Method not implemented.');
+
+  public readById(productId: number): Observable<Product> {
+    return this.http.get<Product>(
+      this.baseURI + `/product/${productId}`
+    );
   }
 
   public readAll(): Observable<Product[]> {
     return this.http.get<Product[]>(
       this.baseURI + '/products'
-    ).pipe(
-      retry(2)
     );
   }
 
@@ -36,8 +40,6 @@ export class ProductsHttpDataService
     return this.http.get<Product[]>(
       this.baseURI + '/products',
       this.httpParamsOf(filters)
-    ).pipe(
-      retry(2)
     );
   }
 
@@ -53,9 +55,9 @@ export class ProductsHttpDataService
     });
   }
 
-  public create(product: Product): Observable<number> {
-    return this.http.post<number>(
-      this.baseURI + '/product',
+  public update(product: Product, id: string | number): Observable<number> {
+    return this.http.put<number>(
+      this.baseURI + `/product/${id}`,
       product
     );
   }
