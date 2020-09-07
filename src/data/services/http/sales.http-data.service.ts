@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { retry, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Sell } from 'src/data/models/entities/Sell';
 import { SellDetail } from 'src/data/models/entities/SellDetail';
 import { HttpService } from 'src/data/services/http/http.abstract-service';
@@ -17,33 +17,42 @@ export class SalesHttpDataService
   ) {
     super();
   }
-  readById(id: string | number): Observable<Sell> {
-    throw new Error('Method not implemented.');
+
+  public create(sell: Sell): Observable<number> {
+    return this.http.post<number>(
+      this.baseURI + '/sell',
+      sell
+    );
   }
-  readFiltered(f: any): Observable<Sell[]> {
-    throw new Error('Method not implemented.');
+
+  public readById(sellId: number): Observable<Sell> {
+    return this.http.get<Sell>(
+      this.baseURI + `/sales/${sellId}`
+    );
   }
-  update(emp: Sell, id: string | number): Observable<number> {
-    throw new Error('Method not implemented.');
+
+  public readDetailsById(sellId: number): Observable<SellDetail[]> {
+    return this.readById(sellId).pipe(
+      map(s => s.details)
+    );
   }
 
   public readAll(): Observable<Sell[]> {
     return this.http.get<Sell[]>(
       this.baseURI + '/sales'
-    ).pipe(
-      retry(2)
     );
   }
 
-  public readDetailsById(sellId: number): Observable<SellDetail[]> {
-    return this.http.get<Sell>(
-      this.baseURI + `/sales/${sellId}`
-    ).pipe(map(s => s.details));
+  public readFiltered(filters: any): Observable<Sell[]> {
+    return this.http.get<Sell[]>(
+      this.baseURI + '/sales',
+      this.httpParamsOf(filters)
+    );
   }
 
-  public create(sell: Sell): Observable<number> {
-    return this.http.post<number>(
-      this.baseURI + '/sell',
+  public update(sell: Sell, sellId: number): Observable<number> {
+    return this.http.put<number>(
+      this.baseURI + `/sell/${sellId}`,
       sell
     );
   }
