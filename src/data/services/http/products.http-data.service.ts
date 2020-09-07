@@ -19,52 +19,48 @@ export class ProductsHttpDataService
 
   public create(product: Product): Observable<number> {
     return this.http.post<number>(
-      this.baseURI + '/product',
+      `${this.baseURI}/product`,
       product
     );
   }
 
-  public readById(productId: number): Observable<Product> {
+  public readById(id: number): Observable<Product> {
     return this.http.get<Product>(
-      this.baseURI + `/product/${productId}`
+      `${this.baseURI}/product/${id}`
     );
   }
 
   public readAll(): Observable<Product[]> {
     return this.http.get<Product[]>(
-      this.baseURI + '/products'
+      `${this.baseURI}/products`
     );
   }
 
   public readFiltered(filters: ProductFilters): Observable<Product[]> {
     return this.http.get<Product[]>(
-      this.baseURI + '/products',
+      `${this.baseURI}/products`,
       this.httpParamsOf(filters)
     );
   }
 
   public readByTypeId(typeId: number): Observable<Product[]> {
-    return this.readFiltered({
-      typeId: typeId
-    });
+    return this.readFiltered({ typeId });
   }
 
   public readByFamilyId(familyId: number): Observable<Product[]> {
-    return this.readFiltered({
-      familyId: familyId
-    });
+    return this.readFiltered({ familyId });
   }
 
   public update(product: Product, id: string | number): Observable<number> {
     return this.http.put<number>(
-      this.baseURI + `/product/${id}`,
+      `${this.baseURI}/product/${id}`,
       product
     );
   }
 
-  public deleteById(productId: number): Observable<boolean> {
+  public deleteById(id: number): Observable<boolean> {
     return this.http.delete<boolean>(
-      this.baseURI + `/product/${productId}`
+      `${this.baseURI}/product/${id}`
     );
   }
 }

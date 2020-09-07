@@ -34,7 +34,7 @@ export class SharedHttpDataService
 
   public readAllEmployeeRoles(): Observable<EmployeeRole[]> {
     return this.http.get<EmployeeRole[]>(
-      this.baseURI + '/employee_roles'
+      `${this.baseURI}/employee_roles`
     ).pipe(
       retry(2)
     );
@@ -42,7 +42,7 @@ export class SharedHttpDataService
 
   public readAllPersonas(): Observable<Person[]> {
     return this.http.get<Person[]>(
-      this.baseURI + '/people'
+      `${this.baseURI}/people`
     ).pipe(
       retry(2)
     );
@@ -50,7 +50,7 @@ export class SharedHttpDataService
 
   public readAllProductFamilies(): Observable<ProductFamily[]> {
     return this.http.get<ProductFamily[]>(
-      this.baseURI + '/product_families'
+      `${this.baseURI}/product_families`
     ).pipe(
       retry(2)
     );
@@ -58,7 +58,7 @@ export class SharedHttpDataService
 
   public readAllProductTypes(): Observable<ProductType[]> {
     return this.http.get<ProductType[]>(
-      this.baseURI + '/product_types'
+      `${this.baseURI}/product_types`
     ).pipe(
       retry(2)
     );
@@ -66,10 +66,8 @@ export class SharedHttpDataService
 
   public readAllProductTypesByFamilyId(familyId: number): Observable<ProductType[]> {
     return this.http.get<ProductType[]>(
-      this.baseURI + '/product_types',
-      this.httpParamsOf({
-        family: String(familyId)
-      })
+      `${this.baseURI}/product_types`,
+      this.httpParamsOf({ familyId })
     ).pipe(
       retry(2)
     );

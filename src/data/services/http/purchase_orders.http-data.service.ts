@@ -20,46 +20,46 @@ export class PurchaseOrdersHttpDataService
 
   public create(purchaseOrder: PurchaseOrder): Observable<number> {
     return this.http.post<number>(
-      this.baseURI + '/purchase_order',
+      `${this.baseURI}/purchase_order`,
       purchaseOrder
     );
   }
 
-  public readById(purchaseOrderId: number): Observable<PurchaseOrder> {
+  public readById(id: number): Observable<PurchaseOrder> {
     return this.http.get<PurchaseOrder>(
-      this.baseURI + `/purchase_order/${purchaseOrderId}`
+      `${this.baseURI}/purchase_order/${id}`
     );
   }
 
-  public readDetailsById(purchaseOrderId: number): Observable<PurchaseOrderDetail[]> {
-    return this.readById(purchaseOrderId).pipe(
+  public readDetailsById(id: number): Observable<PurchaseOrderDetail[]> {
+    return this.readById(id).pipe(
       map(p => p.details)
     );
   }
 
   public readAll(): Observable<PurchaseOrder[]> {
     return this.http.get<PurchaseOrder[]>(
-      this.baseURI + '/purchase_orders'
+      `${this.baseURI}/purchase_orders`
     );
   }
 
   public readFiltered(filters: any): Observable<PurchaseOrder[]> {
     return this.http.get<PurchaseOrder[]>(
-      this.baseURI + '/purchase_orders',
+      `${this.baseURI}/purchase_orders`,
       this.httpParamsOf(filters)
     );
   }
 
-  public update(purchaseOrder: PurchaseOrder, purchaseOrderId: string | number): Observable<number> {
+  public update(purchaseOrder: PurchaseOrder, id: number): Observable<number> {
     return this.http.put<number>(
-      this.baseURI + `/purchase_order/${purchaseOrderId}`,
+      `${this.baseURI}/purchase_order/${id}`,
       purchaseOrder
     );
   }
 
-  public deleteById(purchaseOrderId: number): Observable<boolean> {
+  public deleteById(id: number): Observable<boolean> {
     return this.http.delete<boolean>(
-      this.baseURI + `/purchase_order/${purchaseOrderId}`
+      `${this.baseURI}/purchase_order/${id}`
     );
   }
 }

@@ -20,21 +20,21 @@ export class SessionsHttpDataService
 
   public open(details: any): Observable<Session> {
     return this.http.post<Session>(
-      this.baseURI + '/open',
+      `${this.baseURI}/open`,
       details
     );
   }
 
   public validate(ssn: Session): Observable<boolean> {
     return this.http.post<boolean>(
-      this.baseURI + '/validate',
+      `${this.baseURI}/validate`,
       ssn
     );
   }
 
   public close(ssn: Session): Observable<boolean> {
     return this.http.post<boolean>(
-      this.baseURI + '/close',
+      `${this.baseURI}/close`,
       ssn
     );
   }

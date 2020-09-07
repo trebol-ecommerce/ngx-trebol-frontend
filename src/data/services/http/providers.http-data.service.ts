@@ -18,40 +18,40 @@ export class ProvidersHttpDataService
 
   public create(provider: Provider): Observable<number> {
     return this.http.post<number>(
-      this.baseURI + '/provider',
+      `${this.baseURI}/provider`,
       provider
     );
   }
 
-  public readById(providerId: number): Observable<Provider> {
+  public readById(id: number): Observable<Provider> {
     return this.http.get<Provider>(
-      this.baseURI + `/provider/${providerId}`
+      `${this.baseURI}/provider/${id}`
     );
   }
 
   public readAll(): Observable<Provider[]> {
     return this.http.get<Provider[]>(
-      this.baseURI + '/providers'
+      `${this.baseURI}/providers`
     );
   }
 
   public readFiltered(filters: any): Observable<Provider[]> {
     return this.http.get<Provider[]>(
-      this.baseURI + '/providers',
+      `${this.baseURI}/providers`,
       this.httpParamsOf(filters)
     );
   }
 
-  public update(provider: Provider, providerId: string | number): Observable<number> {
+  public update(provider: Provider, id: string | number): Observable<number> {
     return this.http.put<number>(
-      this.baseURI + `/provider/${providerId}`,
+      `${this.baseURI}/provider/${id}`,
       provider
     );
   }
 
-  public deleteById(providerId: number): Observable<boolean> {
+  public deleteById(id: number): Observable<boolean> {
     return this.http.delete<boolean>(
-      this.baseURI + `/provider/${providerId}`
+      `${this.baseURI}/provider/${id}`
     );
   }
 }

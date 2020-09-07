@@ -18,40 +18,40 @@ export class ClientsHttpDataService
 
   public create(client: Client): Observable<number> {
     return this.http.post<number>(
-      this.baseURI + '/client',
+      `${this.baseURI}/client`,
       client
     );
   }
 
-  public readById(clientId: number): Observable<Client> {
+  public readById(id: number): Observable<Client> {
     return this.http.get<Client>(
-      this.baseURI + `/client/${clientId}`
+      `${this.baseURI}/client/${id}`
     );
   }
 
   public readAll(): Observable<Client[]> {
     return this.http.get<Client[]>(
-      this.baseURI + '/clients'
+      `${this.baseURI}/clients`
     );
   }
 
   public readFiltered(filters: any): Observable<Client[]> {
     return this.http.get<Client[]>(
-      this.baseURI + '/clients',
+      `${this.baseURI}/clients`,
       this.httpParamsOf(filters)
     );
   }
 
-  public update(client: Client, clientId: number): Observable<number> {
+  public update(client: Client, id: number): Observable<number> {
     return this.http.put<number>(
-      this.baseURI + `/client/${clientId}`,
+      `${this.baseURI}/client/${id}`,
       client
     );
   }
 
-  public deleteById(clientId: number): Observable<boolean> {
+  public deleteById(id: number): Observable<boolean> {
     return this.http.delete<boolean>(
-      this.baseURI + `/client/${clientId}`
+      `${this.baseURI}/client/${id}`
     );
   }
 }

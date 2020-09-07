@@ -20,26 +20,26 @@ export class SalesHttpDataService
 
   public create(sell: Sell): Observable<number> {
     return this.http.post<number>(
-      this.baseURI + '/sell',
+      `${this.baseURI}/sell`,
       sell
     );
   }
 
   public readById(sellId: number): Observable<Sell> {
     return this.http.get<Sell>(
-      this.baseURI + `/sales/${sellId}`
+      `${this.baseURI}/sales/${sellId}`
     );
   }
 
-  public readDetailsById(sellId: number): Observable<SellDetail[]> {
-    return this.readById(sellId).pipe(
+  public readDetailsById(id: number): Observable<SellDetail[]> {
+    return this.readById(id).pipe(
       map(s => s.details)
     );
   }
 
   public readAll(): Observable<Sell[]> {
     return this.http.get<Sell[]>(
-      this.baseURI + '/sales'
+      `${this.baseURI}/sales`
     );
   }
 
@@ -50,16 +50,16 @@ export class SalesHttpDataService
     );
   }
 
-  public update(sell: Sell, sellId: number): Observable<number> {
+  public update(sell: Sell, id: number): Observable<number> {
     return this.http.put<number>(
-      this.baseURI + `/sell/${sellId}`,
+      `${this.baseURI}/sell/${id}`,
       sell
     );
   }
 
-  public deleteById(sellId: number): Observable<boolean> {
+  public deleteById(id: number): Observable<boolean> {
     return this.http.delete<boolean>(
-      this.baseURI + `/sell/${sellId}`
+      `${this.baseURI}/sell/${id}`
     );
   }
 }
