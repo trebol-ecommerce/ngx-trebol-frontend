@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
-import { HttpService } from 'src/data/services/http/http.abstract-service';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Client } from 'src/data/models/entities/Client';
-import { retry, map } from 'rxjs/operators';
+import { HttpService } from 'src/data/services/http/http.abstract-service';
 import { EntityDataIService } from '../entity.data.iservice';
 
 @Injectable()
@@ -16,27 +15,36 @@ export class ClientsHttpDataService
   ) {
     super();
   }
-  readById(id: string | number): Observable<Client> {
-    throw new Error('Method not implemented.');
+
+  public create(client: Client): Observable<number> {
+    return this.http.post<number>(
+      this.baseURI + '/client',
+      client
+    );
   }
-  readFiltered(f: any): Observable<Client[]> {
-    throw new Error('Method not implemented.');
-  }
-  update(emp: Client, id: string | number): Observable<number> {
-    throw new Error('Method not implemented.');
+
+  public readById(clientId: number): Observable<Client> {
+    return this.http.get<Client>(
+      this.baseURI + `/client/${clientId}`
+    );
   }
 
   public readAll(): Observable<Client[]> {
     return this.http.get<Client[]>(
       this.baseURI + '/clients'
-    ).pipe(
-      retry(2)
     );
   }
 
-  public create(client: Client): Observable<number> {
-    return this.http.post<number>(
-      this.baseURI + '/client',
+  public readFiltered(filters: any): Observable<Client[]> {
+    return this.http.get<Client[]>(
+      this.baseURI + '/clients',
+      this.httpParamsOf(filters)
+    );
+  }
+
+  public update(client: Client, clientId: number): Observable<number> {
+    return this.http.put<number>(
+      this.baseURI + `/client/${clientId}`,
       client
     );
   }
