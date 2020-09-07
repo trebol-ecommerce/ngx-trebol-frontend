@@ -1,13 +1,15 @@
 <mat-card>
   <div class="content" (click)="onClickViewProduct()">
     <mat-card-header>
-      <mat-card-title>{{ product?.name }}</mat-card-title>
-      <mat-card-subtitle>{{ product?.barcode }}</mat-card-subtitle>
+      <mat-card-title>{{ product.name }}</mat-card-title>
+      <mat-card-subtitle>{{ product.barcode }}</mat-card-subtitle>
     </mat-card-header>
-    <img [src]="product?.imagesURL[0]" [alt]="product?.name" />
+    <img *ngIf="product.imagesURL"
+      [src]="product.imagesURL[0]"
+      [alt]="product.name" />
   </div>
   <div class="actions">
-    <span class="price">${{ product?.price }}</span>
+    <span class="price">${{ product.price }}</span>
     <button mat-button mat-icon-button type="button"
       class="add-to-cart"
       color="primary"
