@@ -35,7 +35,7 @@ export class ProductsHttpDataService
   public readFiltered(filters: ProductFilters): Observable<Product[]> {
     return this.http.get<Product[]>(
       this.baseURI + '/products',
-      this.parametrosHttp(filters)
+      this.httpParamsOf(filters)
     ).pipe(
       retry(2)
     );

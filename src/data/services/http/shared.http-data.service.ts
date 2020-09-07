@@ -67,7 +67,7 @@ export class SharedHttpDataService
   public readAllProductTypesByFamilyId(familyId: number): Observable<ProductType[]> {
     return this.http.get<ProductType[]>(
       this.baseURI + '/product_types',
-      this.parametrosHttp({
+      this.httpParamsOf({
         family: String(familyId)
       })
     ).pipe(

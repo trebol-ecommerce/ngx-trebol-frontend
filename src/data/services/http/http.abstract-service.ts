@@ -11,7 +11,7 @@ export abstract class HttpService {
   /**
    * Función de azúcar sintáctico: crea objeto con parámetros para un HttpClient a partir de las propiedades del objeto ingresado
    */
-  protected parametrosHttp(object: any): { params: HttpParams } {
+  protected httpParamsOf(object: any): { params: HttpParams } {
     return {
       params: new HttpParams({ fromObject: object })
     };
