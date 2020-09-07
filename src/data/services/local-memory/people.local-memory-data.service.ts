@@ -1,8 +1,6 @@
-import { EntityLocalMemoryDataService } from './entity.local-memory-data.aservice';
 import { Injectable } from '@angular/core';
 import { Person } from 'src/data/models/entities/Person';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { EntityLocalMemoryDataService } from './entity.local-memory-data.aservice';
 
 export const MOCK_PEOPLE: Partial<Person>[] = [
   { id: 1, name: 'Anónimo' },
@@ -17,11 +15,5 @@ export class PeopleLocalMemoryDataService
 
   constructor() {
     super();
-  }
-
-  public create(persona: Person): Observable<Person> {
-    return super.create(persona).pipe(
-      map(p => Object.assign(new Person(), p))
-    );
   }
 }

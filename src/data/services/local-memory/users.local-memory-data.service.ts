@@ -33,20 +33,4 @@ export class UsersLocalMemoryDataService
   constructor() {
     super();
   }
-
-  public create(usuario: User): Observable<User> {
-    return super.create(usuario).pipe(
-      map(
-        u => Object.assign(new User(),
-          {
-            id: u.id,
-            nombre: u.name,
-            fechaCreacion: u.createdOn,
-            persona: u.person,
-            empleado: u.employee,
-            idCliente: u.clientId
-          })
-      )
-    );
-  }
 }

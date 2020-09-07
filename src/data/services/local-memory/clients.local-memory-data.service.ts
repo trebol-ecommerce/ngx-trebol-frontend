@@ -1,8 +1,6 @@
-import { EntityLocalMemoryDataService } from './entity.local-memory-data.aservice';
-import { Client } from 'src/data/models/entities/Client';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Client } from 'src/data/models/entities/Client';
+import { EntityLocalMemoryDataService } from './entity.local-memory-data.aservice';
 
 export const MOCK_CLIENTS: Partial<Client>[] = [
   {
@@ -25,11 +23,5 @@ export class ClientsLocalMemoryDataService
 
   constructor() {
     super();
-  }
-
-  public create(cliente: Client): Observable<Client> {
-    return super.create(cliente).pipe(
-      map(u => Object.assign(new Client(), u))
-    );
   }
 }
