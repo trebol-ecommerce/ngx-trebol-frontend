@@ -17,31 +17,42 @@ export class PurchaseOrdersHttpDataService
   ) {
     super();
   }
-  readById(id: string | number): Observable<PurchaseOrder> {
-    throw new Error('Method not implemented.');
+
+  public create(purchaseOrder: PurchaseOrder): Observable<number> {
+    return this.http.post<number>(
+      this.baseURI + '/purchase_order',
+      purchaseOrder
+    );
   }
-  readFiltered(f: any): Observable<PurchaseOrder[]> {
-    throw new Error('Method not implemented.');
+
+  public readById(purchaseOrderId: number): Observable<PurchaseOrder> {
+    return this.http.get<PurchaseOrder>(
+      this.baseURI + `/purchase_order/${purchaseOrderId}`
+    );
   }
-  update(emp: PurchaseOrder, id: string | number): Observable<number> {
-    throw new Error('Method not implemented.');
+
+  public readDetailsById(purchaseOrderId: number): Observable<PurchaseOrderDetail[]> {
+    return this.readById(purchaseOrderId).pipe(
+      map(p => p.details)
+    );
   }
 
   public readAll(): Observable<PurchaseOrder[]> {
     return this.http.get<PurchaseOrder[]>(
       this.baseURI + '/purchase_orders'
-    )
+    );
   }
 
-  public readDetailsById(purchaseOrderId: number): Observable<PurchaseOrderDetail[]> {
-    return this.http.get<PurchaseOrder>(
-      this.baseURI + `/purchase_order/${purchaseOrderId}`
-    ).pipe(map(p => p.details));
+  public readFiltered(filters: any): Observable<PurchaseOrder[]> {
+    return this.http.get<PurchaseOrder[]>(
+      this.baseURI + '/purchase_orders',
+      this.httpParamsOf(filters)
+    );
   }
 
-  public create(purchaseOrder: PurchaseOrder): Observable<number> {
-    return this.http.post<number>(
-      this.baseURI + '/purchase_order',
+  public update(purchaseOrder: PurchaseOrder, purchaseOrderId: string | number): Observable<number> {
+    return this.http.put<number>(
+      this.baseURI + `/purchase_order/${purchaseOrderId}`,
       purchaseOrder
     );
   }
