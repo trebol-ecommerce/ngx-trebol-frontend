@@ -9,7 +9,7 @@ export abstract class HttpService {
   protected baseURI = environment.baseURI;
 
   /**
-   * Función de azúcar sintáctico: crea objeto con parámetros para un HttpClient a partir de las propiedades del objeto ingresado
+   * Syntactic sugar - create wrapped httpParams object - use directly as argument in http request
    */
   protected httpParamsOf(object: any): { params: HttpParams } {
     return {
