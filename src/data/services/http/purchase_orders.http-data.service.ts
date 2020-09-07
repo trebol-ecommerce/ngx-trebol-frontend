@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { retry } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { PurchaseOrder } from 'src/data/models/entities/PurchaseOrder';
 import { PurchaseOrderDetail } from 'src/data/models/entities/PurchaseOrderDetail';
 import { HttpService } from 'src/data/services/http/http.abstract-service';
@@ -11,8 +11,6 @@ import { CompositeEntityDataIService } from '../composite-entity.data.iservice';
 export class PurchaseOrdersHttpDataService
   extends HttpService
   implements CompositeEntityDataIService<PurchaseOrder, PurchaseOrderDetail> {
-
-  protected baseURI = this.baseURI + '/gestion/ordenes_compra';
 
   constructor(
     protected http: HttpClient
@@ -31,30 +29,26 @@ export class PurchaseOrdersHttpDataService
 
   public readAll(): Observable<PurchaseOrder[]> {
     return this.http.get<PurchaseOrder[]>(
-      this.baseURI
-    ).pipe(
-      retry(2)
-    );
+      this.baseURI + '/purchase_orders'
+    )
   }
 
-  public readDetailsById(id: number): Observable<PurchaseOrderDetail[]> {
-    return this.http.post<PurchaseOrderDetail[]>(
-      this.baseURI + '/detalles',
-      id
-    );
+  public readDetailsById(purchaseOrderId: number): Observable<PurchaseOrderDetail[]> {
+    return this.http.get<PurchaseOrder>(
+      this.baseURI + `/purchase_order/${purchaseOrderId}`
+    ).pipe(map(p => p.details));
   }
 
-  public create(oc: PurchaseOrder): Observable<number> {
+  public create(purchaseOrder: PurchaseOrder): Observable<number> {
     return this.http.post<number>(
-      this.baseURI + '/guardar',
-      oc
+      this.baseURI + '/purchase_order',
+      purchaseOrder
     );
   }
 
-  public deleteById(idOrdenCompra: number): Observable<boolean> {
-    return this.http.post<boolean>(
-      this.baseURI + '/borrar',
-      idOrdenCompra
+  public deleteById(purchaseOrderId: number): Observable<boolean> {
+    return this.http.delete<boolean>(
+      this.baseURI + `/purchase_order/${purchaseOrderId}`
     );
   }
 }

@@ -10,7 +10,7 @@ export class SessionsHttpDataService
   extends HttpService
   implements SessionDataIService {
 
-  protected baseURI = this.baseURI + '/sesiones';
+  protected baseURI = this.baseURI + '/session';
 
   constructor(
     protected http: HttpClient
@@ -20,21 +20,21 @@ export class SessionsHttpDataService
 
   public open(details: any): Observable<Session> {
     return this.http.post<Session>(
-      this.baseURI + '/abrir',
+      this.baseURI + '/open',
       details
     );
   }
 
   public validate(ssn: Session): Observable<boolean> {
     return this.http.post<boolean>(
-      this.baseURI + '/validar',
+      this.baseURI + '/validate',
       ssn
     );
   }
 
   public close(ssn: Session): Observable<boolean> {
     return this.http.post<boolean>(
-      this.baseURI + '/cerrar',
+      this.baseURI + '/close',
       ssn
     );
   }

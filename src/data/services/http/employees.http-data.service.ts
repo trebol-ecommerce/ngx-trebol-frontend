@@ -11,8 +11,6 @@ export class EmployeesHttpDataService
   extends HttpService
   implements EntityDataIService<Employee> {
 
-  protected baseURI = this.baseURI + '/gestion/empleados';
-
   constructor(
     protected http: HttpClient
   ) {
@@ -30,23 +28,22 @@ export class EmployeesHttpDataService
 
   public readAll(): Observable<Employee[]> {
     return this.http.get<Employee[]>(
-      this.baseURI
+      this.baseURI + '/employees'
     ).pipe(
       retry(2)
     );
   }
 
-  public create(emp: Employee): Observable<number> {
+  public create(employee: Employee): Observable<number> {
     return this.http.post<number>(
-      this.baseURI + '/guardar',
-      emp
+      this.baseURI + '/employee',
+      employee
     );
   }
 
-  public deleteById(idEmpleado: number): Observable<boolean> {
-    return this.http.post<boolean>(
-      this.baseURI + '/borrar',
-      idEmpleado
+  public deleteById(employeeId: number): Observable<boolean> {
+    return this.http.delete<boolean>(
+      this.baseURI + `/employee/${employeeId}`
     );
   }
 }

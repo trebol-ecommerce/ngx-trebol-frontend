@@ -11,8 +11,6 @@ export class ProvidersHttpDataService
   extends HttpService
   implements EntityDataIService<Provider> {
 
-  protected baseURI = this.baseURI + '/gestion/proveedores';
-
   constructor(
     protected http: HttpClient
   ) {
@@ -30,23 +28,22 @@ export class ProvidersHttpDataService
 
   public readAll(): Observable<Provider[]> {
     return this.http.get<Provider[]>(
-      this.baseURI
+      this.baseURI + '/providers'
     ).pipe(
       retry(2)
     );
   }
 
-  public create(prov: Provider): Observable<number> {
+  public create(provider: Provider): Observable<number> {
     return this.http.post<number>(
-      this.baseURI + '/guardar',
-      prov
+      this.baseURI + '/provider',
+      provider
     );
   }
 
-  public deleteById(idProveedor: number): Observable<boolean> {
-    return this.http.post<boolean>(
-      this.baseURI + '/borrar',
-      idProveedor
+  public deleteById(providerId: number): Observable<boolean> {
+    return this.http.delete<boolean>(
+      this.baseURI + `/provider/${providerId}`
     );
   }
 }

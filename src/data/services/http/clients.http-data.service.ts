@@ -11,8 +11,6 @@ export class ClientsHttpDataService
   extends HttpService
   implements EntityDataIService<Client> {
 
-  protected baseURI = this.baseURI + '/gestion/clientes';
-
   constructor(
     protected http: HttpClient
   ) {
@@ -30,23 +28,22 @@ export class ClientsHttpDataService
 
   public readAll(): Observable<Client[]> {
     return this.http.get<Client[]>(
-      this.baseURI
+      this.baseURI + '/clients'
     ).pipe(
       retry(2)
     );
   }
 
-  public create(cli: Client): Observable<number> {
+  public create(client: Client): Observable<number> {
     return this.http.post<number>(
-      this.baseURI + '/guardar',
-      cli
+      this.baseURI + '/client',
+      client
     );
   }
 
-  public deleteById(idCliente: number): Observable<boolean> {
-    return this.http.post<boolean>(
-      this.baseURI + '/borrar',
-      idCliente
+  public deleteById(clientId: number): Observable<boolean> {
+    return this.http.delete<boolean>(
+      this.baseURI + `/client/${clientId}`
     );
   }
 }

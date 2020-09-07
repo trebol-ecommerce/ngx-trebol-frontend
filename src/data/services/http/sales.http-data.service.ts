@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { retry } from 'rxjs/operators';
+import { retry, map } from 'rxjs/operators';
 import { Sell } from 'src/data/models/entities/Sell';
 import { SellDetail } from 'src/data/models/entities/SellDetail';
 import { HttpService } from 'src/data/services/http/http.abstract-service';
@@ -11,8 +11,6 @@ import { CompositeEntityDataIService } from '../composite-entity.data.iservice';
 export class SalesHttpDataService
   extends HttpService
   implements CompositeEntityDataIService<Sell, SellDetail> {
-
-  protected baseURI = this.baseURI + '/gestion/ventas';
 
   constructor(
     protected http: HttpClient
@@ -31,30 +29,28 @@ export class SalesHttpDataService
 
   public readAll(): Observable<Sell[]> {
     return this.http.get<Sell[]>(
-      this.baseURI
+      this.baseURI + '/sales'
     ).pipe(
       retry(2)
     );
   }
 
-  public readDetailsById(id: number): Observable<SellDetail[]> {
-    return this.http.post<SellDetail[]>(
-      this.baseURI + '/detalles',
-      id
-    );
+  public readDetailsById(sellId: number): Observable<SellDetail[]> {
+    return this.http.get<Sell>(
+      this.baseURI + `/sales/${sellId}`
+    ).pipe(map(s => s.details));
   }
 
-  public create(vt: Sell): Observable<number> {
+  public create(sell: Sell): Observable<number> {
     return this.http.post<number>(
-      this.baseURI + '/guardar',
-      vt
+      this.baseURI + '/sell',
+      sell
     );
   }
 
-  public deleteById(idVenta: number): Observable<boolean> {
-    return this.http.post<boolean>(
-      this.baseURI + '/borrar',
-      idVenta
+  public deleteById(sellId: number): Observable<boolean> {
+    return this.http.delete<boolean>(
+      this.baseURI + `/sell/${sellId}`
     );
   }
 }

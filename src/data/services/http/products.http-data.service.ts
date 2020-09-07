@@ -12,8 +12,6 @@ export class ProductsHttpDataService
   extends HttpService
   implements EntityDataIService<Product> {
 
-  protected baseURI = this.baseURI + '/gestion/productos';
-
   constructor(
     protected http: HttpClient
   ) {
@@ -28,44 +26,43 @@ export class ProductsHttpDataService
 
   public readAll(): Observable<Product[]> {
     return this.http.get<Product[]>(
-      this.baseURI
+      this.baseURI + '/products'
     ).pipe(
       retry(2)
     );
   }
 
-  public readFiltered(filtros: ProductFilters): Observable<Product[]> {
+  public readFiltered(filters: ProductFilters): Observable<Product[]> {
     return this.http.get<Product[]>(
-      this.baseURI,
-      this.parametrosHttp(filtros)
+      this.baseURI + '/products',
+      this.parametrosHttp(filters)
     ).pipe(
       retry(2)
     );
   }
 
-  public readByTypeId(idTipo: number): Observable<Product[]> {
+  public readByTypeId(typeId: number): Observable<Product[]> {
     return this.readFiltered({
-      typeId: idTipo
+      typeId: typeId
     });
   }
 
-  public readByFamilyId(idFamilia: number): Observable<Product[]> {
+  public readByFamilyId(familyId: number): Observable<Product[]> {
     return this.readFiltered({
-      familyId: idFamilia
+      familyId: familyId
     });
   }
 
-  public create(prod: Product): Observable<number> {
+  public create(product: Product): Observable<number> {
     return this.http.post<number>(
-      this.baseURI + '/guardar',
-      prod
+      this.baseURI + '/product',
+      product
     );
   }
 
-  public deleteById(idProducto: number): Observable<boolean> {
-    return this.http.post<boolean>(
-      this.baseURI + '/borrar',
-      idProducto
+  public deleteById(productId: number): Observable<boolean> {
+    return this.http.delete<boolean>(
+      this.baseURI + `/product/${productId}`
     );
   }
 }
