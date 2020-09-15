@@ -15,7 +15,8 @@ describe('StoreReceiptComponent', () => {
       sell$: of(new Sell()),
       loading$: of(true),
       details$: of([]),
-      soldOn$: of('')
+      soldOn$: of(''),
+      fetchSell() { }
     };
 
     TestBed.configureTestingModule({
