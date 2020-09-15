@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { makeid } from 'src/functions/makeid';
 import { Client } from 'src/data/models/entities/Client';
 import { Session } from 'src/data/models/entities/Session';
 import { User } from 'src/data/models/entities/User';
+import { makeid } from 'src/functions/makeid';
 import { SessionDataIService } from '../auth.data.iservice';
 
 function getNewSessionId(): number {
@@ -20,7 +20,7 @@ export class SessionsLocalMemoryDataService
 
   constructor() { }
 
-  public login(details: User | Client): Observable<Session> {
+  public login(details: User | Client): Observable<boolean> {
     return new Observable(
       observer => {
 
@@ -35,7 +35,7 @@ export class SessionsLocalMemoryDataService
             }
           );
           sessionStorage.setItem('session', JSON.stringify(sesion));
-          observer.next(sesion);
+          observer.next(true);
         } else if (details instanceof Client) {
           const sesion: Session = Object.assign(
             new Session(),
@@ -47,7 +47,7 @@ export class SessionsLocalMemoryDataService
             }
           );
           sessionStorage.setItem('session', JSON.stringify(sesion));
-          observer.next(sesion);
+          observer.next(true);
         } else {
           observer.error(new Error('Provided details for new session are invalid'));
         }
@@ -60,11 +60,12 @@ export class SessionsLocalMemoryDataService
     );
   }
 
-  public validate(ssn: Partial<Session>): Observable<boolean> {
-    return of(true);
+  public validate(): Observable<boolean> {
+    const hasSession = (sessionStorage.getItem('session') !== null);
+    return of(hasSession);
   }
 
-  public logout(ssn: Partial<Session>): Observable<boolean> {
+  public logout(): Observable<boolean> {
     sessionStorage.removeItem('session');
     return of(true);
   }

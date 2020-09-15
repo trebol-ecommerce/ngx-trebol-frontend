@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Session } from 'src/data/models/entities/Session';
-import { SessionDataIService } from '../auth.data.iservice';
 import { HttpService } from '../../../shared/http.abstract-service';
+import { SessionDataIService } from '../auth.data.iservice';
 
 @Injectable()
 export class SessionsHttpDataService
@@ -18,24 +17,22 @@ export class SessionsHttpDataService
     super();
   }
 
-  public login(details: any): Observable<Session> {
-    return this.http.post<Session>(
-      `${this.baseURI}/open`,
+  public login(details: any): Observable<boolean> {
+    return this.http.post<boolean>(
+      `${this.baseURI}/login`,
       details
     );
   }
 
-  public validate(ssn: Session): Observable<boolean> {
-    return this.http.post<boolean>(
-      `${this.baseURI}/validate`,
-      ssn
+  public validate(): Observable<boolean> {
+    return this.http.get<boolean>(
+      `${this.baseURI}/validate`
     );
   }
 
-  public logout(ssn: Session): Observable<boolean> {
-    return this.http.post<boolean>(
-      `${this.baseURI}/close`,
-      ssn
+  public logout(): Observable<boolean> {
+    return this.http.get<boolean>(
+      `${this.baseURI}/logout`
     );
   }
 }
