@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
-import { DataManagerFormService } from 'src/app/management/data-manager-form.aservice';
+import { DataManagerFormService } from '../../data-manager-form.aservice';
 import { Employee } from 'src/data/models/entities/Employee';
 import { Product } from 'src/data/models/entities/Product';
 import { Provider } from 'src/data/models/entities/Provider';

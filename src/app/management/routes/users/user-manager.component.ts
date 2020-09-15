@@ -6,7 +6,7 @@ import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { User } from 'src/data/models/entities/User';
 import { UserManagerFormDialogComponent, UserManagerFormDialogData } from './form-dialog/user-manager-form-dialog.component';
 import { UserManagerService } from './user-manager.service';
-import { DataManagerComponent } from '../../data-manager.acomponent';
+import { DataManagerComponent } from '../data-manager.acomponent';
 import { map } from 'rxjs/operators';
 
 @Component({

@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
+import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
 import { Product } from 'src/data/models/entities/Product';
 import { ProductFamily } from 'src/data/models/entities/ProductFamily';
 import { ProductType } from 'src/data/models/entities/ProductType';

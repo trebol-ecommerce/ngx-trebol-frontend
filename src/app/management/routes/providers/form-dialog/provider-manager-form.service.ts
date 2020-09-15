@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { DataManagerFormService } from 'src/app/management/data-manager-form.aservice';
+import { DataManagerFormService } from '../../data-manager-form.aservice';
 import { Provider } from 'src/data/models/entities/Provider';
 import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';

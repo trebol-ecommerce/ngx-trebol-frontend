@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { merge, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { DataManagerFormComponent } from 'src/app/management/data-manager-form.acomponent';
+import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
 import { Client } from 'src/data/models/entities/Client';
 import { Employee } from 'src/data/models/entities/Employee';
 import { Product } from 'src/data/models/entities/Product';

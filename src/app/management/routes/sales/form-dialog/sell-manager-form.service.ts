@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { concatMap, map, switchMap, toArray } from 'rxjs/operators';
-import { DataManagerFormService } from 'src/app/management/data-manager-form.aservice';
+import { DataManagerFormService } from '../../data-manager-form.aservice';
 import { Client } from 'src/data/models/entities/Client';
 import { Employee } from 'src/data/models/entities/Employee';
 import { Product } from 'src/data/models/entities/Product';

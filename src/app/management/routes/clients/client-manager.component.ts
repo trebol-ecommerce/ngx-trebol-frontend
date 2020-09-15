@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Client } from 'src/data/models/entities/Client';
-import { DataManagerComponent } from '../../data-manager.acomponent';
+import { DataManagerComponent } from '../data-manager.acomponent';
 import { ClientManagerService } from './client-manager.service';
 
 @Component({

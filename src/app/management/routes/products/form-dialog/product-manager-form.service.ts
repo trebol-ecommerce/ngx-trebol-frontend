@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { DataManagerFormService } from 'src/app/management/data-manager-form.aservice';
+import { DataManagerFormService } from '../../data-manager-form.aservice';
 import { Product } from 'src/data/models/entities/Product';
 import { ProductFamily } from 'src/data/models/entities/ProductFamily';
 import { ProductType } from 'src/data/models/entities/ProductType';

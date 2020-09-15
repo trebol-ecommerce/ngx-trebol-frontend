@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Employee } from 'src/data/models/entities/Employee';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
-import { DataManagerComponent } from '../../data-manager.acomponent';
+import { DataManagerComponent } from '../data-manager.acomponent';
 import { EmployeeManagerService } from './employee-manager.service';
 import { EmployeeManagementFormDialogData, EmployeeManagerFormDialogComponent } from './form-dialog/employee-manager-form-dialog.component';
 import { map } from 'rxjs/operators';
