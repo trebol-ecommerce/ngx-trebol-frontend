@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppUserService } from 'src/app/app-user.service';
-import { MATERIAL_MODULES } from 'src/app/shared/angular-material.module';
+import { MATERIAL_MODULES } from 'src/shared/angular-material.module';
 import { ManagementService } from '../management.service';
 import { ManagementHeaderComponent } from './management-header.component';
 

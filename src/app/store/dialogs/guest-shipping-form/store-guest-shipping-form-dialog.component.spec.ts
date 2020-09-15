@@ -5,7 +5,7 @@ import { AppUserService } from 'src/app/app-user.service';
 import { of } from 'rxjs';
 import { Session } from 'src/data/models/entities/Session';
 import { MatDialogRef } from '@angular/material/dialog';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from 'src/shared/shared.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 describe('StoreGuestShippingFormDialogComponent', () => {

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { AppUserService } from 'src/app/app-user.service';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from 'src/shared/shared.module';
 import { Session } from 'src/data/models/entities/Session';
 import { StoreRegistrationFormDialogComponent } from './store-registration-form-dialog.component';
 

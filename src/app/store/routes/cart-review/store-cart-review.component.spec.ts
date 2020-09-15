@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreCartReviewComponent } from './store-cart-review.component';
 import { StoreCartService } from '../../store-cart.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from 'src/shared/shared.module';
 import { of } from 'rxjs';
 import { AppUserService } from 'src/app/app-user.service';
 

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from 'src/shared/shared.module';
 import { UserManagerFormDialogComponent } from './user-manager-form-dialog.component';
 import { UserManagerFormService } from './user-manager-form.service';
 

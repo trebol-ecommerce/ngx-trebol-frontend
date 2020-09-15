@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { map, tap, startWith } from 'rxjs/operators';
-import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
+import { PersonFormComponent } from 'src/shared/person-form/person-form.component';
 import { EditProfileFormService } from './edit-profile-form.service';
 
 export const TIEMPO_CONFIRMACION_SALIR = 2000;

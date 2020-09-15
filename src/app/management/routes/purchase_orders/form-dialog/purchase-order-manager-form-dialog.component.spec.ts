@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from 'src/shared/shared.module';
 import { PurchaseOrderManagerFormDialogComponent } from './purchase-order-manager-form-dialog.component';
 import { PurchaseOrderManagerFormService } from './purchase-order-manager-form.service';
 

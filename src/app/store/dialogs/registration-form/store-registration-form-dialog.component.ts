@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
 import { AppUserService } from 'src/app/app-user.service';
-import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
+import { PersonFormComponent } from 'src/shared/person-form/person-form.component';
 import { User } from 'src/data/models/entities/User';
 import { passwordMatcher } from 'src/functions/passwordMatcher';
 

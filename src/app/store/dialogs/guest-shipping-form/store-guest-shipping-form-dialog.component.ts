@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
 import { AppUserService } from 'src/app/app-user.service';
-import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
+import { PersonFormComponent } from 'src/shared/person-form/person-form.component';
 import { StoreRegistrationFormDialogComponent } from '../registration-form/store-registration-form-dialog.component';
 
 @Component({
