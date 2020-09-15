@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PurchaseOrder } from 'src/data/models/entities/PurchaseOrder';
 import { PurchaseOrderDetail } from 'src/data/models/entities/PurchaseOrderDetail';
-import { HttpService } from 'src/data/services/http/http.abstract-service';
+import { HttpService } from 'src/shared/http.abstract-service';
 import { CompositeEntityDataIService } from '../composite-entity.data.iservice';
 
 @Injectable()

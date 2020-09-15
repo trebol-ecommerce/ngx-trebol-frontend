@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Provider } from 'src/data/models/entities/Provider';
-import { HttpService } from 'src/data/services/http/http.abstract-service';
+import { HttpService } from 'src/shared/http.abstract-service';
 import { EntityDataIService } from '../entity.data.iservice';
 
 @Injectable()

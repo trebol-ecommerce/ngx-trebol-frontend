@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Session } from 'src/data/models/entities/Session';
 import { SessionDataIService } from '../auth.data.iservice';
-import { HttpService } from './http.abstract-service';
+import { HttpService } from '../../../shared/http.abstract-service';
 
 @Injectable()
 export class SessionsHttpDataService

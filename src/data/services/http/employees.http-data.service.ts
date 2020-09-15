@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
 import { Employee } from 'src/data/models/entities/Employee';
-import { HttpService } from 'src/data/services/http/http.abstract-service';
+import { HttpService } from 'src/shared/http.abstract-service';
 import { EntityDataIService } from '../entity.data.iservice';
 
 @Injectable()
