@@ -38,7 +38,7 @@ export class AppUserService
 
   public guestLogin(person: Person): Observable<Session> {
     return this.clientsDataService.create({ id: null, person }).pipe(
-      concatMap(this.sessionDataService.open),
+      concatMap(this.sessionDataService.login),
       map((s) => Object.assign<Session, Partial<Session>>(new Session(), s)),
       tap(
         (s: Session) => {
@@ -51,7 +51,7 @@ export class AppUserService
 
   public register(details: User): Observable<Session> {
     return this.usersDataService.create(details).pipe(
-      concatMap(this.sessionDataService.open),
+      concatMap(this.sessionDataService.login),
       map((s) => Object.assign<Session, Partial<Session>>(new Session(), s)),
       tap(
         (s: Session) => {
@@ -70,7 +70,7 @@ export class AppUserService
         concatMap(
           (users: User[]) => {
             if (users.length > 0) {
-              return this.sessionDataService.open(users[0]).pipe(
+              return this.sessionDataService.login(users[0]).pipe(
                 tap(
                   (s: Session) => {
                     this.session = s;
@@ -100,7 +100,7 @@ export class AppUserService
   public closeCurrentSession(): void {
     this.session = null;
     this.sessionChangesSource.next(null);
-    this.sessionDataService.close(this.session).subscribe();
+    this.sessionDataService.logout(this.session).subscribe();
   }
 
 }

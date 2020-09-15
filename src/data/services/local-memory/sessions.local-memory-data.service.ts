@@ -20,7 +20,7 @@ export class SessionsLocalMemoryDataService
 
   constructor() { }
 
-  public open(details: User | Client): Observable<Session> {
+  public login(details: User | Client): Observable<Session> {
     return new Observable(
       observer => {
 
@@ -64,7 +64,7 @@ export class SessionsLocalMemoryDataService
     return of(true);
   }
 
-  public close(ssn: Partial<Session>): Observable<boolean> {
+  public logout(ssn: Partial<Session>): Observable<boolean> {
     sessionStorage.removeItem('session');
     return of(true);
   }

@@ -3,7 +3,7 @@ import { Session } from 'src/data/models/entities/Session';
 
 export interface SessionDataIService {
 
-  open(details: any): Observable<Session>;
+  login(details: any): Observable<Session>;
   validate(ssn: Partial<Session>): Observable<boolean>;
-  close(ssn: Partial<Session>): Observable<boolean>;
+  logout(ssn: Partial<Session>): Observable<boolean>;
 }

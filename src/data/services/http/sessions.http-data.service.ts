@@ -18,7 +18,7 @@ export class SessionsHttpDataService
     super();
   }
 
-  public open(details: any): Observable<Session> {
+  public login(details: any): Observable<Session> {
     return this.http.post<Session>(
       `${this.baseURI}/open`,
       details
@@ -32,7 +32,7 @@ export class SessionsHttpDataService
     );
   }
 
-  public close(ssn: Session): Observable<boolean> {
+  public logout(ssn: Session): Observable<boolean> {
     return this.http.post<boolean>(
       `${this.baseURI}/close`,
       ssn
