@@ -11,7 +11,7 @@ import { EditProfileFormDialogComponent } from 'src/shared/edit-profile-form-dia
 import { EmployeeRolesEnum } from 'src/data/enums/EmployeeRolesEnum';
 import { StoreCompanyDetailsDialogComponent } from '../dialogs/company-details/store-company-details-dialog.component';
 import { StoreLoginFormDialogComponent } from '../dialogs/login-form/store-login-form-dialog.component';
-import { StoreCartService } from '../store-cart.service';
+import { StoreService } from '../store.service';
 
 @Component({
   selector: 'app-store-header',
@@ -32,7 +32,7 @@ export class StoreHeaderComponent
   public userName$: Observable<string>;
 
   constructor(
-    protected cartService: StoreCartService,
+    protected cartService: StoreService,
     protected appUserService: AppUserService,
     protected snackBarService: MatSnackBar,
     protected dialogService: MatDialog,

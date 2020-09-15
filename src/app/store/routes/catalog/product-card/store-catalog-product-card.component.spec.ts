@@ -1,13 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StoreCatalogProductCardComponent } from './store-catalog-product-card.component';
-import { StoreCartService } from 'src/app/store/store-cart.service';
+import { StoreService } from 'src/app/store/store.service';
 import { StoreCatalogService } from '../store-catalog.service';
 
 describe('StoreCatalogProductCardComponent', () => {
   let component: StoreCatalogProductCardComponent;
   let fixture: ComponentFixture<StoreCatalogProductCardComponent>;
-  let cartService: Partial<StoreCartService>;
+  let cartService: Partial<StoreService>;
   let catalogService: Partial<StoreCatalogService>;
 
   beforeEach(async(() => {
@@ -21,7 +21,7 @@ describe('StoreCatalogProductCardComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ StoreCatalogProductCardComponent ],
       providers: [
-        { provide: StoreCartService, useValue: cartService },
+        { provide: StoreService, useValue: cartService },
         { provide: StoreCatalogService, useValue: catalogService }
       ]
     })

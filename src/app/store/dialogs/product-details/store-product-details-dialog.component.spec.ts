@@ -2,13 +2,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { Product } from 'src/data/models/entities/Product';
-import { StoreCartService } from '../../store-cart.service';
+import { StoreService } from '../../store.service';
 import { StoreProductDetailsDialogComponent } from './store-product-details-dialog.component';
 
 describe('StoreProductDetailsDialogComponent', () => {
   let component: StoreProductDetailsDialogComponent;
   let fixture: ComponentFixture<StoreProductDetailsDialogComponent>;
-  let cartService: Partial<StoreCartService>;
+  let cartService: Partial<StoreService>;
 
   beforeEach(async(() => {
     cartService = {
@@ -22,7 +22,7 @@ describe('StoreProductDetailsDialogComponent', () => {
       declarations: [ StoreProductDetailsDialogComponent ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },
-        { provide: StoreCartService, useValue: cartService }
+        { provide: StoreService, useValue: cartService }
       ]
     })
     .compileComponents();

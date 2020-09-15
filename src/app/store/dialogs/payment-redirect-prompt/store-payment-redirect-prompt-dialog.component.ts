@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { concatMap, map, mapTo, startWith } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
 import { environment } from 'src/environments/environment';
-import { StoreCartService } from '../../store-cart.service';
+import { StoreService } from '../../store.service';
 
 interface ExternalPaymentRedirectionData {
   url: string,
@@ -27,7 +27,7 @@ export class StorePaymentRedirectPromptDialogComponent
 
   constructor(
     protected appUserService: AppUserService,
-    protected cartService: StoreCartService,
+    protected cartService: StoreService,
     protected httpClient: HttpClient
   ) {
     this.loading$ = this.externalDataSource.asObservable().pipe(startWith(true), mapTo(false));

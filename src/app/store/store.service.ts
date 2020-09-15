@@ -8,7 +8,7 @@ import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 
 @Injectable()
-export class StoreCartService
+export class StoreService
   implements OnDestroy {
 
   protected sellDetails: SellDetail[] = [];

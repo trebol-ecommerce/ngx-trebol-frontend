@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StoreCartReviewComponent } from './store-cart-review.component';
-import { StoreCartService } from '../../store-cart.service';
+import { StoreService } from '../../store.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SharedModule } from 'src/shared/shared.module';
 import { of } from 'rxjs';
@@ -10,7 +10,7 @@ import { AppUserService } from 'src/app/app-user.service';
 describe('StoreCartReviewComponent', () => {
   let component: StoreCartReviewComponent;
   let fixture: ComponentFixture<StoreCartReviewComponent>;
-  let cartService: Partial<StoreCartService>;
+  let cartService: Partial<StoreService>;
   let userService: Partial<AppUserService>;
 
   beforeEach(async(() => {
@@ -32,7 +32,7 @@ describe('StoreCartReviewComponent', () => {
       ],
       declarations: [ StoreCartReviewComponent ],
       providers: [
-        { provide: StoreCartService, useValue: cartService },
+        { provide: StoreService, useValue: cartService },
         { provide: AppUserService, useValue: userService }
       ]
     })

@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from 'src/data/models/entities/Product';
 import { SellDetail } from 'src/data/models/entities/SellDetail';
-import { StoreCartService } from '../../store-cart.service';
+import { StoreService } from '../../store.service';
 
 export interface StoreProductDetailsDialogData {
   product: Product;
@@ -29,7 +29,7 @@ export class StoreProductDetailsDialogComponent
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data: StoreProductDetailsDialogData,
-    public cartService: StoreCartService,
+    public cartService: StoreService,
   ) {
     this.product = data?.product ? data.product : null;
   }

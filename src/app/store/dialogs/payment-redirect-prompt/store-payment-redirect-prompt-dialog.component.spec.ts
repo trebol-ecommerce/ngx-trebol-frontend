@@ -3,14 +3,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { AppUserService } from 'src/app/app-user.service';
 import { Session } from 'src/data/models/entities/Session';
-import { StoreCartService } from '../../store-cart.service';
+import { StoreService } from '../../store.service';
 import { StorePaymentRedirectPromptDialogComponent } from './store-payment-redirect-prompt-dialog.component';
 
 describe('StorePaymentRedirectPromptDialogComponent', () => {
   let component: StorePaymentRedirectPromptDialogComponent;
   let fixture: ComponentFixture<StorePaymentRedirectPromptDialogComponent>;
   let userService: Partial<AppUserService>;
-  let cartService: Partial<StoreCartService>;
+  let cartService: Partial<StoreService>;
 
   beforeEach(async(() => {
     userService = {
@@ -27,7 +27,7 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
       declarations: [ StorePaymentRedirectPromptDialogComponent ],
       providers: [
         { provide: AppUserService, useValue: userService },
-        { provide: StoreCartService, useValue: cartService }
+        { provide: StoreService, useValue: cartService }
       ]
     })
     .compileComponents();
