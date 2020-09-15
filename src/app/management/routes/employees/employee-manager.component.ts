@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
   selector: 'app-employee-manager',
   templateUrl: './employee-manager.component.html',
   styleUrls: [
-    '../../data-manager.styles.css',
+    '../data-manager.styles.css',
     './employee-manager.component.css'
   ]
 })

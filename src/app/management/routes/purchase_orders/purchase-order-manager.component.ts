@@ -16,7 +16,7 @@ import { map } from 'rxjs/operators';
   selector: 'app-purchase-order-manager',
   templateUrl: './purchase-order-manager.component.html',
   styleUrls: [
-    '../../data-manager.styles.css',
+    '../data-manager.styles.css',
     './purchase-order-manager.component.css'
   ]
 })

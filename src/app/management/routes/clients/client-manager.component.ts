@@ -7,7 +7,10 @@ import { ClientManagerService } from './client-manager.service';
 @Component({
   selector: 'app-client-manager',
   templateUrl: './client-manager.component.html',
-  styleUrls: [ '../../data-manager.styles.css' ]
+  styleUrls: [
+    '../data-manager.styles.css',
+    './client-manager.component.css'
+  ]
 })
 export class ClientManagerComponent
   extends DataManagerComponent<Client> {

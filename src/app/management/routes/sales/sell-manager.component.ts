@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
   selector: 'app-sell-manager',
   templateUrl: './sell-manager.component.html',
   styleUrls: [
-    '../../data-manager.styles.css',
+    '../data-manager.styles.css',
     './sell-manager.component.css'
   ]
 })

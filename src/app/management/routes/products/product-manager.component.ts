@@ -13,8 +13,8 @@ import { map } from 'rxjs/operators';
   selector: 'app-product-manager',
   templateUrl: './product-manager.component.html',
   styleUrls: [
-    './product-manager.component.css',
-    '../../data-manager.styles.css'
+    '../data-manager.styles.css',
+    './product-manager.component.css'
   ]
 })
 export class ProductManagerComponent

@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
   selector: 'app-user-manager',
   templateUrl: './user-manager.component.html',
   styleUrls: [
-    '../../data-manager.styles.css',
+    '../data-manager.styles.css',
     './user-manager.component.css'
   ]
 })

@@ -12,7 +12,10 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-provider-manager',
   templateUrl: './provider-manager.component.html',
-  styleUrls: [ '../../data-manager.styles.css' ]
+  styleUrls: [
+    '../data-manager.styles.css',
+    './provider-manager.component.css'
+  ]
 })
 export class ProviderManagerComponent
 extends DataManagerComponent<Provider> {
