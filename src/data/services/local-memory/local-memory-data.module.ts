@@ -1,5 +1,5 @@
 import { NgModule, Provider } from '@angular/core';
-import { DATA_INJECTION_TOKENS } from '../data-injection-tokens';
+import { DATA_INJECTION_TOKENS } from '../../data-injection-tokens';
 import { ClientsLocalMemoryDataService } from './clients.local-memory-data.service';
 import { EmployeesLocalMemoryDataService } from './employees.local-memory-data.service';
 import { PeopleLocalMemoryDataService } from './people.local-memory-data.service';

@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
+import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
 import { SharedDataIService } from 'src/data/services/shared.data.iservice';
 import { StoreCompanyDetailsDialogComponent } from './store-company-details-dialog.component';
 

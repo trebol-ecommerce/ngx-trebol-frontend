@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, ActivationEnd, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, map, throttleTime } from 'rxjs/operators';
 import { SessionDataIService } from 'src/data/services/auth.data.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
+import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
 
 @Injectable()
 export class ManagementService

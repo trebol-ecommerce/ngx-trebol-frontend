@@ -5,7 +5,7 @@ import { DataManagerFormService } from 'src/app/management/data-manager-form.ase
 import { Product } from 'src/data/models/entities/Product';
 import { ProductFamily } from 'src/data/models/entities/ProductFamily';
 import { ProductType } from 'src/data/models/entities/ProductType';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
+import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 import { SharedDataIService } from 'src/data/services/shared.data.iservice';
 

@@ -7,7 +7,7 @@ import { Session } from 'src/data/models/entities/Session';
 import { User } from 'src/data/models/entities/User';
 import { Login } from 'src/data/models/Login';
 import { SessionDataIService } from 'src/data/services/auth.data.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
+import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 
 @Injectable({ providedIn: 'root' })

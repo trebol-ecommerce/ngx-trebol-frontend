@@ -4,7 +4,7 @@ import { map, tap } from 'rxjs/operators';
 import { Product } from 'src/data/models/entities/Product';
 import { Sell } from 'src/data/models/entities/Sell';
 import { SellDetail } from 'src/data/models/entities/SellDetail';
-import { DATA_INJECTION_TOKENS } from 'src/data/services/data-injection-tokens';
+import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 
 @Injectable()
