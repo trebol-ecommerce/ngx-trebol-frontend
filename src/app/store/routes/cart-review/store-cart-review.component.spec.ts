@@ -1,11 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { StoreCartReviewComponent } from './store-cart-review.component';
-import { StoreService } from '../../store.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SharedModule } from 'src/shared/shared.module';
 import { of } from 'rxjs';
 import { AppUserService } from 'src/app/app-user.service';
+import { LocalMemoryAuthModule } from 'src/auth/local-memory/local-memory-auth.module';
+import { LocalMemoryDataModule } from 'src/data/services/local-memory/local-memory-data.module';
+import { StoreService } from '../../store.service';
+import { StoreCartReviewComponent } from './store-cart-review.component';
 
 describe('StoreCartReviewComponent', () => {
   let component: StoreCartReviewComponent;
@@ -28,7 +30,10 @@ describe('StoreCartReviewComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        SharedModule
+        LocalMemoryDataModule,
+        LocalMemoryAuthModule,
+        MatDialogModule,
+        MatSnackBarModule
       ],
       declarations: [ StoreCartReviewComponent ],
       providers: [

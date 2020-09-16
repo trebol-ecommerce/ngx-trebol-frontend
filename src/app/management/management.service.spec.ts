@@ -1,17 +1,21 @@
 import { TestBed } from '@angular/core/testing';
-import { LOCAL_MEMORY_DATA_PROVIDERS } from 'src/data/services/local-memory/local-memory-data.module';
-import { ManagementService } from './management.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { LocalMemoryAuthModule } from 'src/auth/local-memory/local-memory-auth.module';
+import { LocalMemoryDataModule } from 'src/data/services/local-memory/local-memory-data.module';
+import { ManagementService } from './management.service';
 
 describe('ManagementService', () => {
   let service: ManagementService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
+      imports: [
+        RouterTestingModule,
+        LocalMemoryDataModule,
+        LocalMemoryAuthModule
+      ],
       providers: [
-        ManagementService,
-        ...LOCAL_MEMORY_DATA_PROVIDERS
+        ManagementService
       ]
     });
     service = TestBed.inject(ManagementService);

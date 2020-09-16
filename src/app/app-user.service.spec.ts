@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { LOCAL_MEMORY_DATA_PROVIDERS } from 'src/data/services/local-memory/local-memory-data.module';
+import { LocalMemoryAuthModule } from 'src/auth/local-memory/local-memory-auth.module';
+import { LocalMemoryDataModule } from 'src/data/services/local-memory/local-memory-data.module';
 import { AppUserService } from './app-user.service';
 
 describe('AppUserService', () => {
@@ -7,7 +8,10 @@ describe('AppUserService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: LOCAL_MEMORY_DATA_PROVIDERS
+      imports: [
+        LocalMemoryDataModule,
+        LocalMemoryAuthModule
+      ]
     });
     service = TestBed.inject(AppUserService);
   });
