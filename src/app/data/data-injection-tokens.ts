@@ -1,5 +1,5 @@
 /**
- * Tokens for Angular dependency injection pattern
+ * Data service tokens for Angular dependency injection pattern
  */
 export const DATA_INJECTION_TOKENS = {
   shared: 'SharedData',
