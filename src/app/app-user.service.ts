@@ -1,13 +1,14 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, concatMap, finalize, tap } from 'rxjs/operators';
+import { AUTH_INJECTION_TOKEN } from 'src/auth/auth.injection-token';
+import { AuthenticationIService } from 'src/auth/auth.iservice';
 import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
 import { Client } from 'src/data/models/entities/Client';
 import { Person } from 'src/data/models/entities/Person';
 import { Session } from 'src/data/models/entities/Session';
 import { User } from 'src/data/models/entities/User';
 import { Login } from 'src/data/models/Login';
-import { SessionDataIService } from 'src/data/services/auth.data.iservice';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 
 @Injectable({ providedIn: 'root' })
@@ -22,7 +23,7 @@ export class AppUserService
   public isValidatingSession$: Observable<boolean> = this.isValidatingSessionSource.asObservable();
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.sessions) protected sessionDataService: SessionDataIService,
+    @Inject(AUTH_INJECTION_TOKEN) protected authService: AuthenticationIService,
     @Inject(DATA_INJECTION_TOKENS.users) protected usersDataService: EntityDataIService<User>,
     @Inject(DATA_INJECTION_TOKENS.clients) protected clientsDataService: EntityDataIService<Client>
   ) { }
@@ -38,13 +39,13 @@ export class AppUserService
 
   public guestLogin(person: Person): Observable<boolean> {
     return this.clientsDataService.create({ id: null, person }).pipe(
-      concatMap(this.sessionDataService.login)
+      concatMap(this.authService.login)
     );
   }
 
   public register(details: User): Observable<boolean> {
     return this.usersDataService.create(details).pipe(
-      concatMap(this.sessionDataService.login)
+      concatMap(this.authService.login)
     );
   }
 
@@ -56,7 +57,7 @@ export class AppUserService
         concatMap(
           (users: User[]) => {
             if (users.length > 0) {
-              return this.sessionDataService.login(users[0]);
+              return this.authService.login(users[0]);
             } else {
               return of(null);
             }
@@ -69,7 +70,7 @@ export class AppUserService
   public validateSession(): Observable<boolean> {
     this.isValidatingSessionSource.next(true);
 
-    return this.sessionDataService.validate().pipe(
+    return this.authService.validate().pipe(
       catchError(() => of(false)),
       finalize(() => { this.isValidatingSessionSource.next(false); }),
       tap(isValid => { if (!isValid) { this.closeCurrentSession(); } })
@@ -79,7 +80,7 @@ export class AppUserService
   public closeCurrentSession(): void {
     this.session = null;
     this.sessionChangesSource.next(null);
-    this.sessionDataService.logout().subscribe();
+    this.authService.logout().subscribe();
   }
 
 }
