@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Provider } from 'src/data/models/entities/Provider';
+import { Provider } from 'src/app/data/models/entities/Provider';
 import { HttpService } from 'src/app/shared/http.abstract-service';
 import { EntityDataIService } from '../entity.data.iservice';
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Provider } from 'src/data/models/entities/Provider';
+import { Provider } from 'src/app/data/models/entities/Provider';
 import { EntityLocalMemoryDataService } from './entity.local-memory-data.aservice';
 
 export const MOCK_EMPLOYEES: Partial<Provider>[] = [

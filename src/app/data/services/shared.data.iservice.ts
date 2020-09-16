@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
-import { EmployeeRole } from 'src/data/models/entities/EmployeeRole';
-import { ProductFamily } from 'src/data/models/entities/ProductFamily';
-import { ProductType } from 'src/data/models/entities/ProductType';
+import { EmployeeRole } from 'src/app/data/models/entities/EmployeeRole';
+import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
+import { ProductType } from 'src/app/data/models/entities/ProductType';
 import { CompanyDetails } from '../models/CompanyDetails';
 import { PurchaseOrderType } from '../models/entities/PurchaseOrderType';
 import { SellType } from '../models/entities/SellType';

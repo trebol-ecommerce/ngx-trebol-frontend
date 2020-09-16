@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { LocalMemoryAuthModule } from 'src/app/auth/local-memory/local-memory-auth.module';
-import { LocalMemoryDataModule } from 'src/data/services/local-memory/local-memory-data.module';
+import { LocalMemoryDataModule } from 'src/app/data/services/local-memory/local-memory-data.module';
 import { AppService } from './app.service';
 
 describe('AppService', () => {

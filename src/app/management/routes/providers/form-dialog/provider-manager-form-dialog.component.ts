@@ -5,8 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
-import { Person } from 'src/data/models/entities/Person';
-import { Provider } from 'src/data/models/entities/Provider';
+import { Person } from 'src/app/data/models/entities/Person';
+import { Provider } from 'src/app/data/models/entities/Provider';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { ProviderManagerFormService } from './provider-manager-form.service';
 

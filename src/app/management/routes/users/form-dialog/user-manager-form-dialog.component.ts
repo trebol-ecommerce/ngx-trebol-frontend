@@ -4,8 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
-import { Person } from 'src/data/models/entities/Person';
-import { User } from 'src/data/models/entities/User';
+import { Person } from 'src/app/data/models/entities/Person';
+import { User } from 'src/app/data/models/entities/User';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { UserManagerFormService } from './user-manager-form.service';
 

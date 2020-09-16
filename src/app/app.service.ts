@@ -3,13 +3,13 @@ import { Observable, of, Subject } from 'rxjs';
 import { catchError, concatMap, finalize, tap } from 'rxjs/operators';
 import { AUTH_INJECTION_TOKEN } from 'src/app/auth/auth.injection-token';
 import { AuthenticationIService } from 'src/app/auth/auth.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
-import { Client } from 'src/data/models/entities/Client';
-import { Person } from 'src/data/models/entities/Person';
-import { Session } from 'src/data/models/entities/Session';
-import { User } from 'src/data/models/entities/User';
-import { Login } from 'src/data/models/Login';
-import { EntityDataIService } from 'src/data/services/entity.data.iservice';
+import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
+import { Client } from 'src/app/data/models/entities/Client';
+import { Person } from 'src/app/data/models/entities/Person';
+import { Session } from 'src/app/data/models/entities/Session';
+import { User } from 'src/app/data/models/entities/User';
+import { Login } from 'src/app/data/models/Login';
+import { EntityDataIService } from 'src/app/data/services/entity.data.iservice';
 
 @Injectable({ providedIn: 'root' })
 export class AppService

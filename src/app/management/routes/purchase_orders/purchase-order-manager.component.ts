@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { from, Observable } from 'rxjs';
-import { PurchaseOrder } from 'src/data/models/entities/PurchaseOrder';
+import { PurchaseOrder } from 'src/app/data/models/entities/PurchaseOrder';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { DataManagerComponent } from '../data-manager.acomponent';
 import {

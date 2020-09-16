@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
-import { Product } from 'src/data/models/entities/Product';
+import { Product } from 'src/app/data/models/entities/Product';
 import { HttpService } from 'src/app/shared/http.abstract-service';
 import { EntityDataIService } from '../entity.data.iservice';
 

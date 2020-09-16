@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { EmployeeRolesEnum } from 'src/data/enums/EmployeeRolesEnum';
-import { User } from 'src/data/models/entities/User';
+import { EmployeeRolesEnum } from 'src/app/data/enums/EmployeeRolesEnum';
+import { User } from 'src/app/data/models/entities/User';
 import { EntityLocalMemoryDataService } from './entity.local-memory-data.aservice';
 
 export const MOCK_USERS: Partial<User>[] = [

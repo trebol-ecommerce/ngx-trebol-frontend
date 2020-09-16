@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { CompanyDetails } from 'src/data/models/CompanyDetails';
-import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
-import { SharedDataIService } from 'src/data/services/shared.data.iservice';
+import { CompanyDetails } from 'src/app/data/models/CompanyDetails';
+import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
+import { SharedDataIService } from 'src/app/data/services/shared.data.iservice';
 
 @Component({
   selector: 'app-store-company-details-dialog',

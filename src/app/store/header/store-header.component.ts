@@ -8,7 +8,7 @@ import { AppService } from 'src/app/app.service';
 import { APP_INITIALS_TITLE, APP_LONG_TITLE } from 'src/app/app.constants';
 import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 import { EditProfileFormDialogComponent } from 'src/app/shared/edit-profile-form-dialog/edit-profile-form-dialog.component';
-import { EmployeeRolesEnum } from 'src/data/enums/EmployeeRolesEnum';
+import { EmployeeRolesEnum } from 'src/app/data/enums/EmployeeRolesEnum';
 import { StoreCompanyDetailsDialogComponent } from '../dialogs/company-details/store-company-details-dialog.component';
 import { StoreLoginFormDialogComponent } from '../dialogs/login-form/store-login-form-dialog.component';
 import { StoreService } from '../store.service';

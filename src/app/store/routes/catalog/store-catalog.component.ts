@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Product } from 'src/data/models/entities/Product';
+import { Product } from 'src/app/data/models/entities/Product';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { StoreCatalogService } from './store-catalog.service';
 

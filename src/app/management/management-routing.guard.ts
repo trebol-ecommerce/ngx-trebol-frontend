@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { EmployeeRolesEnum } from 'src/data/enums/EmployeeRolesEnum';
-import { Session } from 'src/data/models/entities/Session';
+import { EmployeeRolesEnum } from 'src/app/data/enums/EmployeeRolesEnum';
+import { Session } from 'src/app/data/models/entities/Session';
 
 export const MANAGEMENT_ROUTING_AUTH_ROLES: { [key: string]: EmployeeRolesEnum[]; } = {
   dashboard: [EmployeeRolesEnum.Administrador, EmployeeRolesEnum.Encargado, EmployeeRolesEnum.Vendedor],

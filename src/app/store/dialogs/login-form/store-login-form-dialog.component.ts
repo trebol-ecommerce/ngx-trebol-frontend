@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
-import { Login } from 'src/data/models/Login';
+import { Login } from 'src/app/data/models/Login';
 
 @Component({
   selector: 'app-store-login-form-dialog',

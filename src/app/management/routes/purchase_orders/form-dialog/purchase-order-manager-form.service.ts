@@ -1,14 +1,14 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
 import { DataManagerFormService } from '../../data-manager-form.aservice';
-import { Employee } from 'src/data/models/entities/Employee';
-import { Product } from 'src/data/models/entities/Product';
-import { Provider } from 'src/data/models/entities/Provider';
-import { PurchaseOrder } from 'src/data/models/entities/PurchaseOrder';
-import { PurchaseOrderDetail } from 'src/data/models/entities/PurchaseOrderDetail';
-import { CompositeEntityDataIService } from 'src/data/services/composite-entity.data.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
-import { EntityDataIService } from 'src/data/services/entity.data.iservice';
+import { Employee } from 'src/app/data/models/entities/Employee';
+import { Product } from 'src/app/data/models/entities/Product';
+import { Provider } from 'src/app/data/models/entities/Provider';
+import { PurchaseOrder } from 'src/app/data/models/entities/PurchaseOrder';
+import { PurchaseOrderDetail } from 'src/app/data/models/entities/PurchaseOrderDetail';
+import { CompositeEntityDataIService } from 'src/app/data/services/composite-entity.data.iservice';
+import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
+import { EntityDataIService } from 'src/app/data/services/entity.data.iservice';
 import { switchMap, concatMap, map, toArray } from 'rxjs/operators';
 
 @Injectable()

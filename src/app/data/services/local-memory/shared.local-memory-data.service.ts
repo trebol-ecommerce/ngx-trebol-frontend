@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { CompanyDetails } from 'src/data/models/CompanyDetails';
-import { EmployeeRole } from 'src/data/models/entities/EmployeeRole';
-import { ProductFamily } from 'src/data/models/entities/ProductFamily';
-import { ProductType } from 'src/data/models/entities/ProductType';
-import { PurchaseOrderType } from 'src/data/models/entities/PurchaseOrderType';
-import { SellType } from 'src/data/models/entities/SellType';
+import { CompanyDetails } from 'src/app/data/models/CompanyDetails';
+import { EmployeeRole } from 'src/app/data/models/entities/EmployeeRole';
+import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
+import { ProductType } from 'src/app/data/models/entities/ProductType';
+import { PurchaseOrderType } from 'src/app/data/models/entities/PurchaseOrderType';
+import { SellType } from 'src/app/data/models/entities/SellType';
 import { SharedDataIService } from '../shared.data.iservice';
 
 export const MOCK_COMPANY_DETAILS: CompanyDetails = {

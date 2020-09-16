@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PurchaseOrder } from 'src/data/models/entities/PurchaseOrder';
-import { PurchaseOrderDetail } from 'src/data/models/entities/PurchaseOrderDetail';
+import { PurchaseOrder } from 'src/app/data/models/entities/PurchaseOrder';
+import { PurchaseOrderDetail } from 'src/app/data/models/entities/PurchaseOrderDetail';
 import { CompositeEntityDataIService } from '../composite-entity.data.iservice';
 import { EntityLocalMemoryDataService } from './entity.local-memory-data.aservice';
 

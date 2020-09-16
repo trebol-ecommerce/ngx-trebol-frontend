@@ -2,12 +2,12 @@ import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { DataManagerFormService } from '../../data-manager-form.aservice';
-import { Product } from 'src/data/models/entities/Product';
-import { ProductFamily } from 'src/data/models/entities/ProductFamily';
-import { ProductType } from 'src/data/models/entities/ProductType';
-import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
-import { EntityDataIService } from 'src/data/services/entity.data.iservice';
-import { SharedDataIService } from 'src/data/services/shared.data.iservice';
+import { Product } from 'src/app/data/models/entities/Product';
+import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
+import { ProductType } from 'src/app/data/models/entities/ProductType';
+import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
+import { EntityDataIService } from 'src/app/data/services/entity.data.iservice';
+import { SharedDataIService } from 'src/app/data/services/shared.data.iservice';
 
 @Injectable()
 export class ProductManagerFormService

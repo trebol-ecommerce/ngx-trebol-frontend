@@ -2,8 +2,8 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Product } from 'src/data/models/entities/Product';
-import { SellDetail } from 'src/data/models/entities/SellDetail';
+import { Product } from 'src/app/data/models/entities/Product';
+import { SellDetail } from 'src/app/data/models/entities/SellDetail';
 import { StoreService } from '../../store.service';
 
 export interface StoreProductDetailsDialogData {

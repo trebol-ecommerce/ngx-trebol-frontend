@@ -5,9 +5,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
-import { Employee } from 'src/data/models/entities/Employee';
-import { EmployeeRole } from 'src/data/models/entities/EmployeeRole';
-import { Person } from 'src/data/models/entities/Person';
+import { Employee } from 'src/app/data/models/entities/Employee';
+import { EmployeeRole } from 'src/app/data/models/entities/EmployeeRole';
+import { Person } from 'src/app/data/models/entities/Person';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { EmployeeManagerFormService } from './employee-manager-form.service';
 

@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { AbstractEntity } from 'src/data/models/AbstractEntity';
+import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
 import { DataManagerFormService } from './data-manager-form.aservice';
 
 @Directive()

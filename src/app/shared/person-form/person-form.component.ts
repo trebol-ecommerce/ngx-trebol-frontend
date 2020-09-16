@@ -1,6 +1,6 @@
 import { Component, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Person } from 'src/data/models/entities/Person';
+import { Person } from 'src/app/data/models/entities/Person';
 
 @Component({
   selector: 'app-person-form',

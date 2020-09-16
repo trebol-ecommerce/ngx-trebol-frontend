@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Sell } from 'src/data/models/entities/Sell';
-import { SellDetail } from 'src/data/models/entities/SellDetail';
+import { Sell } from 'src/app/data/models/entities/Sell';
+import { SellDetail } from 'src/app/data/models/entities/SellDetail';
 import { StoreReceiptService } from './store-receipt.service';
 
 @Component({

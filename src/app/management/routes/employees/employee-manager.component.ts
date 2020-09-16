@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { Employee } from 'src/data/models/entities/Employee';
+import { Employee } from 'src/app/data/models/entities/Employee';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { DataManagerComponent } from '../data-manager.acomponent';
 import { EmployeeManagerService } from './employee-manager.service';

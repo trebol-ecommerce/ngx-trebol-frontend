@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Sell } from 'src/data/models/entities/Sell';
-import { SellDetail } from 'src/data/models/entities/SellDetail';
+import { Sell } from 'src/app/data/models/entities/Sell';
+import { SellDetail } from 'src/app/data/models/entities/SellDetail';
 import { HttpService } from 'src/app/shared/http.abstract-service';
 import { CompositeEntityDataIService } from '../composite-entity.data.iservice';
 

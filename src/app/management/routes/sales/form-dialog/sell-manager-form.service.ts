@@ -2,16 +2,16 @@ import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { concatMap, map, switchMap, toArray } from 'rxjs/operators';
 import { DataManagerFormService } from '../../data-manager-form.aservice';
-import { Client } from 'src/data/models/entities/Client';
-import { Employee } from 'src/data/models/entities/Employee';
-import { Product } from 'src/data/models/entities/Product';
-import { Sell } from 'src/data/models/entities/Sell';
-import { SellDetail } from 'src/data/models/entities/SellDetail';
-import { SellType } from 'src/data/models/entities/SellType';
-import { CompositeEntityDataIService } from 'src/data/services/composite-entity.data.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
-import { EntityDataIService } from 'src/data/services/entity.data.iservice';
-import { SharedDataIService } from 'src/data/services/shared.data.iservice';
+import { Client } from 'src/app/data/models/entities/Client';
+import { Employee } from 'src/app/data/models/entities/Employee';
+import { Product } from 'src/app/data/models/entities/Product';
+import { Sell } from 'src/app/data/models/entities/Sell';
+import { SellDetail } from 'src/app/data/models/entities/SellDetail';
+import { SellType } from 'src/app/data/models/entities/SellType';
+import { CompositeEntityDataIService } from 'src/app/data/services/composite-entity.data.iservice';
+import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
+import { EntityDataIService } from 'src/app/data/services/entity.data.iservice';
+import { SharedDataIService } from 'src/app/data/services/shared.data.iservice';
 
 @Injectable()
 export class SellManagerFormService

@@ -1,5 +1,5 @@
 import { EntityDataIService } from '../entity.data.iservice';
-import { AbstractEntity } from 'src/data/models/AbstractEntity';
+import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
 import { Observable, of } from 'rxjs';
 
 function matchesStringProperty(it: any, propName: string, propValue: string): boolean {

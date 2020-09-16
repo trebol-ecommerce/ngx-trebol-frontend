@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { Product } from 'src/data/models/entities/Product';
+import { Product } from 'src/app/data/models/entities/Product';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { DataManagerComponent } from '../data-manager.acomponent';
 import { ProductManagerFormDialogComponent, ProductManagerFormDialogData } from './form-dialog/product-manager-form-dialog.component';

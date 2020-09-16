@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
-import { User } from 'src/data/models/entities/User';
+import { User } from 'src/app/data/models/entities/User';
 import { passwordMatcher } from 'src/functions/passwordMatcher';
 
 @Component({

@@ -2,7 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { Session } from 'src/data/models/entities/Session';
+import { Session } from 'src/app/data/models/entities/Session';
 import { StoreService } from '../../store.service';
 import { StorePaymentRedirectPromptDialogComponent } from './store-payment-redirect-prompt-dialog.component';
 

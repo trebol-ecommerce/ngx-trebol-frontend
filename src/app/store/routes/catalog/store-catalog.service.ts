@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { concatMap, delay, map, tap } from 'rxjs/operators';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
-import { Product } from 'src/data/models/entities/Product';
-import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
-import { EntityDataIService } from 'src/data/services/entity.data.iservice';
+import { Product } from 'src/app/data/models/entities/Product';
+import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
+import { EntityDataIService } from 'src/app/data/services/entity.data.iservice';
 import { StoreProductDetailsDialogComponent, StoreProductDetailsDialogData } from '../../dialogs/product-details/store-product-details-dialog.component';
 
 @Injectable()

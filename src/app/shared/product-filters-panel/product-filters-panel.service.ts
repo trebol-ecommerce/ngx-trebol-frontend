@@ -1,9 +1,9 @@
 import { Injectable, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductFamily } from 'src/data/models/entities/ProductFamily';
-import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
-import { SharedDataIService } from 'src/data/services/shared.data.iservice';
-import { ProductType } from 'src/data/models/entities/ProductType';
+import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
+import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
+import { SharedDataIService } from 'src/app/data/services/shared.data.iservice';
+import { ProductType } from 'src/app/data/models/entities/ProductType';
 
 @Injectable({ providedIn: 'root' })
 export class ProductFiltersPanelService {

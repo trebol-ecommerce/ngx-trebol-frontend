@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DataManagerFormService } from '../../data-manager-form.aservice';
-import { Person } from 'src/data/models/entities/Person';
-import { User } from 'src/data/models/entities/User';
-import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
-import { EntityDataIService } from 'src/data/services/entity.data.iservice';
+import { Person } from 'src/app/data/models/entities/Person';
+import { User } from 'src/app/data/models/entities/User';
+import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
+import { EntityDataIService } from 'src/app/data/services/entity.data.iservice';
 
 @Injectable()
 export class UserManagerFormService

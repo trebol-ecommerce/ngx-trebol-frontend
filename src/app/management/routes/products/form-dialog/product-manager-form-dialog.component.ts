@@ -5,9 +5,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
-import { Product } from 'src/data/models/entities/Product';
-import { ProductFamily } from 'src/data/models/entities/ProductFamily';
-import { ProductType } from 'src/data/models/entities/ProductType';
+import { Product } from 'src/app/data/models/entities/Product';
+import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
+import { ProductType } from 'src/app/data/models/entities/ProductType';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { ProductManagerFormService } from './product-manager-form.service';
 

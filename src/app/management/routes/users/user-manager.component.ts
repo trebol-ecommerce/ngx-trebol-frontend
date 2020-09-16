@@ -3,7 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { from, Observable } from 'rxjs';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
-import { User } from 'src/data/models/entities/User';
+import { User } from 'src/app/data/models/entities/User';
 import { UserManagerFormDialogComponent, UserManagerFormDialogData } from './form-dialog/user-manager-form-dialog.component';
 import { UserManagerService } from './user-manager.service';
 import { DataManagerComponent } from '../data-manager.acomponent';
