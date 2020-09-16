@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { APP_INITIALS_TITLE, APP_LONG_TITLE } from 'src/app/app.constants';
-import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/shared/confirmation-dialog/confirmation-dialog.component';
-import { EditProfileFormDialogComponent } from 'src/shared/edit-profile-form-dialog/edit-profile-form-dialog.component';
+import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
+import { EditProfileFormDialogComponent } from 'src/app/shared/edit-profile-form-dialog/edit-profile-form-dialog.component';
 import { ManagementService } from '../management.service';
 
 @Component({

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { SharedModule } from 'src/shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { StoreGuestShippingFormDialogComponent } from './store-guest-shipping-form-dialog.component';
 
 describe('StoreGuestShippingFormDialogComponent', () => {

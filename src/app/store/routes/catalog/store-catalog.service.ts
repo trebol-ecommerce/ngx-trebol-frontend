@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { concatMap, delay, map, tap } from 'rxjs/operators';
-import { ProductFilters } from 'src/shared/product-filters-panel/product-filters-panel.component';
+import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { Product } from 'src/data/models/entities/Product';
 import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';

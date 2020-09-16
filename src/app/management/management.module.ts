@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { MatSnackBarConfig, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { ManagementDataActionsComponent } from './data-actions/management-data-actions.component';
 import { ProductsArrayDialogComponent } from './dialogs/products-array/products-array-dialog.component';
 import { ProductsArrayService } from './dialogs/products-array/products-array.service';

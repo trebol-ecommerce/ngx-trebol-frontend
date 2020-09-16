@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { MATERIAL_MODULES } from 'src/shared/angular-material.module';
+import { MATERIAL_MODULES } from 'src/app/shared/angular-material.module';
 import { PurchaseOrderManagerComponent } from './purchase-order-manager.component';
 import { PurchaseOrderManagerService } from './purchase-order-manager.service';
 

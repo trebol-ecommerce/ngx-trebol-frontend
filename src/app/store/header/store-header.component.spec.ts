@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppService } from 'src/app/app.service';
-import { SharedModule } from 'src/shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { StoreService } from '../store.service';
 import { StoreHeaderComponent } from './store-header.component';
 import { of } from 'rxjs';

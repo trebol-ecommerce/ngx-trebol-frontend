@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { SharedModule } from 'src/shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { StoreLoginFormDialogComponent } from './store-login-form-dialog.component';
 
 describe('StoreLoginFormDialogComponent', () => {

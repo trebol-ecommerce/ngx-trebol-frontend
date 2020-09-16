@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Product } from 'src/data/models/entities/Product';
 import { Subject, BehaviorSubject, Observable, merge } from 'rxjs';
-import { ProductFilters } from 'src/shared/product-filters-panel/product-filters-panel.component';
+import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 import { concatMap, mapTo } from 'rxjs/operators';

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpService } from '../../shared/http.abstract-service';
+import { HttpService } from 'src/app/shared/http.abstract-service';
 import { AuthenticationIService } from '../auth.iservice';
 
 @Injectable()
