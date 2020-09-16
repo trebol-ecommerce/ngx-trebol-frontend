@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Person } from 'src/app/data/models/entities/Person';
+import { User } from 'src/app/data/models/entities/User';
 import { HttpService } from 'src/app/shared/http.abstract-service';
 import { AuthenticationIService } from '../auth.iservice';
 
@@ -15,6 +17,20 @@ export class HttpAuthService
     protected http: HttpClient
   ) {
     super();
+  }
+
+  public guestLogin(personDetails: Person): Observable<boolean> {
+    return this.http.post<boolean>(
+      `${this.baseURI}/guest`,
+      personDetails
+    );
+  }
+
+  public register(userDetails: User): Observable<boolean> {
+    return this.http.post<boolean>(
+      `${this.baseURI}/register`,
+      userDetails
+    );
   }
 
   public login(details: any): Observable<boolean> {
