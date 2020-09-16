@@ -1,6 +1,6 @@
 import { BehaviorSubject, from, Observable, Subject, of } from 'rxjs';
 import { delay, finalize, mergeMap, tap, toArray, mapTo, catchError } from 'rxjs/operators';
-import { EntityDataIService } from 'src/app/data/services/entity.data.iservice';
+import { EntityDataIService } from 'src/app/data/entity.data.iservice';
 import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
 import { OnDestroy, Directive } from '@angular/core';
 

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { DATA_INJECTION_TOKENS } from '../../data-injection-tokens';
+import { DATA_INJECTION_TOKENS } from '../data-injection-tokens';
 import { ClientsHttpDataService } from './clients.http-data.service';
 import { EmployeesHttpDataService } from './employees.http-data.service';
 import { ProductsHttpDataService } from './products.http-data.service';

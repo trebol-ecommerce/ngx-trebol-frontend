@@ -6,9 +6,9 @@ import { Product } from 'src/app/data/models/entities/Product';
 import { Provider } from 'src/app/data/models/entities/Provider';
 import { PurchaseOrder } from 'src/app/data/models/entities/PurchaseOrder';
 import { PurchaseOrderDetail } from 'src/app/data/models/entities/PurchaseOrderDetail';
-import { CompositeEntityDataIService } from 'src/app/data/services/composite-entity.data.iservice';
+import { CompositeEntityDataIService } from 'src/app/data/composite-entity.data.iservice';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityDataIService } from 'src/app/data/services/entity.data.iservice';
+import { EntityDataIService } from 'src/app/data/entity.data.iservice';
 import { switchMap, concatMap, map, toArray } from 'rxjs/operators';
 
 @Injectable()

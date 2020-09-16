@@ -9,7 +9,7 @@ import { Person } from 'src/app/data/models/entities/Person';
 import { Session } from 'src/app/data/models/entities/Session';
 import { User } from 'src/app/data/models/entities/User';
 import { Login } from 'src/app/data/models/Login';
-import { EntityDataIService } from 'src/app/data/services/entity.data.iservice';
+import { EntityDataIService } from 'src/app/data/entity.data.iservice';
 
 @Injectable({ providedIn: 'root' })
 export class AppService

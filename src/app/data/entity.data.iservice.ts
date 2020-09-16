@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { AbstractEntity } from '../models/AbstractEntity';
+import { AbstractEntity } from './models/AbstractEntity';
 
 export interface EntityDataIService<T extends AbstractEntity> {
 

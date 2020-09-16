@@ -4,7 +4,7 @@ import { catchError, delay, map, switchMap, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { Person } from 'src/app/data/models/entities/Person';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityDataIService } from 'src/app/data/services/entity.data.iservice';
+import { EntityDataIService } from 'src/app/data/entity.data.iservice';
 
 @Injectable()
 export class EditProfileFormService

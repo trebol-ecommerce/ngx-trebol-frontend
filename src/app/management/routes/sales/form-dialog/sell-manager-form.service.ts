@@ -8,10 +8,10 @@ import { Product } from 'src/app/data/models/entities/Product';
 import { Sell } from 'src/app/data/models/entities/Sell';
 import { SellDetail } from 'src/app/data/models/entities/SellDetail';
 import { SellType } from 'src/app/data/models/entities/SellType';
-import { CompositeEntityDataIService } from 'src/app/data/services/composite-entity.data.iservice';
+import { CompositeEntityDataIService } from 'src/app/data/composite-entity.data.iservice';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityDataIService } from 'src/app/data/services/entity.data.iservice';
-import { SharedDataIService } from 'src/app/data/services/shared.data.iservice';
+import { EntityDataIService } from 'src/app/data/entity.data.iservice';
+import { SharedDataIService } from 'src/app/data/shared.data.iservice';
 
 @Injectable()
 export class SellManagerFormService

@@ -6,8 +6,8 @@ import { Product } from 'src/app/data/models/entities/Product';
 import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
 import { ProductType } from 'src/app/data/models/entities/ProductType';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityDataIService } from 'src/app/data/services/entity.data.iservice';
-import { SharedDataIService } from 'src/app/data/services/shared.data.iservice';
+import { EntityDataIService } from 'src/app/data/entity.data.iservice';
+import { SharedDataIService } from 'src/app/data/shared.data.iservice';
 
 @Injectable()
 export class ProductManagerFormService

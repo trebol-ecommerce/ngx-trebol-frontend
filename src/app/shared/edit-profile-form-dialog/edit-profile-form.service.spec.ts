@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { LOCAL_MEMORY_DATA_PROVIDERS } from 'src/app/data/services/local-memory/local-memory-data.module';
+import { LOCAL_MEMORY_DATA_PROVIDERS } from 'src/app/data/local-memory/local-memory-data.module';
 import { EditProfileFormService } from './edit-profile-form.service';
 import { AppService } from 'src/app/app.service';
 
