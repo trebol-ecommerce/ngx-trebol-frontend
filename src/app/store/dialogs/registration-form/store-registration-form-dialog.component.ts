@@ -2,7 +2,7 @@ import { Component, OnDestroy, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
-import { AppUserService } from 'src/app/app-user.service';
+import { AppService } from 'src/app/app.service';
 import { PersonFormComponent } from 'src/shared/person-form/person-form.component';
 import { User } from 'src/data/models/entities/User';
 import { passwordMatcher } from 'src/functions/passwordMatcher';
@@ -26,7 +26,7 @@ export class StoreRegistrationFormDialogComponent
   @ViewChild('personForm', { static: true }) public personForm: PersonFormComponent;
 
   constructor(
-    protected appUserService: AppUserService,
+    protected appService: AppService,
     protected formBuilder: FormBuilder,
     protected dialog: MatDialogRef<StoreRegistrationFormDialogComponent>
   ) {
@@ -58,7 +58,7 @@ export class StoreRegistrationFormDialogComponent
   public onSubmit(): void {
     this.registeringSource.next(true);
     const details: User = this.asItem();
-    this.appUserService.register(details).subscribe(
+    this.appService.register(details).subscribe(
       s => {
         if (s) {
           this.dialog.close();

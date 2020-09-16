@@ -2,7 +2,7 @@ import { Component, OnDestroy, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
-import { AppUserService } from 'src/app/app-user.service';
+import { AppService } from 'src/app/app.service';
 import { PersonFormComponent } from 'src/shared/person-form/person-form.component';
 import { StoreRegistrationFormDialogComponent } from '../registration-form/store-registration-form-dialog.component';
 
@@ -22,7 +22,7 @@ export class StoreGuestShippingFormDialogComponent
   @ViewChild('personForm', { static: true }) public personForm: PersonFormComponent;
 
   constructor(
-    protected appUserService: AppUserService,
+    protected appService: AppService,
     protected dialog: MatDialogRef<StoreRegistrationFormDialogComponent>,
     protected formBuilder: FormBuilder
   ) {
@@ -39,7 +39,7 @@ export class StoreGuestShippingFormDialogComponent
 
   public onSubmit(): void {
     this.savingSource.next(true);
-    this.appUserService.guestLogin(this.personForm.asPerson()).subscribe(
+    this.appService.guestLogin(this.personForm.asPerson()).subscribe(
       success => {
         if (success) {
           this.dialog.close();

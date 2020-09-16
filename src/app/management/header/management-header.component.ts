@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AppUserService } from 'src/app/app-user.service';
+import { AppService } from 'src/app/app.service';
 import { APP_INITIALS_TITLE, APP_LONG_TITLE } from 'src/app/app.constants';
 import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/shared/confirmation-dialog/confirmation-dialog.component';
 import { EditProfileFormDialogComponent } from 'src/shared/edit-profile-form-dialog/edit-profile-form-dialog.component';
@@ -24,7 +24,7 @@ export class ManagementHeaderComponent {
 
   constructor(
     protected service: ManagementService,
-    protected appUserService: AppUserService,
+    protected appService: AppService,
     protected dialogService: MatDialog,
     protected router: Router,
     protected snackBarService: MatSnackBar
@@ -65,7 +65,7 @@ export class ManagementHeaderComponent {
     this.promptLogoutConfirmation().subscribe(
       confirmado => {
         if (confirmado) {
-          this.appUserService.closeCurrentSession();
+          this.appService.closeCurrentSession();
           this.router.navigateByUrl('/');
           this.snackBarService.open('Sesión cerrada con éxito.', 'OK');
         }

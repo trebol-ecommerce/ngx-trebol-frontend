@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AppUserService } from 'src/app/app-user.service';
+import { AppService } from 'src/app/app.service';
 import { EmployeeRolesEnum } from 'src/data/enums/EmployeeRolesEnum';
 import { Session } from 'src/data/models/entities/Session';
 
@@ -25,7 +25,7 @@ export class ManagementRoutingGuard
 
   constructor(
     protected router: Router,
-    protected appUserService: AppUserService
+    protected appService: AppService
   ) {
 
   }
@@ -39,7 +39,7 @@ export class ManagementRoutingGuard
       return true;
     } else {
       const modules: string[] = state.url.substr(1).split('/');
-      const currentSession: Session = this.appUserService.getCurrentSession();
+      const currentSession: Session = this.appService.getCurrentSession();
 
       if (currentSession && currentSession.user.employee) {
         if (modules.length > 1) {

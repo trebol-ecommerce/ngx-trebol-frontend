@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { AppUserService } from 'src/app/app-user.service';
+import { AppService } from 'src/app/app.service';
 import { MATERIAL_MODULES } from 'src/shared/angular-material.module';
 import { ManagementService } from '../management.service';
 import { ManagementHeaderComponent } from './management-header.component';
@@ -10,7 +10,7 @@ describe('ManagementHeaderComponent', () => {
   let component: ManagementHeaderComponent;
   let fixture: ComponentFixture<ManagementHeaderComponent>;
   let managementService: Partial<ManagementService>;
-  let appUserService: Partial<AppUserService>;
+  let appService: Partial<AppService>;
 
   beforeEach(async(() => {
     managementService = {
@@ -18,7 +18,7 @@ describe('ManagementHeaderComponent', () => {
       currentPageName$: of('')
     };
 
-    appUserService = {
+    appService = {
       closeCurrentSession() {}
     };
 
@@ -30,7 +30,7 @@ describe('ManagementHeaderComponent', () => {
       declarations: [ ManagementHeaderComponent ],
       providers: [
         { provide: ManagementService, useValue: managementService },
-        { provide: AppUserService, useValue: appUserService }
+        { provide: AppService, useValue: appService }
       ]
     })
     .compileComponents();

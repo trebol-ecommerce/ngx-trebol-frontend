@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { LocalMemoryAuthModule } from 'src/auth/local-memory/local-memory-auth.module';
 import { LocalMemoryDataModule } from 'src/data/services/local-memory/local-memory-data.module';
-import { AppUserService } from './app-user.service';
+import { AppService } from './app.service';
 
-describe('AppUserService', () => {
-  let service: AppUserService;
+describe('AppService', () => {
+  let service: AppService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -13,7 +13,7 @@ describe('AppUserService', () => {
         LocalMemoryAuthModule
       ]
     });
-    service = TestBed.inject(AppUserService);
+    service = TestBed.inject(AppService);
   });
 
   it('should be created', () => {

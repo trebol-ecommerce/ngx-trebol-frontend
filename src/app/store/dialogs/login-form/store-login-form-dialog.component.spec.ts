@@ -2,17 +2,17 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { AppUserService } from 'src/app/app-user.service';
+import { AppService } from 'src/app/app.service';
 import { SharedModule } from 'src/shared/shared.module';
 import { StoreLoginFormDialogComponent } from './store-login-form-dialog.component';
 
 describe('StoreLoginFormDialogComponent', () => {
   let component: StoreLoginFormDialogComponent;
   let fixture: ComponentFixture<StoreLoginFormDialogComponent>;
-  let userService: Partial<AppUserService>;
+  let appService: Partial<AppService>;
 
   beforeEach(async(() => {
-    userService = {
+    appService = {
       login() { return of(true); }
     };
 
@@ -24,7 +24,7 @@ describe('StoreLoginFormDialogComponent', () => {
       declarations: [ StoreLoginFormDialogComponent ],
       providers: [
         { provide: MatDialogRef, useValue: {} },
-        { provide: AppUserService, useValue: userService }
+        { provide: AppService, useValue: appService }
       ]
     })
     .compileComponents();

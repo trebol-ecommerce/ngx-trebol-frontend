@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AppUserService } from 'src/app/app-user.service';
+import { AppService } from 'src/app/app.service';
 import { APP_INITIALS_TITLE, APP_LONG_TITLE } from 'src/app/app.constants';
 import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/shared/confirmation-dialog/confirmation-dialog.component';
 import { EditProfileFormDialogComponent } from 'src/shared/edit-profile-form-dialog/edit-profile-form-dialog.component';
@@ -33,7 +33,7 @@ export class StoreHeaderComponent
 
   constructor(
     protected cartService: StoreService,
-    protected appUserService: AppUserService,
+    protected appService: AppService,
     protected snackBarService: MatSnackBar,
     protected dialogService: MatDialog,
     protected router: Router
@@ -48,7 +48,7 @@ export class StoreHeaderComponent
       map(total => total + ' item' + (total > 1 ? 's' : ''))
     );
 
-    this.userName$ = this.appUserService.sessionChanges$.pipe(
+    this.userName$ = this.appService.sessionChanges$.pipe(
       map(session => {
         if (!(session && session.user?.name)) {
           return '';
@@ -60,7 +60,7 @@ export class StoreHeaderComponent
 
     this.cartSubtotalValue$ = this.cartService.sellSubtotalValue$.pipe();
 
-    this.isLoggedIn$ = this.appUserService.sessionChanges$.pipe(map(s => !!(s && s.user)));
+    this.isLoggedIn$ = this.appService.sessionChanges$.pipe(map(s => !!(s && s.user)));
   }
 
   protected promptLogoutConfirmation(): Observable<boolean> {
@@ -110,7 +110,7 @@ export class StoreHeaderComponent
       { width: '24rem' }
     ).afterClosed().subscribe(
       () => {
-        const ssn = this.appUserService.getCurrentSession();
+        const ssn = this.appService.getCurrentSession();
         if (ssn.user?.employee?.role.id === EmployeeRolesEnum.Administrador) {
           this.promptManagementRedirect();
         }
@@ -129,7 +129,7 @@ export class StoreHeaderComponent
     this.promptLogoutConfirmation().subscribe(
       (confirmed: boolean) => {
         if (confirmed) {
-          this.appUserService.closeCurrentSession();
+          this.appService.closeCurrentSession();
           this.snackBarService.open('Su sesión ha sido cerrada.');
         }
       }

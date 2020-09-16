@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AppUserService } from 'src/app/app-user.service';
+import { AppService } from 'src/app/app.service';
 import { SharedModule } from 'src/shared/shared.module';
 import { StoreService } from '../store.service';
 import { StoreHeaderComponent } from './store-header.component';
@@ -10,7 +10,7 @@ describe('StoreHeaderComponent', () => {
   let component: StoreHeaderComponent;
   let fixture: ComponentFixture<StoreHeaderComponent>;
   let cartService: Partial<StoreService>;
-  let userService: Partial<AppUserService>;
+  let appService: Partial<AppService>;
 
   beforeEach(async(() => {
     cartService = {
@@ -18,7 +18,7 @@ describe('StoreHeaderComponent', () => {
       itemQuantity$: of(0),
       sellSubtotalValue$: of(0)
     };
-    userService = {
+    appService = {
       getCurrentSession() { return null; },
       closeCurrentSession() {},
       sessionChanges$: of(null),
@@ -32,7 +32,7 @@ describe('StoreHeaderComponent', () => {
       declarations: [ StoreHeaderComponent ],
       providers: [
         { provide: StoreService, useValue: cartService },
-        { provide: AppUserService, useValue: userService }
+        { provide: AppService, useValue: appService }
       ]
     })
     .compileComponents();

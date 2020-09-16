@@ -12,7 +12,7 @@ import { Login } from 'src/data/models/Login';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 
 @Injectable({ providedIn: 'root' })
-export class AppUserService
+export class AppService
   implements OnDestroy {
 
   protected session: Session = null;

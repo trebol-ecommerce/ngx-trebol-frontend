@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AppUserService } from 'src/app/app-user.service';
+import { AppService } from 'src/app/app.service';
 import { Login } from 'src/data/models/Login';
 
 @Component({
@@ -31,7 +31,7 @@ export class StoreLoginFormDialogComponent {
     protected formBuilder: FormBuilder,
     protected router: Router,
     protected snackBarService: MatSnackBar,
-    protected appUserService: AppUserService
+    protected appService: AppService
   ) {
     this.formGroup = this.formBuilder.group({
       username: ['', Validators.required],
@@ -53,7 +53,7 @@ export class StoreLoginFormDialogComponent {
       password: this.password.value
     };
 
-    this.appUserService.login(details).subscribe(
+    this.appService.login(details).subscribe(
       success => {
         if (success) {
           this.dialog.close();

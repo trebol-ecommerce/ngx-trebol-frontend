@@ -1,17 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { AppUserService } from 'src/app/app-user.service';
+import { AppService } from 'src/app/app.service';
 import { SharedModule } from 'src/shared/shared.module';
 import { StoreGuestShippingFormDialogComponent } from './store-guest-shipping-form-dialog.component';
 
 describe('StoreGuestShippingFormDialogComponent', () => {
   let component: StoreGuestShippingFormDialogComponent;
   let fixture: ComponentFixture<StoreGuestShippingFormDialogComponent>;
-  let userService: Partial<AppUserService>;
+  let appService: Partial<AppService>;
 
   beforeEach(async(() => {
-    userService = {
+    appService = {
       guestLogin() { return of(true); }
     };
 
@@ -22,7 +22,7 @@ describe('StoreGuestShippingFormDialogComponent', () => {
       declarations: [ StoreGuestShippingFormDialogComponent ],
       providers: [
         { provide: MatDialogRef, useValue: {} },
-        { provide: AppUserService, useValue: userService }
+        { provide: AppService, useValue: appService }
       ]
     })
     .compileComponents();

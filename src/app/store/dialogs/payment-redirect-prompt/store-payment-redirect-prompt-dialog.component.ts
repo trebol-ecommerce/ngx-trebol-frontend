@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { concatMap, map, mapTo, startWith } from 'rxjs/operators';
-import { AppUserService } from 'src/app/app-user.service';
+import { AppService } from 'src/app/app.service';
 import { environment } from 'src/environments/environment';
 import { StoreService } from '../../store.service';
 
@@ -26,7 +26,7 @@ export class StorePaymentRedirectPromptDialogComponent
   public webpayToken$: Observable<string>;
 
   constructor(
-    protected appUserService: AppUserService,
+    protected appService: AppService,
     protected cartService: StoreService,
     protected httpClient: HttpClient
   ) {
@@ -37,7 +37,7 @@ export class StorePaymentRedirectPromptDialogComponent
 
   protected parseFormData(subtotal: number): FormData {
     const total = String(Math.round(subtotal * 1.19));
-    const sessionId = String(this.appUserService.getCurrentSession().id);
+    const sessionId = String(this.appService.getCurrentSession().id);
     const formData = new FormData();
     formData.append('tr_amount', total);
     formData.append('tr_session', sessionId);

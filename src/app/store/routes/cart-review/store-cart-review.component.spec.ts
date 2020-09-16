@@ -3,7 +3,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { AppUserService } from 'src/app/app-user.service';
+import { AppService } from 'src/app/app.service';
 import { LocalMemoryAuthModule } from 'src/auth/local-memory/local-memory-auth.module';
 import { LocalMemoryDataModule } from 'src/data/services/local-memory/local-memory-data.module';
 import { StoreService } from '../../store.service';
@@ -13,7 +13,7 @@ describe('StoreCartReviewComponent', () => {
   let component: StoreCartReviewComponent;
   let fixture: ComponentFixture<StoreCartReviewComponent>;
   let cartService: Partial<StoreService>;
-  let userService: Partial<AppUserService>;
+  let appService: Partial<AppService>;
 
   beforeEach(async(() => {
     cartService = {
@@ -23,7 +23,7 @@ describe('StoreCartReviewComponent', () => {
       decreaseProductUnits(i) {},
       removeProductFromCart(i) {}
     };
-    userService = {
+    appService = {
       getCurrentSession() { return null; }
     };
 
@@ -38,7 +38,7 @@ describe('StoreCartReviewComponent', () => {
       declarations: [ StoreCartReviewComponent ],
       providers: [
         { provide: StoreService, useValue: cartService },
-        { provide: AppUserService, useValue: userService }
+        { provide: AppService, useValue: appService }
       ]
     })
     .compileComponents();

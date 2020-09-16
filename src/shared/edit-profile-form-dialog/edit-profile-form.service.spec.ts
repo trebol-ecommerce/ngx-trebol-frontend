@@ -1,21 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { LOCAL_MEMORY_DATA_PROVIDERS } from 'src/data/services/local-memory/local-memory-data.module';
 import { EditProfileFormService } from './edit-profile-form.service';
-import { AppUserService } from 'src/app/app-user.service';
+import { AppService } from 'src/app/app.service';
 
 describe('EditProfileFormService', () => {
   let service: EditProfileFormService;
-  let userService: Partial<AppUserService>;
+  let appService: Partial<AppService>;
 
   beforeEach(() => {
-    userService = {
+    appService = {
       getCurrentSession() { return null; }
     };
 
     TestBed.configureTestingModule({
       providers: [
         EditProfileFormService,
-        { provide: AppUserService, useValue: userService },
+        { provide: AppService, useValue: appService },
         ...LOCAL_MEMORY_DATA_PROVIDERS
       ]
     });

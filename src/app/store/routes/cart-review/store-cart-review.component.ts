@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { concatMap, map, take } from 'rxjs/operators';
-import { AppUserService } from 'src/app/app-user.service';
+import { AppService } from 'src/app/app.service';
 import { StoreService } from 'src/app/store/store.service';
 import { SellDetail } from 'src/data/models/entities/SellDetail';
 import { Session } from 'src/data/models/entities/Session';
@@ -31,7 +31,7 @@ export class StoreCartReviewComponent
 
   constructor(
     protected cartService: StoreService,
-    protected appUserService: AppUserService,
+    protected appService: AppService,
     protected router: Router,
     protected dialogService: MatDialog,
     protected snackBarService: MatSnackBar
@@ -97,12 +97,12 @@ export class StoreCartReviewComponent
   }
 
   protected getSessionOrRequestSession(): Observable<Session> {
-    const session = this.appUserService.getCurrentSession();
+    const session = this.appService.getCurrentSession();
     if (session && session.user?.clientId) {
       return of(session);
     } else {
       return this.promptGuestUser().pipe(
-        map(() => this.appUserService.getCurrentSession())
+        map(() => this.appService.getCurrentSession())
       );
     }
   }
