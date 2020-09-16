@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { ProductFilters } from 'src/shared/product-filters-panel/product-filters-panel.component';
-import { StoreService } from 'src/app/store/store.service';
 import { Product } from 'src/data/models/entities/Product';
+import { ProductFilters } from 'src/shared/product-filters-panel/product-filters-panel.component';
 import { StoreCatalogService } from './store-catalog.service';
 
 @Component({
