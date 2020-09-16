@@ -2,8 +2,8 @@ import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRouteSnapshot, ActivationEnd, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, map, throttleTime } from 'rxjs/operators';
-import { AUTH_INJECTION_TOKEN } from 'src/auth/auth.injection-token';
-import { AuthenticationIService } from 'src/auth/auth.iservice';
+import { AUTH_INJECTION_TOKEN } from 'src/app/auth/auth.injection-token';
+import { AuthenticationIService } from 'src/app/auth/auth.iservice';
 
 @Injectable()
 export class ManagementService

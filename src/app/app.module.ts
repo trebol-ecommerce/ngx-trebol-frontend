@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AppRoutingModule } from 'src/app/app-routing.module';
-import { HttpAuthModule } from 'src/auth/http/http-auth.module';
+import { HttpAuthModule } from 'src/app/auth/http/http-auth.module';
 import { HttpDataModule } from 'src/data/services/http/http-data.module';
 import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';

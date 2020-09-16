@@ -4,7 +4,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { LocalMemoryAuthModule } from 'src/auth/local-memory/local-memory-auth.module';
+import { LocalMemoryAuthModule } from 'src/app/auth/local-memory/local-memory-auth.module';
 import { LocalMemoryDataModule } from 'src/data/services/local-memory/local-memory-data.module';
 import { StoreService } from '../../store.service';
 import { StoreCartReviewComponent } from './store-cart-review.component';

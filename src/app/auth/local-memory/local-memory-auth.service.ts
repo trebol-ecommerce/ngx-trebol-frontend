@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Client } from '../../data/models/entities/Client';
-import { Session } from '../../data/models/entities/Session';
-import { User } from '../../data/models/entities/User';
-import { makeid } from '../../functions/makeid';
+import { Client } from 'src/data/models/entities/Client';
+import { Session } from 'src/data/models/entities/Session';
+import { User } from 'src/data/models/entities/User';
+import { makeid } from 'src/functions/makeid';
 import { AuthenticationIService } from '../auth.iservice';
 
 function getNewSessionId(): number {
