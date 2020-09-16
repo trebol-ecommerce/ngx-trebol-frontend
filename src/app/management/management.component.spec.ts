@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { LOCAL_MEMORY_DATA_PROVIDERS } from 'src/app/data/local-memory/local-memory-data.module';
+import { LocalMemoryDataModule } from 'src/app/data/local-memory/local-memory-data.module';
 import { ManagementComponent } from './management.component';
 import { ManagementService } from './management.service';
 import { of } from 'rxjs';
@@ -16,9 +16,9 @@ describe('ManagementComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ ManagementComponent ],
+      imports: [ LocalMemoryDataModule ],
       providers: [
-        { provide: ManagementService, useValue: service },
-        ...LOCAL_MEMORY_DATA_PROVIDERS
+        { provide: ManagementService, useValue: service }
       ]
     })
     .compileComponents();

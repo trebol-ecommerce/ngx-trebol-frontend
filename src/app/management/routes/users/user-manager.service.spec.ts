@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { LOCAL_MEMORY_DATA_PROVIDERS } from 'src/app/data/local-memory/local-memory-data.module';
+import { LocalMemoryDataModule } from 'src/app/data/local-memory/local-memory-data.module';
 import { UserManagerService } from './user-manager.service';
 
 describe('UserManagerService', () => {
@@ -7,9 +7,9 @@ describe('UserManagerService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [ LocalMemoryDataModule ],
       providers: [
-        UserManagerService,
-        ...LOCAL_MEMORY_DATA_PROVIDERS
+        UserManagerService
       ]
     });
     service = TestBed.inject(UserManagerService);

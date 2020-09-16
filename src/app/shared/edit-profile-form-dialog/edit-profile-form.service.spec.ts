@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { LOCAL_MEMORY_DATA_PROVIDERS } from 'src/app/data/local-memory/local-memory-data.module';
+import { LocalMemoryDataModule } from 'src/app/data/local-memory/local-memory-data.module';
 import { EditProfileFormService } from './edit-profile-form.service';
 import { AppService } from 'src/app/app.service';
 
@@ -13,10 +13,10 @@ describe('EditProfileFormService', () => {
     };
 
     TestBed.configureTestingModule({
+      imports: [ LocalMemoryDataModule ],
       providers: [
         EditProfileFormService,
-        { provide: AppService, useValue: appService },
-        ...LOCAL_MEMORY_DATA_PROVIDERS
+        { provide: AppService, useValue: appService }
       ]
     });
     service = TestBed.inject(EditProfileFormService);

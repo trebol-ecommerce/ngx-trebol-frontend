@@ -1,14 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-
+import { LocalMemoryDataModule } from 'src/app/data/local-memory/local-memory-data.module';
 import { ProductFiltersPanelService } from './product-filters-panel.service';
-import { LOCAL_MEMORY_DATA_PROVIDERS } from 'src/app/data/local-memory/local-memory-data.module';
 
 describe('ProductFiltersPanelService', () => {
   let service: ProductFiltersPanelService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: LOCAL_MEMORY_DATA_PROVIDERS
+      imports: [ LocalMemoryDataModule ]
     });
     service = TestBed.inject(ProductFiltersPanelService);
   });

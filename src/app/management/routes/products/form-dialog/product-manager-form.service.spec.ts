@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { LOCAL_MEMORY_DATA_PROVIDERS } from 'src/app/data/local-memory/local-memory-data.module';
+import { LocalMemoryDataModule } from 'src/app/data/local-memory/local-memory-data.module';
 import { ProductManagerFormService } from './product-manager-form.service';
 
 describe('ProductManagerFormService', () => {
@@ -7,9 +7,9 @@ describe('ProductManagerFormService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [ LocalMemoryDataModule ],
       providers: [
-        ProductManagerFormService,
-        ...LOCAL_MEMORY_DATA_PROVIDERS
+        ProductManagerFormService
       ]
     });
     service = TestBed.inject(ProductManagerFormService);
