@@ -37,15 +37,19 @@ export class AppService
     return this.session;
   }
 
-  public guestLogin(person: Person): Observable<boolean> {
-    return this.clientsDataService.create({ id: null, person }).pipe(
-      concatMap(this.authService.login)
-    );
+  public guestLogin(personDetails: Person): Observable<boolean> {
+    return this.authService.guestLogin(personDetails);
   }
 
-  public register(details: User): Observable<boolean> {
-    return this.usersDataService.create(details).pipe(
-      concatMap(this.authService.login)
+  public register(userDetails: User): Observable<boolean> {
+    return this.authService.register(userDetails).pipe(
+      tap( //TODO refactor this tap
+        success => {
+          if (success) {
+            this.sessionChangesSource.next(new Session());
+          }
+        }
+      )
     );
   }
 
@@ -53,13 +57,11 @@ export class AppService
     if (this.session) {
       return of(true);
     } else {
-      return this.usersDataService.readFiltered(credentials).pipe(
-        concatMap(
-          (users: User[]) => {
-            if (users.length > 0) {
-              return this.authService.login(users[0]);
-            } else {
-              return of(null);
+      return this.authService.login(credentials).pipe(
+        tap( //TODO and this tap too
+          success => {
+            if (success) {
+              this.sessionChangesSource.next(new Session());
             }
           }
         )
