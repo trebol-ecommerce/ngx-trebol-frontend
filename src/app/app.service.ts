@@ -1,25 +1,24 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
-import { catchError, concatMap, finalize, tap } from 'rxjs/operators';
+import { catchError, finalize, tap } from 'rxjs/operators';
 import { AUTH_INJECTION_TOKEN } from 'src/app/auth/auth.injection-token';
 import { AuthenticationIService } from 'src/app/auth/auth.iservice';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
+import { EntityDataIService } from 'src/app/data/entity.data.iservice';
 import { Client } from 'src/app/data/models/entities/Client';
 import { Person } from 'src/app/data/models/entities/Person';
-import { Session } from 'src/app/data/models/entities/Session';
 import { User } from 'src/app/data/models/entities/User';
 import { Login } from 'src/app/data/models/Login';
-import { EntityDataIService } from 'src/app/data/entity.data.iservice';
 
 @Injectable({ providedIn: 'root' })
 export class AppService
   implements OnDestroy {
 
-  protected session: Session = null;
-  protected sessionChangesSource: Subject<Session> = new Subject();
+  protected isLoggedIn: boolean = false;
+  protected isLoggedInChangesSource: Subject<boolean> = new Subject();
   protected isValidatingSessionSource: Subject<boolean> = new Subject();
 
-  public sessionChanges$: Observable<Session> = this.sessionChangesSource.asObservable();
+  public isLoggedInChanges$: Observable<boolean> = this.isLoggedInChangesSource.asObservable();
   public isValidatingSession$: Observable<boolean> = this.isValidatingSessionSource.asObservable();
 
   constructor(
@@ -29,12 +28,12 @@ export class AppService
   ) { }
 
   ngOnDestroy(): void {
-    this.sessionChangesSource.complete();
+    this.isLoggedInChangesSource.complete();
     this.isValidatingSessionSource.complete();
   }
 
-  public getCurrentSession(): Session {
-    return this.session;
+  public isUserLoggedIn(): boolean {
+    return this.isLoggedIn;
   }
 
   public guestLogin(personDetails: Person): Observable<boolean> {
@@ -46,7 +45,7 @@ export class AppService
       tap( //TODO refactor this tap
         success => {
           if (success) {
-            this.sessionChangesSource.next(new Session());
+            this.isLoggedInChangesSource.next(true);
           }
         }
       )
@@ -54,14 +53,14 @@ export class AppService
   }
 
   public login(credentials: Login): Observable<boolean> {
-    if (this.session) {
+    if (this.isLoggedIn) {
       return of(true);
     } else {
       return this.authService.login(credentials).pipe(
         tap( //TODO and this tap too
           success => {
             if (success) {
-              this.sessionChangesSource.next(new Session());
+              this.isLoggedInChangesSource.next(true);
             }
           }
         )
@@ -80,8 +79,8 @@ export class AppService
   }
 
   public closeCurrentSession(): void {
-    this.session = null;
-    this.sessionChangesSource.next(null);
+    this.isLoggedIn = null;
+    this.isLoggedInChangesSource.next(null);
     this.authService.logout().subscribe();
   }
 
