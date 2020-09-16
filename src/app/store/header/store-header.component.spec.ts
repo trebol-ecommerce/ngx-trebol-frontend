@@ -1,10 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
+import { Person } from 'src/app/data/models/entities/Person';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { StoreService } from '../store.service';
 import { StoreHeaderComponent } from './store-header.component';
-import { of } from 'rxjs';
 
 describe('StoreHeaderComponent', () => {
   let component: StoreHeaderComponent;
@@ -19,9 +20,10 @@ describe('StoreHeaderComponent', () => {
       sellSubtotalValue$: of(0)
     };
     appService = {
-      getCurrentSession() { return null; },
+      isLoggedInChanges$: of(false),
+      isUserLoggedIn() { return false; },
       closeCurrentSession() {},
-      sessionChanges$: of(null),
+      getUserProfile() { return of(null); }
     };
 
     TestBed.configureTestingModule({

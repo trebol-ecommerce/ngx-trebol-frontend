@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { concatMap, map, pluck } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { APP_INITIALS_TITLE, APP_LONG_TITLE } from 'src/app/app.constants';
 import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
@@ -48,19 +48,21 @@ export class StoreHeaderComponent
       map(total => total + ' item' + (total > 1 ? 's' : ''))
     );
 
-    this.userName$ = this.appService.sessionChanges$.pipe(
-      map(session => {
-        if (!(session && session.user?.name)) {
-          return '';
-        } else {
-          return session.user.name;
+    this.userName$ = this.appService.isLoggedInChanges$.pipe(
+      concatMap(
+        (isLoggedIn: boolean) => {
+          if (!isLoggedIn) {
+            return '';
+          } else {
+            return this.appService.getUserProfile().pipe(pluck('name'));
+          }
         }
-      })
+      )
     );
 
     this.cartSubtotalValue$ = this.storeService.sellSubtotalValue$.pipe();
 
-    this.isLoggedIn$ = this.appService.sessionChanges$.pipe(map(s => !!(s && s.user)));
+    this.isLoggedIn$ = this.appService.isLoggedInChanges$.pipe();
   }
 
   protected promptLogoutConfirmation(): Observable<boolean> {
@@ -108,14 +110,15 @@ export class StoreHeaderComponent
     this.dialogService.open(
       StoreLoginFormDialogComponent,
       { width: '24rem' }
-    ).afterClosed().subscribe(
-      () => {
-        const ssn = this.appService.getCurrentSession();
-        if (ssn.user?.employee?.role.id === EmployeeRolesEnum.Administrador) {
-          this.promptManagementRedirect();
-        }
-      }
-    );
+    ).afterClosed().subscribe();
+    // TODO reimplement this somehow?
+    //   () => {
+    //     const ssn = this.appService.isUserLoggedIn();
+    //     if (ssn.user?.employee?.role.id === EmployeeRolesEnum.Administrador) {
+    //       this.promptManagementRedirect();
+    //     }
+    //   }
+    // );
   }
 
   public onClickEditProfile(): void {
