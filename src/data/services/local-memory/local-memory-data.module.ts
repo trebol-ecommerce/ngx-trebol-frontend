@@ -7,12 +7,10 @@ import { ProductsLocalMemoryDataService } from './products.local-memory-data.ser
 import { ProvidersLocalMemoryDataService } from './providers.local-memory-data.service';
 import { PurchaseOrdersLocalMemoryDataService } from './purchase_orders.local-memory-data.service';
 import { SalesLocalMemoryDataService } from './sales.local-memory-data.service';
-import { SessionsLocalMemoryDataService } from './sessions.local-memory-data.service';
 import { SharedLocalMemoryDataService } from './shared.local-memory-data.service';
 import { UsersLocalMemoryDataService } from './users.local-memory-data.service';
 
 export const LOCAL_MEMORY_DATA_PROVIDERS: Provider[] = [
-  { provide: DATA_INJECTION_TOKENS.sessions, useClass: SessionsLocalMemoryDataService },
   { provide: DATA_INJECTION_TOKENS.clients, useClass: ClientsLocalMemoryDataService },
   { provide: DATA_INJECTION_TOKENS.employees, useClass: EmployeesLocalMemoryDataService },
   { provide: DATA_INJECTION_TOKENS.people, useClass: PeopleLocalMemoryDataService },
