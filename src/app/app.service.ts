@@ -78,6 +78,14 @@ export class AppService
     );
   }
 
+  public getUserProfile(): Observable<Person> {
+    return this.authService.getProfile();
+  }
+
+  public updateUserProfile(details: Person): Observable<boolean> {
+    return this.authService.updateProfile(details);
+  }
+
   public closeCurrentSession(): void {
     this.isLoggedIn = null;
     this.isLoggedInChangesSource.next(null);
