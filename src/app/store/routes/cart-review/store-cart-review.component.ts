@@ -80,7 +80,7 @@ export class StoreCartReviewComponent
     }
   }
 
-  protected promptGuestUser(): Observable<void> {
+  protected promptUserLoginChoices(): Observable<void> {
     return this.dialogService.open(
       StoreGuestPromptDialogComponent
     ).afterClosed().pipe(
@@ -96,15 +96,11 @@ export class StoreCartReviewComponent
     );
   }
 
-  protected getSessionOrRequestSession(): Observable<Session> {
-    const session = this.appService.getCurrentSession();
-    if (session && session.user?.clientId) {
-      return of(session);
-    } else {
-      return this.promptGuestUser().pipe(
-        map(() => this.appService.getCurrentSession())
-      );
-    }
+  protected openPaymentRedirectPrompt(): void {
+    this.dialogService.open(
+      StorePaymentRedirectPromptDialogComponent,
+      { width: '40rem' }
+    );
   }
 
   public onClickIncreaseProductQuantity(index: number): void {
@@ -120,15 +116,16 @@ export class StoreCartReviewComponent
   }
 
   public onClickAccept(): void {
-    this.getSessionOrRequestSession().subscribe(
-      (ssn: Session) => {
-        if (ssn) {
-          this.dialogService.open(
-            StorePaymentRedirectPromptDialogComponent,
-            { width: '40rem' }
-          );
+    if (this.appService.isUserLoggedIn()) {
+      this.openPaymentRedirectPrompt();
+    } else {
+      this.promptUserLoginChoices().subscribe(
+        () => {
+          if (this.appService.isUserLoggedIn()) {
+            this.openPaymentRedirectPrompt();
+          }
         }
-      }
-    );
+      );
+    }
   }
 }
