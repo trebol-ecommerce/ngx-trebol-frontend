@@ -4,12 +4,12 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PurchaseOrder } from 'src/app/data/models/entities/PurchaseOrder';
 import { PurchaseOrderDetail } from 'src/app/data/models/entities/PurchaseOrderDetail';
-import { HttpService } from 'src/app/shared/http.abstract-service';
 import { CompositeEntityDataIService } from '../composite-entity.data.iservice';
+import { EntityHttpDataService } from './entity.http-data.aservice';
 
 @Injectable()
 export class PurchaseOrdersHttpDataService
-  extends HttpService
+  extends EntityHttpDataService
   implements CompositeEntityDataIService<PurchaseOrder, PurchaseOrderDetail> {
 
   constructor(

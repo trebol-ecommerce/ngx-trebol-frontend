@@ -10,11 +10,11 @@ import { ProductType } from 'src/app/data/models/entities/ProductType';
 import { PurchaseOrderType } from 'src/app/data/models/entities/PurchaseOrderType';
 import { SellType } from 'src/app/data/models/entities/SellType';
 import { SharedDataIService } from '../shared.data.iservice';
-import { HttpService } from 'src/app/shared/http.abstract-service';
+import { EntityHttpDataService } from './entity.http-data.aservice';
 
 @Injectable()
 export class SharedHttpDataService
-  extends HttpService
+  extends EntityHttpDataService
   implements SharedDataIService {
 
   constructor(
