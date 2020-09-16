@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppUserService } from 'src/app/app-user.service';
-import { Session } from 'src/data/models/entities/Session';
 import { Login } from 'src/data/models/Login';
 
 @Component({
@@ -55,8 +54,8 @@ export class StoreLoginFormDialogComponent {
     };
 
     this.appUserService.login(details).subscribe(
-      (ssn: Session) => {
-        if (ssn) {
+      success => {
+        if (success) {
           this.dialog.close();
           this.snackBarService.open('Ha iniciado sesion correctamente.');
         } else {
@@ -64,7 +63,7 @@ export class StoreLoginFormDialogComponent {
           this.snackBarService.open('Credenciales invalidas.', 'OK', { duration: -1 });
         }
       },
-      err => {
+      () => {
         this.loggingInSource.next(false);
         this.snackBarService.open('Hubo un problema al autenticar.', 'OK', { duration: -1 });
       }

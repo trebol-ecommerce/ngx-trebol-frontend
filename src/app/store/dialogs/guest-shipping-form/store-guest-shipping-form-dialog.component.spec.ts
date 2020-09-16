@@ -1,12 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { StoreGuestShippingFormDialogComponent } from './store-guest-shipping-form-dialog.component';
-import { AppUserService } from 'src/app/app-user.service';
-import { of } from 'rxjs';
-import { Session } from 'src/data/models/entities/Session';
 import { MatDialogRef } from '@angular/material/dialog';
+import { of } from 'rxjs';
+import { AppUserService } from 'src/app/app-user.service';
 import { SharedModule } from 'src/shared/shared.module';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { StoreGuestShippingFormDialogComponent } from './store-guest-shipping-form-dialog.component';
 
 describe('StoreGuestShippingFormDialogComponent', () => {
   let component: StoreGuestShippingFormDialogComponent;
@@ -15,7 +12,7 @@ describe('StoreGuestShippingFormDialogComponent', () => {
 
   beforeEach(async(() => {
     userService = {
-      guestLogin() { return of(new Session()); }
+      guestLogin() { return of(true); }
     };
 
     TestBed.configureTestingModule({

@@ -3,7 +3,6 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { AppUserService } from 'src/app/app-user.service';
 import { SharedModule } from 'src/shared/shared.module';
-import { Session } from 'src/data/models/entities/Session';
 import { StoreRegistrationFormDialogComponent } from './store-registration-form-dialog.component';
 
 describe('StoreRegistrationFormDialogComponent', () => {
@@ -13,7 +12,7 @@ describe('StoreRegistrationFormDialogComponent', () => {
 
   beforeEach(async(() => {
     service = {
-      register(u) { return of(new Session()); }
+      register(u) { return of(true); }
     };
 
     TestBed.configureTestingModule({

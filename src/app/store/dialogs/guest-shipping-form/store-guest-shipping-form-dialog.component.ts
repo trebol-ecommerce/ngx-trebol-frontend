@@ -40,8 +40,8 @@ export class StoreGuestShippingFormDialogComponent
   public onSubmit(): void {
     this.savingSource.next(true);
     this.appUserService.guestLogin(this.personForm.asPerson()).subscribe(
-      s => {
-        if (s) {
+      success => {
+        if (success) {
           this.dialog.close();
         }
       },

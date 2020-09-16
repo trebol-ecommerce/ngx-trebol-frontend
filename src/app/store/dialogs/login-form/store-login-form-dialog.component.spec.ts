@@ -13,7 +13,7 @@ describe('StoreLoginFormDialogComponent', () => {
 
   beforeEach(async(() => {
     userService = {
-      login() { return of(null); }
+      login() { return of(true); }
     };
 
     TestBed.configureTestingModule({

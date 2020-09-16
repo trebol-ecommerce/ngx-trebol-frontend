@@ -1,13 +1,13 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
-import { catchError, concatMap, finalize, map, tap } from 'rxjs/operators';
+import { catchError, concatMap, finalize, tap } from 'rxjs/operators';
+import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
 import { Client } from 'src/data/models/entities/Client';
 import { Person } from 'src/data/models/entities/Person';
 import { Session } from 'src/data/models/entities/Session';
 import { User } from 'src/data/models/entities/User';
 import { Login } from 'src/data/models/Login';
 import { SessionDataIService } from 'src/data/services/auth.data.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/data/data-injection-tokens';
 import { EntityDataIService } from 'src/data/services/entity.data.iservice';
 
 @Injectable({ providedIn: 'root' })
@@ -36,48 +36,27 @@ export class AppUserService
     return this.session;
   }
 
-  public guestLogin(person: Person): Observable<Session> {
+  public guestLogin(person: Person): Observable<boolean> {
     return this.clientsDataService.create({ id: null, person }).pipe(
-      concatMap(this.sessionDataService.login),
-      map((s) => Object.assign<Session, Partial<Session>>(new Session(), s)),
-      tap(
-        (s: Session) => {
-          this.session = s;
-          this.sessionChangesSource.next(s);
-        }
-      )
+      concatMap(this.sessionDataService.login)
     );
   }
 
-  public register(details: User): Observable<Session> {
+  public register(details: User): Observable<boolean> {
     return this.usersDataService.create(details).pipe(
-      concatMap(this.sessionDataService.login),
-      map((s) => Object.assign<Session, Partial<Session>>(new Session(), s)),
-      tap(
-        (s: Session) => {
-          this.session = s;
-          this.sessionChangesSource.next(s);
-        }
-      )
+      concatMap(this.sessionDataService.login)
     );
   }
 
-  public login(credentials: Login): Observable<Session> {
+  public login(credentials: Login): Observable<boolean> {
     if (this.session) {
-      return of(this.session);
+      return of(true);
     } else {
       return this.usersDataService.readFiltered(credentials).pipe(
         concatMap(
           (users: User[]) => {
             if (users.length > 0) {
-              return this.sessionDataService.login(users[0]).pipe(
-                tap(
-                  (s: Session) => {
-                    this.session = s;
-                    this.sessionChangesSource.next(s);
-                  }
-                )
-              );
+              return this.sessionDataService.login(users[0]);
             } else {
               return of(null);
             }
@@ -90,17 +69,17 @@ export class AppUserService
   public validateSession(): Observable<boolean> {
     this.isValidatingSessionSource.next(true);
 
-    return this.sessionDataService.validate(this.session).pipe(
+    return this.sessionDataService.validate().pipe(
       catchError(() => of(false)),
       finalize(() => { this.isValidatingSessionSource.next(false); }),
-      tap(esValida => { if (!esValida) { this.closeCurrentSession(); } })
+      tap(isValid => { if (!isValid) { this.closeCurrentSession(); } })
     );
   }
 
   public closeCurrentSession(): void {
     this.session = null;
     this.sessionChangesSource.next(null);
-    this.sessionDataService.logout(this.session).subscribe();
+    this.sessionDataService.logout().subscribe();
   }
 
 }
