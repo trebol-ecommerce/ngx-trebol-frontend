@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { AppService } from 'src/app/app.service';
 import { LocalMemoryDataModule } from 'src/app/data/local-memory/local-memory-data.module';
 import { EditProfileFormService } from './edit-profile-form.service';
-import { AppService } from 'src/app/app.service';
 
 describe('EditProfileFormService', () => {
   let service: EditProfileFormService;
@@ -9,7 +10,9 @@ describe('EditProfileFormService', () => {
 
   beforeEach(() => {
     appService = {
-      getCurrentSession() { return null; }
+      isUserLoggedIn() { return null; },
+      getUserProfile() { return of(null); },
+      updateUserProfile(p) { return of(true); }
     };
 
     TestBed.configureTestingModule({

@@ -1,10 +1,10 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, concat, iif, Observable, of, Subject } from 'rxjs';
-import { catchError, delay, map, switchMap, tap } from 'rxjs/operators';
+import { delay, switchMap, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
-import { Person } from 'src/app/data/models/entities/Person';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
 import { EntityDataIService } from 'src/app/data/entity.data.iservice';
+import { Person } from 'src/app/data/models/entities/Person';
 
 @Injectable()
 export class EditProfileFormService
@@ -40,26 +40,13 @@ export class EditProfileFormService
   }
 
   public loadProfile(): Observable<Person> {
-    return new Observable(
-      (observer) => {
-        const personId = this.appService.getCurrentSession().user.person.id;
-
-        return this.peopleDataService.readById(personId).subscribe(
-          person => {
-            observer.next(person);
-            observer.complete();
-          }
-        );
-      }
-    );
+    return this.appService.getUserProfile();
   }
 
   public saveProfile(p: Person): Observable<boolean> {
     this.savingSource.next(true);
-    return this.peopleDataService.update(p, p.id).pipe(
-      catchError(() => of(null)),
+    return this.appService.updateUserProfile(p).pipe(
       tap(() => { this.savingSource.next(false); }),
-      map(p => !!(p))
     );
   }
 
