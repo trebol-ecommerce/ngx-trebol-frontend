@@ -10,13 +10,13 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
   let component: StorePaymentRedirectPromptDialogComponent;
   let fixture: ComponentFixture<StorePaymentRedirectPromptDialogComponent>;
   let appService: Partial<AppService>;
-  let cartService: Partial<StoreService>;
+  let storeService: Partial<StoreService>;
 
   beforeEach(async(() => {
     appService = {
       getCurrentSession() { return new Session(); }
     };
-    cartService = {
+    storeService = {
       sellSubtotalValue$: of(0)
     };
 
@@ -27,7 +27,7 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
       declarations: [ StorePaymentRedirectPromptDialogComponent ],
       providers: [
         { provide: AppService, useValue: appService },
-        { provide: StoreService, useValue: cartService }
+        { provide: StoreService, useValue: storeService }
       ]
     })
     .compileComponents();

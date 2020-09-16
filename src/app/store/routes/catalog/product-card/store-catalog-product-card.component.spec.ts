@@ -7,11 +7,11 @@ import { StoreCatalogService } from '../store-catalog.service';
 describe('StoreCatalogProductCardComponent', () => {
   let component: StoreCatalogProductCardComponent;
   let fixture: ComponentFixture<StoreCatalogProductCardComponent>;
-  let cartService: Partial<StoreService>;
+  let storeService: Partial<StoreService>;
   let catalogService: Partial<StoreCatalogService>;
 
   beforeEach(async(() => {
-    cartService = {
+    storeService = {
       addProductToCart(p) {}
     };
     catalogService = {
@@ -21,7 +21,7 @@ describe('StoreCatalogProductCardComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ StoreCatalogProductCardComponent ],
       providers: [
-        { provide: StoreService, useValue: cartService },
+        { provide: StoreService, useValue: storeService },
         { provide: StoreCatalogService, useValue: catalogService }
       ]
     })

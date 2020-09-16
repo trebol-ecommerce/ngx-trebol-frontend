@@ -29,7 +29,7 @@ export class StoreProductDetailsDialogComponent
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data: StoreProductDetailsDialogData,
-    public cartService: StoreService,
+    public storeService: StoreService,
   ) {
     this.product = data?.product ? data.product : null;
   }
@@ -40,7 +40,7 @@ export class StoreProductDetailsDialogComponent
       map(d => d !== null ? d.units : 0)
     );
 
-    this.cartService.sellDetails$.subscribe(
+    this.storeService.sellDetails$.subscribe(
       details => {
         const index = details.findIndex(d => d.product?.id === this.product.id);
         if (index !== -1) {
@@ -60,13 +60,13 @@ export class StoreProductDetailsDialogComponent
 
   public onClickIncreaseProductQuantity(): void {
     if (this.matchingCartIndex !== -1) {
-      this.cartService.increaseProductUnits(this.matchingCartIndex);
+      this.storeService.increaseProductUnits(this.matchingCartIndex);
     } else {
-      this.cartService.addProductToCart(this.product);
+      this.storeService.addProductToCart(this.product);
     }
   }
   public onClickDecreaseProductQuantity(): void {
-    this.cartService.decreaseProductUnits(this.matchingCartIndex);
+    this.storeService.decreaseProductUnits(this.matchingCartIndex);
   }
 
 }

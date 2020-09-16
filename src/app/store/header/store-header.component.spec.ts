@@ -9,11 +9,11 @@ import { of } from 'rxjs';
 describe('StoreHeaderComponent', () => {
   let component: StoreHeaderComponent;
   let fixture: ComponentFixture<StoreHeaderComponent>;
-  let cartService: Partial<StoreService>;
+  let storeService: Partial<StoreService>;
   let appService: Partial<AppService>;
 
   beforeEach(async(() => {
-    cartService = {
+    storeService = {
       sellDetails$: of([]),
       itemQuantity$: of(0),
       sellSubtotalValue$: of(0)
@@ -31,7 +31,7 @@ describe('StoreHeaderComponent', () => {
       ],
       declarations: [ StoreHeaderComponent ],
       providers: [
-        { provide: StoreService, useValue: cartService },
+        { provide: StoreService, useValue: storeService },
         { provide: AppService, useValue: appService }
       ]
     })

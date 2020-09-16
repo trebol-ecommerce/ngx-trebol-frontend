@@ -30,22 +30,22 @@ export class StoreCartReviewComponent
   public tableColumns: string[] = [ 'product', 'price', 'quantity', 'total', 'actions' ];
 
   constructor(
-    protected cartService: StoreService,
+    protected storeService: StoreService,
     protected appService: AppService,
     protected router: Router,
     protected dialogService: MatDialog,
     protected snackBarService: MatSnackBar
   ) {
-    this.cartService.sellDetails$.pipe(take(1)).subscribe(
+    this.storeService.sellDetails$.pipe(take(1)).subscribe(
       array => { if (array.length === 0) { this.router.navigateByUrl('/store'); } }
     );
   }
 
   ngOnInit(): void {
-    this.sellDetails$ = this.cartService.sellDetails$.pipe();
-    this.sellSubtotalValue$ = this.cartService.sellSubtotalValue$.pipe();
+    this.sellDetails$ = this.storeService.sellDetails$.pipe();
+    this.sellSubtotalValue$ = this.storeService.sellSubtotalValue$.pipe();
 
-    this.sellTotalValue$ = this.cartService.sellSubtotalValue$.pipe(map(subtotal => Math.ceil(subtotal * 1.19)));
+    this.sellTotalValue$ = this.storeService.sellSubtotalValue$.pipe(map(subtotal => Math.ceil(subtotal * 1.19)));
   }
 
   protected promptLoginForm(): Observable<void> {
@@ -108,15 +108,15 @@ export class StoreCartReviewComponent
   }
 
   public onClickIncreaseProductQuantity(index: number): void {
-    this.cartService.increaseProductUnits(index);
+    this.storeService.increaseProductUnits(index);
   }
 
   public onClickDecreaseProductQuantity(index: number): void {
-    this.cartService.decreaseProductUnits(index);
+    this.storeService.decreaseProductUnits(index);
   }
 
   public onClickRemoveProduct(index: number): void {
-    this.cartService.removeProductFromCart(index);
+    this.storeService.removeProductFromCart(index);
   }
 
   public onClickAccept(): void {

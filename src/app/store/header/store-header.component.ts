@@ -32,7 +32,7 @@ export class StoreHeaderComponent
   public userName$: Observable<string>;
 
   constructor(
-    protected cartService: StoreService,
+    protected storeService: StoreService,
     protected appService: AppService,
     protected snackBarService: MatSnackBar,
     protected dialogService: MatDialog,
@@ -40,11 +40,11 @@ export class StoreHeaderComponent
   ) { }
 
   ngOnInit(): void {
-    this.cartHasItems$ = this.cartService.sellDetails$.pipe(
+    this.cartHasItems$ = this.storeService.sellDetails$.pipe(
       map(array => array.length > 0)
     );
 
-    this.itemQuantityLabel$ = this.cartService.itemQuantity$.pipe(
+    this.itemQuantityLabel$ = this.storeService.itemQuantity$.pipe(
       map(total => total + ' item' + (total > 1 ? 's' : ''))
     );
 
@@ -58,7 +58,7 @@ export class StoreHeaderComponent
       })
     );
 
-    this.cartSubtotalValue$ = this.cartService.sellSubtotalValue$.pipe();
+    this.cartSubtotalValue$ = this.storeService.sellSubtotalValue$.pipe();
 
     this.isLoggedIn$ = this.appService.sessionChanges$.pipe(map(s => !!(s && s.user)));
   }

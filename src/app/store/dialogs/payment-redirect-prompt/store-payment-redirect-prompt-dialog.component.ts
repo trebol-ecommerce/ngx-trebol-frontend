@@ -27,7 +27,7 @@ export class StorePaymentRedirectPromptDialogComponent
 
   constructor(
     protected appService: AppService,
-    protected cartService: StoreService,
+    protected storeService: StoreService,
     protected httpClient: HttpClient
   ) {
     this.loading$ = this.externalDataSource.asObservable().pipe(startWith(true), mapTo(false));
@@ -53,7 +53,7 @@ export class StorePaymentRedirectPromptDialogComponent
   }
 
   protected initiateWebpayTransaction(): void {
-    this.cartService.sellSubtotalValue$.pipe(
+    this.storeService.sellSubtotalValue$.pipe(
       map((subtotal) => this.parseFormData(subtotal)),
       concatMap((data) => this.fetchWebpayRedirectionData(data))
     ).subscribe(

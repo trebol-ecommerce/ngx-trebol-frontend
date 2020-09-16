@@ -13,12 +13,12 @@ export class StoreCatalogProductCardComponent {
   @Input() public product: Product = null;
 
   constructor(
-    protected cartService: StoreService,
+    protected storeService: StoreService,
     protected catalogService: StoreCatalogService
   ) { }
 
   public onClickAddProduct(): void {
-    this.cartService.addProductToCart(this.product);
+    this.storeService.addProductToCart(this.product);
   }
 
   public onClickViewProduct(): void {

@@ -12,11 +12,11 @@ import { StoreCartReviewComponent } from './store-cart-review.component';
 describe('StoreCartReviewComponent', () => {
   let component: StoreCartReviewComponent;
   let fixture: ComponentFixture<StoreCartReviewComponent>;
-  let cartService: Partial<StoreService>;
+  let storeService: Partial<StoreService>;
   let appService: Partial<AppService>;
 
   beforeEach(async(() => {
-    cartService = {
+    storeService = {
       sellDetails$: of([]),
       sellSubtotalValue$: of(0),
       increaseProductUnits(i) {},
@@ -37,7 +37,7 @@ describe('StoreCartReviewComponent', () => {
       ],
       declarations: [ StoreCartReviewComponent ],
       providers: [
-        { provide: StoreService, useValue: cartService },
+        { provide: StoreService, useValue: storeService },
         { provide: AppService, useValue: appService }
       ]
     })
