@@ -12,7 +12,6 @@ export class HttpAuthService
   extends HttpService
   implements AuthenticationIService {
 
-  protected baseURI: string = `${this.baseURI}/session`;
   //TODO these should be refactored
   protected readonly sessionStorageTokenItemName = 'nm/bearer-token';
   protected readonly authorizationHeader = 'Authorization';

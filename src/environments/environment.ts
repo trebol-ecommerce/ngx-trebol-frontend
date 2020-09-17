@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseURI: '/api',
+  baseURI: '',
   checkoutURL: 'https://webpay-test.benjaminlamadrid.cl/'
 };
 
