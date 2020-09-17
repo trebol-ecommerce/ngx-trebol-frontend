@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Client } from 'src/app/data/models/entities/Client';
+import { Person } from 'src/app/data/models/entities/Person';
 import { Session } from 'src/app/data/models/entities/Session';
 import { User } from 'src/app/data/models/entities/User';
 import { makeid } from 'src/functions/makeid';
@@ -19,6 +20,21 @@ export class LocalMemoryAuthService
   implements AuthenticationIService {
 
   constructor() { }
+
+  public getProfile(): Observable<Person> {
+    throw new Error('Method not implemented.'); // TODO implement me
+  }
+  public updateProfile(details: Person): Observable<boolean> {
+    throw new Error('Method not implemented.'); // TODO implement me
+  }
+
+  public guestLogin(details: Person): Observable<boolean> {
+    throw new Error('Method not implemented.'); // TODO implement me
+  }
+
+  public register(details: Partial<User>): Observable<boolean> {
+    throw new Error('Method not implemented.'); // TODO implement me
+  }
 
   public login(details: User | Client): Observable<boolean> {
     return new Observable(
