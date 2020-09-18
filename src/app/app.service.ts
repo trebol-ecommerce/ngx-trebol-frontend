@@ -1,5 +1,5 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { AUTH_INJECTION_TOKEN } from 'src/app/auth/auth.injection-token';
 import { AuthenticationIService } from 'src/app/auth/auth.iservice';
@@ -15,7 +15,7 @@ export class AppService
   implements OnDestroy {
 
   protected isLoggedIn: boolean = false;
-  protected isLoggedInChangesSource: Subject<boolean> = new Subject();
+  protected isLoggedInChangesSource: Subject<boolean>= new BehaviorSubject(false);
   protected isValidatingSessionSource: Subject<boolean> = new Subject();
 
   public isLoggedInChanges$: Observable<boolean> = this.isLoggedInChangesSource.asObservable();
