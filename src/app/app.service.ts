@@ -44,9 +44,7 @@ export class AppService
     return this.authService.register(userDetails).pipe(
       tap( //TODO refactor this tap
         success => {
-          if (success) {
-            this.isLoggedInChangesSource.next(true);
-          }
+          this.isLoggedInChangesSource.next(true);
         }
       )
     );
@@ -59,9 +57,7 @@ export class AppService
       return this.authService.login(credentials).pipe(
         tap( //TODO and this tap too
           success => {
-            if (success) {
-              this.isLoggedInChangesSource.next(true);
-            }
+            this.isLoggedInChangesSource.next(true);
           }
         )
       );
@@ -87,8 +83,8 @@ export class AppService
   }
 
   public closeCurrentSession(): void {
-    this.isLoggedIn = null;
-    this.isLoggedInChangesSource.next(null);
+    this.isLoggedIn = false;
+    this.isLoggedInChangesSource.next(false);
     this.authService.logout().subscribe();
   }
 
