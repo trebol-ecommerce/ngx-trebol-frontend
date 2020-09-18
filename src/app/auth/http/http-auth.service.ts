@@ -82,6 +82,12 @@ export class HttpAuthService
   public logout(): Observable<boolean> {
     return this.http.get<boolean>(
       `${this.baseURI}/logout`
+    ).pipe(
+      tap(
+        () => {
+          sessionStorage.removeItem(this.sessionStorageTokenItemName);
+        }
+      )
     );
   }
 }
