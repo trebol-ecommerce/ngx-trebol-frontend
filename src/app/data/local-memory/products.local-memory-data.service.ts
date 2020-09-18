@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { Product } from 'src/app/data/models/entities/Product';
 import { EntityLocalMemoryDataService } from './entity.local-memory-data.aservice';
+import { StoreCatalogDataIService } from '../store.catalog.data.iservice';
 
 export const MOCK_PRODUCTS: Partial<Product>[] = [
   {
@@ -50,7 +51,8 @@ export const MOCK_PRODUCTS: Partial<Product>[] = [
 
 @Injectable()
 export class ProductsLocalMemoryDataService
-  extends EntityLocalMemoryDataService<Product> {
+  extends EntityLocalMemoryDataService<Product>
+  implements StoreCatalogDataIService {
 
   protected items: Product[] = MOCK_PRODUCTS.map(n => Object.assign(new Product(), n));
 

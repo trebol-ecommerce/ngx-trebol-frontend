@@ -20,7 +20,8 @@ import { UsersLocalMemoryDataService } from './users.local-memory-data.service';
     { provide: DATA_INJECTION_TOKENS.providers, useClass: ProvidersLocalMemoryDataService },
     { provide: DATA_INJECTION_TOKENS.shared, useClass: SharedLocalMemoryDataService },
     { provide: DATA_INJECTION_TOKENS.users, useClass: UsersLocalMemoryDataService },
-    { provide: DATA_INJECTION_TOKENS.sales, useClass: SalesLocalMemoryDataService }
+    { provide: DATA_INJECTION_TOKENS.sales, useClass: SalesLocalMemoryDataService },
+    { provide: DATA_INJECTION_TOKENS.storeCatalog, useClass: ProductsLocalMemoryDataService }
   ]
 })
 export class LocalMemoryDataModule { }
