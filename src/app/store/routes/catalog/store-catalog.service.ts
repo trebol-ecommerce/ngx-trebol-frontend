@@ -3,10 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { concatMap, delay, map, tap } from 'rxjs/operators';
-import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
-import { Product } from 'src/app/data/models/entities/Product';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityDataIService } from 'src/app/data/entity.data.iservice';
+import { Product } from 'src/app/data/models/entities/Product';
+import { StoreCatalogDataIService } from 'src/app/data/store.catalog.data.iservice';
+import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { StoreProductDetailsDialogComponent, StoreProductDetailsDialogData } from '../../dialogs/product-details/store-product-details-dialog.component';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class StoreCatalogService
   public filters: ProductFilters = {};
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityDataIService<Product>,
+    @Inject(DATA_INJECTION_TOKENS.storeCatalog) protected dataService: StoreCatalogDataIService,
     protected dialogService: MatDialog,
     protected route: ActivatedRoute,
     protected router: Router,
@@ -56,7 +56,7 @@ export class StoreCatalogService
       (params) => {
         if (params.has('id')) {
           const id = Number(params.get('id'));
-          this.productDataService.readById(id).pipe(
+          this.dataService.readById(id).pipe(
             concatMap(p => this.promptProductDetails(p))
           ).subscribe();
         }
@@ -74,9 +74,9 @@ export class StoreCatalogService
     let p: Observable<Product[]>;
 
     if (JSON.stringify(this.filters) !== '{}') {
-      p = this.productDataService.readFiltered(this.filters);
+      p = this.dataService.readFiltered(this.filters);
     } else {
-      p = this.productDataService.readAll();
+      p = this.dataService.readAll();
     }
 
     p.pipe(
