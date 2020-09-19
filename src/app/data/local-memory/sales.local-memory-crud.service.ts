@@ -4,7 +4,7 @@ import { map, tap } from 'rxjs/operators';
 import { Sell } from 'src/app/data/models/entities/Sell';
 import { SellDetail } from 'src/app/data/models/entities/SellDetail';
 import { CompositeEntityCrudIService } from '../composite-entity.crud.iservice';
-import { EntityLocalMemoryDataService } from './entity.local-memory-data.aservice';
+import { EntityLocalMemoryCrudService } from './entity.local-memory-crud.aservice';
 
 export const MOCK_SALES: Partial<Sell>[] = [
   {
@@ -35,8 +35,8 @@ export const MOCK_SALES: Partial<Sell>[] = [
 ];
 
 @Injectable()
-export class SalesLocalMemoryDataService
-  extends EntityLocalMemoryDataService<Sell>
+export class SalesLocalMemoryCrudService
+  extends EntityLocalMemoryCrudService<Sell>
   implements CompositeEntityCrudIService<Sell, SellDetail> {
 
   protected items: Sell[] = MOCK_SALES.map(n => Object.assign(new Sell(), n));

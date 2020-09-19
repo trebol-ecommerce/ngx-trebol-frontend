@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { PurchaseOrder } from 'src/app/data/models/entities/PurchaseOrder';
 import { PurchaseOrderDetail } from 'src/app/data/models/entities/PurchaseOrderDetail';
 import { CompositeEntityCrudIService } from '../composite-entity.crud.iservice';
-import { EntityLocalMemoryDataService } from './entity.local-memory-data.aservice';
+import { EntityLocalMemoryCrudService } from './entity.local-memory-crud.aservice';
 
 export const MOCK_PURCHASE_ORDERS: Partial<PurchaseOrder>[] = [
   {
@@ -20,8 +20,8 @@ export const MOCK_PURCHASE_ORDERS: Partial<PurchaseOrder>[] = [
 ];
 
 @Injectable()
-export class PurchaseOrdersLocalMemoryDataService
-  extends EntityLocalMemoryDataService<PurchaseOrder>
+export class PurchaseOrdersLocalMemoryCrudService
+  extends EntityLocalMemoryCrudService<PurchaseOrder>
   implements CompositeEntityCrudIService<PurchaseOrder, PurchaseOrderDetail> {
 
   protected items: PurchaseOrder[] = MOCK_PURCHASE_ORDERS.map(n => Object.assign(new PurchaseOrder(), n));

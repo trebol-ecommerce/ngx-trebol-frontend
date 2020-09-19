@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { EmployeeRolesEnum } from 'src/app/data/enums/EmployeeRolesEnum';
 import { User } from 'src/app/data/models/entities/User';
-import { EntityLocalMemoryDataService } from './entity.local-memory-data.aservice';
+import { EntityLocalMemoryCrudService } from './entity.local-memory-crud.aservice';
 
 export const MOCK_USERS: Partial<User>[] = [
   {
@@ -25,8 +25,8 @@ export const MOCK_USERS: Partial<User>[] = [
 ];
 
 @Injectable()
-export class UsersLocalMemoryDataService
-  extends EntityLocalMemoryDataService<User> {
+export class UsersLocalMemoryCrudService
+  extends EntityLocalMemoryCrudService<User> {
 
   protected items: User[] = MOCK_USERS.map(n => Object.assign(new User(), n));
 

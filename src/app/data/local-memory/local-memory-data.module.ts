@@ -1,30 +1,30 @@
 import { NgModule } from '@angular/core';
 import { DATA_INJECTION_TOKENS } from '../data-injection-tokens';
-import { ClientsLocalMemoryDataService } from './clients.local-memory-data.service';
-import { EmployeesLocalMemoryDataService } from './employees.local-memory-data.service';
-import { PeopleLocalMemoryDataService } from './people.local-memory-data.service';
-import { ProductsLocalMemoryDataService } from './products.local-memory-data.service';
-import { ProvidersLocalMemoryDataService } from './providers.local-memory-data.service';
-import { PurchaseOrdersLocalMemoryDataService } from './purchase_orders.local-memory-data.service';
-import { SalesLocalMemoryDataService } from './sales.local-memory-data.service';
+import { ClientsLocalMemoryCrudService } from './clients.local-memory-crud.service';
+import { EmployeesLocalMemoryCrudService } from './employees.local-memory-crud.service';
+import { PeopleLocalMemoryCrudService } from './people.local-memory-crud.service';
+import { ProductsLocalMemoryCrudService } from './products.local-memory-crud.service';
+import { ProvidersLocalMemoryCrudService } from './providers.local-memory-crud.service';
+import { PurchaseOrdersLocalMemoryCrudService } from './purchase_orders.local-memory-crud.service';
+import { SalesLocalMemoryCrudService } from './sales.local-memory-crud.service';
 import { SharedLocalMemoryDataService } from './shared.local-memory-data.service';
-import { UsersLocalMemoryDataService } from './users.local-memory-data.service';
+import { UsersLocalMemoryCrudService } from './users.local-memory-crud.service';
 
 /**
  * Provides services that read and write data using the client's working memory
  */
 @NgModule({
   providers: [
-    { provide: DATA_INJECTION_TOKENS.clients, useClass: ClientsLocalMemoryDataService },
-    { provide: DATA_INJECTION_TOKENS.employees, useClass: EmployeesLocalMemoryDataService },
-    { provide: DATA_INJECTION_TOKENS.people, useClass: PeopleLocalMemoryDataService },
-    { provide: DATA_INJECTION_TOKENS.purchaseOrders, useClass: PurchaseOrdersLocalMemoryDataService },
-    { provide: DATA_INJECTION_TOKENS.products, useClass: ProductsLocalMemoryDataService },
-    { provide: DATA_INJECTION_TOKENS.providers, useClass: ProvidersLocalMemoryDataService },
+    { provide: DATA_INJECTION_TOKENS.clients, useClass: ClientsLocalMemoryCrudService },
+    { provide: DATA_INJECTION_TOKENS.employees, useClass: EmployeesLocalMemoryCrudService },
+    { provide: DATA_INJECTION_TOKENS.people, useClass: PeopleLocalMemoryCrudService },
+    { provide: DATA_INJECTION_TOKENS.purchaseOrders, useClass: PurchaseOrdersLocalMemoryCrudService },
+    { provide: DATA_INJECTION_TOKENS.products, useClass: ProductsLocalMemoryCrudService },
+    { provide: DATA_INJECTION_TOKENS.providers, useClass: ProvidersLocalMemoryCrudService },
     { provide: DATA_INJECTION_TOKENS.shared, useClass: SharedLocalMemoryDataService },
-    { provide: DATA_INJECTION_TOKENS.users, useClass: UsersLocalMemoryDataService },
-    { provide: DATA_INJECTION_TOKENS.sales, useClass: SalesLocalMemoryDataService },
-    { provide: DATA_INJECTION_TOKENS.storeCatalog, useClass: ProductsLocalMemoryDataService }
+    { provide: DATA_INJECTION_TOKENS.users, useClass: UsersLocalMemoryCrudService },
+    { provide: DATA_INJECTION_TOKENS.sales, useClass: SalesLocalMemoryCrudService },
+    { provide: DATA_INJECTION_TOKENS.storeCatalog, useClass: ProductsLocalMemoryCrudService }
   ]
 })
 export class LocalMemoryDataModule { }

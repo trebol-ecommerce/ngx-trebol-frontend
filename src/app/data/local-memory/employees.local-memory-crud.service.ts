@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EmployeeRolesEnum } from 'src/app/data/enums/EmployeeRolesEnum';
 import { Employee } from 'src/app/data/models/entities/Employee';
-import { EntityLocalMemoryDataService } from './entity.local-memory-data.aservice';
+import { EntityLocalMemoryCrudService } from './entity.local-memory-crud.aservice';
 
 export const MOCK_EMPLOYEES: Partial<Employee>[] = [
   {
@@ -18,8 +18,8 @@ export const MOCK_EMPLOYEES: Partial<Employee>[] = [
 ];
 
 @Injectable()
-export class EmployeesLocalMemoryDataService
-  extends EntityLocalMemoryDataService<Employee> {
+export class EmployeesLocalMemoryCrudService
+  extends EntityLocalMemoryCrudService<Employee> {
 
   protected items: Employee[] = MOCK_EMPLOYEES.map(n => Object.assign(new Employee(), n));
 
