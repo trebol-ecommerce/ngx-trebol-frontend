@@ -5,11 +5,11 @@ import { map } from 'rxjs/operators';
 import { Sell } from 'src/app/data/models/entities/Sell';
 import { SellDetail } from 'src/app/data/models/entities/SellDetail';
 import { CompositeEntityCrudIService } from '../composite-entity.crud.iservice';
-import { EntityHttpDataService } from './entity.http-data.aservice';
+import { EntityHttpCrudService } from './entity.http-crud.aservice';
 
 @Injectable()
-export class SalesHttpDataService
-  extends EntityHttpDataService
+export class SalesHttpCrudService
+  extends EntityHttpCrudService
   implements CompositeEntityCrudIService<Sell, SellDetail> {
 
   constructor(

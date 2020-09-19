@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { DATA_INJECTION_TOKENS } from '../data-injection-tokens';
-import { ClientsHttpDataService } from './clients.http-data.service';
-import { EmployeesHttpDataService } from './employees.http-data.service';
-import { ProductsHttpDataService } from './products.http-data.service';
-import { ProvidersHttpDataService } from './providers.http-data.service';
-import { PurchaseOrdersHttpDataService } from './purchase_orders.http-data.service';
-import { SalesHttpDataService } from './sales.http-data.service';
+import { ClientsHttpCrudService } from './clients.http-crud.service';
+import { EmployeesHttpCrudService } from './employees.http-crud.service';
+import { ProductsHttpCrudService } from './products.http-crud.service';
+import { ProvidersHttpCrudService } from './providers.http-crud.service';
+import { PurchaseOrdersHttpCrudService } from './purchase_orders.http-crud.service';
+import { SalesHttpCrudService } from './sales.http-crud.service';
 import { SharedHttpDataService } from './shared.http-data.service';
-import { UsersHttpDataService } from './users.http-data.service';
+import { UsersHttpCrudService } from './users.http-crud.service';
 import { StoreCatalogHttpDataService } from './store-catalog.http-data.service';
 
 /**
@@ -15,14 +15,14 @@ import { StoreCatalogHttpDataService } from './store-catalog.http-data.service';
  */
 @NgModule({
   providers: [
-    { provide: DATA_INJECTION_TOKENS.clients, useClass: ClientsHttpDataService },
-    { provide: DATA_INJECTION_TOKENS.employees, useClass: EmployeesHttpDataService },
-    { provide: DATA_INJECTION_TOKENS.purchaseOrders, useClass: PurchaseOrdersHttpDataService },
-    { provide: DATA_INJECTION_TOKENS.products, useClass: ProductsHttpDataService },
-    { provide: DATA_INJECTION_TOKENS.providers, useClass: ProvidersHttpDataService },
+    { provide: DATA_INJECTION_TOKENS.clients, useClass: ClientsHttpCrudService },
+    { provide: DATA_INJECTION_TOKENS.employees, useClass: EmployeesHttpCrudService },
+    { provide: DATA_INJECTION_TOKENS.purchaseOrders, useClass: PurchaseOrdersHttpCrudService },
+    { provide: DATA_INJECTION_TOKENS.products, useClass: ProductsHttpCrudService },
+    { provide: DATA_INJECTION_TOKENS.providers, useClass: ProvidersHttpCrudService },
     { provide: DATA_INJECTION_TOKENS.shared, useClass: SharedHttpDataService },
-    { provide: DATA_INJECTION_TOKENS.users, useClass: UsersHttpDataService },
-    { provide: DATA_INJECTION_TOKENS.sales, useClass: SalesHttpDataService },
+    { provide: DATA_INJECTION_TOKENS.users, useClass: UsersHttpCrudService },
+    { provide: DATA_INJECTION_TOKENS.sales, useClass: SalesHttpCrudService },
     { provide: DATA_INJECTION_TOKENS.storeCatalog, useClass: StoreCatalogHttpDataService }
   ]
 })

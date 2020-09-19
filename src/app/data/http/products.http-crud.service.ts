@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { Product } from 'src/app/data/models/entities/Product';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { EntityCrudIService } from '../entity.crud.iservice';
-import { EntityHttpDataService } from './entity.http-data.aservice';
+import { EntityHttpCrudService } from './entity.http-crud.aservice';
 
 @Injectable()
-export class ProductsHttpDataService
-  extends EntityHttpDataService
+export class ProductsHttpCrudService
+  extends EntityHttpCrudService
   implements EntityCrudIService<Product> {
 
   constructor(

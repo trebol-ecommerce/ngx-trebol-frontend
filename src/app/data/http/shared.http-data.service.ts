@@ -9,19 +9,22 @@ import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
 import { ProductType } from 'src/app/data/models/entities/ProductType';
 import { PurchaseOrderType } from 'src/app/data/models/entities/PurchaseOrderType';
 import { SellType } from 'src/app/data/models/entities/SellType';
+import { HttpService } from 'src/app/shared/http.abstract-service';
 import { SharedDataIService } from '../shared.data.iservice';
-import { EntityHttpDataService } from './entity.http-data.aservice';
 
 @Injectable()
 export class SharedHttpDataService
-  extends EntityHttpDataService
+  extends HttpService
   implements SharedDataIService {
+
+  protected baseURI = `${this.baseURI}/api`;
 
   constructor(
     protected http: HttpClient
   ) {
     super();
   }
+
   readCompanyDetails(): Observable<CompanyDetails> {
     throw new Error("Method not implemented.");
   }
