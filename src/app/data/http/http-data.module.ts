@@ -10,6 +10,9 @@ import { SharedHttpDataService } from './shared.http-data.service';
 import { UsersHttpDataService } from './users.http-data.service';
 import { StoreCatalogHttpDataService } from './store-catalog.http-data.service';
 
+/**
+ * Provides services that read and write data using an external HTTP server (defined in the environment files)
+ */
 @NgModule({
   providers: [
     { provide: DATA_INJECTION_TOKENS.clients, useClass: ClientsHttpDataService },

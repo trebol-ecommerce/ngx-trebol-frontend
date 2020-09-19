@@ -10,6 +10,9 @@ import { SalesLocalMemoryDataService } from './sales.local-memory-data.service';
 import { SharedLocalMemoryDataService } from './shared.local-memory-data.service';
 import { UsersLocalMemoryDataService } from './users.local-memory-data.service';
 
+/**
+ * Provides services that read and write data using the client's working memory
+ */
 @NgModule({
   providers: [
     { provide: DATA_INJECTION_TOKENS.clients, useClass: ClientsLocalMemoryDataService },
