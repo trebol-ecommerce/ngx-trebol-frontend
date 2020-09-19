@@ -3,7 +3,7 @@ import { Product } from 'src/app/data/models/entities/Product';
 import { Subject, BehaviorSubject, Observable, merge } from 'rxjs';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityDataIService } from 'src/app/data/entity.data.iservice';
+import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
 import { concatMap, mapTo } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
@@ -19,7 +19,7 @@ export class ProductsArrayService {
   public filteredProductsArray$: Observable<Product[]>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityDataIService<Product>,
+    @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityCrudIService<Product>,
   ) {
     this.filteredProductsArray$ = this.productFiltersSource.asObservable().pipe(
       concatMap(

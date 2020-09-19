@@ -5,7 +5,7 @@ import { Product } from 'src/app/data/models/entities/Product';
 import { Sell } from 'src/app/data/models/entities/Sell';
 import { SellDetail } from 'src/app/data/models/entities/SellDetail';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityDataIService } from 'src/app/data/entity.data.iservice';
+import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
 
 @Injectable()
 export class StoreService
@@ -20,7 +20,7 @@ export class StoreService
   public sellSubtotalValue$: Observable<number>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.sales) protected salesDataService: EntityDataIService<Sell>
+    @Inject(DATA_INJECTION_TOKENS.sales) protected salesDataService: EntityCrudIService<Sell>
   ) {
     this.itemQuantity$ = this.sellDetails$.pipe(
       map(

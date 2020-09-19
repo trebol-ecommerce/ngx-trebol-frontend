@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/data/models/entities/Product';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
-import { EntityDataIService } from '../entity.data.iservice';
+import { EntityCrudIService } from '../entity.crud.iservice';
 import { EntityHttpDataService } from './entity.http-data.aservice';
 
 @Injectable()
 export class ProductsHttpDataService
   extends EntityHttpDataService
-  implements EntityDataIService<Product> {
+  implements EntityCrudIService<Product> {
 
   constructor(
     protected http: HttpClient

@@ -4,15 +4,15 @@ import { DataManagerFormService } from '../../data-manager-form.aservice';
 import { Person } from 'src/app/data/models/entities/Person';
 import { User } from 'src/app/data/models/entities/User';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityDataIService } from 'src/app/data/entity.data.iservice';
+import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
 
 @Injectable()
 export class UserManagerFormService
   extends DataManagerFormService<User> {
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.users) public dataService: EntityDataIService<User>,
-    @Inject(DATA_INJECTION_TOKENS.people) protected peopleDataService: EntityDataIService<Person>
+    @Inject(DATA_INJECTION_TOKENS.users) public dataService: EntityCrudIService<User>,
+    @Inject(DATA_INJECTION_TOKENS.people) protected peopleDataService: EntityCrudIService<Person>
   ) {
     super();
   }

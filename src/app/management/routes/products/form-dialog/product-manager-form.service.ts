@@ -6,7 +6,7 @@ import { Product } from 'src/app/data/models/entities/Product';
 import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
 import { ProductType } from 'src/app/data/models/entities/ProductType';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityDataIService } from 'src/app/data/entity.data.iservice';
+import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
 import { SharedDataIService } from 'src/app/data/shared.data.iservice';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class ProductManagerFormService
   public productTypes$: Observable<ProductType[]>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.products) protected dataService: EntityDataIService<Product>,
+    @Inject(DATA_INJECTION_TOKENS.products) protected dataService: EntityCrudIService<Product>,
     @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService
   ) {
     super();

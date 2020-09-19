@@ -1,6 +1,6 @@
 import { BehaviorSubject, from, Observable, Subject, of } from 'rxjs';
 import { delay, finalize, mergeMap, tap, toArray, mapTo, catchError } from 'rxjs/operators';
-import { EntityDataIService } from 'src/app/data/entity.data.iservice';
+import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
 import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
 import { OnDestroy, Directive } from '@angular/core';
 
@@ -8,7 +8,7 @@ import { OnDestroy, Directive } from '@angular/core';
 export abstract class DataManagerService<T extends AbstractEntity>
   implements OnDestroy {
 
-  protected abstract dataService: EntityDataIService<T>;
+  protected abstract dataService: EntityCrudIService<T>;
 
   protected currentFocusedItems: T[] = null;
   protected focusedItemsSource: Subject<T[]> = new BehaviorSubject(null);

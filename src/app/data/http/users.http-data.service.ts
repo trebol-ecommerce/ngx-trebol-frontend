@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/data/models/entities/User';
 import { EntityHttpDataService } from './entity.http-data.aservice';
-import { EntityDataIService } from '../entity.data.iservice';
+import { EntityCrudIService } from '../entity.crud.iservice';
 
 @Injectable()
 export class UsersHttpDataService
   extends EntityHttpDataService
-  implements EntityDataIService<User> {
+  implements EntityCrudIService<User> {
 
   constructor(
     protected http: HttpClient

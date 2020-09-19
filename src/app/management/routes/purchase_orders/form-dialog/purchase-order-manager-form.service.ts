@@ -6,9 +6,9 @@ import { Product } from 'src/app/data/models/entities/Product';
 import { Provider } from 'src/app/data/models/entities/Provider';
 import { PurchaseOrder } from 'src/app/data/models/entities/PurchaseOrder';
 import { PurchaseOrderDetail } from 'src/app/data/models/entities/PurchaseOrderDetail';
-import { CompositeEntityDataIService } from 'src/app/data/composite-entity.data.iservice';
+import { CompositeEntityCrudIService } from 'src/app/data/composite-entity.crud.iservice';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityDataIService } from 'src/app/data/entity.data.iservice';
+import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
 import { switchMap, concatMap, map, toArray } from 'rxjs/operators';
 
 @Injectable()
@@ -23,10 +23,10 @@ export class PurchaseOrderManagerFormService
   public purchaseOrderSubtotalValue$: Observable<number>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.purchaseOrders) protected dataService: CompositeEntityDataIService<PurchaseOrder, PurchaseOrderDetail>,
-    @Inject(DATA_INJECTION_TOKENS.employees) protected employeeDataService: EntityDataIService<Employee>,
-    @Inject(DATA_INJECTION_TOKENS.providers) protected providerDataService: EntityDataIService<Provider>,
-    @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityDataIService<Product>
+    @Inject(DATA_INJECTION_TOKENS.purchaseOrders) protected dataService: CompositeEntityCrudIService<PurchaseOrder, PurchaseOrderDetail>,
+    @Inject(DATA_INJECTION_TOKENS.employees) protected employeeDataService: EntityCrudIService<Employee>,
+    @Inject(DATA_INJECTION_TOKENS.providers) protected providerDataService: EntityCrudIService<Provider>,
+    @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityCrudIService<Product>
   ) {
     super();
 

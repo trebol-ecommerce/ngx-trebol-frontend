@@ -4,7 +4,7 @@ import { catchError, finalize, tap } from 'rxjs/operators';
 import { AUTH_INJECTION_TOKEN } from 'src/app/auth/auth.injection-token';
 import { AuthenticationIService } from 'src/app/auth/auth.iservice';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityDataIService } from 'src/app/data/entity.data.iservice';
+import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
 import { Client } from 'src/app/data/models/entities/Client';
 import { Person } from 'src/app/data/models/entities/Person';
 import { User } from 'src/app/data/models/entities/User';
@@ -23,8 +23,8 @@ export class AppService
 
   constructor(
     @Inject(AUTH_INJECTION_TOKEN) protected authService: AuthenticationIService,
-    @Inject(DATA_INJECTION_TOKENS.users) protected usersDataService: EntityDataIService<User>,
-    @Inject(DATA_INJECTION_TOKENS.clients) protected clientsDataService: EntityDataIService<Client>
+    @Inject(DATA_INJECTION_TOKENS.users) protected usersDataService: EntityCrudIService<User>,
+    @Inject(DATA_INJECTION_TOKENS.clients) protected clientsDataService: EntityCrudIService<Client>
   ) { }
 
   ngOnDestroy(): void {

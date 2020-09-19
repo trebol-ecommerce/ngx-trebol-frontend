@@ -8,9 +8,9 @@ import { Product } from 'src/app/data/models/entities/Product';
 import { Sell } from 'src/app/data/models/entities/Sell';
 import { SellDetail } from 'src/app/data/models/entities/SellDetail';
 import { SellType } from 'src/app/data/models/entities/SellType';
-import { CompositeEntityDataIService } from 'src/app/data/composite-entity.data.iservice';
+import { CompositeEntityCrudIService } from 'src/app/data/composite-entity.crud.iservice';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityDataIService } from 'src/app/data/entity.data.iservice';
+import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
 import { SharedDataIService } from 'src/app/data/shared.data.iservice';
 
 @Injectable()
@@ -26,10 +26,10 @@ export class SellManagerFormService
   public sellTotalValue$: Observable<number>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.sales) protected dataService: CompositeEntityDataIService<Sell, SellDetail>,
-    @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityDataIService<Product>,
-    @Inject(DATA_INJECTION_TOKENS.clients) protected clientDataService: EntityDataIService<Client>,
-    @Inject(DATA_INJECTION_TOKENS.employees) protected employeeDataService: EntityDataIService<Employee>,
+    @Inject(DATA_INJECTION_TOKENS.sales) protected dataService: CompositeEntityCrudIService<Sell, SellDetail>,
+    @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityCrudIService<Product>,
+    @Inject(DATA_INJECTION_TOKENS.clients) protected clientDataService: EntityCrudIService<Client>,
+    @Inject(DATA_INJECTION_TOKENS.employees) protected employeeDataService: EntityCrudIService<Employee>,
     @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService,
   ) {
     super();
