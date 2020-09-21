@@ -23,7 +23,9 @@ export class HttpAuthService
   }
 
   public getProfile(): Observable<Person> {
-    throw new Error('Method not implemented.'); // TODO implement me
+    return this.http.get<Person>(
+      `${this.baseURI}/profile`
+    );
   }
 
   public updateProfile(details: Person): Observable<boolean> {
