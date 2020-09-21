@@ -1,4 +1,4 @@
 //TODO refactor into 'text/'
-export const APP_NAME = 'New Bazaar';
-export const APP_LONG_TITLE = 'NEW BAZAAR';
-export const APP_INITIALS_TITLE = 'NB';
+export const APP_NAME = 'Trébol';
+export const APP_LONG_TITLE = 'TREBOL';
+export const APP_INITIALS_TITLE = '🍀';
