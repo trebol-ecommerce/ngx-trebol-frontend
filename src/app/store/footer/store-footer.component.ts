@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class StoreFooterComponent {
 
-  public footerText = 'New Bazaar 2020';
+  public footerText = 'Todos los derechos reservados';
 
   constructor() { }
 }
