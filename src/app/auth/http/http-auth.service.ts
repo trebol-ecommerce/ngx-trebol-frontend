@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { finalize, map, tap } from 'rxjs/operators';
 import { Person } from 'src/app/data/models/entities/Person';
 import { User } from 'src/app/data/models/entities/User';
 import { HttpService } from 'src/app/shared/http.abstract-service';
@@ -85,7 +85,7 @@ export class HttpAuthService
     return this.http.get<boolean>(
       `${this.baseURI}/logout`
     ).pipe(
-      tap(
+      finalize(
         () => {
           sessionStorage.removeItem(this.sessionStorageTokenItemName);
         }
