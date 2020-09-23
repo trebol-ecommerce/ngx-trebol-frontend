@@ -66,7 +66,7 @@ export class ManagementRoutingGuard
     const result = this.isPermitted(route, state);
 
     if (!result) {
-      this.router.navigateByUrl('/');
+      return this.router.parseUrl('/');
     }
     return result;
   }
