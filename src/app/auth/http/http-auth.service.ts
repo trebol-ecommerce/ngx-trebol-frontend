@@ -29,7 +29,10 @@ export class HttpAuthService
   }
 
   public updateProfile(details: Person): Observable<boolean> {
-    throw new Error('Method not implemented.'); // TODO implement me
+    return this.http.put<boolean>(
+      `${this.baseURI}/profile`,
+      details
+    );
   }
 
   public guestLogin(personDetails: Person): Observable<boolean> {
