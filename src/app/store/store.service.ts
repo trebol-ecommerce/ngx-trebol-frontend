@@ -7,8 +7,8 @@ import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
 import { Product } from 'src/app/data/models/entities/Product';
 import { Sell } from 'src/app/data/models/entities/Sell';
 import { SellDetail } from 'src/app/data/models/entities/SellDetail';
+import { ExternalPaymentRedirectionData } from 'src/app/data/models/ExternalPaymentRedirectionData';
 import { environment } from 'src/environments/environment';
-import { ExternalPaymentRedirectionData } from '../data/models/ExternalPaymentRedirectionData';
 
 @Injectable()
 export class StoreService

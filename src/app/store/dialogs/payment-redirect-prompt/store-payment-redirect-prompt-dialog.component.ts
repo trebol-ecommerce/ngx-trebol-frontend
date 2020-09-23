@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { concatMap, map, mapTo, startWith } from 'rxjs/operators';
-import { ExternalPaymentRedirectionData } from '../../../data/models/ExternalPaymentRedirectionData';
-import { StoreService } from '../../store.service';
+import { ExternalPaymentRedirectionData } from 'src/app/data/models/ExternalPaymentRedirectionData';
+import { StoreService } from 'src/app/store/store.service';
 
 @Component({
   selector: 'app-store-payment-redirect-prompt-dialog',
