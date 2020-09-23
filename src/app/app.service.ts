@@ -25,7 +25,12 @@ export class AppService
     @Inject(AUTH_INJECTION_TOKEN) protected authService: AuthenticationIService,
     @Inject(DATA_INJECTION_TOKENS.users) protected usersDataService: EntityCrudIService<User>,
     @Inject(DATA_INJECTION_TOKENS.clients) protected clientsDataService: EntityCrudIService<Client>
-  ) { }
+  ) { 
+    this.authService.validate().subscribe(r => {
+      this.isLoggedIn = r;
+      this.isLoggedInChangesSource.next(r);
+    })
+  }
 
   ngOnDestroy(): void {
     this.isLoggedInChangesSource.complete();
