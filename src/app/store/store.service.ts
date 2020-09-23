@@ -1,11 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
+import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
 import { Product } from 'src/app/data/models/entities/Product';
 import { Sell } from 'src/app/data/models/entities/Sell';
 import { SellDetail } from 'src/app/data/models/entities/SellDetail';
-import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
+import { environment } from 'src/environments/environment';
+import { ExternalPaymentRedirectionData } from './ExternalPaymentRedirectionData';
 
 @Injectable()
 export class StoreService
@@ -20,7 +23,8 @@ export class StoreService
   public sellSubtotalValue$: Observable<number>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.sales) protected salesDataService: EntityCrudIService<Sell>
+    @Inject(DATA_INJECTION_TOKENS.sales) protected salesDataService: EntityCrudIService<Sell>,
+    protected httpClient: HttpClient
   ) {
     this.itemQuantity$ = this.sellDetails$.pipe(
       map(
@@ -44,6 +48,13 @@ export class StoreService
 
   ngOnDestroy(): void {
     this.sellDetailsSource.complete();
+  }
+
+  public fetchWebpayRedirectionData(data: FormData): Observable<ExternalPaymentRedirectionData> {
+    return this.httpClient.post<ExternalPaymentRedirectionData>(
+      environment.checkoutURL,
+      data
+    );
   }
 
   public reset(): void {

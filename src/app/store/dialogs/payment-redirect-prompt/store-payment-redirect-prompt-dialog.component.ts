@@ -1,16 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { concatMap, map, mapTo, startWith } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { ExternalPaymentRedirectionData } from '../../ExternalPaymentRedirectionData';
 import { StoreService } from '../../store.service';
-
-interface ExternalPaymentRedirectionData {
-  url: string,
-  token_ws: string
-}
-
-//TODO remove HttpClient from this component
 
 @Component({
   selector: 'app-store-payment-redirect-prompt-dialog',
@@ -27,8 +19,7 @@ export class StorePaymentRedirectPromptDialogComponent
   public webpayToken$: Observable<string>;
 
   constructor(
-    protected storeService: StoreService,
-    protected httpClient: HttpClient
+    protected storeService: StoreService
   ) {
     this.loading$ = this.externalDataSource.asObservable().pipe(startWith(true), mapTo(false));
     this.webpayURL$ = this.externalDataSource.asObservable().pipe(map(data => data.url));
@@ -43,17 +34,10 @@ export class StorePaymentRedirectPromptDialogComponent
     return formData;
   }
 
-  protected fetchWebpayRedirectionData(data: FormData): Observable<ExternalPaymentRedirectionData> {
-    return this.httpClient.post<ExternalPaymentRedirectionData>(
-      environment.checkoutURL,
-      data
-    );
-  }
-
   protected initiateWebpayTransaction(): void {
     this.storeService.sellSubtotalValue$.pipe(
       map((subtotal) => this.parseFormData(subtotal)),
-      concatMap((data) => this.fetchWebpayRedirectionData(data))
+      concatMap((data) => this.storeService.fetchWebpayRedirectionData(data))
     ).subscribe(
       data => {
         this.externalDataSource.next(data);
