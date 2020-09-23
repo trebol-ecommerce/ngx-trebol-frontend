@@ -8,7 +8,7 @@ import { Product } from 'src/app/data/models/entities/Product';
 import { Sell } from 'src/app/data/models/entities/Sell';
 import { SellDetail } from 'src/app/data/models/entities/SellDetail';
 import { environment } from 'src/environments/environment';
-import { ExternalPaymentRedirectionData } from './ExternalPaymentRedirectionData';
+import { ExternalPaymentRedirectionData } from '../data/models/ExternalPaymentRedirectionData';
 
 @Injectable()
 export class StoreService

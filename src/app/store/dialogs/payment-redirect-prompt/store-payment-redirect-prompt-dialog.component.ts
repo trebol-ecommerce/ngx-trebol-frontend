@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { concatMap, map, mapTo, startWith } from 'rxjs/operators';
-import { ExternalPaymentRedirectionData } from '../../ExternalPaymentRedirectionData';
+import { ExternalPaymentRedirectionData } from '../../../data/models/ExternalPaymentRedirectionData';
 import { StoreService } from '../../store.service';
 
 @Component({
