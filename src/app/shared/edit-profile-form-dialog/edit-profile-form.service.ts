@@ -1,9 +1,7 @@
-import { Inject, Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, concat, iif, Observable, of, Subject } from 'rxjs';
 import { delay, switchMap, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
-import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
 import { Person } from 'src/app/data/models/entities/Person';
 
 @Injectable()
@@ -17,7 +15,6 @@ export class EditProfileFormService
   public confirmCancel$: Observable<boolean>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.people) protected peopleDataService: EntityCrudIService<Person>,
     protected appService: AppService
   ) {
     this.confirmCancel$ = this.confirmCancelSource.asObservable().pipe(

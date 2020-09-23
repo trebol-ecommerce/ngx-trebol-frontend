@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { LocalMemoryDataModule } from 'src/app/data/local-memory/local-memory-data.module';
 import { EditProfileFormService } from './edit-profile-form.service';
 
 describe('EditProfileFormService', () => {
@@ -16,7 +15,6 @@ describe('EditProfileFormService', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [ LocalMemoryDataModule ],
       providers: [
         EditProfileFormService,
         { provide: AppService, useValue: appService }
