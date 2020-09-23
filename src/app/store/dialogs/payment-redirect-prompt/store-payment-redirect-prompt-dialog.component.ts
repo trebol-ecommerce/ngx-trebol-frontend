@@ -36,8 +36,8 @@ export class StorePaymentRedirectPromptDialogComponent
 
   protected initiateWebpayTransaction(): void {
     this.storeService.sellSubtotalValue$.pipe(
-      map((subtotal) => this.parseFormData(subtotal)),
-      concatMap((data) => this.storeService.fetchWebpayRedirectionData(data))
+      map((subtotal) => { return this.parseFormData(subtotal); }),
+      concatMap((data) => { return this.storeService.fetchWebpayRedirectionData(data); })
     ).subscribe(
       data => {
         this.externalDataSource.next(data);
