@@ -48,8 +48,12 @@ img {
   border-radius: 4px;
 }
 
+.add-to-cart {
+  padding: 0.2rem 0.3rem;
+  width: auto;
+}
 .add-to-cart mat-icon {
-  font-size: 1.5rem;
-  width: 1.5rem;
-  height: 1.5rem;
+  font-size: 2rem;
+  width: 2rem;
+  height: 2rem;
 }
