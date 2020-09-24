@@ -132,8 +132,8 @@ export class StoreHeaderComponent
     this.promptLogoutConfirmation().subscribe(
       (confirmed: boolean) => {
         if (confirmed) {
+          this.snackBarService.open('Ha terminado su sesión correctamente.');
           this.appService.closeCurrentSession();
-          this.snackBarService.open('Su sesión ha sido cerrada.');
         }
       }
     );
