@@ -24,7 +24,7 @@ describe('StoreCartReviewComponent', () => {
       removeProductFromCart(i) {}
     };
     appService = {
-      isUserLoggedIn() { return false; }
+      isUserLoggedIn() { return of(false); }
     };
 
     TestBed.configureTestingModule({

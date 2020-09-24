@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { EmployeeRolesEnum } from 'src/app/data/enums/EmployeeRolesEnum';
 import { Session } from 'src/app/data/models/entities/Session';
@@ -33,10 +34,10 @@ export class ManagementRoutingGuard
   protected isPermitted(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): boolean {
+  ): Observable<boolean> {
 
     if (!route.parent) {
-      return true;
+      return of(true);
     } else {
       // TODO implement proper use of role permissions
       // const modules: string[] = state.url.substr(1).split('/');
@@ -63,12 +64,17 @@ export class ManagementRoutingGuard
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const result = this.isPermitted(route, state);
-
-    if (!result) {
-      return this.router.parseUrl('/');
-    }
-    return result;
+    return this.isPermitted(route, state).pipe(
+      map(
+        r => {
+          if (!r) {
+            return this.router.parseUrl('/')
+          } else {
+            return r;
+          }
+        }
+      )
+    );
   }
 
   canActivateChild(

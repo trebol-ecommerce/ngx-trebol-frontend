@@ -14,7 +14,7 @@ import { Login } from 'src/app/data/models/Login';
 export class AppService
   implements OnDestroy {
 
-  protected isLoggedIn: boolean = false;
+  protected isLoggedIn: boolean = null;
   protected isLoggedInChangesSource: Subject<boolean>= new BehaviorSubject(false);
   protected isValidatingSessionSource: Subject<boolean> = new Subject();
 
@@ -26,10 +26,7 @@ export class AppService
     @Inject(DATA_INJECTION_TOKENS.users) protected usersDataService: EntityCrudIService<User>,
     @Inject(DATA_INJECTION_TOKENS.clients) protected clientsDataService: EntityCrudIService<Client>
   ) { 
-    this.authService.validate().subscribe(r => {
-      this.isLoggedIn = r;
-      this.isLoggedInChangesSource.next(r);
-    })
+    this.fetchLoggedInState().subscribe();
   }
 
   ngOnDestroy(): void {
@@ -37,8 +34,23 @@ export class AppService
     this.isValidatingSessionSource.complete();
   }
 
-  public isUserLoggedIn(): boolean {
-    return this.isLoggedIn;
+  protected fetchLoggedInState(): Observable<boolean> {
+    return this.authService.validate().pipe(
+      tap(
+        r => {
+          this.isLoggedIn = r;
+          this.isLoggedInChangesSource.next(r);
+        }
+      )
+    );
+  }
+
+  public isUserLoggedIn(): Observable<boolean> {
+    if (this.isLoggedIn === null) {
+      return this.fetchLoggedInState();
+    } else {
+      return of(this.isLoggedIn);
+    }
   }
 
   public guestLogin(personDetails: Person): Observable<boolean> {

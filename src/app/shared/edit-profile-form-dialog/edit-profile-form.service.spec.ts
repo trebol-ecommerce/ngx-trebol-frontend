@@ -9,7 +9,7 @@ describe('EditProfileFormService', () => {
 
   beforeEach(() => {
     appService = {
-      isUserLoggedIn() { return null; },
+      isUserLoggedIn() { return of(true); },
       getUserProfile() { return of(null); },
       updateUserProfile(p) { return of(true); }
     };

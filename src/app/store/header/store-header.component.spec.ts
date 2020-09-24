@@ -21,7 +21,7 @@ describe('StoreHeaderComponent', () => {
     };
     appService = {
       isLoggedInChanges$: of(false),
-      isUserLoggedIn() { return false; },
+      isUserLoggedIn() { return of(false); },
       closeCurrentSession() {},
       getUserProfile() { return of(null); }
     };

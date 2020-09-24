@@ -116,16 +116,22 @@ export class StoreCartReviewComponent
   }
 
   public onClickAccept(): void {
-    if (this.appService.isUserLoggedIn()) {
-      this.openPaymentRedirectPrompt();
-    } else {
-      this.promptUserLoginChoices().subscribe(
-        () => {
-          if (this.appService.isUserLoggedIn()) {
-            this.openPaymentRedirectPrompt();
-          }
+    this.appService.isUserLoggedIn().subscribe(
+      (isLoggedIn) => {
+        if (isLoggedIn) {
+          this.openPaymentRedirectPrompt();
+        } else {
+          this.promptUserLoginChoices().pipe(
+            concatMap(() => { return this.appService.isUserLoggedIn(); })
+          ).subscribe(
+            (isLoggedIn) => {
+              if (isLoggedIn) {
+                this.openPaymentRedirectPrompt();
+              }
+            }
+          );
         }
-      );
-    }
+      }
+    )
   }
 }
