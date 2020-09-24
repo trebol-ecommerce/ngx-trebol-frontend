@@ -41,8 +41,11 @@ img {
 .price {
   font-size: 1.25rem;
   font-weight: 900;
-  color: #558b2f;
-  margin: 0 0.75rem;
+  background-color: #558b2f;
+  color: white;
+  padding: 0.25rem 1.5rem 0.25rem 1.5rem;
+  margin: 0 0.5rem;
+  border-radius: 4px;
 }
 
 .add-to-cart mat-icon {
