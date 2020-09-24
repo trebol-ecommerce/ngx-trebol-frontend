@@ -63,10 +63,6 @@ export class ManagementHeaderComponent {
     ).afterClosed();
   }
 
-  public onClickNavigateToStore(): void {
-    this.router.navigateByUrl('/');
-  }
-
   public onClickLogout(): void {
     this.promptLogoutConfirmation().subscribe(
       confirmado => {

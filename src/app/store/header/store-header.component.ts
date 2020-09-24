@@ -126,10 +126,6 @@ export class StoreHeaderComponent
     // );
   }
 
-  public onClickNavigateToManagement(): void {
-    this.router.navigateByUrl('/management');
-  }
-
   public onClickEditProfile(): void {
     this.dialogService.open(
       EditProfileFormDialogComponent,

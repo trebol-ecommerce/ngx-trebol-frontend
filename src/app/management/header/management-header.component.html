@@ -17,7 +17,7 @@
     <span mat-menu-item disabled>{{ userName$ | async }}</span>
     <button mat-menu-item type="button"
       class="navigate-store"
-      (click)="onClickNavigateToStore()">
+      [routerLink]="['/store']">
       <mat-icon>storefront</mat-icon>
       Volver a la Tienda
     </button>
