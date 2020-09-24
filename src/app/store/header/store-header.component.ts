@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { concatMap, map, pluck } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { concatMap, map, pluck, switchMap } from 'rxjs/operators';
 import { APP_INITIALS_TITLE, APP_LONG_TITLE } from 'src/app/app.constants';
 import { AppService } from 'src/app/app.service';
 import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
@@ -48,10 +48,10 @@ export class StoreHeaderComponent
     );
 
     this.userName$ = this.appService.isLoggedInChanges$.pipe(
-      concatMap(
+      switchMap(
         (isLoggedIn: boolean) => {
           if (!isLoggedIn) {
-            return '';
+            return of('');
           } else {
             return this.appService.getUserProfile().pipe(pluck('name'));
           }
