@@ -14,7 +14,7 @@
     <span>{{ moduleName$ | async }}</span>
   </div>
   <mat-menu #headerMenu>
-    <span mat-menu-item disabled>{{ userName }}</span>
+    <span mat-menu-item disabled>{{ userName$ | async }}</span>
     <button mat-menu-item type="button"
       title="Editar Perfil"
       (click)="onClickEditProfile()">

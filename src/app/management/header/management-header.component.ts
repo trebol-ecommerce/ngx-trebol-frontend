@@ -8,6 +8,7 @@ import { APP_INITIALS_TITLE, APP_LONG_TITLE } from 'src/app/app.constants';
 import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 import { EditProfileFormDialogComponent } from 'src/app/shared/edit-profile-form-dialog/edit-profile-form-dialog.component';
 import { ManagementService } from '../management.service';
+import { pluck } from 'rxjs/operators';
 
 @Component({
   selector: 'app-management-header',
@@ -17,10 +18,10 @@ import { ManagementService } from '../management.service';
 export class ManagementHeaderComponent {
 
   public moduleName$: Observable<string>;
+  public userName$: Observable<string>;
 
   public desktopTitle = APP_LONG_TITLE;
   public mobileTitle = APP_INITIALS_TITLE;
-  public userName = 'Invitado';
 
   constructor(
     protected service: ManagementService,
@@ -30,6 +31,7 @@ export class ManagementHeaderComponent {
     protected snackBarService: MatSnackBar
   ) {
     this.moduleName$ = this.service.currentPageName$.pipe();
+    this.userName$ = this.appService.getUserProfile().pipe(pluck('name'));
   }
 
   public switchSidenavOpenState(): void {
