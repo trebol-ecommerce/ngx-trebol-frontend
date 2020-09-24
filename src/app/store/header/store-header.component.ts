@@ -29,6 +29,7 @@ export class StoreHeaderComponent
   public readonly mobileTitle: string = APP_INITIALS_TITLE;
 
   public userName$: Observable<string>;
+  public canNavigateManagement$: Observable<boolean>;
 
   constructor(
     protected storeService: StoreService,
@@ -59,7 +60,14 @@ export class StoreHeaderComponent
         }
       )
     );
-
+    
+    this.canNavigateManagement$ = this.appService.isLoggedInChanges$.pipe(
+      switchMap(
+        (isLoggedIn: boolean) => {
+          return of(true);
+        }
+      )
+    );
   }
 
   protected promptLogoutConfirmation(): Observable<boolean> {
@@ -116,6 +124,10 @@ export class StoreHeaderComponent
     //     }
     //   }
     // );
+  }
+
+  public onClickNavigateToManagement(): void {
+    this.router.navigateByUrl('/management');
   }
 
   public onClickEditProfile(): void {

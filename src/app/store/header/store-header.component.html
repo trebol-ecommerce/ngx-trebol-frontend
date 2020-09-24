@@ -24,6 +24,13 @@
     <mat-menu #headerMenu>
       <span mat-menu-item disabled>{{ userName$ | async }}</span>
       <button mat-menu-item type="button"
+        *ngIf="canNavigateManagement$ | async"
+        class="edit-profile"
+        (click)="onClickNavigateToManagement()">
+        <mat-icon>tune</mat-icon>
+        Administrar
+      </button>
+      <button mat-menu-item type="button"
         class="edit-profile"
         (click)="onClickEditProfile()">
         <mat-icon>edit</mat-icon>
