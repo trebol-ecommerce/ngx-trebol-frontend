@@ -42,10 +42,11 @@ export class StoreHeaderComponent
     this.cartHasItems$ = this.storeService.sellDetails$.pipe(
       map(array => array.length > 0)
     );
-
     this.itemQuantityLabel$ = this.storeService.itemQuantity$.pipe(
       map(total => total + ' item' + (total > 1 ? 's' : ''))
     );
+    this.cartSubtotalValue$ = this.storeService.sellSubtotalValue$.pipe();
+    this.isLoggedIn$ = this.appService.isLoggedInChanges$.pipe();
 
     this.userName$ = this.appService.isLoggedInChanges$.pipe(
       switchMap(
@@ -59,9 +60,6 @@ export class StoreHeaderComponent
       )
     );
 
-    this.cartSubtotalValue$ = this.storeService.sellSubtotalValue$.pipe();
-
-    this.isLoggedIn$ = this.appService.isLoggedInChanges$.pipe();
   }
 
   protected promptLogoutConfirmation(): Observable<boolean> {
