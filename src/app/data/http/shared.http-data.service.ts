@@ -3,11 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
 import { CompanyDetails } from 'src/app/data/models/CompanyDetails';
-import { EmployeeRole } from 'src/app/data/models/entities/EmployeeRole';
 import { Person } from 'src/app/data/models/entities/Person';
 import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
 import { ProductType } from 'src/app/data/models/entities/ProductType';
-import { PurchaseOrderType } from 'src/app/data/models/entities/PurchaseOrderType';
 import { SellType } from 'src/app/data/models/entities/SellType';
 import { HttpService } from 'src/app/shared/http.abstract-service';
 import { SharedDataIService } from '../shared.data.iservice';
@@ -29,9 +27,6 @@ export class SharedHttpDataService
     throw new Error("Method not implemented.");
   }
   readAllSellTypes(): Observable<SellType[]> {
-    throw new Error("Method not implemented.");
-  }
-  readAllPurchaseOrderTypes(): Observable<PurchaseOrderType[]> {
     throw new Error("Method not implemented.");
   }
 

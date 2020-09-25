@@ -19,12 +19,6 @@ import { EmployeeManagerFormDialogComponent } from './routes/employees/form-dial
 import { ProductManagerFormDialogComponent } from './routes/products/form-dialog/product-manager-form-dialog.component';
 import { ProductManagerComponent } from './routes/products/product-manager.component';
 import { ProductManagerService } from './routes/products/product-manager.service';
-import { ProviderManagerFormDialogComponent } from './routes/providers/form-dialog/provider-manager-form-dialog.component';
-import { ProviderManagerComponent } from './routes/providers/provider-manager.component';
-import { ProviderManagerService } from './routes/providers/provider-manager.service';
-import { PurchaseOrderManagerFormDialogComponent } from './routes/purchase_orders/form-dialog/purchase-order-manager-form-dialog.component';
-import { PurchaseOrderManagerComponent } from './routes/purchase_orders/purchase-order-manager.component';
-import { PurchaseOrderManagerService } from './routes/purchase_orders/purchase-order-manager.service';
 import { SellManagerFormDialogComponent } from './routes/sales/form-dialog/sell-manager-form-dialog.component';
 import { SellManagerComponent } from './routes/sales/sell-manager.component';
 import { SellManagerService } from './routes/sales/sell-manager.service';
@@ -51,14 +45,10 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     EmployeeManagerFormDialogComponent,
     ProductManagerComponent,
     ProductManagerFormDialogComponent,
-    ProviderManagerComponent,
-    ProviderManagerFormDialogComponent,
     SellManagerComponent,
     SellManagerFormDialogComponent,
     UserManagerComponent,
     UserManagerFormDialogComponent,
-    PurchaseOrderManagerComponent,
-    PurchaseOrderManagerFormDialogComponent,
   ],
   imports: [
     SharedModule,
@@ -70,9 +60,7 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ManagementService,
     ClientManagerService,
     EmployeeManagerService,
-    PurchaseOrderManagerService,
     ProductManagerService,
-    ProviderManagerService,
     UserManagerService,
     SellManagerService
   ]

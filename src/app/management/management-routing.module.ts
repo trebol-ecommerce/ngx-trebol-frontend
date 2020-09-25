@@ -6,8 +6,6 @@ import { ClientManagerComponent } from './routes/clients/client-manager.componen
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
 import { EmployeeManagerComponent } from './routes/employees/employee-manager.component';
 import { ProductManagerComponent } from './routes/products/product-manager.component';
-import { ProviderManagerComponent } from './routes/providers/provider-manager.component';
-import { PurchaseOrderManagerComponent } from './routes/purchase_orders/purchase-order-manager.component';
 import { SellManagerComponent } from './routes/sales/sell-manager.component';
 import { UserManagerComponent } from './routes/users/user-manager.component';
 
@@ -19,8 +17,6 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
   { path: 'dashboard', component: ManagementDashboardComponent, data: { matIcon: 'home', title: 'Resumen' } },
   { path: 'sales', component: SellManagerComponent, data: { matIcon: 'attach_money', title: 'Ventas' } },
   { path: 'products', component: ProductManagerComponent, data: { matIcon: 'store', title: 'Productos' } },
-  { path: 'purchase_orders', component: PurchaseOrderManagerComponent, data: { matIcon: 'assignment', title: 'Ords. Compra' } },
-  { path: 'providers', component: ProviderManagerComponent, data: { matIcon: 'rv_hookup', title: 'Proveedores' } },
   { path: 'clients', component: ClientManagerComponent, data: { matIcon: 'person', title: 'Clientes' } },
   { path: 'employees', component: EmployeeManagerComponent, data: { matIcon: 'work', title: 'Empleados' } },
   { path: 'users', component: UserManagerComponent, data: { matIcon: 'perm_identity', title: 'Usuarios' } }

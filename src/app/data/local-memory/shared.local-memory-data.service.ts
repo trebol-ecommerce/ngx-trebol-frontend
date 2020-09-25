@@ -3,7 +3,6 @@ import { Observable, of } from 'rxjs';
 import { CompanyDetails } from 'src/app/data/models/CompanyDetails';
 import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
 import { ProductType } from 'src/app/data/models/entities/ProductType';
-import { PurchaseOrderType } from 'src/app/data/models/entities/PurchaseOrderType';
 import { SellType } from 'src/app/data/models/entities/SellType';
 import { SharedDataIService } from '../shared.data.iservice';
 
@@ -15,7 +14,7 @@ export const MOCK_COMPANY_DETAILS: CompanyDetails = {
 };
 
 export const MOCK_PRODUCT_FAMILIES: Partial<ProductFamily>[] = [
-  { id: 1, name: 'Ropa y Calzado', provider: { id: 1 } }
+  { id: 1, name: 'Ropa y Calzado' }
 ];
 
 export const MOCK_PRODUCT_TYPES: Partial<ProductType>[] = [
@@ -23,11 +22,6 @@ export const MOCK_PRODUCT_TYPES: Partial<ProductType>[] = [
 ];
 
 export const MOCK_SELL_TYPES: SellType[] = [
-  { id: 'B', description: 'Boleta' },
-  { id: 'F', description: 'Factura' }
-];
-
-export const MOCK_PURCHASE_ORDER_TYPES: PurchaseOrderType[] = [
   { id: 'B', description: 'Boleta' },
   { id: 'F', description: 'Factura' }
 ];
@@ -56,9 +50,5 @@ export class SharedLocalMemoryDataService
 
   public readAllSellTypes(): Observable<SellType[]> {
     return of(MOCK_SELL_TYPES.map(t => Object.assign(new SellType(), t)));
-  }
-
-  public readAllPurchaseOrderTypes(): Observable<PurchaseOrderType[]> {
-    return of(MOCK_PURCHASE_ORDER_TYPES.map(t => Object.assign(new PurchaseOrderType(), t)));
   }
 }
