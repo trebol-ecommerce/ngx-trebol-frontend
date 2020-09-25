@@ -49,7 +49,7 @@ extends DataManagerComponent<Provider> {
     ).subscribe(
       (success: boolean) => {
         if (success) {
-          this.snackBarService.open('Proveedor \'' + p.person.name + '\' eliminado.');
+          this.snackBarService.open(`Proveedor ${p.person.name} eliminado`);
           this.service.reloadItems();
         } else {
           this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
