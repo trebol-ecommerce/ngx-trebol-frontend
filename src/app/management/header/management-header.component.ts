@@ -50,8 +50,8 @@ export class ManagementHeaderComponent {
 
   protected promptLogoutConfirmation(): Observable<boolean> {
     const dialogData: ConfirmationDialogData = {
-      title: '¿Cerrar sesion?',
-      message: 'Si esta realizando una transaccion, perdera la informacion que no haya guardado.'
+      title: 'Terminar sesión',
+      message: '¿Está segur@?'
     };
 
     return this.dialogService.open(
@@ -69,7 +69,7 @@ export class ManagementHeaderComponent {
         if (confirmado) {
           this.appService.closeCurrentSession();
           this.router.navigateByUrl('/');
-          this.snackBarService.open('Sesión cerrada con éxito.', 'OK');
+          this.snackBarService.open('Sesión terminada con éxito.', 'OK');
         }
       }
     );
