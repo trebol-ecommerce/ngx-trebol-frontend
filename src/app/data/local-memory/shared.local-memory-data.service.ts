@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { CompanyDetails } from 'src/app/data/models/CompanyDetails';
-import { EmployeeRole } from 'src/app/data/models/entities/EmployeeRole';
 import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
 import { ProductType } from 'src/app/data/models/entities/ProductType';
 import { PurchaseOrderType } from 'src/app/data/models/entities/PurchaseOrderType';
@@ -15,12 +14,8 @@ export const MOCK_COMPANY_DETAILS: CompanyDetails = {
   logoImageURL: 'assets/img/logo.png'
 };
 
-export const MOCK_EMPLOYEE_ROLES: Partial<EmployeeRole>[] = [
-  { id: 1, name: 'Administrador' }
-];
-
 export const MOCK_PRODUCT_FAMILIES: Partial<ProductFamily>[] = [
-  { id: 1, name: 'Ropa y Calzado', provider: { id: 1, businessCard: 'aksdnao' } }
+  { id: 1, name: 'Ropa y Calzado', provider: { id: 1 } }
 ];
 
 export const MOCK_PRODUCT_TYPES: Partial<ProductType>[] = [
@@ -43,10 +38,6 @@ export class SharedLocalMemoryDataService
 
   public readCompanyDetails(): Observable<CompanyDetails> {
     return of(MOCK_COMPANY_DETAILS);
-  }
-
-  public readAllEmployeeRoles(): Observable<EmployeeRole[]> {
-    return of(MOCK_EMPLOYEE_ROLES.map(r => Object.assign(new EmployeeRole(), r)));
   }
 
   public readAllProductFamilies(): Observable<ProductFamily[]> {

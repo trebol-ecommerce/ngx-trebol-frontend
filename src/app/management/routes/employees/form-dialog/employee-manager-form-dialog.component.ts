@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
 import { Employee } from 'src/app/data/models/entities/Employee';
-import { EmployeeRole } from 'src/app/data/models/entities/EmployeeRole';
 import { Person } from 'src/app/data/models/entities/Person';
 import { ERR_SRV_COMM_MSG } from 'src/text/messages';
 import { EmployeeManagerFormService } from './employee-manager-form.service';
@@ -28,8 +27,6 @@ export class EmployeeManagerFormDialogComponent
   protected itemId: number;
 
   public saving$: Observable<boolean>;
-
-  public employeeRoles$: Observable<EmployeeRole[]>;
 
   public formGroup: FormGroup;
   public get role(): FormControl { return this.formGroup.get('role') as FormControl; }
@@ -53,12 +50,10 @@ export class EmployeeManagerFormDialogComponent
   protected load(e: Employee): void {
     this.itemId = e.id ? e.id : 0;
 
-    if (e.role?.id) { this.role.setValue(e.role.id); }
     this.personForm.person = (e.person) ? e.person : new Person();
   }
 
   ngOnInit(): void {
-    this.employeeRoles$ = this.service.getAllEmployeeRoles();
   }
 
   ngAfterViewInit(): void {
@@ -76,7 +71,6 @@ export class EmployeeManagerFormDialogComponent
         new Employee(),
         {
           id: this.itemId,
-          role: { id: this.role.value },
           person: this.personForm.asPerson()
         }
       );

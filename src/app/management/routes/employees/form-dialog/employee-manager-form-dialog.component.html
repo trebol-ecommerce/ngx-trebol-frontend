@@ -6,14 +6,6 @@
   <div [hidden]="saving$ | async">
     <form [formGroup]="formGroup" (submit)="onSubmit()">
 
-      <mat-form-field>
-        <mat-select placeholder="Cargo" formControlName="role">
-          <mat-option *ngFor="let r of (employeeRoles$ | async)" [value]="r.id">
-            {{ r.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
       <app-person-form #personForm>
       </app-person-form>
 
