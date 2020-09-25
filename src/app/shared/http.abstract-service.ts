@@ -1,11 +1,13 @@
 import { HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
+/**
+ * A service that uses HttpClient
+ */
 export abstract class HttpService {
-
-  // protected webServiceProviderHostName: string = "localhost";
-  // protected webServiceProviderHostPort: number = 8082;
-  // protected baseURI: string = "http://"+this.webServiceProviderHostName+":"+String(this.webServiceProviderHostPort)+"/api";
+  /**
+   * Base resource URI
+   */
   protected baseURI = environment.baseURI;
 
   /**
@@ -16,6 +18,4 @@ export abstract class HttpService {
       params: new HttpParams({ fromObject: object })
     };
   }
-
-  constructor() {}
 }
