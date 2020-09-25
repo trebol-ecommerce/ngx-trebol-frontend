@@ -150,9 +150,9 @@ export class ProductManagerFormDialogComponent
         success => {
           if (success) {
             if (item.id) {
-              this.snackBarService.open(`Producto ${item.name} actualizado/a exitosamente`, 'OK');
+              this.snackBarService.open(`Producto ${item.name} actualizado exitosamente`, 'OK');
             } else {
-              this.snackBarService.open(`Producto ${item.name} registrado/a exitosamente`, 'OK');
+              this.snackBarService.open(`Producto ${item.name} registrado exitosamente`, 'OK');
             }
             this.dialog.close(item);
           } else {
