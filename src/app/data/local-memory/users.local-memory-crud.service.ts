@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { EmployeeRolesEnum } from 'src/app/data/enums/EmployeeRolesEnum';
 import { User } from 'src/app/data/models/entities/User';
 import { EntityLocalMemoryCrudService } from './entity.local-memory-crud.aservice';
 
@@ -16,10 +15,7 @@ export const MOCK_USERS: Partial<User>[] = [
       name: 'Administrador',
       idCard: '',
     },
-    employee: {
-      id: 1,
-      role: { id: EmployeeRolesEnum.Administrador }
-    },
+    employee: { id: 1 },
     clientId: 1
   }
 ];

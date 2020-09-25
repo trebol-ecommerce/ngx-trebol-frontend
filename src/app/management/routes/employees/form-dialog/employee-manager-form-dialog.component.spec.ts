@@ -12,7 +12,6 @@ describe('EmployeeManagerFormDialogComponent', () => {
 
   beforeEach(async(() => {
     service = {
-      getAllEmployeeRoles() { return of([]); },
       submit() { return of(true); }
     };
 

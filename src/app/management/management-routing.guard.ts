@@ -3,19 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterSt
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
-import { EmployeeRolesEnum } from 'src/app/data/enums/EmployeeRolesEnum';
 import { Session } from 'src/app/data/models/entities/Session';
-
-export const MANAGEMENT_ROUTING_AUTH_ROLES: { [key: string]: EmployeeRolesEnum[]; } = {
-  dashboard: [EmployeeRolesEnum.Administrador, EmployeeRolesEnum.Encargado, EmployeeRolesEnum.Vendedor],
-  clients: [EmployeeRolesEnum.Administrador],
-  employees: [EmployeeRolesEnum.Administrador],
-  products: [EmployeeRolesEnum.Administrador, EmployeeRolesEnum.Encargado],
-  providers: [EmployeeRolesEnum.Administrador, EmployeeRolesEnum.Encargado],
-  sales: [EmployeeRolesEnum.Administrador, EmployeeRolesEnum.Vendedor],
-  purchase_orders: [EmployeeRolesEnum.Administrador, EmployeeRolesEnum.Encargado],
-  users: [EmployeeRolesEnum.Administrador]
-};
 
 @Injectable()
 export class ManagementRoutingGuard

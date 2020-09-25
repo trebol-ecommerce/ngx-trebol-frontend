@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { EmployeeRolesEnum } from 'src/app/data/enums/EmployeeRolesEnum';
 import { Employee } from 'src/app/data/models/entities/Employee';
 import { EntityLocalMemoryCrudService } from './entity.local-memory-crud.aservice';
 
 export const MOCK_EMPLOYEES: Partial<Employee>[] = [
   {
     id: 1,
-    role: { id: EmployeeRolesEnum.Administrador },
     person: {
       id: 1,
       name: 'Anónimo',

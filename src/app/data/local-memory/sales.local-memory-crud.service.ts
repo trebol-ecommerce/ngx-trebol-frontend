@@ -10,7 +10,7 @@ export const MOCK_SALES: Partial<Sell>[] = [
   {
     id: 1,
     soldOn: '2020-06-16',
-    employee: { id: 1, role: { id: 1 } },
+    employee: { id: 1 },
     details: [
       { id: 1, product: { id: 1 }, units: 4 },
       { id: 2, product: { id: 2 }, units: 1 },
@@ -19,7 +19,7 @@ export const MOCK_SALES: Partial<Sell>[] = [
   {
     id: 2,
     soldOn: '2020-06-18',
-    employee: { id: 1, role: { id: 1 } },
+    employee: { id: 1 },
     details: [
       { id: 3, product: { id: 3 }, units: 2 },
     ]
@@ -27,7 +27,7 @@ export const MOCK_SALES: Partial<Sell>[] = [
   {
     id: 3,
     soldOn: '2020-06-18',
-    employee: { id: 1, role: { id: 1 } },
+    employee: { id: 1 },
     details: [
       { id: 4, product: { id: 2 }, units: 1 },
     ]
