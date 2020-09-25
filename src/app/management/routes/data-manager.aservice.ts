@@ -1,8 +1,8 @@
-import { BehaviorSubject, from, Observable, Subject, of } from 'rxjs';
-import { delay, finalize, mergeMap, tap, toArray, mapTo, catchError } from 'rxjs/operators';
+import { Directive, OnDestroy } from '@angular/core';
+import { BehaviorSubject, from, Observable, of, Subject } from 'rxjs';
+import { catchError, delay, finalize, mapTo, mergeMap, tap, toArray } from 'rxjs/operators';
 import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
 import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
-import { OnDestroy, Directive } from '@angular/core';
 
 @Directive()
 export abstract class DataManagerService<T extends AbstractEntity>
