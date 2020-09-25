@@ -9,6 +9,7 @@ import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/sha
 import { EditProfileFormDialogComponent } from 'src/app/shared/edit-profile-form-dialog/edit-profile-form-dialog.component';
 import { ManagementService } from '../management.service';
 import { pluck } from 'rxjs/operators';
+import { LOGOUT_MESSAGE } from 'src/text/messages';
 
 @Component({
   selector: 'app-management-header',
@@ -69,7 +70,7 @@ export class ManagementHeaderComponent {
         if (confirmed) {
           this.appService.closeCurrentSession();
           this.router.navigateByUrl('/');
-          this.snackBarService.open('Sesión terminada con éxito.', 'OK');
+          this.snackBarService.open(LOGOUT_MESSAGE, 'OK');
         }
       }
     );

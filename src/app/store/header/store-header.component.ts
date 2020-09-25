@@ -3,11 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { concatMap, map, pluck, switchMap } from 'rxjs/operators';
+import { map, pluck, switchMap } from 'rxjs/operators';
 import { APP_INITIALS_TITLE, APP_LONG_TITLE } from 'src/app/app.constants';
 import { AppService } from 'src/app/app.service';
 import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 import { EditProfileFormDialogComponent } from 'src/app/shared/edit-profile-form-dialog/edit-profile-form-dialog.component';
+import { LOGOUT_MESSAGE } from 'src/text/messages';
 import { StoreCompanyDetailsDialogComponent } from '../dialogs/company-details/store-company-details-dialog.component';
 import { StoreLoginFormDialogComponent } from '../dialogs/login-form/store-login-form-dialog.component';
 import { StoreService } from '../store.service';
@@ -137,7 +138,7 @@ export class StoreHeaderComponent
     this.promptLogoutConfirmation().subscribe(
       confirmed => {
         if (confirmed) {
-          this.snackBarService.open('Ha terminado su sesión correctamente', 'OK');
+          this.snackBarService.open(LOGOUT_MESSAGE, 'OK');
           this.appService.closeCurrentSession();
         }
       }

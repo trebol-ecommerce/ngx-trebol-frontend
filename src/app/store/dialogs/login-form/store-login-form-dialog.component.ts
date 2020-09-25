@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { Login } from 'src/app/data/models/Login';
-import { UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
+import { LOGIN_ERROR_MESSAGE, LOGIN_SUCCESS_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 
 @Component({
   selector: 'app-store-login-form-dialog',
@@ -57,12 +57,12 @@ export class StoreLoginFormDialogComponent {
     this.appService.login(details).subscribe(
       () => {
         this.dialog.close();
-        this.snackBarService.open('Ha iniciado sesión correctamente', 'OK');
+        this.snackBarService.open(LOGIN_SUCCESS_MESSAGE, 'OK');
       },
       error => {
         if (error.status === 403) {
           this.loggingInSource.next(false);
-          this.snackBarService.open('Credenciales inválidas', 'OK');
+          this.snackBarService.open(LOGIN_ERROR_MESSAGE, 'OK');
         } else {
           this.loggingInSource.next(false);
           this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
