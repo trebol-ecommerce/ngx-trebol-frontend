@@ -84,9 +84,9 @@ export class EmployeeManagerFormDialogComponent
         success => {
           if (success) {
             if (item.id) {
-              this.snackBarService.open('Empleado \'' + item.person.name + '\' actualizado/a exitosamente.');
+              this.snackBarService.open(`Empleado ${item.person.name} actualizado/a exitosamente.`);
             } else {
-              this.snackBarService.open('Empleado \'' + item.person.name + '\' registrado/a exitosamente.');
+              this.snackBarService.open(`Empleado ${item.person.name} registrado/a exitosamente.`);
             }
             this.dialog.close(item);
           } else {
