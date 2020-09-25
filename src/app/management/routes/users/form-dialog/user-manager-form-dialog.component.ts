@@ -10,7 +10,7 @@ import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
 import { UserManagerFormService } from './user-manager-form.service';
 
 export interface UserManagerFormDialogData {
-  usuario: User;
+  user: User;
 }
 
 @Component({
@@ -33,7 +33,7 @@ export class UserManagerFormDialogComponent
   public get password(): FormControl { return this.formGroup.get('password') as FormControl; }
   public get person(): FormControl { return this.formGroup.get('person') as FormControl; }
 
-  public get dialogTitle(): string { return ((this.data?.usuario?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Usuario'; };
+  public get dialogTitle(): string { return ((this.data?.user?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Usuario'; };
 
   constructor(
     @Inject(MAT_DIALOG_DATA) protected data: UserManagerFormDialogData,
@@ -49,7 +49,7 @@ export class UserManagerFormDialogComponent
       person: [undefined, Validators.required]
     });
 
-    const item: User = (this.data?.usuario) ? this.data.usuario : new User();
+    const item: User = (this.data?.user) ? this.data.user : new User();
     this.load(item);
   }
 

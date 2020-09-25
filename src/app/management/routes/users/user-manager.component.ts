@@ -32,7 +32,7 @@ export class UserManagerComponent
 
   public openFormDialog(item: User): Observable<User> {
     const dialogData: UserManagerFormDialogData = {
-      usuario: item
+      user: item
     };
 
     return this.dialogService.open(
