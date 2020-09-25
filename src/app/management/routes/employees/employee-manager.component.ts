@@ -50,7 +50,7 @@ export class EmployeeManagerComponent
     ).subscribe(
       (success: boolean) => {
         if (success) {
-          this.snackBarService.open('Empleado \'' + e.person.name + '\' eliminado.');
+          this.snackBarService.open(`Empleado ${e.person.name} eliminado.`);
           this.service.reloadItems();
         } else {
           this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
