@@ -1,0 +1,97 @@
+.cart {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  align-content: center;
+  background-color: var(--color-bg-secondary-light);
+}
+
+h2.products {
+  flex: 0 0 2rem;
+  margin: 0;
+  padding: 0.75rem 1rem 0.25rem 1rem;
+  background-color: var(--color-bg-dark);
+  color: var(--color-content);
+}
+
+@media(min-width: 720px) {
+  h2.products {
+    padding: 1rem;
+  }
+}
+
+div.products {
+  flex: 1 1 auto;
+}
+table {
+  opacity: 0.8;
+}
+
+th, td {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mat-column-product {
+  min-width: 12rem;
+}
+
+.mat-column-price {
+  text-align: right;
+  min-width: 8rem;
+  padding: 0 1rem;
+}
+
+.mat-column-quantity {
+  text-align: center;
+  min-width: 6rem;
+}
+
+.mat-column-total {
+  text-align: right;
+  min-width: 6rem;
+  padding: 0 1rem;
+}
+
+.mat-column-actions {
+  text-align: right;
+  width: 3rem;
+  padding: 0.5rem 0 0.5rem 0 !important;
+}
+
+.mat-column-product .name {
+  font-size: 1rem;
+}
+.mat-column-product .barcode {
+  font-size: 0.9rem;
+  color: grey;
+}
+
+h3.summary {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0.25rem 1rem;
+  background-color: var(--color-bg-secondary);
+  font-weight: 500;
+}
+div.summary {
+  flex: 0 0 3rem;
+  padding: 0.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 0.25rem;
+  align-items: center;
+  align-content: center;
+  background-color: var(--color-bg-secondary-light);
+}
+@media(min-width: 720px) {
+  h3.summary {
+    padding: 0.75rem;
+  }
+  div.summary {
+    text-align: center;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 0;
+  }
+}

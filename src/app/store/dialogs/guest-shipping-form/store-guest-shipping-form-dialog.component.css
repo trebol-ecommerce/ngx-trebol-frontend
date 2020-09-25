@@ -1,0 +1,14 @@
+.actions {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+}
+
+@media(min-width: 720px) {
+  .actions {
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-around;
+  }
+}
+

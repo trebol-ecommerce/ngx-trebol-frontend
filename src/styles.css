@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500';
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+@import 'assets/styles/color-theme.css';
+@import 'assets/styles/important.css';
+
+* {
+  font-family: Roboto, sans-serif;
+}
+
+body, app-root {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+table,
+form>mat-form-field,
+form>mat-select,
+input {
+  width: 100%;
+}

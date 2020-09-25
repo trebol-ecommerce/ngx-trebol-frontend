@@ -1,0 +1,42 @@
+<div class="header">
+  <button mat-button type="button"
+    class="toggle-sidenav action"
+    color="warn"
+    title="Alternar menú lateral"
+    (click)="switchSidenavOpenState()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <div class="logo">
+    <h1 class="desktop">{{ desktopTitle }}</h1>
+    <h1 class="mobile">{{ mobileTitle }}</h1>
+  </div>
+  <div class="middle">
+    <span>{{ moduleName$ | async }}</span>
+  </div>
+  <mat-menu #headerMenu>
+    <span mat-menu-item disabled>{{ userName$ | async }}</span>
+    <button mat-menu-item type="button"
+      class="navigate-store"
+      [routerLink]="['/store']">
+      <mat-icon>storefront</mat-icon>
+      Volver a la Tienda
+    </button>
+    <button mat-menu-item type="button"
+      title="Editar Perfil"
+      (click)="onClickEditProfile()">
+      <mat-icon>edit</mat-icon>
+      Editar Perfil
+    </button>
+    <button mat-menu-item type="button"
+      title="Cerrar Sesion"
+      (click)="onClickLogout()">
+      <mat-icon>exit_to_app</mat-icon>
+      Terminar Sesión
+    </button>
+  </mat-menu>
+  <button mat-button type="button"
+    class="open-menu action"
+    [matMenuTriggerFor]="headerMenu">
+    <mat-icon>person</mat-icon>
+  </button>
+</div>

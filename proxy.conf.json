@@ -1,0 +1,44 @@
+{
+    "/api/*": {
+        "target": "http://localhost:8082",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/catalog/*": {
+        "target": "http://localhost:8082",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/login": {
+        "target": "http://localhost:8082",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/logout": {
+        "target": "http://localhost:8082",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/validate": {
+        "target": "http://localhost:8082",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/register": {
+        "target": "http://localhost:8082",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/profile": {
+        "target": "http://localhost:8082",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    }
+}

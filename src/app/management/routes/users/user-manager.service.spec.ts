@@ -1,0 +1,21 @@
+import { TestBed } from '@angular/core/testing';
+import { LocalMemoryDataModule } from 'src/app/data/local-memory/local-memory-data.module';
+import { UserManagerService } from './user-manager.service';
+
+describe('UserManagerService', () => {
+  let service: UserManagerService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [ LocalMemoryDataModule ],
+      providers: [
+        UserManagerService
+      ]
+    });
+    service = TestBed.inject(UserManagerService);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+});

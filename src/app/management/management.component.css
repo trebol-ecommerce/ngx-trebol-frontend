@@ -1,0 +1,25 @@
+.management {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+app-management-header {
+  flex: 0 0 5.5rem;
+}
+
+mat-sidenav-container {
+  flex: 1 1 auto;
+}
+
+mat-sidenav {
+  border-right: none;
+}
+
+.content {
+  overflow: hidden;
+}
+
+app-management-footer {
+  flex: 0 0 auto;
+}
