@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { map, tap, startWith } from 'rxjs/operators';
+import { map, startWith, tap } from 'rxjs/operators';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
+import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { EditProfileFormService } from './edit-profile-form.service';
 
 export const TIEMPO_CONFIRMACION_SALIR = 2000;
@@ -57,11 +58,14 @@ export class EditProfileFormDialogComponent
       this.service.saveProfile(datosUsuario).subscribe(
         success => {
           if (success) {
-            this.snackBarService.open('Sus datos fueron registrados exitosamente');
+            this.snackBarService.open('Sus datos fueron registrados exitosamente', 'OK');
             this.dialog.close();
           } else {
-            this.snackBarService.open('Hubo un error al guardar sus datos. Por favor, inténtelo nuevamente.', 'OK', {duration: -1});
+            this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
           }
+        },
+        error => {
+          this.snackBarService.open(UNKNOWN_ERROR_MESSAGE , 'OK');
         }
       );
     }

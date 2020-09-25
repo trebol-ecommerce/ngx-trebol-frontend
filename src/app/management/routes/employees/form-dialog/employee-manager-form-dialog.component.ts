@@ -3,11 +3,11 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
-import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
 import { Employee } from 'src/app/data/models/entities/Employee';
 import { Person } from 'src/app/data/models/entities/Person';
-import { ERR_SRV_COMM_MSG } from 'src/text/messages';
+import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
+import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
+import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
 import { EmployeeManagerFormService } from './employee-manager-form.service';
 
 export interface EmployeeManagementFormDialogData {
@@ -22,7 +22,7 @@ export interface EmployeeManagementFormDialogData {
 })
 export class EmployeeManagerFormDialogComponent
   extends DataManagerFormComponent<Employee>
-  implements OnInit, AfterViewInit {
+  implements AfterViewInit {
 
   protected itemId: number;
 
@@ -53,9 +53,6 @@ export class EmployeeManagerFormDialogComponent
     this.personForm.person = (e.person) ? e.person : new Person();
   }
 
-  ngOnInit(): void {
-  }
-
   ngAfterViewInit(): void {
     this.formGroup.addControl('person', this.personForm.formGroup);
 
@@ -84,14 +81,17 @@ export class EmployeeManagerFormDialogComponent
         success => {
           if (success) {
             if (item.id) {
-              this.snackBarService.open(`Empleado ${item.person.name} actualizado/a exitosamente.`);
+              this.snackBarService.open(`Empleado ${item.person.name} actualizado/a exitosamente.`, 'OK');
             } else {
-              this.snackBarService.open(`Empleado ${item.person.name} registrado/a exitosamente.`);
+              this.snackBarService.open(`Empleado ${item.person.name} registrado/a exitosamente.`, 'OK');
             }
             this.dialog.close(item);
           } else {
-            this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
+            this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
           }
+        },
+        error => {
+          this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
         }
       );
     }

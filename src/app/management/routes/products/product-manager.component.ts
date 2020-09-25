@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Product } from 'src/app/data/models/entities/Product';
-import { ERR_SRV_COMM_MSG } from 'src/text/messages';
+import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerComponent } from '../data-manager.acomponent';
 import { ProductManagerFormDialogComponent, ProductManagerFormDialogData } from './form-dialog/product-manager-form-dialog.component';
 import { ProductManagerService } from './product-manager.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-manager',
@@ -48,16 +48,16 @@ export class ProductManagerComponent
     this.service.removeItems([prod]).pipe(
       map(results => results[0])
     ).subscribe(
-      (exito: boolean) => {
-        if (exito) {
-          this.snackBarService.open(`Producto ${prod.name} eliminado`);
+      success => {
+        if (success) {
+          this.snackBarService.open(`Producto ${prod.name} eliminado`, 'OK');
           this.service.reloadItems();
         } else {
-          this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
+          this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
         }
       },
-      () => {
-        this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
+      error => {
+        this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
       }
     );
   }

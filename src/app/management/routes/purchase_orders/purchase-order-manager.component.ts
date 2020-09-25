@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { from, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { PurchaseOrder } from 'src/app/data/models/entities/PurchaseOrder';
-import { ERR_SRV_COMM_MSG } from 'src/text/messages';
+import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerComponent } from '../data-manager.acomponent';
 import {
   PurchaseOrderManagerFormDialogComponent,
   PurchaseOrderManagerFormDialogData
 } from './form-dialog/purchase-order-manager-form-dialog.component';
 import { PurchaseOrderManagerService } from './purchase-order-manager.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-purchase-order-manager',
@@ -51,16 +51,16 @@ export class PurchaseOrderManagerComponent
     this.service.removeItems([oc]).pipe(
       map(results => results[0])
     ).subscribe(
-      (exito: boolean) => {
-        if (exito) {
+      success => {
+        if (success) {
           this.snackBarService.open(`Orden de compra N°${oc.id} eliminada`, 'OK');
           this.service.reloadItems();
         } else {
-          this.snackBarService.open('Hubo un problema al borrar la orden de compra.');
+          this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
         }
       },
       () => {
-        this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
+        this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
        }
     );
   }

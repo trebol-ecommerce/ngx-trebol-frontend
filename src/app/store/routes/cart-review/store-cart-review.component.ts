@@ -5,9 +5,8 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { concatMap, map, take } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
-import { StoreService } from 'src/app/store/store.service';
 import { SellDetail } from 'src/app/data/models/entities/SellDetail';
-import { Session } from 'src/app/data/models/entities/Session';
+import { StoreService } from 'src/app/store/store.service';
 import { StoreGuestPromptDialogComponent } from '../../dialogs/guest-prompt/store-guest-prompt-dialog.component';
 import { StoreGuestPromptDialogOptions } from '../../dialogs/guest-prompt/StoreGuestPromptDialogOptions';
 import { StoreGuestShippingFormDialogComponent } from '../../dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component';
@@ -117,7 +116,7 @@ export class StoreCartReviewComponent
 
   public onClickAccept(): void {
     this.appService.isUserLoggedIn().subscribe(
-      (isLoggedIn) => {
+      isLoggedIn => {
         if (isLoggedIn) {
           this.openPaymentRedirectPrompt();
         } else {

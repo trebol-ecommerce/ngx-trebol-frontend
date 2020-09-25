@@ -4,11 +4,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
 import { Product } from 'src/app/data/models/entities/Product';
 import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
 import { ProductType } from 'src/app/data/models/entities/ProductType';
-import { ERR_SRV_COMM_MSG } from 'src/text/messages';
+import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
+import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
 import { ProductManagerFormService } from './product-manager-form.service';
 
 export interface ProductManagerFormDialogData {
@@ -150,14 +150,17 @@ export class ProductManagerFormDialogComponent
         success => {
           if (success) {
             if (item.id) {
-              this.snackBarService.open(`Producto ${item.name} actualizado/a exitosamente`);
+              this.snackBarService.open(`Producto ${item.name} actualizado/a exitosamente`, 'OK');
             } else {
-              this.snackBarService.open(`Producto ${item.name} registrado/a exitosamente`);
+              this.snackBarService.open(`Producto ${item.name} registrado/a exitosamente`, 'OK');
             }
             this.dialog.close(item);
           } else {
-            this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
+            this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
           }
+        },
+        error => {
+          this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
         }
       );
     }

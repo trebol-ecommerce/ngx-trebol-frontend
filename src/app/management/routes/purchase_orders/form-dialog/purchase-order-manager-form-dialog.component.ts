@@ -4,14 +4,14 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { merge, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
 import { Employee } from 'src/app/data/models/entities/Employee';
 import { Product } from 'src/app/data/models/entities/Product';
 import { Provider } from 'src/app/data/models/entities/Provider';
 import { PurchaseOrder } from 'src/app/data/models/entities/PurchaseOrder';
 import { PurchaseOrderDetail } from 'src/app/data/models/entities/PurchaseOrderDetail';
-import { ERR_SRV_COMM_MSG } from 'src/text/messages';
+import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { ProductsArrayDialogComponent } from '../../../dialogs/products-array/products-array-dialog.component';
+import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
 import { PurchaseOrderManagerFormService } from './purchase-order-manager-form.service';
 
 export interface PurchaseOrderManagerFormDialogData {
@@ -153,17 +153,20 @@ export class PurchaseOrderManagerFormDialogComponent
     const item = this.asItem();
     if (item) {
       this.service.submit(item).subscribe(
-        result => {
-          if (result) {
+        success => {
+          if (success) {
             if (item.id) {
-              this.snackBarService.open(`Orden de compra N°${item.id} actualizada exitosamente`, 'OK', { duration: -1 });
+              this.snackBarService.open(`Orden de compra N°${item.id} actualizada exitosamente`, 'OK');
             } else {
-              this.snackBarService.open(`Orden de compra N°${item.id} registrada exitosamente`, 'OK', { duration: -1 });
+              this.snackBarService.open(`Orden de compra N°${item.id} registrada exitosamente`, 'OK');
             }
             this.dialog.close(item);
           } else {
-            this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
+            this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
           }
+        },
+        error => {
+          this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
         }
       );
     }

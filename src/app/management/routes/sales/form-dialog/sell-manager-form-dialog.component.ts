@@ -4,15 +4,15 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { merge, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
 import { Client } from 'src/app/data/models/entities/Client';
 import { Employee } from 'src/app/data/models/entities/Employee';
 import { Product } from 'src/app/data/models/entities/Product';
 import { Sell } from 'src/app/data/models/entities/Sell';
 import { SellDetail } from 'src/app/data/models/entities/SellDetail';
 import { SellType } from 'src/app/data/models/entities/SellType';
-import { ERR_SRV_COMM_MSG } from 'src/text/messages';
+import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { ProductsArrayDialogComponent } from '../../../dialogs/products-array/products-array-dialog.component';
+import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
 import { SellManagerFormService } from './sell-manager-form.service';
 
 export interface SaleManagerFormDialogData {
@@ -165,14 +165,17 @@ export class SellManagerFormDialogComponent
         success => {
           if (success) {
             if (item.id) {
-              this.snackBarService.open(`Venta N°${item.id} actualizada exitosamente`);
+              this.snackBarService.open(`Venta N°${item.id} actualizada exitosamente`, 'OK');
             } else {
-              this.snackBarService.open(`Venta N°${item.id} registrada exitosamente`);
+              this.snackBarService.open(`Venta N°${item.id} registrada exitosamente`, 'OK');
             }
             this.dialog.close(item);
           } else {
-            this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
+            this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
           }
+        },
+        error => {
+          this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
         }
       );
     }

@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Provider } from 'src/app/data/models/entities/Provider';
-import { ERR_SRV_COMM_MSG } from 'src/text/messages';
+import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerComponent } from '../data-manager.acomponent';
 import { ProviderManagerFormDialogComponent, ProviderManagerFormDialogData } from './form-dialog/provider-manager-form-dialog.component';
 import { ProviderManagerService } from './provider-manager.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-provider-manager',
@@ -47,16 +47,16 @@ extends DataManagerComponent<Provider> {
     this.service.removeItems([p]).pipe(
       map(results => results[0])
     ).subscribe(
-      (success: boolean) => {
+      success => {
         if (success) {
-          this.snackBarService.open(`Proveedor ${p.person.name} eliminado`);
+          this.snackBarService.open(`Proveedor ${p.person.name} eliminado`, 'OK');
           this.service.reloadItems();
         } else {
-          this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
+          this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
         }
       },
-      () => {
-        this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
+      error => {
+        this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
        }
     );
   }

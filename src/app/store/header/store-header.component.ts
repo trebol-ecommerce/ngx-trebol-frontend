@@ -135,9 +135,9 @@ export class StoreHeaderComponent
 
   public onClickLogout(): void {
     this.promptLogoutConfirmation().subscribe(
-      (confirmed: boolean) => {
+      confirmed => {
         if (confirmed) {
-          this.snackBarService.open('Ha terminado su sesión correctamente.');
+          this.snackBarService.open('Ha terminado su sesión correctamente', 'OK');
           this.appService.closeCurrentSession();
         }
       }

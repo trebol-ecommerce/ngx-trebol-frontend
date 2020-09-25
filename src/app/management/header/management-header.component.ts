@@ -65,8 +65,8 @@ export class ManagementHeaderComponent {
 
   public onClickLogout(): void {
     this.promptLogoutConfirmation().subscribe(
-      confirmado => {
-        if (confirmado) {
+      confirmed => {
+        if (confirmed) {
           this.appService.closeCurrentSession();
           this.router.navigateByUrl('/');
           this.snackBarService.open('Sesión terminada con éxito.', 'OK');

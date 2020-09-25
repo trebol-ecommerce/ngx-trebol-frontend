@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { from, Observable } from 'rxjs';
-import { ERR_SRV_COMM_MSG } from 'src/text/messages';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { User } from 'src/app/data/models/entities/User';
+import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
+import { DataManagerComponent } from '../data-manager.acomponent';
 import { UserManagerFormDialogComponent, UserManagerFormDialogData } from './form-dialog/user-manager-form-dialog.component';
 import { UserManagerService } from './user-manager.service';
-import { DataManagerComponent } from '../data-manager.acomponent';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-manager',
@@ -48,17 +48,17 @@ export class UserManagerComponent
     this.service.removeItems([usr]).pipe(
       map(results => results[0])
     ).subscribe(
-      (exito: boolean) => {
-        if (exito) {
+      success => {
+        if (success) {
           this.snackBarService.open(`Usuario ${usr.name} eliminado`, 'OK');
           this.service.reloadItems();
         } else {
-          this.snackBarService.open('Hubo un problema al borrar el empleado.');
+          this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
         }
       },
-      () => {
-        this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
-       }
+      error => {
+        this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
+      }
     );
   }
 

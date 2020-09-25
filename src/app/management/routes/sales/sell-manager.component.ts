@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Sell } from 'src/app/data/models/entities/Sell';
-import { ERR_SRV_COMM_MSG } from 'src/text/messages';
+import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerComponent } from '../data-manager.acomponent';
 import { SaleManagerFormDialogData, SellManagerFormDialogComponent } from './form-dialog/sell-manager-form-dialog.component';
 import { SellManagerService } from './sell-manager.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sell-manager',
@@ -46,17 +46,17 @@ export class SellManagerComponent
     this.service.removeItems([s]).pipe(
       map(results => results[0])
     ).subscribe(
-      (exito: boolean) => {
-        if (exito) {
+      success => {
+        if (success) {
           this.snackBarService.open(`Venta N°${s.id} (${s.soldOn}) eliminada`);
           this.service.reloadItems();
         } else {
-          this.snackBarService.open('Hubo un problema al borrar la venta.');
+          this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
         }
       },
-      () => {
-        this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
-       }
+      error => {
+        this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
+      }
     );
   }
 

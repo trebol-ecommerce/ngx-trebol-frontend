@@ -3,10 +3,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
 import { Person } from 'src/app/data/models/entities/Person';
 import { User } from 'src/app/data/models/entities/User';
-import { ERR_SRV_COMM_MSG } from 'src/text/messages';
+import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
+import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
 import { UserManagerFormService } from './user-manager-form.service';
 
 export interface UserManagerFormDialogData {
@@ -91,14 +91,17 @@ export class UserManagerFormDialogComponent
         success => {
           if (success) {
             if (this.itemId) {
-              this.snackBarService.open(`Usuario ${item.name} actualizado/a exitosamente.`);
+              this.snackBarService.open(`Usuario ${item.name} actualizado/a exitosamente.`, 'OK');
             } else {
-              this.snackBarService.open(`Usuario ${item.name} registrado/a exitosamente.`);
+              this.snackBarService.open(`Usuario ${item.name} registrado/a exitosamente.`, 'OK');
             }
             this.dialog.close(item);
           } else {
-            this.snackBarService.open(ERR_SRV_COMM_MSG);
+            this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
           }
+        },
+        error => {
+          this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
         }
       );
     }
