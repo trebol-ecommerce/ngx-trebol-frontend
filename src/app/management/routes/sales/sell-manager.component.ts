@@ -48,7 +48,7 @@ export class SellManagerComponent
     ).subscribe(
       (exito: boolean) => {
         if (exito) {
-          this.snackBarService.open('Venta N°' + s.id + ' (' + s.soldOn + ') eliminada.');
+          this.snackBarService.open(`Venta N°${s.id} (${s.soldOn}) eliminada`);
           this.service.reloadItems();
         } else {
           this.snackBarService.open('Hubo un problema al borrar la venta.');
