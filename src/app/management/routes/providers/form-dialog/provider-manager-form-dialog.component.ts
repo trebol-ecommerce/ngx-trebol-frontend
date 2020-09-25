@@ -49,7 +49,7 @@ export class ProviderManagerFormDialogComponent
 
   protected load(p: Provider): void {
     this.itemId = p.id ? p.id : 0;
-    
+
     this.personForm.person = (p.person) ? p.person : new Person();
   }
 
@@ -85,9 +85,9 @@ export class ProviderManagerFormDialogComponent
         success => {
           if (success) {
             if (item.id) {
-              this.snackBarService.open('Proveedor \'' + item.person.name + '\' actualizado/a exitosamente.');
+              this.snackBarService.open(`Proveedor ${item.person.name} actualizado/a exitosamente`);
             } else {
-              this.snackBarService.open('Proveedor \'' + item.person.name + '\' registrado/a exitosamente.');
+              this.snackBarService.open(`Proveedor ${item.person.name} registrado/a exitosamente`);
             }
             this.dialog.close(item);
           } else {
