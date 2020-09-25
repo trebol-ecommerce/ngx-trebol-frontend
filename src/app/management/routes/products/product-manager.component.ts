@@ -50,7 +50,7 @@ export class ProductManagerComponent
     ).subscribe(
       (exito: boolean) => {
         if (exito) {
-          this.snackBarService.open('Producto \'' + prod.name + '\' eliminado.');
+          this.snackBarService.open(`Producto ${prod.name} eliminado`);
           this.service.reloadItems();
         } else {
           this.snackBarService.open(ERR_SRV_COMM_MSG, 'OK', { duration: -1 });
