@@ -30,14 +30,6 @@ export class SharedHttpDataService
     throw new Error("Method not implemented.");
   }
 
-  public readAllEmployeeRoles(): Observable<EmployeeRole[]> {
-    return this.http.get<EmployeeRole[]>(
-      `${this.baseURI}/employee_roles`
-    ).pipe(
-      retry(2)
-    );
-  }
-
   public readAllPersonas(): Observable<Person[]> {
     return this.http.get<Person[]>(
       `${this.baseURI}/people`
