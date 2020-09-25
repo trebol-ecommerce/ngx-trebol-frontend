@@ -35,6 +35,7 @@ export class StoreCartReviewComponent
     protected dialogService: MatDialog,
     protected snackBarService: MatSnackBar
   ) {
+    // TODO refactor this into a routing guard
     this.storeService.sellDetails$.pipe(take(1)).subscribe(
       array => { if (array.length === 0) { this.router.navigateByUrl('/store'); } }
     );
