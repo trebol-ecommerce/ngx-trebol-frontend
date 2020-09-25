@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
+import { Person } from 'src/app/data/models/entities/Person';
 import { EditProfileFormService } from './edit-profile-form.service';
 
 describe('EditProfileFormService', () => {
@@ -10,7 +11,7 @@ describe('EditProfileFormService', () => {
   beforeEach(() => {
     appService = {
       isUserLoggedIn() { return of(true); },
-      getUserProfile() { return of(null); },
+      getUserProfile() { return of(new Person()); },
       updateUserProfile(p) { return of(true); }
     };
 

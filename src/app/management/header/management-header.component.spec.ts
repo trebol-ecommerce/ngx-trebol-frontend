@@ -19,6 +19,7 @@ describe('ManagementHeaderComponent', () => {
     };
 
     appService = {
+      getUserProfile() { return of(null); },
       closeCurrentSession() {}
     };
 
