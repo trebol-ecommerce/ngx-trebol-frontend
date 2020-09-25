@@ -50,7 +50,7 @@ export class UserManagerComponent
     ).subscribe(
       (exito: boolean) => {
         if (exito) {
-          this.snackBarService.open('Usuario \'' + usr.name + '\' eliminado.');
+          this.snackBarService.open(`Usuario ${usr.name} eliminado.`);
           this.service.reloadItems();
         } else {
           this.snackBarService.open('Hubo un problema al borrar el empleado.');
