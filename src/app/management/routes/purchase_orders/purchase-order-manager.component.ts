@@ -53,7 +53,7 @@ export class PurchaseOrderManagerComponent
     ).subscribe(
       (exito: boolean) => {
         if (exito) {
-          this.snackBarService.open('Orden de compra eliminada.');
+          this.snackBarService.open(`Orden de compra N°${oc.id} eliminada`, 'OK');
           this.service.reloadItems();
         } else {
           this.snackBarService.open('Hubo un problema al borrar la orden de compra.');
