@@ -126,9 +126,12 @@ export class PurchaseOrderManagerFormDialogComponent
   }
 
   public onClickAddProducts(): void {
-    this.dialogService.open(ProductsArrayDialogComponent, {
-      width: '70rem'
-    }).afterClosed().subscribe(
+    this.dialogService.open(
+      ProductsArrayDialogComponent,
+      {
+        width: '70rem'
+      }
+    ).afterClosed().subscribe(
       (newProducts: Product[]) => {
         if (newProducts?.length > 0) {
           this.service.addProducts(newProducts);
