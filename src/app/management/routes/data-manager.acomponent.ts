@@ -1,7 +1,6 @@
-import { OnInit, Directive } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Directive, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { finalize, map, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
 import { DataManagerService } from './data-manager.aservice';
 
