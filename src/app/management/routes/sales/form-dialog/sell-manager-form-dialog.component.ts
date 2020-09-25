@@ -165,9 +165,9 @@ export class SellManagerFormDialogComponent
         success => {
           if (success) {
             if (item.id) {
-              this.snackBarService.open('Venta N° \'' + item.id + '\' actualizada exitosamente.');
+              this.snackBarService.open(`Venta N°${item.id} actualizada exitosamente`);
             } else {
-              this.snackBarService.open('Venta N° \'' + item.id + '\' registrada exitosamente.');
+              this.snackBarService.open(`Venta N°${item.id} registrada exitosamente`);
             }
             this.dialog.close(item);
           } else {
