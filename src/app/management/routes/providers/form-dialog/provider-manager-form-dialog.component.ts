@@ -49,10 +49,7 @@ export class ProviderManagerFormDialogComponent
 
   protected load(p: Provider): void {
     this.itemId = p.id ? p.id : 0;
-
-    if (p.businessCard) {
-      this.businessCard.setValue(p.businessCard, { emitEvent: false, onlySelf: true });
-    }
+    
     this.personForm.person = (p.person) ? p.person : new Person();
   }
 
@@ -75,7 +72,6 @@ export class ProviderManagerFormDialogComponent
         new Provider(),
         {
           id: this.itemId,
-          businessCard: this.businessCard.value,
           person: this.personForm.asPerson()
         }
       );
