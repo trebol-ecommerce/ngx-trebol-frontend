@@ -156,9 +156,9 @@ export class PurchaseOrderManagerFormDialogComponent
         result => {
           if (result) {
             if (item.id) {
-              this.snackBarService.open('Orden de compra N°\'' + item.id + '\' actualizada exitosamente.', 'OK', { duration: -1 });
+              this.snackBarService.open(`Orden de compra N°${item.id} actualizada exitosamente`, 'OK', { duration: -1 });
             } else {
-              this.snackBarService.open('Orden de compra N°\'' + item.id + '\' registrada exitosamente.', 'OK', { duration: -1 });
+              this.snackBarService.open(`Orden de compra N°${item.id} registrada exitosamente`, 'OK', { duration: -1 });
             }
             this.dialog.close(item);
           } else {
