@@ -30,10 +30,8 @@ extends DataManagerComponent<Provider> {
     super();
   }
 
-  public openFormDialog(item: Provider): Observable<Provider> {
-    const dialogData: ProviderManagerFormDialogData = {
-      provider: item
-    };
+  public openFormDialog(provider: Provider): Observable<Provider> {
+    const dialogData: ProviderManagerFormDialogData = { provider };
 
     return this.dialogService.open(
       ProviderManagerFormDialogComponent, {

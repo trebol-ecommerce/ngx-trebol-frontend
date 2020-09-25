@@ -33,10 +33,8 @@ export class PurchaseOrderManagerComponent
     super();
   }
 
-  public openFormDialog(item: PurchaseOrder): Observable<PurchaseOrder> {
-    const dialogData: PurchaseOrderManagerFormDialogData = {
-      purchaseOrder: item
-    };
+  public openFormDialog(purchaseOrder: PurchaseOrder): Observable<PurchaseOrder> {
+    const dialogData: PurchaseOrderManagerFormDialogData = { purchaseOrder };
 
     return this.dialogService.open(
       PurchaseOrderManagerFormDialogComponent,

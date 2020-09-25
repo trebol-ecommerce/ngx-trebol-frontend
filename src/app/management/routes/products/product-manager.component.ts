@@ -30,10 +30,8 @@ export class ProductManagerComponent
     super();
   }
 
-  public openFormDialog(item: Product): Observable<Product> {
-    const dialogData: ProductManagerFormDialogData = {
-      product: item
-    };
+  public openFormDialog(product: Product): Observable<Product> {
+    const dialogData: ProductManagerFormDialogData = { product };
 
     return this.dialogService.open(
       ProductManagerFormDialogComponent,

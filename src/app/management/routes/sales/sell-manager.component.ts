@@ -30,8 +30,8 @@ export class SellManagerComponent
     super();
   }
 
-  public openFormDialog(item: Sell): Observable<Sell> {
-    const dialogData: SaleManagerFormDialogData = { sell: item };
+  public openFormDialog(sell: Sell): Observable<Sell> {
+    const dialogData: SaleManagerFormDialogData = { sell };
 
     return this.dialogService.open(
       SellManagerFormDialogComponent,

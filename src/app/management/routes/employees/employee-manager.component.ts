@@ -30,10 +30,8 @@ export class EmployeeManagerComponent
     super();
   }
 
-  public openFormDialog(item: Employee): Observable<Employee> {
-    const dialogData: EmployeeManagementFormDialogData = {
-      employee: item
-    };
+  public openFormDialog(employee: Employee): Observable<Employee> {
+    const dialogData: EmployeeManagementFormDialogData = { employee };
 
     return this.dialogService.open(
       EmployeeManagerFormDialogComponent,

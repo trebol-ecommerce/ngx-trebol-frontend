@@ -118,7 +118,9 @@ export class SellManagerFormDialogComponent
   public onClickAddProducts(): void {
     this.dialogService.open(
       ProductsArrayDialogComponent,
-      { width: '70rem' }
+      {
+        width: '70rem'
+      }
     ).afterClosed().subscribe(
       (newProducts: Product[]) => {
         if (newProducts?.length > 0) {

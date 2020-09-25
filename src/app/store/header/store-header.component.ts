@@ -115,7 +115,9 @@ export class StoreHeaderComponent
   public onClickLogIn(): void {
     this.dialogService.open(
       StoreLoginFormDialogComponent,
-      { width: '24rem' }
+      {
+        width: '24rem'
+      }
     ).afterClosed().subscribe();
     // TODO reimplement this somehow?
     //   () => {
@@ -130,7 +132,9 @@ export class StoreHeaderComponent
   public onClickEditProfile(): void {
     this.dialogService.open(
       EditProfileFormDialogComponent,
-      { width: '60rem' }
+      {
+        width: '60rem'
+      }
     );
   }
 

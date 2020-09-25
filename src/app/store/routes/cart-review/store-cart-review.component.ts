@@ -50,21 +50,27 @@ export class StoreCartReviewComponent
   protected promptLoginForm(): Observable<void> {
     return this.dialogService.open(
       StoreLoginFormDialogComponent,
-      { width: '24rem' }
+      {
+        width: '24rem'
+      }
     ).afterClosed();
   }
 
   protected promptRegistrationForm(): Observable<void> {
     return this.dialogService.open(
       StoreRegistrationFormDialogComponent,
-      { width: '40rem' }
+      {
+        width: '40rem'
+      }
     ).afterClosed();
   }
 
   protected promptGuestShippingForm(): Observable<void> {
     return this.dialogService.open(
       StoreGuestShippingFormDialogComponent,
-      { width: '40rem' }
+      {
+        width: '40rem'
+      }
     ).afterClosed();
   }
 
@@ -98,7 +104,9 @@ export class StoreCartReviewComponent
   protected openPaymentRedirectPrompt(): void {
     this.dialogService.open(
       StorePaymentRedirectPromptDialogComponent,
-      { width: '40rem' }
+      {
+        width: '40rem'
+      }
     );
   }
 
