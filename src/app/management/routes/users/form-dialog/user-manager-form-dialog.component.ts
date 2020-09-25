@@ -91,9 +91,9 @@ export class UserManagerFormDialogComponent
         success => {
           if (success) {
             if (this.itemId) {
-              this.snackBarService.open('Usuario \'' + item.name + '\' actualizado/a exitosamente.');
+              this.snackBarService.open(`Usuario ${item.name} actualizado/a exitosamente.`);
             } else {
-              this.snackBarService.open('Usuario \'' + item.name + '\' registrado/a exitosamente.');
+              this.snackBarService.open(`Usuario ${item.name} registrado/a exitosamente.`);
             }
             this.dialog.close(item);
           } else {
