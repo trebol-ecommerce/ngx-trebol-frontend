@@ -16,7 +16,7 @@ export class HttpAuthService
 
   protected readonly sessionStorageTokenItemName = environment.sessionStorageTokenItemName;
   protected readonly authorizationHeader = environment.authorizationHeaderName;
-  protected readonly permissionsItemName = 'trebol/permissions';
+  protected readonly permissionsItemName = environment.permissionsStorageTokenItemName;
 
   constructor(
     protected http: HttpClient

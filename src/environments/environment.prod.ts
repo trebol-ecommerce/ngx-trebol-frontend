@@ -3,5 +3,6 @@ export const environment = {
   baseURI: 'https://localhost:8082/api',
   checkoutURL: 'https://webpay-test.benjaminlamadrid.cl/',
   sessionStorageTokenItemName: 'nm/bearer-token',
+  permissionsStorageTokenItemName: 'trebol/permissions',
   authorizationHeaderName: 'Authorization'
 };
