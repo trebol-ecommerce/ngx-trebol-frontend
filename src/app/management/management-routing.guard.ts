@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { iif, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { Session } from 'src/app/data/models/entities/Session';
@@ -24,28 +24,23 @@ export class ManagementRoutingGuard
     state: RouterStateSnapshot
   ): Observable<boolean> {
 
-    if (!route.parent) {
-      return of(true);
-    } else {
-      // TODO implement proper use of role permissions
-      // const modules: string[] = state.url.substr(1).split('/');
-      return this.appService.isUserLoggedIn();
+    // TODO implement proper use of role permissions
+    // const modules: string[] = state.url.substr(1).split('/');
+    return this.appService.isUserLoggedIn();
 
-      // if (currentSession && currentSession.user.employee) {
-      //   if (modules.length > 1) {
-      //     const idCargo = currentSession.user.employee.role.id;
-      //     const subModule = modules[1];
-      //     const cargosAutorizados = MANAGEMENT_ROUTING_AUTH_ROLES[subModule];
+    // if (currentSession && currentSession.user.employee) {
+    //   if (modules.length > 1) {
+    //     const idCargo = currentSession.user.employee.role.id;
+    //     const subModule = modules[1];
+    //     const cargosAutorizados = MANAGEMENT_ROUTING_AUTH_ROLES[subModule];
 
-      //     if (cargosAutorizados) {
-      //       return cargosAutorizados.includes(idCargo);
-      //     }
-      //   }
-      //   return true;
-      // }
-      // return false;
-
-    }
+    //     if (cargosAutorizados) {
+    //       return cargosAutorizados.includes(idCargo);
+    //     }
+    //   }
+    //   return true;
+    // }
+    // return false;
   }
 
   canActivate(
