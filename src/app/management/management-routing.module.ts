@@ -3,6 +3,7 @@ import { Route, RouterModule, Routes } from '@angular/router';
 import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementComponent } from './management.component';
 import { ClientManagerComponent } from './routes/clients/client-manager.component';
+import { ClientManagerResolver } from './routes/clients/client-manager.resolver';
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
 import { EmployeeManagerComponent } from './routes/employees/employee-manager.component';
 import { ProductManagerComponent } from './routes/products/product-manager.component';
@@ -17,7 +18,7 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
   { path: 'dashboard', component: ManagementDashboardComponent, data: { matIcon: 'home', title: 'Resumen' } },
   { path: 'sales', component: SellManagerComponent, data: { matIcon: 'attach_money', title: 'Ventas' } },
   { path: 'products', component: ProductManagerComponent, data: { matIcon: 'store', title: 'Productos' } },
-  { path: 'clients', component: ClientManagerComponent, data: { matIcon: 'person', title: 'Clientes' } },
+  { path: 'clients', component: ClientManagerComponent, data: { matIcon: 'person', title: 'Clientes' }, resolve: { items: ClientManagerResolver } },
   { path: 'employees', component: EmployeeManagerComponent, data: { matIcon: 'work', title: 'Empleados' } },
   { path: 'users', component: UserManagerComponent, data: { matIcon: 'perm_identity', title: 'Usuarios' } }
 ];
