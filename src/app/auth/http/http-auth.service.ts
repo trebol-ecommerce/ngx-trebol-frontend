@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { finalize, map, tap } from 'rxjs/operators';
+import { AuthorizedAccess } from 'src/app/data/models/AuthorizedAccess';
 import { Person } from 'src/app/data/models/entities/Person';
 import { User } from 'src/app/data/models/entities/User';
 import { HttpService } from 'src/app/shared/http.abstract-service';
@@ -81,6 +82,12 @@ export class HttpAuthService
   public validate(): Observable<boolean> {
     return this.http.get<boolean>(
       `${this.baseURI}/validate`
+    );
+  }
+  
+  public getAuthorizedAccess(): Observable<AuthorizedAccess> {
+    return this.http.get<AuthorizedAccess>(
+      `${this.baseURI}/routes`
     );
   }
 
