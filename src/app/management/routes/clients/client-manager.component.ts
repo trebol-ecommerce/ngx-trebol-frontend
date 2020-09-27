@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { concat, Observable, of } from 'rxjs';
+import { concatMap, pluck, tap } from 'rxjs/operators';
 import { Client } from 'src/app/data/models/entities/Client';
 import { DataManagerComponent } from '../data-manager.acomponent';
 import { ClientManagerService } from './client-manager.service';
@@ -13,14 +15,23 @@ import { ClientManagerService } from './client-manager.service';
   ]
 })
 export class ClientManagerComponent
-  extends DataManagerComponent<Client> {
+  extends DataManagerComponent<Client>
+  implements OnInit {
 
   public tableColumns: string[] = [ 'name', 'idCard' ];
 
   constructor(
-    protected service: ClientManagerService
+    protected service: ClientManagerService,
+    protected route: ActivatedRoute
   ) {
     super();
+  }
+
+  ngOnInit(): void {
+    this.items$ = concat(
+      this.route.data.pipe(pluck('items')),
+      this.service.items$.pipe()
+    );
   }
 
   public openFormDialog(item: Client): Observable<Client> {
