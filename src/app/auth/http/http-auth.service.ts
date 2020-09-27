@@ -62,7 +62,6 @@ export class HttpAuthService
       tap(
         response => {
           if (response.headers.has(this.authorizationHeader)) {
-            console.log(this.authorizationHeader);
             sessionStorage.setItem(this.sessionStorageTokenItemName, response.headers.get(this.authorizationHeader));
           }
         }
