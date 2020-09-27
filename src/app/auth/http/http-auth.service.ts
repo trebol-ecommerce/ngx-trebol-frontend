@@ -64,6 +64,7 @@ export class HttpAuthService
         response => {
           if (response.headers.has(this.authorizationHeader)) {
             sessionStorage.setItem(this.sessionStorageTokenItemName, response.headers.get(this.authorizationHeader));
+            this.getAuthorizedAccess().subscribe();
           }
         }
       ),
