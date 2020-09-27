@@ -6,6 +6,7 @@ import { AuthorizedAccess } from 'src/app/data/models/AuthorizedAccess';
 import { Person } from 'src/app/data/models/entities/Person';
 import { User } from 'src/app/data/models/entities/User';
 import { HttpService } from 'src/app/shared/http.abstract-service';
+import { environment } from 'src/environments/environment';
 import { AuthenticationIService } from '../auth.iservice';
 
 @Injectable()
@@ -13,9 +14,8 @@ export class HttpAuthService
   extends HttpService
   implements AuthenticationIService {
 
-  //TODO these should be refactored
-  protected readonly sessionStorageTokenItemName = 'nm/bearer-token';
-  protected readonly authorizationHeader = 'Authorization';
+  protected readonly sessionStorageTokenItemName = environment.sessionStorageTokenItemName;
+  protected readonly authorizationHeader = environment.authorizationHeaderName;
 
   constructor(
     protected http: HttpClient

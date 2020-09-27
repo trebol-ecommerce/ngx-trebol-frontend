@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
   baseURI: '',
-  checkoutURL: 'https://webpay-test.benjaminlamadrid.cl/'
+  checkoutURL: 'https://webpay-test.benjaminlamadrid.cl/',
+  sessionStorageTokenItemName: 'nm/bearer-token',
+  authorizationHeaderName: 'Authorization'
 };
 
 /*
