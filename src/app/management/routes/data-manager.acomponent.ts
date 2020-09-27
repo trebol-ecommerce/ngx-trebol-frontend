@@ -19,8 +19,6 @@ export abstract class DataManagerComponent<T extends AbstractEntity>
     this.loading$ = this.service.loading$.pipe();
     this.busy$ = this.service.focusedItems$.pipe(map(items => items?.length > 0));
     this.items$ = this.service.items$.pipe();
-
-    this.service.reloadItems();
   }
 
   public abstract openFormDialog(item: T): Observable<T>;
