@@ -81,6 +81,14 @@ export class HttpAuthService
   public validate(): Observable<boolean> {
     return this.http.get<boolean>(
       `${this.baseURI}/validate`
+    ).pipe(
+      tap(
+        ok => {
+          if (!ok) {
+            sessionStorage.removeItem(this.sessionStorageTokenItemName);
+          }
+        }
+      )
     );
   }
   
