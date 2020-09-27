@@ -101,7 +101,7 @@ export class HttpAuthService
       tap(
         access => {
           if (access?.permissions?.length > 0) {
-            sessionStorage.setItem(this.permissionsItemName, String(access.permissions));
+            sessionStorage.setItem(this.permissionsItemName, JSON.stringify(access.permissions));
           }
         }
       )
