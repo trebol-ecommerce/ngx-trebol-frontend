@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
+import { Person } from 'src/app/data/models/entities/Person';
 import { MATERIAL_MODULES } from 'src/app/shared/angular-material.module';
 import { ManagementService } from '../management.service';
 import { ManagementHeaderComponent } from './management-header.component';
@@ -19,7 +20,7 @@ describe('ManagementHeaderComponent', () => {
     };
 
     appService = {
-      getUserProfile() { return of(null); },
+      getUserProfile() { return of(new Person()); },
       closeCurrentSession() {}
     };
 

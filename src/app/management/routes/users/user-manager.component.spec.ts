@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { MATERIAL_MODULES } from 'src/app/shared/angular-material.module';
 import { UserManagerComponent } from './user-manager.component';
@@ -20,7 +21,8 @@ describe('UserManagerComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        ...MATERIAL_MODULES
+        ...MATERIAL_MODULES,
+        RouterTestingModule
       ],
       declarations: [ UserManagerComponent ],
       providers: [

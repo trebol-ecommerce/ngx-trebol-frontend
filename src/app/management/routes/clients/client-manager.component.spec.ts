@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { ClientManagerComponent } from './client-manager.component';
 import { ClientManagerService } from './client-manager.service';
@@ -18,6 +19,9 @@ describe('ClientManagerComponent', () => {
     };
 
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ],
       declarations: [ ClientManagerComponent ],
       providers: [
         { provide: ClientManagerService, useValue: managerService }
