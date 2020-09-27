@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { concat, Observable } from 'rxjs';
+import { map, pluck } from 'rxjs/operators';
 import { Sell } from 'src/app/data/models/entities/Sell';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerComponent } from '../data-manager.acomponent';
@@ -18,16 +19,25 @@ import { SellManagerService } from './sell-manager.service';
   ]
 })
 export class SellManagerComponent
-  extends DataManagerComponent<Sell> {
+  extends DataManagerComponent<Sell>
+  implements OnInit {
 
   public tableColumns: string[] = [ 'id', 'date', 'actions' ];
 
   constructor(
     protected service: SellManagerService,
     protected dialogService: MatDialog,
-    protected snackBarService: MatSnackBar
+    protected snackBarService: MatSnackBar,
+    protected route: ActivatedRoute
   ) {
     super();
+  }
+
+  ngOnInit(): void {
+    this.items$ = concat(
+      this.route.data.pipe(pluck('items')),
+      this.service.items$.pipe()
+    );
   }
 
   public openFormDialog(sell: Sell): Observable<Sell> {

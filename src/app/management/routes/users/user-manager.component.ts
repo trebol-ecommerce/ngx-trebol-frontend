@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { concat, Observable } from 'rxjs';
+import { map, pluck } from 'rxjs/operators';
 import { User } from 'src/app/data/models/entities/User';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerComponent } from '../data-manager.acomponent';
@@ -18,16 +19,25 @@ import { UserManagerService } from './user-manager.service';
   ]
 })
 export class UserManagerComponent
-  extends DataManagerComponent<User> {
+  extends DataManagerComponent<User>
+  implements OnInit {
 
   public tableColumns: string[] = [ 'name', 'creationDate', 'fullName', 'actions' ];
 
   constructor(
     protected service: UserManagerService,
     protected dialogService: MatDialog,
-    protected snackBarService: MatSnackBar
+    protected snackBarService: MatSnackBar,
+    protected route: ActivatedRoute
   ) {
     super();
+  }
+
+  ngOnInit(): void {
+    this.items$ = concat(
+      this.route.data.pipe(pluck('items')),
+      this.service.items$.pipe()
+    );
   }
 
   public openFormDialog(user: User): Observable<User> {
