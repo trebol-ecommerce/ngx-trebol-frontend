@@ -16,6 +16,7 @@ export class HttpAuthService
 
   protected readonly sessionStorageTokenItemName = environment.sessionStorageTokenItemName;
   protected readonly authorizationHeader = environment.authorizationHeaderName;
+  protected readonly permissionsItemName = 'trebol/permissions';
 
   constructor(
     protected http: HttpClient
@@ -95,6 +96,14 @@ export class HttpAuthService
   public getAuthorizedAccess(): Observable<AuthorizedAccess> {
     return this.http.get<AuthorizedAccess>(
       `${this.baseURI}/routes`
+    ).pipe(
+      tap(
+        access => {
+          if (access?.permissions?.length > 0) {
+            sessionStorage.setItem(this.permissionsItemName, String(access.permissions));
+          }
+        }
+      )
     );
   }
 
