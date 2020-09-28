@@ -21,6 +21,10 @@ export class LocalMemoryAuthService
   implements AuthenticationIService {
 
   constructor() { }
+
+  public getResourceAuthorizedAccess(resource: string): Observable<AuthorizedAccess> {
+    throw new Error('Method not implemented.');
+  }
   
   public getAuthorizedAccess(): Observable<AuthorizedAccess> {
     throw new Error('Method not implemented.');

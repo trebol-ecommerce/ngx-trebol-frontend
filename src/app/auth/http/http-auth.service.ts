@@ -112,6 +112,26 @@ export class HttpAuthService
       );
     }
   }
+  
+  public getResourceAuthorizedAccess(resource: string): Observable<AuthorizedAccess> {
+    const resourcePermissionsItemName = `${this.permissionsItemName}/${resource}`;
+    if (sessionStorage.getItem(resourcePermissionsItemName)) {
+      const permissions: string[] = JSON.parse(sessionStorage.getItem(resourcePermissionsItemName));
+      return of({ permissions });
+    } else {
+      return this.http.get<AuthorizedAccess>(
+        `${this.baseURI}/api/${resource}`
+      ).pipe(
+        tap(
+          access => {
+            if (access?.permissions?.length > 0) {
+              sessionStorage.setItem(resourcePermissionsItemName, JSON.stringify(access.permissions));
+            }
+          }
+        )
+      );
+    }
+  }
 
   public logout(): Observable<boolean> {
     return this.http.get<boolean>(
