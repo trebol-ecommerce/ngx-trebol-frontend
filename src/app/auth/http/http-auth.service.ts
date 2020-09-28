@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { finalize, map, tap } from 'rxjs/operators';
 import { AuthorizedAccess } from 'src/app/data/models/AuthorizedAccess';
 import { Person } from 'src/app/data/models/entities/Person';
@@ -95,17 +95,22 @@ export class HttpAuthService
   }
   
   public getAuthorizedAccess(): Observable<AuthorizedAccess> {
-    return this.http.get<AuthorizedAccess>(
-      `${this.baseURI}/routes`
-    ).pipe(
-      tap(
-        access => {
-          if (access?.routes?.length > 0) {
-            sessionStorage.setItem(this.permissionsItemName, JSON.stringify(access.routes));
+    if (sessionStorage.getItem(this.permissionsItemName)) {
+      const routes: string[] = JSON.parse(sessionStorage.getItem(this.permissionsItemName));
+      return of({ routes });
+    } else {
+      return this.http.get<AuthorizedAccess>(
+        `${this.baseURI}/routes`
+      ).pipe(
+        tap(
+          access => {
+            if (access?.routes?.length > 0) {
+              sessionStorage.setItem(this.permissionsItemName, JSON.stringify(access.routes));
+            }
           }
-        }
-      )
-    );
+        )
+      );
+    }
   }
 
   public logout(): Observable<boolean> {
@@ -114,6 +119,7 @@ export class HttpAuthService
     ).pipe(
       finalize(
         () => {
+          sessionStorage.removeItem(this.permissionsItemName);
           sessionStorage.removeItem(this.sessionStorageTokenItemName);
         }
       )
