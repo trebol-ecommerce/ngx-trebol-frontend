@@ -24,11 +24,8 @@ export class ManagementRoutingGuard
     return this.appService.isUserLoggedIn().pipe(
       map(
         r => {
-          if (!r) {
-            return this.router.parseUrl('/')
-          } else {
-            return r;
-          }
+          if (!r) { return this.router.parseUrl('/'); }
+          return r;
         }
       )
     );
