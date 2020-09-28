@@ -100,8 +100,8 @@ export class HttpAuthService
     ).pipe(
       tap(
         access => {
-          if (access?.permissions?.length > 0) {
-            sessionStorage.setItem(this.permissionsItemName, JSON.stringify(access.permissions));
+          if (access?.routes?.length > 0) {
+            sessionStorage.setItem(this.permissionsItemName, JSON.stringify(access.routes));
           }
         }
       )
