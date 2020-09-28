@@ -16,7 +16,6 @@ export class HttpAuthService
 
   protected readonly sessionStorageTokenItemName = environment.sessionStorageTokenItemName;
   protected readonly authorizationHeader = environment.authorizationHeaderName;
-  protected readonly permissionsItemName = environment.permissionsStorageTokenItemName;
 
   constructor(
     protected http: HttpClient
@@ -82,42 +81,15 @@ export class HttpAuthService
   
   
   public getAuthorizedAccess(): Observable<AuthorizedAccess> {
-    if (sessionStorage.getItem(this.permissionsItemName)) {
-      const routes: string[] = JSON.parse(sessionStorage.getItem(this.permissionsItemName));
-      return of({ routes });
-    } else {
-      return this.http.get<AuthorizedAccess>(
-        `${this.baseURI}/api`
-      ).pipe(
-        tap(
-          access => {
-            if (access?.routes?.length > 0) {
-              sessionStorage.setItem(this.permissionsItemName, JSON.stringify(access.routes));
-            }
-          }
-        )
-      );
-    }
+    return this.http.get<AuthorizedAccess>(
+      `${this.baseURI}/api`
+    );
   }
   
   public getResourceAuthorizedAccess(resource: string): Observable<AuthorizedAccess> {
-    const resourcePermissionsItemName = `${this.permissionsItemName}/${resource}`;
-    if (sessionStorage.getItem(resourcePermissionsItemName)) {
-      const permissions: string[] = JSON.parse(sessionStorage.getItem(resourcePermissionsItemName));
-      return of({ permissions });
-    } else {
-      return this.http.get<AuthorizedAccess>(
-        `${this.baseURI}/api/${resource}`
-      ).pipe(
-        tap(
-          access => {
-            if (access?.permissions?.length > 0) {
-              sessionStorage.setItem(resourcePermissionsItemName, JSON.stringify(access.permissions));
-            }
-          }
-        )
-      );
-    }
+    return this.http.get<AuthorizedAccess>(
+      `${this.baseURI}/api/${resource}`
+    );
   }
 
   public logout(): Observable<boolean> {
@@ -126,7 +98,6 @@ export class HttpAuthService
     ).pipe(
       finalize(
         () => {
-          sessionStorage.removeItem(this.permissionsItemName);
           sessionStorage.removeItem(this.sessionStorageTokenItemName);
         }
       )
