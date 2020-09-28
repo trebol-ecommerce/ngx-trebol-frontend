@@ -21,7 +21,7 @@ export abstract class DataManagerComponent<T extends AbstractEntity>
   ngOnInit(): void {
     this.loading$ = this.service.loading$.pipe();
     this.busy$ = this.service.focusedItems$.pipe(map(items => items?.length > 0));
-    // this.items$ = this.service.items$.pipe();
+    this.items$ = this.service.items$.pipe();
     this.canEdit$ = this.service.canEdit$.pipe();
     this.canAdd$ = this.service.canAdd$.pipe();
     this.canDelete$ = this.service.canDelete$.pipe();
