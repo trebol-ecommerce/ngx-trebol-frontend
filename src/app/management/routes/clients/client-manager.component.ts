@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { concat, Observable, of } from 'rxjs';
-import { concatMap, pluck, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Client } from 'src/app/data/models/entities/Client';
 import { DataManagerComponent } from '../data-manager.acomponent';
 import { ClientManagerService } from './client-manager.service';
