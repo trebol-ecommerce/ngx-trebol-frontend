@@ -1,6 +1,6 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { catchError, finalize, tap } from 'rxjs/operators';
+import { catchError, finalize, map, mapTo, tap } from 'rxjs/operators';
 import { AUTH_INJECTION_TOKEN } from 'src/app/auth/auth.injection-token';
 import { AuthenticationIService } from 'src/app/auth/auth.iservice';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
@@ -36,7 +36,9 @@ export class AppService
   }
 
   protected fetchLoggedInState(): Observable<boolean> {
-    return this.authService.validate().pipe(
+    return this.authService.getAuthorizedAccess().pipe(
+      mapTo(true),
+      catchError(() => of(false)),
       tap(
         r => {
           this.isLoggedIn = r;
@@ -85,7 +87,8 @@ export class AppService
   public validateSession(): Observable<boolean> {
     this.isValidatingSessionSource.next(true);
 
-    return this.authService.validate().pipe(
+    return this.authService.getAuthorizedAccess().pipe(
+      mapTo(true),
       catchError(() => of(false)),
       finalize(() => { this.isValidatingSessionSource.next(false); }),
       tap(isValid => { if (!isValid) { this.closeCurrentSession(); } })
