@@ -1,4 +1,4 @@
 export interface AuthorizedAccess {
-  routes: string[];
-  permissions: string[];
+  routes?: string[];
+  permissions?: string[];
 }
