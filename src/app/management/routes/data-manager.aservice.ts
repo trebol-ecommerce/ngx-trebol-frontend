@@ -1,8 +1,9 @@
 import { Directive, OnDestroy } from '@angular/core';
 import { BehaviorSubject, from, Observable, of, Subject } from 'rxjs';
-import { catchError, delay, finalize, mapTo, mergeMap, tap, toArray } from 'rxjs/operators';
+import { catchError, delay, finalize, map, mapTo, mergeMap, startWith, tap, toArray } from 'rxjs/operators';
 import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
 import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
+import { AuthorizedAccess } from 'src/app/data/models/AuthorizedAccess';
 
 @Directive()
 export abstract class DataManagerService<T extends AbstractEntity>
@@ -14,10 +15,14 @@ export abstract class DataManagerService<T extends AbstractEntity>
   protected focusedItemsSource: Subject<T[]> = new BehaviorSubject(null);
   protected itemsSource: Subject<T[]> = new Subject();
   protected loadingSource: Subject<boolean> = new BehaviorSubject(false);
+  protected authorizedAccessSource: Subject<AuthorizedAccess> = new Subject();
 
   public focusedItems$: Observable<T[]> = this.focusedItemsSource.asObservable();
   public items$: Observable<T[]> = this.itemsSource.asObservable();
   public loading$: Observable<boolean> = this.loadingSource.asObservable();
+  public canEdit$: Observable<boolean> = this.authorizedAccessSource.asObservable().pipe(map(a => a?.permissions?.includes('update')), startWith(false));
+  public canAdd$: Observable<boolean> = this.authorizedAccessSource.asObservable().pipe(map(a => a?.permissions?.includes('create')), startWith(false));
+  public canDelete$: Observable<boolean> = this.authorizedAccessSource.asObservable().pipe(map(a => a?.permissions?.includes('delete')), startWith(false));  
 
   public get focusedItems(): T[] {
     return this.currentFocusedItems;
@@ -56,6 +61,10 @@ export abstract class DataManagerService<T extends AbstractEntity>
         }
       )
     );
+  }
+
+  public updateAccess(authAccess: AuthorizedAccess): void {
+    this.authorizedAccessSource.next(authAccess);
   }
 
 
