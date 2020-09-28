@@ -23,24 +23,7 @@ export class ManagementRoutingGuard
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-
-    // TODO implement proper use of role permissions
-    // const modules: string[] = state.url.substr(1).split('/');
     return this.appService.isUserLoggedIn();
-
-    // if (currentSession && currentSession.user.employee) {
-    //   if (modules.length > 1) {
-    //     const idCargo = currentSession.user.employee.role.id;
-    //     const subModule = modules[1];
-    //     const cargosAutorizados = MANAGEMENT_ROUTING_AUTH_ROLES[subModule];
-
-    //     if (cargosAutorizados) {
-    //       return cargosAutorizados.includes(idCargo);
-    //     }
-    //   }
-    //   return true;
-    // }
-    // return false;
   }
 
   canActivate(
