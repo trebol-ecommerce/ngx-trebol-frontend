@@ -9,6 +9,7 @@ import { Client } from 'src/app/data/models/entities/Client';
 import { Person } from 'src/app/data/models/entities/Person';
 import { User } from 'src/app/data/models/entities/User';
 import { Login } from 'src/app/data/models/Login';
+import { AuthorizedAccess } from './data/models/AuthorizedAccess';
 
 @Injectable({ providedIn: 'root' })
 export class AppService
@@ -89,6 +90,10 @@ export class AppService
       finalize(() => { this.isValidatingSessionSource.next(false); }),
       tap(isValid => { if (!isValid) { this.closeCurrentSession(); } })
     );
+  }
+
+  public getAuthorizedAccess(): Observable<AuthorizedAccess> {
+    return this.isLoggedIn ? this.authService.getAuthorizedAccess() : of(null);
   }
 
   public getUserProfile(): Observable<Person> {
