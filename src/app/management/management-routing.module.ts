@@ -3,16 +3,16 @@ import { Route, RouterModule, Routes } from '@angular/router';
 import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementComponent } from './management.component';
 import { ClientManagerComponent } from './routes/clients/client-manager.component';
-import { ClientManagerResolver } from './routes/clients/client-manager.resolver';
+import { ClientManagerItemsResolver } from './routes/clients/client-manager.items-resolver';
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
 import { EmployeeManagerComponent } from './routes/employees/employee-manager.component';
-import { EmployeeManagerResolver } from './routes/employees/employee-manager.resolver';
+import { EmployeeManagerItemsResolver } from './routes/employees/employee-manager.items-resolver';
 import { ProductManagerComponent } from './routes/products/product-manager.component';
-import { ProductManagerResolver } from './routes/products/product-manager.resolver';
+import { ProductManagerItemsResolver } from './routes/products/product-manager.items-resolver';
 import { SellManagerComponent } from './routes/sales/sell-manager.component';
-import { SellManagerResolver } from './routes/sales/sell-manager.resolver';
+import { SellManagerItemsResolver } from './routes/sales/sell-manager.items-resolver';
 import { UserManagerComponent } from './routes/users/user-manager.component';
-import { UserManagerResolver } from './routes/users/user-manager.resolver';
+import { UserManagerItemsResolver } from './routes/users/user-manager.items-resolver';
 
 export interface ManagementChildRoute extends Route {
   data: { matIcon: string, title: string }
@@ -26,27 +26,27 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
   {
     path: 'sales', component: SellManagerComponent, 
     data: { matIcon: 'attach_money', title: 'Ventas' }, 
-    resolve: { items: SellManagerResolver } 
+    resolve: { items: SellManagerItemsResolver } 
   },
   {
     path: 'products', component: ProductManagerComponent, 
     data: { matIcon: 'store', title: 'Productos' }, 
-    resolve: { items: ProductManagerResolver } 
+    resolve: { items: ProductManagerItemsResolver } 
   },
   {
     path: 'clients', component: ClientManagerComponent, 
     data: { matIcon: 'person', title: 'Clientes' }, 
-    resolve: { items: ClientManagerResolver } 
+    resolve: { items: ClientManagerItemsResolver } 
   },
   {
     path: 'employees', component: EmployeeManagerComponent, 
     data: { matIcon: 'work', title: 'Empleados' }, 
-    resolve: { items: EmployeeManagerResolver } 
+    resolve: { items: EmployeeManagerItemsResolver } 
   },
   {
     path: 'users', component: UserManagerComponent, 
     data: { matIcon: 'perm_identity', title: 'Usuarios' }, 
-    resolve: { items: UserManagerResolver } 
+    resolve: { items: UserManagerItemsResolver } 
   }
 ];
 

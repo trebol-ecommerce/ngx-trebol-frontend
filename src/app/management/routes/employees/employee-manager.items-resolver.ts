@@ -6,7 +6,7 @@ import { EntityCrudIService } from '../../../data/entity.crud.iservice';
 import { Employee } from '../../../data/models/entities/Employee';
 
 @Injectable({ providedIn: 'root' })
-export class EmployeeManagerResolver
+export class EmployeeManagerItemsResolver
   implements Resolve<Employee[]> {
   
   constructor(

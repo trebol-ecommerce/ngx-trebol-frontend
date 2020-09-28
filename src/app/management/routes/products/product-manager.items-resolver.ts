@@ -6,7 +6,7 @@ import { EntityCrudIService } from '../../../data/entity.crud.iservice';
 import { Product } from '../../../data/models/entities/Product';
 
 @Injectable({ providedIn: 'root' })
-export class ProductManagerResolver
+export class ProductManagerItemsResolver
   implements Resolve<Product[]> {
   
   constructor(
