@@ -100,7 +100,7 @@ export class HttpAuthService
       return of({ routes });
     } else {
       return this.http.get<AuthorizedAccess>(
-        `${this.baseURI}/routes`
+        `${this.baseURI}/api`
       ).pipe(
         tap(
           access => {
