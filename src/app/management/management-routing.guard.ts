@@ -15,21 +15,13 @@ export class ManagementRoutingGuard
     protected router: Router,
     protected appService: AppService
   ) {
-
-  }
-
-  protected isPermitted(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
-    return this.appService.isUserLoggedIn();
   }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.isPermitted(route, state).pipe(
+    return this.appService.isUserLoggedIn().pipe(
       map(
         r => {
           if (!r) {
