@@ -8,7 +8,6 @@ export interface AuthenticationIService {
   guestLogin(details: Person): Observable<boolean>;
   register(details: Partial<User>): Observable<boolean>;
   login(details: any): Observable<boolean>;
-  validate(): Observable<boolean>;
   getAuthorizedAccess(): Observable<AuthorizedAccess>;
   getResourceAuthorizedAccess(resource: string): Observable<AuthorizedAccess>;
   getProfile(): Observable<Person>;

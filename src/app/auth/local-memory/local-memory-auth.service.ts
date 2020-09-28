@@ -85,11 +85,6 @@ export class LocalMemoryAuthService
     );
   }
 
-  public validate(): Observable<boolean> {
-    const hasSession = (sessionStorage.getItem('session') !== null);
-    return of(hasSession);
-  }
-
   public logout(): Observable<boolean> {
     sessionStorage.removeItem('session');
     return of(true);
