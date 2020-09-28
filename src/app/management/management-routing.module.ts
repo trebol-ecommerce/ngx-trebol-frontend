@@ -31,27 +31,27 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
   {
     path: 'sales', component: SellManagerComponent, 
     data: { matIcon: 'attach_money', title: 'Ventas' }, 
-    resolve: { items: SellManagerItemsResolver, access: SellManagerAccessResolver } 
+    resolve: { access: SellManagerAccessResolver } 
   },
   {
     path: 'products', component: ProductManagerComponent, 
     data: { matIcon: 'store', title: 'Productos' }, 
-    resolve: { items: ProductManagerItemsResolver, access: ProductManagerAccessResolver } 
+    resolve: { access: ProductManagerAccessResolver } 
   },
   {
     path: 'clients', component: ClientManagerComponent, 
     data: { matIcon: 'person', title: 'Clientes' }, 
-    resolve: { items: ClientManagerItemsResolver, access: ClientManagerAccessResolver } 
+    resolve: { access: ClientManagerAccessResolver } 
   },
   {
     path: 'employees', component: EmployeeManagerComponent, 
     data: { matIcon: 'work', title: 'Empleados' }, 
-    resolve: { items: EmployeeManagerItemsResolver, access: EmployeeManagerAccessResolver } 
+    resolve: { access: EmployeeManagerAccessResolver } 
   },
   {
     path: 'users', component: UserManagerComponent, 
     data: { matIcon: 'perm_identity', title: 'Usuarios' }, 
-    resolve: { items: UserManagerItemsResolver, access: UserManagerAccessResolver } 
+    resolve: { access: UserManagerAccessResolver } 
   }
 ];
 
