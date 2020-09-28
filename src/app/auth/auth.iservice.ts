@@ -10,6 +10,7 @@ export interface AuthenticationIService {
   login(details: any): Observable<boolean>;
   validate(): Observable<boolean>;
   getAuthorizedAccess(): Observable<AuthorizedAccess>;
+  getResourceAuthorizedAccess(resource: string): Observable<AuthorizedAccess>;
   getProfile(): Observable<Person>;
   updateProfile(details: Person): Observable<boolean>;
   logout(): Observable<boolean>;
