@@ -47,12 +47,14 @@
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let product">
             <button mat-button mat-icon-button type="button"
+              *ngIf="canEdit$ | async"
               color="primary"
               [disabled]="busy$ | async"
               (click)="onClickEdit(product)">
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-button mat-icon-button type="button"
+              *ngIf="canDelete$ | async"
               color="warn"
               [disabled]="busy$ | async"
               (click)="onClickDelete(product)">
@@ -67,6 +69,7 @@
 
     </div>
     <app-management-data-actions
+      *ngIf="canAdd$ | async"
       (add)="onClickAdd()">
     </app-management-data-actions>
   </div>
