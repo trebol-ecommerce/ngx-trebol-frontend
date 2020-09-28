@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
+import { AppService } from 'src/app/app.service';
 import { ManagementChildRoute, MANAGEMENT_CHILD_ROUTES } from '../management-routing.module';
 import { ManagementService } from '../management.service';
 import { SidenavModuleItem } from './SidenavModuleItem';
@@ -22,7 +23,8 @@ export class ManagementSidenavComponent
 
   constructor(
     protected service: ManagementService,
-    protected router: Router
+    protected router: Router,
+    protected appService: AppService
   ) {
   }
 
@@ -36,8 +38,14 @@ export class ManagementSidenavComponent
   }
 
   ngOnInit(): void {
-    this.modules = MANAGEMENT_CHILD_ROUTES.map(this.routeToListItem);
-    this.modulesSource.next(this.modules);
+    this.appService.getAuthorizedAccess().subscribe(
+      access => {
+        this.modules = MANAGEMENT_CHILD_ROUTES
+          .filter(r => access.routes.includes(r.path) || r.path === 'dashboard')
+          .map(this.routeToListItem);
+        this.modulesSource.next(this.modules);
+      }
+    );
 
     this.activeRouteSubscription = this.service.activeRouteSnapshot$.subscribe(
       (route: ActivatedRouteSnapshot) => {
