@@ -77,6 +77,7 @@ export class AppService
       return this.authService.login(credentials).pipe(
         tap( //TODO and this tap too
           success => {
+            this.isLoggedIn = true;
             this.isLoggedInChangesSource.next(true);
           }
         )
