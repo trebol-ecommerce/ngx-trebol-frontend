@@ -5,8 +5,7 @@ import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
 import { DataManagerService } from './data-manager.aservice';
 
 @Directive()
-export abstract class DataManagerComponent<T extends AbstractEntity>
-  implements OnInit {
+export abstract class DataManagerComponent<T extends AbstractEntity> {
 
   protected abstract service: DataManagerService<T>;
   public abstract tableColumns: string[];
@@ -18,13 +17,13 @@ export abstract class DataManagerComponent<T extends AbstractEntity>
   public canAdd$: Observable<boolean>;
   public canDelete$: Observable<boolean>;
 
-  ngOnInit(): void {
-    this.loading$ = this.service.loading$.pipe();
-    this.busy$ = this.service.focusedItems$.pipe(map(items => items?.length > 0));
-    this.items$ = this.service.items$.pipe();
-    this.canEdit$ = this.service.canEdit$.pipe();
-    this.canAdd$ = this.service.canAdd$.pipe();
-    this.canDelete$ = this.service.canDelete$.pipe();
+  init(service: DataManagerService<T>): void {
+    this.loading$ = service.loading$.pipe();
+    this.busy$ = service.focusedItems$.pipe(map(items => items?.length > 0));
+    this.items$ = service.items$.pipe();
+    this.canEdit$ = service.canEdit$.pipe();
+    this.canAdd$ = service.canAdd$.pipe();
+    this.canDelete$ = service.canDelete$.pipe();
   }
 
   public abstract openFormDialog(item: T): Observable<T>;

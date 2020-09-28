@@ -34,6 +34,7 @@ export class ProductManagerComponent
   }
 
   ngOnInit(): void {
+    super.init(this.service);
     this.route.data.subscribe(
       d => {
         this.service.updateAccess(d.access); 
