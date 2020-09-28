@@ -32,6 +32,9 @@ export class ClientManagerComponent
       this.route.data.pipe(pluck('items')),
       this.service.items$.pipe()
     );
+    this.route.data.subscribe(
+      d => { this.service.updateAccess(d.access); }
+    );
   }
 
   public openFormDialog(item: Client): Observable<Client> {

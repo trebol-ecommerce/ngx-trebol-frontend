@@ -38,6 +38,9 @@ export class SellManagerComponent
       this.route.data.pipe(pluck('items')),
       this.service.items$.pipe()
     );
+    this.route.data.subscribe(
+      d => { this.service.updateAccess(d.access); }
+    );
   }
 
   public openFormDialog(sell: Sell): Observable<Sell> {

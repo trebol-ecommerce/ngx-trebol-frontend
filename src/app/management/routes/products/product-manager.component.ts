@@ -38,6 +38,9 @@ export class ProductManagerComponent
       this.route.data.pipe(pluck('items')),
       this.service.items$.pipe()
     );
+    this.route.data.subscribe(
+      d => { this.service.updateAccess(d.access); }
+    );
   }
 
   public openFormDialog(product: Product): Observable<Product> {
