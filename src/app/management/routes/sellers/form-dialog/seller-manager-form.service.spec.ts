@@ -1,18 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { LocalMemoryDataModule } from 'src/app/data/local-memory/local-memory-data.module';
-import { EmployeeManagerService } from './employee-manager.service';
+import { SellerManagerFormService } from './seller-manager-form.service';
 
-describe('EmployeeManagerService', () => {
-  let service: EmployeeManagerService;
+describe('SellerManagerFormService', () => {
+  let service: SellerManagerFormService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ LocalMemoryDataModule ],
       providers: [
-        EmployeeManagerService
+        SellerManagerFormService
       ]
     });
-    service = TestBed.inject(EmployeeManagerService);
+    service = TestBed.inject(SellerManagerFormService);
   });
 
   it('should be created', () => {

@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { merge, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Client } from 'src/app/data/models/entities/Client';
-import { Employee } from 'src/app/data/models/entities/Employee';
+import { Seller } from 'src/app/data/models/entities/Seller';
 import { Product } from 'src/app/data/models/entities/Product';
 import { Sell } from 'src/app/data/models/entities/Sell';
 import { SellDetail } from 'src/app/data/models/entities/SellDetail';
@@ -39,13 +39,13 @@ export class SellManagerFormDialogComponent
   public sellTotalValue$: Observable<number>;
 
   public sellTypes$: Observable<SellType[]>;
-  public employees$: Observable<Employee[]>;
+  public sellers$: Observable<Seller[]>;
   public clients$: Observable<Client[]>;
 
   public formGroup: FormGroup;
   public sellDate: string = (new Date()).toLocaleDateString();
   public get type(): FormControl { return this.formGroup.get('type') as FormControl; }
-  public get employee(): FormControl { return this.formGroup.get('employee') as FormControl; }
+  public get seller(): FormControl { return this.formGroup.get('seller') as FormControl; }
   public get client(): FormControl { return this.formGroup.get('client') as FormControl; }
 
   public sellIsntReady$: Observable<boolean>;
@@ -64,7 +64,7 @@ export class SellManagerFormDialogComponent
     super();
     this.formGroup = this.formBuilder.group({
       type: [null, Validators.required],
-      employee: [null],
+      seller: [null],
       client: [null, Validators.required]
     });
 
@@ -82,8 +82,8 @@ export class SellManagerFormDialogComponent
     if (s.client?.id) {
       this.client.setValue(s.client.id, { emitEvent: false, onlySelf: true });
     }
-    if (s.employee?.id) {
-      this.employee.setValue(s.employee.id, { emitEvent: false, onlySelf: true });
+    if (s.seller?.id) {
+      this.seller.setValue(s.seller.id, { emitEvent: false, onlySelf: true });
     }
 
     if (this.itemId) {
@@ -97,7 +97,7 @@ export class SellManagerFormDialogComponent
     this.sellDetails$ = this.service.sellDetails$.pipe(tap(details => { this.sellDetails = details; }));
 
     this.sellTypes$ = this.service.getAllSellTypes();
-    this.employees$ = this.service.getAllEmployees();
+    this.sellers$ = this.service.getAllSellers();
     this.clients$ = this.service.getAllClients();
 
     this.sellSubtotalValue$ = this.service.sellSubtotalValue$.pipe();
@@ -153,7 +153,7 @@ export class SellManagerFormDialogComponent
           type: { id: this.type.value },
           soldOn: this.sellDate ? this.sellDate : null,
           client: { id: this.client.value },
-          employee: { id: this.employee.value },
+          seller: { id: this.seller.value },
           details: this.sellDetails
         }
       );

@@ -3,7 +3,7 @@ import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { concatMap, map, switchMap, toArray } from 'rxjs/operators';
 import { DataManagerFormService } from '../../data-manager-form.aservice';
 import { Client } from 'src/app/data/models/entities/Client';
-import { Employee } from 'src/app/data/models/entities/Employee';
+import { Seller } from 'src/app/data/models/entities/Seller';
 import { Product } from 'src/app/data/models/entities/Product';
 import { Sell } from 'src/app/data/models/entities/Sell';
 import { SellDetail } from 'src/app/data/models/entities/SellDetail';
@@ -29,7 +29,7 @@ export class SellManagerFormService
     @Inject(DATA_INJECTION_TOKENS.sales) protected dataService: CompositeEntityCrudIService<Sell, SellDetail>,
     @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityCrudIService<Product>,
     @Inject(DATA_INJECTION_TOKENS.clients) protected clientDataService: EntityCrudIService<Client>,
-    @Inject(DATA_INJECTION_TOKENS.employees) protected employeeDataService: EntityCrudIService<Employee>,
+    @Inject(DATA_INJECTION_TOKENS.sellers) protected sellerDataService: EntityCrudIService<Seller>,
     @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService,
   ) {
     super();
@@ -53,8 +53,8 @@ export class SellManagerFormService
     return this.sharedDataService.readAllSellTypes();
   }
 
-  public getAllEmployees(): Observable<Employee[]> {
-    return this.employeeDataService.readAll();
+  public getAllSellers(): Observable<Seller[]> {
+    return this.sellerDataService.readAll();
   }
 
   public getAllClients(): Observable<Client[]> {

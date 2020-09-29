@@ -1,6 +1,6 @@
 import { AbstractEntity } from '../AbstractEntity';
 import { Person } from './Person';
-import { Employee } from './Employee';
+import { Seller } from './Seller';
 import { Login } from '../Login';
 
 export class User
@@ -12,6 +12,6 @@ export class User
   public password?: string;
 
   public person: Partial<Person>;
-  public employee?: Employee;
+  public seller?: Seller;
   public clientId?: number;
 }

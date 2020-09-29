@@ -6,9 +6,9 @@ import { ClientManagerComponent } from './routes/clients/client-manager.componen
 import { ClientManagerItemsResolver } from './routes/clients/client-manager.items-resolver';
 import { ClientManagerAccessResolver } from './routes/clients/client-manager.access-resolver';
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
-import { EmployeeManagerComponent } from './routes/employees/employee-manager.component';
-import { EmployeeManagerItemsResolver } from './routes/employees/employee-manager.items-resolver';
-import { EmployeeManagerAccessResolver } from './routes/employees/employee-manager.access-resolver';
+import { SellerManagerComponent } from './routes/sellers/seller-manager.component';
+import { SellerManagerItemsResolver } from './routes/sellers/seller-manager.items-resolver';
+import { SellerManagerAccessResolver } from './routes/sellers/seller-manager.access-resolver';
 import { ProductManagerComponent } from './routes/products/product-manager.component';
 import { ProductManagerItemsResolver } from './routes/products/product-manager.items-resolver';
 import { ProductManagerAccessResolver } from './routes/products/product-manager.access-resolver';
@@ -44,9 +44,9 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
     resolve: { access: ClientManagerAccessResolver } 
   },
   {
-    path: 'employees', component: EmployeeManagerComponent, 
+    path: 'sellers', component: SellerManagerComponent, 
     data: { matIcon: 'work', title: 'Empleados' }, 
-    resolve: { access: EmployeeManagerAccessResolver } 
+    resolve: { access: SellerManagerAccessResolver } 
   },
   {
     path: 'users', component: UserManagerComponent, 

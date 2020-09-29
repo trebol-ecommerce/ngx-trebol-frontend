@@ -3,25 +3,25 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { Employee } from 'src/app/data/models/entities/Employee';
+import { Seller } from 'src/app/data/models/entities/Seller';
 import { Person } from 'src/app/data/models/entities/Person';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
-import { EmployeeManagerFormService } from './employee-manager-form.service';
+import { SellerManagerFormService } from './seller-manager-form.service';
 
-export interface EmployeeManagementFormDialogData {
-  employee: Employee;
+export interface SellerManagementFormDialogData {
+  seller: Seller;
 }
 
 @Component({
-  providers: [ EmployeeManagerFormService ],
-  selector: 'app-employee-manager-form-dialog',
-  templateUrl: './employee-manager-form-dialog.component.html',
-  styleUrls: [ './employee-manager-form-dialog.component.css' ]
+  providers: [ SellerManagerFormService ],
+  selector: 'app-seller-manager-form-dialog',
+  templateUrl: './seller-manager-form-dialog.component.html',
+  styleUrls: [ './seller-manager-form-dialog.component.css' ]
 })
-export class EmployeeManagerFormDialogComponent
-  extends DataManagerFormComponent<Employee>
+export class SellerManagerFormDialogComponent
+  extends DataManagerFormComponent<Seller>
   implements AfterViewInit {
 
   protected itemId: number;
@@ -32,12 +32,12 @@ export class EmployeeManagerFormDialogComponent
   public get role(): FormControl { return this.formGroup.get('role') as FormControl; }
   @ViewChild('personForm', { static: true }) public personForm: PersonFormComponent;
 
-  public get dialogTitle(): string { return ((this.data?.employee?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Empleado'; };
+  public get dialogTitle(): string { return ((this.data?.seller?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Empleado'; };
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) protected data: EmployeeManagementFormDialogData,
-    protected service: EmployeeManagerFormService,
-    protected dialog: MatDialogRef<EmployeeManagerFormDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) protected data: SellerManagementFormDialogData,
+    protected service: SellerManagerFormService,
+    protected dialog: MatDialogRef<SellerManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
     protected formBuilder: FormBuilder
   ) {
@@ -47,7 +47,7 @@ export class EmployeeManagerFormDialogComponent
     });
   }
 
-  protected load(e: Employee): void {
+  protected load(e: Seller): void {
     this.itemId = e.id ? e.id : 0;
 
     this.personForm.person = (e.person) ? e.person : new Person();
@@ -56,16 +56,16 @@ export class EmployeeManagerFormDialogComponent
   ngAfterViewInit(): void {
     this.formGroup.addControl('person', this.personForm.formGroup);
 
-    const item: Employee = (this.data?.employee) ? this.data.employee : new Employee();
+    const item: Seller = (this.data?.seller) ? this.data.seller : new Seller();
     this.load(item);
   }
 
-  public asItem(): Employee {
+  public asItem(): Seller {
     if (this.formGroup.invalid) {
       return undefined;
     } else {
-      return Object.assign<Employee, Partial<Employee>>(
-        new Employee(),
+      return Object.assign<Seller, Partial<Seller>>(
+        new Seller(),
         {
           id: this.itemId,
           person: this.personForm.asPerson()

@@ -15,7 +15,7 @@ export const MOCK_USERS: Partial<User>[] = [
       name: 'Administrador',
       idCard: '',
     },
-    employee: { id: 1 },
+    seller: { id: 1 },
     clientId: 1
   }
 ];

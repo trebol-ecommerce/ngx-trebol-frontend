@@ -3,20 +3,20 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable } from 'rxjs';
 import { DATA_INJECTION_TOKENS } from '../../../data/data-injection-tokens';
 import { EntityCrudIService } from '../../../data/entity.crud.iservice';
-import { Employee } from '../../../data/models/entities/Employee';
+import { Seller } from '../../../data/models/entities/Seller';
 
 @Injectable({ providedIn: 'root' })
-export class EmployeeManagerItemsResolver
-  implements Resolve<Employee[]> {
+export class SellerManagerItemsResolver
+  implements Resolve<Seller[]> {
   
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.employees) protected dataService: EntityCrudIService<Employee>
+    @Inject(DATA_INJECTION_TOKENS.sellers) protected dataService: EntityCrudIService<Seller>
   ) { }
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<Employee[]>|Promise<Employee[]>|Employee[] {
+  ): Observable<Seller[]>|Promise<Seller[]>|Seller[] {
     return this.dataService.readAll();
   }
 }

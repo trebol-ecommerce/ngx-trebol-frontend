@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Employee } from 'src/app/data/models/entities/Employee';
+import { Seller } from 'src/app/data/models/entities/Seller';
 import { EntityLocalMemoryCrudService } from './entity.local-memory-crud.aservice';
 
-export const MOCK_EMPLOYEES: Partial<Employee>[] = [
+export const MOCK_EMPLOYEES: Partial<Seller>[] = [
   {
     id: 1,
     person: {
@@ -16,10 +16,10 @@ export const MOCK_EMPLOYEES: Partial<Employee>[] = [
 ];
 
 @Injectable()
-export class EmployeesLocalMemoryCrudService
-  extends EntityLocalMemoryCrudService<Employee> {
+export class SellersLocalMemoryCrudService
+  extends EntityLocalMemoryCrudService<Seller> {
 
-  protected items: Employee[] = MOCK_EMPLOYEES.map(n => Object.assign(new Employee(), n));
+  protected items: Seller[] = MOCK_EMPLOYEES.map(n => Object.assign(new Seller(), n));
 
   constructor() {
     super();

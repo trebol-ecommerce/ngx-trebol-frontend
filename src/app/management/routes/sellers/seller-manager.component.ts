@@ -4,28 +4,28 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Employee } from 'src/app/data/models/entities/Employee';
+import { Seller } from 'src/app/data/models/entities/Seller';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerComponent } from '../data-manager.acomponent';
-import { EmployeeManagerService } from './employee-manager.service';
-import { EmployeeManagementFormDialogData, EmployeeManagerFormDialogComponent } from './form-dialog/employee-manager-form-dialog.component';
+import { SellerManagerService } from './seller-manager.service';
+import { SellerManagementFormDialogData, SellerManagerFormDialogComponent } from './form-dialog/seller-manager-form-dialog.component';
 
 @Component({
-  selector: 'app-employee-manager',
-  templateUrl: './employee-manager.component.html',
+  selector: 'app-seller-manager',
+  templateUrl: './seller-manager.component.html',
   styleUrls: [
     '../data-manager.styles.css',
-    './employee-manager.component.css'
+    './seller-manager.component.css'
   ]
 })
-export class EmployeeManagerComponent
-  extends DataManagerComponent<Employee>
+export class SellerManagerComponent
+  extends DataManagerComponent<Seller>
   implements OnInit {
 
   public tableColumns: string[] = [ 'name', 'idCard', 'actions' ];
 
   constructor(
-    protected service: EmployeeManagerService,
+    protected service: SellerManagerService,
     protected dialogService: MatDialog,
     protected snackBarService: MatSnackBar,
     protected route: ActivatedRoute
@@ -43,11 +43,11 @@ export class EmployeeManagerComponent
     );
   }
 
-  public openFormDialog(employee: Employee): Observable<Employee> {
-    const dialogData: EmployeeManagementFormDialogData = { employee };
+  public openFormDialog(seller: Seller): Observable<Seller> {
+    const dialogData: SellerManagementFormDialogData = { seller };
 
     return this.dialogService.open(
-      EmployeeManagerFormDialogComponent,
+      SellerManagerFormDialogComponent,
       {
         width: '40rem',
         data: dialogData
@@ -55,7 +55,7 @@ export class EmployeeManagerComponent
     ).afterClosed();
   }
 
-  public onClickDelete(e: Employee) {
+  public onClickDelete(e: Seller) {
     this.service.removeItems([e]).pipe(
       map(results => results[0])
     ).subscribe(

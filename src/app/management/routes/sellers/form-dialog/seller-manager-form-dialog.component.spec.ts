@@ -2,13 +2,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { EmployeeManagerFormDialogComponent } from './employee-manager-form-dialog.component';
-import { EmployeeManagerFormService } from './employee-manager-form.service';
+import { SellerManagerFormDialogComponent } from './seller-manager-form-dialog.component';
+import { SellerManagerFormService } from './seller-manager-form.service';
 
-describe('EmployeeManagerFormDialogComponent', () => {
-  let component: EmployeeManagerFormDialogComponent;
-  let fixture: ComponentFixture<EmployeeManagerFormDialogComponent>;
-  let service: Partial<EmployeeManagerFormService>;
+describe('SellerManagerFormDialogComponent', () => {
+  let component: SellerManagerFormDialogComponent;
+  let fixture: ComponentFixture<SellerManagerFormDialogComponent>;
+  let service: Partial<SellerManagerFormService>;
 
   beforeEach(async(() => {
     service = {
@@ -19,7 +19,7 @@ describe('EmployeeManagerFormDialogComponent', () => {
       imports: [
         SharedModule
       ],
-      declarations: [ EmployeeManagerFormDialogComponent ],
+      declarations: [ SellerManagerFormDialogComponent ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },
         { provide: MatDialogRef, useValue: {} }
@@ -29,8 +29,8 @@ describe('EmployeeManagerFormDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    TestBed.overrideProvider(EmployeeManagerFormService, { useValue: service });
-    fixture = TestBed.createComponent(EmployeeManagerFormDialogComponent);
+    TestBed.overrideProvider(SellerManagerFormService, { useValue: service });
+    fixture = TestBed.createComponent(SellerManagerFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

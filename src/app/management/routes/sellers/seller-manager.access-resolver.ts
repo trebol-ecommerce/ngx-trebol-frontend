@@ -6,7 +6,7 @@ import { AuthenticationIService } from '../../../auth/auth.iservice';
 import { AuthorizedAccess } from '../../../data/models/AuthorizedAccess';
 
 @Injectable({ providedIn: 'root' })
-export class EmployeeManagerAccessResolver
+export class SellerManagerAccessResolver
   implements Resolve<AuthorizedAccess> {
   
   constructor(
@@ -17,6 +17,6 @@ export class EmployeeManagerAccessResolver
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<AuthorizedAccess>|Promise<AuthorizedAccess>|AuthorizedAccess {
-    return this.authService.getResourceAuthorizedAccess('employee');
+    return this.authService.getResourceAuthorizedAccess('seller');
   }
 }

@@ -19,8 +19,8 @@
       </mat-form-field>
 
       <mat-form-field style="grid-area: seller">
-        <mat-select placeholder="Vendedor" formControlName="employee">
-          <mat-option *ngFor="let e of (employees$ | async)" [value]="e.id">
+        <mat-select placeholder="Vendedor" formControlName="seller">
+          <mat-option *ngFor="let e of (sellers$ | async)" [value]="e.id">
             {{ e.person.name }}
           </mat-option>
         </mat-select>

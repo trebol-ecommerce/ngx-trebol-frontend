@@ -2,13 +2,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { MATERIAL_MODULES } from 'src/app/shared/angular-material.module';
-import { EmployeeManagerComponent } from './employee-manager.component';
-import { EmployeeManagerService } from './employee-manager.service';
+import { SellerManagerComponent } from './seller-manager.component';
+import { SellerManagerService } from './seller-manager.service';
 
-describe('EmployeeManagerComponent', () => {
-  let component: EmployeeManagerComponent;
-  let fixture: ComponentFixture<EmployeeManagerComponent>;
-  let managerService: Partial<EmployeeManagerService>;
+describe('SellerManagerComponent', () => {
+  let component: SellerManagerComponent;
+  let fixture: ComponentFixture<SellerManagerComponent>;
+  let managerService: Partial<SellerManagerService>;
 
   beforeEach(async(() => {
     managerService = {
@@ -24,16 +24,16 @@ describe('EmployeeManagerComponent', () => {
         ...MATERIAL_MODULES,
         RouterTestingModule
       ],
-      declarations: [ EmployeeManagerComponent ],
+      declarations: [ SellerManagerComponent ],
       providers: [
-        { provide: EmployeeManagerService, useValue: managerService }
+        { provide: SellerManagerService, useValue: managerService }
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EmployeeManagerComponent);
+    fixture = TestBed.createComponent(SellerManagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

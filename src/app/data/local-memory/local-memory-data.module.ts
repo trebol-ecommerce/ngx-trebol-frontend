@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { DATA_INJECTION_TOKENS } from '../data-injection-tokens';
 import { ClientsLocalMemoryCrudService } from './clients.local-memory-crud.service';
-import { EmployeesLocalMemoryCrudService } from './employees.local-memory-crud.service';
+import { SellersLocalMemoryCrudService } from './sellers.local-memory-crud.service';
 import { PeopleLocalMemoryCrudService } from './people.local-memory-crud.service';
 import { ProductsLocalMemoryCrudService } from './products.local-memory-crud.service';
 import { SalesLocalMemoryCrudService } from './sales.local-memory-crud.service';
@@ -14,7 +14,7 @@ import { UsersLocalMemoryCrudService } from './users.local-memory-crud.service';
 @NgModule({
   providers: [
     { provide: DATA_INJECTION_TOKENS.clients, useClass: ClientsLocalMemoryCrudService },
-    { provide: DATA_INJECTION_TOKENS.employees, useClass: EmployeesLocalMemoryCrudService },
+    { provide: DATA_INJECTION_TOKENS.sellers, useClass: SellersLocalMemoryCrudService },
     { provide: DATA_INJECTION_TOKENS.people, useClass: PeopleLocalMemoryCrudService },
     { provide: DATA_INJECTION_TOKENS.products, useClass: ProductsLocalMemoryCrudService },
     { provide: DATA_INJECTION_TOKENS.shared, useClass: SharedLocalMemoryDataService },

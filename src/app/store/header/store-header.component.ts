@@ -122,7 +122,7 @@ export class StoreHeaderComponent
     // TODO reimplement this somehow?
     //   () => {
     //     const ssn = this.appService.isUserLoggedIn();
-    //     if (ssn.user?.employee?.role.id === EmployeeRolesEnum.Administrador) {
+    //     if (ssn.user?.seller?.role.id === SellerRolesEnum.Administrador) {
     //       this.promptManagementRedirect();
     //     }
     //   }
