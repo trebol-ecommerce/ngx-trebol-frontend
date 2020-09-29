@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Product } from 'src/app/data/models/entities/Product';
 import { HttpService } from 'src/app/shared/http.abstract-service';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
+import { ProductFamily } from '../models/entities/ProductFamily';
+import { ProductType } from '../models/entities/ProductType';
 import { StoreCatalogDataIService } from '../store.catalog.data.iservice';
 
 @Injectable()
@@ -35,6 +37,18 @@ export class StoreCatalogHttpDataService
     return this.http.get<Product[]>(
       `${this.baseURI}/products`,
       this.httpParamsOf(filters)
+    );
+  }
+
+  public readProductTypes(): Observable<ProductType[]> {
+    return this.http.get<ProductType[]>(
+      `${this.baseURI}/product_types`
+    );
+  }
+
+  public readProductFamilies(): Observable<ProductFamily[]> {
+    return this.http.get<ProductFamily[]>(
+      `${this.baseURI}/product_families`
     );
   }
 }
