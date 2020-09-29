@@ -15,14 +15,18 @@ export abstract class DataManagerService<T extends AbstractEntity>
   protected focusedItemsSource: Subject<T[]> = new BehaviorSubject(null);
   protected itemsSource: Subject<T[]> = new Subject();
   protected loadingSource: Subject<boolean> = new BehaviorSubject(false);
-  protected authorizedAccessSource: Subject<AuthorizedAccess> = new Subject();
+  protected authorizedAccessSource: Subject<AuthorizedAccess> = new BehaviorSubject(null);
 
   public focusedItems$: Observable<T[]> = this.focusedItemsSource.asObservable();
   public items$: Observable<T[]> = this.itemsSource.asObservable();
   public loading$: Observable<boolean> = this.loadingSource.asObservable();
-  public canEdit$: Observable<boolean> = this.authorizedAccessSource.asObservable().pipe(map(a => a?.permissions?.includes('update')), startWith(false));
-  public canAdd$: Observable<boolean> = this.authorizedAccessSource.asObservable().pipe(map(a => a?.permissions?.includes('create')), startWith(false));
-  public canDelete$: Observable<boolean> = this.authorizedAccessSource.asObservable().pipe(map(a => a?.permissions?.includes('delete')), startWith(false));  
+
+  public canEdit$: Observable<boolean> = this.authorizedAccessSource.asObservable().pipe(
+    map(a => (a?.permissions ? a.permissions.includes('update') : false)));
+  public canAdd$: Observable<boolean> = this.authorizedAccessSource.asObservable().pipe(
+    map(a => (a?.permissions ? a.permissions.includes('create') : false)));
+  public canDelete$: Observable<boolean> = this.authorizedAccessSource.asObservable().pipe(
+    map(a => (a?.permissions ? a.permissions.includes('delete') : false)));
 
   public get focusedItems(): T[] {
     return this.currentFocusedItems;
