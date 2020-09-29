@@ -9,5 +9,6 @@ export interface StoreCatalogDataIService {
   readAll(): Observable<Product[]>;
   readFiltered(filters: ProductFilters): Observable<Product[]>;
   readProductTypes(): Observable<ProductType[]>;
+  readProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]>;
   readProductFamilies(): Observable<ProductFamily[]>;
 }
