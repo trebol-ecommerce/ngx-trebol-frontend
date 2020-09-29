@@ -47,7 +47,7 @@ export class StoreCatalogHttpDataService
   }
   
   public readProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]> {
-    const filter = { productFamily: productFamilyId };
+    const filter = { familyId: productFamilyId };
     return this.http.get<ProductType[]>(
       `${this.baseURI}/product_types`,
       this.httpParamsOf(filter)
