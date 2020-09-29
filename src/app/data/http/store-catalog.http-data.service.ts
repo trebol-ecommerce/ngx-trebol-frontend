@@ -45,6 +45,14 @@ export class StoreCatalogHttpDataService
       `${this.baseURI}/product_types`
     );
   }
+  
+  public readProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]> {
+    const filter = { productFamily: productFamilyId };
+    return this.http.get<ProductType[]>(
+      `${this.baseURI}/product_types`,
+      this.httpParamsOf(filter)
+    );
+  }
 
   public readProductFamilies(): Observable<ProductFamily[]> {
     return this.http.get<ProductFamily[]>(
