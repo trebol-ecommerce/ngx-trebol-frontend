@@ -2,22 +2,17 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule, Routes } from '@angular/router';
 import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementComponent } from './management.component';
-import { ClientManagerComponent } from './routes/clients/client-manager.component';
-import { ClientManagerItemsResolver } from './routes/clients/client-manager.items-resolver';
 import { ClientManagerAccessResolver } from './routes/clients/client-manager.access-resolver';
+import { ClientManagerComponent } from './routes/clients/client-manager.component';
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
-import { SellerManagerComponent } from './routes/sellers/seller-manager.component';
-import { SellerManagerItemsResolver } from './routes/sellers/seller-manager.items-resolver';
-import { SellerManagerAccessResolver } from './routes/sellers/seller-manager.access-resolver';
-import { ProductManagerComponent } from './routes/products/product-manager.component';
-import { ProductManagerItemsResolver } from './routes/products/product-manager.items-resolver';
 import { ProductManagerAccessResolver } from './routes/products/product-manager.access-resolver';
-import { SellManagerComponent } from './routes/sales/sell-manager.component';
-import { SellManagerItemsResolver } from './routes/sales/sell-manager.items-resolver';
+import { ProductManagerComponent } from './routes/products/product-manager.component';
 import { SellManagerAccessResolver } from './routes/sales/sell-manager.access-resolver';
-import { UserManagerComponent } from './routes/users/user-manager.component';
-import { UserManagerItemsResolver } from './routes/users/user-manager.items-resolver';
+import { SellManagerComponent } from './routes/sales/sell-manager.component';
+import { SellerManagerAccessResolver } from './routes/sellers/seller-manager.access-resolver';
+import { SellerManagerComponent } from './routes/sellers/seller-manager.component';
 import { UserManagerAccessResolver } from './routes/users/user-manager.access-resolver';
+import { UserManagerComponent } from './routes/users/user-manager.component';
 
 export interface ManagementChildRoute extends Route {
   data: { matIcon: string, title: string }
