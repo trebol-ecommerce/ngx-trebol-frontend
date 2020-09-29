@@ -9,7 +9,7 @@
         formControlName="productFamily">
         <mat-option *ngFor="let family of (families$ | async)"
           [value]="family.id">
-          {{ family.description }}
+          {{ family.name }}
         </mat-option>
       </mat-select>
       <button matSuffix mat-button mat-icon-button *ngIf="productFamily.value"
@@ -23,7 +23,7 @@
         formControlName="productType">
         <mat-option *ngFor="let type of (types$ | async)"
           [value]="type.id">
-          {{ type.description }}
+          {{ type.name }}
         </mat-option>
       </mat-select>
       <button matSuffix mat-button mat-icon-button *ngIf="productType.value"
