@@ -34,7 +34,6 @@ export class ProductFiltersPanelComponent
     protected service: ProductFiltersPanelService,
     protected formBuilder: FormBuilder
   ) {
-
     this.formGroup = this.formBuilder.group({
       productFamily: [null],
       productType: [{value: null, disabled: true}],
@@ -47,7 +46,7 @@ export class ProductFiltersPanelComponent
   public get productName() { return this.formGroup.get('productName'); }
 
   ngOnInit(): void {
-
+    this.families$ = this.service.getAllProductFamilies();
     this.familyChangeSub = this.productFamily.valueChanges.subscribe(() => { this.onChangeProductFamily(); });
     this.typeChangeSub = this.productType.valueChanges.subscribe(() => { this.emitFiltersChange(); });
     this.nameChangeSub = this.productName.valueChanges.pipe(
