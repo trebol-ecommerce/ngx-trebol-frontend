@@ -30,14 +30,6 @@ export class SharedHttpDataService
     throw new Error("Method not implemented.");
   }
 
-  public readAllPersonas(): Observable<Person[]> {
-    return this.http.get<Person[]>(
-      `${this.baseURI}/people`
-    ).pipe(
-      retry(2)
-    );
-  }
-
   public readAllProductFamilies(): Observable<ProductFamily[]> {
     return this.http.get<ProductFamily[]>(
       `${this.baseURI}/product_families`
@@ -58,6 +50,14 @@ export class SharedHttpDataService
     return this.http.get<ProductType[]>(
       `${this.baseURI}/product_types`,
       this.httpParamsOf({ familyId })
+    ).pipe(
+      retry(2)
+    );
+  }
+
+  public readAllPeople(): Observable<Person[]> {
+    return this.http.get<Person[]>(
+      `${this.baseURI}/people`
     ).pipe(
       retry(2)
     );

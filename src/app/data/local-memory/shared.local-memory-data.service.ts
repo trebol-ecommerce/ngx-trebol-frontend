@@ -4,6 +4,7 @@ import { CompanyDetails } from 'src/app/data/models/CompanyDetails';
 import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
 import { ProductType } from 'src/app/data/models/entities/ProductType';
 import { SellType } from 'src/app/data/models/entities/SellType';
+import { Person } from '../models/entities/Person';
 import { SharedDataIService } from '../shared.data.iservice';
 
 export const MOCK_COMPANY_DETAILS: CompanyDetails = {
@@ -29,6 +30,10 @@ export const MOCK_SELL_TYPES: SellType[] = [
 @Injectable()
 export class SharedLocalMemoryDataService
   implements SharedDataIService {
+
+  readAllPeople(): Observable<Person[]> {
+    throw new Error('Method not implemented.');
+  }
 
   public readCompanyDetails(): Observable<CompanyDetails> {
     return of(MOCK_COMPANY_DETAILS);
