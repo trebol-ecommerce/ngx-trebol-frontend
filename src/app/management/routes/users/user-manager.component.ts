@@ -22,7 +22,7 @@ export class UserManagerComponent
   extends DataManagerComponent<User>
   implements OnInit {
 
-  public tableColumns: string[] = [ 'name', 'creationDate', 'fullName', 'actions' ];
+  public tableColumns: string[] = [ 'name', 'actions' ];
 
   constructor(
     protected service: UserManagerService,
