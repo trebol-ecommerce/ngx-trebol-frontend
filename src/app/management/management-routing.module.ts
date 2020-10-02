@@ -40,7 +40,7 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
   },
   {
     path: 'sellers', component: SellerManagerComponent, 
-    data: { matIcon: 'work', title: 'Empleados' }, 
+    data: { matIcon: 'work', title: 'Vendedores' }, 
     resolve: { access: SellerManagerAccessResolver } 
   },
   {
