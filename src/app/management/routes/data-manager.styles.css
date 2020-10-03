@@ -1,8 +1,15 @@
-.data-manager {
+.data-manager, .loading {
   width: 100%;
   height: 100%;
   display: flex;
+  overflow: hidden;
+}
+
+.data-manager {
   flex-flow: column nowrap;
+}
+.loading {
+  align-content: center;
 }
 
 .table-wrapper {
