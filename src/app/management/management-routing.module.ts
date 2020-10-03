@@ -25,27 +25,27 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
   },
   {
     path: 'sales', component: SellManagerComponent, 
-    data: { matIcon: 'attach_money', title: 'Ventas' }, 
+    data: { matIcon: 'loyalty', title: 'Ventas' }, 
     resolve: { access: SellManagerAccessResolver } 
   },
   {
     path: 'products', component: ProductManagerComponent, 
-    data: { matIcon: 'store', title: 'Productos' }, 
+    data: { matIcon: 'list  ', title: 'Productos' }, 
     resolve: { access: ProductManagerAccessResolver } 
   },
   {
     path: 'clients', component: ClientManagerComponent, 
-    data: { matIcon: 'person', title: 'Clientes' }, 
+    data: { matIcon: 'face', title: 'Clientes' }, 
     resolve: { access: ClientManagerAccessResolver } 
   },
   {
     path: 'sellers', component: SellerManagerComponent, 
-    data: { matIcon: 'work', title: 'Vendedores' }, 
+    data: { matIcon: 'work_outline', title: 'Vendedores' }, 
     resolve: { access: SellerManagerAccessResolver } 
   },
   {
     path: 'users', component: UserManagerComponent, 
-    data: { matIcon: 'perm_identity', title: 'Usuarios' }, 
+    data: { matIcon: 'person  ', title: 'Usuarios' }, 
     resolve: { access: UserManagerAccessResolver } 
   }
 ];
