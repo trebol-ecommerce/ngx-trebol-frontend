@@ -9,7 +9,7 @@ import { AuthenticationIService } from 'src/app/auth/auth.iservice';
 export class ManagementService
   implements OnDestroy {
 
-  protected isSidenavOpen: boolean = (localStorage.getItem('ngNewBazaar.sidenavOpen') === 'false') ? false : true;
+  protected isSidenavOpen: boolean = true;
   protected isSidenavOpenSource: Subject<boolean> = new BehaviorSubject(this.isSidenavOpen);
 
   public isSidenavOpen$: Observable<boolean> = this.isSidenavOpenSource.asObservable();
@@ -34,7 +34,6 @@ export class ManagementService
 
   public switchSidenav(): void {
     this.isSidenavOpen = !this.isSidenavOpen;
-    localStorage.setItem('ngNewBazaar.sidenavOpen', this.isSidenavOpen ? 'true' : 'false' );
     this.isSidenavOpenSource.next(this.isSidenavOpen);
   }
 
