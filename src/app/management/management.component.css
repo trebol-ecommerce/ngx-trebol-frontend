@@ -14,6 +14,7 @@ mat-sidenav-container {
 
 mat-sidenav {
   border-right: none;
+  width: 13rem;
 }
 
 .content {
