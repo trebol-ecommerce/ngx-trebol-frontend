@@ -1,19 +1,10 @@
 .sidenav {
-  min-height: 100%;
-  width: 13rem;
+  height: 100%;
   background-color: var(--color-bg);
-}
-@media(min-width: 800px) {
-  .sidenav {
-    width: fit-content;
-  }
 }
 
 mat-nav-list {
-  min-height: 100%;
-  display: grid;
-  padding: 0.5rem 0;
-  grid-gap: 0.5rem;
+  padding: 0;
 }
 
 mat-nav-list * {
@@ -21,7 +12,7 @@ mat-nav-list * {
 }
 
 mat-nav-list a {
-  height: 100%;
+  padding: 1rem 0.75rem 1rem 0;
   font-size: 1.2rem;
 }
 
