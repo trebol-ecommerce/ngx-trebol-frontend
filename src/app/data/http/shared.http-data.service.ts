@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
 import { CompanyDetails } from 'src/app/data/models/CompanyDetails';
-import { Person } from 'src/app/data/models/entities/Person';
 import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
 import { ProductType } from 'src/app/data/models/entities/ProductType';
 import { SellType } from 'src/app/data/models/entities/SellType';
@@ -48,14 +47,6 @@ export class SharedHttpDataService
     return this.http.get<ProductType[]>(
       `${this.baseURI}/api/product_types`,
       this.httpParamsOf({ familyId })
-    ).pipe(
-      retry(2)
-    );
-  }
-
-  public readAllPeople(): Observable<Person[]> {
-    return this.http.get<Person[]>(
-      `${this.baseURI}/api/people`
     ).pipe(
       retry(2)
     );
