@@ -15,8 +15,6 @@ export class SharedHttpDataService
   extends HttpService
   implements SharedDataIService {
 
-  protected baseURI = `${this.baseURI}/api`;
-
   constructor(
     protected http: HttpClient
   ) {
@@ -32,7 +30,7 @@ export class SharedHttpDataService
 
   public readAllProductFamilies(): Observable<ProductFamily[]> {
     return this.http.get<ProductFamily[]>(
-      `${this.baseURI}/product_families`
+      `${this.baseURI}/api/product_families`
     ).pipe(
       retry(2)
     );
@@ -40,7 +38,7 @@ export class SharedHttpDataService
 
   public readAllProductTypes(): Observable<ProductType[]> {
     return this.http.get<ProductType[]>(
-      `${this.baseURI}/product_types`
+      `${this.baseURI}/api/product_types`
     ).pipe(
       retry(2)
     );
@@ -48,7 +46,7 @@ export class SharedHttpDataService
 
   public readAllProductTypesByFamilyId(familyId: number): Observable<ProductType[]> {
     return this.http.get<ProductType[]>(
-      `${this.baseURI}/product_types`,
+      `${this.baseURI}/api/product_types`,
       this.httpParamsOf({ familyId })
     ).pipe(
       retry(2)
@@ -57,7 +55,7 @@ export class SharedHttpDataService
 
   public readAllPeople(): Observable<Person[]> {
     return this.http.get<Person[]>(
-      `${this.baseURI}/people`
+      `${this.baseURI}/api/people`
     ).pipe(
       retry(2)
     );
