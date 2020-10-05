@@ -19,7 +19,7 @@ export class ProductManagerFormService
   public productTypes$: Observable<ProductType[]>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.products) protected dataService: EntityCrudIService<Product>,
+    @Inject(DATA_INJECTION_TOKENS.productsCrud) protected dataService: EntityCrudIService<Product>,
     @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService
   ) {
     super();

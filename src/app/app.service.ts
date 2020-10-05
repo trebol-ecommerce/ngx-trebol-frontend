@@ -24,8 +24,8 @@ export class AppService
 
   constructor(
     @Inject(AUTH_INJECTION_TOKEN) protected authService: AuthenticationIService,
-    @Inject(DATA_INJECTION_TOKENS.users) protected usersDataService: EntityCrudIService<User>,
-    @Inject(DATA_INJECTION_TOKENS.clients) protected clientsDataService: EntityCrudIService<Client>
+    @Inject(DATA_INJECTION_TOKENS.usersCrud) protected usersDataService: EntityCrudIService<User>,
+    @Inject(DATA_INJECTION_TOKENS.clientsCrud) protected clientsDataService: EntityCrudIService<Client>
   ) { 
     this.fetchLoggedInState().subscribe();
   }

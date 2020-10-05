@@ -13,12 +13,12 @@ import { StoreCatalogHttpDataService } from './store-catalog.http-data.service';
  */
 @NgModule({
   providers: [
-    { provide: DATA_INJECTION_TOKENS.clients, useClass: ClientsHttpCrudService },
-    { provide: DATA_INJECTION_TOKENS.sellers, useClass: SellersHttpCrudService },
-    { provide: DATA_INJECTION_TOKENS.products, useClass: ProductsHttpCrudService },
+    { provide: DATA_INJECTION_TOKENS.clientsCrud, useClass: ClientsHttpCrudService },
+    { provide: DATA_INJECTION_TOKENS.sellersCrud, useClass: SellersHttpCrudService },
+    { provide: DATA_INJECTION_TOKENS.productsCrud, useClass: ProductsHttpCrudService },
     { provide: DATA_INJECTION_TOKENS.shared, useClass: SharedHttpDataService },
-    { provide: DATA_INJECTION_TOKENS.users, useClass: UsersHttpCrudService },
-    { provide: DATA_INJECTION_TOKENS.sales, useClass: SalesHttpCrudService },
+    { provide: DATA_INJECTION_TOKENS.usersCrud, useClass: UsersHttpCrudService },
+    { provide: DATA_INJECTION_TOKENS.salesCrud, useClass: SalesHttpCrudService },
     { provide: DATA_INJECTION_TOKENS.storeCatalog, useClass: StoreCatalogHttpDataService }
   ]
 })

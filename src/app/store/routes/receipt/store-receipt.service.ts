@@ -18,7 +18,7 @@ export class StoreReceiptService {
   public soldOn$: Observable<string> = this.sell$.pipe(pluck('soldOn'));
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.sales) protected sellDataService: CompositeEntityCrudIService<Sell, SellDetail>,
+    @Inject(DATA_INJECTION_TOKENS.salesCrud) protected sellDataService: CompositeEntityCrudIService<Sell, SellDetail>,
     protected router: Router
   ) {
   }

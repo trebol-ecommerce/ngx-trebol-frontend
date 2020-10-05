@@ -9,7 +9,7 @@ export class UserManagerService
   extends DataManagerService<User> {
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.users) protected dataService: EntityCrudIService<User>
+    @Inject(DATA_INJECTION_TOKENS.usersCrud) protected dataService: EntityCrudIService<User>
   ) {
     super();
   }

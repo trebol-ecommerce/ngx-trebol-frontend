@@ -13,13 +13,13 @@ import { UsersLocalMemoryCrudService } from './users.local-memory-crud.service';
  */
 @NgModule({
   providers: [
-    { provide: DATA_INJECTION_TOKENS.clients, useClass: ClientsLocalMemoryCrudService },
-    { provide: DATA_INJECTION_TOKENS.sellers, useClass: SellersLocalMemoryCrudService },
+    { provide: DATA_INJECTION_TOKENS.clientsCrud, useClass: ClientsLocalMemoryCrudService },
+    { provide: DATA_INJECTION_TOKENS.sellersCrud, useClass: SellersLocalMemoryCrudService },
     { provide: DATA_INJECTION_TOKENS.people, useClass: PeopleLocalMemoryCrudService },
-    { provide: DATA_INJECTION_TOKENS.products, useClass: ProductsLocalMemoryCrudService },
+    { provide: DATA_INJECTION_TOKENS.productsCrud, useClass: ProductsLocalMemoryCrudService },
     { provide: DATA_INJECTION_TOKENS.shared, useClass: SharedLocalMemoryDataService },
-    { provide: DATA_INJECTION_TOKENS.users, useClass: UsersLocalMemoryCrudService },
-    { provide: DATA_INJECTION_TOKENS.sales, useClass: SalesLocalMemoryCrudService },
+    { provide: DATA_INJECTION_TOKENS.usersCrud, useClass: UsersLocalMemoryCrudService },
+    { provide: DATA_INJECTION_TOKENS.salesCrud, useClass: SalesLocalMemoryCrudService },
     { provide: DATA_INJECTION_TOKENS.storeCatalog, useClass: ProductsLocalMemoryCrudService }
   ]
 })

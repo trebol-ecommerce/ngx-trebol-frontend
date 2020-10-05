@@ -26,10 +26,10 @@ export class SellManagerFormService
   public sellTotalValue$: Observable<number>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.sales) protected dataService: CompositeEntityCrudIService<Sell, SellDetail>,
-    @Inject(DATA_INJECTION_TOKENS.products) protected productDataService: EntityCrudIService<Product>,
-    @Inject(DATA_INJECTION_TOKENS.clients) protected clientDataService: EntityCrudIService<Client>,
-    @Inject(DATA_INJECTION_TOKENS.sellers) protected sellerDataService: EntityCrudIService<Seller>,
+    @Inject(DATA_INJECTION_TOKENS.salesCrud) protected dataService: CompositeEntityCrudIService<Sell, SellDetail>,
+    @Inject(DATA_INJECTION_TOKENS.productsCrud) protected productDataService: EntityCrudIService<Product>,
+    @Inject(DATA_INJECTION_TOKENS.clientsCrud) protected clientDataService: EntityCrudIService<Client>,
+    @Inject(DATA_INJECTION_TOKENS.sellersCrud) protected sellerDataService: EntityCrudIService<Seller>,
     @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService,
   ) {
     super();

@@ -23,7 +23,7 @@ export class StoreService
   public sellSubtotalValue$: Observable<number>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.sales) protected salesDataService: EntityCrudIService<Sell>,
+    @Inject(DATA_INJECTION_TOKENS.salesCrud) protected salesDataService: EntityCrudIService<Sell>,
     protected httpClient: HttpClient
   ) {
     this.itemQuantity$ = this.sellDetails$.pipe(

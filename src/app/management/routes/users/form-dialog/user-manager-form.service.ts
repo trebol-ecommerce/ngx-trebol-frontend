@@ -12,7 +12,7 @@ export class UserManagerFormService
   extends DataManagerFormService<User> {
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.users) public dataService: EntityCrudIService<User>,
+    @Inject(DATA_INJECTION_TOKENS.usersCrud) public dataService: EntityCrudIService<User>,
     @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService
   ) {
     super();

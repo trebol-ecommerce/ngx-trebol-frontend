@@ -4,10 +4,10 @@
 export const DATA_INJECTION_TOKENS = {
   storeCatalog: 'StoreCatalogData',
   shared: 'SharedData',
-  clients: 'ClientsData',
-  sellers: 'SellersData',
+  clientsCrud: 'ClientsCrud',
+  sellersCrud: 'SellersCrud',
   people: 'PeopleData',
-  products: 'ProductsData',
-  users: 'UsersData',
-  sales: 'SalesData'
+  productsCrud: 'ProductsCrud',
+  usersCrud: 'UsersCrud',
+  salesCrud: 'SalesCrud'
 };

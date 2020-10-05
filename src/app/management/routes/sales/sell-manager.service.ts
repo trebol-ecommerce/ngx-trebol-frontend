@@ -10,7 +10,7 @@ export class SellManagerService
   extends DataManagerService<Sell> {
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.sales) protected dataService: CompositeEntityCrudIService<Sell, SellDetail>
+    @Inject(DATA_INJECTION_TOKENS.salesCrud) protected dataService: CompositeEntityCrudIService<Sell, SellDetail>
   ) {
     super();
   }

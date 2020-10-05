@@ -9,7 +9,7 @@ export class ClientManagerService
   extends DataManagerService<Client> {
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.clients) protected dataService: EntityCrudIService<Client>
+    @Inject(DATA_INJECTION_TOKENS.clientsCrud) protected dataService: EntityCrudIService<Client>
   ) {
     super();
   }
