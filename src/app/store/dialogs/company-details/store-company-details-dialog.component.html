@@ -1,4 +1,7 @@
-<div class="dialog">
+<div class="loading" *ngIf="data">
+  <centered-mat-spinner></centered-mat-spinner>
+</div>
+<div class="dialog" *ngIf="data">
   <div class="banner">
     <img [src]="data.bannerImageURL" />
   </div>
