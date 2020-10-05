@@ -20,11 +20,16 @@ export class SharedHttpDataService
     super();
   }
 
-  readCompanyDetails(): Observable<CompanyDetails> {
-    throw new Error("Method not implemented.");
+  public readCompanyDetails(): Observable<CompanyDetails> {
+    return this.http.get<CompanyDetails>(
+      `${this.baseURI}/company`
+    );
   }
+
   readAllSellTypes(): Observable<SellType[]> {
-    throw new Error("Method not implemented.");
+    return this.http.get<SellType[]>(
+      `${this.baseURI}/api/sell_types`
+    );
   }
 
   public readAllProductFamilies(): Observable<ProductFamily[]> {
