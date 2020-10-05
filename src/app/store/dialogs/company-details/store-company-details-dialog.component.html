@@ -1,13 +1,13 @@
-<div class="loading" *ngIf="data">
+<div class="loading" *ngIf="loading$ | async">
   <centered-mat-spinner></centered-mat-spinner>
 </div>
-<div class="dialog" *ngIf="data">
+<div class="dialog" *ngIf="data$ |async">
   <div class="banner">
-    <img [src]="data.bannerImageURL" />
+    <img [src]="bannerURL$ | async" />
   </div>
   <div class="presentation">
-    <img class="logo" [src]="data.logoImageURL" [alt]="data.name" />
-    <span class="name">{{ data.name }}</span>
+    <img class="logo" [src]="logoURL$ | async" [alt]="name$ | async" />
+    <span class="name">{{ name$ | async }}</span>
   </div>
-  <p class="profile">{{ data.description }}</p>
+  <p class="profile">{{ description$ | async }}</p>
 </div>
