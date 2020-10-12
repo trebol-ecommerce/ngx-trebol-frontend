@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   baseURI: '',
-  checkoutURL: 'https://webpay-test.benjaminlamadrid.cl/',
+  checkoutURL: '',
   sessionStorageTokenItemName: 'trebol/bearer-token',
   permissionsStorageTokenItemName: 'trebol/permissions',
   authorizationHeaderName: 'Authorization'
