@@ -1,0 +1,30 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Person } from 'src/app/data/models/entities/Person';
+import { EntityCrudIService } from '../entity.crud.iservice';
+import { EntityHttpCrudService } from './entity.http-crud.aservice';
+
+@Injectable()
+export class PeopleHttpCrudService
+  extends EntityHttpCrudService
+  implements Partial<EntityCrudIService<Person>> {
+
+  constructor(
+    protected http: HttpClient
+  ) {
+    super();
+  }
+
+  public readById(id: number): Observable<Person> {
+    return this.http.get<Person>(
+      `${this.baseURI}/person/${id}`
+    );
+  }
+
+  public readAll(): Observable<Person[]> {
+    return this.http.get<Person[]>(
+      `${this.baseURI}/people`
+    );
+  }
+}

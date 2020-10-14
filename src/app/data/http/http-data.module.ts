@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { DATA_INJECTION_TOKENS } from '../data-injection-tokens';
 import { ClientsHttpCrudService } from './clients.http-crud.service';
 import { SellersHttpCrudService } from './sellers.http-crud.service';
+import { PeopleHttpCrudService } from './people.http-crud.service';
 import { ProductsHttpCrudService } from './products.http-crud.service';
 import { SalesHttpCrudService } from './sales.http-crud.service';
 import { SharedHttpDataService } from './shared.http-data.service';
@@ -15,6 +16,7 @@ import { StoreCatalogHttpDataService } from './store-catalog.http-data.service';
   providers: [
     { provide: DATA_INJECTION_TOKENS.clientsCrud, useClass: ClientsHttpCrudService },
     { provide: DATA_INJECTION_TOKENS.sellersCrud, useClass: SellersHttpCrudService },
+    { provide: DATA_INJECTION_TOKENS.people, useClass: PeopleHttpCrudService },
     { provide: DATA_INJECTION_TOKENS.productsCrud, useClass: ProductsHttpCrudService },
     { provide: DATA_INJECTION_TOKENS.shared, useClass: SharedHttpDataService },
     { provide: DATA_INJECTION_TOKENS.usersCrud, useClass: UsersHttpCrudService },
