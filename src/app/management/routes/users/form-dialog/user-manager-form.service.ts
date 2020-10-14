@@ -12,7 +12,7 @@ export class UserManagerFormService
 
   constructor(
     @Inject(DATA_INJECTION_TOKENS.usersCrud) public dataService: EntityCrudIService<User>,
-    @Inject(DATA_INJECTION_TOKENS.people) protected peopleDataService: EntityCrudIService<Person>
+    @Inject(DATA_INJECTION_TOKENS.people) protected peopleDataService: Partial<EntityCrudIService<Person>>
   ) {
     super();
   }
