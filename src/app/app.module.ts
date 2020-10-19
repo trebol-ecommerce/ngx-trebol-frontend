@@ -3,12 +3,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AppRoutingModule } from 'src/app/app-routing.module';
-import { HttpAuthModule } from 'src/app/auth/http/http-auth.module';
-import { HttpDataModule } from 'src/app/data/http/http-data.module';
 import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { ManagementModule } from './management/management.module';
 import { StoreModule } from './store/store.module';
+import { environment } from 'src/environments/environment';
 
 const DEBUG_ROUTES = false;
 
@@ -20,8 +19,8 @@ const DEBUG_ROUTES = false;
     BrowserModule,
     SharedModule,
     HttpClientModule,
-    HttpDataModule,
-    HttpAuthModule,
+    environment.dataModule,
+    environment.authModule,
     StoreModule,
     ManagementModule,
     AppRoutingModule
