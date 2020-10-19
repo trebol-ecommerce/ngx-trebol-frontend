@@ -8,11 +8,18 @@ import { SalesHttpCrudService } from './sales.http-crud.service';
 import { SharedHttpDataService } from './shared.http-data.service';
 import { UsersHttpCrudService } from './users.http-crud.service';
 import { StoreCatalogHttpDataService } from './store-catalog.http-data.service';
+import { HttpClientModule } from '@angular/common/http';
 
 /**
  * Provides services that read and write data using an external HTTP server (defined in the environment files)
  */
 @NgModule({
+  imports: [
+    HttpClientModule
+  ],
+  exports: [
+    HttpClientModule
+  ],
   providers: [
     { provide: DATA_INJECTION_TOKENS.clientsCrud, useClass: ClientsHttpCrudService },
     { provide: DATA_INJECTION_TOKENS.sellersCrud, useClass: SellersHttpCrudService },

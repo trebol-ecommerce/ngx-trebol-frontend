@@ -1,4 +1,3 @@
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -18,7 +17,6 @@ const DEBUG_ROUTES = false;
   imports: [
     BrowserModule,
     SharedModule,
-    HttpClientModule,
     environment.dataModule,
     environment.authModule,
     StoreModule,
