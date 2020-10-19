@@ -3,6 +3,9 @@ import { ProductFilters } from 'src/app/shared/product-filters-panel/product-fil
 import { Product } from 'src/app/data/models/entities/Product';
 import { EntityLocalMemoryCrudService } from './entity.local-memory-crud.aservice';
 import { StoreCatalogDataIService } from '../store.catalog.data.iservice';
+import { Observable } from 'rxjs';
+import { ProductFamily } from '../models/entities/ProductFamily';
+import { ProductType } from '../models/entities/ProductType';
 
 export const MOCK_PRODUCTS: Partial<Product>[] = [
   {
@@ -58,6 +61,16 @@ export class ProductsLocalMemoryCrudService
 
   constructor() {
     super();
+  }
+  
+  readProductTypes(): Observable<ProductType[]> {
+    throw new Error('Method not implemented.');
+  }
+  readProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]> {
+    throw new Error('Method not implemented.');
+  }
+  readProductFamilies(): Observable<ProductFamily[]> {
+    throw new Error('Method not implemented.');
   }
 
   protected filterItems(filter: ProductFilters): Product[] {
