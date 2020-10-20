@@ -11,7 +11,7 @@ import { Person } from 'src/app/data/models/entities/Person';
 import { User } from 'src/app/data/models/entities/User';
 import { makeid } from 'src/functions/makeid';
 import { AuthenticationIService } from '../auth.iservice';
-import { environment } from 'src/environments/environment';
+import { sessionStorageTokenItemName, authorizationHeaderName } from 'src/environments/auth.environment';
 
 function getNewSessionId(): number {
   const localSessionId = localStorage.getItem('latestSessionId');
@@ -25,8 +25,8 @@ function getNewSessionId(): number {
 export class LocalMemoryAuthService
   implements AuthenticationIService {
 
-  protected readonly sessionStorageTokenItemName = environment.sessionStorageTokenItemName;
-  protected readonly authorizationHeader = environment.authorizationHeaderName;
+  protected readonly sessionStorageTokenItemName = sessionStorageTokenItemName;
+  protected readonly authorizationHeader = authorizationHeaderName;
 
   constructor() { }
 

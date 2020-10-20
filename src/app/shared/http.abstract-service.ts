@@ -13,7 +13,7 @@ export abstract class HttpService {
   /**
    * Base resource URI
    */
-  protected baseURI = environment.baseURI;
+  protected baseURI: string;
 
   /**
    * Syntactic sugar - create wrapped httpParams object - use directly as argument in http request

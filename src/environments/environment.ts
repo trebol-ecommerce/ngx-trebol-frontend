@@ -6,11 +6,6 @@ import { LocalMemoryAuthModule } from 'src/app/auth/local-memory/local-memory-au
 
 export const environment = {
   production: false,
-  baseURI: '',
-  checkoutURL: '',
-  sessionStorageTokenItemName: 'trebol/bearer-token',
-  permissionsStorageTokenItemName: 'trebol/permissions',
-  authorizationHeaderName: 'Authorization',
   dataModule: LocalMemoryDataModule,
   authModule: LocalMemoryAuthModule
 };

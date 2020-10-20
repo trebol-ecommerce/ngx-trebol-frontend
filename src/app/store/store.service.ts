@@ -13,12 +13,13 @@ import { Product } from 'src/app/data/models/entities/Product';
 import { Sell } from 'src/app/data/models/entities/Sell';
 import { SellDetail } from 'src/app/data/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/data/models/ExternalPaymentRedirectionData';
-import { environment } from 'src/environments/environment';
+import { checkoutURL } from 'src/environments/store.environment';
 
 @Injectable()
 export class StoreService
   implements OnDestroy {
 
+  protected checkoutURL = checkoutURL;
   protected sellDetails: SellDetail[] = [];
   protected sellDetailsSource: Subject<SellDetail[]> = new BehaviorSubject([]);
   protected sellSubtotalValue: number;
@@ -57,7 +58,7 @@ export class StoreService
 
   public fetchWebpayRedirectionData(data: FormData): Observable<ExternalPaymentRedirectionData> {
     return this.httpClient.post<ExternalPaymentRedirectionData>(
-      environment.checkoutURL,
+      this.checkoutURL,
       data
     );
   }
