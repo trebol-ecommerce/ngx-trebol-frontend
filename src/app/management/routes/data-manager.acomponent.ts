@@ -4,6 +4,10 @@ import { map, tap } from 'rxjs/operators';
 import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
 import { DataManagerService } from './data-manager.aservice';
 
+/**
+ * Base class for data manager template components.
+ * A 'Data Manager' is a table-based interface for doing CRUD operations on all persisted instances of classes derived from AbstractEntity.
+ */
 @Directive()
 export abstract class DataManagerComponent<T extends AbstractEntity> {
 
@@ -27,14 +31,14 @@ export abstract class DataManagerComponent<T extends AbstractEntity> {
   }
 
   public abstract openFormDialog(item: T): Observable<T>;
-
+  
   protected edit(item: T): Observable<T> {
     this.service.focusedItems = [item];
     return this.openFormDialog(item).pipe(
       tap(
         (result) => {
           this.service.focusedItems = [];
-          if (!!result) {
+          if (!!result) { // truthy
             this.service.reloadItems();
           }
         }

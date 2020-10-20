@@ -5,6 +5,10 @@ import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
 import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
 import { AuthorizedAccess } from 'src/app/data/models/AuthorizedAccess';
 
+/**
+ * Base class for data manager services. 
+ * Through a final EntityCrudIService, this class brings the needed boilerplate for caching model classes' instances and easily operate with their related CRUD API.
+ */
 @Directive()
 export abstract class DataManagerService<T extends AbstractEntity>
   implements OnDestroy {
@@ -43,6 +47,7 @@ export abstract class DataManagerService<T extends AbstractEntity>
     this.loadingSource.complete();
   }
 
+  /** Empty item selections and fetch data from the external service again. */
   public reloadItems(): void {
     this.focusedItemsSource.next([]);
     this.loadingSource.next(true);
@@ -53,6 +58,7 @@ export abstract class DataManagerService<T extends AbstractEntity>
     ).subscribe();
   }
 
+  /** Delete items contained in the array one by one */
   public removeItems(items: T[]): Observable<boolean[]> {
     this.focusedItems = items;
     return from(items).pipe(
@@ -68,6 +74,10 @@ export abstract class DataManagerService<T extends AbstractEntity>
     );
   }
 
+  /**
+   * Update authorized access
+   * @param authAccess The new value
+   */
   public updateAccess(authAccess: AuthorizedAccess): void {
     this.authorizedAccessSource.next(authAccess);
   }
