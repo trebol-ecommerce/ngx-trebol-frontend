@@ -20,8 +20,7 @@ import { AuthorizedAccess } from './data/models/AuthorizedAccess';
 export class AppService
   implements OnDestroy {
 
-  protected isLoggedIn: boolean = null;
-  protected isLoggedInChangesSource: Subject<boolean>= new BehaviorSubject(false);
+  protected isLoggedInChangesSource: Subject<boolean>= new BehaviorSubject(null);
   protected isValidatingSessionSource: Subject<boolean> = new Subject();
 
   public isLoggedInChanges$: Observable<boolean> = this.isLoggedInChangesSource.asObservable();
@@ -35,6 +34,10 @@ export class AppService
     this.fetchLoggedInState().subscribe();
   }
 
+  public get isLoggedIn(): boolean {
+    return (this.isLoggedInChangesSource as BehaviorSubject<boolean>)?.getValue();
+  }
+
   ngOnDestroy(): void {
     this.isLoggedInChangesSource.complete();
     this.isValidatingSessionSource.complete();
@@ -46,7 +49,6 @@ export class AppService
       catchError(() => of(false)),
       tap(
         r => {
-          this.isLoggedIn = r;
           this.isLoggedInChangesSource.next(r);
         }
       )
@@ -54,10 +56,11 @@ export class AppService
   }
 
   public isUserLoggedIn(): Observable<boolean> {
-    if (this.isLoggedIn === null) {
+    const isCurrentlyLoggedIn = this.isLoggedIn;
+    if (isCurrentlyLoggedIn === null) {
       return this.fetchLoggedInState();
     } else {
-      return of(this.isLoggedIn);
+      return of(isCurrentlyLoggedIn);
     }
   }
 
@@ -82,7 +85,6 @@ export class AppService
       return this.authService.login(credentials).pipe(
         tap( //TODO and this tap too
           success => {
-            this.isLoggedIn = true;
             this.isLoggedInChangesSource.next(true);
           }
         )
@@ -114,7 +116,6 @@ export class AppService
   }
 
   public closeCurrentSession(): void {
-    this.isLoggedIn = false;
     this.isLoggedInChangesSource.next(false);
     this.authService.logout().subscribe();
   }
