@@ -20,12 +20,15 @@ export abstract class DataManagerService<T extends AbstractEntity>
   public items$: Observable<T[]> = this.itemsSource.asObservable();
   public loading$: Observable<boolean> = this.loadingSource.asObservable();
 
-  public canEdit$: Observable<boolean> = this.authorizedAccessSource.asObservable().pipe(
-    map(a => (a?.permissions ? a.permissions.includes('update') : false)));
-  public canAdd$: Observable<boolean> = this.authorizedAccessSource.asObservable().pipe(
-    map(a => (a?.permissions ? a.permissions.includes('create') : false)));
-  public canDelete$: Observable<boolean> = this.authorizedAccessSource.asObservable().pipe(
-    map(a => (a?.permissions ? a.permissions.includes('delete') : false)));
+  public canEdit$: Observable<boolean>;
+  public canAdd$: Observable<boolean>;
+  public canDelete$: Observable<boolean>;
+
+  constructor() {
+    this.canEdit$ = this.authorizedAccessSource.asObservable().pipe(map(a => a?.permissions?.includes('update')));
+    this.canAdd$ = this.authorizedAccessSource.asObservable().pipe(map(a => a?.permissions?.includes('create')));
+    this.canDelete$ = this.authorizedAccessSource.asObservable().pipe(map(a => a?.permissions?.includes('delete')));
+  }
 
   public get focusedItems(): T[] {
     return (this.focusedItemsSource as BehaviorSubject<T[]>).getValue();
