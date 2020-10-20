@@ -8,10 +8,10 @@ import { Observable, of } from 'rxjs';
 import { AuthorizedAccess } from 'src/app/data/models/AuthorizedAccess';
 import { Client } from 'src/app/data/models/entities/Client';
 import { Person } from 'src/app/data/models/entities/Person';
-import { Session } from 'src/app/data/models/entities/Session';
 import { User } from 'src/app/data/models/entities/User';
 import { makeid } from 'src/functions/makeid';
 import { AuthenticationIService } from '../auth.iservice';
+import { environment } from 'src/environments/environment';
 
 function getNewSessionId(): number {
   const localSessionId = localStorage.getItem('latestSessionId');
@@ -24,6 +24,9 @@ function getNewSessionId(): number {
 @Injectable()
 export class LocalMemoryAuthService
   implements AuthenticationIService {
+
+  protected readonly sessionStorageTokenItemName = environment.sessionStorageTokenItemName;
+  protected readonly authorizationHeader = environment.authorizationHeaderName;
 
   constructor() { }
 
@@ -64,29 +67,9 @@ export class LocalMemoryAuthService
     return new Observable(
       observer => {
 
-        if (details instanceof User) {
-          const sesion: Session = Object.assign(
-            new Session(),
-            {
-              id: getNewSessionId(),
-              openedOn: Date.now().toLocaleString(),
-              hash: makeid(10),
-              user: details
-            }
-          );
-          sessionStorage.setItem('session', JSON.stringify(sesion));
-          observer.next(true);
-        } else if (details instanceof Client) {
-          const sesion: Session = Object.assign(
-            new Session(),
-            {
-              id: getNewSessionId(),
-              openedOn: Date.now().toLocaleString(),
-              hash: makeid(10),
-              user: { clientId: details.id }
-            }
-          );
-          sessionStorage.setItem('session', JSON.stringify(sesion));
+        if (details instanceof User || details instanceof Client) {
+          const token = makeid(200);
+          sessionStorage.setItem(this.sessionStorageTokenItemName, token);
           observer.next(true);
         } else {
           observer.error(new Error('Provided details for new session are invalid'));
