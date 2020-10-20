@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
 import { DataManagerFormService } from './data-manager-form.aservice';
 
+/**
+ * Base class for data form component templates.
+ */
 @Directive()
 export abstract class DataManagerFormComponent<T extends AbstractEntity> {
   protected abstract itemId: number;

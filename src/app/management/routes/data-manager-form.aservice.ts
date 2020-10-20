@@ -4,6 +4,9 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
 import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
 
+/**
+ * Base class for data form component services.
+ */
 @Directive()
 export abstract class DataManagerFormService<T extends AbstractEntity>
   implements OnDestroy {
