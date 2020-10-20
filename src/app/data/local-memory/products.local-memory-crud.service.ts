@@ -8,9 +8,10 @@ import { ProductFilters } from 'src/app/shared/product-filters-panel/product-fil
 import { Product } from 'src/app/data/models/entities/Product';
 import { EntityLocalMemoryCrudService } from './entity.local-memory-crud.aservice';
 import { StoreCatalogDataIService } from '../store.catalog.data.iservice';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ProductFamily } from '../models/entities/ProductFamily';
 import { ProductType } from '../models/entities/ProductType';
+import { MOCK_PRODUCT_FAMILIES, MOCK_PRODUCT_TYPES } from './shared.local-memory-data.service';
 
 export const MOCK_PRODUCTS: Partial<Product>[] = [
   {
@@ -68,14 +69,18 @@ export class ProductsLocalMemoryCrudService
     super();
   }
   
-  readProductTypes(): Observable<ProductType[]> {
-    throw new Error('Method not implemented.');
+  public readProductTypes(): Observable<ProductType[]> {
+    return of(MOCK_PRODUCT_TYPES.map(t => Object.assign(new ProductType(), t)));
   }
-  readProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]> {
-    throw new Error('Method not implemented.');
+  
+  public readProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]> {
+    return of(MOCK_PRODUCT_TYPES.filter(t => t.productFamily.id === productFamilyId)
+      .map(t => Object.assign(new ProductType(), t))
+    );
   }
-  readProductFamilies(): Observable<ProductFamily[]> {
-    throw new Error('Method not implemented.');
+  
+  public readProductFamilies(): Observable<ProductFamily[]> {
+    return of(MOCK_PRODUCT_FAMILIES.map(f => Object.assign(new ProductFamily(), f)));
   }
 
   protected filterItems(filter: ProductFilters): Product[] {

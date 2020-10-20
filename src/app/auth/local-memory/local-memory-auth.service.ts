@@ -40,7 +40,13 @@ export class LocalMemoryAuthService
   }
 
   public getProfile(): Observable<Person> {
-    throw new Error('Method not implemented.'); // TODO implement me
+    return of({
+      id: 1,
+      name: "admin",
+      idCard: "1111",
+      email: "text@example.com",
+      address: "example address",
+    });
   }
   public updateProfile(details: Person): Observable<boolean> {
     throw new Error('Method not implemented.'); // TODO implement me
