@@ -19,6 +19,7 @@ import { StoreReceiptService } from './routes/receipt/store-receipt.service';
 import { StoreService } from './store.service';
 import { StoreRoutingModule } from './store-routing.module';
 import { StoreComponent } from './store.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const SNACKBAR_DEFAULTS = {
@@ -43,6 +44,7 @@ const SNACKBAR_DEFAULTS = {
     StoreCompanyDetailsDialogComponent
   ],
   imports: [
+    HttpClientModule,
     SharedModule,
     StoreRoutingModule
   ],
