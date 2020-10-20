@@ -14,6 +14,7 @@ export abstract class DataManagerComponent<T extends AbstractEntity> {
 
   protected abstract service: DataManagerService<T>;
   public abstract tableColumns: string[];
+  public abstract openFormDialog(item: T): Observable<T>;
 
   public loading$: Observable<boolean>;
   public busy$: Observable<boolean>;
@@ -30,8 +31,6 @@ export abstract class DataManagerComponent<T extends AbstractEntity> {
     this.canAdd$ = service.canAdd$.pipe();
     this.canDelete$ = service.canDelete$.pipe();
   }
-
-  public abstract openFormDialog(item: T): Observable<T>;
   
   protected edit(item: T): Observable<T> {
     this.service.focusedItems = [item];
