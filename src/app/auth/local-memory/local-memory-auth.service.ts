@@ -23,11 +23,15 @@ export class LocalMemoryAuthService
   constructor() { }
 
   public getResourceAuthorizedAccess(resource: string): Observable<AuthorizedAccess> {
-    throw new Error('Method not implemented.');
+    return of({
+      permissions: ['create', 'read', 'update', 'delete']
+    });
   }
   
   public getAuthorizedAccess(): Observable<AuthorizedAccess> {
-    throw new Error('Method not implemented.');
+    return of({
+      routes: ['clients', 'products', 'sales', 'sellers', 'users']
+    })
   }
 
   public getProfile(): Observable<Person> {
