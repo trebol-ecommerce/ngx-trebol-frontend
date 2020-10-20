@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Benjamin
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Router } from '@angular/router';

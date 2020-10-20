@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Benjamin
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 import { Component, Inject, OnInit } from '@angular/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { mapTo, pluck, startWith } from 'rxjs/operators';

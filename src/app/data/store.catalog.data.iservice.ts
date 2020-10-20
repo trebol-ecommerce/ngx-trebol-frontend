@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Benjamin
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 import { Observable } from 'rxjs';
 import { ProductFilters } from '../shared/product-filters-panel/product-filters-panel.component';
 import { Product } from './models/entities/Product';

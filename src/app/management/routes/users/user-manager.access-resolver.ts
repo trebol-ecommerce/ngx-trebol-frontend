@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Benjamin
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';

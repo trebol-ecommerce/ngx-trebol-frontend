@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Benjamin
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';

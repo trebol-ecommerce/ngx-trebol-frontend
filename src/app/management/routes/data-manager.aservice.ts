@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Benjamin
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 import { Directive, OnDestroy } from '@angular/core';
 import { BehaviorSubject, from, Observable, of, Subject, ReplaySubject } from 'rxjs';
 import { catchError, delay, finalize, map, mapTo, mergeMap, startWith, tap, toArray } from 'rxjs/operators';

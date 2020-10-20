@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Benjamin
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 import { Injectable } from '@angular/core';
 import { Person } from 'src/app/data/models/entities/Person';
 import { EntityLocalMemoryCrudService } from './entity.local-memory-crud.aservice';

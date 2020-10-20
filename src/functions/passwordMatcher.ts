@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Benjamin
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 import { AbstractControl } from '@angular/forms';
 
 export function passwordMatcher(c: AbstractControl): { [key: string]: boolean } | null {

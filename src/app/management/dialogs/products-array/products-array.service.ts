@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Benjamin
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 import { Injectable, Inject } from '@angular/core';
 import { Product } from 'src/app/data/models/entities/Product';
 import { Subject, BehaviorSubject, Observable, merge } from 'rxjs';

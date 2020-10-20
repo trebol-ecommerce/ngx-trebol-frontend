@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Benjamin
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 import { EntityCrudIService } from '../entity.crud.iservice';
 import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
 import { Observable, of } from 'rxjs';

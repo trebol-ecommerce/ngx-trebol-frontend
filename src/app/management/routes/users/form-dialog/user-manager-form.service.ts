@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Benjamin
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DataManagerFormService } from '../../data-manager-form.aservice';

@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Benjamin
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 import { Observable } from 'rxjs';
 import { EntityDataIService } from './entity.data.iservice';
 import { AbstractEntity } from './models/AbstractEntity';

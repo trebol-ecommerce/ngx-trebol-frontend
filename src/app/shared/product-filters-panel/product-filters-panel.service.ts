@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Benjamin
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 import { Injectable, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';

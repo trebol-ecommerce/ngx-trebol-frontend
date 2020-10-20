@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Benjamin
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 import { TestBed } from '@angular/core/testing';
 import { LocalMemoryAuthModule } from 'src/app/auth/local-memory/local-memory-auth.module';
 import { LocalMemoryDataModule } from 'src/app/data/local-memory/local-memory-data.module';

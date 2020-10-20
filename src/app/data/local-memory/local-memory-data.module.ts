@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Benjamin
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 import { NgModule } from '@angular/core';
 import { DATA_INJECTION_TOKENS } from '../data-injection-tokens';
 import { ClientsLocalMemoryCrudService } from './clients.local-memory-crud.service';

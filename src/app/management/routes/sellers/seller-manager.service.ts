@@ -1,3 +1,8 @@
+// Copyright (c) 2020 Benjamin
+// 
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+
 import { Inject, Injectable } from '@angular/core';
 import { Seller } from 'src/app/data/models/entities/Seller';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
