@@ -21,7 +21,11 @@ describe('SellerManagerComponent', () => {
       reloadItems() {},
       loading$: of(false),
       focusedItems$: of([]),
-      items$: of([])
+      items$: of([]),
+      canEdit$: of(true),
+      canAdd$: of(true),
+      canDelete$: of(true),
+      updateAccess(acc) {}
     };
 
     TestBed.configureTestingModule({

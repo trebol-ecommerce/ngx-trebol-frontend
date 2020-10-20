@@ -17,6 +17,7 @@ describe('ProductFiltersPanelComponent', () => {
 
   beforeEach(async(() => {
     service = {
+      getAllProductFamilies() { return of([]); },
       getProductTypesFromFamilyId(i) { return of([]); }
     };
 

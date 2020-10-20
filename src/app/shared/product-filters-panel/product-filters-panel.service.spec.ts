@@ -4,15 +4,25 @@
 // https://opensource.org/licenses/MIT
 
 import { TestBed } from '@angular/core/testing';
-import { LocalMemoryDataModule } from 'src/app/data/local-memory/local-memory-data.module';
+import { of } from 'rxjs';
 import { ProductFiltersPanelService } from './product-filters-panel.service';
+import { StoreCatalogDataIService } from 'src/app/data/store.catalog.data.iservice';
+import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
 
 describe('ProductFiltersPanelService', () => {
-  let service: ProductFiltersPanelService;
+  let service: Partial<ProductFiltersPanelService>;
+  let catalogService: Partial<StoreCatalogDataIService>;
 
   beforeEach(() => {
+    catalogService = {
+      readProductFamilies() { return of([]); },
+      readProductTypesByFamilyId(id) { return of([]); }
+    };
+
     TestBed.configureTestingModule({
-      imports: [ LocalMemoryDataModule ]
+      providers: [ 
+        { provide: DATA_INJECTION_TOKENS.storeCatalog, useValue: catalogService }
+      ]
     });
     service = TestBed.inject(ProductFiltersPanelService);
   });

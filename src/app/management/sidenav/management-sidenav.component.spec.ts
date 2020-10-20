@@ -8,24 +8,33 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { ManagementService } from '../management.service';
 import { ManagementSidenavComponent } from './management-sidenav.component';
+import { AppService } from 'src/app/app.service';
 
 
 describe('ManagementSidenavComponent', () => {
   let component: ManagementSidenavComponent;
   let fixture: ComponentFixture<ManagementSidenavComponent>;
   let managementService: Partial<ManagementService>;
+  let appService: Partial<AppService>;
 
   beforeEach(async(() => {
     managementService = {
       activeRouteSnapshot$: of(null)
     };
+    appService = {
+      getAuthorizedAccess() { return of({
+        routes: []
+      }); }
+    };
+
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule
       ],
       declarations: [ ManagementSidenavComponent ],
       providers: [
-        { provide: ManagementService, useValue: managementService }
+        { provide: ManagementService, useValue: managementService },
+        { provide: AppService, useValue: appService }
       ]
     })
     .compileComponents();
