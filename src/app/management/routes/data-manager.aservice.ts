@@ -1,5 +1,5 @@
 import { Directive, OnDestroy } from '@angular/core';
-import { BehaviorSubject, from, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, from, Observable, of, Subject, ReplaySubject } from 'rxjs';
 import { catchError, delay, finalize, map, mapTo, mergeMap, startWith, tap, toArray } from 'rxjs/operators';
 import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
 import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
@@ -11,11 +11,10 @@ export abstract class DataManagerService<T extends AbstractEntity>
 
   protected abstract dataService: EntityCrudIService<T>;
 
-  protected currentFocusedItems: T[] = null;
-  protected focusedItemsSource: Subject<T[]> = new BehaviorSubject(null);
-  protected itemsSource: Subject<T[]> = new Subject();
+  protected focusedItemsSource: Subject<T[]> = new BehaviorSubject([]);
+  protected itemsSource: Subject<T[]> = new ReplaySubject();
   protected loadingSource: Subject<boolean> = new BehaviorSubject(false);
-  protected authorizedAccessSource: Subject<AuthorizedAccess> = new BehaviorSubject(null);
+  protected authorizedAccessSource: Subject<AuthorizedAccess> = new ReplaySubject();
 
   public focusedItems$: Observable<T[]> = this.focusedItemsSource.asObservable();
   public items$: Observable<T[]> = this.itemsSource.asObservable();
@@ -29,10 +28,9 @@ export abstract class DataManagerService<T extends AbstractEntity>
     map(a => (a?.permissions ? a.permissions.includes('delete') : false)));
 
   public get focusedItems(): T[] {
-    return this.currentFocusedItems;
+    return (this.focusedItemsSource as BehaviorSubject<T[]>).getValue();
   }
   public set focusedItems(i: T[]) {
-    this.currentFocusedItems = i;
     this.focusedItemsSource.next(i);
   }
 
@@ -43,7 +41,7 @@ export abstract class DataManagerService<T extends AbstractEntity>
   }
 
   public reloadItems(): void {
-    this.focusedItems = [];
+    this.focusedItemsSource.next([]);
     this.loadingSource.next(true);
     this.dataService.readAll().pipe(
       delay(0),
