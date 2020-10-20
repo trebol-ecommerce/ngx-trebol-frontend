@@ -40,7 +40,7 @@ export abstract class DataManagerService<T extends AbstractEntity>
   }
 
   public get focusedItems(): T[] {
-    return (this.focusedItemsSource as BehaviorSubject<T[]>).getValue();
+    return (this.focusedItemsSource as BehaviorSubject<T[]>)?.getValue();
   }
   public set focusedItems(i: T[]) {
     this.focusedItemsSource.next(i);
