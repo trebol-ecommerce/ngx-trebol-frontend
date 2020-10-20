@@ -7,6 +7,7 @@ import { DataManagerService } from './data-manager.aservice';
 /**
  * Base class for data manager template components.
  * A 'Data Manager' is a table-based interface for doing CRUD operations on all persisted instances of classes derived from AbstractEntity.
+ * It it expected to provide an openFormDialog() method that interacts with a DataManagerFormComponent, which will be used to view and edit the stored data (or insert new).
  */
 @Directive()
 export abstract class DataManagerComponent<T extends AbstractEntity> {
