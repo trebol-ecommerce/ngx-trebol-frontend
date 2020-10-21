@@ -51,13 +51,20 @@ export class StoreRegistrationFormDialogComponent
   }
 
   private asItem(): User {
-    return {
-      id: null,
-      name: this.name.value,
-      password: this.pass1.value,
-      createdOn: Date.now().toLocaleString(),
-      person: this.personForm.asPerson()
-    };
+    if (this.formGroup.invalid) {
+      return undefined;
+    } else {
+      return Object.assign<User,Partial<User>>(
+        new User(),
+        {
+          id: null,
+          name: this.name.value,
+          password: this.pass1.value,
+          createdOn: Date.now().toLocaleString(),
+          person: this.personForm.asPerson()
+        }
+      );
+    }
   }
 
   public onSubmit(): void {
@@ -65,10 +72,8 @@ export class StoreRegistrationFormDialogComponent
     const details: User = this.asItem();
     this.appService.register(details).subscribe(
       s => {
-        if (s) {
-          this.registeringSource.complete();
-          this.dialog.close();
-        }
+        this.registeringSource.complete();
+        this.dialog.close();
       },
       err => {
         this.registeringSource.next(false);
