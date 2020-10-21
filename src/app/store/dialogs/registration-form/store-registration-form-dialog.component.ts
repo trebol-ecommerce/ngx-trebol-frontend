@@ -66,6 +66,7 @@ export class StoreRegistrationFormDialogComponent
     this.appService.register(details).subscribe(
       s => {
         if (s) {
+          this.registeringSource.complete();
           this.dialog.close();
         }
       },
