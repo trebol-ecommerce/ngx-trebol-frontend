@@ -1,7 +1,4 @@
-// Copyright (c) 2020 Benjamin La Madrid
-// 
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+// Sourced from https://angular.io/guide/router-tutorial-toh#custom-preloading-strategy
 
 import { Injectable } from '@angular/core';
 import { PreloadingStrategy, Route } from '@angular/router';
