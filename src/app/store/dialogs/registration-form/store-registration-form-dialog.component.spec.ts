@@ -5,7 +5,7 @@
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { of } from 'rxjs';
+import { of, iif, throwError } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { StoreRegistrationFormDialogComponent } from './store-registration-form-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,16 +14,26 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { User } from 'src/app/data/models/entities/User';
 
 describe('StoreRegistrationFormDialogComponent', () => {
   let component: StoreRegistrationFormDialogComponent;
   let fixture: ComponentFixture<StoreRegistrationFormDialogComponent>;
+  let matDialogRef: Partial<MatDialogRef<StoreRegistrationFormDialogComponent>>;
   let appService: Partial<AppService>;
 
   beforeEach(async(() => {
-    appService = {
-      register(u) { return of(true); }
+    matDialogRef = {
+      close() {}
     };
+    appService = {
+      register(u) { return iif(
+          () => (u instanceof User), 
+          of(true), 
+          throwError(new Error('Not an User')) ); 
+      }
+    };
+    spyOn(matDialogRef, 'close');
 
     TestBed.configureTestingModule({
       imports: [
@@ -40,7 +50,7 @@ describe('StoreRegistrationFormDialogComponent', () => {
         PersonFormComponent
       ],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
+        { provide: MatDialogRef, useValue: matDialogRef },
         { provide: AppService, useValue: appService }
       ]
     })
@@ -56,4 +66,35 @@ describe('StoreRegistrationFormDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
+  it('should not submit an incomplete form', () => {
+    let success: boolean;
+    component.registering$.subscribe(s => { success = s; });
+    
+    component.onSubmit();
+    expect(success).toBe(false);
+  });
+
+  it('should submit a correct form', () => {
+    let success: boolean;
+    component.registering$.subscribe(s => { success = s; });
+
+    component.personForm.name.setValue('test-name');
+    component.personForm.address.setValue('test-address');
+    component.personForm.email.setValue('test-email');
+    component.personForm.idCard.setValue('test-idcard');
+    component.name.setValue('username');
+    component.pass1.setValue('password');
+    component.pass2.setValue('password');
+    expect(component.formGroup.status).toBe('VALID');    
+
+    component.onSubmit();
+    expect(success).toBe(true);
+    expect(matDialogRef.close).toHaveBeenCalled();
+  });
+
+  it ('should exit upon cancellation', () => {
+    component.onCancel();
+    expect(matDialogRef.close).toHaveBeenCalled();
+  })
 });
