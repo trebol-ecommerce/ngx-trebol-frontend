@@ -4,12 +4,17 @@
 // https://opensource.org/licenses/MIT
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { StoreLoginFormDialogComponent } from './store-login-form-dialog.component';
+import { CommonModule } from '@angular/common';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('StoreLoginFormDialogComponent', () => {
   let component: StoreLoginFormDialogComponent;
@@ -23,7 +28,14 @@ describe('StoreLoginFormDialogComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        SharedModule,
+        CommonModule,
+        NoopAnimationsModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatDialogModule,
+        MatSnackBarModule,
         RouterTestingModule
       ],
       declarations: [ StoreLoginFormDialogComponent ],
