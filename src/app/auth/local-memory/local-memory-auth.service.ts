@@ -30,20 +30,37 @@ export class LocalMemoryAuthService
 
   constructor() { }
 
+  protected returnAsyncIfLoggedIn(obj: any): Observable<any> {
+    return new Observable(
+      (observer) => {
+        if (sessionStorage.getItem(this.sessionStorageTokenItemName) === null) {
+          observer.error();
+        } else {
+          observer.next(obj);
+        }
+        observer.complete();
+
+        return {
+          unsubscribe() {}
+        };
+      }
+    );
+  }
+
   public getResourceAuthorizedAccess(resource: string): Observable<AuthorizedAccess> {
-    return of({
+    return this.returnAsyncIfLoggedIn({
       permissions: ['create', 'read', 'update', 'delete']
     });
   }
   
   public getAuthorizedAccess(): Observable<AuthorizedAccess> {
-    return of({
+    return this.returnAsyncIfLoggedIn({
       routes: ['clients', 'products', 'sales', 'sellers', 'users']
-    })
+    });
   }
 
   public getProfile(): Observable<Person> {
-    return of({
+    return this.returnAsyncIfLoggedIn({
       id: 1,
       name: "admin",
       idCard: "1111",
@@ -51,6 +68,7 @@ export class LocalMemoryAuthService
       address: "example address",
     });
   }
+
   public updateProfile(details: Person): Observable<boolean> {
     throw new Error('Method not implemented.'); // TODO implement me
   }
@@ -63,11 +81,10 @@ export class LocalMemoryAuthService
     throw new Error('Method not implemented.'); // TODO implement me
   }
 
-  public login(details: User | Client): Observable<boolean> {
+  public login(details: any): Observable<boolean> {
     return new Observable(
       observer => {
-
-        if (details instanceof User || details instanceof Client) {
+        if ('name' in details && 'password' in details) {
           const token = makeid(200);
           sessionStorage.setItem(this.sessionStorageTokenItemName, token);
           observer.next(true);
