@@ -13,11 +13,13 @@ import { SelectivePreloadingStrategyService } from './selective-preloading-strat
       [
         {
           path: 'store',
-          loadChildren: () => import('./store/store.module').then(m => m.StoreModule)
+          loadChildren: () => import('./store/store.module').then(m => m.StoreModule),
+          data: { preload: true }
         },
         {
           path: 'management',
-          loadChildren: () => import('./management/management.module').then(m => m.ManagementModule)
+          loadChildren: () => import('./management/management.module').then(m => m.ManagementModule),
+          data: { preload: false }
         },
         {
           path: '', pathMatch: 'full', redirectTo: '/store/catalog'
