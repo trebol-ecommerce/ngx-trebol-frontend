@@ -4,11 +4,16 @@
 // https://opensource.org/licenses/MIT
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { StoreRegistrationFormDialogComponent } from './store-registration-form-dialog.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('StoreRegistrationFormDialogComponent', () => {
   let component: StoreRegistrationFormDialogComponent;
@@ -22,9 +27,18 @@ describe('StoreRegistrationFormDialogComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        SharedModule
+        CommonModule,
+        NoopAnimationsModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatDialogModule
       ],
-      declarations: [ StoreRegistrationFormDialogComponent ],
+      declarations: [ 
+        StoreRegistrationFormDialogComponent,
+        PersonFormComponent
+      ],
       providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: AppService, useValue: appService }
