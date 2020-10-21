@@ -1,5 +1,5 @@
 // Copyright (c) 2020 Benjamin La Madrid
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -17,7 +17,7 @@ const storeRoutes: Routes = [
       { path: 'catalog', component: StoreCatalogComponent },
       { path: 'cart', component: StoreCartReviewComponent },
       { path: 'receipt/:id', component: StoreReceiptComponent },
-      { path: '**', pathMatch: 'full', redirectTo: 'catalog' }
+      { path: '**', pathMatch: 'prefix', redirectTo: 'catalog' }
     ]
   }
 ];

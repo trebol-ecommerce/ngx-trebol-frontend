@@ -1,5 +1,5 @@
 // Copyright (c) 2020 Benjamin La Madrid
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -11,7 +11,17 @@ import { SelectivePreloadingStrategyService } from './selective-preloading-strat
   imports: [
     RouterModule.forRoot(
       [
-        { path: '', pathMatch: 'full', redirectTo: 'store' }
+        {
+          path: 'store',
+          loadChildren: () => import('./store/store.module').then(m => m.StoreModule)
+        },
+        {
+          path: 'management',
+          loadChildren: () => import('./management/management.module').then(m => m.ManagementModule)
+        },
+        {
+          path: '', pathMatch: 'full', redirectTo: '/store/catalog'
+        }
       ]
     )
   ],

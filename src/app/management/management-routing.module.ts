@@ -1,5 +1,5 @@
 // Copyright (c) 2020 Benjamin La Madrid
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -25,33 +25,33 @@ export interface ManagementChildRoute extends Route {
 
 export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
   {
-    path: 'dashboard', component: ManagementDashboardComponent, 
-    data: { matIcon: 'home', title: 'Resumen' } 
+    path: 'dashboard', component: ManagementDashboardComponent,
+    data: { matIcon: 'home', title: 'Resumen' }
   },
   {
-    path: 'sales', component: SellManagerComponent, 
-    data: { matIcon: 'loyalty', title: 'Ventas' }, 
-    resolve: { access: SellManagerAccessResolver } 
+    path: 'sales', component: SellManagerComponent,
+    data: { matIcon: 'loyalty', title: 'Ventas' },
+    resolve: { access: SellManagerAccessResolver }
   },
   {
-    path: 'products', component: ProductManagerComponent, 
-    data: { matIcon: 'list  ', title: 'Productos' }, 
-    resolve: { access: ProductManagerAccessResolver } 
+    path: 'products', component: ProductManagerComponent,
+    data: { matIcon: 'list  ', title: 'Productos' },
+    resolve: { access: ProductManagerAccessResolver }
   },
   {
-    path: 'clients', component: ClientManagerComponent, 
-    data: { matIcon: 'face', title: 'Clientes' }, 
-    resolve: { access: ClientManagerAccessResolver } 
+    path: 'clients', component: ClientManagerComponent,
+    data: { matIcon: 'face', title: 'Clientes' },
+    resolve: { access: ClientManagerAccessResolver }
   },
   {
-    path: 'sellers', component: SellerManagerComponent, 
-    data: { matIcon: 'work_outline', title: 'Vendedores' }, 
-    resolve: { access: SellerManagerAccessResolver } 
+    path: 'sellers', component: SellerManagerComponent,
+    data: { matIcon: 'work_outline', title: 'Vendedores' },
+    resolve: { access: SellerManagerAccessResolver }
   },
   {
-    path: 'users', component: UserManagerComponent, 
-    data: { matIcon: 'person  ', title: 'Usuarios' }, 
-    resolve: { access: UserManagerAccessResolver } 
+    path: 'users', component: UserManagerComponent,
+    data: { matIcon: 'person  ', title: 'Usuarios' },
+    resolve: { access: UserManagerAccessResolver }
   }
 ];
 
@@ -61,7 +61,7 @@ const managementRoutes: Routes = [
     children: [
       ...MANAGEMENT_CHILD_ROUTES,
       {
-        path: '**', pathMatch: 'full', redirectTo: 'dashboard'
+        path: '**', pathMatch: 'prefix', redirectTo: 'dashboard'
       }
     ],
     canActivate: [ManagementRoutingGuard],
