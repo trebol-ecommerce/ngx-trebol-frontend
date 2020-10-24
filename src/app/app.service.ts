@@ -1,16 +1,16 @@
 // Copyright (c) 2020 Benjamin La Madrid
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject, ReplaySubject } from 'rxjs';
 import { catchError, finalize, map, mapTo, tap } from 'rxjs/operators';
 import { AUTH_INJECTION_TOKEN } from 'src/app/auth/auth.injection-token';
 import { AuthenticationIService } from 'src/app/auth/auth.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
-import { Client } from 'src/app/data/models/entities/Client';
+import { DATA_INJECTION_TOKENS } from './data/data-injection-tokens';
+import { EntityCrudIService } from './data/entity.crud.iservice';
+import { Client } from './data/models/entities/Client';
 import { Person } from 'src/app/data/models/entities/Person';
 import { User } from 'src/app/data/models/entities/User';
 import { Login } from 'src/app/data/models/Login';
@@ -20,8 +20,8 @@ import { AuthorizedAccess } from './data/models/AuthorizedAccess';
 export class AppService
   implements OnDestroy {
 
-  protected isLoggedInChangesSource: Subject<boolean>= new BehaviorSubject(null);
-  protected isValidatingSessionSource: Subject<boolean> = new Subject();
+  protected isLoggedInChangesSource: Subject<boolean>= new ReplaySubject(1);
+  protected isValidatingSessionSource: Subject<boolean> = new BehaviorSubject(false);
 
   public isLoggedInChanges$: Observable<boolean> = this.isLoggedInChangesSource.asObservable();
   public isValidatingSession$: Observable<boolean> = this.isValidatingSessionSource.asObservable();
@@ -30,7 +30,7 @@ export class AppService
     @Inject(AUTH_INJECTION_TOKEN) protected authService: AuthenticationIService,
     @Inject(DATA_INJECTION_TOKENS.usersCrud) protected usersDataService: EntityCrudIService<User>,
     @Inject(DATA_INJECTION_TOKENS.clientsCrud) protected clientsDataService: EntityCrudIService<Client>
-  ) { 
+  ) {
     this.fetchLoggedInState().subscribe();
   }
 
