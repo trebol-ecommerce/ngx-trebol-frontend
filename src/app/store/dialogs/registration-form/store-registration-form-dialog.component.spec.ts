@@ -1,5 +1,5 @@
 // Copyright (c) 2020 Benjamin La Madrid
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -28,9 +28,9 @@ describe('StoreRegistrationFormDialogComponent', () => {
     };
     appService = {
       register(u) { return iif(
-          () => (u instanceof User), 
-          of(true), 
-          throwError(new Error('Not an User')) ); 
+          () => (u instanceof User),
+          of(true),
+          throwError(new Error('Not an User')) );
       }
     };
     spyOn(matDialogRef, 'close');
@@ -45,7 +45,7 @@ describe('StoreRegistrationFormDialogComponent', () => {
         MatFormFieldModule,
         MatDialogModule
       ],
-      declarations: [ 
+      declarations: [
         StoreRegistrationFormDialogComponent,
         PersonFormComponent
       ],
@@ -66,11 +66,11 @@ describe('StoreRegistrationFormDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
+
   it('should not submit an incomplete form', () => {
     let success: boolean;
     component.registering$.subscribe(s => { success = s; });
-    
+
     component.onSubmit();
     expect(success).toBe(false);
   });
@@ -86,7 +86,7 @@ describe('StoreRegistrationFormDialogComponent', () => {
     component.name.setValue('username');
     component.pass1.setValue('password');
     component.pass2.setValue('password');
-    expect(component.formGroup.status).toBe('VALID');    
+    expect(component.formGroup.status).toBe('VALID');
 
     component.onSubmit();
     expect(success).toBe(true);

@@ -1,5 +1,5 @@
 // Copyright (c) 2020 Benjamin La Madrid
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -36,7 +36,7 @@ export abstract class DataManagerComponent<T extends AbstractEntity> {
     this.canAdd$ = service.canAdd$.pipe();
     this.canDelete$ = service.canDelete$.pipe();
   }
-  
+
   protected edit(item: T): Observable<T> {
     this.service.focusedItems = [item];
     return this.openFormDialog(item).pipe(

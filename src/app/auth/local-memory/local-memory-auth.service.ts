@@ -1,5 +1,5 @@
 // Copyright (c) 2020 Benjamin La Madrid
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -52,7 +52,7 @@ export class LocalMemoryAuthService
       permissions: ['create', 'read', 'update', 'delete']
     });
   }
-  
+
   public getAuthorizedAccess(): Observable<AuthorizedAccess> {
     return this.returnAsyncIfLoggedIn({
       routes: ['clients', 'products', 'sales', 'sellers', 'users']

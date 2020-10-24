@@ -1,10 +1,10 @@
 // Copyright (c) 2020 Benjamin La Madrid
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
 // Copyright (c) 2020 Benjamin La Madrid
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -87,14 +87,14 @@ export class HttpAuthService
       )
     );
   }
-  
-  
+
+
   public getAuthorizedAccess(): Observable<AuthorizedAccess> {
     return this.http.get<AuthorizedAccess>(
       `${this.baseURI}/api`
     );
   }
-  
+
   public getResourceAuthorizedAccess(resource: string): Observable<AuthorizedAccess> {
     return this.http.get<AuthorizedAccess>(
       `${this.baseURI}/api/${resource}`

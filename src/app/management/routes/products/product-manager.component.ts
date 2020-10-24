@@ -1,5 +1,5 @@
 // Copyright (c) 2020 Benjamin La Madrid
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -42,7 +42,7 @@ export class ProductManagerComponent
     super.init(this.service);
     this.route.data.subscribe(
       d => {
-        this.service.updateAccess(d.access); 
+        this.service.updateAccess(d.access);
         this.service.reloadItems();
       }
     );

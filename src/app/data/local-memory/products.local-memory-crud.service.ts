@@ -1,5 +1,5 @@
 // Copyright (c) 2020 Benjamin La Madrid
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -68,17 +68,17 @@ export class ProductsLocalMemoryCrudService
   constructor() {
     super();
   }
-  
+
   public readProductTypes(): Observable<ProductType[]> {
     return of(MOCK_PRODUCT_TYPES.map(t => Object.assign(new ProductType(), t)));
   }
-  
+
   public readProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]> {
     return of(MOCK_PRODUCT_TYPES.filter(t => t.productFamily.id === productFamilyId)
       .map(t => Object.assign(new ProductType(), t))
     );
   }
-  
+
   public readProductFamilies(): Observable<ProductFamily[]> {
     return of(MOCK_PRODUCT_FAMILIES.map(f => Object.assign(new ProductFamily(), f)));
   }

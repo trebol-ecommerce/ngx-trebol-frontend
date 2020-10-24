@@ -1,5 +1,5 @@
 // Copyright (c) 2020 Benjamin La Madrid
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -11,7 +11,7 @@ import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
 import { AuthorizedAccess } from 'src/app/data/models/AuthorizedAccess';
 
 /**
- * Base class for data manager services. 
+ * Base class for data manager services.
  * Through a final EntityCrudIService, this class brings the needed boilerplate for caching model classes' instances and easily operate with their related CRUD API.
  */
 @Directive()

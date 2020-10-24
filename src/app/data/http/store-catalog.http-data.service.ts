@@ -1,5 +1,5 @@
 // Copyright (c) 2020 Benjamin La Madrid
-// 
+//
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
@@ -50,7 +50,7 @@ export class StoreCatalogHttpDataService
       `${this.baseURI}/product_types`
     );
   }
-  
+
   public readProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]> {
     const filter = { familyId: productFamilyId };
     return this.http.get<ProductType[]>(
