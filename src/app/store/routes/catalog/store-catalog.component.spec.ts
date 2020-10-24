@@ -39,10 +39,13 @@ describe('StoreCatalogComponent', () => {
   });
 
   it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should load items inmediately', () => {
     let items: Product[];
     component.products$.subscribe(p => { items = p; });
-    expect(component).toBeTruthy();
-    expect(component).toBe([]);
+    expect(items).toBeTruthy();
   });
 
   it('should reload items upon changing filtering conditions', () => {
