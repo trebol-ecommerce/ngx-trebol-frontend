@@ -8,9 +8,6 @@ import { BehaviorSubject, Observable, of, Subject, ReplaySubject } from 'rxjs';
 import { catchError, finalize, map, mapTo, tap } from 'rxjs/operators';
 import { AUTH_INJECTION_TOKEN } from 'src/app/auth/auth.injection-token';
 import { AuthenticationIService } from 'src/app/auth/auth.iservice';
-import { DATA_INJECTION_TOKENS } from './data/data-injection-tokens';
-import { EntityCrudIService } from './data/entity.crud.iservice';
-import { Client } from './data/models/entities/Client';
 import { Person } from 'src/app/data/models/entities/Person';
 import { User } from 'src/app/data/models/entities/User';
 import { Login } from 'src/app/data/models/Login';
@@ -27,9 +24,7 @@ export class AppService
   public isValidatingSession$: Observable<boolean> = this.isValidatingSessionSource.asObservable();
 
   constructor(
-    @Inject(AUTH_INJECTION_TOKEN) protected authService: AuthenticationIService,
-    @Inject(DATA_INJECTION_TOKENS.usersCrud) protected usersDataService: EntityCrudIService<User>,
-    @Inject(DATA_INJECTION_TOKENS.clientsCrud) protected clientsDataService: EntityCrudIService<Client>
+    @Inject(AUTH_INJECTION_TOKEN) protected authService: AuthenticationIService
   ) {
     this.fetchLoggedInState().subscribe();
   }
