@@ -9,10 +9,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { LocalMemoryAuthModule } from 'src/app/auth/local-memory/local-memory-auth.module';
-import { LocalMemoryDataModule } from 'src/app/data/local-memory/local-memory-data.module';
 import { StoreService } from '../../store.service';
 import { StoreCartReviewComponent } from './store-cart-review.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 describe('StoreCartReviewComponent', () => {
   let component: StoreCartReviewComponent;
@@ -29,16 +30,17 @@ describe('StoreCartReviewComponent', () => {
       removeProductFromCart(i) {}
     };
     appService = {
-      isUserLoggedIn() { return of(false); }
+      isLoggedIn: false
     };
 
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        LocalMemoryDataModule,
-        LocalMemoryAuthModule,
+        MatButtonModule,
         MatDialogModule,
-        MatSnackBarModule
+        MatIconModule,
+        MatSnackBarModule,
+        MatTableModule
       ],
       declarations: [ StoreCartReviewComponent ],
       providers: [
