@@ -1,5 +1,5 @@
-import { labelWasNotFoundMesage } from 'src/app/constants/i18n.constants';
-import { labelsKeys, languages } from 'src/app/models/i18n.models';
+import { labelWasNotFoundMesage } from 'src/app/i18n/i18n.constants';
+import { labelsKeys, languages } from 'src/app/i18n/i18n.models';
 import {
   COMMON_WARNING_MESSAGE,
   LOGIN_ERROR_MESSAGE,

@@ -2,8 +2,8 @@ import {
   userLanguage,
   labels,
   labelWasNotFoundMesage,
-} from '../app/constants/i18n.constants';
-import { labelsKeys } from 'src/app/models/i18n.models';
+} from '../app/i18n/i18n.constants';
+import { labelsKeys } from 'src/app/i18n/i18n.models';
 
 export const i18nTranslator = (
   label: labelsKeys,
