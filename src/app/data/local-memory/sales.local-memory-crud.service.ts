@@ -36,6 +36,23 @@ export const MOCK_SALES: Partial<Sell>[] = [
     details: [
       { id: 4, product: { id: 2 }, units: 1 },
     ]
+  },
+  {
+    id: 4,
+    soldOn: '2020-06-22',
+    seller: { id: 3 },
+    details: [
+      { id: 5, product: { id: 1 }, units: 2 },
+    ]
+  },
+  {
+    id: 5,
+    soldOn: '2020-07-03',
+    seller: { id: 5 },
+    details: [
+      { id: 6, product: { id: 1 }, units: 1 },
+      { id: 7, product: { id: 3 }, units: 1 },
+    ]
   }
 ];
 
