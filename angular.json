@@ -132,7 +132,11 @@
         },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
-          "options": {}
+          "options": {
+            "baseHref": "https://bglamadrid.github.io/trebol-ng/",
+            "branch": "demo",
+            "configuration": "demo"
+          }
         }
       }
     },
