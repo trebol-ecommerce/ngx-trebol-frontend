@@ -57,6 +57,18 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "src/environments/auth.environment.ts",
+                  "with": "src/environments/auth.environment.prod.ts"
+                },
+                {
+                  "replace": "src/environments/store.environment.ts",
+                  "with": "src/environments/store.environment.prod.ts"
+                },
+                {
+                  "replace": "src/environments/data.environment.ts",
+                  "with": "src/environments/data.environment.prod.ts"
                 }
               ],
               "optimization": true,
