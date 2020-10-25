@@ -17,7 +17,7 @@ import { AuthorizedAccess } from './data/models/AuthorizedAccess';
 export class AppService
   implements OnDestroy {
 
-  protected isLoggedInChangesSource: Subject<boolean>= new ReplaySubject(1);
+  protected isLoggedInChangesSource: Subject<boolean> = new BehaviorSubject(false);
   protected isValidatingSessionSource: Subject<boolean> = new BehaviorSubject(false);
 
   public isLoggedInChanges$: Observable<boolean> = this.isLoggedInChangesSource.asObservable();
