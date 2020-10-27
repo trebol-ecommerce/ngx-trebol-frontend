@@ -9,7 +9,7 @@ import { LocalMemoryDataModule } from 'src/app/data/local-memory/local-memory-da
 import { StoreService } from './store.service';
 import { Product } from '../data/models/entities/Product';
 import { SellDetail } from '../data/models/entities/SellDetail';
-import { delay } from 'rxjs/operators';
+import { delay, take } from 'rxjs/operators';
 
 describe('StoreService', () => {
   let service: StoreService;
@@ -36,13 +36,33 @@ describe('StoreService', () => {
   it('should store items in the cart', () => {
     service.addProductToCart(mockProduct);
     service.addProductToCart(mockProductTwo);
-    service.sellDetails$.subscribe(
+    service.sellDetails$.pipe(take(1)).subscribe(
       (sellDetails: SellDetail[]) => {
         expect(sellDetails.length).toBe(2);
         expect(sellDetails[0].product).toEqual(mockProduct);
         expect(sellDetails[0].units).toEqual(1);
         expect(sellDetails[1].product).toEqual(mockProductTwo);
         expect(sellDetails[1].units).toEqual(1);
+      }
+    );
+  });
+
+  it('should delete items from the cart', () => {
+    service.addProductToCart(mockProduct);
+    service.addProductToCart(mockProductTwo);
+    service.removeProductFromCart(1);
+    service.sellDetails$.pipe(take(1)).subscribe(
+      (sellDetails: SellDetail[]) => {
+        expect(sellDetails.length).toBe(1);
+        expect(sellDetails[0].product).toEqual(mockProduct);
+      }
+    );
+
+    service.addProductToCart(mockProduct);
+    service.reset();
+    service.sellDetails$.pipe(take(1)).subscribe(
+      (sellDetails: SellDetail[]) => {
+        expect(sellDetails.length).toBe(0);
       }
     );
   });
