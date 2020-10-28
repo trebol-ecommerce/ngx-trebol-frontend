@@ -40,9 +40,9 @@ describe('StoreService', () => {
       (sellDetails: SellDetail[]) => {
         expect(sellDetails.length).toBe(2);
         expect(sellDetails[0].product).toEqual(mockProduct);
-        expect(sellDetails[0].units).toEqual(1);
+        expect(sellDetails[0].units).toBe(1);
         expect(sellDetails[1].product).toEqual(mockProductTwo);
-        expect(sellDetails[1].units).toEqual(1);
+        expect(sellDetails[1].units).toBe(1);
       }
     );
   });
