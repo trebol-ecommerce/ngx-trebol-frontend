@@ -67,7 +67,7 @@ describe('StoreService', () => {
     );
   });
 
-  it('should increate and decrease units of an individual item in the cart', () => {
+  it('should increase and decrease units of an individual item in the cart', () => {
     service.addProductToCart(mockProduct);
     service.addProductToCart(mockProductTwo);
     service.increaseProductUnits(1);
