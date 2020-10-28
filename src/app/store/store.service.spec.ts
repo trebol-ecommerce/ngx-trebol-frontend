@@ -108,4 +108,16 @@ describe('StoreService', () => {
     sub.unsubscribe();
   });
 
+  it('should not store items with duplicate ids, but increase the current quantity', () => {
+    service.addProductToCart(mockProduct);
+    service.addProductToCart(mockProduct);
+    service.sellDetails$.pipe(take(1)).subscribe(
+      (sellDetails: SellDetail[]) => {
+        expect(sellDetails.length).toBe(1);
+        expect(sellDetails[0].product).toEqual(mockProduct);
+        expect(sellDetails[0].units).toBe(2);
+      }
+    );
+  });
+
 });
