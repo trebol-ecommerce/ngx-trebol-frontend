@@ -6,12 +6,21 @@
   "commit": false,
   "contributors": [
     {
+      "login": "eLeontev",
+      "name": "eLeontev",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/15786916?v=4",
+      "profile": "https://github.com/eLeontev",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
       "login": "dmodena",
       "name": "Douglas Modena",
       "avatar_url": "https://avatars3.githubusercontent.com/u/11446011?v=4",
       "profile": "https://github.com/dmodena",
       "contributions": [
-        "example"
+        "examples"
       ]
     }
   ],
