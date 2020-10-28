@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "dmodena",
+      "name": "Douglas Modena",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/11446011?v=4",
+      "profile": "https://github.com/dmodena",
+      "contributions": [
+        "example"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "trebol-ng",
+  "projectOwner": "bglamadrid",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
