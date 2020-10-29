@@ -25,14 +25,14 @@ export class StoreService
   protected sellSubtotalValue: number;
 
   public cartDetails$: Observable<SellDetail[]> = this.sellDetailsSource.asObservable();
-  public itemQuantity$: Observable<number>;
+  public cartItemCount$: Observable<number>;
   public sellSubtotalValue$: Observable<number>;
 
   constructor(
     @Inject(DATA_INJECTION_TOKENS.salesCrud) protected salesDataService: EntityCrudIService<Sell>,
     protected httpClient: HttpClient
   ) {
-    this.itemQuantity$ = this.cartDetails$.pipe(
+    this.cartItemCount$ = this.cartDetails$.pipe(
       map(
         array => {
           if (array.length === 0) { return 0; }

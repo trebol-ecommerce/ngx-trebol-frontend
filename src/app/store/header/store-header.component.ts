@@ -27,7 +27,7 @@ export class StoreHeaderComponent
   implements OnInit {
 
   public cartHasItems$: Observable<boolean>;
-  public itemQuantityLabel$: Observable<string>;
+  public cartItemCountLabel$: Observable<string>;
   public cartSubtotalValue$: Observable<number>;
   public isLoggedIn$: Observable<boolean>;
 
@@ -49,7 +49,7 @@ export class StoreHeaderComponent
     this.cartHasItems$ = this.storeService.cartDetails$.pipe(
       map(array => array.length > 0)
     );
-    this.itemQuantityLabel$ = this.storeService.itemQuantity$.pipe(
+    this.cartItemCountLabel$ = this.storeService.cartItemCount$.pipe(
       map(total => total + ' item' + (total > 1 ? 's' : ''))
     );
     this.cartSubtotalValue$ = this.storeService.sellSubtotalValue$.pipe();

@@ -87,24 +87,24 @@ describe('StoreService', () => {
   });
 
   it('should update items quantity as the items in the cart vary', () => {
-    let itemQuantity: number;
-    let sub = service.itemQuantity$.subscribe(q => { itemQuantity = q; });
-    expect(itemQuantity).toBe(0);
+    let cartItemCount: number;
+    let sub = service.cartItemCount$.subscribe(q => { cartItemCount = q; });
+    expect(cartItemCount).toBe(0);
     service.addProductToCart(mockProduct);
-    expect(itemQuantity).toBe(1);
+    expect(cartItemCount).toBe(1);
     service.addProductToCart(mockProductTwo);
-    expect(itemQuantity).toBe(2);
+    expect(cartItemCount).toBe(2);
     service.increaseProductUnits(0);
     service.increaseProductUnits(0);
     service.increaseProductUnits(1);
-    expect(itemQuantity).toBe(5);
+    expect(cartItemCount).toBe(5);
     service.removeProductFromCart(1);
-    expect(itemQuantity).toBe(3);
+    expect(cartItemCount).toBe(3);
     service.decreaseProductUnits(0);
     service.decreaseProductUnits(0);
-    expect(itemQuantity).toBe(1);
+    expect(cartItemCount).toBe(1);
     service.reset();
-    expect(itemQuantity).toBe(0);
+    expect(cartItemCount).toBe(0);
     sub.unsubscribe();
   });
 

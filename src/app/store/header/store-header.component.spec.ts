@@ -21,7 +21,7 @@ describe('StoreHeaderComponent', () => {
   beforeEach(async(() => {
     storeService = {
       cartDetails$: of([]),
-      itemQuantity$: of(0),
+      cartItemCount$: of(0),
       sellSubtotalValue$: of(0)
     };
     appService = {
