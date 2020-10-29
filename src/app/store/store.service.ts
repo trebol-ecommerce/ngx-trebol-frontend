@@ -24,15 +24,15 @@ export class StoreService
   protected sellDetailsSource: Subject<SellDetail[]> = new BehaviorSubject([]);
   protected sellSubtotalValue: number;
 
-  public sellDetails$: Observable<SellDetail[]> = this.sellDetailsSource.asObservable();
-  public itemQuantity$: Observable<number>;
-  public sellSubtotalValue$: Observable<number>;
+  public cartDetails$: Observable<SellDetail[]> = this.sellDetailsSource.asObservable();
+  public cartItemCount$: Observable<number>;
+  public cartSubtotalValue$: Observable<number>;
 
   constructor(
     @Inject(DATA_INJECTION_TOKENS.salesCrud) protected salesDataService: EntityCrudIService<Sell>,
     protected httpClient: HttpClient
   ) {
-    this.itemQuantity$ = this.sellDetails$.pipe(
+    this.cartItemCount$ = this.cartDetails$.pipe(
       map(
         array => {
           if (array.length === 0) { return 0; }
@@ -41,7 +41,7 @@ export class StoreService
       )
     );
 
-    this.sellSubtotalValue$ = this.sellDetails$.pipe(
+    this.cartSubtotalValue$ = this.cartDetails$.pipe(
       map(
         array => {
           if (array.length === 0) { return 0; }
@@ -56,13 +56,6 @@ export class StoreService
     this.sellDetailsSource.complete();
   }
 
-  public fetchWebpayRedirectionData(data: FormData): Observable<ExternalPaymentRedirectionData> {
-    return this.httpClient.post<ExternalPaymentRedirectionData>(
-      this.checkoutURL,
-      data
-    );
-  }
-
   public reset(): void {
     this.sellDetails = [];
     this.sellDetailsSource.next([]);
@@ -70,6 +63,14 @@ export class StoreService
 
   protected findSellDetailsIndexByProductId(id: number): number {
     return this.sellDetails.findIndex(d => d.product?.id === id);
+  }
+
+  protected parseFormData(subtotal: number): FormData {
+    const total = String(Math.round(subtotal * 1.19));
+    const formData = new FormData();
+    formData.append('tr_amount', total);
+    formData.append('tr_id', '1');
+    return formData;
   }
 
   public addProductToCart(product: Product): void {
@@ -122,15 +123,11 @@ export class StoreService
     }
   }
 
-  public submitCart(clientId: number): Observable<number> {
-    const venta = Object.assign<Sell, Partial<Sell>>(
-      new Sell(),
-      {
-        client: { id: clientId },
-        details: this.sellDetails,
-        subtotalValue: this.sellSubtotalValue
-      }
+  public submitCart(): Observable<ExternalPaymentRedirectionData> {
+    const data: FormData = this.parseFormData(this.sellSubtotalValue);
+    return this.httpClient.post<ExternalPaymentRedirectionData>(
+      this.checkoutURL,
+      data
     );
-    return this.salesDataService.create(venta);
   }
 }

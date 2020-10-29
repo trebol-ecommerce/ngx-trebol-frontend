@@ -36,7 +36,7 @@ describe('StoreService', () => {
   it('should store items in the cart', () => {
     service.addProductToCart(mockProduct);
     service.addProductToCart(mockProductTwo);
-    service.sellDetails$.pipe(take(1)).subscribe(
+    service.cartDetails$.pipe(take(1)).subscribe(
       (sellDetails: SellDetail[]) => {
         expect(sellDetails.length).toBe(2);
         expect(sellDetails[0].product).toEqual(mockProduct);
@@ -51,7 +51,7 @@ describe('StoreService', () => {
     service.addProductToCart(mockProduct);
     service.addProductToCart(mockProductTwo);
     service.removeProductFromCart(1);
-    service.sellDetails$.pipe(take(1)).subscribe(
+    service.cartDetails$.pipe(take(1)).subscribe(
       (sellDetails: SellDetail[]) => {
         expect(sellDetails.length).toBe(1);
         expect(sellDetails[0].product).toEqual(mockProduct);
@@ -60,7 +60,7 @@ describe('StoreService', () => {
 
     service.addProductToCart(mockProduct);
     service.reset();
-    service.sellDetails$.pipe(take(1)).subscribe(
+    service.cartDetails$.pipe(take(1)).subscribe(
       (sellDetails: SellDetail[]) => {
         expect(sellDetails.length).toBe(0);
       }
@@ -72,14 +72,14 @@ describe('StoreService', () => {
     service.addProductToCart(mockProductTwo);
     service.increaseProductUnits(1);
     service.increaseProductUnits(1);
-    service.sellDetails$.pipe(take(1)).subscribe(
+    service.cartDetails$.pipe(take(1)).subscribe(
       (sellDetails: SellDetail[]) => {
         expect(sellDetails[1].units).toBe(3);
       }
     );
 
     service.decreaseProductUnits(1);
-    service.sellDetails$.pipe(take(1)).subscribe(
+    service.cartDetails$.pipe(take(1)).subscribe(
       (sellDetails: SellDetail[]) => {
         expect(sellDetails[1].units).toBe(2);
       }
@@ -87,35 +87,43 @@ describe('StoreService', () => {
   });
 
   it('should update items quantity as the items in the cart vary', () => {
-    let itemQuantity: number;
-    let sub = service.itemQuantity$.subscribe(q => { itemQuantity = q; });
-    expect(itemQuantity).toBe(0);
+    let cartItemCount: number;
+    let sub = service.cartItemCount$.subscribe(q => { cartItemCount = q; });
+    expect(cartItemCount).toBe(0);
     service.addProductToCart(mockProduct);
-    expect(itemQuantity).toBe(1);
+    expect(cartItemCount).toBe(1);
     service.addProductToCart(mockProductTwo);
-    expect(itemQuantity).toBe(2);
+    expect(cartItemCount).toBe(2);
     service.increaseProductUnits(0);
     service.increaseProductUnits(0);
     service.increaseProductUnits(1);
-    expect(itemQuantity).toBe(5);
+    expect(cartItemCount).toBe(5);
     service.removeProductFromCart(1);
-    expect(itemQuantity).toBe(3);
+    expect(cartItemCount).toBe(3);
     service.decreaseProductUnits(0);
     service.decreaseProductUnits(0);
-    expect(itemQuantity).toBe(1);
+    expect(cartItemCount).toBe(1);
     service.reset();
-    expect(itemQuantity).toBe(0);
+    expect(cartItemCount).toBe(0);
     sub.unsubscribe();
   });
 
   it('should not store items with duplicate ids, but increase the current quantity', () => {
     service.addProductToCart(mockProduct);
     service.addProductToCart(mockProduct);
-    service.sellDetails$.pipe(take(1)).subscribe(
+    service.cartDetails$.pipe(take(1)).subscribe(
       (sellDetails: SellDetail[]) => {
         expect(sellDetails.length).toBe(1);
         expect(sellDetails[0].product).toEqual(mockProduct);
         expect(sellDetails[0].units).toBe(2);
+      }
+    );
+  });
+
+  it('should checkout the cart', () => {
+    service.submitCart().subscribe(
+      redirectionData => {
+        expect(redirectionData).toBeTruthy();
       }
     );
   });

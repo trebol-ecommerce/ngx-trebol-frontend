@@ -16,9 +16,9 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
 
   beforeEach(async(() => {
     storeService = {
-      sellSubtotalValue$: of(0),
-      fetchWebpayRedirectionData() { return of({ url: '', token_ws: '' }); }
+      submitCart() { return of({ url: '', token_ws: '' }); }
     };
+    spyOn(storeService, 'submitCart').and.callThrough();
 
     TestBed.configureTestingModule({
       imports: [
@@ -40,5 +40,9 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should submit the cart upon initializing', () => {
+    expect(storeService.submitCart).toHaveBeenCalled();
   });
 });

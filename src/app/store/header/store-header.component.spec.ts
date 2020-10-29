@@ -20,9 +20,9 @@ describe('StoreHeaderComponent', () => {
 
   beforeEach(async(() => {
     storeService = {
-      sellDetails$: of([]),
-      itemQuantity$: of(0),
-      sellSubtotalValue$: of(0)
+      cartDetails$: of([]),
+      cartItemCount$: of(0),
+      cartSubtotalValue$: of(0)
     };
     appService = {
       isLoggedInChanges$: of(false),

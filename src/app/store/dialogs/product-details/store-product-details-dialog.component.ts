@@ -45,7 +45,7 @@ export class StoreProductDetailsDialogComponent
       map(d => d !== null ? d.units : 0)
     );
 
-    this.storeService.sellDetails$.subscribe(
+    this.storeService.cartDetails$.subscribe(
       details => {
         const index = details.findIndex(d => d.product?.id === this.product.id);
         if (index !== -1) {

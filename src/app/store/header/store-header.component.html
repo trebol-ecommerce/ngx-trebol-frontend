@@ -18,7 +18,7 @@
       <a mat-button title="Ir al Carrito" [routerLink]="['/store', 'cart']">
         <mat-icon>shopping_cart</mat-icon>
         <span class="cart-summary">
-          <span>{{ itemQuantityLabel$ | async }}</span>
+          <span>{{ cartItemCountLabel$$ | async }}</span>
           <span>${{ cartSubtotalValue$ | async }}</span>
         </span>
       </a>
