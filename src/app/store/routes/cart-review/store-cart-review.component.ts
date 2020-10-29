@@ -28,8 +28,8 @@ export class StoreCartReviewComponent
   implements OnInit {
 
   public sellDetails$: Observable<SellDetail[]>;
-  public sellSubtotalValue$: Observable<number>;
-  public sellTotalValue$: Observable<number>;
+  public cartSubtotalValue$: Observable<number>;
+  public cartTotalValue$: Observable<number>;
 
   public tableColumns: string[] = [ 'product', 'price', 'quantity', 'total', 'actions' ];
 
@@ -48,9 +48,9 @@ export class StoreCartReviewComponent
 
   ngOnInit(): void {
     this.sellDetails$ = this.storeService.cartDetails$.pipe();
-    this.sellSubtotalValue$ = this.storeService.sellSubtotalValue$.pipe();
+    this.cartSubtotalValue$ = this.storeService.cartSubtotalValue$.pipe();
 
-    this.sellTotalValue$ = this.storeService.sellSubtotalValue$.pipe(map(subtotal => Math.ceil(subtotal * 1.19)));
+    this.cartTotalValue$ = this.storeService.cartSubtotalValue$.pipe(map(subtotal => Math.ceil(subtotal * 1.19)));
   }
 
   protected promptLoginForm(): Observable<void> {

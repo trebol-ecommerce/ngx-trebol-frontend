@@ -52,7 +52,7 @@ export class StoreHeaderComponent
     this.cartItemCountLabel$ = this.storeService.cartItemCount$.pipe(
       map(total => total + ' item' + (total > 1 ? 's' : ''))
     );
-    this.cartSubtotalValue$ = this.storeService.sellSubtotalValue$.pipe();
+    this.cartSubtotalValue$ = this.storeService.cartSubtotalValue$.pipe();
     this.isLoggedIn$ = this.appService.isLoggedInChanges$.pipe();
 
     this.userName$ = this.appService.isLoggedInChanges$.pipe(

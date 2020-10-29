@@ -22,7 +22,7 @@ describe('StoreHeaderComponent', () => {
     storeService = {
       cartDetails$: of([]),
       cartItemCount$: of(0),
-      sellSubtotalValue$: of(0)
+      cartSubtotalValue$: of(0)
     };
     appService = {
       isLoggedInChanges$: of(false),

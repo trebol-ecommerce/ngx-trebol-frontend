@@ -26,7 +26,7 @@ export class StoreService
 
   public cartDetails$: Observable<SellDetail[]> = this.sellDetailsSource.asObservable();
   public cartItemCount$: Observable<number>;
-  public sellSubtotalValue$: Observable<number>;
+  public cartSubtotalValue$: Observable<number>;
 
   constructor(
     @Inject(DATA_INJECTION_TOKENS.salesCrud) protected salesDataService: EntityCrudIService<Sell>,
@@ -41,7 +41,7 @@ export class StoreService
       )
     );
 
-    this.sellSubtotalValue$ = this.cartDetails$.pipe(
+    this.cartSubtotalValue$ = this.cartDetails$.pipe(
       map(
         array => {
           if (array.length === 0) { return 0; }

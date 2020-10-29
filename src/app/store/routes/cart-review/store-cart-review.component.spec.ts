@@ -24,7 +24,7 @@ describe('StoreCartReviewComponent', () => {
   beforeEach(async(() => {
     storeService = {
       cartDetails$: of([]),
-      sellSubtotalValue$: of(0),
+      cartSubtotalValue$: of(0),
       increaseProductUnits(i) {},
       decreaseProductUnits(i) {},
       removeProductFromCart(i) {}

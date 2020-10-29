@@ -16,7 +16,7 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
 
   beforeEach(async(() => {
     storeService = {
-      sellSubtotalValue$: of(0),
+      cartSubtotalValue$: of(0),
       fetchWebpayRedirectionData() { return of({ url: '', token_ws: '' }); }
     };
 
