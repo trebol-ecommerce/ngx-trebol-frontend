@@ -8,6 +8,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { StoreService } from '../../store.service';
 import { StorePaymentRedirectPromptDialogComponent } from './store-payment-redirect-prompt-dialog.component';
+import { filter, take } from 'rxjs/operators';
 
 describe('StorePaymentRedirectPromptDialogComponent', () => {
   let component: StorePaymentRedirectPromptDialogComponent;
@@ -19,6 +20,7 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
       cartSubtotalValue$: of(0),
       submitCart() { return of({ url: '', token_ws: '' }); }
     };
+    spyOn(storeService, 'submitCart');
 
     TestBed.configureTestingModule({
       imports: [
@@ -40,5 +42,16 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should submit the cart upon initializing', () => {
+    component.loading$.pipe(
+      filter(is => !is),
+      take(1)
+    ).subscribe(
+      () => {
+        expect(storeService.submitCart).toHaveBeenCalled();
+      }
+    );
   });
 });
