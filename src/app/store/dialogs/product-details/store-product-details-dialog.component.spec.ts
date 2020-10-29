@@ -16,7 +16,7 @@ describe('StoreProductDetailsDialogComponent', () => {
 
   beforeEach(async(() => {
     storeService = {
-      sellDetails$: of([]),
+      cartDetails$: of([]),
       increaseProductUnits(i) {},
       addProductToCart(p) {},
       decreaseProductUnits(i) {}

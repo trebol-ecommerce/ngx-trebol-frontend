@@ -46,7 +46,7 @@ export class StoreHeaderComponent
   ) { }
 
   ngOnInit(): void {
-    this.cartHasItems$ = this.storeService.sellDetails$.pipe(
+    this.cartHasItems$ = this.storeService.cartDetails$.pipe(
       map(array => array.length > 0)
     );
     this.itemQuantityLabel$ = this.storeService.itemQuantity$.pipe(

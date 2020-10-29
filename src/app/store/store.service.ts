@@ -24,7 +24,7 @@ export class StoreService
   protected sellDetailsSource: Subject<SellDetail[]> = new BehaviorSubject([]);
   protected sellSubtotalValue: number;
 
-  public sellDetails$: Observable<SellDetail[]> = this.sellDetailsSource.asObservable();
+  public cartDetails$: Observable<SellDetail[]> = this.sellDetailsSource.asObservable();
   public itemQuantity$: Observable<number>;
   public sellSubtotalValue$: Observable<number>;
 
@@ -32,7 +32,7 @@ export class StoreService
     @Inject(DATA_INJECTION_TOKENS.salesCrud) protected salesDataService: EntityCrudIService<Sell>,
     protected httpClient: HttpClient
   ) {
-    this.itemQuantity$ = this.sellDetails$.pipe(
+    this.itemQuantity$ = this.cartDetails$.pipe(
       map(
         array => {
           if (array.length === 0) { return 0; }
@@ -41,7 +41,7 @@ export class StoreService
       )
     );
 
-    this.sellSubtotalValue$ = this.sellDetails$.pipe(
+    this.sellSubtotalValue$ = this.cartDetails$.pipe(
       map(
         array => {
           if (array.length === 0) { return 0; }

@@ -36,7 +36,7 @@ describe('StoreService', () => {
   it('should store items in the cart', () => {
     service.addProductToCart(mockProduct);
     service.addProductToCart(mockProductTwo);
-    service.sellDetails$.pipe(take(1)).subscribe(
+    service.cartDetails$.pipe(take(1)).subscribe(
       (sellDetails: SellDetail[]) => {
         expect(sellDetails.length).toBe(2);
         expect(sellDetails[0].product).toEqual(mockProduct);
@@ -51,7 +51,7 @@ describe('StoreService', () => {
     service.addProductToCart(mockProduct);
     service.addProductToCart(mockProductTwo);
     service.removeProductFromCart(1);
-    service.sellDetails$.pipe(take(1)).subscribe(
+    service.cartDetails$.pipe(take(1)).subscribe(
       (sellDetails: SellDetail[]) => {
         expect(sellDetails.length).toBe(1);
         expect(sellDetails[0].product).toEqual(mockProduct);
@@ -60,7 +60,7 @@ describe('StoreService', () => {
 
     service.addProductToCart(mockProduct);
     service.reset();
-    service.sellDetails$.pipe(take(1)).subscribe(
+    service.cartDetails$.pipe(take(1)).subscribe(
       (sellDetails: SellDetail[]) => {
         expect(sellDetails.length).toBe(0);
       }
@@ -72,14 +72,14 @@ describe('StoreService', () => {
     service.addProductToCart(mockProductTwo);
     service.increaseProductUnits(1);
     service.increaseProductUnits(1);
-    service.sellDetails$.pipe(take(1)).subscribe(
+    service.cartDetails$.pipe(take(1)).subscribe(
       (sellDetails: SellDetail[]) => {
         expect(sellDetails[1].units).toBe(3);
       }
     );
 
     service.decreaseProductUnits(1);
-    service.sellDetails$.pipe(take(1)).subscribe(
+    service.cartDetails$.pipe(take(1)).subscribe(
       (sellDetails: SellDetail[]) => {
         expect(sellDetails[1].units).toBe(2);
       }
@@ -111,7 +111,7 @@ describe('StoreService', () => {
   it('should not store items with duplicate ids, but increase the current quantity', () => {
     service.addProductToCart(mockProduct);
     service.addProductToCart(mockProduct);
-    service.sellDetails$.pipe(take(1)).subscribe(
+    service.cartDetails$.pipe(take(1)).subscribe(
       (sellDetails: SellDetail[]) => {
         expect(sellDetails.length).toBe(1);
         expect(sellDetails[0].product).toEqual(mockProduct);

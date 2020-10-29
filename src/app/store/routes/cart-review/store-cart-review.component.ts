@@ -41,13 +41,13 @@ export class StoreCartReviewComponent
     protected snackBarService: MatSnackBar
   ) {
     // TODO refactor this into a routing guard
-    this.storeService.sellDetails$.pipe(take(1)).subscribe(
+    this.storeService.cartDetails$.pipe(take(1)).subscribe(
       array => { if (array.length === 0) { this.router.navigateByUrl('/store'); } }
     );
   }
 
   ngOnInit(): void {
-    this.sellDetails$ = this.storeService.sellDetails$.pipe();
+    this.sellDetails$ = this.storeService.cartDetails$.pipe();
     this.sellSubtotalValue$ = this.storeService.sellSubtotalValue$.pipe();
 
     this.sellTotalValue$ = this.storeService.sellSubtotalValue$.pipe(map(subtotal => Math.ceil(subtotal * 1.19)));
