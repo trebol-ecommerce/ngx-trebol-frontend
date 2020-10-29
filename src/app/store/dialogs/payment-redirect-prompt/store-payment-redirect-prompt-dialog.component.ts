@@ -42,7 +42,7 @@ export class StorePaymentRedirectPromptDialogComponent
   protected initiateWebpayTransaction(): void {
     this.storeService.cartSubtotalValue$.pipe(
       map((subtotal) => { return this.parseFormData(subtotal); }),
-      concatMap((data) => { return this.storeService.fetchWebpayRedirectionData(data); })
+      concatMap((data) => { return this.storeService.submitCart(data); })
     ).subscribe(
       data => {
         this.externalDataSource.next(data);

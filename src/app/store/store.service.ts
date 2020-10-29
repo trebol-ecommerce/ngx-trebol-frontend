@@ -56,13 +56,6 @@ export class StoreService
     this.sellDetailsSource.complete();
   }
 
-  public fetchWebpayRedirectionData(data: FormData): Observable<ExternalPaymentRedirectionData> {
-    return this.httpClient.post<ExternalPaymentRedirectionData>(
-      this.checkoutURL,
-      data
-    );
-  }
-
   public reset(): void {
     this.sellDetails = [];
     this.sellDetailsSource.next([]);
@@ -122,15 +115,10 @@ export class StoreService
     }
   }
 
-  public submitCart(clientId: number): Observable<number> {
-    const venta = Object.assign<Sell, Partial<Sell>>(
-      new Sell(),
-      {
-        client: { id: clientId },
-        details: this.sellDetails,
-        subtotalValue: this.sellSubtotalValue
-      }
+  public submitCart(data: FormData): Observable<ExternalPaymentRedirectionData> {
+    return this.httpClient.post<ExternalPaymentRedirectionData>(
+      this.checkoutURL,
+      data
     );
-    return this.salesDataService.create(venta);
   }
 }

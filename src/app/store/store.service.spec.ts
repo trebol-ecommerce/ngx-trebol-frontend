@@ -125,7 +125,7 @@ describe('StoreService', () => {
     const formData = new FormData();
     formData.append('tr_amount', "10");
     formData.append('tr_id', "0");
-    service.fetchWebpayRedirectionData(formData).subscribe(
+    service.submitCart(formData).subscribe(
       redirectionData => {
         expect(redirectionData).toBeTruthy();
       }
