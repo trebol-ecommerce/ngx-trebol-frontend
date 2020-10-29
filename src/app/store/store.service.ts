@@ -65,6 +65,14 @@ export class StoreService
     return this.sellDetails.findIndex(d => d.product?.id === id);
   }
 
+  protected parseFormData(subtotal: number): FormData {
+    const total = String(Math.round(subtotal * 1.19));
+    const formData = new FormData();
+    formData.append('tr_amount', total);
+    formData.append('tr_id', '1');
+    return formData;
+  }
+
   public addProductToCart(product: Product): void {
     const index: number = this.findSellDetailsIndexByProductId(product.id);
 
@@ -115,7 +123,8 @@ export class StoreService
     }
   }
 
-  public submitCart(data: FormData): Observable<ExternalPaymentRedirectionData> {
+  public submitCart(): Observable<ExternalPaymentRedirectionData> {
+    const data: FormData = this.parseFormData(this.sellSubtotalValue);
     return this.httpClient.post<ExternalPaymentRedirectionData>(
       this.checkoutURL,
       data

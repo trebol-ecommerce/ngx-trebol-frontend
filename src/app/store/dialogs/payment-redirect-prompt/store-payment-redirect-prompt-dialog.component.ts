@@ -4,8 +4,8 @@
 // https://opensource.org/licenses/MIT
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { concatMap, map, mapTo, startWith } from 'rxjs/operators';
+import { Observable, Subject, ReplaySubject, concat, of } from 'rxjs';
+import { concatMap, map, mapTo, startWith, switchMap } from 'rxjs/operators';
 import { ExternalPaymentRedirectionData } from 'src/app/data/models/ExternalPaymentRedirectionData';
 import { StoreService } from 'src/app/store/store.service';
 
@@ -17,7 +17,7 @@ import { StoreService } from 'src/app/store/store.service';
 export class StorePaymentRedirectPromptDialogComponent
   implements OnInit, OnDestroy {
 
-  protected externalDataSource: Subject<ExternalPaymentRedirectionData> = new Subject();
+  protected externalDataSource: Subject<ExternalPaymentRedirectionData> = new ReplaySubject(1);
 
   public loading$: Observable<boolean>;
   public webpayURL$: Observable<string>;
@@ -31,28 +31,12 @@ export class StorePaymentRedirectPromptDialogComponent
     this.webpayToken$ = this.externalDataSource.asObservable().pipe(map(data => data.token_ws));
   }
 
-  protected parseFormData(subtotal: number): FormData {
-    const total = String(Math.round(subtotal * 1.19));
-    const formData = new FormData();
-    formData.append('tr_amount', total);
-    formData.append('tr_id', '1');
-    return formData;
-  }
-
-  protected initiateWebpayTransaction(): void {
-    this.storeService.cartSubtotalValue$.pipe(
-      map((subtotal) => { return this.parseFormData(subtotal); }),
-      concatMap((data) => { return this.storeService.submitCart(data); })
-    ).subscribe(
+  ngOnInit(): void {
+    this.storeService.submitCart().subscribe(
       data => {
         this.externalDataSource.next(data);
-        this.externalDataSource.complete();
       }
-    );
-  }
-
-  ngOnInit(): void {
-    this.initiateWebpayTransaction();
+    );;
   }
 
   ngOnDestroy(): void {
