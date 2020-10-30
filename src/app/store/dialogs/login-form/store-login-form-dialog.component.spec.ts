@@ -62,4 +62,11 @@ describe('StoreLoginFormDialogComponent', () => {
     component.onSubmit();
     expect(appService.login).not.toHaveBeenCalled();
   });
+
+  it('should submit correct form', () => {
+    component.username.setValue('test');
+    component.password.setValue('pass');
+    component.onSubmit();
+    expect(appService.login).toHaveBeenCalled();
+  });
 });
