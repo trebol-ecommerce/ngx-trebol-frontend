@@ -60,6 +60,6 @@ describe('StoreLoginFormDialogComponent', () => {
 
   it('should not submit incomplete form', () => {
     component.onSubmit();
-    expect(appService.login).toHaveBeenCalledTimes(0);
+    expect(appService.login).not.toHaveBeenCalled();
   });
 });
