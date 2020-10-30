@@ -65,6 +65,11 @@ describe('StoreLoginFormDialogComponent', () => {
 
   it('should not submit incomplete form', () => {
     component.onSubmit();
+    component.username.setValue('test');
+    component.onSubmit();
+    component.formGroup.reset();
+    component.password.setValue('test');
+    component.onSubmit();
     expect(appService.login).not.toHaveBeenCalled();
   });
 
