@@ -44,7 +44,6 @@ describe('StoreLoginFormDialogComponent', () => {
         FormsModule,
         MatInputModule,
         MatFormFieldModule,
-        MatDialogModule,
         RouterTestingModule
       ],
       declarations: [ StoreLoginFormDialogComponent ],
