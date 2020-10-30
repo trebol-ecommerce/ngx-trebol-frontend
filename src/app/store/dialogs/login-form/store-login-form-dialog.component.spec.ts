@@ -25,6 +25,7 @@ describe('StoreLoginFormDialogComponent', () => {
     appService = {
       login() { return of(true); }
     };
+    spyOn(appService, 'login').and.callThrough();
 
     TestBed.configureTestingModule({
       imports: [
@@ -55,5 +56,10 @@ describe('StoreLoginFormDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should not submit incomplete form', () => {
+    component.onSubmit();
+    expect(appService.login).toHaveBeenCalledTimes(0);
   });
 });
