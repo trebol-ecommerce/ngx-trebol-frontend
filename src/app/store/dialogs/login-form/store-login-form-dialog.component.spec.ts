@@ -19,13 +19,18 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 describe('StoreLoginFormDialogComponent', () => {
   let component: StoreLoginFormDialogComponent;
   let fixture: ComponentFixture<StoreLoginFormDialogComponent>;
+  let dialog: Partial<MatDialogRef<StoreLoginFormDialogComponent>>;
   let appService: Partial<AppService>;
 
   beforeEach(async(() => {
+    dialog = {
+      close() {}
+    };
     appService = {
       login() { return of(true); }
     };
     spyOn(appService, 'login').and.callThrough();
+    spyOn(dialog, 'close');
 
     TestBed.configureTestingModule({
       imports: [
@@ -41,7 +46,7 @@ describe('StoreLoginFormDialogComponent', () => {
       ],
       declarations: [ StoreLoginFormDialogComponent ],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
+        { provide: MatDialogRef, useValue: dialog },
         { provide: AppService, useValue: appService }
       ]
     })
@@ -68,5 +73,10 @@ describe('StoreLoginFormDialogComponent', () => {
     component.password.setValue('pass');
     component.onSubmit();
     expect(appService.login).toHaveBeenCalled();
+  });
+
+  it('should close upon cancellation', () => {
+    component.onCancel();
+    expect(dialog.close).toHaveBeenCalled();
   });
 });
