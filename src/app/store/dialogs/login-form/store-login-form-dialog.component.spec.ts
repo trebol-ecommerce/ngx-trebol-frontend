@@ -14,13 +14,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 
 describe('StoreLoginFormDialogComponent', () => {
   let component: StoreLoginFormDialogComponent;
   let fixture: ComponentFixture<StoreLoginFormDialogComponent>;
   let dialog: Partial<MatDialogRef<StoreLoginFormDialogComponent>>;
   let appService: Partial<AppService>;
+  let snackBar: Partial<MatSnackBar>;
 
   beforeEach(async(() => {
     dialog = {
@@ -28,6 +29,9 @@ describe('StoreLoginFormDialogComponent', () => {
     };
     appService = {
       login() { return of(true); }
+    };
+    snackBar = {
+      open() { return undefined; }
     };
     spyOn(appService, 'login').and.callThrough();
     spyOn(dialog, 'close');
@@ -41,13 +45,13 @@ describe('StoreLoginFormDialogComponent', () => {
         MatInputModule,
         MatFormFieldModule,
         MatDialogModule,
-        MatSnackBarModule,
         RouterTestingModule
       ],
       declarations: [ StoreLoginFormDialogComponent ],
       providers: [
         { provide: MatDialogRef, useValue: dialog },
-        { provide: AppService, useValue: appService }
+        { provide: AppService, useValue: appService },
+        { provide: MatSnackBar, useValue: snackBar }
       ]
     })
     .compileComponents();
