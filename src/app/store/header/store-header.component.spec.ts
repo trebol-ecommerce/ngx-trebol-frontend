@@ -7,16 +7,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { Person } from 'src/app/data/models/entities/Person';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { StoreService } from '../store.service';
 import { StoreHeaderComponent } from './store-header.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('StoreHeaderComponent', () => {
   let component: StoreHeaderComponent;
   let fixture: ComponentFixture<StoreHeaderComponent>;
   let storeService: Partial<StoreService>;
   let appService: Partial<AppService>;
+  let snackBarService: Partial<MatSnackBar>;
 
   beforeEach(async(() => {
     storeService = {
@@ -33,13 +38,18 @@ describe('StoreHeaderComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        CommonModule,
         RouterTestingModule,
-        SharedModule
+        MatButtonModule,
+        MatMenuModule,
+        MatIconModule,
+        MatDialogModule
       ],
       declarations: [ StoreHeaderComponent ],
       providers: [
         { provide: StoreService, useValue: storeService },
-        { provide: AppService, useValue: appService }
+        { provide: AppService, useValue: appService },
+        { provide: MatSnackBar, useValue: snackBarService }
       ]
     })
     .compileComponents();
