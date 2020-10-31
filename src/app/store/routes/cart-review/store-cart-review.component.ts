@@ -129,12 +129,12 @@ export class StoreCartReviewComponent
   }
 
   public onClickAccept(): void {
-    if (this.appService.isLoggedIn) {
+    if (this.appService.isLoggedIn()) {
       this.openPaymentRedirectPrompt();
     } else {
       this.promptUserLoginChoices().subscribe(
         () => {
-          if (this.appService.isLoggedIn) {
+          if (this.appService.isLoggedIn()) {
             this.openPaymentRedirectPrompt();
           }
         }

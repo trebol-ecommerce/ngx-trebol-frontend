@@ -14,17 +14,27 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 
 describe('StoreLoginFormDialogComponent', () => {
   let component: StoreLoginFormDialogComponent;
   let fixture: ComponentFixture<StoreLoginFormDialogComponent>;
+  let dialog: Partial<MatDialogRef<StoreLoginFormDialogComponent>>;
   let appService: Partial<AppService>;
+  let snackBar: Partial<MatSnackBar>;
 
   beforeEach(async(() => {
+    dialog = {
+      close() {}
+    };
     appService = {
       login() { return of(true); }
     };
+    snackBar = {
+      open() { return undefined; }
+    };
+    spyOn(appService, 'login').and.callThrough();
+    spyOn(dialog, 'close');
 
     TestBed.configureTestingModule({
       imports: [
@@ -34,14 +44,13 @@ describe('StoreLoginFormDialogComponent', () => {
         FormsModule,
         MatInputModule,
         MatFormFieldModule,
-        MatDialogModule,
-        MatSnackBarModule,
         RouterTestingModule
       ],
       declarations: [ StoreLoginFormDialogComponent ],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
-        { provide: AppService, useValue: appService }
+        { provide: MatDialogRef, useValue: dialog },
+        { provide: AppService, useValue: appService },
+        { provide: MatSnackBar, useValue: snackBar }
       ]
     })
     .compileComponents();
@@ -55,5 +64,27 @@ describe('StoreLoginFormDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should not submit incomplete form', () => {
+    component.onSubmit();
+    component.username.setValue('test');
+    component.onSubmit();
+    component.formGroup.reset();
+    component.password.setValue('test');
+    component.onSubmit();
+    expect(appService.login).not.toHaveBeenCalled();
+  });
+
+  it('should submit correct form', () => {
+    component.username.setValue('test');
+    component.password.setValue('pass');
+    component.onSubmit();
+    expect(appService.login).toHaveBeenCalled();
+  });
+
+  it('should close upon cancellation', () => {
+    component.onCancel();
+    expect(dialog.close).toHaveBeenCalled();
   });
 });

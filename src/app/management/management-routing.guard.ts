@@ -26,14 +26,8 @@ export class ManagementRoutingGuard
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.appService.isUserLoggedIn().pipe(
-      map(
-        r => {
-          if (!r) { return this.router.parseUrl('/'); }
-          return r;
-        }
-      )
-    );
+    const loggedIn = this.appService.isLoggedIn();
+    return loggedIn ? true : this.router.parseUrl('/');
   }
 
   canActivateChild(

@@ -144,14 +144,16 @@ export class StoreHeaderComponent
   }
 
   public onClickLogout(): void {
-    this.promptLogoutConfirmation().subscribe(
-      confirmed => {
-        if (confirmed) {
-          this.snackBarService.open(LOGOUT_MESSAGE, 'OK');
-          this.appService.closeCurrentSession();
+    if (this.appService.isLoggedIn()) {
+      this.promptLogoutConfirmation().subscribe(
+        confirmed => {
+          if (confirmed) {
+            this.snackBarService.open(LOGOUT_MESSAGE, 'OK');
+            this.appService.closeCurrentSession();
+          }
         }
-      }
-    );
+      );
+    }
   }
 
 }

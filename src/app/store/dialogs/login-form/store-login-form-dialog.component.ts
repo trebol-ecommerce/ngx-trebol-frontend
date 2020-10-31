@@ -52,28 +52,30 @@ export class StoreLoginFormDialogComponent {
   public hidePassword(): void { this.hidePasswordSource.next(true); }
 
   public onSubmit(): void {
-    this.loggingInSource.next(true);
+    if (this.formGroup.valid) {
+      this.loggingInSource.next(true);
 
-    const details: Login = {
-      name: this.username.value,
-      password: this.password.value
-    };
+      const details: Login = {
+        name: this.username.value,
+        password: this.password.value
+      };
 
-    this.appService.login(details).subscribe(
-      () => {
-        this.dialog.close();
-        this.snackBarService.open(LOGIN_SUCCESS_MESSAGE, 'OK');
-      },
-      error => {
-        if (error.status === 403) {
-          this.loggingInSource.next(false);
-          this.snackBarService.open(LOGIN_ERROR_MESSAGE, 'OK');
-        } else {
-          this.loggingInSource.next(false);
-          this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
+      this.appService.login(details).subscribe(
+        () => {
+          this.dialog.close();
+          this.snackBarService.open(LOGIN_SUCCESS_MESSAGE, 'OK');
+        },
+        error => {
+          if (error.status === 403) {
+            this.loggingInSource.next(false);
+            this.snackBarService.open(LOGIN_ERROR_MESSAGE, 'OK');
+          } else {
+            this.loggingInSource.next(false);
+            this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   public onCancel(): void {
