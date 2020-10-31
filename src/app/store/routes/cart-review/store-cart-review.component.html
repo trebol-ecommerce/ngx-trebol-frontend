@@ -62,7 +62,7 @@
   <h3 class="summary">Resumen de tu Compra</h3>
   <div class="summary">
     <div>Subtotal: ${{ cartSubtotalValue$ | async }}</div>
-    <div>Total: ${{ sellTotalValue$ | async }} (IVA incl.)</div>
+    <div>Total: ${{ cartTotalValue$ | async }} (IVA incl.)</div>
     <button mat-button mat-raised-button type="button"
       color="primary"
       (click)="onClickAccept()">
