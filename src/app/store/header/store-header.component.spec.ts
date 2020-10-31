@@ -77,4 +77,14 @@ describe('StoreHeaderComponent', () => {
     component.onClickLogIn();
     expect(dialogService.open).toHaveBeenCalled();
   });
+
+  it('should prompt a logout confirmation, only when logged in', () => {
+    component.onClickLogout();
+    expect(dialogService.open).not.toHaveBeenCalled();
+
+    appService.isLoggedInChanges$ = of(true);
+    appService.isUserLoggedIn = (() => { return of(true); });
+    component.onClickLogout();
+    expect(dialogService.open).toHaveBeenCalled();
+  });
 });
