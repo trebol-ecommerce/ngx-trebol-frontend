@@ -29,10 +29,6 @@ export class AppService
     this.fetchLoggedInState().subscribe();
   }
 
-  public get isLoggedIn(): boolean {
-    return (this.isLoggedInChangesSource as BehaviorSubject<boolean>)?.getValue();
-  }
-
   ngOnDestroy(): void {
     this.isLoggedInChangesSource.complete();
     this.isValidatingSessionSource.complete();
@@ -50,8 +46,12 @@ export class AppService
     );
   }
 
+  public isLoggedIn(): boolean {
+    return (this.isLoggedInChangesSource as BehaviorSubject<boolean>)?.getValue();
+  }
+
   public isUserLoggedIn(): Observable<boolean> {
-    const isCurrentlyLoggedIn = this.isLoggedIn;
+    const isCurrentlyLoggedIn = this.isLoggedIn();
     if (isCurrentlyLoggedIn === null) {
       return this.fetchLoggedInState();
     } else {
@@ -74,7 +74,7 @@ export class AppService
   }
 
   public login(credentials: Login): Observable<boolean> {
-    if (this.isLoggedIn) {
+    if (this.isLoggedIn()) {
       return of(true);
     } else {
       return this.authService.login(credentials).pipe(
@@ -99,7 +99,7 @@ export class AppService
   }
 
   public getAuthorizedAccess(): Observable<AuthorizedAccess> {
-    return this.isLoggedIn ? this.authService.getAuthorizedAccess() : of(null);
+    return this.isLoggedIn() ? this.authService.getAuthorizedAccess() : of(null);
   }
 
   public getUserProfile(): Observable<Person> {

@@ -144,7 +144,7 @@ export class StoreHeaderComponent
   }
 
   public onClickLogout(): void {
-    if (this.appService.isLoggedIn) {
+    if (this.appService.isLoggedIn()) {
       this.promptLogoutConfirmation().subscribe(
         confirmed => {
           if (confirmed) {
