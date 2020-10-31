@@ -50,15 +50,6 @@ export class AppService
     return (this.isLoggedInChangesSource as BehaviorSubject<boolean>)?.getValue();
   }
 
-  public isUserLoggedIn(): Observable<boolean> {
-    const isCurrentlyLoggedIn = this.isLoggedIn();
-    if (isCurrentlyLoggedIn === null) {
-      return this.fetchLoggedInState();
-    } else {
-      return of(isCurrentlyLoggedIn);
-    }
-  }
-
   public guestLogin(personDetails: Person): Observable<boolean> {
     return this.authService.guestLogin(personDetails);
   }

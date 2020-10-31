@@ -15,7 +15,6 @@ describe('EditProfileFormService', () => {
 
   beforeEach(() => {
     appService = {
-      isUserLoggedIn() { return of(true); },
       getUserProfile() { return of(new Person()); },
       updateUserProfile(p) { return of(true); }
     };

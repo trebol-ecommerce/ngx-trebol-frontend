@@ -34,7 +34,6 @@ describe('StoreHeaderComponent', () => {
     };
     appService = {
       isLoggedInChanges$: of(false),
-      isUserLoggedIn() { return of(false); },
       closeCurrentSession() {},
       getUserProfile() { return of(null); }
     };
@@ -83,7 +82,7 @@ describe('StoreHeaderComponent', () => {
     expect(dialogService.open).not.toHaveBeenCalled();
 
     appService.isLoggedInChanges$ = of(true);
-    appService.isUserLoggedIn = (() => { return of(true); });
+    appService.isLoggedIn = (() => { return true; });
     component.onClickLogout();
     expect(dialogService.open).toHaveBeenCalled();
   });
