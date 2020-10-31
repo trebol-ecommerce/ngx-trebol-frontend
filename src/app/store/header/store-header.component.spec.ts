@@ -33,6 +33,7 @@ describe('StoreHeaderComponent', () => {
       cartSubtotalValue$: of(0)
     };
     appService = {
+      isLoggedIn() { return false },
       isLoggedInChanges$: of(false),
       closeCurrentSession() {},
       getUserProfile() { return of(null); }
