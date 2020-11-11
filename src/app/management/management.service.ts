@@ -7,7 +7,7 @@ import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRouteSnapshot, ActivationEnd, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, map, throttleTime } from 'rxjs/operators';
-import { AUTH_INJECTION_TOKEN } from 'src/app/api/session/auth.injection-token';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
 import { SessionIService } from 'src/app/api/session/session.iservice';
 
 @Injectable()
@@ -22,7 +22,7 @@ export class ManagementService
   public currentPageName$: Observable<string>;
 
   constructor(
-    @Inject(AUTH_INJECTION_TOKEN) protected authService: SessionIService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.auth) protected authService: SessionIService,
     protected router: Router
   ) {
 

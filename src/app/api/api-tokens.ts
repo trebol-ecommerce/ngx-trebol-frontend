@@ -14,5 +14,6 @@ export const API_SERVICE_INJECTION_TOKENS = {
   sellersCrud: 'SellersCrud',
   productsCrud: 'ProductsCrud',
   usersCrud: 'UsersCrud',
-  salesCrud: 'SalesCrud'
+  salesCrud: 'SalesCrud',
+  auth: 'AuthService'
 };

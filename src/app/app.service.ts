@@ -6,7 +6,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject, ReplaySubject } from 'rxjs';
 import { catchError, finalize, map, mapTo, tap } from 'rxjs/operators';
-import { AUTH_INJECTION_TOKEN } from 'src/app/api/session/auth.injection-token';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
 import { SessionIService } from 'src/app/api/session/session.iservice';
 import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
@@ -24,7 +24,7 @@ export class AppService
   public isValidatingSession$: Observable<boolean> = this.isValidatingSessionSource.asObservable();
 
   constructor(
-    @Inject(AUTH_INJECTION_TOKEN) protected authService: SessionIService
+    @Inject(API_SERVICE_INJECTION_TOKENS.auth) protected authService: SessionIService
   ) {
     this.fetchLoggedInState().subscribe();
   }
