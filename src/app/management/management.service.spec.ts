@@ -5,7 +5,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { LocalMemorySessionModule } from 'src/app/api/session/local-memory/local-memory-session.module';
+import { LocalMemorySessionApiModule } from 'src/app/api/session/local-memory/local-memory-session-api.module';
 import { LocalMemoryDataModule } from 'src/app/api/data-mgt/local-memory/local-memory-data.module';
 import { ManagementService } from './management.service';
 
@@ -17,7 +17,7 @@ describe('ManagementService', () => {
       imports: [
         RouterTestingModule,
         LocalMemoryDataModule,
-        LocalMemorySessionModule
+        LocalMemorySessionApiModule
       ],
       providers: [
         ManagementService

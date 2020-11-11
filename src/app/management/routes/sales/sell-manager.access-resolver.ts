@@ -7,7 +7,7 @@ import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
-import { SessionIService } from 'src/app/api/session/session.iservice';
+import { SessionApiIService } from 'src/app/api/session/session-api.iservice';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 
 @Injectable({ providedIn: 'root' })
@@ -15,7 +15,7 @@ export class SellManagerAccessResolver
   implements Resolve<AuthorizedAccess> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.auth) protected authService: SessionIService
+    @Inject(API_SERVICE_INJECTION_TOKENS.auth) protected authService: SessionApiIService
   ) { }
 
   resolve(

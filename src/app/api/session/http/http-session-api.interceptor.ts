@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { sessionStorageTokenItemName, authorizationHeaderName } from 'src/environments/auth.environment';
 
 @Injectable()
-export class HttpSessionInterceptor
+export class HttpSessionApiInterceptor
   implements HttpInterceptor {
 
   //TODO these should be refactored

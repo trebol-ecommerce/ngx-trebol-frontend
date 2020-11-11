@@ -16,13 +16,13 @@ import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
 import { HttpService } from 'src/app/shared/http.abstract-service';
-import { SessionIService } from '../session.iservice';
+import { SessionApiIService } from '../session-api.iservice';
 import { sessionStorageTokenItemName, authorizationHeaderName, baseURI } from 'src/environments/auth.environment';
 
 @Injectable()
-export class HttpSessionService
+export class HttpSessionApiService
   extends HttpService
-  implements SessionIService {
+  implements SessionApiIService {
 
   protected baseURI = baseURI;
   protected readonly sessionStorageTokenItemName = sessionStorageTokenItemName;

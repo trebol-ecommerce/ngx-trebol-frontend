@@ -10,7 +10,7 @@ import { Client } from 'src/app/models/entities/Client';
 import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
 import { makeid } from 'src/functions/makeid';
-import { SessionIService } from '../session.iservice';
+import { SessionApiIService } from '../session-api.iservice';
 import { sessionStorageTokenItemName, authorizationHeaderName } from 'src/environments/auth.environment';
 
 function getNewSessionId(): number {
@@ -22,8 +22,8 @@ function getNewSessionId(): number {
 }
 
 @Injectable()
-export class LocalMemorySessionService
-  implements SessionIService {
+export class LocalMemorySessionApiService
+  implements SessionApiIService {
 
   protected readonly sessionStorageTokenItemName = sessionStorageTokenItemName;
   protected readonly authorizationHeader = authorizationHeaderName;
