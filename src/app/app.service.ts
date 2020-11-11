@@ -6,8 +6,8 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject, ReplaySubject } from 'rxjs';
 import { catchError, finalize, map, mapTo, tap } from 'rxjs/operators';
-import { AUTH_INJECTION_TOKEN } from 'src/app/auth/auth.injection-token';
-import { AuthenticationIService } from 'src/app/auth/auth.iservice';
+import { AUTH_INJECTION_TOKEN } from 'src/app/api/session/auth.injection-token';
+import { AuthenticationIService } from 'src/app/api/session/auth.iservice';
 import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
 import { Login } from 'src/app/models/Login';

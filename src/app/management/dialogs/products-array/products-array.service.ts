@@ -7,8 +7,8 @@ import { Injectable, Inject } from '@angular/core';
 import { Product } from 'src/app/models/entities/Product';
 import { Subject, BehaviorSubject, Observable, merge } from 'rxjs';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
-import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
+import { DATA_INJECTION_TOKENS } from 'src/app/api/data-mgt/data-injection-tokens';
+import { EntityCrudIService } from 'src/app/api/data-mgt/entity.crud.iservice';
 import { concatMap, mapTo } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })

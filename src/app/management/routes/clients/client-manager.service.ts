@@ -5,8 +5,8 @@
 
 import { Inject, Injectable } from '@angular/core';
 import { Client } from 'src/app/models/entities/Client';
-import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
+import { DATA_INJECTION_TOKENS } from 'src/app/api/data-mgt/data-injection-tokens';
+import { EntityCrudIService } from 'src/app/api/data-mgt/entity.crud.iservice';
 import { DataManagerService } from '../data-manager.aservice';
 
 @Injectable()

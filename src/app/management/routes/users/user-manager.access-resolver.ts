@@ -6,8 +6,8 @@
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AUTH_INJECTION_TOKEN } from '../../../auth/auth.injection-token';
-import { AuthenticationIService } from '../../../auth/auth.iservice';
+import { AUTH_INJECTION_TOKEN } from 'src/app/api/session/auth.injection-token';
+import { AuthenticationIService } from 'src/app/api/session/auth.iservice';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 
 @Injectable({ providedIn: 'root' })

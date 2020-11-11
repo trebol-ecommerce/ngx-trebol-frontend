@@ -9,8 +9,8 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, pluck, startWith } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
-import { CompositeEntityCrudIService } from 'src/app/data/composite-entity.crud.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
+import { CompositeEntityCrudIService } from 'src/app/api/data-mgt/composite-entity.crud.iservice';
+import { DATA_INJECTION_TOKENS } from 'src/app/api/data-mgt/data-injection-tokens';
 
 @Injectable()
 export class StoreReceiptService {

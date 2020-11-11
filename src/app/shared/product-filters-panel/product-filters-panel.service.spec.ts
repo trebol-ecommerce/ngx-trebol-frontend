@@ -6,8 +6,8 @@
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { ProductFiltersPanelService } from './product-filters-panel.service';
-import { StoreCatalogDataIService } from 'src/app/data/store.catalog.data.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
+import { StoreCatalogDataIService } from 'src/app/api/data-mgt/store.catalog.data.iservice';
+import { DATA_INJECTION_TOKENS } from 'src/app/api/data-mgt/data-injection-tokens';
 
 describe('ProductFiltersPanelService', () => {
   let service: Partial<ProductFiltersPanelService>;

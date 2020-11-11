@@ -6,9 +6,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { mapTo, pluck, startWith } from 'rxjs/operators';
-import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
+import { DATA_INJECTION_TOKENS } from 'src/app/api/data-mgt/data-injection-tokens';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
-import { SharedDataIService } from 'src/app/data/shared.data.iservice';
+import { SharedDataIService } from 'src/app/api/data-mgt/shared.data.iservice';
 
 @Component({
   selector: 'app-store-company-details-dialog',
