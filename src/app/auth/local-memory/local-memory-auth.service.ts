@@ -5,10 +5,10 @@
 
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { AuthorizedAccess } from 'src/app/data/models/AuthorizedAccess';
-import { Client } from 'src/app/data/models/entities/Client';
-import { Person } from 'src/app/data/models/entities/Person';
-import { User } from 'src/app/data/models/entities/User';
+import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
+import { Client } from 'src/app/models/entities/Client';
+import { Person } from 'src/app/models/entities/Person';
+import { User } from 'src/app/models/entities/User';
 import { makeid } from 'src/functions/makeid';
 import { AuthenticationIService } from '../auth.iservice';
 import { sessionStorageTokenItemName, authorizationHeaderName } from 'src/environments/auth.environment';

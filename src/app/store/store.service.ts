@@ -9,10 +9,10 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
 import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
-import { Product } from 'src/app/data/models/entities/Product';
-import { Sell } from 'src/app/data/models/entities/Sell';
-import { SellDetail } from 'src/app/data/models/entities/SellDetail';
-import { ExternalPaymentRedirectionData } from 'src/app/data/models/ExternalPaymentRedirectionData';
+import { Product } from 'src/app/models/entities/Product';
+import { Sell } from 'src/app/models/entities/Sell';
+import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 import { checkoutURL } from 'src/environments/store.environment';
 
 @Injectable()

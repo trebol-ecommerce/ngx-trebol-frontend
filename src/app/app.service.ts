@@ -8,10 +8,10 @@ import { BehaviorSubject, Observable, of, Subject, ReplaySubject } from 'rxjs';
 import { catchError, finalize, map, mapTo, tap } from 'rxjs/operators';
 import { AUTH_INJECTION_TOKEN } from 'src/app/auth/auth.injection-token';
 import { AuthenticationIService } from 'src/app/auth/auth.iservice';
-import { Person } from 'src/app/data/models/entities/Person';
-import { User } from 'src/app/data/models/entities/User';
-import { Login } from 'src/app/data/models/Login';
-import { AuthorizedAccess } from './data/models/AuthorizedAccess';
+import { Person } from 'src/app/models/entities/Person';
+import { User } from 'src/app/models/entities/User';
+import { Login } from 'src/app/models/Login';
+import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 
 @Injectable({ providedIn: 'root' })
 export class AppService

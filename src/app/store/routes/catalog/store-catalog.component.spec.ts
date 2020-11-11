@@ -7,7 +7,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { StoreCatalogComponent } from './store-catalog.component';
 import { StoreCatalogService } from './store-catalog.service';
-import { Product } from 'src/app/data/models/entities/Product';
+import { Product } from 'src/app/models/entities/Product';
 
 describe('StoreCatalogComponent', () => {
   let component: StoreCatalogComponent;

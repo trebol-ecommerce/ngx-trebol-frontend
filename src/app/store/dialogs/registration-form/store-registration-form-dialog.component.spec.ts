@@ -14,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { User } from 'src/app/data/models/entities/User';
+import { User } from 'src/app/models/entities/User';
 
 describe('StoreRegistrationFormDialogComponent', () => {
   let component: StoreRegistrationFormDialogComponent;

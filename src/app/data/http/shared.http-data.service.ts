@@ -7,10 +7,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
-import { CompanyDetails } from 'src/app/data/models/CompanyDetails';
-import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
-import { ProductType } from 'src/app/data/models/entities/ProductType';
-import { SellType } from 'src/app/data/models/entities/SellType';
+import { CompanyDetails } from 'src/app/models/CompanyDetails';
+import { ProductFamily } from 'src/app/models/entities/ProductFamily';
+import { ProductType } from 'src/app/models/entities/ProductType';
+import { SellType } from 'src/app/models/entities/SellType';
 import { HttpService } from 'src/app/shared/http.abstract-service';
 import { SharedDataIService } from '../shared.data.iservice';
 

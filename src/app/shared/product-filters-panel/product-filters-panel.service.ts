@@ -5,9 +5,9 @@
 
 import { Injectable, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
+import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { ProductType } from 'src/app/data/models/entities/ProductType';
+import { ProductType } from 'src/app/models/entities/ProductType';
 import { StoreCatalogDataIService } from 'src/app/data/store.catalog.data.iservice';
 
 @Injectable({ providedIn: 'root' })

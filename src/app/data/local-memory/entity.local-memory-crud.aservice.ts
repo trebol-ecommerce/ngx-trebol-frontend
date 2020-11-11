@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { EntityCrudIService } from '../entity.crud.iservice';
-import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
+import { AbstractEntity } from 'src/app/models/AbstractEntity';
 import { Observable, of } from 'rxjs';
 
 function matchesStringProperty(it: any, propName: string, propValue: string): boolean {

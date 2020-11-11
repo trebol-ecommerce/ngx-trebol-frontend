@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
-import { Product } from 'src/app/data/models/entities/Product';
+import { Product } from 'src/app/models/entities/Product';
 import { ProductsArrayService } from './products-array.service';
 
 @Component({

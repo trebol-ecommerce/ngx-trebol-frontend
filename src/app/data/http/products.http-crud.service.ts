@@ -6,7 +6,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Product } from 'src/app/data/models/entities/Product';
+import { Product } from 'src/app/models/entities/Product';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { EntityCrudIService } from '../entity.crud.iservice';
 import { EntityHttpCrudService } from './entity.http-crud.aservice';

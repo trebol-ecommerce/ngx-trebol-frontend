@@ -7,8 +7,8 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, of, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
-import { ProductType } from 'src/app/data/models/entities/ProductType';
+import { ProductFamily } from 'src/app/models/entities/ProductFamily';
+import { ProductType } from 'src/app/models/entities/ProductType';
 import { ProductFiltersPanelService } from './product-filters-panel.service';
 
 export interface ProductFilters {

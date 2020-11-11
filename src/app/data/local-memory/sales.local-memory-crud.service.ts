@@ -6,8 +6,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { Sell } from 'src/app/data/models/entities/Sell';
-import { SellDetail } from 'src/app/data/models/entities/SellDetail';
+import { Sell } from 'src/app/models/entities/Sell';
+import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { CompositeEntityCrudIService } from '../composite-entity.crud.iservice';
 import { EntityLocalMemoryCrudService } from './entity.local-memory-crud.aservice';
 

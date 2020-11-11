@@ -5,12 +5,12 @@
 
 import { Injectable } from '@angular/core';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
-import { Product } from 'src/app/data/models/entities/Product';
+import { Product } from 'src/app/models/entities/Product';
 import { EntityLocalMemoryCrudService } from './entity.local-memory-crud.aservice';
 import { StoreCatalogDataIService } from '../store.catalog.data.iservice';
 import { Observable, of } from 'rxjs';
-import { ProductFamily } from '../models/entities/ProductFamily';
-import { ProductType } from '../models/entities/ProductType';
+import { ProductFamily } from 'src/app/models/entities/ProductFamily';
+import { ProductType } from 'src/app/models/entities/ProductType';
 import { MOCK_PRODUCT_FAMILIES, MOCK_PRODUCT_TYPES } from './shared.local-memory-data.service';
 
 export const MOCK_PRODUCTS: Partial<Product>[] = [

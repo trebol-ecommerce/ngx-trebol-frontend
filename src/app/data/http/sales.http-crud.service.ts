@@ -7,8 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Sell } from 'src/app/data/models/entities/Sell';
-import { SellDetail } from 'src/app/data/models/entities/SellDetail';
+import { Sell } from 'src/app/models/entities/Sell';
+import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { CompositeEntityCrudIService } from '../composite-entity.crud.iservice';
 import { EntityHttpCrudService } from './entity.http-crud.aservice';
 

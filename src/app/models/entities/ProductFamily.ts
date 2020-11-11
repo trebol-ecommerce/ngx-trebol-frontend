@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { AbstractEntity } from '../AbstractEntity';
+import { AbstractEntity } from 'src/app/models/AbstractEntity';
 
 export class ProductFamily
   extends AbstractEntity {

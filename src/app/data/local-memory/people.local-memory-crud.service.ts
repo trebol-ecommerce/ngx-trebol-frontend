@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { Injectable } from '@angular/core';
-import { Person } from 'src/app/data/models/entities/Person';
+import { Person } from 'src/app/models/entities/Person';
 import { EntityLocalMemoryCrudService } from './entity.local-memory-crud.aservice';
 
 export const MOCK_PEOPLE: Partial<Person>[] = [

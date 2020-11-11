@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { concatMap, delay, map, tap } from 'rxjs/operators';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { Product } from 'src/app/data/models/entities/Product';
+import { Product } from 'src/app/models/entities/Product';
 import { StoreCatalogDataIService } from 'src/app/data/store.catalog.data.iservice';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { StoreProductDetailsDialogComponent, StoreProductDetailsDialogData } from '../../dialogs/product-details/store-product-details-dialog.component';

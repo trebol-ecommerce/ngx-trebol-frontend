@@ -8,7 +8,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable } from 'rxjs';
 import { AUTH_INJECTION_TOKEN } from '../../../auth/auth.injection-token';
 import { AuthenticationIService } from '../../../auth/auth.iservice';
-import { AuthorizedAccess } from '../../../data/models/AuthorizedAccess';
+import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 
 @Injectable({ providedIn: 'root' })
 export class SellManagerAccessResolver

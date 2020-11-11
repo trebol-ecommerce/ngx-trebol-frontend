@@ -6,7 +6,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { User } from 'src/app/data/models/entities/User';
+import { User } from 'src/app/models/entities/User';
 import { EntityLocalMemoryCrudService } from './entity.local-memory-crud.aservice';
 
 export const MOCK_USERS: Partial<User>[] = [

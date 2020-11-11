@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { Injectable, Inject } from '@angular/core';
-import { Product } from 'src/app/data/models/entities/Product';
+import { Product } from 'src/app/models/entities/Product';
 import { Subject, BehaviorSubject, Observable, merge } from 'rxjs';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';

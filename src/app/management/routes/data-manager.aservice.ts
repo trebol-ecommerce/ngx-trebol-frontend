@@ -7,8 +7,8 @@ import { Directive, OnDestroy } from '@angular/core';
 import { BehaviorSubject, from, Observable, of, Subject, ReplaySubject } from 'rxjs';
 import { catchError, delay, finalize, map, mapTo, mergeMap, startWith, tap, toArray } from 'rxjs/operators';
 import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
-import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
-import { AuthorizedAccess } from 'src/app/data/models/AuthorizedAccess';
+import { AbstractEntity } from 'src/app/models/AbstractEntity';
+import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 
 /**
  * Base class for data manager services.

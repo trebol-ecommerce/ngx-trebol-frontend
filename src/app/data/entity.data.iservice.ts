@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { Observable } from 'rxjs';
-import { AbstractEntity } from './models/AbstractEntity';
+import { AbstractEntity } from 'src/app/models/AbstractEntity';
 
 export interface EntityDataIService<T extends AbstractEntity> {
   readById(id: number | string): Observable<T>;

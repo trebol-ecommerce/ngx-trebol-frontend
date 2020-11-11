@@ -3,7 +3,7 @@ import {
   labels,
   labelWasNotFoundMesage,
 } from '../app/i18n/i18n.constants';
-import { labelsKeys } from 'src/app/i18n/i18n.models';
+import { labelsKeys } from 'src/app/models/';
 
 export const i18nTranslator = (
   label: labelsKeys,

@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { Observable, of, empty } from 'rxjs';
 import { concatMap, map, take } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
-import { SellDetail } from 'src/app/data/models/entities/SellDetail';
+import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { StoreService } from 'src/app/store/store.service';
 import { StoreGuestPromptDialogComponent } from '../../dialogs/guest-prompt/store-guest-prompt-dialog.component';
 import { StoreGuestPromptDialogOptions } from '../../dialogs/guest-prompt/StoreGuestPromptDialogOptions';

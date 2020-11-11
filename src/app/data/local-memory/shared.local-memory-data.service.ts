@@ -5,11 +5,11 @@
 
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { CompanyDetails } from 'src/app/data/models/CompanyDetails';
-import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
-import { ProductType } from 'src/app/data/models/entities/ProductType';
-import { SellType } from 'src/app/data/models/entities/SellType';
-import { Person } from '../models/entities/Person';
+import { CompanyDetails } from 'src/app/models/CompanyDetails';
+import { ProductFamily } from 'src/app/models/entities/ProductFamily';
+import { ProductType } from 'src/app/models/entities/ProductType';
+import { SellType } from 'src/app/models/entities/SellType';
+import { Person } from 'src/app/models/entities/Person';
 import { SharedDataIService } from '../shared.data.iservice';
 
 export const MOCK_COMPANY_DETAILS: CompanyDetails = {

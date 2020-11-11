@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { Injectable } from '@angular/core';
-import { Seller } from 'src/app/data/models/entities/Seller';
+import { Seller } from 'src/app/models/entities/Seller';
 import { EntityLocalMemoryCrudService } from './entity.local-memory-crud.aservice';
 
 export const MOCK_EMPLOYEES: Partial<Seller>[] = [

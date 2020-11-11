@@ -4,9 +4,9 @@
 // https://opensource.org/licenses/MIT
 
 import { Observable } from 'rxjs';
-import { Person } from '../data/models/entities/Person';
-import { User } from '../data/models/entities/User';
-import { AuthorizedAccess } from '../data/models/AuthorizedAccess';
+import { Person } from 'src/app/models/entities/Person';
+import { User } from 'src/app/models/entities/User';
+import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 
 export interface AuthenticationIService {
 

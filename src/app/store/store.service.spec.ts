@@ -7,8 +7,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { LocalMemoryDataModule } from 'src/app/data/local-memory/local-memory-data.module';
 import { StoreService } from './store.service';
-import { Product } from '../data/models/entities/Product';
-import { SellDetail } from '../data/models/entities/SellDetail';
+import { Product } from 'src/app/models/entities/Product';
+import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { take } from 'rxjs/operators';
 
 describe('StoreService', () => {

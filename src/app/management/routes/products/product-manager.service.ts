@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { Inject, Injectable } from '@angular/core';
-import { Product } from 'src/app/data/models/entities/Product';
+import { Product } from 'src/app/models/entities/Product';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
 import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
 import { DataManagerService } from '../data-manager.aservice';

@@ -9,12 +9,12 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { merge, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { Client } from 'src/app/data/models/entities/Client';
-import { Seller } from 'src/app/data/models/entities/Seller';
-import { Product } from 'src/app/data/models/entities/Product';
-import { Sell } from 'src/app/data/models/entities/Sell';
-import { SellDetail } from 'src/app/data/models/entities/SellDetail';
-import { SellType } from 'src/app/data/models/entities/SellType';
+import { Client } from 'src/app/models/entities/Client';
+import { Seller } from 'src/app/models/entities/Seller';
+import { Product } from 'src/app/models/entities/Product';
+import { Sell } from 'src/app/models/entities/Sell';
+import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { SellType } from 'src/app/models/entities/SellType';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { ProductsArrayDialogComponent } from '../../../dialogs/products-array/products-array-dialog.component';
 import { DataManagerFormComponent } from '../../data-manager-form.acomponent';

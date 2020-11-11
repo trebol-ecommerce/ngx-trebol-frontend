@@ -7,7 +7,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { mapTo, pluck, startWith } from 'rxjs/operators';
 import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { CompanyDetails } from 'src/app/data/models/CompanyDetails';
+import { CompanyDetails } from 'src/app/models/CompanyDetails';
 import { SharedDataIService } from 'src/app/data/shared.data.iservice';
 
 @Component({
