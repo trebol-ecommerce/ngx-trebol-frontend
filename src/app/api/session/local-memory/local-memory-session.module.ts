@@ -5,11 +5,11 @@
 
 import { NgModule } from '@angular/core';
 import { AUTH_INJECTION_TOKEN } from '../auth.injection-token';
-import { LocalMemoryAuthService } from './local-memory-auth.service';
+import { LocalMemorySessionService } from './local-memory-session.service';
 
 @NgModule({
   providers: [
-    { provide: AUTH_INJECTION_TOKEN, useClass: LocalMemoryAuthService }
+    { provide: AUTH_INJECTION_TOKEN, useClass: LocalMemorySessionService }
   ]
 })
-export class LocalMemoryAuthModule { }
+export class LocalMemorySessionModule { }

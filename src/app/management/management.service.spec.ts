@@ -5,7 +5,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { LocalMemoryAuthModule } from 'src/app/api/session/local-memory/local-memory-auth.module';
+import { LocalMemoryAuthModule } from 'src/app/api/session/local-memory/local-memory-session.module';
 import { LocalMemoryDataModule } from 'src/app/api/data-mgt/local-memory/local-memory-data.module';
 import { ManagementService } from './management.service';
 

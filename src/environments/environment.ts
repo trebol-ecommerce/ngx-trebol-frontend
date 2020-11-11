@@ -2,7 +2,7 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 import { LocalMemoryDataModule } from 'src/app/api/data-mgt/local-memory/local-memory-data.module';
-import { LocalMemoryAuthModule } from 'src/app/api/session/local-memory/local-memory-auth.module';
+import { LocalMemoryAuthModule } from 'src/app/api/session/local-memory/local-memory-session.module';
 
 export const environment = {
   production: false,
