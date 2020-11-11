@@ -1,4 +1,4 @@
-import { Labels, languages, labelsKeys } from 'src/app/models/';
+import { Labels, languages, labelsKeys } from './i18n.models';
 import {
   COMMON_WARNING_MESSAGE,
   UNKNOWN_ERROR_MESSAGE,
