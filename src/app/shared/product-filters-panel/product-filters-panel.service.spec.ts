@@ -7,7 +7,7 @@ import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { ProductFiltersPanelService } from './product-filters-panel.service';
 import { StoreCatalogDataIService } from 'src/app/api/data-mgt/store.catalog.data.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/app/api/data-mgt/data-injection-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
 
 describe('ProductFiltersPanelService', () => {
   let service: Partial<ProductFiltersPanelService>;
@@ -21,7 +21,7 @@ describe('ProductFiltersPanelService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: DATA_INJECTION_TOKENS.storeCatalog, useValue: catalogService }
+        { provide: API_SERVICE_INJECTION_TOKENS.storeCatalog, useValue: catalogService }
       ]
     });
     service = TestBed.inject(ProductFiltersPanelService);

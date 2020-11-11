@@ -7,7 +7,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { CompositeEntityCrudIService } from 'src/app/api/data-mgt/composite-entity.crud.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/app/api/data-mgt/data-injection-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
 import { DataManagerService } from '../data-manager.aservice';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class SellManagerService
   extends DataManagerService<Sell> {
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.salesCrud) protected dataService: CompositeEntityCrudIService<Sell, SellDetail>
+    @Inject(API_SERVICE_INJECTION_TOKENS.salesCrud) protected dataService: CompositeEntityCrudIService<Sell, SellDetail>
   ) {
     super();
   }

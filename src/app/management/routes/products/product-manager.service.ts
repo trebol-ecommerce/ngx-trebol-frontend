@@ -5,7 +5,7 @@
 
 import { Inject, Injectable } from '@angular/core';
 import { Product } from 'src/app/models/entities/Product';
-import { DATA_INJECTION_TOKENS } from 'src/app/api/data-mgt/data-injection-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
 import { EntityCrudIService } from 'src/app/api/data-mgt/entity.crud.iservice';
 import { DataManagerService } from '../data-manager.aservice';
 
@@ -14,7 +14,7 @@ export class ProductManagerService
   extends DataManagerService<Product> {
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.productsCrud) protected dataService: EntityCrudIService<Product>
+    @Inject(API_SERVICE_INJECTION_TOKENS.productsCrud) protected dataService: EntityCrudIService<Product>
   ) {
     super();
   }

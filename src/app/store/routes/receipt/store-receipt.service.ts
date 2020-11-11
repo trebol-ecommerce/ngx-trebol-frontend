@@ -10,7 +10,7 @@ import { map, pluck, startWith } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { CompositeEntityCrudIService } from 'src/app/api/data-mgt/composite-entity.crud.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/app/api/data-mgt/data-injection-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
 
 @Injectable()
 export class StoreReceiptService {
@@ -23,7 +23,7 @@ export class StoreReceiptService {
   public soldOn$: Observable<string> = this.sell$.pipe(pluck('soldOn'));
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.salesCrud) protected sellDataService: CompositeEntityCrudIService<Sell, SellDetail>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.salesCrud) protected sellDataService: CompositeEntityCrudIService<Sell, SellDetail>,
     protected router: Router
   ) {
   }

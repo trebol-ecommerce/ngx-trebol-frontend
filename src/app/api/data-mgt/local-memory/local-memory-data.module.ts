@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { NgModule } from '@angular/core';
-import { DATA_INJECTION_TOKENS } from '../data-injection-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
 import { ClientsLocalMemoryCrudService } from './clients.local-memory-crud.service';
 import { SellersLocalMemoryCrudService } from './sellers.local-memory-crud.service';
 import { PeopleLocalMemoryCrudService } from './people.local-memory-crud.service';
@@ -18,14 +18,14 @@ import { UsersLocalMemoryCrudService } from './users.local-memory-crud.service';
  */
 @NgModule({
   providers: [
-    { provide: DATA_INJECTION_TOKENS.clientsCrud, useClass: ClientsLocalMemoryCrudService },
-    { provide: DATA_INJECTION_TOKENS.sellersCrud, useClass: SellersLocalMemoryCrudService },
-    { provide: DATA_INJECTION_TOKENS.people, useClass: PeopleLocalMemoryCrudService },
-    { provide: DATA_INJECTION_TOKENS.productsCrud, useClass: ProductsLocalMemoryCrudService },
-    { provide: DATA_INJECTION_TOKENS.shared, useClass: SharedLocalMemoryDataService },
-    { provide: DATA_INJECTION_TOKENS.usersCrud, useClass: UsersLocalMemoryCrudService },
-    { provide: DATA_INJECTION_TOKENS.salesCrud, useClass: SalesLocalMemoryCrudService },
-    { provide: DATA_INJECTION_TOKENS.storeCatalog, useClass: ProductsLocalMemoryCrudService }
+    { provide: API_SERVICE_INJECTION_TOKENS.clientsCrud, useClass: ClientsLocalMemoryCrudService },
+    { provide: API_SERVICE_INJECTION_TOKENS.sellersCrud, useClass: SellersLocalMemoryCrudService },
+    { provide: API_SERVICE_INJECTION_TOKENS.people, useClass: PeopleLocalMemoryCrudService },
+    { provide: API_SERVICE_INJECTION_TOKENS.productsCrud, useClass: ProductsLocalMemoryCrudService },
+    { provide: API_SERVICE_INJECTION_TOKENS.shared, useClass: SharedLocalMemoryDataService },
+    { provide: API_SERVICE_INJECTION_TOKENS.usersCrud, useClass: UsersLocalMemoryCrudService },
+    { provide: API_SERVICE_INJECTION_TOKENS.salesCrud, useClass: SalesLocalMemoryCrudService },
+    { provide: API_SERVICE_INJECTION_TOKENS.storeCatalog, useClass: ProductsLocalMemoryCrudService }
   ]
 })
 export class LocalMemoryDataModule { }

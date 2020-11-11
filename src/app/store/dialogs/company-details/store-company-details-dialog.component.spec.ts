@@ -5,7 +5,7 @@
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { DATA_INJECTION_TOKENS } from 'src/app/api/data-mgt/data-injection-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
 import { SharedDataIService } from 'src/app/api/data-mgt/shared.data.iservice';
 import { StoreCompanyDetailsDialogComponent } from './store-company-details-dialog.component';
 
@@ -22,7 +22,7 @@ describe('StoreCompanyDetailsDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ StoreCompanyDetailsDialogComponent ],
       providers: [
-        { provide: DATA_INJECTION_TOKENS.shared, useValue: service }
+        { provide: API_SERVICE_INJECTION_TOKENS.shared, useValue: service }
       ]
     })
     .compileComponents();

@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { NgModule } from '@angular/core';
-import { DATA_INJECTION_TOKENS } from '../data-injection-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
 import { ClientsHttpCrudService } from './clients.http-crud.service';
 import { SellersHttpCrudService } from './sellers.http-crud.service';
 import { PeopleHttpCrudService } from './people.http-crud.service';
@@ -26,14 +26,14 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [
-    { provide: DATA_INJECTION_TOKENS.clientsCrud, useClass: ClientsHttpCrudService },
-    { provide: DATA_INJECTION_TOKENS.sellersCrud, useClass: SellersHttpCrudService },
-    { provide: DATA_INJECTION_TOKENS.people, useClass: PeopleHttpCrudService },
-    { provide: DATA_INJECTION_TOKENS.productsCrud, useClass: ProductsHttpCrudService },
-    { provide: DATA_INJECTION_TOKENS.shared, useClass: SharedHttpDataService },
-    { provide: DATA_INJECTION_TOKENS.usersCrud, useClass: UsersHttpCrudService },
-    { provide: DATA_INJECTION_TOKENS.salesCrud, useClass: SalesHttpCrudService },
-    { provide: DATA_INJECTION_TOKENS.storeCatalog, useClass: StoreCatalogHttpDataService }
+    { provide: API_SERVICE_INJECTION_TOKENS.clientsCrud, useClass: ClientsHttpCrudService },
+    { provide: API_SERVICE_INJECTION_TOKENS.sellersCrud, useClass: SellersHttpCrudService },
+    { provide: API_SERVICE_INJECTION_TOKENS.people, useClass: PeopleHttpCrudService },
+    { provide: API_SERVICE_INJECTION_TOKENS.productsCrud, useClass: ProductsHttpCrudService },
+    { provide: API_SERVICE_INJECTION_TOKENS.shared, useClass: SharedHttpDataService },
+    { provide: API_SERVICE_INJECTION_TOKENS.usersCrud, useClass: UsersHttpCrudService },
+    { provide: API_SERVICE_INJECTION_TOKENS.salesCrud, useClass: SalesHttpCrudService },
+    { provide: API_SERVICE_INJECTION_TOKENS.storeCatalog, useClass: StoreCatalogHttpDataService }
   ]
 })
 export class HttpDataModule { }

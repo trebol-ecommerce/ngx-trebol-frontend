@@ -14,7 +14,7 @@ import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { SellType } from 'src/app/models/entities/SellType';
 import { CompositeEntityCrudIService } from 'src/app/api/data-mgt/composite-entity.crud.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/app/api/data-mgt/data-injection-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
 import { EntityCrudIService } from 'src/app/api/data-mgt/entity.crud.iservice';
 import { SharedDataIService } from 'src/app/api/data-mgt/shared.data.iservice';
 
@@ -31,11 +31,11 @@ export class SellManagerFormService
   public sellTotalValue$: Observable<number>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.salesCrud) protected dataService: CompositeEntityCrudIService<Sell, SellDetail>,
-    @Inject(DATA_INJECTION_TOKENS.productsCrud) protected productDataService: EntityCrudIService<Product>,
-    @Inject(DATA_INJECTION_TOKENS.clientsCrud) protected clientDataService: EntityCrudIService<Client>,
-    @Inject(DATA_INJECTION_TOKENS.sellersCrud) protected sellerDataService: EntityCrudIService<Seller>,
-    @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.salesCrud) protected dataService: CompositeEntityCrudIService<Sell, SellDetail>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.productsCrud) protected productDataService: EntityCrudIService<Product>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.clientsCrud) protected clientDataService: EntityCrudIService<Client>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.sellersCrud) protected sellerDataService: EntityCrudIService<Seller>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService,
   ) {
     super();
 

@@ -4,9 +4,9 @@
 // https://opensource.org/licenses/MIT
 
 /**
- * Data service tokens for Angular dependency injection pattern
+ * Service tokens for Angular dependency injection pattern
  */
-export const DATA_INJECTION_TOKENS = {
+export const API_SERVICE_INJECTION_TOKENS = {
   storeCatalog: 'StoreCatalogData',
   people: 'PeopleData',
   shared: 'SharedData',

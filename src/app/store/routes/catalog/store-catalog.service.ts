@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { concatMap, delay, map, tap } from 'rxjs/operators';
-import { DATA_INJECTION_TOKENS } from 'src/app/api/data-mgt/data-injection-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
 import { Product } from 'src/app/models/entities/Product';
 import { StoreCatalogDataIService } from 'src/app/api/data-mgt/store.catalog.data.iservice';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
@@ -26,7 +26,7 @@ export class StoreCatalogService
   public filters: ProductFilters = {};
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.storeCatalog) protected dataService: StoreCatalogDataIService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.storeCatalog) protected dataService: StoreCatalogDataIService,
     protected dialogService: MatDialog,
     protected route: ActivatedRoute,
     protected router: Router,

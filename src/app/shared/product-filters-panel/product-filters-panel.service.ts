@@ -6,7 +6,7 @@
 import { Injectable, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
-import { DATA_INJECTION_TOKENS } from 'src/app/api/data-mgt/data-injection-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { StoreCatalogDataIService } from 'src/app/api/data-mgt/store.catalog.data.iservice';
 
@@ -14,7 +14,7 @@ import { StoreCatalogDataIService } from 'src/app/api/data-mgt/store.catalog.dat
 export class ProductFiltersPanelService {
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.storeCatalog) protected catalogService: StoreCatalogDataIService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.storeCatalog) protected catalogService: StoreCatalogDataIService,
   ) { }
 
   public getAllProductFamilies(): Observable<ProductFamily[]> {
