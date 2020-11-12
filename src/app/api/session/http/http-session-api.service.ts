@@ -73,11 +73,9 @@ export class HttpSessionApiService
         response => {
           if (response.headers.has(this.authorizationHeader)) {
             sessionStorage.setItem(this.sessionStorageTokenItemName, response.headers.get(this.authorizationHeader));
-            this.getAuthorizedAccess().subscribe();
             return true;
           } else if (response.body) {
             sessionStorage.setItem(this.sessionStorageTokenItemName, response.body);
-            this.getAuthorizedAccess().subscribe();
             return true;
           }
 
