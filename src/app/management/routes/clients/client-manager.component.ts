@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Client } from 'src/app/models/entities/Client';
-import { DataManagerComponent } from '../data-manager.acomponent';
+import { DataManagerComponentDirective } from '../data-manager.component-directive';
 import { ClientManagerService } from './client-manager.service';
 
 @Component({
@@ -19,7 +19,7 @@ import { ClientManagerService } from './client-manager.service';
   ]
 })
 export class ClientManagerComponent
-  extends DataManagerComponent<Client>
+  extends DataManagerComponentDirective<Client>
   implements OnInit {
 
   public tableColumns: string[] = [ 'name', 'idCard' ];

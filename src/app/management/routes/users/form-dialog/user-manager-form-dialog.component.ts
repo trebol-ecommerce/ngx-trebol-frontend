@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
-import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
+import { DataManagerFormComponentDirective } from '../../data-manager-form.component-directive';
 import { UserManagerFormService } from './user-manager-form.service';
 
 export interface UserManagerFormDialogData {
@@ -25,7 +25,7 @@ export interface UserManagerFormDialogData {
   styleUrls: [ './user-manager-form-dialog.component.css' ]
 })
 export class UserManagerFormDialogComponent
-  extends DataManagerFormComponent<User>
+  extends DataManagerFormComponentDirective<User>
   implements OnInit {
 
   protected itemId: number;

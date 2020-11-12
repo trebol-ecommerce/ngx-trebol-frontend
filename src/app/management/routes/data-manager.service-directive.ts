@@ -16,7 +16,7 @@ import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
  * model classes' instances and easily operate with their related CRUD API.
  */
 @Directive()
-export abstract class DataManagerService<T extends AbstractEntity>
+export abstract class DataManagerServiceDirective<T extends AbstractEntity>
   implements OnDestroy {
 
   protected abstract dataService: EntityDataApiIService<T>;

@@ -17,7 +17,7 @@ import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { SellType } from 'src/app/models/entities/SellType';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { ProductsArrayDialogComponent } from '../../../dialogs/products-array/products-array-dialog.component';
-import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
+import { DataManagerFormComponentDirective } from '../../data-manager-form.component-directive';
 import { SellManagerFormService } from './sell-manager-form.service';
 
 export interface SaleManagerFormDialogData {
@@ -31,7 +31,7 @@ export interface SaleManagerFormDialogData {
   styleUrls: [ './sell-manager-form-dialog.component.css' ]
 })
 export class SellManagerFormDialogComponent
-  extends DataManagerFormComponent<Sell>
+  extends DataManagerFormComponentDirective<Sell>
   implements OnInit {
 
   protected itemId: number;

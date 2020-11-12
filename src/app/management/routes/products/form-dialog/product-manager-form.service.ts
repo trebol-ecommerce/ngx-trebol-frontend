@@ -6,7 +6,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { DataManagerFormService } from '../../data-manager-form.aservice';
+import { DataManagerFormServiceDirective } from '../../data-manager-form.service-directive';
 import { Product } from 'src/app/models/entities/Product';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
@@ -16,7 +16,7 @@ import { SharedDataApiIService } from 'src/app/api/data-mgt/shared-data-api.iser
 
 @Injectable()
 export class ProductManagerFormService
-  extends DataManagerFormService<Product>
+  extends DataManagerFormServiceDirective<Product>
   implements OnDestroy {
 
   protected selectedFamilyIdSource: Subject<number> = new BehaviorSubject(undefined);

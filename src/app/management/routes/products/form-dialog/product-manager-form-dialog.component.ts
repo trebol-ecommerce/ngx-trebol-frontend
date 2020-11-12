@@ -13,7 +13,7 @@ import { Product } from 'src/app/models/entities/Product';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
-import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
+import { DataManagerFormComponentDirective } from '../../data-manager-form.component-directive';
 import { ProductManagerFormService } from './product-manager-form.service';
 
 export interface ProductManagerFormDialogData {
@@ -27,7 +27,7 @@ export interface ProductManagerFormDialogData {
   styleUrls: [ './product-manager-form-dialog.component.css' ]
 })
 export class ProductManagerFormDialogComponent
-  extends DataManagerFormComponent<Product>
+  extends DataManagerFormComponentDirective<Product>
   implements OnInit, OnDestroy {
 
   protected itemId: number;

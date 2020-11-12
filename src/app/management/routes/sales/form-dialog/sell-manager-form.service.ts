@@ -6,7 +6,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { concatMap, map, switchMap, toArray } from 'rxjs/operators';
-import { DataManagerFormService } from '../../data-manager-form.aservice';
+import { DataManagerFormServiceDirective } from '../../data-manager-form.service-directive';
 import { Client } from 'src/app/models/entities/Client';
 import { Seller } from 'src/app/models/entities/Seller';
 import { Product } from 'src/app/models/entities/Product';
@@ -20,7 +20,7 @@ import { SharedDataApiIService } from 'src/app/api/data-mgt/shared-data-api.iser
 
 @Injectable()
 export class SellManagerFormService
-  extends DataManagerFormService<Sell>
+  extends DataManagerFormServiceDirective<Sell>
   implements OnDestroy {
 
   protected sellDetails: SellDetail[] = [];

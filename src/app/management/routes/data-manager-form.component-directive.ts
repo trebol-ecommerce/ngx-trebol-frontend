@@ -7,15 +7,15 @@ import { Directive } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AbstractEntity } from 'src/app/models/AbstractEntity';
-import { DataManagerFormService } from './data-manager-form.aservice';
+import { DataManagerFormServiceDirective } from './data-manager-form.service-directive';
 
 /**
  * Base class for data form component templates.
  */
 @Directive()
-export abstract class DataManagerFormComponent<T extends AbstractEntity> {
+export abstract class DataManagerFormComponentDirective<T extends AbstractEntity> {
   protected abstract itemId: number;
-  protected abstract service: DataManagerFormService<T>;
+  protected abstract service: DataManagerFormServiceDirective<T>;
   public abstract saving$: Observable<boolean>;
   public abstract formGroup: FormGroup;
   public abstract dialogTitle: string;

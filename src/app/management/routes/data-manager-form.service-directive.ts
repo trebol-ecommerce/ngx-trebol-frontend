@@ -13,7 +13,7 @@ import { AbstractEntity } from 'src/app/models/AbstractEntity';
  * Base class for data form component services.
  */
 @Directive()
-export abstract class DataManagerFormService<T extends AbstractEntity>
+export abstract class DataManagerFormServiceDirective<T extends AbstractEntity>
   implements OnDestroy {
 
   protected abstract dataService: EntityDataApiIService<T>;
