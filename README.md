@@ -31,25 +31,29 @@ The layout within `/src/app/` goes as follows:
 
 ## Configuration
 
-If you want to use an external backend for the `auth` or `data`, you should first create production environments for them. Trébol is configured to use several `fileReplacements` when launching a production build; see the `production` configuration in the `/angular.json` file for the exact replacement patterns that apply.
+If you plan to use an external backend for the APIs, you must create production environments for them. Trébol is configured to use several `fileReplacements` when launching a production build; see the `production` configuration in the `/angular.json` file for the exact replacement patterns that apply.
 
-If you happen to run a server in the same machine (aka localhost), you can test it quickly with a proxy to avoid CORS errors. Use the `/localhost.proxy.conf.json` file as example and follow the instructions below.
+If you happen to run a server in the same machine (aka localhost), (you can test it quickly with a proxy)[https://angular.io/guide/build#proxying-to-a-backend-server] to avoid CORS errors. Use the `/localhost.proxy.conf.json` file as example.
 
 To connect to your production environment, you must:
-* Duplicate every file in `/src/environments`, and rename each to `*.prod.ts`. This way, when you use the `--prod` flag to build, test or deploy, the files you just created will substitute the original ones in the resulting build.
-  * If you use localhost, leaving the api URL constants empty in every `*-api.environment.prod.ts` file should suffice.
+* Duplicate every file in `/src/environments`, and rename each to `*.prod.ts`.
+  * Your resulting `environment.prod.ts` file must import the `http` API implementation modules (for example, `import { HttpStoreApiModule } from 'src/app/api/store/http/http-store-api.module'`).
+  * If you use localhost, leaving the api URL constants empty in every `*-api.environment.prod.ts` file should suffice, for your requests will be proxied (read on to "Building / Running").
   * If not, assign them. Note that they may be separate constants and files, but they can have the same value and be served from the same machine.
-* Double check that your resulting `environment.prod.ts` file is pointing to the `http` API implementation modules (for example, `import { HttpStoreApiModule } from 'src/app/api/store/http/http-store-api.module'`).
 
 ## Testing
 
 Jasmine tests are providing about 60% code coverage, you can give them a try using `ng test` in the root directory.
 
-## Running
+## Building / Running
 
 As you travel the root directory after checking out:
-* To serve it locally, simply do `ng serve`. By default it runs the demo environment, using the browser's local memory for storage.
-* To build, do `ng build`. You might want to add the `--prod` flag, if you configured a production environment as described above.
+* To serve it locally, do `ng serve`
+* To create the static site, do `ng build` (a `/dist/` folder will be created with its contents)
+In both cases, you might want to add the `--prod` flag if you configured a production environment as described above.
+And if you are using localhost, you can add the `--proxy-config [file]` flag to divert all requests to the configured server.
+
+
 * To deploy it somewhere else, do `ng deploy`. Inspect https://github.com/angular-schule/angular-cli-ghpages#options for more on this.
 
 ## Contributors ✨
