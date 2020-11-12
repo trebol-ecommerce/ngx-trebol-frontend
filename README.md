@@ -4,16 +4,19 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Trébol was born as a grown-up version of a hardware store web system called 'FERME Web'. Initially I created an Angular dashboard application that connected to a REST API-assisted backend service, that could list all the content stored in a MySQL database.
-That functionality, and the boilerplate code associated, sits at the core of this project. Trébol aims to become an industry-standard online shop application that can be used by any business model and frontend developer alike, to learn about implementing good practices, safety rules, and recommendations for building similar eCommerce systems.
+That functionality, and the boilerplate code associated, sits at the core of this project. Trébol aims to become an industry-standard online shop application. Businesses can use this solution to bring their eCommerce systems together in a short time. Developers can learn and improve on it to build similar eCommerce systems.
 
 ## Infrastructure
 
-This application is divided into feature modules within the `/src/app` directory. The first two come with a `local-memory` implementation.
-* `auth` provides service interfaces for doing authentication and authorization requests.
-* `data` provides service interfaces for querying and working with data.
-* `management` provides guarded routes, components and services to manipulate (CRUD) said data, much like an admin dashboard.
-* `shared` contains components used by other modules. It also brings a separate `angular-material.module` for all the imports used, application-wide.
-* `store` provides public routes for the store catalog, cart review, checkout and receipt pages.
+The layout within `/src/app` goes as follows:
+* `/models` contains the data types (TS classes).
+* `/api` contains the dependency injection tokens used to consume APIs, and modules that provide dependencies for said tokens:
+  * `/store` provides calls for displaying products in the storefront, categories, specific product details, info on the company and checking out with products in the shopping cart
+  * `/data` provides calls for querying and working with data and authorization accesses based on data contexts.
+  * `/session` provides calls for creating accounts, logging in and out, and review personal profile data.
+* `/management` has components to interactively manipulating data in different contexts, using child routes like an admin dashboard.
+* `/shared` has components used by other modules. It also brings a `angular-material.module` to clearly state all the imports used, application-wide.
+* `/store` has components for all the store routes (catalog, cart review, receipt, and some dialogs).
 
 ## Requirements
 
@@ -21,14 +24,15 @@ This application is divided into feature modules within the `/src/app` directory
 
 ## Configuration
 
-If you want to use an external backend for the `auth` or `data`, you should create production environments for them.
-* See the `production` configuration in the `/angular.json` file for details. To sum it up, it uses the `fileReplacements` strategy; you need to duplicate the files in `/src/environments`, renaming each one to `*.prod.ts`, and fill their required properties, like the external web endpoints to connect to.
-* Then, the resulting `environment.prod.ts` file should point to the `http` feature implementation modules (`/src/app/auth/http` and `/src/app/data/http`).
-* The services provided in said modules are already pointing to the default environment files.
+If you want to use an external backend for the `auth` or `data` (localhost or not), you should first create production environments for them. In few words, Trébol is configured to use `fileReplacements`; see the `production` configuration in the `/angular.json` file for the exact replacement patterns that apply.
+
+To connect to your production environment, you must:
+* Duplicate every file in `/src/environments`, rename each to `*.prod.ts`, and fill their required properties and constants, like the external web endpoints to connect to. This way, when you use the `--prod` flag to build, test or deploy, the files you just created will substitute the original ones in the resulting build.
+* Double check that your resulting `environment.prod.ts` file is pointing to the `http` API implementation modules (for example, `import { HttpStoreApiModule } from 'src/app/api/store/http/http-store-api.module'`).
 
 ## Testing
 
-Jasmine tests aren't so detailed yet, but you can give them a try using `ng test` in the root directory.
+Jasmine tests are providing about 60% code coverage, you can give them a try using `ng test` in the root directory.
 
 ## Running
 
