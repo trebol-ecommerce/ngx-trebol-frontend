@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { HttpService } from 'src/app/shared/http.abstract-service';
-import { baseURI } from 'src/environments/data.environment';
+import { baseURI } from 'src/environments/data-api.environment';
 
 export abstract class EntityHttpDataApiService
   extends HttpService {

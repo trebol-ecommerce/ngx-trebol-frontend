@@ -6,7 +6,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { sessionStorageTokenItemName, authorizationHeaderName } from 'src/environments/auth.environment';
+import { sessionStorageTokenItemName, authorizationHeaderName } from 'src/environments/auth-api.environment';
 
 @Injectable()
 export class HttpSessionApiInterceptor
