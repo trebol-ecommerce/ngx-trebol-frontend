@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
-import { CompositeEntityCrudIService } from '../composite-entity.crud.iservice';
-import { EntityLocalMemoryCrudService } from './entity.local-memory-crud.aservice';
+import { CompositeEntityDataApiIService } from '../composite-entity-data-api.iservice';
+import { EntityLocalMemoryDataApiService } from './entity.local-memory-data-api.aservice';
 
 export const MOCK_SALES: Partial<Sell>[] = [
   {
@@ -57,9 +57,9 @@ export const MOCK_SALES: Partial<Sell>[] = [
 ];
 
 @Injectable()
-export class SalesLocalMemoryCrudService
-  extends EntityLocalMemoryCrudService<Sell>
-  implements CompositeEntityCrudIService<Sell, SellDetail> {
+export class SalesLocalMemoryDataApiService
+  extends EntityLocalMemoryDataApiService<Sell>
+  implements CompositeEntityDataApiIService<Sell, SellDetail> {
 
   protected items: Sell[] = MOCK_SALES.map(n => Object.assign(new Sell(), n));
 

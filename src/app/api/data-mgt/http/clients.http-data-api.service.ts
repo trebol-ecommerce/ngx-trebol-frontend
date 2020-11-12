@@ -7,13 +7,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Client } from 'src/app/models/entities/Client';
-import { EntityHttpCrudService } from './entity.http-crud.aservice';
-import { EntityCrudIService } from '../entity.crud.iservice';
+import { EntityHttpDataApiService } from './entity.http-data-api.aservice';
+import { EntityDataApiIService } from '../entity-data-api.iservice';
 
 @Injectable()
-export class ClientsHttpCrudService
-  extends EntityHttpCrudService
-  implements EntityCrudIService<Client> {
+export class ClientsHttpDataApiService
+  extends EntityHttpDataApiService
+  implements EntityDataApiIService<Client> {
 
   constructor(
     protected http: HttpClient

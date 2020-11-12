@@ -8,7 +8,7 @@ import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
-import { EntityCrudIService } from 'src/app/api/data-mgt/entity.crud.iservice';
+import { EntityDataApiIService } from 'src/app/api/data-mgt/entity-data-api.iservice';
 import { Product } from 'src/app/models/entities/Product';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
@@ -29,7 +29,7 @@ export class StoreService
   public cartSubtotalValue$: Observable<number>;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.salesCrud) protected salesDataService: EntityCrudIService<Sell>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.salesCrud) protected salesDataService: EntityDataApiIService<Sell>,
     protected httpClient: HttpClient
   ) {
     this.cartItemCount$ = this.cartDetails$.pipe(

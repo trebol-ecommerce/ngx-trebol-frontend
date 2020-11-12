@@ -6,7 +6,7 @@
 import { HttpService } from 'src/app/shared/http.abstract-service';
 import { baseURI } from 'src/environments/data.environment';
 
-export abstract class EntityHttpCrudService
+export abstract class EntityHttpDataApiService
   extends HttpService {
 
   protected baseURI = `${baseURI}/api`;

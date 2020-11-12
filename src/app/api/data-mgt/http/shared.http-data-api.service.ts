@@ -11,12 +11,12 @@ import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { SellType } from 'src/app/models/entities/SellType';
 import { HttpService } from 'src/app/shared/http.abstract-service';
-import { SharedDataIService } from '../shared.data.iservice';
+import { SharedDataApiIService } from '../shared-data-api.iservice';
 
 @Injectable()
-export class SharedHttpDataService
+export class SharedHttpDataApiService
   extends HttpService
-  implements SharedDataIService {
+  implements SharedDataApiIService {
 
   constructor(
     protected http: HttpClient

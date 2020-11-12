@@ -5,7 +5,7 @@
 
 import { Injectable } from '@angular/core';
 import { Person } from 'src/app/models/entities/Person';
-import { EntityLocalMemoryCrudService } from './entity.local-memory-crud.aservice';
+import { EntityLocalMemoryDataApiService } from './entity.local-memory-data-api.aservice';
 
 export const MOCK_PEOPLE: Partial<Person>[] = [
   { id: 1, name: 'Anónimo' },
@@ -13,8 +13,8 @@ export const MOCK_PEOPLE: Partial<Person>[] = [
 ];
 
 @Injectable()
-export class PeopleLocalMemoryCrudService
-  extends EntityLocalMemoryCrudService<Person> {
+export class PeopleLocalMemoryDataApiService
+  extends EntityLocalMemoryDataApiService<Person> {
 
   protected items: Person[] = MOCK_PEOPLE.map(n => Object.assign(new Person(), n));
 

@@ -8,13 +8,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/entities/Product';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
-import { EntityCrudIService } from '../entity.crud.iservice';
-import { EntityHttpCrudService } from './entity.http-crud.aservice';
+import { EntityDataApiIService } from '../entity-data-api.iservice';
+import { EntityHttpDataApiService } from './entity.http-data-api.aservice';
 
 @Injectable()
-export class ProductsHttpCrudService
-  extends EntityHttpCrudService
-  implements EntityCrudIService<Product> {
+export class ProductsHttpDataApiService
+  extends EntityHttpDataApiService
+  implements EntityDataApiIService<Product> {
 
   constructor(
     protected http: HttpClient

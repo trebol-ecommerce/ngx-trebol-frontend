@@ -13,10 +13,10 @@ import { Product } from 'src/app/models/entities/Product';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { SellType } from 'src/app/models/entities/SellType';
-import { CompositeEntityCrudIService } from 'src/app/api/data-mgt/composite-entity.crud.iservice';
+import { CompositeEntityDataApiIService } from 'src/app/api/data-mgt/composite-entity-data-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
-import { EntityCrudIService } from 'src/app/api/data-mgt/entity.crud.iservice';
-import { SharedDataIService } from 'src/app/api/data-mgt/shared.data.iservice';
+import { EntityDataApiIService } from 'src/app/api/data-mgt/entity-data-api.iservice';
+import { SharedDataApiIService } from 'src/app/api/data-mgt/shared-data-api.iservice';
 
 @Injectable()
 export class SellManagerFormService
@@ -31,11 +31,11 @@ export class SellManagerFormService
   public sellTotalValue$: Observable<number>;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.salesCrud) protected dataService: CompositeEntityCrudIService<Sell, SellDetail>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.productsCrud) protected productDataService: EntityCrudIService<Product>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.clientsCrud) protected clientDataService: EntityCrudIService<Client>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.sellersCrud) protected sellerDataService: EntityCrudIService<Seller>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.salesCrud) protected dataService: CompositeEntityDataApiIService<Sell, SellDetail>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.productsCrud) protected productDataService: EntityDataApiIService<Product>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.clientsCrud) protected clientDataService: EntityDataApiIService<Client>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.sellersCrud) protected sellerDataService: EntityDataApiIService<Seller>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataApiIService,
   ) {
     super();
 

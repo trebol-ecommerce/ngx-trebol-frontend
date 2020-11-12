@@ -9,13 +9,13 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
-import { CompositeEntityCrudIService } from '../composite-entity.crud.iservice';
-import { EntityHttpCrudService } from './entity.http-crud.aservice';
+import { CompositeEntityDataApiIService } from '../composite-entity-data-api.iservice';
+import { EntityHttpDataApiService } from './entity.http-data-api.aservice';
 
 @Injectable()
-export class SalesHttpCrudService
-  extends EntityHttpCrudService
-  implements CompositeEntityCrudIService<Sell, SellDetail> {
+export class SalesHttpDataApiService
+  extends EntityHttpDataApiService
+  implements CompositeEntityDataApiIService<Sell, SellDetail> {
 
   constructor(
     protected http: HttpClient

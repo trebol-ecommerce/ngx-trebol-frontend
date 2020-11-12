@@ -10,8 +10,9 @@ import { StoreApiIService } from '../store-api.iservice';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { Product } from 'src/app/models/entities/Product';
-import { MOCK_PRODUCTS } from '../../data-mgt/local-memory/products.local-memory-crud.service';
+import { MOCK_PRODUCTS } from 'src/app/api/data-mgt/local-memory/products.local-memory-data-api.service';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
+import { MOCK_PRODUCT_TYPES, MOCK_PRODUCT_FAMILIES } from 'src/app/api/data-mgt/local-memory/shared.local-memory-data-api.service';
 
 export const MOCK_COMPANY_DETAILS: CompanyDetails = {
   name: 'Importaciones NBazaar',
@@ -19,14 +20,6 @@ export const MOCK_COMPANY_DETAILS: CompanyDetails = {
   bannerImageURL: 'assets/img/mikael-frivold-vJ1Pf0d-0HY-unsplash.jpg',
   logoImageURL: 'assets/img/logo.png'
 };
-
-export const MOCK_PRODUCT_FAMILIES: Partial<ProductFamily>[] = [
-  { id: 1, name: 'Ropa y Calzado' }
-];
-
-export const MOCK_PRODUCT_TYPES: Partial<ProductType>[] = [
-  { id: 1, name: 'Zapatillas Hombre', productFamily: { id: 1 } }
-];
 
 
 @Injectable()

@@ -4,11 +4,11 @@
 // https://opensource.org/licenses/MIT
 
 import { Observable } from 'rxjs';
-import { EntityCrudIService } from './entity.crud.iservice';
+import { EntityDataApiIService } from './entity-data-api.iservice';
 import { AbstractEntity } from 'src/app/models/AbstractEntity';
 
-export interface CompositeEntityCrudIService<T extends AbstractEntity, X extends AbstractEntity>
-  extends EntityCrudIService<T> {
+export interface CompositeEntityDataApiIService<T extends AbstractEntity, X extends AbstractEntity>
+  extends EntityDataApiIService<T> {
 
   readDetailsById(id: number): Observable<X[]>;
 }
