@@ -20,30 +20,31 @@ export class ProductsHttpDataApiService
     protected http: HttpClient
   ) {
     super();
+    this.baseURI = `${this.baseURI}/products`;
   }
 
   public create(product: Product): Observable<number> {
     return this.http.post<number>(
-      `${this.baseURI}/product`,
+      this.baseURI,
       product
     );
   }
 
   public readById(id: number): Observable<Product> {
     return this.http.get<Product>(
-      `${this.baseURI}/product/${id}`
+      `${this.baseURI}/${id}`
     );
   }
 
   public readAll(): Observable<Product[]> {
     return this.http.get<Product[]>(
-      `${this.baseURI}/products`
+      this.baseURI,
     );
   }
 
   public readFiltered(filters: ProductFilters): Observable<Product[]> {
     return this.http.get<Product[]>(
-      `${this.baseURI}/products`,
+      this.baseURI,
       this.httpParamsOf(filters)
     );
   }
@@ -58,14 +59,14 @@ export class ProductsHttpDataApiService
 
   public update(product: Product, id: string | number): Observable<number> {
     return this.http.put<number>(
-      `${this.baseURI}/product/${id}`,
+      `${this.baseURI}/${id}`,
       product
     );
   }
 
   public deleteById(id: number): Observable<boolean> {
     return this.http.delete<boolean>(
-      `${this.baseURI}/product/${id}`
+      `${this.baseURI}/${id}`
     );
   }
 }

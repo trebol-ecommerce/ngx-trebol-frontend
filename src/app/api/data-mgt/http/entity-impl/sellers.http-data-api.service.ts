@@ -19,44 +19,45 @@ export class SellersHttpDataApiService
     protected http: HttpClient
   ) {
     super();
+    this.baseURI = `${this.baseURI}/sellers`;
   }
 
   public create(seller: Seller): Observable<number> {
     return this.http.post<number>(
-      `${this.baseURI}/seller`,
+      this.baseURI,
       seller
     );
   }
 
   public readById(id: number): Observable<Seller> {
     return this.http.get<Seller>(
-      `${this.baseURI}/seller/${id}`
+      `${this.baseURI}/${id}`
     );
   }
 
   public readAll(): Observable<Seller[]> {
     return this.http.get<Seller[]>(
-      `${this.baseURI}/sellers`
+      this.baseURI,
     );
   }
 
   public readFiltered(filters: any): Observable<Seller[]> {
     return this.http.get<Seller[]>(
-      `${this.baseURI}/sellers`,
+      this.baseURI,
       this.httpParamsOf(filters)
     );
   }
 
   public update(seller: Seller, id: number): Observable<number> {
     return this.http.put<number>(
-      `${this.baseURI}/seller/${id}`,
+      `${this.baseURI}/${id}`,
       seller
     );
   }
 
   public deleteById(id: number): Observable<boolean> {
     return this.http.delete<boolean>(
-      `${this.baseURI}/seller/${id}`
+      `${this.baseURI}/${id}`
     );
   }
 }

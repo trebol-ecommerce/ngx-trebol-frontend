@@ -9,5 +9,5 @@ import { baseURI } from 'src/environments/data-api.environment';
 export abstract class EntityHttpDataApiService
   extends HttpService {
 
-  protected baseURI = `${baseURI}/api`;
+  protected baseURI = `${baseURI}/data`;
 }

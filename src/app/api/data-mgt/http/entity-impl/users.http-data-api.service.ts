@@ -19,44 +19,45 @@ export class UsersHttpDataApiService
     protected http: HttpClient
   ) {
     super();
+    this.baseURI = `${this.baseURI}/users`;
   }
 
   public create(user: User): Observable<number> {
     return this.http.post<number>(
-      `${this.baseURI}/user`,
+      this.baseURI,
       user
     );
   }
 
   public readById(userId:  number): Observable<User> {
     return this.http.get<User>(
-      `${this.baseURI}/user/${userId}`
+      `${this.baseURI}/${userId}`
     );
   }
 
   public readAll(): Observable<User[]> {
     return this.http.get<User[]>(
-      `${this.baseURI}/users`
+      this.baseURI,
     );
   }
 
   public readFiltered(filters: any): Observable<User[]> {
     return this.http.get<User[]>(
-      `${this.baseURI}/users`,
+      this.baseURI,
       this.httpParamsOf(filters)
     );
   }
 
   public update(user: User, userId: string | number): Observable<number> {
     return this.http.put<number>(
-      `${this.baseURI}/user/${userId}`,
+      `${this.baseURI}/${userId}`,
       user
     );
   }
 
   public deleteById(userId: number): Observable<boolean> {
     return this.http.delete<boolean>(
-      `${this.baseURI}/user/${userId}`
+      `${this.baseURI}/${userId}`
     );
   }
 }

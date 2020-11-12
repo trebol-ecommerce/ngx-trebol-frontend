@@ -21,18 +21,19 @@ export class SalesHttpDataApiService
     protected http: HttpClient
   ) {
     super();
+    this.baseURI = `${this.baseURI}/sales`;
   }
 
   public create(sell: Sell): Observable<number> {
     return this.http.post<number>(
-      `${this.baseURI}/sell`,
+      this.baseURI,
       sell
     );
   }
 
   public readById(sellId: number): Observable<Sell> {
     return this.http.get<Sell>(
-      `${this.baseURI}/sales/${sellId}`
+      `${this.baseURI}/${sellId}`
     );
   }
 
@@ -44,27 +45,27 @@ export class SalesHttpDataApiService
 
   public readAll(): Observable<Sell[]> {
     return this.http.get<Sell[]>(
-      `${this.baseURI}/sales`
+      this.baseURI,
     );
   }
 
   public readFiltered(filters: any): Observable<Sell[]> {
     return this.http.get<Sell[]>(
-      this.baseURI + '/sales',
+      this.baseURI,
       this.httpParamsOf(filters)
     );
   }
 
   public update(sell: Sell, id: number): Observable<number> {
     return this.http.put<number>(
-      `${this.baseURI}/sell/${id}`,
+      `${this.baseURI}/${id}`,
       sell
     );
   }
 
   public deleteById(id: number): Observable<boolean> {
     return this.http.delete<boolean>(
-      `${this.baseURI}/sell/${id}`
+      `${this.baseURI}/${id}`
     );
   }
 }
