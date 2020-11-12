@@ -6,7 +6,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { Sell } from 'src/app/data/models/entities/Sell';
+import { Sell } from 'src/app/models/entities/Sell';
 import { StoreReceiptComponent } from './store-receipt.component';
 import { StoreReceiptService } from './store-receipt.service';
 

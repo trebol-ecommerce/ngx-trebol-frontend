@@ -22,8 +22,9 @@ const DEBUG_ROUTES = false;
   imports: [
     BrowserModule,
     SharedModule,
-    environment.dataModule,
-    environment.authModule,
+    environment.dataApiModule,
+    environment.authApiModule,
+    environment.storeApiModule,
     StoreModule,
     ManagementModule,
     AppRoutingModule

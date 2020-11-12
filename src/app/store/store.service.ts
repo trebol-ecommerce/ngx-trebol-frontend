@@ -3,23 +3,21 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
-import { Product } from 'src/app/data/models/entities/Product';
-import { Sell } from 'src/app/data/models/entities/Sell';
-import { SellDetail } from 'src/app/data/models/entities/SellDetail';
-import { ExternalPaymentRedirectionData } from 'src/app/data/models/ExternalPaymentRedirectionData';
-import { checkoutURL } from 'src/environments/store.environment';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { Product } from 'src/app/models/entities/Product';
+import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
+import { storeApiURL } from 'src/environments/store-api.environment';
+import { StoreApiIService } from '../api/store/store-api.iservice';
 
 @Injectable()
 export class StoreService
   implements OnDestroy {
 
-  protected checkoutURL = checkoutURL;
+  protected checkoutURL = storeApiURL;
   protected sellDetails: SellDetail[] = [];
   protected sellDetailsSource: Subject<SellDetail[]> = new BehaviorSubject([]);
   protected sellSubtotalValue: number;
@@ -29,8 +27,7 @@ export class StoreService
   public cartSubtotalValue$: Observable<number>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.salesCrud) protected salesDataService: EntityCrudIService<Sell>,
-    protected httpClient: HttpClient
+    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected storeApiService: StoreApiIService
   ) {
     this.cartItemCount$ = this.cartDetails$.pipe(
       map(
@@ -63,14 +60,6 @@ export class StoreService
 
   protected findSellDetailsIndexByProductId(id: number): number {
     return this.sellDetails.findIndex(d => d.product?.id === id);
-  }
-
-  protected parseFormData(subtotal: number): FormData {
-    const total = String(Math.round(subtotal * 1.19));
-    const formData = new FormData();
-    formData.append('tr_amount', total);
-    formData.append('tr_id', '1');
-    return formData;
   }
 
   public addProductToCart(product: Product): void {
@@ -124,10 +113,6 @@ export class StoreService
   }
 
   public submitCart(): Observable<ExternalPaymentRedirectionData> {
-    const data: FormData = this.parseFormData(this.sellSubtotalValue);
-    return this.httpClient.post<ExternalPaymentRedirectionData>(
-      this.checkoutURL,
-      data
-    );
+    return this.storeApiService.submitCart(this.sellDetails);
   }
 }

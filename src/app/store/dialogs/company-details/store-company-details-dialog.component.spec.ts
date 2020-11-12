@@ -5,24 +5,24 @@
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { SharedDataIService } from 'src/app/data/shared.data.iservice';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { StoreCompanyDetailsDialogComponent } from './store-company-details-dialog.component';
+import { StoreApiIService } from 'src/app/api/store/store-api.iservice';
 
 describe('StoreCompanyDetailsDialogComponent', () => {
   let component: StoreCompanyDetailsDialogComponent;
   let fixture: ComponentFixture<StoreCompanyDetailsDialogComponent>;
-  let service: Partial<SharedDataIService>;
+  let service: Partial<StoreApiIService>;
 
   beforeEach(async(() => {
     service = {
-      readCompanyDetails() { return of({ name: 'test', bannerImageURL: '', description: 'test', logoImageURL: '' }); }
+      fetchCompanyDetails() { return of({ name: 'test', bannerImageURL: '', description: 'test', logoImageURL: '' }); }
     };
 
     TestBed.configureTestingModule({
       declarations: [ StoreCompanyDetailsDialogComponent ],
       providers: [
-        { provide: DATA_INJECTION_TOKENS.shared, useValue: service }
+        { provide: API_SERVICE_INJECTION_TOKENS.store, useValue: service }
       ]
     })
     .compileComponents();

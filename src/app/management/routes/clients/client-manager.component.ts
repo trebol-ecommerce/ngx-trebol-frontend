@@ -6,7 +6,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Client } from 'src/app/data/models/entities/Client';
+import { Client } from 'src/app/models/entities/Client';
 import { DataManagerComponent } from '../data-manager.acomponent';
 import { ClientManagerService } from './client-manager.service';
 

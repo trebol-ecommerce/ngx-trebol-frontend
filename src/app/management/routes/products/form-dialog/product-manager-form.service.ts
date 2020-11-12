@@ -7,12 +7,12 @@ import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { DataManagerFormService } from '../../data-manager-form.aservice';
-import { Product } from 'src/app/data/models/entities/Product';
-import { ProductFamily } from 'src/app/data/models/entities/ProductFamily';
-import { ProductType } from 'src/app/data/models/entities/ProductType';
-import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
-import { SharedDataIService } from 'src/app/data/shared.data.iservice';
+import { Product } from 'src/app/models/entities/Product';
+import { ProductFamily } from 'src/app/models/entities/ProductFamily';
+import { ProductType } from 'src/app/models/entities/ProductType';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { EntityDataApiIService } from 'src/app/api/data-mgt/entity-data-api.iservice';
+import { SharedDataApiIService } from 'src/app/api/data-mgt/shared-data-api.iservice';
 
 @Injectable()
 export class ProductManagerFormService
@@ -24,8 +24,8 @@ export class ProductManagerFormService
   public productTypes$: Observable<ProductType[]>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.productsCrud) protected dataService: EntityCrudIService<Product>,
-    @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService
+    @Inject(API_SERVICE_INJECTION_TOKENS.productsCrud) protected dataService: EntityDataApiIService<Product>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataApiIService
   ) {
     super();
 

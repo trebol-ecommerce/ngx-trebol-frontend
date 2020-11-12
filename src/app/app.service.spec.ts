@@ -4,8 +4,8 @@
 // https://opensource.org/licenses/MIT
 
 import { TestBed } from '@angular/core/testing';
-import { LocalMemoryAuthModule } from 'src/app/auth/local-memory/local-memory-auth.module';
-import { LocalMemoryDataModule } from 'src/app/data/local-memory/local-memory-data.module';
+import { LocalMemorySessionApiModule } from 'src/app/api/session/local-memory/local-memory-session-api.module';
+import { LocalMemoryDataModule } from 'src/app/api/data-mgt/local-memory/local-memory-data-api.module';
 import { AppService } from './app.service';
 
 describe('AppService', () => {
@@ -15,7 +15,7 @@ describe('AppService', () => {
     TestBed.configureTestingModule({
       imports: [
         LocalMemoryDataModule,
-        LocalMemoryAuthModule
+        LocalMemorySessionApiModule
       ]
     });
     service = TestBed.inject(AppService);

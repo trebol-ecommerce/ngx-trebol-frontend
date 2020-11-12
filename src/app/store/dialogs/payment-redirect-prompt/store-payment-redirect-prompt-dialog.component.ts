@@ -6,7 +6,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject, ReplaySubject, concat, of } from 'rxjs';
 import { concatMap, map, mapTo, startWith, switchMap } from 'rxjs/operators';
-import { ExternalPaymentRedirectionData } from 'src/app/data/models/ExternalPaymentRedirectionData';
+import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 import { StoreService } from 'src/app/store/store.service';
 
 @Component({
@@ -36,7 +36,7 @@ export class StorePaymentRedirectPromptDialogComponent
       data => {
         this.externalDataSource.next(data);
       }
-    );;
+    );
   }
 
   ngOnDestroy(): void {

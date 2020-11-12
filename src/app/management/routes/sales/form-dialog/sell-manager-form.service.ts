@@ -7,16 +7,16 @@ import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { concatMap, map, switchMap, toArray } from 'rxjs/operators';
 import { DataManagerFormService } from '../../data-manager-form.aservice';
-import { Client } from 'src/app/data/models/entities/Client';
-import { Seller } from 'src/app/data/models/entities/Seller';
-import { Product } from 'src/app/data/models/entities/Product';
-import { Sell } from 'src/app/data/models/entities/Sell';
-import { SellDetail } from 'src/app/data/models/entities/SellDetail';
-import { SellType } from 'src/app/data/models/entities/SellType';
-import { CompositeEntityCrudIService } from 'src/app/data/composite-entity.crud.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
-import { SharedDataIService } from 'src/app/data/shared.data.iservice';
+import { Client } from 'src/app/models/entities/Client';
+import { Seller } from 'src/app/models/entities/Seller';
+import { Product } from 'src/app/models/entities/Product';
+import { Sell } from 'src/app/models/entities/Sell';
+import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { SellType } from 'src/app/models/entities/SellType';
+import { CompositeEntityDataApiIService } from 'src/app/api/data-mgt/composite-entity-data-api.iservice';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { EntityDataApiIService } from 'src/app/api/data-mgt/entity-data-api.iservice';
+import { SharedDataApiIService } from 'src/app/api/data-mgt/shared-data-api.iservice';
 
 @Injectable()
 export class SellManagerFormService
@@ -31,11 +31,11 @@ export class SellManagerFormService
   public sellTotalValue$: Observable<number>;
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.salesCrud) protected dataService: CompositeEntityCrudIService<Sell, SellDetail>,
-    @Inject(DATA_INJECTION_TOKENS.productsCrud) protected productDataService: EntityCrudIService<Product>,
-    @Inject(DATA_INJECTION_TOKENS.clientsCrud) protected clientDataService: EntityCrudIService<Client>,
-    @Inject(DATA_INJECTION_TOKENS.sellersCrud) protected sellerDataService: EntityCrudIService<Seller>,
-    @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.salesCrud) protected dataService: CompositeEntityDataApiIService<Sell, SellDetail>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.productsCrud) protected productDataService: EntityDataApiIService<Product>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.clientsCrud) protected clientDataService: EntityDataApiIService<Client>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.sellersCrud) protected sellerDataService: EntityDataApiIService<Seller>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataApiIService,
   ) {
     super();
 

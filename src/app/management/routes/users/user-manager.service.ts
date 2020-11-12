@@ -4,9 +4,9 @@
 // https://opensource.org/licenses/MIT
 
 import { Inject, Injectable } from '@angular/core';
-import { User } from 'src/app/data/models/entities/User';
-import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
+import { User } from 'src/app/models/entities/User';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { EntityDataApiIService } from 'src/app/api/data-mgt/entity-data-api.iservice';
 import { DataManagerService } from '../data-manager.aservice';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class UserManagerService
   extends DataManagerService<User> {
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.usersCrud) protected dataService: EntityCrudIService<User>
+    @Inject(API_SERVICE_INJECTION_TOKENS.usersCrud) protected dataService: EntityDataApiIService<User>
   ) {
     super();
   }

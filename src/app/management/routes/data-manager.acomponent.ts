@@ -6,7 +6,7 @@
 import { Directive, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
+import { AbstractEntity } from 'src/app/models/AbstractEntity';
 import { DataManagerService } from './data-manager.aservice';
 
 /**

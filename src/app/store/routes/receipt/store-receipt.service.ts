@@ -7,10 +7,10 @@ import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, pluck, startWith } from 'rxjs/operators';
-import { Sell } from 'src/app/data/models/entities/Sell';
-import { SellDetail } from 'src/app/data/models/entities/SellDetail';
-import { CompositeEntityCrudIService } from 'src/app/data/composite-entity.crud.iservice';
-import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
+import { Sell } from 'src/app/models/entities/Sell';
+import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { CompositeEntityDataApiIService } from 'src/app/api/data-mgt/composite-entity-data-api.iservice';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 
 @Injectable()
 export class StoreReceiptService {
@@ -23,7 +23,7 @@ export class StoreReceiptService {
   public soldOn$: Observable<string> = this.sell$.pipe(pluck('soldOn'));
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.salesCrud) protected sellDataService: CompositeEntityCrudIService<Sell, SellDetail>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.salesCrud) protected sellDataService: CompositeEntityDataApiIService<Sell, SellDetail>,
     protected router: Router
   ) {
   }

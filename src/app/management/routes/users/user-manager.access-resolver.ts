@@ -6,22 +6,23 @@
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AUTH_INJECTION_TOKEN } from '../../../auth/auth.injection-token';
-import { AuthenticationIService } from '../../../auth/auth.iservice';
-import { AuthorizedAccess } from '../../../data/models/AuthorizedAccess';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { SessionApiIService } from 'src/app/api/session/session-api.iservice';
+import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
+import { DataAccessApiIService } from 'src/app/api/data-mgt/data-access.api.iservice';
 
 @Injectable({ providedIn: 'root' })
 export class UserManagerAccessResolver
   implements Resolve<AuthorizedAccess> {
 
   constructor(
-    @Inject(AUTH_INJECTION_TOKEN) protected authService: AuthenticationIService
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataAccess) protected apiAccessService: DataAccessApiIService
   ) { }
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<AuthorizedAccess>|Promise<AuthorizedAccess>|AuthorizedAccess {
-    return this.authService.getResourceAuthorizedAccess('user');
+    return this.apiAccessService.getResourceAuthorizedAccess('users');
   }
 }

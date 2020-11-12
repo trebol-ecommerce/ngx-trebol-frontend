@@ -6,9 +6,9 @@
 import { Directive, OnDestroy } from '@angular/core';
 import { BehaviorSubject, from, Observable, of, Subject, ReplaySubject } from 'rxjs';
 import { catchError, delay, finalize, map, mapTo, mergeMap, startWith, tap, toArray } from 'rxjs/operators';
-import { EntityCrudIService } from 'src/app/data/entity.crud.iservice';
-import { AbstractEntity } from 'src/app/data/models/AbstractEntity';
-import { AuthorizedAccess } from 'src/app/data/models/AuthorizedAccess';
+import { EntityDataApiIService } from 'src/app/api/data-mgt/entity-data-api.iservice';
+import { AbstractEntity } from 'src/app/models/AbstractEntity';
+import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 
 /**
  * Base class for data manager services.
@@ -18,7 +18,7 @@ import { AuthorizedAccess } from 'src/app/data/models/AuthorizedAccess';
 export abstract class DataManagerService<T extends AbstractEntity>
   implements OnDestroy {
 
-  protected abstract dataService: EntityCrudIService<T>;
+  protected abstract dataService: EntityDataApiIService<T>;
 
   protected focusedItemsSource: Subject<T[]> = new BehaviorSubject([]);
   protected itemsSource: Subject<T[]> = new ReplaySubject();

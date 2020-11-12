@@ -6,9 +6,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { mapTo, pluck, startWith } from 'rxjs/operators';
-import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { CompanyDetails } from 'src/app/data/models/CompanyDetails';
-import { SharedDataIService } from 'src/app/data/shared.data.iservice';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { CompanyDetails } from 'src/app/models/CompanyDetails';
+import { StoreApiIService } from 'src/app/api/store/store-api.iservice';
 
 @Component({
   selector: 'app-store-company-details-dialog',
@@ -29,11 +29,11 @@ export class StoreCompanyDetailsDialogComponent
 
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataIService
+    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected sharedDataService: StoreApiIService
   ) { }
 
   ngOnInit(): void {
-    this.sharedDataService.readCompanyDetails().subscribe(
+    this.sharedDataService.fetchCompanyDetails().subscribe(
       companyDetails => { this.dataSource.next(companyDetails); }
     );
   }

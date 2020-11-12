@@ -5,7 +5,7 @@
 
 import { Component, Input } from '@angular/core';
 import { StoreService } from 'src/app/store/store.service';
-import { Product } from 'src/app/data/models/entities/Product';
+import { Product } from 'src/app/models/entities/Product';
 import { StoreCatalogService } from '../store-catalog.service';
 
 @Component({

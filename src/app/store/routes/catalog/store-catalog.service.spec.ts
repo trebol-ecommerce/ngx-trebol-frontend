@@ -6,7 +6,7 @@
 import { TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
-import { LocalMemoryDataModule } from 'src/app/data/local-memory/local-memory-data.module';
+import { LocalMemoryStoreApiModule } from 'src/app/api/store/local-memory/local-memory-store-api.module';
 import { StoreCatalogService } from './store-catalog.service';
 
 describe('StoreCatalogService', () => {
@@ -17,7 +17,7 @@ describe('StoreCatalogService', () => {
       imports: [
         MatDialogModule,
         RouterTestingModule,
-        LocalMemoryDataModule
+        LocalMemoryStoreApiModule
       ],
       providers: [
         StoreCatalogService

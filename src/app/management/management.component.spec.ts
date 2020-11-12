@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { LocalMemoryDataModule } from 'src/app/data/local-memory/local-memory-data.module';
+import { LocalMemoryDataModule } from 'src/app/api/data-mgt/local-memory/local-memory-data-api.module';
 import { ManagementComponent } from './management.component';
 import { ManagementService } from './management.service';
 import { of } from 'rxjs';

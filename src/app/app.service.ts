@@ -6,12 +6,13 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject, ReplaySubject } from 'rxjs';
 import { catchError, finalize, map, mapTo, tap } from 'rxjs/operators';
-import { AUTH_INJECTION_TOKEN } from 'src/app/auth/auth.injection-token';
-import { AuthenticationIService } from 'src/app/auth/auth.iservice';
-import { Person } from 'src/app/data/models/entities/Person';
-import { User } from 'src/app/data/models/entities/User';
-import { Login } from 'src/app/data/models/Login';
-import { AuthorizedAccess } from './data/models/AuthorizedAccess';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { SessionApiIService } from 'src/app/api/session/session-api.iservice';
+import { Person } from 'src/app/models/entities/Person';
+import { User } from 'src/app/models/entities/User';
+import { Login } from 'src/app/models/Login';
+import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
+import { DataAccessApiIService } from './api/data-mgt/data-access.api.iservice';
 
 @Injectable({ providedIn: 'root' })
 export class AppService
@@ -24,7 +25,8 @@ export class AppService
   public isValidatingSession$: Observable<boolean> = this.isValidatingSessionSource.asObservable();
 
   constructor(
-    @Inject(AUTH_INJECTION_TOKEN) protected authService: AuthenticationIService
+    @Inject(API_SERVICE_INJECTION_TOKENS.auth) protected authService: SessionApiIService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataAccess) protected apiAccessService: DataAccessApiIService
   ) {
     this.fetchLoggedInState().subscribe();
   }
@@ -35,7 +37,7 @@ export class AppService
   }
 
   protected fetchLoggedInState(): Observable<boolean> {
-    return this.authService.getAuthorizedAccess().pipe(
+    return this.apiAccessService.getAuthorizedAccess().pipe(
       mapTo(true),
       catchError(() => of(false)),
       tap(
@@ -81,7 +83,7 @@ export class AppService
   public validateSession(): Observable<boolean> {
     this.isValidatingSessionSource.next(true);
 
-    return this.authService.getAuthorizedAccess().pipe(
+    return this.apiAccessService.getAuthorizedAccess().pipe(
       mapTo(true),
       catchError(() => of(false)),
       finalize(() => { this.isValidatingSessionSource.next(false); }),
@@ -90,7 +92,7 @@ export class AppService
   }
 
   public getAuthorizedAccess(): Observable<AuthorizedAccess> {
-    return this.isLoggedIn() ? this.authService.getAuthorizedAccess() : of(null);
+    return this.isLoggedIn() ? this.apiAccessService.getAuthorizedAccess() : of(null);
   }
 
   public getUserProfile(): Observable<Person> {

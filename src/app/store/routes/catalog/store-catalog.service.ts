@@ -8,9 +8,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { concatMap, delay, map, tap } from 'rxjs/operators';
-import { DATA_INJECTION_TOKENS } from 'src/app/data/data-injection-tokens';
-import { Product } from 'src/app/data/models/entities/Product';
-import { StoreCatalogDataIService } from 'src/app/data/store.catalog.data.iservice';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { Product } from 'src/app/models/entities/Product';
+import { StoreApiIService } from 'src/app/api/store/store-api.iservice';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { StoreProductDetailsDialogComponent, StoreProductDetailsDialogData } from '../../dialogs/product-details/store-product-details-dialog.component';
 
@@ -26,7 +26,7 @@ export class StoreCatalogService
   public filters: ProductFilters = {};
 
   constructor(
-    @Inject(DATA_INJECTION_TOKENS.storeCatalog) protected dataService: StoreCatalogDataIService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected apiService: StoreApiIService,
     protected dialogService: MatDialog,
     protected route: ActivatedRoute,
     protected router: Router,
@@ -61,7 +61,7 @@ export class StoreCatalogService
       (params) => {
         if (params.has('id')) {
           const id = Number(params.get('id'));
-          this.dataService.readById(id).pipe(
+          this.apiService.fetchProductById(id).pipe(
             concatMap(p => this.promptProductDetails(p))
           ).subscribe();
         }
@@ -79,9 +79,9 @@ export class StoreCatalogService
     let p: Observable<Product[]>;
 
     if (JSON.stringify(this.filters) !== '{}') {
-      p = this.dataService.readFiltered(this.filters);
+      p = this.apiService.fetchFilteredProductCollection(this.filters);
     } else {
-      p = this.dataService.readAll();
+      p = this.apiService.fetchStoreFrontProductCollection();
     }
 
     p.pipe(

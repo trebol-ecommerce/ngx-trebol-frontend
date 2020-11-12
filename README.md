@@ -4,38 +4,58 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Trébol was born as a grown-up version of a hardware store web system called 'FERME Web'. Initially I created an Angular dashboard application that connected to a REST API-assisted backend service, that could list all the content stored in a MySQL database.
-That functionality, and the boilerplate code associated, sits at the core of this project. Trébol aims to become an industry-standard online shop application that can be used by any business model and frontend developer alike, to learn about implementing good practices, safety rules, and recommendations for building similar eCommerce systems.
+That functionality, and the boilerplate code associated, sits at the core of this project.
+Trébol aims to become an industry-standard online shop application. Businesses can use this solution to bring their eCommerce systems together in a short time. Developers can learn and improve on it to build similar eCommerce systems.
 
 ## Infrastructure
 
-This application is divided into feature modules within the `/src/app` directory. The first two come with a `local-memory` implementation.
-* `auth` provides service interfaces for doing authentication and authorization requests.
-* `data` provides service interfaces for querying and working with data.
-* `management` provides guarded routes, components and services to manipulate (CRUD) said data, much like an admin dashboard.
-* `shared` contains components used by other modules. It also brings a separate `angular-material.module` for all the imports used, application-wide.
-* `store` provides public routes for the store catalog, cart review, checkout and receipt pages.
+The layout within `/src/app/` goes as follows:
+* `models/` contains the data types (TS classes).
+* `api/` contains the dependency injection tokens used to consume APIs, and modules that provide service dependencies for said tokens:
+  * `store/` provides calls for displaying products in the storefront, categories, specific product details, info on the company and checking out with products in the shopping cart.
+  * `data-mgt/` provides calls for querying and working with data and authorization accesses based on data contexts.
+  * `session/` provides calls for creating accounts, logging in and out, and review personal profile data.
+* `management/` has components to interactively manipulating data in different contexts, using child routes like an admin dashboard.
+* `shared/` has components used by other modules.
+  * It also brings a `angular-material.module` to clearly state all the imports used, application-wide.
+* `store/` has components for all the store routes (catalog, cart review, receipt, and some dialogs).
 
 ## Requirements
 
-* An Angular 10-compatible Node.js/NPM installation.
+* An (Angular CLI)[https://cli.angular.io/)] 10-compatible (Node.js/NPM)[https://nodejs.org/] installation.
+
+## Getting the code
+
+* First, `git clone` the repository.
+* Then, in the root directory, do `npm install` to fetch all node modules and have it.
 
 ## Configuration
 
-If you want to use an external backend for the `auth` or `data`, you should create production environments for them.
-* See the `production` configuration in the `/angular.json` file for details. To sum it up, it uses the `fileReplacements` strategy; you need to duplicate the files in `/src/environments`, renaming each one to `*.prod.ts`, and fill their required properties, like the external web endpoints to connect to.
-* Then, the resulting `environment.prod.ts` file should point to the `http` feature implementation modules (`/src/app/auth/http` and `/src/app/data/http`).
-* The services provided in said modules are already pointing to the default environment files.
+If you plan to use an external backend for the APIs, you must create production environments for them. Trébol is configured to use several `fileReplacements` when launching a production build; see the `production` configuration in the `/angular.json` file for the exact replacement patterns that apply.
+
+If you happen to run a server in the same machine (aka localhost), (you can test it quickly with a proxy)[https://angular.io/guide/build#proxying-to-a-backend-server] to avoid CORS errors. Use the `/localhost.proxy.conf.json` file as example.
+
+To connect to your production environment, you must:
+* Duplicate every file in `/src/environments`, and rename each to `*.prod.ts`.
+  * Your resulting `environment.prod.ts` file must import the `http` API implementation modules (for example, `import { HttpStoreApiModule } from 'src/app/api/store/http/http-store-api.module'`).
+  * If you use localhost, leaving the api URL constants empty in every `*-api.environment.prod.ts` file should suffice, for your requests will be proxied (read on to "Building / Running").
+  * If not, assign them. Note that they may be separate constants and files, but they can have the same value and be served from the same machine.
 
 ## Testing
 
-Jasmine tests aren't so detailed yet, but you can give them a try using `ng test` in the root directory.
+Jasmine tests are providing about 60% code coverage, you can give them a try using `ng test` in the root directory.
 
-## Running
+## Building / Running
 
 As you travel the root directory after checking out:
-* To serve it locally, simply do `ng serve`. By default it runs the demo environment, using the browser's local memory for storage.
-* To build, do `ng build`. You might want to add the `--prod` flag, if you configured a production environment as described above.
+* To serve it locally, do `ng serve`
+* To create the static site, do `ng build` (a `/dist/` folder will be created with its contents)
+In both cases, you might want to add the `--prod` flag if you configured a production environment as described above.
+And if you are using localhost, you can add the `--proxy-config [file]` flag to divert all requests to the configured server.
+
+
 * To deploy it somewhere else, do `ng deploy`. Inspect https://github.com/angular-schule/angular-cli-ghpages#options for more on this.
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
