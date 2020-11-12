@@ -5,13 +5,13 @@
 
 import { NgModule } from '@angular/core';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
-import { ClientsLocalMemoryDataApiService } from './clients.local-memory-data-api.service';
-import { SellersLocalMemoryDataApiService } from './sellers.local-memory-data-api.service';
-import { PeopleLocalMemoryDataApiService } from './people.local-memory-data-api.service';
-import { ProductsLocalMemoryDataApiService } from './products.local-memory-data-api.service';
-import { SalesLocalMemoryDataApiService } from './sales.local-memory-data-api.service';
+import { ClientsLocalMemoryDataApiService } from './entity-impl/clients.local-memory-data-api.service';
+import { SellersLocalMemoryDataApiService } from './entity-impl/sellers.local-memory-data-api.service';
+import { PeopleLocalMemoryDataApiService } from './entity-impl/people.local-memory-data-api.service';
+import { ProductsLocalMemoryDataApiService } from './entity-impl/products.local-memory-data-api.service';
+import { SalesLocalMemoryDataApiService } from './entity-impl/sales.local-memory-data-api.service';
 import { SharedLocalMemoryDataService } from './shared.local-memory-data-api.service';
-import { UsersLocalMemoryDataApiService } from './users.local-memory-data-api.service';
+import { UsersLocalMemoryDataApiService } from './entity-impl/users.local-memory-data-api.service';
 
 /**
  * Provides services that read and write data using the client's working memory
