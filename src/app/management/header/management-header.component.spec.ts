@@ -8,15 +8,18 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { Person } from 'src/app/models/entities/Person';
-import { MATERIAL_MODULES } from 'src/app/shared/angular-material.module';
+import { AngularMaterialModule } from 'src/app/shared/angular-material.module';
 import { ManagementService } from '../management.service';
 import { ManagementHeaderComponent } from './management-header.component';
+import { Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 
 describe('ManagementHeaderComponent', () => {
   let component: ManagementHeaderComponent;
   let fixture: ComponentFixture<ManagementHeaderComponent>;
   let managementService: Partial<ManagementService>;
   let appService: Partial<AppService>;
+  let router: Router;
 
   beforeEach(async(() => {
     managementService = {
@@ -32,7 +35,7 @@ describe('ManagementHeaderComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        ...MATERIAL_MODULES
+        AngularMaterialModule
       ],
       declarations: [ ManagementHeaderComponent ],
       providers: [
@@ -41,6 +44,8 @@ describe('ManagementHeaderComponent', () => {
       ]
     })
     .compileComponents();
+    router = TestBed.get(Router);
+    spyOn(router,"navigateByUrl");
   }));
 
   beforeEach(() => {

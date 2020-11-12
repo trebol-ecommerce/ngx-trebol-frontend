@@ -22,7 +22,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatNativeDateModule } from '@angular/material/core';
 
 
-export const MATERIAL_MODULES = [
+const MATERIAL_MODULES = [
   MatButtonModule,
   MatCardModule,
   MatDialogModule,
