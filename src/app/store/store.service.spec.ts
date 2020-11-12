@@ -11,7 +11,7 @@ import { Product } from 'src/app/models/entities/Product';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { take } from 'rxjs/operators';
 import { StoreApiIService } from '../api/store/store-api.iservice';
-import { empty } from 'rxjs';
+import { empty, EMPTY } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
 
 describe('StoreService', () => {
@@ -22,7 +22,7 @@ describe('StoreService', () => {
 
   beforeEach(() => {
     apiService = {
-      submitCart() { return empty(); }
+      submitCart() { return EMPTY; }
     };
     spyOn(apiService, 'submitCart').and.callThrough();
 
@@ -98,7 +98,7 @@ describe('StoreService', () => {
 
   it('should update items quantity as the items in the cart vary', () => {
     let cartItemCount: number;
-    let sub = service.cartItemCount$.subscribe(q => { cartItemCount = q; });
+    const sub = service.cartItemCount$.subscribe(q => { cartItemCount = q; });
     expect(cartItemCount).toBe(0);
     service.addProductToCart(mockProduct);
     expect(cartItemCount).toBe(1);

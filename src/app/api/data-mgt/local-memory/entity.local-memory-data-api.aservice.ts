@@ -32,7 +32,8 @@ export abstract class EntityLocalMemoryDataApiService<T extends AbstractEntity>
   protected abstract items: T[];
 
   /**
-   * From the entire item collection, for each property and value in the provided object, filters all items matching the value in the property.
+   * From the entire item collection, for each property and value in the provided object,
+   * filters all items matching the value in the property.
    * It then returns a non-repeated
    */
   protected filterItems(filter: any): T[] {

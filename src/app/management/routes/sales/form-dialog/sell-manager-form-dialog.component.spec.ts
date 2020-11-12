@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -15,7 +15,7 @@ describe('SellManagerFormDialogComponent', () => {
   let fixture: ComponentFixture<SellManagerFormDialogComponent>;
   let service: Partial<SellManagerFormService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     service = {
       saving$: of(false),
       refreshSellDetailsFromId(i) {},
@@ -29,7 +29,7 @@ describe('SellManagerFormDialogComponent', () => {
       increaseDetailProductQuantityAtIndex(i) {},
       decreaseDetailProductQuantityAtIndex(i) {},
       removeDetailAtIndex(i) {},
-      submit(i) { return of(true) }
+      submit(i) { return of(true); }
     };
 
     TestBed.configureTestingModule({

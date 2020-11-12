@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { LocalMemoryDataModule } from 'src/app/api/data-mgt/local-memory/local-memory-data-api.module';
 import { ManagementComponent } from './management.component';
 import { ManagementService } from './management.service';
@@ -14,7 +14,7 @@ describe('ManagementComponent', () => {
   let fixture: ComponentFixture<ManagementComponent>;
   let service: Partial<ManagementService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     service = {
       isSidenavOpen$: of(true)
     };

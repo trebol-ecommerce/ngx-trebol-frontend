@@ -33,7 +33,7 @@ export const MOCK_EXTERNAL_PAYMENT_REDIRECT_DATA: ExternalPaymentRedirectionData
 export class LocalMemoryStoreApiService
   implements StoreApiIService {
 
-  protected items: Product[] = MOCK_PRODUCTS.map(p => Object.assign(new Product(),p));
+  protected items: Product[] = MOCK_PRODUCTS.map(p => Object.assign(new Product(), p));
 
 
   protected filterItems(filter: ProductFilters): Product[] {

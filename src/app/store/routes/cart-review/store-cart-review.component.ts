@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Observable, of, empty } from 'rxjs';
+import { Observable, of, empty, EMPTY } from 'rxjs';
 import { concatMap, map, take } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
@@ -100,7 +100,7 @@ export class StoreCartReviewComponent
           if (choice in StoreGuestPromptDialogOptions) {
             return this.pickPrompt(choice);
           } else {
-            return empty();
+            return EMPTY;
           }
         }
       )

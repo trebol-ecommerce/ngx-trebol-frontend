@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ManagementFooterComponent } from './management-footer.component';
 
@@ -11,7 +11,7 @@ describe('ManagementFooterComponent', () => {
   let component: ManagementFooterComponent;
   let fixture: ComponentFixture<ManagementFooterComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ManagementFooterComponent ]
     })

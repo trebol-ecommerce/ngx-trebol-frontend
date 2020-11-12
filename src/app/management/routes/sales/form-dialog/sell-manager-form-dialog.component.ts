@@ -56,7 +56,7 @@ export class SellManagerFormDialogComponent
   public sellIsntReady$: Observable<boolean>;
 
   public tableColumns: string[] = [ 'product', 'price', 'quantity', 'actions' ];
-  public get dialogTitle(): string { return ((this.data?.sell?.id) ? 'Actualizar datos de' : 'Nueva') + ' Venta'; };
+  public get dialogTitle(): string { return ((this.data?.sell?.id) ? 'Actualizar datos de' : 'Nueva') + ' Venta'; }
 
   constructor(
     @Inject(MAT_DIALOG_DATA) protected data: SaleManagerFormDialogData,

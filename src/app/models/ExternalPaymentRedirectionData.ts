@@ -4,6 +4,6 @@
 // https://opensource.org/licenses/MIT
 
 export interface ExternalPaymentRedirectionData {
-  url: string,
-  token_ws: string
+  url: string;
+  token_ws: string;
 }

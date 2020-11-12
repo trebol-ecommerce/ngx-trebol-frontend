@@ -3,8 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { StoreCatalogProductCardComponent } from './store-catalog-product-card.component';
 import { StoreService } from 'src/app/store/store.service';
 import { StoreCatalogService } from '../store-catalog.service';
@@ -15,7 +14,7 @@ describe('StoreCatalogProductCardComponent', () => {
   let storeService: Partial<StoreService>;
   let catalogService: Partial<StoreCatalogService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     storeService = {
       addProductToCart(p) {}
     };

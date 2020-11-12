@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { StoreService } from '../../store.service';
 import { StorePaymentRedirectPromptDialogComponent } from './store-payment-redirect-prompt-dialog.component';
@@ -14,7 +14,7 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
   let fixture: ComponentFixture<StorePaymentRedirectPromptDialogComponent>;
   let storeService: Partial<StoreService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     storeService = {
       submitCart() { return of({ url: '', token_ws: '' }); }
     };

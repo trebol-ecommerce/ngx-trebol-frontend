@@ -58,7 +58,7 @@ export class AppService
 
   public register(userDetails: User): Observable<boolean> {
     return this.authService.register(userDetails).pipe(
-      tap( //TODO refactor this tap
+      tap( // TODO refactor this tap
         success => {
           this.isLoggedInChangesSource.next(true);
         }
@@ -71,7 +71,7 @@ export class AppService
       return of(true);
     } else {
       return this.authService.login(credentials).pipe(
-        tap( //TODO and this tap too
+        tap( // TODO and this tap too
           success => {
             this.isLoggedInChangesSource.next(true);
           }

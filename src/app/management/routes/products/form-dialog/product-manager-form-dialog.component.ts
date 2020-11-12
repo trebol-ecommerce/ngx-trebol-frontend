@@ -47,7 +47,7 @@ export class ProductManagerFormDialogComponent
   public get criticalStock(): FormControl { return this.formGroup.get('criticalStock') as FormControl; }
   public get description(): FormControl { return this.formGroup.get('description') as FormControl; }
 
-  public get dialogTitle(): string { return ((this.data?.product?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Producto'; };
+  public get dialogTitle(): string { return ((this.data?.product?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Producto'; }
 
   constructor(
     @Inject(MAT_DIALOG_DATA) protected data: ProductManagerFormDialogData,

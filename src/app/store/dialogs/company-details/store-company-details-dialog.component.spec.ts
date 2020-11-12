@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { StoreCompanyDetailsDialogComponent } from './store-company-details-dialog.component';
@@ -14,7 +14,7 @@ describe('StoreCompanyDetailsDialogComponent', () => {
   let fixture: ComponentFixture<StoreCompanyDetailsDialogComponent>;
   let service: Partial<StoreApiIService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     service = {
       fetchCompanyDetails() { return of({ name: 'test', bannerImageURL: '', description: 'test', logoImageURL: '' }); }
     };

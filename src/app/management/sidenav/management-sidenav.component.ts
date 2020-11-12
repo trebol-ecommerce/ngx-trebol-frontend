@@ -56,7 +56,7 @@ export class ManagementSidenavComponent
       (route: ActivatedRouteSnapshot) => {
         const mIndex = this.modules.findIndex(v => v.path === route?.url[0]?.path);
         if (mIndex !== -1) {
-          for (let m of this.modules) { m.active = false; }
+          for (const m of this.modules) { m.active = false; }
           this.modules[mIndex].active = true;
           this.modulesSource.next(this.modules);
         }

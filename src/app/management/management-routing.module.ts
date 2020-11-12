@@ -20,7 +20,7 @@ import { UserManagerAccessResolver } from './routes/users/user-manager.access-re
 import { UserManagerComponent } from './routes/users/user-manager.component';
 
 export interface ManagementChildRoute extends Route {
-  data: { matIcon: string, title: string }
+  data: { matIcon: string, title: string };
 }
 
 export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
@@ -76,4 +76,3 @@ const managementRoutes: Routes = [
   exports: [RouterModule]
 })
 export class ManagementRoutingModule { }
-

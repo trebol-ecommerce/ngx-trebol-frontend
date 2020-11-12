@@ -38,7 +38,7 @@ export class UserManagerFormDialogComponent
   public get password(): FormControl { return this.formGroup.get('password') as FormControl; }
   public get person(): FormControl { return this.formGroup.get('person') as FormControl; }
 
-  public get dialogTitle(): string { return ((this.data?.user?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Usuario'; };
+  public get dialogTitle(): string { return ((this.data?.user?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Usuario'; }
 
   constructor(
     @Inject(MAT_DIALOG_DATA) protected data: UserManagerFormDialogData,

@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { Person } from 'src/app/models/entities/Person';
@@ -16,7 +16,7 @@ describe('EditProfileFormDialogComponent', () => {
   let fixture: ComponentFixture<EditProfileFormDialogComponent>;
   let service: Partial<EditProfileFormService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     service = {
       saving$: of(false),
       confirmCancel$: of(false),
@@ -40,7 +40,7 @@ describe('EditProfileFormDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    TestBed.overrideProvider(EditProfileFormService, { useValue: service })
+    TestBed.overrideProvider(EditProfileFormService, { useValue: service });
     fixture = TestBed.createComponent(EditProfileFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

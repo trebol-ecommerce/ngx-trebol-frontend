@@ -12,14 +12,11 @@ import { DataManagerService } from './data-manager.aservice';
 /**
  * Base class for data manager template components.
  * A 'Data Manager' is a table-based interface for doing CRUD operations on all persisted instances of classes derived from AbstractEntity.
- * It it expected to provide an openFormDialog() method that interacts with a DataManagerFormComponent, which will be used to view and edit the stored data (or insert new).
+ * It it expected to provide an openFormDialog() method that interacts with a DataManagerFormComponent,
+ * which will be used to view and edit the stored data (or insert new).
  */
 @Directive()
 export abstract class DataManagerComponent<T extends AbstractEntity> {
-
-  protected abstract service: DataManagerService<T>;
-  public abstract tableColumns: string[];
-  public abstract openFormDialog(item: T): Observable<T>;
 
   public loading$: Observable<boolean>;
   public busy$: Observable<boolean>;
@@ -27,6 +24,10 @@ export abstract class DataManagerComponent<T extends AbstractEntity> {
   public canEdit$: Observable<boolean>;
   public canAdd$: Observable<boolean>;
   public canDelete$: Observable<boolean>;
+
+  protected abstract service: DataManagerService<T>;
+  public abstract tableColumns: string[];
+  public abstract openFormDialog(item: T): Observable<T>;
 
   init(service: DataManagerService<T>): void {
     this.loading$ = service.loading$.pipe();

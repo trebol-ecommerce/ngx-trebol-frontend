@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -23,7 +23,7 @@ describe('StoreCartReviewComponent', () => {
   let appService: Partial<AppService>;
   let router: Router;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     storeService = {
       cartDetails$: of([]),
       cartSubtotalValue$: of(0),
@@ -51,9 +51,8 @@ describe('StoreCartReviewComponent', () => {
       ]
     })
     .compileComponents();
-
-    router = TestBed.get(Router);
-    spyOn(router,"navigateByUrl");
+    router = TestBed.inject(Router);
+    spyOn(router, 'navigateByUrl');
   }));
 
   beforeEach(() => {

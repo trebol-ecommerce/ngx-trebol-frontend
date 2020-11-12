@@ -37,7 +37,7 @@ export class SellerManagerFormDialogComponent
   public get role(): FormControl { return this.formGroup.get('role') as FormControl; }
   @ViewChild('personForm', { static: true }) public personForm: PersonFormComponent;
 
-  public get dialogTitle(): string { return ((this.data?.seller?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Empleado'; };
+  public get dialogTitle(): string { return ((this.data?.seller?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Empleado'; }
 
   constructor(
     @Inject(MAT_DIALOG_DATA) protected data: SellerManagementFormDialogData,

@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { StoreCatalogComponent } from './store-catalog.component';
 import { StoreCatalogService } from './store-catalog.service';
@@ -14,7 +14,7 @@ describe('StoreCatalogComponent', () => {
   let fixture: ComponentFixture<StoreCatalogComponent>;
   let catalogService: Partial<StoreCatalogService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     catalogService = {
       loading$: of(false),
       items$: of([]),

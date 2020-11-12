@@ -3,9 +3,9 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of, empty } from 'rxjs';
+import { of, empty, EMPTY } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { StoreService } from '../store.service';
 import { StoreHeaderComponent } from './store-header.component';
@@ -23,23 +23,22 @@ describe('StoreHeaderComponent', () => {
   let fixture: ComponentFixture<StoreHeaderComponent>;
   let storeService: Partial<StoreService>;
   let appService: Partial<AppService>;
-  let snackBarService: Partial<MatSnackBar>;
   let dialogService: any;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     storeService = {
       cartDetails$: of([]),
       cartItemCount$: of(0),
       cartSubtotalValue$: of(0)
     };
     appService = {
-      isLoggedIn() { return false },
+      isLoggedIn() { return false; },
       isLoggedInChanges$: of(false),
       closeCurrentSession() {},
       getUserProfile() { return of(null); }
     };
     dialogService = {
-      open() { return { afterClosed: () => empty() } }
+      open() { return { afterClosed: () => EMPTY }; }
     };
     spyOn(dialogService, 'open').and.callThrough();
 
@@ -56,7 +55,6 @@ describe('StoreHeaderComponent', () => {
       providers: [
         { provide: StoreService, useValue: storeService },
         { provide: AppService, useValue: appService },
-        { provide: MatSnackBar, useValue: snackBarService },
         { provide: MatDialog, useValue: dialogService }
       ]
     })
@@ -83,7 +81,7 @@ describe('StoreHeaderComponent', () => {
     expect(dialogService.open).not.toHaveBeenCalled();
 
     appService.isLoggedInChanges$ = of(true);
-    appService.isLoggedIn = (() => { return true; });
+    appService.isLoggedIn = (() => true);
     component.onClickLogout();
     expect(dialogService.open).toHaveBeenCalled();
   });
