@@ -4,30 +4,41 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Trébol was born as a grown-up version of a hardware store web system called 'FERME Web'. Initially I created an Angular dashboard application that connected to a REST API-assisted backend service, that could list all the content stored in a MySQL database.
-That functionality, and the boilerplate code associated, sits at the core of this project. Trébol aims to become an industry-standard online shop application. Businesses can use this solution to bring their eCommerce systems together in a short time. Developers can learn and improve on it to build similar eCommerce systems.
+That functionality, and the boilerplate code associated, sits at the core of this project.
+Trébol aims to become an industry-standard online shop application. Businesses can use this solution to bring their eCommerce systems together in a short time. Developers can learn and improve on it to build similar eCommerce systems.
 
 ## Infrastructure
 
-The layout within `/src/app` goes as follows:
-* `/models` contains the data types (TS classes).
-* `/api` contains the dependency injection tokens used to consume APIs, and modules that provide dependencies for said tokens:
-  * `/store` provides calls for displaying products in the storefront, categories, specific product details, info on the company and checking out with products in the shopping cart
-  * `/data-mgt` provides calls for querying and working with data and authorization accesses based on data contexts.
-  * `/session` provides calls for creating accounts, logging in and out, and review personal profile data.
-* `/management` has components to interactively manipulating data in different contexts, using child routes like an admin dashboard.
-* `/shared` has components used by other modules. It also brings a `angular-material.module` to clearly state all the imports used, application-wide.
-* `/store` has components for all the store routes (catalog, cart review, receipt, and some dialogs).
+The layout within `/src/app/` goes as follows:
+* `models/` contains the data types (TS classes).
+* `api/` contains the dependency injection tokens used to consume APIs, and modules that provide service dependencies for said tokens:
+  * `store/` provides calls for displaying products in the storefront, categories, specific product details, info on the company and checking out with products in the shopping cart.
+  * `data-mgt/` provides calls for querying and working with data and authorization accesses based on data contexts.
+  * `session/` provides calls for creating accounts, logging in and out, and review personal profile data.
+* `management/` has components to interactively manipulating data in different contexts, using child routes like an admin dashboard.
+* `shared/` has components used by other modules.
+  * It also brings a `angular-material.module` to clearly state all the imports used, application-wide.
+* `store/` has components for all the store routes (catalog, cart review, receipt, and some dialogs).
 
 ## Requirements
 
-* An Angular 10-compatible Node.js/NPM installation.
+* An (Angular CLI)[https://cli.angular.io/)] 10-compatible (Node.js/NPM)[https://nodejs.org/] installation.
+
+## Getting the code
+
+* First, `git clone` the repository.
+* Then, in the root directory, do `npm install` to fetch all node modules and have it.
 
 ## Configuration
 
-If you want to use an external backend for the `auth` or `data` (localhost or not), you should first create production environments for them. In few words, Trébol is configured to use `fileReplacements`; see the `production` configuration in the `/angular.json` file for the exact replacement patterns that apply.
+If you want to use an external backend for the `auth` or `data`, you should first create production environments for them. Trébol is configured to use several `fileReplacements` when launching a production build; see the `production` configuration in the `/angular.json` file for the exact replacement patterns that apply.
+
+If you happen to run a server in the same machine (aka localhost), you can test it quickly with a proxy to avoid CORS errors. Use the `/localhost.proxy.conf.json` file as example and follow the instructions below.
 
 To connect to your production environment, you must:
-* Duplicate every file in `/src/environments`, rename each to `*.prod.ts`, and fill their required properties and constants, like the external web endpoints to connect to. This way, when you use the `--prod` flag to build, test or deploy, the files you just created will substitute the original ones in the resulting build.
+* Duplicate every file in `/src/environments`, and rename each to `*.prod.ts`. This way, when you use the `--prod` flag to build, test or deploy, the files you just created will substitute the original ones in the resulting build.
+  * If you use localhost, leaving the api URL constants empty in every `*-api.environment.prod.ts` file should suffice.
+  * If not, assign them. Note that they may be separate constants and files, but they can have the same value and be served from the same machine.
 * Double check that your resulting `environment.prod.ts` file is pointing to the `http` API implementation modules (for example, `import { HttpStoreApiModule } from 'src/app/api/store/http/http-store-api.module'`).
 
 ## Testing
@@ -40,6 +51,7 @@ As you travel the root directory after checking out:
 * To serve it locally, simply do `ng serve`. By default it runs the demo environment, using the browser's local memory for storage.
 * To build, do `ng build`. You might want to add the `--prod` flag, if you configured a production environment as described above.
 * To deploy it somewhere else, do `ng deploy`. Inspect https://github.com/angular-schule/angular-cli-ghpages#options for more on this.
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
