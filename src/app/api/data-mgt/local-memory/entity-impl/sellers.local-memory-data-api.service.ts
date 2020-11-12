@@ -5,7 +5,7 @@
 
 import { Injectable } from '@angular/core';
 import { Seller } from 'src/app/models/entities/Seller';
-import { EntityLocalMemoryDataApiService } from './entity.local-memory-data-api.aservice';
+import { EntityLocalMemoryDataApiService } from '../entity.local-memory-data-api.aservice';
 
 export const MOCK_EMPLOYEES: Partial<Seller>[] = [
   {

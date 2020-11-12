@@ -7,8 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/entities/User';
-import { EntityHttpDataApiService } from './entity.http-data-api.aservice';
-import { EntityDataApiIService } from '../entity-data-api.iservice';
+import { EntityHttpDataApiService } from '../entity.http-data-api.aservice';
+import { EntityDataApiIService } from '../../entity-data-api.iservice';
 
 @Injectable()
 export class UsersHttpDataApiService

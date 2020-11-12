@@ -5,7 +5,7 @@
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { HttpSessionApiService } from './http-session-api.service';
 import { HttpSessionApiInterceptor } from './http-session-api.interceptor';
 

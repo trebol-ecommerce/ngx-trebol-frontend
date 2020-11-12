@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { EntityDataApiIService } from 'src/app/api/data-mgt/entity-data-api.iservice';
 import { Product } from 'src/app/models/entities/Product';
 import { Sell } from 'src/app/models/entities/Sell';

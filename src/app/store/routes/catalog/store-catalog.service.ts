@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { concatMap, delay, map, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { Product } from 'src/app/models/entities/Product';
 import { StoreApiIService } from 'src/app/api/store/store-api.iservice';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';

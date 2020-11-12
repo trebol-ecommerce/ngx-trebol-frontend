@@ -6,7 +6,7 @@
 import { Injectable, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { StoreApiIService } from 'src/app/api/store/store-api.iservice';
 

@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
-import { CompositeEntityDataApiIService } from '../composite-entity-data-api.iservice';
-import { EntityLocalMemoryDataApiService } from './entity.local-memory-data-api.aservice';
+import { CompositeEntityDataApiIService } from '../../composite-entity-data-api.iservice';
+import { EntityLocalMemoryDataApiService } from '../entity.local-memory-data-api.aservice';
 
 export const MOCK_SALES: Partial<Sell>[] = [
   {

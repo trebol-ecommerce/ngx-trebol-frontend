@@ -10,7 +10,7 @@ import { DataManagerFormService } from '../../data-manager-form.aservice';
 import { Product } from 'src/app/models/entities/Product';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { EntityDataApiIService } from 'src/app/api/data-mgt/entity-data-api.iservice';
 import { SharedDataApiIService } from 'src/app/api/data-mgt/shared-data-api.iservice';
 

@@ -6,7 +6,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { mapTo, pluck, startWith } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
 import { StoreApiIService } from 'src/app/api/store/store-api.iservice';
 

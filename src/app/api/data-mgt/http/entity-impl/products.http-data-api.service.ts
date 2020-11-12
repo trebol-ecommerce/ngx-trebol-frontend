@@ -8,8 +8,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/entities/Product';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
-import { EntityDataApiIService } from '../entity-data-api.iservice';
-import { EntityHttpDataApiService } from './entity.http-data-api.aservice';
+import { EntityDataApiIService } from '../../entity-data-api.iservice';
+import { EntityHttpDataApiService } from '../entity.http-data-api.aservice';
 
 @Injectable()
 export class ProductsHttpDataApiService

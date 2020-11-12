@@ -6,7 +6,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject, ReplaySubject } from 'rxjs';
 import { catchError, finalize, map, mapTo, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { SessionApiIService } from 'src/app/api/session/session-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';

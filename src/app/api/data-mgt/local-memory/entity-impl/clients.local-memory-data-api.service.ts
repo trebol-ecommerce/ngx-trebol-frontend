@@ -5,7 +5,7 @@
 
 import { Injectable } from '@angular/core';
 import { Client } from 'src/app/models/entities/Client';
-import { EntityLocalMemoryDataApiService } from './entity.local-memory-data-api.aservice';
+import { EntityLocalMemoryDataApiService } from '../entity.local-memory-data-api.aservice';
 
 export const MOCK_CLIENTS: Partial<Client>[] = [
   {

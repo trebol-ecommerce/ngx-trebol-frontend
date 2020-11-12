@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { NgModule } from '@angular/core';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ClientsHttpDataApiService } from './entity-impl/clients.http-data-api.service';
 import { SellersHttpDataApiService } from './entity-impl/sellers.http-data-api.service';
 import { PeopleHttpDataApiService } from './entity-impl/people.http-data-api.service';
