@@ -36,7 +36,7 @@ export class StorePaymentRedirectPromptDialogComponent
       data => {
         this.externalDataSource.next(data);
       }
-    );;
+    );
   }
 
   ngOnDestroy(): void {
