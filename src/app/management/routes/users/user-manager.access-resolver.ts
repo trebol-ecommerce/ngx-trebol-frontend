@@ -9,19 +9,20 @@ import { Observable } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { SessionApiIService } from 'src/app/api/session/session-api.iservice';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
+import { DataAccessApiIService } from 'src/app/api/data-mgt/data-access.api.iservice';
 
 @Injectable({ providedIn: 'root' })
 export class UserManagerAccessResolver
   implements Resolve<AuthorizedAccess> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.auth) protected authService: SessionApiIService
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataAccess) protected apiAccessService: DataAccessApiIService
   ) { }
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<AuthorizedAccess>|Promise<AuthorizedAccess>|AuthorizedAccess {
-    return this.authService.getResourceAuthorizedAccess('user');
+    return this.apiAccessService.getResourceAuthorizedAccess('user');
   }
 }

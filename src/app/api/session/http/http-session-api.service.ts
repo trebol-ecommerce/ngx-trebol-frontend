@@ -12,7 +12,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { finalize, map, tap } from 'rxjs/operators';
-import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
 import { HttpService } from 'src/app/shared/http.abstract-service';
@@ -85,19 +84,6 @@ export class HttpSessionApiService
           return false;
         }
       )
-    );
-  }
-
-
-  public getAuthorizedAccess(): Observable<AuthorizedAccess> {
-    return this.http.get<AuthorizedAccess>(
-      `${this.baseURI}/api`
-    );
-  }
-
-  public getResourceAuthorizedAccess(resource: string): Observable<AuthorizedAccess> {
-    return this.http.get<AuthorizedAccess>(
-      `${this.baseURI}/api/${resource}`
     );
   }
 

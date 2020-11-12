@@ -12,6 +12,7 @@ import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
 import { Login } from 'src/app/models/Login';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
+import { DataAccessApiIService } from './api/data-mgt/data-access.api.iservice';
 
 @Injectable({ providedIn: 'root' })
 export class AppService
@@ -24,7 +25,8 @@ export class AppService
   public isValidatingSession$: Observable<boolean> = this.isValidatingSessionSource.asObservable();
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.auth) protected authService: SessionApiIService
+    @Inject(API_SERVICE_INJECTION_TOKENS.auth) protected authService: SessionApiIService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataAccess) protected apiAccessService: DataAccessApiIService
   ) {
     this.fetchLoggedInState().subscribe();
   }
@@ -35,7 +37,7 @@ export class AppService
   }
 
   protected fetchLoggedInState(): Observable<boolean> {
-    return this.authService.getAuthorizedAccess().pipe(
+    return this.apiAccessService.getAuthorizedAccess().pipe(
       mapTo(true),
       catchError(() => of(false)),
       tap(
@@ -81,7 +83,7 @@ export class AppService
   public validateSession(): Observable<boolean> {
     this.isValidatingSessionSource.next(true);
 
-    return this.authService.getAuthorizedAccess().pipe(
+    return this.apiAccessService.getAuthorizedAccess().pipe(
       mapTo(true),
       catchError(() => of(false)),
       finalize(() => { this.isValidatingSessionSource.next(false); }),
@@ -90,7 +92,7 @@ export class AppService
   }
 
   public getAuthorizedAccess(): Observable<AuthorizedAccess> {
-    return this.isLoggedIn() ? this.authService.getAuthorizedAccess() : of(null);
+    return this.isLoggedIn() ? this.apiAccessService.getAuthorizedAccess() : of(null);
   }
 
   public getUserProfile(): Observable<Person> {

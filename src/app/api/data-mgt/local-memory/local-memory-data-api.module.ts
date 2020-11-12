@@ -11,6 +11,7 @@ import { ProductsLocalMemoryDataApiService } from './entity-impl/products.local-
 import { SalesLocalMemoryDataApiService } from './entity-impl/sales.local-memory-data-api.service';
 import { SharedLocalMemoryDataService } from './shared.local-memory-data-api.service';
 import { UsersLocalMemoryDataApiService } from './entity-impl/users.local-memory-data-api.service';
+import { LocalMemoryDataAccessApiService } from './local-memory-data-access-api.service';
 
 /**
  * Provides services that read and write data using the client's working memory
@@ -22,7 +23,8 @@ import { UsersLocalMemoryDataApiService } from './entity-impl/users.local-memory
     { provide: API_SERVICE_INJECTION_TOKENS.productsCrud, useClass: ProductsLocalMemoryDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.shared, useClass: SharedLocalMemoryDataService },
     { provide: API_SERVICE_INJECTION_TOKENS.usersCrud, useClass: UsersLocalMemoryDataApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.salesCrud, useClass: SalesLocalMemoryDataApiService }
+    { provide: API_SERVICE_INJECTION_TOKENS.salesCrud, useClass: SalesLocalMemoryDataApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.dataAccess, useClass: LocalMemoryDataAccessApiService }
   ]
 })
 export class LocalMemoryDataModule { }

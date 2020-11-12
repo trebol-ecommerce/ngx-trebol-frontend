@@ -5,8 +5,6 @@
 
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
-import { Client } from 'src/app/models/entities/Client';
 import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
 import { makeid } from 'src/functions/makeid';
@@ -45,18 +43,6 @@ export class LocalMemorySessionApiService
         };
       }
     );
-  }
-
-  public getResourceAuthorizedAccess(resource: string): Observable<AuthorizedAccess> {
-    return this.returnAsyncIfLoggedIn({
-      permissions: ['create', 'read', 'update', 'delete']
-    });
-  }
-
-  public getAuthorizedAccess(): Observable<AuthorizedAccess> {
-    return this.returnAsyncIfLoggedIn({
-      routes: ['clients', 'products', 'sales', 'sellers', 'users']
-    });
   }
 
   public getProfile(): Observable<Person> {
