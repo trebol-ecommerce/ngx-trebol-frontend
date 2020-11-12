@@ -7,9 +7,9 @@ import { LocalMemoryStoreApiModule } from 'src/app/api/store/local-memory/local-
 
 export const environment = {
   production: false,
-  dataModule: LocalMemoryDataModule,
-  authModule: LocalMemorySessionApiModule,
-  storeModule: LocalMemoryStoreApiModule,
+  dataApiModule: LocalMemoryDataModule,
+  authApiModule: LocalMemorySessionApiModule,
+  storeApiModule: LocalMemoryStoreApiModule,
 };
 
 /*
