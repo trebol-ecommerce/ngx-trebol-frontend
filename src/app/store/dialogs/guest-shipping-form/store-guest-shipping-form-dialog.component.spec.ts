@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
@@ -15,7 +15,7 @@ describe('StoreGuestShippingFormDialogComponent', () => {
   let fixture: ComponentFixture<StoreGuestShippingFormDialogComponent>;
   let appService: Partial<AppService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     appService = {
       guestLogin() { return of(true); }
     };

@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ConfirmationDialogComponent, ConfirmationDialogData } from './confirmation-dialog.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -13,7 +13,7 @@ describe('ConfirmationDialogComponent', () => {
   let fixture: ComponentFixture<ConfirmationDialogComponent>;
   let data: Partial<ConfirmationDialogData>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     data = {
       title: 'Example',
       message: 'Sample text'

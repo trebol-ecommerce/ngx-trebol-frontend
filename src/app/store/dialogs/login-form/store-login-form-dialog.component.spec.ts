@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
@@ -23,7 +23,7 @@ describe('StoreLoginFormDialogComponent', () => {
   let appService: Partial<AppService>;
   let snackBar: Partial<MatSnackBar>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     dialog = {
       close() {}
     };

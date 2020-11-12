@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { Sell } from 'src/app/models/entities/Sell';
@@ -15,7 +15,7 @@ describe('StoreReceiptComponent', () => {
   let fixture: ComponentFixture<StoreReceiptComponent>;
   let service: Partial<StoreReceiptService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     service = {
       sell$: of(new Sell()),
       loading$: of(true),

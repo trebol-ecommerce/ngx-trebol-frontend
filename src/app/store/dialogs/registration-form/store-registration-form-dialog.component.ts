@@ -54,7 +54,7 @@ export class StoreRegistrationFormDialogComponent
     if (this.formGroup.invalid) {
       return undefined;
     } else {
-      return Object.assign<User,Partial<User>>(
+      return Object.assign<User, Partial<User>>(
         new User(),
         {
           id: null,

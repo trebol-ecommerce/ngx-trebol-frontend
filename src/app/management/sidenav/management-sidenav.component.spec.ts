@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { ManagementService } from '../management.service';
@@ -17,7 +17,7 @@ describe('ManagementSidenavComponent', () => {
   let managementService: Partial<ManagementService>;
   let appService: Partial<AppService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     managementService = {
       activeRouteSnapshot$: of(null)
     };

@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { of, iif, throwError } from 'rxjs';
 import { AppService } from 'src/app/app.service';
@@ -22,7 +22,7 @@ describe('StoreRegistrationFormDialogComponent', () => {
   let matDialogRef: Partial<MatDialogRef<StoreRegistrationFormDialogComponent>>;
   let appService: Partial<AppService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     matDialogRef = {
       close() {}
     };
@@ -96,5 +96,5 @@ describe('StoreRegistrationFormDialogComponent', () => {
   it ('should exit upon cancellation', () => {
     component.onCancel();
     expect(matDialogRef.close).toHaveBeenCalled();
-  })
+  });
 });

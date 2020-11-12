@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { StoreService } from '../../store.service';
@@ -14,7 +14,7 @@ describe('StoreProductDetailsDialogComponent', () => {
   let fixture: ComponentFixture<StoreProductDetailsDialogComponent>;
   let storeService: Partial<StoreService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     storeService = {
       cartDetails$: of([]),
       increaseProductUnits(i) {},

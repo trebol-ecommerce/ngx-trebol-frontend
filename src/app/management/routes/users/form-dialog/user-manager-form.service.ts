@@ -5,7 +5,7 @@
 
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DataManagerFormService } from '../../data-manager-form.aservice';
+import { DataManagerFormServiceDirective } from '../../data-manager-form.service-directive';
 import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
@@ -14,7 +14,7 @@ import { SharedDataApiIService } from 'src/app/api/data-mgt/shared-data-api.iser
 
 @Injectable()
 export class UserManagerFormService
-  extends DataManagerFormService<User> {
+  extends DataManagerFormServiceDirective<User> {
 
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.usersCrud) public dataService: EntityDataApiIService<User>,

@@ -3,10 +3,10 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { MATERIAL_MODULES } from 'src/app/shared/angular-material.module';
+import { AngularMaterialModule } from 'src/app/shared/angular-material.module';
 import { SellerManagerComponent } from './seller-manager.component';
 import { SellerManagerService } from './seller-manager.service';
 
@@ -15,7 +15,7 @@ describe('SellerManagerComponent', () => {
   let fixture: ComponentFixture<SellerManagerComponent>;
   let managerService: Partial<SellerManagerService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     managerService = {
       removeItems() { return of([true]); },
       reloadItems() {},
@@ -30,7 +30,7 @@ describe('SellerManagerComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        ...MATERIAL_MODULES,
+        AngularMaterialModule,
         RouterTestingModule
       ],
       declarations: [ SellerManagerComponent ],

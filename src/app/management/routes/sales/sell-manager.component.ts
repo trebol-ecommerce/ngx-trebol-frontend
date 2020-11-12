@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
-import { DataManagerComponent } from '../data-manager.acomponent';
+import { DataManagerComponentDirective } from '../data-manager.component-directive';
 import { SaleManagerFormDialogData, SellManagerFormDialogComponent } from './form-dialog/sell-manager-form-dialog.component';
 import { SellManagerService } from './sell-manager.service';
 
@@ -24,7 +24,7 @@ import { SellManagerService } from './sell-manager.service';
   ]
 })
 export class SellManagerComponent
-  extends DataManagerComponent<Sell>
+  extends DataManagerComponentDirective<Sell>
   implements OnInit {
 
   public tableColumns: string[] = [ 'id', 'date', 'actions' ];

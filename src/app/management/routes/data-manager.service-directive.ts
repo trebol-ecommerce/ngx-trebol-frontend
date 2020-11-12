@@ -12,10 +12,11 @@ import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 
 /**
  * Base class for data manager services.
- * Through a final EntityCrudIService, this class brings the needed boilerplate for caching model classes' instances and easily operate with their related CRUD API.
+ * Through a final EntityCrudIService, this class brings the needed boilerplate for caching
+ * model classes' instances and easily operate with their related CRUD API.
  */
 @Directive()
-export abstract class DataManagerService<T extends AbstractEntity>
+export abstract class DataManagerServiceDirective<T extends AbstractEntity>
   implements OnDestroy {
 
   protected abstract dataService: EntityDataApiIService<T>;

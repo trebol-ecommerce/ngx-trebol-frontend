@@ -7,19 +7,16 @@ import { Directive, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { AbstractEntity } from 'src/app/models/AbstractEntity';
-import { DataManagerService } from './data-manager.aservice';
+import { DataManagerServiceDirective } from './data-manager.service-directive';
 
 /**
  * Base class for data manager template components.
  * A 'Data Manager' is a table-based interface for doing CRUD operations on all persisted instances of classes derived from AbstractEntity.
- * It it expected to provide an openFormDialog() method that interacts with a DataManagerFormComponent, which will be used to view and edit the stored data (or insert new).
+ * It it expected to provide an openFormDialog() method that interacts with a DataManagerFormComponent,
+ * which will be used to view and edit the stored data (or insert new).
  */
 @Directive()
-export abstract class DataManagerComponent<T extends AbstractEntity> {
-
-  protected abstract service: DataManagerService<T>;
-  public abstract tableColumns: string[];
-  public abstract openFormDialog(item: T): Observable<T>;
+export abstract class DataManagerComponentDirective<T extends AbstractEntity> {
 
   public loading$: Observable<boolean>;
   public busy$: Observable<boolean>;
@@ -28,7 +25,11 @@ export abstract class DataManagerComponent<T extends AbstractEntity> {
   public canAdd$: Observable<boolean>;
   public canDelete$: Observable<boolean>;
 
-  init(service: DataManagerService<T>): void {
+  protected abstract service: DataManagerServiceDirective<T>;
+  public abstract tableColumns: string[];
+  public abstract openFormDialog(item: T): Observable<T>;
+
+  init(service: DataManagerServiceDirective<T>): void {
     this.loading$ = service.loading$.pipe();
     this.busy$ = service.focusedItems$.pipe(map(items => items?.length > 0));
     this.items$ = service.items$.pipe();

@@ -1,0 +1,10 @@
+language: node_js
+node_js: 12
+branches:
+  only:
+  - use-travis-ci
+before_script:
+  - npm install -g @angular/cli
+script:
+  - ng lint
+  - npm run test-headless

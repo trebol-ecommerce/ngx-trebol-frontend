@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from 'src/app/models/entities/Product';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
-import { DataManagerComponent } from '../data-manager.acomponent';
+import { DataManagerComponentDirective } from '../data-manager.component-directive';
 import { ProductManagerFormDialogComponent, ProductManagerFormDialogData } from './form-dialog/product-manager-form-dialog.component';
 import { ProductManagerService } from './product-manager.service';
 
@@ -24,7 +24,7 @@ import { ProductManagerService } from './product-manager.service';
   ]
 })
 export class ProductManagerComponent
-  extends DataManagerComponent<Product>
+  extends DataManagerComponentDirective<Product>
   implements OnInit {
 
   public tableColumns: string[] = [ 'name', 'barcode', 'price', 'currentStock', 'criticalStock', 'actions' ];

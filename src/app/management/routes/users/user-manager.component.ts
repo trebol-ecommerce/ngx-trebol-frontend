@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from 'src/app/models/entities/User';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
-import { DataManagerComponent } from '../data-manager.acomponent';
+import { DataManagerComponentDirective } from '../data-manager.component-directive';
 import { UserManagerFormDialogComponent, UserManagerFormDialogData } from './form-dialog/user-manager-form-dialog.component';
 import { UserManagerService } from './user-manager.service';
 
@@ -24,7 +24,7 @@ import { UserManagerService } from './user-manager.service';
   ]
 })
 export class UserManagerComponent
-  extends DataManagerComponent<User>
+  extends DataManagerComponentDirective<User>
   implements OnInit {
 
   public tableColumns: string[] = [ 'name', 'actions' ];

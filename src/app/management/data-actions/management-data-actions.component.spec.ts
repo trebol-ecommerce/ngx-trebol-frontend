@@ -3,14 +3,14 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ManagementDataActionsComponent } from './management-data-actions.component';
 
 describe('ManagementDataActionsComponent', () => {
   let component: ManagementDataActionsComponent;
   let fixture: ComponentFixture<ManagementDataActionsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ManagementDataActionsComponent ]
     })

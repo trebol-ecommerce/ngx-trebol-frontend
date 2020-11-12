@@ -7,11 +7,11 @@ import { Inject, Injectable } from '@angular/core';
 import { Seller } from 'src/app/models/entities/Seller';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { EntityDataApiIService } from 'src/app/api/data-mgt/entity-data-api.iservice';
-import { DataManagerService } from '../data-manager.aservice';
+import { DataManagerServiceDirective } from '../data-manager.service-directive';
 
 @Injectable()
 export class SellerManagerService
-  extends DataManagerService<Seller> {
+  extends DataManagerServiceDirective<Seller> {
 
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.sellersCrud) protected dataService: EntityDataApiIService<Seller>

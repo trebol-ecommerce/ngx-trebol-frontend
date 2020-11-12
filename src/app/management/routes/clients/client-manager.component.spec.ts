@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { ClientManagerComponent } from './client-manager.component';
@@ -14,7 +14,7 @@ describe('ClientManagerComponent', () => {
   let fixture: ComponentFixture<ClientManagerComponent>;
   let managerService: Partial<ClientManagerService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     managerService = {
       removeItems() { return of([true]); },
       reloadItems() {},

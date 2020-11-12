@@ -14,7 +14,7 @@ import { SessionApiIService } from 'src/app/api/session/session-api.iservice';
 export class ManagementService
   implements OnDestroy {
 
-  protected isSidenavOpen: boolean = true;
+  protected isSidenavOpen = true;
   protected isSidenavOpenSource: Subject<boolean> = new BehaviorSubject(this.isSidenavOpen);
 
   public isSidenavOpen$: Observable<boolean> = this.isSidenavOpenSource.asObservable();

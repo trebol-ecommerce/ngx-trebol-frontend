@@ -12,7 +12,7 @@ import { Seller } from 'src/app/models/entities/Seller';
 import { Person } from 'src/app/models/entities/Person';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
-import { DataManagerFormComponent } from '../../data-manager-form.acomponent';
+import { DataManagerFormComponentDirective } from '../../data-manager-form.component-directive';
 import { SellerManagerFormService } from './seller-manager-form.service';
 
 export interface SellerManagementFormDialogData {
@@ -26,7 +26,7 @@ export interface SellerManagementFormDialogData {
   styleUrls: [ './seller-manager-form-dialog.component.css' ]
 })
 export class SellerManagerFormDialogComponent
-  extends DataManagerFormComponent<Seller>
+  extends DataManagerFormComponentDirective<Seller>
   implements AfterViewInit {
 
   protected itemId: number;
@@ -37,7 +37,7 @@ export class SellerManagerFormDialogComponent
   public get role(): FormControl { return this.formGroup.get('role') as FormControl; }
   @ViewChild('personForm', { static: true }) public personForm: PersonFormComponent;
 
-  public get dialogTitle(): string { return ((this.data?.seller?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Empleado'; };
+  public get dialogTitle(): string { return ((this.data?.seller?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Empleado'; }
 
   constructor(
     @Inject(MAT_DIALOG_DATA) protected data: SellerManagementFormDialogData,

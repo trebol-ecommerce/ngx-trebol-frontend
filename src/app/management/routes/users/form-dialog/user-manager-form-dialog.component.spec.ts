@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -15,7 +15,7 @@ describe('UserManagerFormDialogComponent', () => {
   let fixture: ComponentFixture<UserManagerFormDialogComponent>;
   let service: Partial<UserManagerFormService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     service = {
       saving$: of(false),
       getPeople() { return of([]); }

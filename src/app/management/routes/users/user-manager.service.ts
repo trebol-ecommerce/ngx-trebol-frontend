@@ -7,11 +7,11 @@ import { Inject, Injectable } from '@angular/core';
 import { User } from 'src/app/models/entities/User';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { EntityDataApiIService } from 'src/app/api/data-mgt/entity-data-api.iservice';
-import { DataManagerService } from '../data-manager.aservice';
+import { DataManagerServiceDirective } from '../data-manager.service-directive';
 
 @Injectable()
 export class UserManagerService
-  extends DataManagerService<User> {
+  extends DataManagerServiceDirective<User> {
 
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.usersCrud) protected dataService: EntityDataApiIService<User>

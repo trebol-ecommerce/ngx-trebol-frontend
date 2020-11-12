@@ -48,10 +48,10 @@ export class LocalMemorySessionApiService
   public getProfile(): Observable<Person> {
     return this.returnAsyncIfLoggedIn({
       id: 1,
-      name: "admin",
-      idCard: "1111",
-      email: "text@example.com",
-      address: "example address",
+      name: 'admin',
+      idCard: '1111',
+      email: 'text@example.com',
+      address: 'example address',
     });
   }
 

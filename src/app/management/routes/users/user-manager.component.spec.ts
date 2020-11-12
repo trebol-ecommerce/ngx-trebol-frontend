@@ -3,10 +3,10 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { MATERIAL_MODULES } from 'src/app/shared/angular-material.module';
+import { AngularMaterialModule } from 'src/app/shared/angular-material.module';
 import { UserManagerComponent } from './user-manager.component';
 import { UserManagerService } from './user-manager.service';
 
@@ -15,7 +15,7 @@ describe('UserManagerComponent', () => {
   let fixture: ComponentFixture<UserManagerComponent>;
   let managerService: Partial<UserManagerService>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     managerService = {
       removeItems() { return of([true]); },
       reloadItems() {},
@@ -30,7 +30,7 @@ describe('UserManagerComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        ...MATERIAL_MODULES,
+        AngularMaterialModule,
         RouterTestingModule
       ],
       declarations: [ UserManagerComponent ],
