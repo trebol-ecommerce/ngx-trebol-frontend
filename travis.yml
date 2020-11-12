@@ -5,3 +5,6 @@ branches:
   - use-travis-ci
 before_script:
   - npm install -g @angular/cli
+script:
+  - ng lint
+  - npm run test-headless
