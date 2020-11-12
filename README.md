@@ -22,7 +22,7 @@ The layout within `/src/app/` goes as follows:
 
 ## Requirements
 
-* An (Angular CLI)[https://cli.angular.io/)] 10-compatible (Node.js/NPM)[https://nodejs.org/] installation.
+* An [Angular CLI](https://cli.angular.io/) 10-compatible [Node.js/NPM](https://nodejs.org/) installation.
 
 ## Getting the code
 
