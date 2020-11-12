@@ -29,9 +29,9 @@ export class UsersHttpDataApiService
     );
   }
 
-  public readById(userId:  number): Observable<User> {
+  public readById(id:  number): Observable<User> {
     return this.http.get<User>(
-      `${this.baseURI}/${userId}`
+      `${this.baseURI}/${id}`
     );
   }
 
@@ -48,16 +48,16 @@ export class UsersHttpDataApiService
     );
   }
 
-  public update(user: User, userId: string | number): Observable<number> {
+  public update(user: User, id: string | number): Observable<number> {
     return this.http.put<number>(
-      `${this.baseURI}/${userId}`,
+      `${this.baseURI}/${id}`,
       user
     );
   }
 
-  public deleteById(userId: number): Observable<boolean> {
+  public deleteById(id: number): Observable<boolean> {
     return this.http.delete<boolean>(
-      `${this.baseURI}/${userId}`
+      `${this.baseURI}/${id}`
     );
   }
 }

@@ -31,9 +31,9 @@ export class SalesHttpDataApiService
     );
   }
 
-  public readById(sellId: number): Observable<Sell> {
+  public readById(id: number): Observable<Sell> {
     return this.http.get<Sell>(
-      `${this.baseURI}/${sellId}`
+      `${this.baseURI}/${id}`
     );
   }
 
