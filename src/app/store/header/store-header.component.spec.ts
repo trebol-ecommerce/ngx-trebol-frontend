@@ -9,7 +9,7 @@ import { of, empty, EMPTY } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { StoreService } from '../store.service';
 import { StoreHeaderComponent } from './store-header.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,7 +23,8 @@ describe('StoreHeaderComponent', () => {
   let fixture: ComponentFixture<StoreHeaderComponent>;
   let storeService: Partial<StoreService>;
   let appService: Partial<AppService>;
-  let dialogService: any;
+  let dialogService: MatDialog;
+  let snackBarService: MatSnackBar;
 
   beforeEach(waitForAsync(() => {
     storeService = {
@@ -37,10 +38,6 @@ describe('StoreHeaderComponent', () => {
       closeCurrentSession() {},
       getUserProfile() { return of(null); }
     };
-    dialogService = {
-      open() { return { afterClosed: () => EMPTY }; }
-    };
-    spyOn(dialogService, 'open').and.callThrough();
 
     TestBed.configureTestingModule({
       imports: [
@@ -49,16 +46,20 @@ describe('StoreHeaderComponent', () => {
         MatButtonModule,
         MatMenuModule,
         MatIconModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSnackBarModule
       ],
       declarations: [ StoreHeaderComponent ],
       providers: [
         { provide: StoreService, useValue: storeService },
-        { provide: AppService, useValue: appService },
-        { provide: MatDialog, useValue: dialogService }
+        { provide: AppService, useValue: appService }
       ]
     })
     .compileComponents();
+    dialogService = TestBed.inject(MatDialog);
+    snackBarService = TestBed.inject(MatSnackBar);
+    spyOn(dialogService, 'open').and.returnValue({ afterClosed: () => EMPTY });
+    spyOn(snackBarService, 'open');
   }));
 
   beforeEach(() => {
