@@ -7,7 +7,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
-import { CompanyDetails } from 'src/app/models/CompanyDetails';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { SellType } from 'src/app/models/entities/SellType';
@@ -23,12 +22,6 @@ export class SharedHttpDataService
     protected http: HttpClient
   ) {
     super();
-  }
-
-  public readCompanyDetails(): Observable<CompanyDetails> {
-    return this.http.get<CompanyDetails>(
-      `${this.baseURI}/company`
-    );
   }
 
   readAllSellTypes(): Observable<SellType[]> {

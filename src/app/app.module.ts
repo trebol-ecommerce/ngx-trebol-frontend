@@ -24,6 +24,7 @@ const DEBUG_ROUTES = false;
     SharedModule,
     environment.dataModule,
     environment.authModule,
+    environment.storeModule,
     StoreModule,
     ManagementModule,
     AppRoutingModule

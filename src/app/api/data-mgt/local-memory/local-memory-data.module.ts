@@ -24,8 +24,7 @@ import { UsersLocalMemoryCrudService } from './users.local-memory-crud.service';
     { provide: API_SERVICE_INJECTION_TOKENS.productsCrud, useClass: ProductsLocalMemoryCrudService },
     { provide: API_SERVICE_INJECTION_TOKENS.shared, useClass: SharedLocalMemoryDataService },
     { provide: API_SERVICE_INJECTION_TOKENS.usersCrud, useClass: UsersLocalMemoryCrudService },
-    { provide: API_SERVICE_INJECTION_TOKENS.salesCrud, useClass: SalesLocalMemoryCrudService },
-    { provide: API_SERVICE_INJECTION_TOKENS.storeCatalog, useClass: ProductsLocalMemoryCrudService }
+    { provide: API_SERVICE_INJECTION_TOKENS.salesCrud, useClass: SalesLocalMemoryCrudService }
   ]
 })
 export class LocalMemoryDataModule { }

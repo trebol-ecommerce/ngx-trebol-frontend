@@ -12,7 +12,6 @@ import { ProductsHttpCrudService } from './products.http-crud.service';
 import { SalesHttpCrudService } from './sales.http-crud.service';
 import { SharedHttpDataService } from './shared.http-data.service';
 import { UsersHttpCrudService } from './users.http-crud.service';
-import { StoreCatalogHttpDataService } from './store-catalog.http-data.service';
 import { HttpClientModule } from '@angular/common/http';
 
 /**
@@ -32,8 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
     { provide: API_SERVICE_INJECTION_TOKENS.productsCrud, useClass: ProductsHttpCrudService },
     { provide: API_SERVICE_INJECTION_TOKENS.shared, useClass: SharedHttpDataService },
     { provide: API_SERVICE_INJECTION_TOKENS.usersCrud, useClass: UsersHttpCrudService },
-    { provide: API_SERVICE_INJECTION_TOKENS.salesCrud, useClass: SalesHttpCrudService },
-    { provide: API_SERVICE_INJECTION_TOKENS.storeCatalog, useClass: StoreCatalogHttpDataService }
+    { provide: API_SERVICE_INJECTION_TOKENS.salesCrud, useClass: SalesHttpCrudService }
   ]
 })
 export class HttpDataModule { }

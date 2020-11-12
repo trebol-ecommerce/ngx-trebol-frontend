@@ -8,21 +8,21 @@ import { Observable } from 'rxjs';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-tokens';
 import { ProductType } from 'src/app/models/entities/ProductType';
-import { StoreCatalogDataIService } from 'src/app/api/data-mgt/store.catalog.data.iservice';
+import { StoreApiIService } from 'src/app/api/store/store-api.iservice';
 
 @Injectable({ providedIn: 'root' })
 export class ProductFiltersPanelService {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.storeCatalog) protected catalogService: StoreCatalogDataIService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected apiService: StoreApiIService,
   ) { }
 
   public getAllProductFamilies(): Observable<ProductFamily[]> {
-    return this.catalogService.readProductFamilies();
+    return this.apiService.fetchAllProductFamilies();
   }
 
   public getProductTypesFromFamilyId(id: number): Observable<ProductType[]> {
-    return this.catalogService.readProductTypesByFamilyId(id);
+    return this.apiService.fetchProductTypesByFamilyId(id);
   }
 
 }

@@ -7,7 +7,7 @@
  * Service tokens for Angular dependency injection pattern
  */
 export const API_SERVICE_INJECTION_TOKENS = {
-  storeCatalog: 'StoreCatalogData',
+  store: 'StoreCatalogData',
   people: 'PeopleData',
   shared: 'SharedData',
   clientsCrud: 'ClientsCrud',
