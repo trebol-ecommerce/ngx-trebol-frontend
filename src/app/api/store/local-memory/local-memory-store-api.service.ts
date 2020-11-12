@@ -93,10 +93,6 @@ export class LocalMemoryStoreApiService
     );
   }
 
-  public fetchAllProductTypes(): Observable<ProductType[]> {
-    return of(MOCK_PRODUCT_TYPES.map(t => Object.assign(new ProductType(), t)));
-  }
-
   public fetchProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]> {
     return of(MOCK_PRODUCT_TYPES.filter(t => t.productFamily.id === productFamilyId)
       .map(t => Object.assign(new ProductType(), t))

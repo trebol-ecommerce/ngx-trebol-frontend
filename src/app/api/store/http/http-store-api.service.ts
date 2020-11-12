@@ -21,12 +21,11 @@ export class HttpStoreApiService
   extends HttpService
   implements StoreApiIService {
 
-  protected baseURI = `${this.baseURI}/catalog`;
-
   constructor(
     protected http: HttpClient
   ) {
     super();
+    this.baseURI = `${this.baseURI}/store`
   }
 
   public fetchProductById(id: number): Observable<Product> {
@@ -37,40 +36,32 @@ export class HttpStoreApiService
 
   public fetchStoreFrontProductCollection(): Observable<Product[]> {
     return this.http.get<Product[]>(
-      `${this.baseURI}/products`
+      `${this.baseURI}/front`
     );
   }
 
   public fetchFilteredProductCollection(filters: ProductFilters): Observable<Product[]> {
     return this.http.get<Product[]>(
-      `${this.baseURI}/products`,
+      `${this.baseURI}/front`,
       this.httpParamsOf(filters)
     );
   }
 
-  public fetchAllProductTypes(): Observable<ProductType[]> {
-    return this.http.get<ProductType[]>(
-      `${this.baseURI}/product_types`
-    );
-  }
-
   public fetchProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]> {
-    const filter = { familyId: productFamilyId };
     return this.http.get<ProductType[]>(
-      `${this.baseURI}/product_types`,
-      this.httpParamsOf(filter)
+      `${this.baseURI}/categories/${productFamilyId}`
     );
   }
 
   public fetchAllProductFamilies(): Observable<ProductFamily[]> {
     return this.http.get<ProductFamily[]>(
-      `${this.baseURI}/product_families`
+      `${this.baseURI}/categories`
     );
   }
 
   public fetchCompanyDetails(): Observable<CompanyDetails> {
     return this.http.get<CompanyDetails>(
-      `${this.baseURI}/company`
+      `${this.baseURI}/about`
     );
   }
 

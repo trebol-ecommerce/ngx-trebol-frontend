@@ -16,7 +16,6 @@ export interface StoreApiIService {
   fetchProductById(id: number): Observable<Product>;
   fetchStoreFrontProductCollection(): Observable<Product[]>;
   fetchFilteredProductCollection(filters: ProductFilters): Observable<Product[]>;
-  fetchAllProductTypes(): Observable<ProductType[]>;
   fetchProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]>;
   fetchAllProductFamilies(): Observable<ProductFamily[]>;
   fetchCompanyDetails(): Observable<CompanyDetails>;
