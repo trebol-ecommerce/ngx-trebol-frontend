@@ -9,7 +9,7 @@ import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
 import { makeid } from 'src/functions/makeid';
 import { SessionApiIService } from '../session-api.iservice';
-import { sessionStorageTokenItemName, authorizationHeaderName } from 'src/environments/auth-api.environment';
+import { sessionStorageTokenItemName, authorizationHeaderName } from 'src/environments/session-api.environment';
 
 function getNewSessionId(): number {
   const localSessionId = localStorage.getItem('latestSessionId');

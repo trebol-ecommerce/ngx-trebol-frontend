@@ -7,7 +7,7 @@ import { DataAccessApiIService } from '../data-access.api.iservice';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
-import { sessionStorageTokenItemName } from 'src/environments/auth-api.environment';
+import { sessionStorageTokenItemName } from 'src/environments/session-api.environment';
 
 @Injectable()
 export class LocalMemoryDataAccessApiService

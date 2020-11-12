@@ -16,7 +16,7 @@ import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
 import { HttpService } from 'src/app/shared/http.abstract-service';
 import { SessionApiIService } from '../session-api.iservice';
-import { sessionStorageTokenItemName, authorizationHeaderName, baseURI } from 'src/environments/auth-api.environment';
+import { sessionStorageTokenItemName, authorizationHeaderName, baseURI } from 'src/environments/session-api.environment';
 
 @Injectable()
 export class HttpSessionApiService
