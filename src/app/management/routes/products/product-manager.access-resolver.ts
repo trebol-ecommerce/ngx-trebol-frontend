@@ -23,6 +23,6 @@ export class ProductManagerAccessResolver
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<AuthorizedAccess>|Promise<AuthorizedAccess>|AuthorizedAccess {
-    return this.apiAccessService.getResourceAuthorizedAccess('product');
+    return this.apiAccessService.getResourceAuthorizedAccess('products');
   }
 }

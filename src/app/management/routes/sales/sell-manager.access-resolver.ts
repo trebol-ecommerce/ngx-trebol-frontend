@@ -23,6 +23,6 @@ export class SellManagerAccessResolver
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<AuthorizedAccess>|Promise<AuthorizedAccess>|AuthorizedAccess {
-    return this.apiAccessService.getResourceAuthorizedAccess('sell');
+    return this.apiAccessService.getResourceAuthorizedAccess('sales');
   }
 }

@@ -23,6 +23,6 @@ export class UserManagerAccessResolver
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<AuthorizedAccess>|Promise<AuthorizedAccess>|AuthorizedAccess {
-    return this.apiAccessService.getResourceAuthorizedAccess('user');
+    return this.apiAccessService.getResourceAuthorizedAccess('users');
   }
 }
