@@ -8,7 +8,6 @@
  */
 export const API_SERVICE_INJECTION_TOKENS = {
   store: 'StoreCatalogData',
-  people: 'PeopleData',
   shared: 'SharedData',
   clientsCrud: 'ClientsCrud',
   sellersCrud: 'SellersCrud',

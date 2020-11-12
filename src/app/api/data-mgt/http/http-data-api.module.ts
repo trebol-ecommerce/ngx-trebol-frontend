@@ -7,7 +7,6 @@ import { NgModule } from '@angular/core';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ClientsHttpDataApiService } from './entity-impl/clients.http-data-api.service';
 import { SellersHttpDataApiService } from './entity-impl/sellers.http-data-api.service';
-import { PeopleHttpDataApiService } from './entity-impl/people.http-data-api.service';
 import { ProductsHttpDataApiService } from './entity-impl/products.http-data-api.service';
 import { SalesHttpDataApiService } from './entity-impl/sales.http-data-api.service';
 import { SharedHttpDataApiService } from './shared.http-data-api.service';
@@ -27,7 +26,6 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     { provide: API_SERVICE_INJECTION_TOKENS.clientsCrud, useClass: ClientsHttpDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.sellersCrud, useClass: SellersHttpDataApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.people, useClass: PeopleHttpDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.productsCrud, useClass: ProductsHttpDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.shared, useClass: SharedHttpDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.usersCrud, useClass: UsersHttpDataApiService },
