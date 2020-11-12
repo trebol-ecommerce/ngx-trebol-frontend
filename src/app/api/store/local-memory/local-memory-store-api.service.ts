@@ -13,12 +13,19 @@ import { Product } from 'src/app/models/entities/Product';
 import { MOCK_PRODUCTS } from 'src/app/api/data-mgt/local-memory/entity-impl/products.local-memory-data-api.service';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { MOCK_PRODUCT_TYPES, MOCK_PRODUCT_FAMILIES } from 'src/app/api/data-mgt/local-memory/shared.local-memory-data-api.service';
+import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 
 export const MOCK_COMPANY_DETAILS: CompanyDetails = {
   name: 'Importaciones NBazaar',
   description: 'Somos una pequeña empresa de importación de ropa y calzado. Llevamos más de 4 años en el mercado, conectando la manufactura fuera del país con el retail nacional.',
   bannerImageURL: 'assets/img/mikael-frivold-vJ1Pf0d-0HY-unsplash.jpg',
   logoImageURL: 'assets/img/logo.png'
+};
+
+export const MOCK_EXTERNAL_PAYMENT_REDIRECT_DATA: ExternalPaymentRedirectionData = {
+  url: '',
+  token_ws: ''
 };
 
 
@@ -102,5 +109,9 @@ export class LocalMemoryStoreApiService
 
   public fetchCompanyDetails(): Observable<CompanyDetails> {
     return of(MOCK_COMPANY_DETAILS);
+  }
+
+  public submitCart(): Observable<ExternalPaymentRedirectionData> {
+    return of(MOCK_EXTERNAL_PAYMENT_REDIRECT_DATA);
   }
 }

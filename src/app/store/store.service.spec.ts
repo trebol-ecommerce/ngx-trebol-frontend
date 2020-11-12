@@ -10,20 +10,30 @@ import { StoreService } from './store.service';
 import { Product } from 'src/app/models/entities/Product';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { take } from 'rxjs/operators';
+import { StoreApiIService } from '../api/store/store-api.iservice';
+import { empty } from 'rxjs';
+import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
 
 describe('StoreService', () => {
   let service: StoreService;
+  let apiService: Partial<StoreApiIService>;
   const mockProduct: Product = { id: 1, barcode: 'example', name: 'test product', price: 500, productType: { id: 1 } };
   const mockProductTwo: Product = { id: 2, barcode: 'example2', name: 'test product two', price: 1000, productType: { id: 1 } };
 
   beforeEach(() => {
+    apiService = {
+      submitCart() { return empty(); }
+    };
+    spyOn(apiService, 'submitCart').and.callThrough();
+
     TestBed.configureTestingModule({
       imports: [
         LocalMemoryDataModule,
         HttpClientTestingModule
       ],
       providers: [
-        StoreService
+        StoreService,
+        { provide: API_SERVICE_INJECTION_TOKENS.store, useValue: apiService }
       ]
     });
     service = TestBed.inject(StoreService);
@@ -122,8 +132,8 @@ describe('StoreService', () => {
 
   it('should checkout the cart', () => {
     service.submitCart().subscribe(
-      redirectionData => {
-        expect(redirectionData).toBeTruthy();
+      () => {
+        expect(apiService.submitCart).toHaveBeenCalled();
       }
     );
   });

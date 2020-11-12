@@ -3,17 +3,15 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { EntityDataApiIService } from 'src/app/api/data-mgt/entity-data-api.iservice';
 import { Product } from 'src/app/models/entities/Product';
-import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
-import { checkoutURL } from 'src/environments/store.environment';
+import { checkoutURL } from 'src/environments/store-api.environment';
+import { StoreApiIService } from '../api/store/store-api.iservice';
 
 @Injectable()
 export class StoreService
@@ -29,8 +27,7 @@ export class StoreService
   public cartSubtotalValue$: Observable<number>;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.salesCrud) protected salesDataService: EntityDataApiIService<Sell>,
-    protected httpClient: HttpClient
+    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected storeApiService: StoreApiIService
   ) {
     this.cartItemCount$ = this.cartDetails$.pipe(
       map(
@@ -63,14 +60,6 @@ export class StoreService
 
   protected findSellDetailsIndexByProductId(id: number): number {
     return this.sellDetails.findIndex(d => d.product?.id === id);
-  }
-
-  protected parseFormData(subtotal: number): FormData {
-    const total = String(Math.round(subtotal * 1.19));
-    const formData = new FormData();
-    formData.append('tr_amount', total);
-    formData.append('tr_id', '1');
-    return formData;
   }
 
   public addProductToCart(product: Product): void {
@@ -124,10 +113,6 @@ export class StoreService
   }
 
   public submitCart(): Observable<ExternalPaymentRedirectionData> {
-    const data: FormData = this.parseFormData(this.sellSubtotalValue);
-    return this.httpClient.post<ExternalPaymentRedirectionData>(
-      this.checkoutURL,
-      data
-    );
+    return this.storeApiService.submitCart(this.sellDetails);
   }
 }

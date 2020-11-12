@@ -13,6 +13,8 @@ import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { StoreApiIService } from '../store-api.iservice';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
+import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 
 @Injectable()
 export class HttpStoreApiService
@@ -69,6 +71,13 @@ export class HttpStoreApiService
   public fetchCompanyDetails(): Observable<CompanyDetails> {
     return this.http.get<CompanyDetails>(
       `${this.baseURI}/company`
+    );
+  }
+
+  public submitCart(details: SellDetail[]): Observable<ExternalPaymentRedirectionData> {
+    return this.http.post<ExternalPaymentRedirectionData>(
+      `${this.baseURI}/checkout`,
+      details
     );
   }
 }

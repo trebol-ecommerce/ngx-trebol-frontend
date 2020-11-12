@@ -9,6 +9,8 @@ import { ProductFilters } from 'src/app/shared/product-filters-panel/product-fil
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
+import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 
 export interface StoreApiIService {
   fetchProductById(id: number): Observable<Product>;
@@ -18,4 +20,5 @@ export interface StoreApiIService {
   fetchProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]>;
   fetchAllProductFamilies(): Observable<ProductFamily[]>;
   fetchCompanyDetails(): Observable<CompanyDetails>;
+  submitCart(details: SellDetail[]): Observable<ExternalPaymentRedirectionData>;
 }
