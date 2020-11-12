@@ -30,7 +30,7 @@ export class HttpDataAccessApiService
 
   public getResourceAuthorizedAccess(resource: string): Observable<AuthorizedAccess> {
     return this.http.get<AuthorizedAccess>(
-      `${this.baseURI}/access/${resource}`
+      `${this.baseURI}/${resource}`
     );
   }
 
