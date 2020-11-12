@@ -22,7 +22,7 @@ The layout within `/src/app/` goes as follows:
 
 ## Requirements
 
-* An (Angular CLI)[https://cli.angular.io/)] 10-compatible (Node.js/NPM)[https://nodejs.org/] installation.
+* An [Angular CLI](https://cli.angular.io/) 10-compatible [Node.js/NPM](https://nodejs.org/) installation.
 
 ## Getting the code
 
@@ -33,7 +33,7 @@ The layout within `/src/app/` goes as follows:
 
 If you plan to use an external backend for the APIs, you must create production environments for them. Trébol is configured to use several `fileReplacements` when launching a production build; see the `production` configuration in the `/angular.json` file for the exact replacement patterns that apply.
 
-If you happen to run a server in the same machine (aka localhost), (you can test it quickly with a proxy)[https://angular.io/guide/build#proxying-to-a-backend-server] to avoid CORS errors. Use the `/localhost.proxy.conf.json` file as example.
+If you happen to run a server in the same machine (aka localhost), [you can test it quickly with a proxy](https://angular.io/guide/build#proxying-to-a-backend-server) to avoid CORS errors. Use the `/localhost.proxy.conf.json` file as example.
 
 To connect to your production environment, you must:
 * Duplicate every file in `/src/environments`, and rename each to `*.prod.ts`.
@@ -54,7 +54,7 @@ In both cases, you might want to add the `--prod` flag if you configured a produ
 And if you are using localhost, you can add the `--proxy-config [file]` flag to divert all requests to the configured server.
 
 
-* To deploy it somewhere else, do `ng deploy`. Inspect https://github.com/angular-schule/angular-cli-ghpages#options for more on this.
+* To deploy it somewhere else, do `ng deploy`. Inspect [the angular-cli-ghpages repo](https://github.com/angular-schule/angular-cli-ghpages#options) for more info on this.
 
 ## Contributors ✨
 
