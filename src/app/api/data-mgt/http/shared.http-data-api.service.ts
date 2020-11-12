@@ -12,6 +12,7 @@ import { ProductType } from 'src/app/models/entities/ProductType';
 import { SellType } from 'src/app/models/entities/SellType';
 import { HttpService } from 'src/app/shared/http.abstract-service';
 import { SharedDataApiIService } from '../shared-data-api.iservice';
+import { Person } from 'src/app/models/entities/Person';
 
 @Injectable()
 export class SharedHttpDataApiService
@@ -22,6 +23,12 @@ export class SharedHttpDataApiService
     protected http: HttpClient
   ) {
     super();
+  }
+
+  public readAllPeople(): Observable<Person[]> {
+    return this.http.get<Person[]>(
+      `${this.baseURI}/api/people`
+    );
   }
 
   readAllSellTypes(): Observable<SellType[]> {
