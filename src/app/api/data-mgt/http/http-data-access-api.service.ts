@@ -7,19 +7,21 @@ import { DataAccessApiIService } from '../data-access.api.iservice';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
-import { HttpService } from 'src/app/shared/http.abstract-service';
+import { HttpService } from 'src/app/shared/http.aservice';
 import { HttpClient } from '@angular/common/http';
+import { baseURI } from 'src/environments/data-api.environment';
 
 @Injectable()
 export class HttpDataAccessApiService
   extends HttpService
   implements DataAccessApiIService {
 
+  protected baseURI = `${baseURI}/access`;
+
   constructor(
     protected http: HttpClient
   ) {
     super();
-    this.baseURI = `${this.baseURI}/access`;
   }
 
   public getAuthorizedAccess(): Observable<AuthorizedAccess> {

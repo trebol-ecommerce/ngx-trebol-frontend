@@ -14,7 +14,7 @@ import { Observable, of } from 'rxjs';
 import { finalize, map, tap } from 'rxjs/operators';
 import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
-import { HttpService } from 'src/app/shared/http.abstract-service';
+import { HttpService } from 'src/app/shared/http.aservice';
 import { SessionApiIService } from '../session-api.iservice';
 import { sessionStorageTokenItemName, authorizationHeaderName, baseURI } from 'src/environments/session-api.environment';
 

@@ -3,10 +3,10 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { HttpService } from 'src/app/shared/http.abstract-service';
+import { HttpService } from 'src/app/shared/http.aservice';
 import { baseURI } from 'src/environments/data-api.environment';
 
-export abstract class EntityHttpDataApiService
+export abstract class HttpDataApiService
   extends HttpService {
 
   protected baseURI = `${baseURI}/data`;

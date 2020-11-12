@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/entities/Product';
-import { HttpService } from 'src/app/shared/http.abstract-service';
+import { HttpService } from 'src/app/shared/http.aservice';
 import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
@@ -15,17 +15,19 @@ import { StoreApiIService } from '../store-api.iservice';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
+import { checkoutURL } from 'src/environments/store-api.environment';
 
 @Injectable()
 export class HttpStoreApiService
   extends HttpService
   implements StoreApiIService {
 
+  protected baseURI = `${checkoutURL}/store`;
+
   constructor(
     protected http: HttpClient
   ) {
     super();
-    this.baseURI = `${this.baseURI}/store`
   }
 
   public fetchProductById(id: number): Observable<Product> {

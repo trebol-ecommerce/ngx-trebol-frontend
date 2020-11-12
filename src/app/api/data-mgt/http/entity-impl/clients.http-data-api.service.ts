@@ -7,12 +7,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Client } from 'src/app/models/entities/Client';
-import { EntityHttpDataApiService } from '../entity.http-data-api.aservice';
+import { HttpDataApiService } from '../http-data-api.aservice';
 import { EntityDataApiIService } from '../../entity-data-api.iservice';
 
 @Injectable()
 export class ClientsHttpDataApiService
-  extends EntityHttpDataApiService
+  extends HttpDataApiService
   implements EntityDataApiIService<Client> {
 
   constructor(
