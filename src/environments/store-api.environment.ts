@@ -1,1 +1,1 @@
-export const checkoutURL = '';
+export const storeApiURL = '';

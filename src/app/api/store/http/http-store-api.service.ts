@@ -15,14 +15,14 @@ import { StoreApiIService } from '../store-api.iservice';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
-import { checkoutURL } from 'src/environments/store-api.environment';
+import { storeApiURL } from 'src/environments/store-api.environment';
 
 @Injectable()
 export class HttpStoreApiService
   extends HttpService
   implements StoreApiIService {
 
-  protected baseURI = `${checkoutURL}/store`;
+  protected baseURI = `${storeApiURL}/store`;
 
   constructor(
     protected http: HttpClient
