@@ -5,12 +5,12 @@
 
 import { NgModule } from '@angular/core';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { ClientsHttpDataApiService } from './entity-impl/clients.http-data-api.service';
-import { SellersHttpDataApiService } from './entity-impl/sellers.http-data-api.service';
-import { ProductsHttpDataApiService } from './entity-impl/products.http-data-api.service';
-import { SalesHttpDataApiService } from './entity-impl/sales.http-data-api.service';
-import { SharedHttpDataApiService } from './shared.http-data-api.service';
-import { UsersHttpDataApiService } from './entity-impl/users.http-data-api.service';
+import { ClientsHttpDataApiService } from './impl/clients.http-data-api.service';
+import { SellersHttpDataApiService } from './impl/sellers.http-data-api.service';
+import { ProductsHttpDataApiService } from './impl/products.http-data-api.service';
+import { SalesHttpDataApiService } from './impl/sales.http-data-api.service';
+import { SharedHttpDataApiService } from './impl/shared.http-data-api.service';
+import { UsersHttpDataApiService } from './impl/users.http-data-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpDataAccessApiService } from './http-data-access-api.service';
 

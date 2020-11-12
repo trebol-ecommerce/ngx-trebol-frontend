@@ -10,9 +10,9 @@ import { retry } from 'rxjs/operators';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { SellType } from 'src/app/models/entities/SellType';
-import { SharedDataApiIService } from '../shared-data-api.iservice';
+import { SharedDataApiIService } from '../../shared-data-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
-import { HttpDataApiService } from './http-data-api.aservice';
+import { HttpDataApiService } from '../http-data-api.aservice';
 
 @Injectable()
 export class SharedHttpDataApiService

@@ -10,7 +10,7 @@ import { EntityLocalMemoryDataApiService } from '../entity.local-memory-data-api
 import { Observable, of } from 'rxjs';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
-import { MOCK_PRODUCT_FAMILIES, MOCK_PRODUCT_TYPES } from '../shared.local-memory-data-api.service';
+import { MOCK_PRODUCT_FAMILIES, MOCK_PRODUCT_TYPES } from './shared.local-memory-data-api.service';
 
 export const MOCK_PRODUCTS: Partial<Product>[] = [
   {
