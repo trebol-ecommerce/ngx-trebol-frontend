@@ -11,7 +11,37 @@
         "changeOrigin": true,
         "logLevel": "debug"
     },
-    "/store/*": {
+    "/store/front": {
+        "target": "http://localhost:8082",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/store/product/*": {
+        "target": "http://localhost:8082",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/store/categories": {
+        "target": "http://localhost:8082",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/store/categories/*": {
+        "target": "http://localhost:8082",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/store/about": {
+        "target": "http://localhost:8082",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/store/checkout": {
         "target": "http://localhost:8082",
         "secure": false,
         "changeOrigin": true,
@@ -36,12 +66,6 @@
         "logLevel": "debug"
     },
     "/profile": {
-        "target": "http://localhost:8082",
-        "secure": false,
-        "changeOrigin": true,
-        "logLevel": "debug"
-    },
-    "/about": {
         "target": "http://localhost:8082",
         "secure": false,
         "changeOrigin": true,
