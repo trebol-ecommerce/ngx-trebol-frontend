@@ -47,25 +47,25 @@
         "changeOrigin": true,
         "logLevel": "debug"
     },
-    "/login": {
+    "/session/login": {
         "target": "http://localhost:8082",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
     },
-    "/logout": {
+    "/session/logout": {
         "target": "http://localhost:8082",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
     },
-    "/register": {
+    "/session/register": {
         "target": "http://localhost:8082",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
     },
-    "/profile": {
+    "/session/profile": {
         "target": "http://localhost:8082",
         "secure": false,
         "changeOrigin": true,
