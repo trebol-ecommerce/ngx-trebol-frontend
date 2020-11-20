@@ -23,7 +23,7 @@ export class HttpSessionApiService
   extends HttpService
   implements SessionApiIService {
 
-  protected baseURI = sessionApiURL;
+  protected baseURI = `${sessionApiURL}/session`;
   protected readonly sessionStorageTokenItemName = sessionStorageTokenItemName;
   protected readonly authorizationHeader = authorizationHeaderName;
 
