@@ -13,10 +13,10 @@ import { Product } from 'src/app/models/entities/Product';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { SellType } from 'src/app/models/entities/SellType';
-import { CompositeEntityDataApiIService } from 'src/app/api/data-mgt/composite-entity-data-api.iservice';
+import { CompositeEntityDataApiIService } from 'src/app/api/data/composite-entity-data-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { EntityDataApiIService } from 'src/app/api/data-mgt/entity-data-api.iservice';
-import { SharedDataApiIService } from 'src/app/api/data-mgt/shared-data-api.iservice';
+import { EntityDataApiIService } from 'src/app/api/data/entity-data-api.iservice';
+import { SharedDataApiIService } from 'src/app/api/data/shared-data-api.iservice';
 
 @Injectable()
 export class SellManagerFormService
