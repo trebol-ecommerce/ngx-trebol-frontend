@@ -22,7 +22,7 @@ export class HttpStoreApiService
   extends HttpService
   implements StoreApiIService {
 
-  protected baseURI = `${storeApiURL}/store`;
+  protected baseURI = storeApiURL;
 
   constructor(
     protected http: HttpClient

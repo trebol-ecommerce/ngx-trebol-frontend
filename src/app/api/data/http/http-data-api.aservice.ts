@@ -9,5 +9,5 @@ import { dataApiURL } from 'src/environments/data-api.environment';
 export abstract class HttpDataApiService
   extends HttpService {
 
-  protected baseURI = `${dataApiURL}/data`;
+  protected baseURI = dataApiURL;
 }
