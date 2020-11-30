@@ -51,6 +51,7 @@ Jasmine tests are providing about 60% code coverage, you can give them a try usi
 In the repo root directory you may:
 * Serve the application locally, by doing `ng serve`
 * Create the static site files, with `ng build` (a `/dist/` folder will be created with its contents)
+
 In both cases, add the `--prod` flag if you configured a production environment as described above.
 And if you are using localhost, you can also add the `--proxy-config [file]` flag to divert all requests to the configured server.
 
