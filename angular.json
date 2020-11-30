@@ -145,7 +145,7 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "baseHref": "https://bglamadrid.github.io/trebol-ng/",
+            "baseHref": "https://trebol-ecommerce.github.io/trebol-ng/",
             "branch": "demo",
             "configuration": "demo"
           }
