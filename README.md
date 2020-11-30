@@ -12,9 +12,9 @@ Trébol aims to become an industry-standard online shop application. Businesses 
 
 The layout within `/src/app/` goes as follows:
 * `models/` contains the data types (TS classes).
-* `api/` contains the dependency injection tokens used to consume APIs, and modules that provide service dependencies for said tokens:
-  * `store/` provides calls for displaying products in the storefront, categories, specific product details, info on the company and checking out with products in the shopping cart.
-  * `data-mgt/` provides calls for querying and working with data and authorization accesses based on data contexts.
+* `api/` contains modules that provide service clients used to consume the APIs, and the Angular dependency injection tokens, used to interchange implementations
+  * `store/` provides service clients for the Store API. This includes operations like fetching storefront products, categories, specific product details, info about the selling company, and cart checking out.
+  * `data/` provides calls for querying and working with data and authorization accesses based on data contexts.
   * `session/` provides calls for creating accounts, logging in and out, and review personal profile data.
 * `management/` has components to interactively manipulating data in different contexts, using child routes like an admin dashboard.
 * `shared/` has components used by other modules.
@@ -32,7 +32,7 @@ The layout within `/src/app/` goes as follows:
 
 ## Configuration
 
-If you plan to use an external backend for the APIs, you must create production environments for them. Trébol is configured to use several `fileReplacements` when launching a production build; see the `production` configuration in the `/angular.json` file for the exact replacement patterns that apply.
+If you plan to use an external backend (or more than one) for the APIs, you must create production environment files. Trébol is configured to use several `fileReplacements` when launching a production build; see the `production` configuration in the `/angular.json` file for the exact replacement patterns that apply.
 
 If you happen to run a server in the same machine (aka localhost), [you can test it quickly with a proxy](https://angular.io/guide/build#proxying-to-a-backend-server) to avoid CORS errors. Use the `/localhost.proxy.conf.json` file as example.
 
