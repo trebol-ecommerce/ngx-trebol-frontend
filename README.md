@@ -39,7 +39,7 @@ If you happen to run a server in the same machine (aka localhost), [you can test
 To connect to your production environment, you must:
 * Duplicate every file in `/src/environments`, and rename each to `*.prod.ts`.
   * Your resulting `environment.prod.ts` file must import the `http` API implementation modules (for example, `import { HttpStoreApiModule } from 'src/app/api/store/http/http-store-api.module'`).
-  * If you use localhost, leaving the api URL constants empty in every `*-api.environment.prod.ts` file should suffice, for your requests will be proxied (read on to "Building / Running").
+  * If you use localhost, leaving the api URLs as they are in every `*-api.environment.prod.ts` file should suffice, for your 'absolute' requests will be proxied (read on to "Building / Running").
   * If not, assign them. Note that they may be separate constants and files, but they can have the same value and be served from the same machine.
 
 ## Testing
@@ -48,11 +48,11 @@ Jasmine tests are providing about 60% code coverage, you can give them a try usi
 
 ## Building / Running
 
-As you travel the root directory after checking out:
-* To serve it locally, do `ng serve`
-* To create the static site, do `ng build` (a `/dist/` folder will be created with its contents)
-In both cases, you might want to add the `--prod` flag if you configured a production environment as described above.
-And if you are using localhost, you can add the `--proxy-config [file]` flag to divert all requests to the configured server.
+In the repo root directory you may:
+* Serve the application locally, by doing `ng serve`
+* Create the static site files, with `ng build` (a `/dist/` folder will be created with its contents)
+In both cases, add the `--prod` flag if you configured a production environment as described above.
+And if you are using localhost, you can also add the `--proxy-config [file]` flag to divert all requests to the configured server.
 
 
 * To deploy it somewhere else, do `ng deploy`. Inspect [the angular-cli-ghpages repo](https://github.com/angular-schule/angular-cli-ghpages#options) for more info on this.
