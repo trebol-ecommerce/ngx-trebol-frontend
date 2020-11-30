@@ -12,7 +12,7 @@ import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
 import { Login } from 'src/app/models/Login';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
-import { DataAccessApiIService } from './api/data-mgt/data-access.api.iservice';
+import { DataAccessApiIService } from './api/data/data-access.api.iservice';
 
 @Injectable({ providedIn: 'root' })
 export class AppService

@@ -1,7 +1,7 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-import { LocalMemoryDataModule } from 'src/app/api/data-mgt/local-memory/local-memory-data-api.module';
+import { LocalMemoryDataModule } from 'src/app/api/data/local-memory/local-memory-data-api.module';
 import { LocalMemorySessionApiModule } from 'src/app/api/session/local-memory/local-memory-session-api.module';
 import { LocalMemoryStoreApiModule } from 'src/app/api/store/local-memory/local-memory-store-api.module';
 

@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { SessionApiIService } from 'src/app/api/session/session-api.iservice';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
-import { DataAccessApiIService } from 'src/app/api/data-mgt/data-access.api.iservice';
+import { DataAccessApiIService } from 'src/app/api/data/data-access.api.iservice';
 
 @Injectable({ providedIn: 'root' })
 export class SellManagerAccessResolver

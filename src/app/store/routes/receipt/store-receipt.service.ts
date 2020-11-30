@@ -9,7 +9,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, pluck, startWith } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
-import { CompositeEntityDataApiIService } from 'src/app/api/data-mgt/composite-entity-data-api.iservice';
+import { CompositeEntityDataApiIService } from 'src/app/api/data/composite-entity-data-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 
 @Injectable()

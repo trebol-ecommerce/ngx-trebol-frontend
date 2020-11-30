@@ -11,37 +11,61 @@
         "changeOrigin": true,
         "logLevel": "debug"
     },
-    "/store/*": {
+    "/store/front": {
         "target": "http://localhost:8082",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
     },
-    "/login": {
+    "/store/product/*": {
         "target": "http://localhost:8082",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
     },
-    "/logout": {
+    "/store/categories": {
         "target": "http://localhost:8082",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
     },
-    "/register": {
+    "/store/categories/*": {
         "target": "http://localhost:8082",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
     },
-    "/profile": {
+    "/store/about": {
         "target": "http://localhost:8082",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
     },
-    "/about": {
+    "/store/checkout": {
+        "target": "http://localhost:8082",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/session/login": {
+        "target": "http://localhost:8082",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/session/logout": {
+        "target": "http://localhost:8082",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/session/register": {
+        "target": "http://localhost:8082",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/session/profile": {
         "target": "http://localhost:8082",
         "secure": false,
         "changeOrigin": true,
