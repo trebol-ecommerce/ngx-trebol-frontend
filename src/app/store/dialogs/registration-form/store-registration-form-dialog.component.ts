@@ -11,6 +11,8 @@ import { AppService } from 'src/app/app.service';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
 import { User } from 'src/app/models/entities/User';
 import { passwordMatcher } from 'src/functions/passwordMatcher';
+import { Registration } from 'src/app/models/Registration';
+import { Person } from 'src/app/models/entities/Person';
 
 @Component({
   selector: 'app-store-registration-form-dialog',
@@ -50,18 +52,26 @@ export class StoreRegistrationFormDialogComponent
     this.registeringSource.complete();
   }
 
-  private asItem(): User {
+  private asItem(): Registration {
     if (this.formGroup.invalid) {
       return undefined;
     } else {
-      return Object.assign<User, Partial<User>>(
-        new User(),
+      const person: Person = this.personForm.asPerson();
+      const profile = {
+        name: person.name,
+        idCard: person.idCard,
+        email: person.email,
+        address: person.address,
+        phone1: person.phone1,
+        phone2: person.phone2
+      };
+
+      return Object.assign<Registration, Partial<Registration>>(
+        new Registration(),
         {
-          id: null,
           name: this.name.value,
           password: this.pass1.value,
-          createdOn: Date.now().toLocaleString(),
-          person: this.personForm.asPerson()
+          profile
         }
       );
     }
@@ -69,7 +79,7 @@ export class StoreRegistrationFormDialogComponent
 
   public onSubmit(): void {
     this.registeringSource.next(true);
-    const details: User = this.asItem();
+    const details: Registration = this.asItem();
     this.appService.register(details).subscribe(
       s => {
         this.registeringSource.complete();

@@ -13,6 +13,7 @@ import { User } from 'src/app/models/entities/User';
 import { Login } from 'src/app/models/Login';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 import { DataAccessApiIService } from './api/data/data-access.api.iservice';
+import { Registration } from './models/Registration';
 
 @Injectable({ providedIn: 'root' })
 export class AppService
@@ -56,7 +57,7 @@ export class AppService
     return this.authService.guestLogin(personDetails);
   }
 
-  public register(userDetails: User): Observable<boolean> {
+  public register(userDetails: Registration): Observable<boolean> {
     return this.authService.register(userDetails).pipe(
       tap( // TODO refactor this tap
         success => {

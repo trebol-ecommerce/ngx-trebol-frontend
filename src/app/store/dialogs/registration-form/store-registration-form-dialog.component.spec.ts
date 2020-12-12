@@ -14,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { User } from 'src/app/models/entities/User';
+import { Registration } from 'src/app/models/Registration';
 
 describe('StoreRegistrationFormDialogComponent', () => {
   let component: StoreRegistrationFormDialogComponent;
@@ -28,7 +28,7 @@ describe('StoreRegistrationFormDialogComponent', () => {
     };
     appService = {
       register(u) { return iif(
-          () => (u instanceof User),
+          () => (u instanceof Registration),
           of(true),
           throwError(new Error('Not an User')) );
       }
