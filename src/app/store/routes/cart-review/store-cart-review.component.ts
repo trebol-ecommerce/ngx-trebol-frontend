@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable, of, empty, EMPTY } from 'rxjs';
-import { concatMap, map, take } from 'rxjs/operators';
+import { concatMap, map, take, tap, mapTo } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { StoreService } from 'src/app/store/store.service';
@@ -68,7 +68,20 @@ export class StoreCartReviewComponent
       {
         width: '40rem'
       }
-    ).afterClosed();
+    ).afterClosed().pipe(
+      tap(
+        (success: boolean | void) => {
+          if (typeof success === 'boolean') {
+            if (success) {
+              this.snackBarService.open('Su cuenta fue creada con éxito.\nYa puede iniciar sesión con sus credenciales.', 'OK');
+            } else {
+              this.snackBarService.open('Hubo un error al crear su cuenta. Por, favor inténtelo nuevamente.', 'OK');
+            }
+          }
+        }
+      ),
+      mapTo(void 0)
+    );
   }
 
   protected promptGuestShippingForm(): Observable<void> {
