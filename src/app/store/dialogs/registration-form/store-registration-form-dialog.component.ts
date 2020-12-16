@@ -14,6 +14,10 @@ import { passwordMatcher } from 'src/functions/passwordMatcher';
 import { Registration } from 'src/app/models/Registration';
 import { Person } from 'src/app/models/entities/Person';
 
+/**
+ * Account registration form dialog.
+ * afterClosed() returns a boolean observable, whose value depends on success
+ */
 @Component({
   selector: 'app-store-registration-form-dialog',
   templateUrl: './store-registration-form-dialog.component.html',
@@ -83,7 +87,7 @@ export class StoreRegistrationFormDialogComponent
     this.appService.register(details).subscribe(
       s => {
         this.registeringSource.complete();
-        this.dialog.close();
+        this.dialog.close(true);
       },
       err => {
         this.registeringSource.next(false);
@@ -92,7 +96,7 @@ export class StoreRegistrationFormDialogComponent
   }
 
   public onCancel(): void {
-    this.dialog.close();
+    this.dialog.close(false);
   }
 
 }
