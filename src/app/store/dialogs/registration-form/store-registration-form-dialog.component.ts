@@ -13,6 +13,7 @@ import { User } from 'src/app/models/entities/User';
 import { passwordMatcher } from 'src/functions/passwordMatcher';
 import { Registration } from 'src/app/models/Registration';
 import { Person } from 'src/app/models/entities/Person';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 /**
  * Account registration form dialog.
@@ -40,7 +41,8 @@ export class StoreRegistrationFormDialogComponent
   constructor(
     protected appService: AppService,
     protected formBuilder: FormBuilder,
-    protected dialog: MatDialogRef<StoreRegistrationFormDialogComponent>
+    protected dialog: MatDialogRef<StoreRegistrationFormDialogComponent>,
+    protected snackBarService: MatSnackBar
   ) {
     this.formGroup = this.formBuilder.group({
       name: ['', Validators.required],
@@ -88,9 +90,11 @@ export class StoreRegistrationFormDialogComponent
     this.appService.register(details).subscribe(
       s => {
         if (s) {
+          this.snackBarService.open('Su cuenta fue creada con éxito.\nYa puede iniciar sesión con sus credenciales.', 'OK');
           this.registeringSource.complete();
           this.dialog.close(true);
         } else {
+          this.snackBarService.open('Hubo un error al crear su cuenta. Por, favor inténtelo nuevamente.', 'OK');
           this.registeringSource.next(false);
         }
       }

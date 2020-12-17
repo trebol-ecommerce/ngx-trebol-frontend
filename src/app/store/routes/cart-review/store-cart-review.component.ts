@@ -37,8 +37,7 @@ export class StoreCartReviewComponent
     protected storeService: StoreService,
     protected appService: AppService,
     protected router: Router,
-    protected dialogService: MatDialog,
-    protected snackBarService: MatSnackBar
+    protected dialogService: MatDialog
   ) {
     // TODO refactor this into a routing guard
     this.storeService.cartDetails$.pipe(take(1)).subscribe(
@@ -68,20 +67,7 @@ export class StoreCartReviewComponent
       {
         width: '40rem'
       }
-    ).afterClosed().pipe(
-      tap(
-        (success: boolean | void) => {
-          if (typeof success === 'boolean') {
-            if (success) {
-              this.snackBarService.open('Su cuenta fue creada con éxito.\nYa puede iniciar sesión con sus credenciales.', 'OK');
-            } else {
-              this.snackBarService.open('Hubo un error al crear su cuenta. Por, favor inténtelo nuevamente.', 'OK');
-            }
-          }
-        }
-      ),
-      mapTo(void 0)
-    );
+    ).afterClosed();
   }
 
   protected promptGuestShippingForm(): Observable<void> {
