@@ -16,7 +16,8 @@ import { Person } from 'src/app/models/entities/Person';
 
 /**
  * Account registration form dialog.
- * afterClosed() returns a boolean observable, whose value depends on success
+ *
+ * afterClosed() emits true only if the registration is succesful
  */
 @Component({
   selector: 'app-store-registration-form-dialog',
@@ -86,17 +87,18 @@ export class StoreRegistrationFormDialogComponent
     const details: Registration = this.asItem();
     this.appService.register(details).subscribe(
       s => {
-        this.registeringSource.complete();
-        this.dialog.close(true);
-      },
-      err => {
-        this.registeringSource.next(false);
+        if (s) {
+          this.registeringSource.complete();
+          this.dialog.close(true);
+        } else {
+          this.registeringSource.next(false);
+        }
       }
     );
   }
 
   public onCancel(): void {
-    this.dialog.close(false);
+    this.dialog.close();
   }
 
 }
