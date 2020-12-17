@@ -4,8 +4,8 @@
 // https://opensource.org/licenses/MIT
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, of, Subject, ReplaySubject } from 'rxjs';
-import { catchError, finalize, map, mapTo, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { catchError, finalize, mapTo, tap, switchMap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { SessionApiIService } from 'src/app/api/session/session-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
@@ -57,13 +57,17 @@ export class AppService
     return this.authService.guestLogin(personDetails);
   }
 
+  /** Send an error-safe register request. */
   public register(userDetails: Registration): Observable<boolean> {
     return this.authService.register(userDetails).pipe(
-      tap( // TODO refactor this tap
-        success => {
-          this.isLoggedInChangesSource.next(true);
-        }
-      )
+      mapTo(true),
+      switchMap(
+        () => this.login({
+          name: userDetails.name,
+          password: userDetails.password
+        })
+      ),
+      catchError(() => of(false)),
     );
   }
 
