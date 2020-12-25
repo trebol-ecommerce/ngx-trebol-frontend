@@ -25,7 +25,7 @@ export const MOCK_COMPANY_DETAILS: CompanyDetails = {
 
 export const MOCK_EXTERNAL_PAYMENT_REDIRECT_DATA: ExternalPaymentRedirectionData = {
   url: '',
-  token_ws: ''
+  token: ''
 };
 
 
