@@ -6,10 +6,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Person } from 'src/app/models/entities/Person';
-import { User } from 'src/app/models/entities/User';
 import { makeid } from 'src/functions/makeid';
 import { SessionApiIService } from '../session-api.iservice';
 import { sessionStorageTokenItemName, authorizationHeaderName } from 'src/environments/session-api.environment';
+import { Registration } from 'src/app/models/Registration';
 
 function getNewSessionId(): number {
   const localSessionId = localStorage.getItem('latestSessionId');
@@ -63,7 +63,7 @@ export class LocalMemorySessionApiService
     throw new Error('Method not implemented.'); // TODO implement me
   }
 
-  public register(details: Partial<User>): Observable<boolean> {
+  public register(details: Registration): Observable<boolean> {
     throw new Error('Method not implemented.'); // TODO implement me
   }
 

@@ -5,13 +5,13 @@
 
 import { Observable } from 'rxjs';
 import { Person } from 'src/app/models/entities/Person';
-import { User } from 'src/app/models/entities/User';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
+import { Registration } from 'src/app/models/Registration';
 
 export interface SessionApiIService {
 
   guestLogin(details: Person): Observable<boolean>;
-  register(details: Partial<User>): Observable<boolean>;
+  register(details: Registration): Observable<boolean>;
   login(details: any): Observable<boolean>;
   getProfile(): Observable<Person>;
   updateProfile(details: Person): Observable<boolean>;

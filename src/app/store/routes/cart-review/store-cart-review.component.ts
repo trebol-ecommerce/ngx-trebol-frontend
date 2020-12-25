@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable, of, empty, EMPTY } from 'rxjs';
-import { concatMap, map, take } from 'rxjs/operators';
+import { concatMap, map, take, tap, mapTo } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { StoreService } from 'src/app/store/store.service';
@@ -37,8 +37,7 @@ export class StoreCartReviewComponent
     protected storeService: StoreService,
     protected appService: AppService,
     protected router: Router,
-    protected dialogService: MatDialog,
-    protected snackBarService: MatSnackBar
+    protected dialogService: MatDialog
   ) {
     // TODO refactor this into a routing guard
     this.storeService.cartDetails$.pipe(take(1)).subscribe(

@@ -28,7 +28,7 @@ export class StorePaymentRedirectPromptDialogComponent
   ) {
     this.loading$ = this.externalDataSource.asObservable().pipe(startWith(true), mapTo(false));
     this.webpayURL$ = this.externalDataSource.asObservable().pipe(map(data => data.url));
-    this.webpayToken$ = this.externalDataSource.asObservable().pipe(map(data => data.token_ws));
+    this.webpayToken$ = this.externalDataSource.asObservable().pipe(map(data => data.token));
   }
 
   ngOnInit(): void {

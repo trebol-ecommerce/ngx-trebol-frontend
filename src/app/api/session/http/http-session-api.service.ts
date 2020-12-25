@@ -17,6 +17,7 @@ import { User } from 'src/app/models/entities/User';
 import { HttpService } from 'src/app/shared/http.aservice';
 import { SessionApiIService } from '../session-api.iservice';
 import { sessionStorageTokenItemName, authorizationHeaderName, sessionApiURL } from 'src/environments/session-api.environment';
+import { Registration } from 'src/app/models/Registration';
 
 @Injectable()
 export class HttpSessionApiService
@@ -53,7 +54,7 @@ export class HttpSessionApiService
     );
   }
 
-  public register(userDetails: User): Observable<boolean> {
+  public register(userDetails: Registration): Observable<boolean> {
     return this.http.post<boolean>(
       `${this.baseURI}/register`,
       userDetails
