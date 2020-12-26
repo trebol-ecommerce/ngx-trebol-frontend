@@ -11,7 +11,7 @@ import { HttpDataApiService } from '../http-data-api.aservice';
 import { EntityDataApiIService } from '../../entity-data-api.iservice';
 
 @Injectable()
-export class SellersHttpDataApiService
+export class SalespeopleHttpDataApiService
   extends HttpDataApiService
   implements EntityDataApiIService<Salesperson> {
 

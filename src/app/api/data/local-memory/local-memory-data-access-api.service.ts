@@ -40,7 +40,7 @@ export class LocalMemoryDataAccessApiService
 
   public getAuthorizedAccess(): Observable<AuthorizedAccess> {
     return this.returnAsyncIfLoggedIn({
-      routes: ['customers', 'products', 'sales', 'sellers', 'users']
+      routes: ['customers', 'products', 'sales', 'salespeople', 'users']
     });
   }
 
