@@ -18,9 +18,9 @@ import { ManagementService } from './management.service';
 import { CustomerManagerComponent } from './routes/customers/customer-manager.component';
 import { CustomerManagerService } from './routes/customers/customer-manager.service';
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
-import { SellerManagerComponent } from './routes/sellers/seller-manager.component';
-import { SellerManagerService } from './routes/sellers/seller-manager.service';
-import { SellerManagerFormDialogComponent } from './routes/sellers/form-dialog/seller-manager-form-dialog.component';
+import { SalespersonManagerComponent } from './routes/salespeople/salesperson-manager.component';
+import { SalespersonManagerService } from './routes/salespeople/salesperson-manager.service';
+import { SalespersonManagerFormDialogComponent } from './routes/salespeople/form-dialog/seller-manager-form-dialog.component';
 import { ProductManagerFormDialogComponent } from './routes/products/form-dialog/product-manager-form-dialog.component';
 import { ProductManagerComponent } from './routes/products/product-manager.component';
 import { ProductManagerService } from './routes/products/product-manager.service';
@@ -46,8 +46,8 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ManagementDataActionsComponent,
     ManagementDashboardComponent,
     CustomerManagerComponent,
-    SellerManagerComponent,
-    SellerManagerFormDialogComponent,
+    SalespersonManagerComponent,
+    SalespersonManagerFormDialogComponent,
     ProductManagerComponent,
     ProductManagerFormDialogComponent,
     SellManagerComponent,
@@ -64,7 +64,7 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ManagementRoutingGuard,
     ManagementService,
     CustomerManagerService,
-    SellerManagerService,
+    SalespersonManagerService,
     ProductManagerService,
     UserManagerService,
     SellManagerService

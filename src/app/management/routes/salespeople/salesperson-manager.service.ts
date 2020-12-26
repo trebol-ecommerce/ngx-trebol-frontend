@@ -10,11 +10,11 @@ import { EntityDataApiIService } from 'src/app/api/data/entity-data-api.iservice
 import { DataManagerServiceDirective } from '../data-manager.service-directive';
 
 @Injectable()
-export class SellerManagerService
+export class SalespersonManagerService
   extends DataManagerServiceDirective<Salesperson> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.sellersCrud) protected dataService: EntityDataApiIService<Salesperson>
+    @Inject(API_SERVICE_INJECTION_TOKENS.salespeopleCrud) protected dataService: EntityDataApiIService<Salesperson>
   ) {
     super();
   }
