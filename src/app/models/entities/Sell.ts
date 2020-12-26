@@ -19,5 +19,5 @@ export class Sell
   public customer: Partial<Customer>;
 
   public subtotalValue?: number;
-  public seller?: Partial<Salesperson>;
+  public salesperson?: Partial<Salesperson>;
 }
