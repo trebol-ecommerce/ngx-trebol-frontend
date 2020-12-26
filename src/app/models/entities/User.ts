@@ -5,7 +5,6 @@
 
 import { AbstractEntity } from 'src/app/models/AbstractEntity';
 import { Person } from './Person';
-import { Salesperson } from './Salesperson';
 import { Login } from '../Login';
 
 export class User
