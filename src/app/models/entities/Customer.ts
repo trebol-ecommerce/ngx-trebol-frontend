@@ -6,7 +6,7 @@
 import { AbstractEntity } from '../AbstractEntity';
 import { Person } from './Person';
 
-export class Client
+export class Customer
   implements AbstractEntity {
 
   public id: number;

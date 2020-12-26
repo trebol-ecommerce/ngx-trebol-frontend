@@ -9,7 +9,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { merge, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { Client } from 'src/app/models/entities/Client';
+import { Customer } from 'src/app/models/entities/Customer';
 import { Seller } from 'src/app/models/entities/Seller';
 import { Product } from 'src/app/models/entities/Product';
 import { Sell } from 'src/app/models/entities/Sell';
@@ -45,7 +45,7 @@ export class SellManagerFormDialogComponent
 
   public sellTypes$: Observable<SellType[]>;
   public sellers$: Observable<Seller[]>;
-  public clients$: Observable<Client[]>;
+  public clients$: Observable<Customer[]>;
 
   public formGroup: FormGroup;
   public sellDate: string = (new Date()).toLocaleDateString();
