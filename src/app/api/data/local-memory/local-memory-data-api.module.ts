@@ -5,7 +5,7 @@
 
 import { NgModule } from '@angular/core';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { ClientsLocalMemoryDataApiService } from './impl/clients.local-memory-data-api.service';
+import { CustomersLocalMemoryDataApiService } from './impl/customers.local-memory-data-api.service';
 import { SellersLocalMemoryDataApiService } from './impl/sellers.local-memory-data-api.service';
 import { ProductsLocalMemoryDataApiService } from './impl/products.local-memory-data-api.service';
 import { SalesLocalMemoryDataApiService } from './impl/sales.local-memory-data-api.service';
@@ -18,7 +18,7 @@ import { LocalMemoryDataAccessApiService } from './local-memory-data-access-api.
  */
 @NgModule({
   providers: [
-    { provide: API_SERVICE_INJECTION_TOKENS.customersCrud, useClass: ClientsLocalMemoryDataApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.customersCrud, useClass: CustomersLocalMemoryDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.sellersCrud, useClass: SellersLocalMemoryDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.productsCrud, useClass: ProductsLocalMemoryDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.shared, useClass: SharedLocalMemoryDataService },
