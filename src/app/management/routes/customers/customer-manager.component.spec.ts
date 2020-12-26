@@ -6,13 +6,13 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { ClientManagerComponent } from './client-manager.component';
-import { ClientManagerService } from './client-manager.service';
+import { CustomerManagerComponent } from './customer-manager.component';
+import { CustomerManagerService } from './customer-manager.service';
 
-describe('ClientManagerComponent', () => {
-  let component: ClientManagerComponent;
-  let fixture: ComponentFixture<ClientManagerComponent>;
-  let managerService: Partial<ClientManagerService>;
+describe('CustomerManagerComponent', () => {
+  let component: CustomerManagerComponent;
+  let fixture: ComponentFixture<CustomerManagerComponent>;
+  let managerService: Partial<CustomerManagerService>;
 
   beforeEach(waitForAsync(() => {
     managerService = {
@@ -31,16 +31,16 @@ describe('ClientManagerComponent', () => {
       imports: [
         RouterTestingModule
       ],
-      declarations: [ ClientManagerComponent ],
+      declarations: [ CustomerManagerComponent ],
       providers: [
-        { provide: ClientManagerService, useValue: managerService }
+        { provide: CustomerManagerService, useValue: managerService }
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ClientManagerComponent);
+    fixture = TestBed.createComponent(CustomerManagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
