@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Registration } from 'src/app/models/Registration';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 describe('StoreRegistrationFormDialogComponent', () => {
   let component: StoreRegistrationFormDialogComponent;
@@ -43,7 +44,8 @@ describe('StoreRegistrationFormDialogComponent', () => {
         FormsModule,
         MatInputModule,
         MatFormFieldModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSnackBarModule
       ],
       declarations: [
         StoreRegistrationFormDialogComponent,
