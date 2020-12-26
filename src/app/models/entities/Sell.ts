@@ -16,7 +16,7 @@ export class Sell
   public details: SellDetail[];
   public type: Partial<SellType>;
   public soldOn: string;
-  public client: Partial<Customer>;
+  public customer: Partial<Customer>;
 
   public subtotalValue?: number;
   public seller?: Partial<Seller>;

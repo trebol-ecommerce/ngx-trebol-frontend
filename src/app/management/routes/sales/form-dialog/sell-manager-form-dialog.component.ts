@@ -84,8 +84,8 @@ export class SellManagerFormDialogComponent
     if (s.type?.id) {
       this.type.setValue(s.type.id, { emitEvent: false, onlySelf: true });
     }
-    if (s.client?.id) {
-      this.customer.setValue(s.client.id, { emitEvent: false, onlySelf: true });
+    if (s.customer?.id) {
+      this.customer.setValue(s.customer.id, { emitEvent: false, onlySelf: true });
     }
     if (s.seller?.id) {
       this.seller.setValue(s.seller.id, { emitEvent: false, onlySelf: true });
@@ -157,7 +157,7 @@ export class SellManagerFormDialogComponent
           id: this.itemId,
           type: { id: this.type.value },
           soldOn: this.sellDate ? this.sellDate : null,
-          client: { id: this.customer.value },
+          customer: { id: this.customer.value },
           seller: { id: this.seller.value },
           details: this.sellDetails
         }
