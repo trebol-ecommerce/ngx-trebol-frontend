@@ -11,7 +11,7 @@ import { HttpDataApiService } from '../http-data-api.aservice';
 import { EntityDataApiIService } from '../../entity-data-api.iservice';
 
 @Injectable()
-export class ClientsHttpDataApiService
+export class CustomersHttpDataApiService
   extends HttpDataApiService
   implements EntityDataApiIService<Customer> {
 
@@ -19,7 +19,7 @@ export class ClientsHttpDataApiService
     protected http: HttpClient
   ) {
     super();
-    this.baseURI = `${this.baseURI}/clients`;
+    this.baseURI = `${this.baseURI}/customers`;
   }
 
   public create(client: Customer): Observable<number> {
