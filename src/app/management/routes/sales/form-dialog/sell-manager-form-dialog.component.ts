@@ -44,7 +44,7 @@ export class SellManagerFormDialogComponent
   public sellTotalValue$: Observable<number>;
 
   public sellTypes$: Observable<SellType[]>;
-  public sellers$: Observable<Salesperson[]>;
+  public salespeople$: Observable<Salesperson[]>;
   public customers$: Observable<Customer[]>;
 
   public formGroup: FormGroup;
@@ -102,7 +102,7 @@ export class SellManagerFormDialogComponent
     this.sellDetails$ = this.service.sellDetails$.pipe(tap(details => { this.sellDetails = details; }));
 
     this.sellTypes$ = this.service.getAllSellTypes();
-    this.sellers$ = this.service.getAllSalespeople();
+    this.salespeople$ = this.service.getAllSalespeople();
     this.customers$ = this.service.getAllCustomers();
 
     this.sellSubtotalValue$ = this.service.sellSubtotalValue$.pipe();
