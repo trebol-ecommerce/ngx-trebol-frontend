@@ -51,7 +51,7 @@ export class SellManagerFormDialogComponent
   public sellDate: string = (new Date()).toLocaleDateString();
   public get type(): FormControl { return this.formGroup.get('type') as FormControl; }
   public get seller(): FormControl { return this.formGroup.get('seller') as FormControl; }
-  public get client(): FormControl { return this.formGroup.get('client') as FormControl; }
+  public get customer(): FormControl { return this.formGroup.get('customer') as FormControl; }
 
   public sellIsntReady$: Observable<boolean>;
 
@@ -70,7 +70,7 @@ export class SellManagerFormDialogComponent
     this.formGroup = this.formBuilder.group({
       type: [null, Validators.required],
       seller: [null],
-      client: [null, Validators.required]
+      customer: [null, Validators.required]
     });
 
     const item: Sell = (this.data?.sell) ? this.data.sell : new Sell();
@@ -85,7 +85,7 @@ export class SellManagerFormDialogComponent
       this.type.setValue(s.type.id, { emitEvent: false, onlySelf: true });
     }
     if (s.client?.id) {
-      this.client.setValue(s.client.id, { emitEvent: false, onlySelf: true });
+      this.customer.setValue(s.client.id, { emitEvent: false, onlySelf: true });
     }
     if (s.seller?.id) {
       this.seller.setValue(s.seller.id, { emitEvent: false, onlySelf: true });
@@ -157,7 +157,7 @@ export class SellManagerFormDialogComponent
           id: this.itemId,
           type: { id: this.type.value },
           soldOn: this.sellDate ? this.sellDate : null,
-          client: { id: this.client.value },
+          client: { id: this.customer.value },
           seller: { id: this.seller.value },
           details: this.sellDetails
         }
