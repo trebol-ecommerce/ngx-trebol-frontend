@@ -20,7 +20,7 @@ import { CustomerManagerService } from './routes/customers/customer-manager.serv
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
 import { SalespersonManagerComponent } from './routes/salespeople/salesperson-manager.component';
 import { SalespersonManagerService } from './routes/salespeople/salesperson-manager.service';
-import { SalespersonManagerFormDialogComponent } from './routes/salespeople/form-dialog/seller-manager-form-dialog.component';
+import { SalespersonManagerFormDialogComponent } from './routes/salespeople/form-dialog/salesperson-manager-form-dialog.component';
 import { ProductManagerFormDialogComponent } from './routes/products/form-dialog/product-manager-form-dialog.component';
 import { ProductManagerComponent } from './routes/products/product-manager.component';
 import { ProductManagerService } from './routes/products/product-manager.service';

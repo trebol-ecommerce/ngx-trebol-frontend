@@ -5,9 +5,9 @@
 
 import { TestBed } from '@angular/core/testing';
 import { LocalMemoryDataModule } from 'src/app/api/data/local-memory/local-memory-data-api.module';
-import { SalespersonManagerFormService } from './seller-manager-form.service';
+import { SalespersonManagerFormService } from './salesperson-manager-form.service';
 
-describe('SellerManageSalespersonManagerFormServicerFormService', () => {
+describe('SalespersonManagerFormService', () => {
   let service: SalespersonManagerFormService;
 
   beforeEach(() => {

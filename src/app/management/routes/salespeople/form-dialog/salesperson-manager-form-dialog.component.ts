@@ -13,7 +13,7 @@ import { Person } from 'src/app/models/entities/Person';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerFormComponentDirective } from '../../data-manager-form.component-directive';
-import { SalespersonManagerFormService } from './seller-manager-form.service';
+import { SalespersonManagerFormService } from './salesperson-manager-form.service';
 
 export interface SalespersonManagementFormDialogData {
   salesperson: Salesperson;

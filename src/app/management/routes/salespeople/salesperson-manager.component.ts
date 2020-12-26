@@ -13,7 +13,7 @@ import { Salesperson } from 'src/app/models/entities/Salesperson';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerComponentDirective } from '../data-manager.component-directive';
 import { SalespersonManagerService } from './salesperson-manager.service';
-import { SalespersonManagementFormDialogData, SalespersonManagerFormDialogComponent } from './form-dialog/seller-manager-form-dialog.component';
+import { SalespersonManagementFormDialogData, SalespersonManagerFormDialogComponent } from './form-dialog/salesperson-manager-form-dialog.component';
 
 @Component({
   selector: 'app-seller-manager',

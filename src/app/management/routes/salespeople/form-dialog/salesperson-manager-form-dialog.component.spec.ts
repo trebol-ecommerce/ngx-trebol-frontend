@@ -7,8 +7,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { SalespersonManagerFormDialogComponent } from './seller-manager-form-dialog.component';
-import { SalespersonManagerFormService } from './seller-manager-form.service';
+import { SalespersonManagerFormDialogComponent } from './salesperson-manager-form-dialog.component';
+import { SalespersonManagerFormService } from './salesperson-manager-form.service';
 
 describe('SalespersonManagerFormDialogComponent', () => {
   let component: SalespersonManagerFormDialogComponent;
