@@ -35,7 +35,7 @@
 
       <mat-form-field style="grid-area: client">
         <mat-select placeholder="Cliente" formControlName="client">
-          <mat-option *ngFor="let c of (clients$ | async)" [value]="c.id">
+          <mat-option *ngFor="let c of (customers$ | async)" [value]="c.id">
             {{ c.person.name }}
           </mat-option>
         </mat-select>

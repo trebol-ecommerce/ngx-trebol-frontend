@@ -45,7 +45,7 @@ export class SellManagerFormDialogComponent
 
   public sellTypes$: Observable<SellType[]>;
   public sellers$: Observable<Seller[]>;
-  public clients$: Observable<Customer[]>;
+  public customers$: Observable<Customer[]>;
 
   public formGroup: FormGroup;
   public sellDate: string = (new Date()).toLocaleDateString();
@@ -103,7 +103,7 @@ export class SellManagerFormDialogComponent
 
     this.sellTypes$ = this.service.getAllSellTypes();
     this.sellers$ = this.service.getAllSellers();
-    this.clients$ = this.service.getAllCustomers();
+    this.customers$ = this.service.getAllCustomers();
 
     this.sellSubtotalValue$ = this.service.sellSubtotalValue$.pipe();
     this.sellTotalValue$ = this.service.sellTotalValue$.pipe();
