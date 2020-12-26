@@ -21,9 +21,9 @@ export interface SalespersonManagementFormDialogData {
 
 @Component({
   providers: [ SalespersonManagerFormService ],
-  selector: 'app-seller-manager-form-dialog',
-  templateUrl: './seller-manager-form-dialog.component.html',
-  styleUrls: [ './seller-manager-form-dialog.component.css' ]
+  selector: 'app-salesperson-manager-form-dialog',
+  templateUrl: './salesperson-manager-form-dialog.component.html',
+  styleUrls: [ './salesperson-manager-form-dialog.component.css' ]
 })
 export class SalespersonManagerFormDialogComponent
   extends DataManagerFormComponentDirective<Salesperson>

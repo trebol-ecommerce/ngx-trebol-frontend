@@ -50,7 +50,7 @@ export class SellManagerFormDialogComponent
   public formGroup: FormGroup;
   public sellDate: string = (new Date()).toLocaleDateString();
   public get type(): FormControl { return this.formGroup.get('type') as FormControl; }
-  public get seller(): FormControl { return this.formGroup.get('seller') as FormControl; }
+  public get salesperson(): FormControl { return this.formGroup.get('salesperson') as FormControl; }
   public get customer(): FormControl { return this.formGroup.get('customer') as FormControl; }
 
   public sellIsntReady$: Observable<boolean>;
@@ -69,7 +69,7 @@ export class SellManagerFormDialogComponent
     super();
     this.formGroup = this.formBuilder.group({
       type: [null, Validators.required],
-      seller: [null],
+      salesperson: [null],
       customer: [null, Validators.required]
     });
 
@@ -88,7 +88,7 @@ export class SellManagerFormDialogComponent
       this.customer.setValue(s.customer.id, { emitEvent: false, onlySelf: true });
     }
     if (s.salesperson?.id) {
-      this.seller.setValue(s.salesperson.id, { emitEvent: false, onlySelf: true });
+      this.salesperson.setValue(s.salesperson.id, { emitEvent: false, onlySelf: true });
     }
 
     if (this.itemId) {
@@ -158,7 +158,7 @@ export class SellManagerFormDialogComponent
           type: { id: this.type.value },
           soldOn: this.sellDate ? this.sellDate : null,
           customer: { id: this.customer.value },
-          salesperson: { id: this.seller.value },
+          salesperson: { id: this.salesperson.value },
           details: this.sellDetails
         }
       );

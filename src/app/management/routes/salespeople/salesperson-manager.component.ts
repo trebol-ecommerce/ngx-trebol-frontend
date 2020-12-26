@@ -16,7 +16,7 @@ import { SalespersonManagerService } from './salesperson-manager.service';
 import { SalespersonManagementFormDialogData, SalespersonManagerFormDialogComponent } from './form-dialog/salesperson-manager-form-dialog.component';
 
 @Component({
-  selector: 'app-seller-manager',
+  selector: 'app-salesperson-manager',
   templateUrl: './salesperson-manager.component.html',
   styleUrls: [
     '../data-manager.styles.css',
