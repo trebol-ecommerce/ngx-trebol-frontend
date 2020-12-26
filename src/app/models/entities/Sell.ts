@@ -5,7 +5,7 @@
 
 import { AbstractEntity } from 'src/app/models/AbstractEntity';
 import { Customer } from './Customer';
-import { Seller } from './Seller';
+import { Salesperson } from './Salesperson';
 import { SellDetail } from './SellDetail';
 import { SellType } from './SellType';
 
@@ -19,5 +19,5 @@ export class Sell
   public customer: Partial<Customer>;
 
   public subtotalValue?: number;
-  public seller?: Partial<Seller>;
+  public seller?: Partial<Salesperson>;
 }

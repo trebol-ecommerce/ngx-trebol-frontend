@@ -5,16 +5,10 @@
 
 import { AbstractEntity } from 'src/app/models/AbstractEntity';
 import { Person } from './Person';
-import { Salesperson } from './Salesperson';
-import { Login } from '../Login';
 
-export class User
-  implements AbstractEntity, Partial<Login> {
+export class Salesperson
+  implements AbstractEntity {
 
   public id: number;
-  public name: string;
-  public createdOn?: string;
-  public password?: string;
-
-  public person: Partial<Person>;
+  public person?: Person;
 }

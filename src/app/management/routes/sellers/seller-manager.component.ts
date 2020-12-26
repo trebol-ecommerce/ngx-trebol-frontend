@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Seller } from 'src/app/models/entities/Seller';
+import { Salesperson } from 'src/app/models/entities/Salesperson';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerComponentDirective } from '../data-manager.component-directive';
 import { SellerManagerService } from './seller-manager.service';
@@ -24,7 +24,7 @@ import { SellerManagementFormDialogData, SellerManagerFormDialogComponent } from
   ]
 })
 export class SellerManagerComponent
-  extends DataManagerComponentDirective<Seller>
+  extends DataManagerComponentDirective<Salesperson>
   implements OnInit {
 
   public tableColumns: string[] = [ 'name', 'idCard', 'actions' ];
@@ -48,7 +48,7 @@ export class SellerManagerComponent
     );
   }
 
-  public openFormDialog(seller: Seller): Observable<Seller> {
+  public openFormDialog(seller: Salesperson): Observable<Salesperson> {
     const dialogData: SellerManagementFormDialogData = { seller };
 
     return this.dialogService.open(
@@ -60,7 +60,7 @@ export class SellerManagerComponent
     ).afterClosed();
   }
 
-  public onClickDelete(e: Seller) {
+  public onClickDelete(e: Salesperson) {
     this.service.removeItems([e]).pipe(
       map(results => results[0])
     ).subscribe(

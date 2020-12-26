@@ -6,15 +6,15 @@
 import { Inject, Injectable } from '@angular/core';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { EntityDataApiIService } from 'src/app/api/data/entity-data-api.iservice';
-import { Seller } from 'src/app/models/entities/Seller';
+import { Salesperson } from 'src/app/models/entities/Salesperson';
 import { DataManagerFormServiceDirective } from '../../data-manager-form.service-directive';
 
 @Injectable()
 export class SellerManagerFormService
-  extends DataManagerFormServiceDirective<Seller> {
+  extends DataManagerFormServiceDirective<Salesperson> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.sellersCrud) protected dataService: EntityDataApiIService<Seller>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.sellersCrud) protected dataService: EntityDataApiIService<Salesperson>,
   ) {
     super();
   }

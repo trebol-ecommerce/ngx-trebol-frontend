@@ -8,7 +8,7 @@ import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { concatMap, map, switchMap, toArray } from 'rxjs/operators';
 import { DataManagerFormServiceDirective } from '../../data-manager-form.service-directive';
 import { Customer } from 'src/app/models/entities/Customer';
-import { Seller } from 'src/app/models/entities/Seller';
+import { Salesperson } from 'src/app/models/entities/Salesperson';
 import { Product } from 'src/app/models/entities/Product';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
@@ -34,7 +34,7 @@ export class SellManagerFormService
     @Inject(API_SERVICE_INJECTION_TOKENS.salesCrud) protected dataService: CompositeEntityDataApiIService<Sell, SellDetail>,
     @Inject(API_SERVICE_INJECTION_TOKENS.productsCrud) protected productDataService: EntityDataApiIService<Product>,
     @Inject(API_SERVICE_INJECTION_TOKENS.customersCrud) protected customersDataService: EntityDataApiIService<Customer>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.sellersCrud) protected sellerDataService: EntityDataApiIService<Seller>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.sellersCrud) protected sellerDataService: EntityDataApiIService<Salesperson>,
     @Inject(API_SERVICE_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataApiIService,
   ) {
     super();
@@ -58,7 +58,7 @@ export class SellManagerFormService
     return this.sharedDataService.readAllSellTypes();
   }
 
-  public getAllSellers(): Observable<Seller[]> {
+  public getAllSellers(): Observable<Salesperson[]> {
     return this.sellerDataService.readAll();
   }
 

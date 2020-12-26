@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { merge, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Customer } from 'src/app/models/entities/Customer';
-import { Seller } from 'src/app/models/entities/Seller';
+import { Salesperson } from 'src/app/models/entities/Salesperson';
 import { Product } from 'src/app/models/entities/Product';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
@@ -44,7 +44,7 @@ export class SellManagerFormDialogComponent
   public sellTotalValue$: Observable<number>;
 
   public sellTypes$: Observable<SellType[]>;
-  public sellers$: Observable<Seller[]>;
+  public sellers$: Observable<Salesperson[]>;
   public customers$: Observable<Customer[]>;
 
   public formGroup: FormGroup;

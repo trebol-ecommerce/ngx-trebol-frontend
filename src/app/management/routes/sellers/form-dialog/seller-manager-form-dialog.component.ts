@@ -8,7 +8,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { Seller } from 'src/app/models/entities/Seller';
+import { Salesperson } from 'src/app/models/entities/Salesperson';
 import { Person } from 'src/app/models/entities/Person';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
@@ -16,7 +16,7 @@ import { DataManagerFormComponentDirective } from '../../data-manager-form.compo
 import { SellerManagerFormService } from './seller-manager-form.service';
 
 export interface SellerManagementFormDialogData {
-  seller: Seller;
+  seller: Salesperson;
 }
 
 @Component({
@@ -26,7 +26,7 @@ export interface SellerManagementFormDialogData {
   styleUrls: [ './seller-manager-form-dialog.component.css' ]
 })
 export class SellerManagerFormDialogComponent
-  extends DataManagerFormComponentDirective<Seller>
+  extends DataManagerFormComponentDirective<Salesperson>
   implements AfterViewInit {
 
   protected itemId: number;
@@ -52,7 +52,7 @@ export class SellerManagerFormDialogComponent
     });
   }
 
-  protected load(e: Seller): void {
+  protected load(e: Salesperson): void {
     this.itemId = e.id ? e.id : 0;
 
     this.personForm.person = (e.person) ? e.person : new Person();
@@ -61,16 +61,16 @@ export class SellerManagerFormDialogComponent
   ngAfterViewInit(): void {
     this.formGroup.addControl('person', this.personForm.formGroup);
 
-    const item: Seller = (this.data?.seller) ? this.data.seller : new Seller();
+    const item: Salesperson = (this.data?.seller) ? this.data.seller : new Salesperson();
     this.load(item);
   }
 
-  public asItem(): Seller {
+  public asItem(): Salesperson {
     if (this.formGroup.invalid) {
       return undefined;
     } else {
-      return Object.assign<Seller, Partial<Seller>>(
-        new Seller(),
+      return Object.assign<Salesperson, Partial<Salesperson>>(
+        new Salesperson(),
         {
           id: this.itemId,
           person: this.personForm.asPerson()
