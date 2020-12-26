@@ -18,7 +18,7 @@ import { LocalMemoryDataAccessApiService } from './local-memory-data-access-api.
  */
 @NgModule({
   providers: [
-    { provide: API_SERVICE_INJECTION_TOKENS.clientsCrud, useClass: ClientsLocalMemoryDataApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.customersCrud, useClass: ClientsLocalMemoryDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.sellersCrud, useClass: SellersLocalMemoryDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.productsCrud, useClass: ProductsLocalMemoryDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.shared, useClass: SharedLocalMemoryDataService },

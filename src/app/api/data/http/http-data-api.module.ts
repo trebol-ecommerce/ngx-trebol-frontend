@@ -25,7 +25,7 @@ import { HttpDataAccessApiService } from './http-data-access-api.service';
     HttpClientModule
   ],
   providers: [
-    { provide: API_SERVICE_INJECTION_TOKENS.clientsCrud, useClass: ClientsHttpDataApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.customersCrud, useClass: ClientsHttpDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.sellersCrud, useClass: SellersHttpDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.productsCrud, useClass: ProductsHttpDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.shared, useClass: SharedHttpDataApiService },

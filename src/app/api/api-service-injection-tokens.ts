@@ -10,7 +10,7 @@ export const API_SERVICE_INJECTION_TOKENS = {
   store: 'StoreCatalogData',
   shared: 'SharedData',
   dataAccess: 'DataAccess',
-  clientsCrud: 'ClientsCrud',
+  customersCrud: 'CustomersCrud',
   sellersCrud: 'SellersCrud',
   productsCrud: 'ProductsCrud',
   usersCrud: 'UsersCrud',

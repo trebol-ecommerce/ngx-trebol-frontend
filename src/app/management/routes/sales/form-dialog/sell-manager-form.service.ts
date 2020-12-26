@@ -33,7 +33,7 @@ export class SellManagerFormService
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.salesCrud) protected dataService: CompositeEntityDataApiIService<Sell, SellDetail>,
     @Inject(API_SERVICE_INJECTION_TOKENS.productsCrud) protected productDataService: EntityDataApiIService<Product>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.clientsCrud) protected clientDataService: EntityDataApiIService<Customer>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.customersCrud) protected clientDataService: EntityDataApiIService<Customer>,
     @Inject(API_SERVICE_INJECTION_TOKENS.sellersCrud) protected sellerDataService: EntityDataApiIService<Seller>,
     @Inject(API_SERVICE_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataApiIService,
   ) {
