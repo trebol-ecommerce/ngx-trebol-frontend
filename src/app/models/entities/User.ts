@@ -17,6 +17,4 @@ export class User
   public password?: string;
 
   public person: Partial<Person>;
-  public seller?: Seller;
-  public clientId?: number;
 }
