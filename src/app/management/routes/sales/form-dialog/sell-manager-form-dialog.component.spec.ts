@@ -21,7 +21,7 @@ describe('SellManagerFormDialogComponent', () => {
       refreshSellDetailsFromId(i) {},
       getAllSellTypes() { return of([]); },
       getAllSellers() { return of([]); },
-      getAllClients() { return of([]); },
+      getAllCustomers() { return of([]); },
       sellDetails$: of([]),
       sellSubtotalValue$: of(0),
       sellTotalValue$: of(0),

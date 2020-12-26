@@ -103,7 +103,7 @@ export class SellManagerFormDialogComponent
 
     this.sellTypes$ = this.service.getAllSellTypes();
     this.sellers$ = this.service.getAllSellers();
-    this.clients$ = this.service.getAllClients();
+    this.clients$ = this.service.getAllCustomers();
 
     this.sellSubtotalValue$ = this.service.sellSubtotalValue$.pipe();
     this.sellTotalValue$ = this.service.sellTotalValue$.pipe();

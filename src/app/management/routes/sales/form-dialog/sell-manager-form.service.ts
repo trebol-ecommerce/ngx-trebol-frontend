@@ -62,7 +62,7 @@ export class SellManagerFormService
     return this.sellerDataService.readAll();
   }
 
-  public getAllClients(): Observable<Customer[]> {
+  public getAllCustomers(): Observable<Customer[]> {
     return this.clientDataService.readAll();
   }
 

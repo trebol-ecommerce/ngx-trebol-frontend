@@ -39,7 +39,7 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
     resolve: { access: ProductManagerAccessResolver }
   },
   {
-    path: 'clients', component: CustomerManagerComponent,
+    path: 'customers', component: CustomerManagerComponent,
     data: { matIcon: 'face', title: 'Clientes' },
     resolve: { access: ClientManagerAccessResolver }
   },
