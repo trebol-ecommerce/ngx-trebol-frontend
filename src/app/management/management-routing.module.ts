@@ -7,7 +7,7 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule, Routes } from '@angular/router';
 import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementComponent } from './management.component';
-import { ClientManagerAccessResolver } from './routes/customers/customer-manager.access-resolver';
+import { CustomerManagerAccessResolver } from './routes/customers/customer-manager.access-resolver';
 import { CustomerManagerComponent } from './routes/customers/customer-manager.component';
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
 import { ProductManagerAccessResolver } from './routes/products/product-manager.access-resolver';
@@ -41,7 +41,7 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
   {
     path: 'customers', component: CustomerManagerComponent,
     data: { matIcon: 'face', title: 'Clientes' },
-    resolve: { access: ClientManagerAccessResolver }
+    resolve: { access: CustomerManagerAccessResolver }
   },
   {
     path: 'sellers', component: SellerManagerComponent,

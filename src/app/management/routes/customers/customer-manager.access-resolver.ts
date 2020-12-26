@@ -12,7 +12,7 @@ import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 import { DataAccessApiIService } from 'src/app/api/data/data-access.api.iservice';
 
 @Injectable({ providedIn: 'root' })
-export class ClientManagerAccessResolver
+export class CustomerManagerAccessResolver
   implements Resolve<AuthorizedAccess> {
 
   constructor(
