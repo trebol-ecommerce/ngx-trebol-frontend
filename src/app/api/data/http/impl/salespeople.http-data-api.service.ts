@@ -19,7 +19,7 @@ export class SalespeopleHttpDataApiService
     protected http: HttpClient
   ) {
     super();
-    this.baseURI = `${this.baseURI}/sellers`;
+    this.baseURI = `${this.baseURI}/salespeople`;
   }
 
   public create(instance: Salesperson): Observable<number> {
