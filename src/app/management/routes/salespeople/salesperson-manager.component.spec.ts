@@ -6,13 +6,14 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { ClientManagerComponent } from './client-manager.component';
-import { ClientManagerService } from './client-manager.service';
+import { AngularMaterialModule } from 'src/app/shared/angular-material.module';
+import { SalespersonManagerComponent } from './salesperson-manager.component';
+import { SalespersonManagerService } from './salesperson-manager.service';
 
-describe('ClientManagerComponent', () => {
-  let component: ClientManagerComponent;
-  let fixture: ComponentFixture<ClientManagerComponent>;
-  let managerService: Partial<ClientManagerService>;
+describe('SalespersonManagerComponent', () => {
+  let component: SalespersonManagerComponent;
+  let fixture: ComponentFixture<SalespersonManagerComponent>;
+  let managerService: Partial<SalespersonManagerService>;
 
   beforeEach(waitForAsync(() => {
     managerService = {
@@ -29,18 +30,19 @@ describe('ClientManagerComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        AngularMaterialModule,
         RouterTestingModule
       ],
-      declarations: [ ClientManagerComponent ],
+      declarations: [ SalespersonManagerComponent ],
       providers: [
-        { provide: ClientManagerService, useValue: managerService }
+        { provide: SalespersonManagerService, useValue: managerService }
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ClientManagerComponent);
+    fixture = TestBed.createComponent(SalespersonManagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -3,10 +3,10 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { AbstractEntity } from '../AbstractEntity';
+import { AbstractEntity } from 'src/app/models/AbstractEntity';
 import { Person } from './Person';
 
-export class Client
+export class Salesperson
   implements AbstractEntity {
 
   public id: number;

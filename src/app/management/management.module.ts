@@ -15,12 +15,12 @@ import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementRoutingModule } from './management-routing.module';
 import { ManagementComponent } from './management.component';
 import { ManagementService } from './management.service';
-import { ClientManagerComponent } from './routes/clients/client-manager.component';
-import { ClientManagerService } from './routes/clients/client-manager.service';
+import { CustomerManagerComponent } from './routes/customers/customer-manager.component';
+import { CustomerManagerService } from './routes/customers/customer-manager.service';
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
-import { SellerManagerComponent } from './routes/sellers/seller-manager.component';
-import { SellerManagerService } from './routes/sellers/seller-manager.service';
-import { SellerManagerFormDialogComponent } from './routes/sellers/form-dialog/seller-manager-form-dialog.component';
+import { SalespersonManagerComponent } from './routes/salespeople/salesperson-manager.component';
+import { SalespersonManagerService } from './routes/salespeople/salesperson-manager.service';
+import { SalespersonManagerFormDialogComponent } from './routes/salespeople/form-dialog/salesperson-manager-form-dialog.component';
 import { ProductManagerFormDialogComponent } from './routes/products/form-dialog/product-manager-form-dialog.component';
 import { ProductManagerComponent } from './routes/products/product-manager.component';
 import { ProductManagerService } from './routes/products/product-manager.service';
@@ -45,9 +45,9 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ProductsArrayDialogComponent,
     ManagementDataActionsComponent,
     ManagementDashboardComponent,
-    ClientManagerComponent,
-    SellerManagerComponent,
-    SellerManagerFormDialogComponent,
+    CustomerManagerComponent,
+    SalespersonManagerComponent,
+    SalespersonManagerFormDialogComponent,
     ProductManagerComponent,
     ProductManagerFormDialogComponent,
     SellManagerComponent,
@@ -63,8 +63,8 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: SNACKBAR_DEFAULTS },
     ManagementRoutingGuard,
     ManagementService,
-    ClientManagerService,
-    SellerManagerService,
+    CustomerManagerService,
+    SalespersonManagerService,
     ProductManagerService,
     UserManagerService,
     SellManagerService

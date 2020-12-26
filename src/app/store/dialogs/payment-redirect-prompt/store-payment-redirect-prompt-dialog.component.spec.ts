@@ -16,7 +16,7 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     storeService = {
-      submitCart() { return of({ url: '', token_ws: '' }); }
+      submitCart() { return of({ url: '', token: '' }); }
     };
     spyOn(storeService, 'submitCart').and.callThrough();
 

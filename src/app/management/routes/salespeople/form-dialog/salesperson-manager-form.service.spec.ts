@@ -5,19 +5,19 @@
 
 import { TestBed } from '@angular/core/testing';
 import { LocalMemoryDataModule } from 'src/app/api/data/local-memory/local-memory-data-api.module';
-import { SellerManagerFormService } from './seller-manager-form.service';
+import { SalespersonManagerFormService } from './salesperson-manager-form.service';
 
-describe('SellerManagerFormService', () => {
-  let service: SellerManagerFormService;
+describe('SalespersonManagerFormService', () => {
+  let service: SalespersonManagerFormService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ LocalMemoryDataModule ],
       providers: [
-        SellerManagerFormService
+        SalespersonManagerFormService
       ]
     });
-    service = TestBed.inject(SellerManagerFormService);
+    service = TestBed.inject(SalespersonManagerFormService);
   });
 
   it('should be created', () => {

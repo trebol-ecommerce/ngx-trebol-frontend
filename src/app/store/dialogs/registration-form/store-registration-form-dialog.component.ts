@@ -6,7 +6,7 @@
 import { Component, OnDestroy, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
 import { User } from 'src/app/models/entities/User';
@@ -28,7 +28,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class StoreRegistrationFormDialogComponent
   implements OnInit, OnDestroy {
 
-  protected registeringSource: Subject<boolean> = new Subject();
+  protected registeringSource: Subject<boolean> = new BehaviorSubject(false);
 
   public registering$: Observable<boolean> = this.registeringSource.asObservable();
 
@@ -85,20 +85,22 @@ export class StoreRegistrationFormDialogComponent
   }
 
   public onSubmit(): void {
-    this.registeringSource.next(true);
-    const details: Registration = this.asItem();
-    this.appService.register(details).subscribe(
-      s => {
-        if (s) {
-          this.snackBarService.open('Su cuenta fue creada con éxito.\nYa puede iniciar sesión con sus credenciales.', 'OK');
-          this.registeringSource.complete();
-          this.dialog.close(true);
-        } else {
-          this.snackBarService.open('Hubo un error al crear su cuenta. Por, favor inténtelo nuevamente.', 'OK');
-          this.registeringSource.next(false);
+    if (this.formGroup.valid) {
+      this.registeringSource.next(true);
+      const details: Registration = this.asItem();
+      this.appService.register(details).subscribe(
+        s => {
+          if (s) {
+            this.snackBarService.open('Su cuenta fue creada con éxito.\nYa puede iniciar sesión con sus credenciales.', 'OK');
+            this.registeringSource.complete();
+            this.dialog.close(true);
+          } else {
+            this.snackBarService.open('Hubo un error al crear su cuenta. Por, favor inténtelo nuevamente.', 'OK');
+            this.registeringSource.next(false);
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   public onCancel(): void {

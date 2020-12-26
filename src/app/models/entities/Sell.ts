@@ -4,8 +4,8 @@
 // https://opensource.org/licenses/MIT
 
 import { AbstractEntity } from 'src/app/models/AbstractEntity';
-import { Client } from './Client';
-import { Seller } from './Seller';
+import { Customer } from './Customer';
+import { Salesperson } from './Salesperson';
 import { SellDetail } from './SellDetail';
 import { SellType } from './SellType';
 
@@ -16,8 +16,8 @@ export class Sell
   public details: SellDetail[];
   public type: Partial<SellType>;
   public soldOn: string;
-  public client: Partial<Client>;
+  public customer: Partial<Customer>;
 
   public subtotalValue?: number;
-  public seller?: Partial<Seller>;
+  public salesperson?: Partial<Salesperson>;
 }

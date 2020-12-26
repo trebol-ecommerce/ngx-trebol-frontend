@@ -124,14 +124,6 @@ export class StoreHeaderComponent
         width: '24rem'
       }
     ).afterClosed().subscribe();
-    // TODO reimplement this somehow?
-    //   () => {
-    //     const ssn = this.appService.isUserLoggedIn();
-    //     if (ssn.user?.seller?.role.id === SellerRolesEnum.Administrador) {
-    //       this.promptManagementRedirect();
-    //     }
-    //   }
-    // );
   }
 
   public onClickEditProfile(): void {

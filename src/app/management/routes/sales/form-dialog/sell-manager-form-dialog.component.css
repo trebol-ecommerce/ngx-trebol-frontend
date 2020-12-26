@@ -15,9 +15,9 @@ form {
   grid-template-areas:
     'date'
     'type'
-    'seller'
-    'seller'
-    'client'
+    'salesperson'
+    'salesperson'
+    'customer'
     'details'
     'summary';
 }
@@ -26,8 +26,8 @@ form {
   form {
     grid-template-areas:
       'date type'
-      'seller seller'
-      'client client'
+      'salesperson salesperson'
+      'customer customer'
       'details details'
       'summary summary';
   }
@@ -37,7 +37,7 @@ form {
   form {
     grid-template-areas:
       'date date type type none none'
-      'seller seller seller client client client'
+      'salesperson salesperson salesperson customer customer customer'
       'details details details details details details'
       'summary summary summary summary summary summary';
   }

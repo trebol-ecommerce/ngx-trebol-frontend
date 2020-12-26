@@ -5,7 +5,6 @@
 
 import { AbstractEntity } from 'src/app/models/AbstractEntity';
 import { Person } from './Person';
-import { Seller } from './Seller';
 import { Login } from '../Login';
 
 export class User
@@ -17,6 +16,4 @@ export class User
   public password?: string;
 
   public person: Partial<Person>;
-  public seller?: Seller;
-  public clientId?: number;
 }

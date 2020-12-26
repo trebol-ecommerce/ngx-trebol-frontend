@@ -4,10 +4,10 @@
 // https://opensource.org/licenses/MIT
 
 import { Injectable } from '@angular/core';
-import { Client } from 'src/app/models/entities/Client';
+import { Customer } from 'src/app/models/entities/Customer';
 import { EntityLocalMemoryDataApiService } from '../entity.local-memory-data-api.aservice';
 
-export const MOCK_CLIENTS: Partial<Client>[] = [
+export const MOCK_CUSTOMERS: Partial<Customer>[] = [
   {
     id: 1,
     person: {
@@ -61,10 +61,10 @@ export const MOCK_CLIENTS: Partial<Client>[] = [
 ];
 
 @Injectable()
-export class ClientsLocalMemoryDataApiService
-  extends EntityLocalMemoryDataApiService<Client> {
+export class CustomersLocalMemoryDataApiService
+  extends EntityLocalMemoryDataApiService<Customer> {
 
-  protected items: Client[] = MOCK_CLIENTS.map(n => Object.assign(new Client(), n));
+  protected items: Customer[] = MOCK_CUSTOMERS.map(n => Object.assign(new Customer(), n));
 
   constructor() {
     super();

@@ -6,26 +6,26 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Client } from 'src/app/models/entities/Client';
+import { Customer } from 'src/app/models/entities/Customer';
 import { DataManagerComponentDirective } from '../data-manager.component-directive';
-import { ClientManagerService } from './client-manager.service';
+import { CustomerManagerService } from './customer-manager.service';
 
 @Component({
-  selector: 'app-client-manager',
-  templateUrl: './client-manager.component.html',
+  selector: 'app-customer-manager',
+  templateUrl: './customer-manager.component.html',
   styleUrls: [
     '../data-manager.styles.css',
-    './client-manager.component.css'
+    './customer-manager.component.css'
   ]
 })
-export class ClientManagerComponent
-  extends DataManagerComponentDirective<Client>
+export class CustomerManagerComponent
+  extends DataManagerComponentDirective<Customer>
   implements OnInit {
 
   public tableColumns: string[] = [ 'name', 'idCard' ];
 
   constructor(
-    protected service: ClientManagerService,
+    protected service: CustomerManagerService,
     protected route: ActivatedRoute
   ) {
     super();
@@ -41,7 +41,7 @@ export class ClientManagerComponent
     );
   }
 
-  public openFormDialog(item: Client): Observable<Client> {
+  public openFormDialog(item: Customer): Observable<Customer> {
     throw new Error('Method not implemented.');
   }
 

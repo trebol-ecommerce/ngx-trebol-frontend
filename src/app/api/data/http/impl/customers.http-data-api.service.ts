@@ -6,52 +6,52 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Seller } from 'src/app/models/entities/Seller';
+import { Customer } from 'src/app/models/entities/Customer';
 import { HttpDataApiService } from '../http-data-api.aservice';
 import { EntityDataApiIService } from '../../entity-data-api.iservice';
 
 @Injectable()
-export class SellersHttpDataApiService
+export class CustomersHttpDataApiService
   extends HttpDataApiService
-  implements EntityDataApiIService<Seller> {
+  implements EntityDataApiIService<Customer> {
 
   constructor(
     protected http: HttpClient
   ) {
     super();
-    this.baseURI = `${this.baseURI}/sellers`;
+    this.baseURI = `${this.baseURI}/customers`;
   }
 
-  public create(seller: Seller): Observable<number> {
+  public create(instance: Customer): Observable<number> {
     return this.http.post<number>(
       this.baseURI,
-      seller
+      instance
     );
   }
 
-  public readById(id: number): Observable<Seller> {
-    return this.http.get<Seller>(
+  public readById(id: number): Observable<Customer> {
+    return this.http.get<Customer>(
       `${this.baseURI}/${id}`
     );
   }
 
-  public readAll(): Observable<Seller[]> {
-    return this.http.get<Seller[]>(
-      this.baseURI,
+  public readAll(): Observable<Customer[]> {
+    return this.http.get<Customer[]>(
+      this.baseURI
     );
   }
 
-  public readFiltered(filters: any): Observable<Seller[]> {
-    return this.http.get<Seller[]>(
+  public readFiltered(filters: any): Observable<Customer[]> {
+    return this.http.get<Customer[]>(
       this.baseURI,
       this.httpParamsOf(filters)
     );
   }
 
-  public update(seller: Seller, id: number): Observable<number> {
+  public update(instance: Customer, id: number): Observable<number> {
     return this.http.put<number>(
       `${this.baseURI}/${id}`,
-      seller
+      instance
     );
   }
 

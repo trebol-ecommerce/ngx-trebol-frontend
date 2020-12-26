@@ -7,15 +7,15 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule, Routes } from '@angular/router';
 import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementComponent } from './management.component';
-import { ClientManagerAccessResolver } from './routes/clients/client-manager.access-resolver';
-import { ClientManagerComponent } from './routes/clients/client-manager.component';
+import { CustomerManagerAccessResolver } from './routes/customers/customer-manager.access-resolver';
+import { CustomerManagerComponent } from './routes/customers/customer-manager.component';
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
 import { ProductManagerAccessResolver } from './routes/products/product-manager.access-resolver';
 import { ProductManagerComponent } from './routes/products/product-manager.component';
 import { SellManagerAccessResolver } from './routes/sales/sell-manager.access-resolver';
 import { SellManagerComponent } from './routes/sales/sell-manager.component';
-import { SellerManagerAccessResolver } from './routes/sellers/seller-manager.access-resolver';
-import { SellerManagerComponent } from './routes/sellers/seller-manager.component';
+import { SalespersonManagerAccessResolver } from './routes/salespeople/salesperson-manager.access-resolver';
+import { SalespersonManagerComponent } from './routes/salespeople/salesperson-manager.component';
 import { UserManagerAccessResolver } from './routes/users/user-manager.access-resolver';
 import { UserManagerComponent } from './routes/users/user-manager.component';
 
@@ -39,14 +39,14 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
     resolve: { access: ProductManagerAccessResolver }
   },
   {
-    path: 'clients', component: ClientManagerComponent,
+    path: 'customers', component: CustomerManagerComponent,
     data: { matIcon: 'face', title: 'Clientes' },
-    resolve: { access: ClientManagerAccessResolver }
+    resolve: { access: CustomerManagerAccessResolver }
   },
   {
-    path: 'sellers', component: SellerManagerComponent,
+    path: 'salespeople', component: SalespersonManagerComponent,
     data: { matIcon: 'work_outline', title: 'Vendedores' },
-    resolve: { access: SellerManagerAccessResolver }
+    resolve: { access: SalespersonManagerAccessResolver }
   },
   {
     path: 'users', component: UserManagerComponent,

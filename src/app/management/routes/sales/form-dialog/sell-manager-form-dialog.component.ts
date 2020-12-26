@@ -9,8 +9,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { merge, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { Client } from 'src/app/models/entities/Client';
-import { Seller } from 'src/app/models/entities/Seller';
+import { Customer } from 'src/app/models/entities/Customer';
+import { Salesperson } from 'src/app/models/entities/Salesperson';
 import { Product } from 'src/app/models/entities/Product';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
@@ -44,14 +44,14 @@ export class SellManagerFormDialogComponent
   public sellTotalValue$: Observable<number>;
 
   public sellTypes$: Observable<SellType[]>;
-  public sellers$: Observable<Seller[]>;
-  public clients$: Observable<Client[]>;
+  public salespeople$: Observable<Salesperson[]>;
+  public customers$: Observable<Customer[]>;
 
   public formGroup: FormGroup;
   public sellDate: string = (new Date()).toLocaleDateString();
   public get type(): FormControl { return this.formGroup.get('type') as FormControl; }
-  public get seller(): FormControl { return this.formGroup.get('seller') as FormControl; }
-  public get client(): FormControl { return this.formGroup.get('client') as FormControl; }
+  public get salesperson(): FormControl { return this.formGroup.get('salesperson') as FormControl; }
+  public get customer(): FormControl { return this.formGroup.get('customer') as FormControl; }
 
   public sellIsntReady$: Observable<boolean>;
 
@@ -69,8 +69,8 @@ export class SellManagerFormDialogComponent
     super();
     this.formGroup = this.formBuilder.group({
       type: [null, Validators.required],
-      seller: [null],
-      client: [null, Validators.required]
+      salesperson: [null],
+      customer: [null, Validators.required]
     });
 
     const item: Sell = (this.data?.sell) ? this.data.sell : new Sell();
@@ -84,11 +84,11 @@ export class SellManagerFormDialogComponent
     if (s.type?.id) {
       this.type.setValue(s.type.id, { emitEvent: false, onlySelf: true });
     }
-    if (s.client?.id) {
-      this.client.setValue(s.client.id, { emitEvent: false, onlySelf: true });
+    if (s.customer?.id) {
+      this.customer.setValue(s.customer.id, { emitEvent: false, onlySelf: true });
     }
-    if (s.seller?.id) {
-      this.seller.setValue(s.seller.id, { emitEvent: false, onlySelf: true });
+    if (s.salesperson?.id) {
+      this.salesperson.setValue(s.salesperson.id, { emitEvent: false, onlySelf: true });
     }
 
     if (this.itemId) {
@@ -102,8 +102,8 @@ export class SellManagerFormDialogComponent
     this.sellDetails$ = this.service.sellDetails$.pipe(tap(details => { this.sellDetails = details; }));
 
     this.sellTypes$ = this.service.getAllSellTypes();
-    this.sellers$ = this.service.getAllSellers();
-    this.clients$ = this.service.getAllClients();
+    this.salespeople$ = this.service.getAllSalespeople();
+    this.customers$ = this.service.getAllCustomers();
 
     this.sellSubtotalValue$ = this.service.sellSubtotalValue$.pipe();
     this.sellTotalValue$ = this.service.sellTotalValue$.pipe();
@@ -157,8 +157,8 @@ export class SellManagerFormDialogComponent
           id: this.itemId,
           type: { id: this.type.value },
           soldOn: this.sellDate ? this.sellDate : null,
-          client: { id: this.client.value },
-          seller: { id: this.seller.value },
+          customer: { id: this.customer.value },
+          salesperson: { id: this.salesperson.value },
           details: this.sellDetails
         }
       );

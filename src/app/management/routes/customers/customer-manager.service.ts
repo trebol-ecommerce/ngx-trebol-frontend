@@ -4,17 +4,17 @@
 // https://opensource.org/licenses/MIT
 
 import { Inject, Injectable } from '@angular/core';
-import { Client } from 'src/app/models/entities/Client';
+import { Customer } from 'src/app/models/entities/Customer';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { EntityDataApiIService } from 'src/app/api/data/entity-data-api.iservice';
 import { DataManagerServiceDirective } from '../data-manager.service-directive';
 
 @Injectable()
-export class ClientManagerService
-  extends DataManagerServiceDirective<Client> {
+export class CustomerManagerService
+  extends DataManagerServiceDirective<Customer> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.clientsCrud) protected dataService: EntityDataApiIService<Client>
+    @Inject(API_SERVICE_INJECTION_TOKENS.customersCrud) protected dataService: EntityDataApiIService<Customer>
   ) {
     super();
   }

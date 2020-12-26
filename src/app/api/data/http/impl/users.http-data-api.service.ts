@@ -22,10 +22,10 @@ export class UsersHttpDataApiService
     this.baseURI = `${this.baseURI}/users`;
   }
 
-  public create(user: User): Observable<number> {
+  public create(instance: User): Observable<number> {
     return this.http.post<number>(
       this.baseURI,
-      user
+      instance
     );
   }
 
@@ -48,10 +48,10 @@ export class UsersHttpDataApiService
     );
   }
 
-  public update(user: User, id: string | number): Observable<number> {
+  public update(instance: User, id: string | number): Observable<number> {
     return this.http.put<number>(
       `${this.baseURI}/${id}`,
-      user
+      instance
     );
   }
 
