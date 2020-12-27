@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { StoreReceiptService } from './store-receipt.service';
+import { Receipt } from 'src/app/models/entities/Receipt';
+import { ReceiptDetail } from 'src/app/models/entities/ReceiptDetail';
 
 @Component({
   selector: 'app-store-receipt',
@@ -17,27 +19,26 @@ import { StoreReceiptService } from './store-receipt.service';
 })
 export class StoreReceiptComponent {
 
-  protected sell$: Observable<Sell>;
+  protected receipt$: Observable<Receipt>;
 
   public loading$: Observable<boolean>;
-  public details$: Observable<SellDetail[]>;
-  public soldOn$: Observable<string>;
+  public details$: Observable<ReceiptDetail[]>;
+  public date$: Observable<string>;
 
   constructor(
     protected service: StoreReceiptService,
     protected route: ActivatedRoute
   ) {
-    this.sell$ = this.service.sell$.pipe();
+    this.receipt$ = this.service.receipt$.pipe();
     this.loading$ = this.service.loading$.pipe();
     this.details$ = this.service.details$.pipe();
-    this.soldOn$ = this.service.soldOn$.pipe();
+    this.date$ = this.service.date$.pipe();
 
-    this.loadSell();
+    this.loadReceipt();
   }
 
-  private loadSell() {
-    console.log(this.route.snapshot);
+  private loadReceipt() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.service.fetchSell(id);
+    this.service.fetchReceipt(id);
   }
 }

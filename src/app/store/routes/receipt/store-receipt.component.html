@@ -12,7 +12,7 @@
     <mat-card>
       <div class="icon-wrapper"><mat-icon>receipt_long</mat-icon></div>
       <h2 mat-card-title>¡Compra realizada con éxito!</h2>
-      <span>Confirmada el {{ soldOn$ | async }}.</span><br/>
+      <span>Confirmada el {{ date$ | async }}.</span><br/>
       <span>Aquí están los detalles:</span>
       <mat-list>
         <mat-list-item *ngFor="let detail of (details$ | async)">
