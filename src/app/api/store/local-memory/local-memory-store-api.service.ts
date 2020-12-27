@@ -15,6 +15,7 @@ import { ProductFilters } from 'src/app/shared/product-filters-panel/product-fil
 import { MOCK_PRODUCT_TYPES, MOCK_PRODUCT_FAMILIES } from 'src/app/api/data/local-memory/impl/shared.local-memory-data-api.service';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
+import { Receipt } from 'src/app/models/entities/Receipt';
 
 export const MOCK_COMPANY_DETAILS: CompanyDetails = {
   name: 'Importaciones NBazaar',
@@ -109,5 +110,9 @@ export class LocalMemoryStoreApiService
 
   public submitCart(): Observable<ExternalPaymentRedirectionData> {
     return of(MOCK_EXTERNAL_PAYMENT_REDIRECT_DATA);
+  }
+
+  public fetchTransactionReceiptById(id: number): Observable<Receipt> {
+    throw new Error('Method not implemented.');
   }
 }
