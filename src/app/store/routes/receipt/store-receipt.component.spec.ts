@@ -6,9 +6,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { Sell } from 'src/app/models/entities/Sell';
 import { StoreReceiptComponent } from './store-receipt.component';
 import { StoreReceiptService } from './store-receipt.service';
+import { Receipt } from 'src/app/models/entities/Receipt';
 
 describe('StoreReceiptComponent', () => {
   let component: StoreReceiptComponent;
@@ -17,11 +17,11 @@ describe('StoreReceiptComponent', () => {
 
   beforeEach(waitForAsync(() => {
     service = {
-      sell$: of(new Sell()),
+      receipt$: of(new Receipt()),
       loading$: of(true),
       details$: of([]),
-      soldOn$: of(''),
-      fetchSell() { }
+      date$: of(''),
+      fetchReceipt() { }
     };
 
     TestBed.configureTestingModule({

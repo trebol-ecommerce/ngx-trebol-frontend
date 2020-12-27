@@ -11,6 +11,7 @@ import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
+import { Receipt } from 'src/app/models/entities/Receipt';
 
 export interface StoreApiIService {
   fetchProductById(id: number): Observable<Product>;
@@ -20,4 +21,5 @@ export interface StoreApiIService {
   fetchAllProductFamilies(): Observable<ProductFamily[]>;
   fetchCompanyDetails(): Observable<CompanyDetails>;
   submitCart(details: SellDetail[]): Observable<ExternalPaymentRedirectionData>;
+  fetchTransactionReceiptById(id: number): Observable<Receipt>;
 }

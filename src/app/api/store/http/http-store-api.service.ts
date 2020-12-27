@@ -16,6 +16,7 @@ import { CompanyDetails } from 'src/app/models/CompanyDetails';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 import { storeApiURL } from 'src/environments/store-api.environment';
+import { Receipt } from 'src/app/models/entities/Receipt';
 
 @Injectable()
 export class HttpStoreApiService
@@ -71,6 +72,12 @@ export class HttpStoreApiService
     return this.http.post<ExternalPaymentRedirectionData>(
       `${this.baseURI}/checkout`,
       details
+    );
+  }
+
+  public fetchTransactionReceiptById(id: number): Observable<Receipt> {
+    return this.http.get<Receipt>(
+      `${this.baseURI}/receipt/${id}`
     );
   }
 }

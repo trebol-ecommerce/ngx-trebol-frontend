@@ -7,6 +7,7 @@ import { TestBed } from '@angular/core/testing';
 import { LocalMemoryDataModule } from 'src/app/api/data/local-memory/local-memory-data-api.module';
 import { StoreReceiptService } from './store-receipt.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { LocalMemoryStoreApiModule } from 'src/app/api/store/local-memory/local-memory-store-api.module';
 
 describe('StoreReceiptService', () => {
   let service: StoreReceiptService;
@@ -15,7 +16,8 @@ describe('StoreReceiptService', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        LocalMemoryDataModule
+        LocalMemoryDataModule,
+        LocalMemoryStoreApiModule
       ],
       providers: [
         StoreReceiptService
