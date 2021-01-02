@@ -5,7 +5,6 @@
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, EMPTY } from 'rxjs';
 import { AppService } from 'src/app/app.service';
@@ -46,7 +45,6 @@ describe('StoreCartReviewComponent', () => {
         MatButtonModule,
         MatDialogModule,
         MatIconModule,
-        MatSnackBarModule,
         MatTableModule
       ],
       declarations: [ StoreCartReviewComponent ],
