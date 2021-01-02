@@ -19,19 +19,19 @@ import { Router } from '@angular/router';
 describe('StoreCartReviewComponent', () => {
   let component: StoreCartReviewComponent;
   let fixture: ComponentFixture<StoreCartReviewComponent>;
-  let storeService: Partial<StoreService>;
-  let appService: Partial<AppService>;
+  let mockStoreService: Partial<StoreService>;
+  let mockAppService: Partial<AppService>;
   let router: Router;
 
   beforeEach(waitForAsync(() => {
-    storeService = {
+    mockStoreService = {
       cartDetails$: of([]),
       cartSubtotalValue$: of(0),
       increaseProductUnits(i) {},
       decreaseProductUnits(i) {},
       removeProductFromCart(i) {}
     };
-    appService = {
+    mockAppService = {
       isLoggedIn() { return false; }
     };
 
@@ -46,8 +46,8 @@ describe('StoreCartReviewComponent', () => {
       ],
       declarations: [ StoreCartReviewComponent ],
       providers: [
-        { provide: StoreService, useValue: storeService },
-        { provide: AppService, useValue: appService }
+        { provide: StoreService, useValue: mockStoreService },
+        { provide: AppService, useValue: mockAppService }
       ]
     })
     .compileComponents();
