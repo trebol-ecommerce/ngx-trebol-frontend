@@ -15,6 +15,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { StorePaymentRedirectPromptDialogComponent } from '../../dialogs/payment-redirect-prompt/store-payment-redirect-prompt-dialog.component';
+import { StoreGuestPromptDialogComponent } from '../../dialogs/guest-prompt/store-guest-prompt-dialog.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('StoreCartReviewComponent', () => {
@@ -73,5 +75,20 @@ describe('StoreCartReviewComponent', () => {
     const isLoggedInSpy = spyOn(mockAppService, 'isLoggedIn');
     component.onClickAccept();
     expect(isLoggedInSpy).toHaveBeenCalled();
+  });
+
+  it('should prompt an options dialog when the user is not logged in after accepting their shopping cart', () => {
+    const dialogSpy = spyOn(dialogService, 'open').and.returnValue({ afterClosed() { return EMPTY; } });
+    component.onClickAccept();
+    expect(dialogSpy).toHaveBeenCalled();
+    expect(dialogSpy.calls.first().args[0]).toBe(StoreGuestPromptDialogComponent);
+  });
+
+  it('should prompt a payment redirection dialog when the user is logged in after accepting their shopping cart', () => {
+    mockAppService.isLoggedIn = (() => true);
+    const dialogSpy = spyOn(dialogService, 'open');
+    component.onClickAccept();
+    expect(dialogSpy).toHaveBeenCalled();
+    expect(dialogSpy.calls.first().args[0]).toBe(StorePaymentRedirectPromptDialogComponent);
   });
 });
