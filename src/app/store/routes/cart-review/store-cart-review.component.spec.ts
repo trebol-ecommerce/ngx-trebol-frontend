@@ -25,6 +25,7 @@ describe('StoreCartReviewComponent', () => {
   let mockAppService: Partial<AppService>;
   let router: Router;
   let dialogService: MatDialog;
+  let dialogOpenSpy: jasmine.Spy;
 
   beforeEach(waitForAsync(() => {
     mockStoreService = {
@@ -54,9 +55,11 @@ describe('StoreCartReviewComponent', () => {
       ]
     })
     .compileComponents();
+
     router = TestBed.inject(Router);
     spyOn(router, 'navigateByUrl');
     dialogService = TestBed.inject(MatDialog);
+    dialogOpenSpy = spyOn(dialogService, 'open').and.returnValue({ afterClosed() { return EMPTY; } });
   }));
 
   beforeEach(() => {
@@ -76,17 +79,15 @@ describe('StoreCartReviewComponent', () => {
   });
 
   it('should prompt an options dialog when the user is not logged in after accepting their shopping cart', () => {
-    const dialogSpy = spyOn(dialogService, 'open').and.returnValue({ afterClosed() { return EMPTY; } });
     component.onClickAccept();
-    expect(dialogSpy).toHaveBeenCalled();
-    expect(dialogSpy.calls.first().args[0]).toBe(StoreGuestPromptDialogComponent);
+    expect(dialogOpenSpy).toHaveBeenCalled();
+    expect(dialogOpenSpy.calls.first().args[0]).toBe(StoreGuestPromptDialogComponent);
   });
 
   it('should prompt a payment redirection dialog when the user is logged in after accepting their shopping cart', () => {
     mockAppService.isLoggedIn = (() => true);
-    const dialogSpy = spyOn(dialogService, 'open');
     component.onClickAccept();
-    expect(dialogSpy).toHaveBeenCalled();
-    expect(dialogSpy.calls.first().args[0]).toBe(StorePaymentRedirectPromptDialogComponent);
+    expect(dialogOpenSpy).toHaveBeenCalled();
+    expect(dialogOpenSpy.calls.first().args[0]).toBe(StorePaymentRedirectPromptDialogComponent);
   });
 });
