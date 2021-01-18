@@ -8,12 +8,14 @@ import { StoreGuestPromptDialogOptions } from './dialogs/guest-prompt/StoreGuest
 import { StoreGuestPromptDialogComponent } from './dialogs/guest-prompt/store-guest-prompt-dialog.component';
 import { concatMap } from 'rxjs/operators';
 import { StorePaymentRedirectPromptDialogComponent } from './dialogs/payment-redirect-prompt/store-payment-redirect-prompt-dialog.component';
+import { AppService } from '../app.service';
 
 @Injectable()
 export class StoreCustomerLoginWatchService {
 
   constructor(
-    protected dialogService: MatDialog
+    protected appService: AppService,
+    protected dialogService: MatDialog,
   ) {
 
   }
@@ -62,7 +64,7 @@ export class StoreCustomerLoginWatchService {
    * "follow up to a succesful authentication", then emit a void and complete, or
    * "be cancelled/fail to authenticate" and complete without emitting.
    */
-  public promptUserLoginChoices(): Observable<void> {
+  protected promptUserLoginChoices(): Observable<void> {
     return this.dialogService.open(
       StoreGuestPromptDialogComponent
     ).afterClosed().pipe(
@@ -83,12 +85,26 @@ export class StoreCustomerLoginWatchService {
    *
    * This method should only be called after acknowledging the user is logged in.
    */
-  public promptPaymentRedirection(): void {
+  protected promptPaymentRedirection(): void {
     this.dialogService.open(
       StorePaymentRedirectPromptDialogComponent,
       {
         width: '40rem'
       }
     );
+  }
+
+  public initiateCheckoutOrRequireAuthentication(): void {
+    if (this.appService.isLoggedIn()) {
+      this.promptPaymentRedirection();
+    } else {
+      this.promptUserLoginChoices().subscribe(
+        () => {
+          if (this.appService.isLoggedIn()) {
+            this.promptPaymentRedirection();
+          }
+        }
+      );
+    }
   }
 }
