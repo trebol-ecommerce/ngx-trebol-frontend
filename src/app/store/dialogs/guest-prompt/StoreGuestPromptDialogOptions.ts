@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 export enum StoreGuestPromptDialogOptions {
-  login,
+  login = 1, // pass falsy checks
   register,
   guest
 }
