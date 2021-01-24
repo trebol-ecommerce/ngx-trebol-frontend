@@ -126,7 +126,7 @@ export class StoreHeaderComponent
       {
         width: '24rem'
       }
-    ).afterClosed().subscribe();
+    );
   }
 
   public onClickEditProfile(): void {
