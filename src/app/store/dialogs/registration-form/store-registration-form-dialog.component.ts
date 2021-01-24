@@ -104,6 +104,7 @@ export class StoreRegistrationFormDialogComponent
   }
 
   public onCancel(): void {
+    this.appService.cancelAuthentication();
     this.dialog.close();
   }
 
