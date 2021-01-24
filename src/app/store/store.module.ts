@@ -26,7 +26,6 @@ import { StoreService } from './store.service';
 import { StoreRoutingModule } from './store-routing.module';
 import { StoreComponent } from './store.component';
 import { HttpClientModule } from '@angular/common/http';
-import { StoreCustomerLoginWatchService } from './store-customer-login-watch.service';
 
 
 const SNACKBAR_DEFAULTS = {
@@ -59,8 +58,7 @@ const SNACKBAR_DEFAULTS = {
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: SNACKBAR_DEFAULTS},
     StoreService,
     StoreReceiptService,
-    StoreCatalogService,
-    StoreCustomerLoginWatchService
+    StoreCatalogService
   ]
 })
 export class StoreModule { }
