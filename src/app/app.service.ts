@@ -4,12 +4,11 @@
 // https://opensource.org/licenses/MIT
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { catchError, finalize, mapTo, tap, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, Subject, ReplaySubject, throwError } from 'rxjs';
+import { catchError, finalize, mapTo, tap, switchMap, take } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { SessionApiIService } from 'src/app/api/session/session-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
-import { User } from 'src/app/models/entities/User';
 import { Login } from 'src/app/models/Login';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 import { DataAccessApiIService } from './api/data/data-access.api.iservice';
@@ -19,17 +18,21 @@ import { Registration } from './models/Registration';
 export class AppService
   implements OnDestroy {
 
-  protected isLoggedInChangesSource: Subject<boolean> = new BehaviorSubject(false);
-  protected isValidatingSessionSource: Subject<boolean> = new BehaviorSubject(false);
+  protected innerIsLoggedIn = false;
+
+  protected isLoggedInChangesSource = new Subject<boolean>();
+  protected isValidatingSessionSource = new BehaviorSubject<boolean>(false);
+  protected checkoutAuthCancelSource = new Subject<void>();
 
   public isLoggedInChanges$: Observable<boolean> = this.isLoggedInChangesSource.asObservable();
   public isValidatingSession$: Observable<boolean> = this.isValidatingSessionSource.asObservable();
+  public checkoutAuthCancel$ = this.checkoutAuthCancelSource.asObservable();
 
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.auth) protected authService: SessionApiIService,
     @Inject(API_SERVICE_INJECTION_TOKENS.dataAccess) protected apiAccessService: DataAccessApiIService
   ) {
-    this.fetchLoggedInState().subscribe();
+    this.validateSession().subscribe();
   }
 
   ngOnDestroy(): void {
@@ -37,20 +40,12 @@ export class AppService
     this.isValidatingSessionSource.complete();
   }
 
-  protected fetchLoggedInState(): Observable<boolean> {
-    return this.apiAccessService.getAuthorizedAccess().pipe(
-      mapTo(true),
-      catchError(() => of(false)),
-      tap(
-        r => {
-          this.isLoggedInChangesSource.next(r);
-        }
-      )
-    );
+  public isLoggedIn(): boolean {
+    return this.innerIsLoggedIn;
   }
 
-  public isLoggedIn(): boolean {
-    return (this.isLoggedInChangesSource as BehaviorSubject<boolean>)?.getValue();
+  public cancelAuthentication(): void {
+    this.checkoutAuthCancelSource.next();
   }
 
   public guestLogin(personDetails: Person): Observable<boolean> {
@@ -72,17 +67,15 @@ export class AppService
   }
 
   public login(credentials: Login): Observable<boolean> {
-    if (this.isLoggedIn()) {
-      return of(true);
-    } else {
-      return this.authService.login(credentials).pipe(
-        tap( // TODO and this tap too
-          success => {
-            this.isLoggedInChangesSource.next(true);
-          }
-        )
-      );
-    }
+    return !this.isLoggedIn() ?
+      this.authService.login(credentials).pipe(
+        catchError(() => of(false)),
+        tap(success => {
+          this.innerIsLoggedIn = success;
+          this.isLoggedInChangesSource.next(success);
+        })
+      ) :
+      of(true);
   }
 
   public validateSession(): Observable<boolean> {
@@ -91,8 +84,11 @@ export class AppService
     return this.apiAccessService.getAuthorizedAccess().pipe(
       mapTo(true),
       catchError(() => of(false)),
-      finalize(() => { this.isValidatingSessionSource.next(false); }),
-      tap(isValid => { if (!isValid) { this.closeCurrentSession(); } })
+      tap(isValid => {
+        this.innerIsLoggedIn = isValid;
+        this.isLoggedInChangesSource.next(isValid);
+      }),
+      finalize(() => { this.isValidatingSessionSource.next(false); })
     );
   }
 
@@ -109,6 +105,7 @@ export class AppService
   }
 
   public closeCurrentSession(): void {
+    this.innerIsLoggedIn = false;
     this.isLoggedInChangesSource.next(false);
     this.authService.logout().subscribe();
   }
