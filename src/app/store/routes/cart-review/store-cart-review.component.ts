@@ -146,7 +146,7 @@ export class StoreCartReviewComponent
       );
   }
 
-  public initiateCheckoutOrRequireAuthentication(): void {
+  public onClickAccept(): void {
     this.requireAuthentication().subscribe(
       verified => {
         if (verified) {
@@ -154,9 +154,5 @@ export class StoreCartReviewComponent
         }
       }
     );
-  }
-
-  public onClickAccept(): void {
-    this.initiateCheckoutOrRequireAuthentication();
   }
 }
