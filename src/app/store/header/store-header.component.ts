@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map, pluck, switchMap } from 'rxjs/operators';
+import { map, pluck, switchMap, startWith } from 'rxjs/operators';
 import { APP_INITIALS_TITLE, APP_LONG_TITLE } from 'src/app/app.constants';
 import { AppService } from 'src/app/app.service';
 import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
@@ -53,7 +53,10 @@ export class StoreHeaderComponent
       map(total => total + ' item' + (total > 1 ? 's' : ''))
     );
     this.cartSubtotalValue$ = this.storeService.cartSubtotalValue$.pipe();
-    this.isLoggedIn$ = this.appService.isLoggedInChanges$.pipe();
+
+    this.isLoggedIn$ = this.appService.isLoggedInChanges$.pipe(
+      startWith(this.appService.isLoggedIn())
+    );
 
     this.userName$ = this.appService.isLoggedInChanges$.pipe(
       switchMap(
@@ -123,7 +126,7 @@ export class StoreHeaderComponent
       {
         width: '24rem'
       }
-    ).afterClosed().subscribe();
+    );
   }
 
   public onClickEditProfile(): void {

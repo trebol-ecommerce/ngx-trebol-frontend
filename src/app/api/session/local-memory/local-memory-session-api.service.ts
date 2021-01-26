@@ -87,7 +87,7 @@ export class LocalMemorySessionApiService
   }
 
   public logout(): Observable<boolean> {
-    sessionStorage.removeItem('session');
+    sessionStorage.removeItem(this.sessionStorageTokenItemName);
     return of(true);
   }
 }

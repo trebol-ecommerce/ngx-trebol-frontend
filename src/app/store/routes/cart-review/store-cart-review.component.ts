@@ -4,20 +4,20 @@
 // https://opensource.org/licenses/MIT
 
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable, of, empty, EMPTY } from 'rxjs';
-import { concatMap, map, take, tap, mapTo } from 'rxjs/operators';
+import { concatMap, map, take, tap, mapTo, switchMap, takeUntil } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { StoreService } from 'src/app/store/store.service';
-import { StoreGuestPromptDialogComponent } from '../../dialogs/guest-prompt/store-guest-prompt-dialog.component';
-import { StoreGuestPromptDialogOptions } from '../../dialogs/guest-prompt/StoreGuestPromptDialogOptions';
-import { StoreGuestShippingFormDialogComponent } from '../../dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { StoreLoginFormDialogComponent } from '../../dialogs/login-form/store-login-form-dialog.component';
-import { StorePaymentRedirectPromptDialogComponent } from '../../dialogs/payment-redirect-prompt/store-payment-redirect-prompt-dialog.component';
 import { StoreRegistrationFormDialogComponent } from '../../dialogs/registration-form/store-registration-form-dialog.component';
+import { StoreGuestShippingFormDialogComponent } from '../../dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component';
+import { StoreGuestPromptDialogOptions } from '../../dialogs/guest-prompt/StoreGuestPromptDialogOptions';
+import { StoreGuestPromptDialogComponent } from '../../dialogs/guest-prompt/store-guest-prompt-dialog.component';
+import { StorePaymentRedirectPromptDialogComponent } from '../../dialogs/payment-redirect-prompt/store-payment-redirect-prompt-dialog.component';
 
 @Component({
   selector: 'app-store-cart-review',
@@ -52,69 +52,6 @@ export class StoreCartReviewComponent
     this.cartTotalValue$ = this.storeService.cartSubtotalValue$.pipe(map(subtotal => Math.ceil(subtotal * 1.19)));
   }
 
-  protected promptLoginForm(): Observable<void> {
-    return this.dialogService.open(
-      StoreLoginFormDialogComponent,
-      {
-        width: '24rem'
-      }
-    ).afterClosed();
-  }
-
-  protected promptRegistrationForm(): Observable<void> {
-    return this.dialogService.open(
-      StoreRegistrationFormDialogComponent,
-      {
-        width: '40rem'
-      }
-    ).afterClosed();
-  }
-
-  protected promptGuestShippingForm(): Observable<void> {
-    return this.dialogService.open(
-      StoreGuestShippingFormDialogComponent,
-      {
-        width: '40rem'
-      }
-    ).afterClosed();
-  }
-
-  private pickPrompt(choice: StoreGuestPromptDialogOptions): Observable<void> {
-    switch (choice) {
-      case StoreGuestPromptDialogOptions.login:
-        return this.promptLoginForm();
-      case StoreGuestPromptDialogOptions.register:
-        return this.promptRegistrationForm();
-      case StoreGuestPromptDialogOptions.guest:
-        return this.promptGuestShippingForm();
-    }
-  }
-
-  protected promptUserLoginChoices(): Observable<void> {
-    return this.dialogService.open(
-      StoreGuestPromptDialogComponent
-    ).afterClosed().pipe(
-      concatMap(
-        (choice: number) => {
-          if (choice in StoreGuestPromptDialogOptions) {
-            return this.pickPrompt(choice);
-          } else {
-            return EMPTY;
-          }
-        }
-      )
-    );
-  }
-
-  protected openPaymentRedirectPrompt(): void {
-    this.dialogService.open(
-      StorePaymentRedirectPromptDialogComponent,
-      {
-        width: '40rem'
-      }
-    );
-  }
-
   public onClickIncreaseProductQuantity(index: number): void {
     this.storeService.increaseProductUnits(index);
   }
@@ -127,17 +64,99 @@ export class StoreCartReviewComponent
     this.storeService.removeProductFromCart(index);
   }
 
-  public onClickAccept(): void {
-    if (this.appService.isLoggedIn()) {
-      this.openPaymentRedirectPrompt();
-    } else {
-      this.promptUserLoginChoices().subscribe(
-        () => {
-          if (this.appService.isLoggedIn()) {
-            this.openPaymentRedirectPrompt();
-          }
-        }
-      );
+  public promptLoginForm(): MatDialogRef<StoreLoginFormDialogComponent> {
+    return this.dialogService.open(
+      StoreLoginFormDialogComponent,
+      {
+        width: '24rem',
+        disableClose: true
+      }
+    );
+  }
+
+  public promptRegistrationForm(): MatDialogRef<StoreRegistrationFormDialogComponent> {
+    return this.dialogService.open(
+      StoreRegistrationFormDialogComponent,
+      {
+        width: '40rem',
+        disableClose: true
+      }
+    );
+  }
+
+  public promptGuestShippingForm(): MatDialogRef<StoreGuestShippingFormDialogComponent> {
+    return this.dialogService.open(
+      StoreGuestShippingFormDialogComponent,
+      {
+        width: '40rem',
+        disableClose: true
+      }
+    );
+  }
+
+  private followGuestUserChoice(choice: StoreGuestPromptDialogOptions): void {
+    switch (choice) {
+      case StoreGuestPromptDialogOptions.login:
+        this.promptLoginForm(); return;
+      case StoreGuestPromptDialogOptions.register:
+        this.promptRegistrationForm(); return;
+      case StoreGuestPromptDialogOptions.guest:
+        this.promptGuestShippingForm(); return;
     }
+  }
+
+  /**
+   * Displays a dialog to give authentication options for a guest user.
+   * Returns an Observable that emits the user's option choice to continue
+   * the checkout process, or completes without emitting.
+   */
+  protected promptGuestUserChoices(): Observable<StoreGuestPromptDialogOptions> {
+    return this.dialogService.open(
+      StoreGuestPromptDialogComponent
+    ).afterClosed();
+  }
+
+  /**
+   * Displays a dialog with a way for the user to access their preferred payment method.
+   */
+  protected promptPaymentRedirection(): void {
+    this.dialogService.open(
+      StorePaymentRedirectPromptDialogComponent,
+      {
+        width: '40rem'
+      }
+    );
+  }
+
+  protected requireAuthentication(): Observable<boolean> {
+    return this.appService.isLoggedIn() ?
+      of(true) :
+      this.promptGuestUserChoices().pipe(
+        switchMap(choice => {
+          if (!!choice && choice in StoreGuestPromptDialogOptions) {
+            this.followGuestUserChoice(choice);
+            return this.appService.isLoggedInChanges$.pipe(
+              take(1),
+              takeUntil(this.appService.checkoutAuthCancel$)
+            );
+          } else {
+            return EMPTY;
+          }
+        })
+      );
+  }
+
+  public initiateCheckoutOrRequireAuthentication(): void {
+    this.requireAuthentication().subscribe(
+      verified => {
+        if (verified) {
+          this.promptPaymentRedirection();
+        }
+      }
+    );
+  }
+
+  public onClickAccept(): void {
+    this.initiateCheckoutOrRequireAuthentication();
   }
 }
