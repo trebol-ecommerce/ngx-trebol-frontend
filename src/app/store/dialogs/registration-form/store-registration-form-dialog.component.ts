@@ -28,7 +28,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class StoreRegistrationFormDialogComponent
   implements OnInit, OnDestroy {
 
-  protected registeringSource: Subject<boolean> = new BehaviorSubject(false);
+  protected registeringSource: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   public registering$: Observable<boolean> = this.registeringSource.asObservable();
 
