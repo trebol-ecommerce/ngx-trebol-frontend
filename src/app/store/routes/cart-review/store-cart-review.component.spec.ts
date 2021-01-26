@@ -6,7 +6,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of, EMPTY } from 'rxjs';
+import { of, EMPTY, Observable } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { StoreService } from '../../store.service';
 import { StoreCartReviewComponent } from './store-cart-review.component';
@@ -42,7 +42,9 @@ describe('StoreCartReviewComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
-        RouterTestingModule,
+        RouterTestingModule.withRoutes([
+          { path: 'store', component: StoreCartReviewComponent }
+        ]),
         MatButtonModule,
         MatDialogModule,
         MatIconModule,
@@ -55,16 +57,14 @@ describe('StoreCartReviewComponent', () => {
       ]
     })
     .compileComponents();
-
-    router = TestBed.inject(Router);
-    spyOn(router, 'navigateByUrl');
-    dialogService = TestBed.inject(MatDialog);
-    dialogOpenSpy = spyOn(dialogService, 'open').and.returnValue({ afterClosed() { return EMPTY; } });
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(StoreCartReviewComponent);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
+    dialogService = TestBed.inject(MatDialog);
+    dialogOpenSpy = spyOn(dialogService, 'open').and.returnValue({ afterClosed() { return EMPTY; }});
     fixture.detectChanges();
   });
 
