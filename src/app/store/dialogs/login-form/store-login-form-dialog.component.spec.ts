@@ -4,9 +4,9 @@
 // https://opensource.org/licenses/MIT
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
+import { of, EMPTY } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { StoreLoginFormDialogComponent } from './store-login-form-dialog.component';
 import { CommonModule } from '@angular/common';
@@ -15,26 +15,23 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
 
 describe('StoreLoginFormDialogComponent', () => {
   let component: StoreLoginFormDialogComponent;
   let fixture: ComponentFixture<StoreLoginFormDialogComponent>;
   let dialog: Partial<MatDialogRef<StoreLoginFormDialogComponent>>;
   let appService: Partial<AppService>;
-  let snackBar: Partial<MatSnackBar>;
+  let snackBarService: Partial<MatSnackBar>;
 
   beforeEach(waitForAsync(() => {
     dialog = {
       close() {}
     };
     appService = {
-      login() { return of(true); }
+      login() { return EMPTY; },
+      cancelAuthentication() {}
     };
-    snackBar = {
-      open() { return undefined; }
-    };
-    spyOn(appService, 'login').and.callThrough();
-    spyOn(dialog, 'close');
 
     TestBed.configureTestingModule({
       imports: [
@@ -42,15 +39,16 @@ describe('StoreLoginFormDialogComponent', () => {
         NoopAnimationsModule,
         ReactiveFormsModule,
         FormsModule,
+        MatIconModule,
         MatInputModule,
         MatFormFieldModule,
-        RouterTestingModule
+        RouterTestingModule,
+        MatSnackBarModule
       ],
       declarations: [ StoreLoginFormDialogComponent ],
       providers: [
         { provide: MatDialogRef, useValue: dialog },
-        { provide: AppService, useValue: appService },
-        { provide: MatSnackBar, useValue: snackBar }
+        { provide: AppService, useValue: appService }
       ]
     })
     .compileComponents();
@@ -59,6 +57,7 @@ describe('StoreLoginFormDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(StoreLoginFormDialogComponent);
     component = fixture.componentInstance;
+    snackBarService = TestBed.inject(MatSnackBar);
     fixture.detectChanges();
   });
 
@@ -67,24 +66,27 @@ describe('StoreLoginFormDialogComponent', () => {
   });
 
   it('should not submit incomplete form', () => {
+    const appServiceLoginSpy = spyOn(appService, 'login').and.callThrough();
     component.onSubmit();
     component.username.setValue('test');
     component.onSubmit();
     component.formGroup.reset();
     component.password.setValue('test');
     component.onSubmit();
-    expect(appService.login).not.toHaveBeenCalled();
+    expect(appServiceLoginSpy).not.toHaveBeenCalled();
   });
 
   it('should submit correct form', () => {
+    const appServiceLoginSpy = spyOn(appService, 'login').and.callThrough();
     component.username.setValue('test');
     component.password.setValue('pass');
     component.onSubmit();
-    expect(appService.login).toHaveBeenCalled();
+    expect(appServiceLoginSpy).toHaveBeenCalled();
   });
 
   it('should close upon cancellation', () => {
+    const dialogCloseSpy = spyOn(dialog, 'close');
     component.onCancel();
-    expect(dialog.close).toHaveBeenCalled();
+    expect(dialogCloseSpy).toHaveBeenCalled();
   });
 });
