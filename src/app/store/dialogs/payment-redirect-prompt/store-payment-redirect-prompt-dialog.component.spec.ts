@@ -5,20 +5,20 @@
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { of, EMPTY, throwError } from 'rxjs';
 import { StoreService } from '../../store.service';
 import { StorePaymentRedirectPromptDialogComponent } from './store-payment-redirect-prompt-dialog.component';
 
 describe('StorePaymentRedirectPromptDialogComponent', () => {
   let component: StorePaymentRedirectPromptDialogComponent;
   let fixture: ComponentFixture<StorePaymentRedirectPromptDialogComponent>;
-  let storeService: Partial<StoreService>;
+  let mockStoreService: Partial<StoreService>;
+  let storeServiceSubmitCartSpy: jasmine.Spy;
 
   beforeEach(waitForAsync(() => {
-    storeService = {
-      submitCart() { return of({ url: '', token: '' }); }
+    mockStoreService = {
+      submitCart() { return EMPTY; }
     };
-    spyOn(storeService, 'submitCart').and.callThrough();
 
     TestBed.configureTestingModule({
       imports: [
@@ -26,7 +26,7 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
       ],
       declarations: [ StorePaymentRedirectPromptDialogComponent ],
       providers: [
-        { provide: StoreService, useValue: storeService }
+        { provide: StoreService, useValue: mockStoreService }
       ]
     })
     .compileComponents();
@@ -35,14 +35,43 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(StorePaymentRedirectPromptDialogComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    storeServiceSubmitCartSpy = spyOn(mockStoreService, 'submitCart').and.callThrough();
+    // fixture.detectChanges();
   });
 
   it('should create', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
   it('should submit the cart upon initializing', () => {
-    expect(storeService.submitCart).toHaveBeenCalled();
+    fixture.detectChanges(); // triggers ngOnInit()
+    expect(storeServiceSubmitCartSpy).toHaveBeenCalled();
+  });
+
+  it('should render a div.dialog HTML element', () => {
+    fixture.detectChanges();
+    const dialogDivElem: HTMLDivElement = fixture.nativeElement.querySelector('div.dialog');
+    expect(dialogDivElem).toBeTruthy();
+  });
+
+  it('should render a form with a button upon a successful cart submission', () => {
+    const divElem: HTMLElement = fixture.nativeElement.querySelector('div.dialog');
+    mockStoreService.submitCart = (() => of({ url: '', token: '' }));
+    fixture.detectChanges();
+
+    const formElement: HTMLFormElement = divElem.querySelector('form');
+    expect(formElement).toBeTruthy();
+    const buttonElement: HTMLButtonElement = formElement.querySelector('button');
+    expect(buttonElement).toBeTruthy();
+  });
+
+  it('should render an error message label upon a failed cart submission', () => {
+    const divElem: HTMLElement = fixture.nativeElement.querySelector('div.dialog');
+    mockStoreService.submitCart = (() => throwError({}));
+    fixture.detectChanges();
+
+    const formElement: HTMLSpanElement = divElem.querySelector('span.error');
+    expect(formElement).toBeTruthy();
   });
 });
