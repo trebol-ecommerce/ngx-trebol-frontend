@@ -10,13 +10,18 @@
   </centered-mat-spinner>
 
   <div [hidden]="loading$ | async">
-    <form #form [action]="webpayURL$ | async" method="POST">
-      <input type="hidden" name="token_ws" [value]="webpayToken$ | async" />
-      <button mat-button mat-raised-button type="submit"
-        (click)="form.submit()"
-        color="primary">
-        Ir a WebPay
-      </button>
-    </form>
+    <ng-container *ngIf="error$ | async; else noError">
+      <span class="error">{{ error$ | async }}</span>
+    </ng-container>
+    <ng-template #noError>
+      <form #form [action]="webpayURL$ | async" method="POST">
+        <input type="hidden" name="token_ws" [value]="webpayToken$ | async" />
+        <button mat-button mat-raised-button type="submit"
+          (click)="form.submit()"
+          color="primary">
+          Ir a WebPay
+        </button>
+      </form>
+    </ng-template>
   </div>
 </div>
