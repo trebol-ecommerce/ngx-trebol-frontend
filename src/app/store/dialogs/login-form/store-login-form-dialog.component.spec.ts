@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, EMPTY } from 'rxjs';
 import { AppService } from 'src/app/app.service';
@@ -22,18 +22,20 @@ import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/centered-mat
 describe('StoreLoginFormDialogComponent', () => {
   let component: StoreLoginFormDialogComponent;
   let fixture: ComponentFixture<StoreLoginFormDialogComponent>;
-  let dialog: Partial<MatDialogRef<StoreLoginFormDialogComponent>>;
-  let appService: Partial<AppService>;
-  let snackBarService: Partial<MatSnackBar>;
+  let snackBarService: MatSnackBar;
+  let mockDialog: Partial<MatDialogRef<StoreLoginFormDialogComponent>>;
+  let mockAppService: Partial<AppService>;
+  let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
-    dialog = {
+    mockDialog = {
       close() {}
     };
-    appService = {
+    mockAppService = {
       login() { return EMPTY; },
       cancelAuthentication() {}
     };
+    mockDialogService = {};
 
     TestBed.configureTestingModule({
       imports: [
@@ -53,8 +55,9 @@ describe('StoreLoginFormDialogComponent', () => {
         DialogSwitcherButtonComponent
       ],
       providers: [
-        { provide: MatDialogRef, useValue: dialog },
-        { provide: AppService, useValue: appService }
+        { provide: MatDialogRef, useValue: mockDialog },
+        { provide: AppService, useValue: mockAppService },
+        { provide: MatDialog, useValue: mockDialogService }
       ]
     })
     .compileComponents();
@@ -72,7 +75,7 @@ describe('StoreLoginFormDialogComponent', () => {
   });
 
   it('should not submit incomplete form', () => {
-    const appServiceLoginSpy = spyOn(appService, 'login').and.callThrough();
+    const appServiceLoginSpy = spyOn(mockAppService, 'login').and.callThrough();
     component.onSubmit();
     component.username.setValue('test');
     component.onSubmit();
@@ -83,7 +86,7 @@ describe('StoreLoginFormDialogComponent', () => {
   });
 
   it('should submit correct form', () => {
-    const appServiceLoginSpy = spyOn(appService, 'login').and.callThrough();
+    const appServiceLoginSpy = spyOn(mockAppService, 'login').and.callThrough();
     component.username.setValue('test');
     component.password.setValue('pass');
     component.onSubmit();
@@ -91,7 +94,7 @@ describe('StoreLoginFormDialogComponent', () => {
   });
 
   it('should close upon cancellation', () => {
-    const dialogCloseSpy = spyOn(dialog, 'close');
+    const dialogCloseSpy = spyOn(mockDialog, 'close');
     component.onCancel();
     expect(dialogCloseSpy).toHaveBeenCalled();
   });
