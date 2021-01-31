@@ -16,6 +16,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
+import { DialogSwitcherButtonComponent } from 'src/app/shared/dialog-switcher-button/dialog-switcher-button.component';
+import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/centered-mat-spinner/component';
 
 describe('StoreLoginFormDialogComponent', () => {
   let component: StoreLoginFormDialogComponent;
@@ -45,7 +47,11 @@ describe('StoreLoginFormDialogComponent', () => {
         RouterTestingModule,
         MatSnackBarModule
       ],
-      declarations: [ StoreLoginFormDialogComponent ],
+      declarations: [
+        StoreLoginFormDialogComponent,
+        CenteredMatProgressSpinnerComponent,
+        DialogSwitcherButtonComponent
+      ],
       providers: [
         { provide: MatDialogRef, useValue: dialog },
         { provide: AppService, useValue: appService }
