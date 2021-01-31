@@ -1,14 +1,14 @@
 import { AppPage } from './app.po';
 import { browser, logging } from 'protractor';
 
-describe('Ferme Web App', () => {
+describe('Trebol Angular', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
   });
 
-  it('deberia tener un contenedor visual de navegacion (router outlet)', () => {
+  it('should render a router-outlet', () => {
     page.navigateTo();
     expect(page.hasRouterOutlet()).toEqual(true);
   });

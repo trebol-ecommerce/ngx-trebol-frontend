@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { Component } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,13 +13,16 @@ import { map } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { Login } from 'src/app/models/Login';
 import { LOGIN_ERROR_MESSAGE, LOGIN_SUCCESS_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
+import { DialogSwitcherButtonComponent } from 'src/app/shared/dialog-switcher-button/dialog-switcher-button.component';
+import { StoreRegistrationFormDialogComponent } from '../registration-form/store-registration-form-dialog.component';
 
 @Component({
   selector: 'app-store-login-form-dialog',
   templateUrl: './store-login-form-dialog.component.html',
   styleUrls: ['./store-login-form-dialog.component.css']
 })
-export class StoreLoginFormDialogComponent {
+export class StoreLoginFormDialogComponent
+  implements OnInit {
 
   protected loggingInSource: Subject<boolean> = new Subject();
   protected hidePasswordSource: Subject<boolean> = new BehaviorSubject(true);
@@ -31,6 +34,8 @@ export class StoreLoginFormDialogComponent {
   public formGroup: FormGroup;
   public get username(): FormControl { return this.formGroup.get('username') as FormControl; }
   public get password(): FormControl { return this.formGroup.get('password') as FormControl; }
+
+  @ViewChild('registerButton', { static: true }) public registerButton: DialogSwitcherButtonComponent;
 
   constructor(
     protected dialog: MatDialogRef<StoreLoginFormDialogComponent>,
@@ -46,6 +51,12 @@ export class StoreLoginFormDialogComponent {
 
     this.togglePasswordIcon$ = this.hidePasswordSource.asObservable().pipe(map(hide => (hide ? 'visibility' : 'visibility_off')));
     this.passwordInputType$ = this.hidePasswordSource.asObservable().pipe(map(hide => (hide ? 'password' : 'text')));
+  }
+
+  ngOnInit(): void {
+    this.registerButton.sourceDialogRef = this.dialog;
+    this.registerButton.targetDialogComponent = StoreRegistrationFormDialogComponent;
+    this.registerButton.targetDialogConfig = { width: '40rem', disableClose: true };
   }
 
   public showPassword(): void { this.hidePasswordSource.next(false); }
