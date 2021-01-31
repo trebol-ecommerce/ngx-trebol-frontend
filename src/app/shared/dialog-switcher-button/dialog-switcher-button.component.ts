@@ -11,7 +11,7 @@ export class DialogSwitcherButtonComponent {
   @Input() public label: string | null;
   @Input() public sourceDialogRef: MatDialogRef<any>;
   @Input() public targetDialogComponent: any;
-  @Input() public targetDialogData: any;
+  @Input() public targetDialogConfig: any;
 
   constructor(
     protected dialogService: MatDialog
@@ -22,7 +22,7 @@ export class DialogSwitcherButtonComponent {
     this.sourceDialogRef.close();
     this.dialogService.open(
       this.targetDialogComponent,
-      this.targetDialogData
+      this.targetDialogConfig
     );
   }
 
