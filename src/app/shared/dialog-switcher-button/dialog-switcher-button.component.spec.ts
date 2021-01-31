@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DialogSwitcherButtonComponent } from './dialog-switcher-button.component';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,8 +9,8 @@ describe('DialogSwitcherButtonComponent', () => {
   let fixture: ComponentFixture<DialogSwitcherButtonComponent>;
   let dialogService: MatDialog;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
         MatDialogModule
@@ -21,7 +21,7 @@ describe('DialogSwitcherButtonComponent', () => {
       ]
     })
     .compileComponents();
-  });
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DialogSwitcherButtonComponent);
@@ -47,6 +47,7 @@ describe('DialogSwitcherButtonComponent', () => {
     const targetDialogOpenSpy = spyOn(dialogService, 'open').and.callThrough();
     component.onClick();
     fixture.detectChanges();
+    dialogService.closeAll();
     expect(sourceDialogCloseSpy).toHaveBeenCalled();
     expect(targetDialogOpenSpy).toHaveBeenCalled();
     expect(targetDialogOpenSpy.calls.first().args[0]).toBe(targetDialog);
