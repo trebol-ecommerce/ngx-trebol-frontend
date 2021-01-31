@@ -13,6 +13,7 @@ import { PersonFormComponent } from './person-form/person-form.component';
 import { EditProfileFormDialogComponent } from './edit-profile-form-dialog/edit-profile-form-dialog.component';
 import { ProductFiltersPanelComponent } from './product-filters-panel/product-filters-panel.component';
 import { CenteredMatProgressSpinnerComponent } from './centered-mat-spinner/component';
+import { DialogSwitcherButtonComponent } from './dialog-switcher-button/dialog-switcher-button.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { CenteredMatProgressSpinnerComponent } from './centered-mat-spinner/comp
     ConfirmationDialogComponent,
     PersonFormComponent,
     ProductFiltersPanelComponent,
-    EditProfileFormDialogComponent
+    EditProfileFormDialogComponent,
+    DialogSwitcherButtonComponent
   ],
   imports: [
     CommonModule,
