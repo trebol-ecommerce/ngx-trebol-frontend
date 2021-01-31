@@ -14,6 +14,7 @@ import { EditProfileFormDialogComponent } from './edit-profile-form-dialog/edit-
 import { ProductFiltersPanelComponent } from './product-filters-panel/product-filters-panel.component';
 import { CenteredMatProgressSpinnerComponent } from './centered-mat-spinner/component';
 import { DialogSwitcherButtonComponent } from './dialog-switcher-button/dialog-switcher-button.component';
+import { InformationDialogComponent } from './information-dialog/information-dialog.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { DialogSwitcherButtonComponent } from './dialog-switcher-button/dialog-s
     PersonFormComponent,
     ProductFiltersPanelComponent,
     EditProfileFormDialogComponent,
-    DialogSwitcherButtonComponent
+    DialogSwitcherButtonComponent,
+    InformationDialogComponent
   ],
   imports: [
     CommonModule,
