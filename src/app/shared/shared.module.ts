@@ -45,7 +45,9 @@ import { InformationDialogComponent } from './information-dialog/information-dia
     ConfirmationDialogComponent,
     PersonFormComponent,
     ProductFiltersPanelComponent,
-    EditProfileFormDialogComponent
+    EditProfileFormDialogComponent,
+    DialogSwitcherButtonComponent,
+    InformationDialogComponent
   ]
 })
 export class SharedModule { }
