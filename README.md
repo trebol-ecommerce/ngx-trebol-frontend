@@ -33,15 +33,15 @@ The application code itself lives in `/src/app/`, and is divided by domains:
 
 ## Configuration
 
-If you plan to use an external backend (or more than one) for the APIs, you must create production environment files. Trébol is configured to use several `fileReplacements` when launching a production build; see the `production` configuration in the `/angular.json` file for the exact replacement patterns that apply.
+If you plan to use [an external backend](https://github.com/trebol-ecommerce/trebol-jee) (or more than one) for the APIs, you must create production environment files. Trébol is set to replace several files when launching a production build; see the `production` configuration in the `/angular.json` file for the exact `fileReplacement` strategies.
 
-If you happen to run a server in the same machine (aka localhost), [you can test it quickly with a proxy](https://angular.io/guide/build#proxying-to-a-backend-server) to avoid CORS errors. Use the `/localhost.proxy.conf.json` file as example.
+If you happen to run a server in the same machine (aka localhost), [you can test it quickly with a proxy](https://angular.io/guide/build#proxying-to-a-backend-server) to avoid CORS errors. Use the `/localhost.proxy.conf.json` file as example (edit it if necessary).
 
-To connect to your production environment, you must:
-* Duplicate every file in `/src/environments`, and rename each to `*.prod.ts`.
+### Steps to connect to a backend
+* Copy-and-paste every file in `/src/environments`, add a `*.prod.ts` suffix.
   * Your resulting `environment.prod.ts` file must import the `http` API implementation modules (for example, `import { HttpStoreApiModule } from 'src/app/api/store/http/http-store-api.module'`).
-  * If you use localhost, leaving the api URLs as they are in every `*-api.environment.prod.ts` file should suffice, for your 'absolute' requests will be proxied (read on to "Building / Running").
-  * If not, assign them. Note that they may be separate constants and files, but they can have the same value and be served from the same machine.
+  * If you use localhost, you can leave the API URLs as-is in every `*-api.environment.prod.ts` file and use a proxy (read "Building / Running").
+  * If you're not using localhost, assign those API URLs. You can use the same URL in all files if you only have one backend application/endpoint.
 
 ## Testing
 
@@ -50,11 +50,11 @@ Jasmine tests are providing about 60% code coverage, you can give them a try usi
 ## Building / Running
 
 In the repo root directory you may:
-* Serve the application locally, by doing `ng serve`
+* Serve the application locally, by doing `ng serve` (this uses mock API modules)
 * Create the static site files, with `ng build` (a `/dist/` folder will be created with its contents)
 
 In both cases, add the `--prod` flag if you configured a production environment as described above in the ``Configuration`` section.
-And if you are using localhost, you can also add the `--proxy-config [file]` flag to divert all requests to the configured server.
+If you are using localhost, you can then add the `--proxy-config [file]` flag. This is mentioned above as well.
 
 
 * To deploy it somewhere else, do `ng deploy`. Inspect [the angular-cli-ghpages repo](https://github.com/angular-schule/angular-cli-ghpages#options) for more info on this.
