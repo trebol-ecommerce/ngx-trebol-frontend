@@ -4,22 +4,23 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Build Status](https://travis-ci.com/trebol-ecommerce/trebol-ng.svg?branch=source)](https://travis-ci.com/trebol-ecommerce/trebol-ng)
 
-Trébol was born as a grown-up version of a hardware store web system called 'FERME Web'. Initially I created an Angular dashboard application that connected to a REST API-assisted backend service, that could list all the content stored in a MySQL database.
-That functionality, and the boilerplate code associated, sits at the core of this project.
-Trébol aims to become an industry-standard online shop application. Businesses can use this solution to bring their eCommerce systems together in a short time. Developers can learn and improve on it to build similar eCommerce systems.
+Trébol was born from a career project, a hardware store web system called 'FERME Web'. It was an Angular dashboard application that communicated by a REST API to a backend service. Then it could list all product data stored in a MySQL database, add products to a cart and create fake selling transactions.
+Trébol pushes the idea forward and aims to become an industry-standard online shop application that is easy to use and manage.
+Any bussinesses selling products or services may use Trébol to bring their public presence to the Internet through a friendly interface, and learning how to use it in a short time.
+Developers can learn how Trébol works and improve on it, or take components from it for use in their own systems. Trébol tries to follow the Angular philosophy of decoupling components and services for maximum reusability.
 
 ## Infrastructure
 
-The layout within `/src/app/` goes as follows:
-* `models/` contains the data types (TS classes).
-* `api/` contains modules that provide service clients used to consume the APIs, and the Angular dependency injection tokens, used to interchange implementations
+The application code itself lives in `/src/app/`, and is divided by domains:
+* `models/` contains the data types (TS classes) used both for APIs and templates.
+* `api/` contains modules that provide service clients used to consume [the backend APIs](https://github.com/trebol-ecommerce/trebol-api), and the Angular dependency injection tokens used to interchange implementations
   * `store/` provides service clients for the Store API. This includes operations like fetching storefront products, categories, specific product details, info about the selling company, and cart checking out.
   * `data/` provides calls for querying and working with data and authorization accesses based on data contexts.
   * `session/` provides calls for creating accounts, logging in and out, and review personal profile data.
-* `management/` has components to interactively manipulating data in different contexts, using child routes like an admin dashboard.
+* `management/` has all components, services and directives for administrating data; register, update and categorize products, create users, etcetera.
 * `shared/` has components used by other modules.
   * It also brings a `angular-material.module` to clearly state all the imports used, application-wide.
-* `store/` has components for all the store routes (catalog, cart review, receipt, and some dialogs).
+* `store/` has all components, services and directives for shopping; viewing the product catalog, logging in, signing up for a customer account, reviewing cart before checking out, and more.
 
 ## Requirements
 
@@ -44,7 +45,7 @@ To connect to your production environment, you must:
 
 ## Testing
 
-Jasmine tests are providing about 60% code coverage, you can give them a try using `ng test` in the root directory.
+Jasmine tests are providing about 60% code coverage, you can give them a try using `ng test` in the root directory. Travis runs these on every push to `source` or any pull request.
 
 ## Building / Running
 
@@ -52,7 +53,7 @@ In the repo root directory you may:
 * Serve the application locally, by doing `ng serve`
 * Create the static site files, with `ng build` (a `/dist/` folder will be created with its contents)
 
-In both cases, add the `--prod` flag if you configured a production environment as described above.
+In both cases, add the `--prod` flag if you configured a production environment as described above in the ``Configuration`` section.
 And if you are using localhost, you can also add the `--proxy-config [file]` flag to divert all requests to the configured server.
 
 
