@@ -35,7 +35,7 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
   },
   {
     path: 'products', component: ProductManagerComponent,
-    data: { matIcon: 'list  ', title: 'Productos' },
+    data: { matIcon: 'list', title: 'Productos' },
     resolve: { access: ProductManagerAccessResolver }
   },
   {
@@ -50,7 +50,7 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
   },
   {
     path: 'users', component: UserManagerComponent,
-    data: { matIcon: 'person  ', title: 'Usuarios' },
+    data: { matIcon: 'person', title: 'Usuarios' },
     resolve: { access: UserManagerAccessResolver }
   }
 ];
