@@ -1,0 +1,25 @@
+/**
+ * Copyright (c) 2021 Benjamin La Madrid
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+// https://material.io/design/color/
+$trebol-app-primary:   mat-palette($mat-blue-grey, 600);
+$trebol-app-accent:    mat-palette($mat-purple, 600, 400, 800);
+$trebol-app-warn:      mat-palette($mat-red);
+
+$trebol-app-theme: mat-light-theme((
+  color: (
+    primary: $trebol-app-primary,
+    accent: $trebol-app-accent,
+    warn: $trebol-app-warn
+  )
+));
+
+@include angular-material-theme($trebol-app-theme);
