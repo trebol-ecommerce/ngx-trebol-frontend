@@ -27,6 +27,9 @@ $trebol-app-theme: mat-light-theme((
 @import 'src/assets/mixins/store-header.component';
 @include store-header-theme($trebol-app-theme);
 
+@import 'src/assets/mixins/store-footer.component';
+@include store-footer-theme($trebol-app-theme);
+
 @import 'src/assets/mixins/store-catalog.component';
 @include store-catalog-theme($trebol-app-theme);
 
