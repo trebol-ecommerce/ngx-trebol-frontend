@@ -8,6 +8,7 @@
 .catalog {
   display: flex;
   flex-flow: column nowrap;
+  align-items: center;
   justify-items: stretch;
   overflow-x: hidden;
   overflow-y: auto;
