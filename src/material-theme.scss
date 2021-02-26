@@ -24,5 +24,8 @@ $trebol-app-theme: mat-light-theme((
 
 @include angular-material-theme($trebol-app-theme);
 
+@import 'src/assets/mixins/store-catalog.component';
+@include store-catalog-theme($trebol-app-theme);
+
 @import 'src/assets/mixins/store-cart-review.component';
 @include store-cart-review-theme($trebol-app-theme);
