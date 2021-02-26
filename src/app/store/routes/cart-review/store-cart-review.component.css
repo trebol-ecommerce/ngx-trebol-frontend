@@ -5,21 +5,18 @@
  * https://opensource.org/licenses/MIT
  */
 
-.cart {
+.cart-review {
   height: 100%;
   display: flex;
   flex-flow: column nowrap;
   align-items: stretch;
   align-content: center;
-  background-color: var(--color-bg-secondary-light);
 }
 
 h2.products {
   flex: 0 0 2rem;
   margin: 0;
   padding: 0.75rem 1rem 0.25rem 1rem;
-  background-color: var(--color-bg-dark);
-  color: var(--color-content);
 }
 
 @media(min-width: 720px) {
@@ -79,7 +76,6 @@ h3.summary {
   flex: 0 0 auto;
   margin: 0;
   padding: 0.25rem 1rem;
-  background-color: var(--color-bg-secondary);
   font-weight: 500;
 }
 div.summary {
@@ -90,7 +86,6 @@ div.summary {
   grid-gap: 0.25rem;
   align-items: center;
   align-content: center;
-  background-color: var(--color-bg-secondary-light);
 }
 @media(min-width: 720px) {
   h3.summary {
