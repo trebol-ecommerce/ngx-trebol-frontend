@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { Login } from 'src/app/models/Login';
 import { LOGIN_ERROR_MESSAGE, LOGIN_SUCCESS_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
-import { DialogSwitcherButtonComponent } from 'src/app/shared/dialog-switcher-button/dialog-switcher-button.component';
+import { DialogSwitcherButtonComponent } from 'src/app/shared/components/dialog-switcher-button/dialog-switcher-button.component';
 import { StoreRegistrationFormDialogComponent } from '../registration-form/store-registration-form-dialog.component';
 
 @Component({
