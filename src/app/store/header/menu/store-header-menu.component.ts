@@ -4,8 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
-import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
-import { EditProfileFormDialogComponent } from 'src/app/shared/edit-profile-form-dialog/edit-profile-form-dialog.component';
+import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form-dialog/edit-profile-form-dialog.component';
 import { LOGOUT_MESSAGE } from 'src/text/messages';
 
 @Component({

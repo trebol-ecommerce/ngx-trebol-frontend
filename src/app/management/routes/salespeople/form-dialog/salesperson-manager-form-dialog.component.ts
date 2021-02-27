@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Salesperson } from 'src/app/models/entities/Salesperson';
 import { Person } from 'src/app/models/entities/Person';
-import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
+import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerFormComponentDirective } from '../../data-manager-form.component-directive';
 import { SalespersonManagerFormService } from './salesperson-manager-form.service';

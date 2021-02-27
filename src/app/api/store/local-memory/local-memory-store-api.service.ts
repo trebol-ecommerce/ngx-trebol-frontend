@@ -11,7 +11,7 @@ import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { Product } from 'src/app/models/entities/Product';
 import { MOCK_PRODUCTS } from 'src/app/api/data/local-memory/impl/products.local-memory-data-api.service';
-import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
+import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { MOCK_PRODUCT_TYPES, MOCK_PRODUCT_FAMILIES } from 'src/app/api/data/local-memory/impl/shared.local-memory-data-api.service';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';

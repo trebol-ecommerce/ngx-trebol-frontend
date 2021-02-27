@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/entities/Product';
 import { HttpService } from 'src/app/shared/http.aservice';
-import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
+import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { StoreApiIService } from '../store-api.iservice';

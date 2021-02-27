@@ -6,7 +6,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Product } from 'src/app/models/entities/Product';
 import { Subject, BehaviorSubject, Observable, merge } from 'rxjs';
-import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
+import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { EntityDataApiIService } from 'src/app/api/data/entity-data-api.iservice';
 import { concatMap, mapTo } from 'rxjs/operators';

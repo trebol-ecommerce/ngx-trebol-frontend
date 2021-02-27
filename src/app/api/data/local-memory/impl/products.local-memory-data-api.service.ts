@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { Injectable } from '@angular/core';
-import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
+import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { Product } from 'src/app/models/entities/Product';
 import { EntityLocalMemoryDataApiService } from '../entity.local-memory-data-api.aservice';
 import { Observable, of } from 'rxjs';

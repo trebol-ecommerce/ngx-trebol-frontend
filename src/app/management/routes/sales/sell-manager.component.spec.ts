@@ -6,7 +6,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { AngularMaterialModule } from 'src/app/shared/angular-material.module';
+import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
 import { SellManagerComponent } from './sell-manager.component';
 import { SellManagerService } from './sell-manager.service';
 

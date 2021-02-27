@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
+import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
 
 @Component({
   selector: 'app-store-guest-shipping-form-dialog',
