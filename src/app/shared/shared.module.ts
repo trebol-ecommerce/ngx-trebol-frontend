@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
-import { PersonFormComponent } from './person-form/person-form.component';
+import { PersonFormComponent } from './components/person-form/person-form.component';
 import { EditProfileFormDialogComponent } from './edit-profile-form-dialog/edit-profile-form-dialog.component';
 import { ProductFiltersPanelComponent } from './product-filters-panel/product-filters-panel.component';
 import { CenteredMatProgressSpinnerComponent } from './components/centered-mat-spinner/centered-mat-spinner.component';

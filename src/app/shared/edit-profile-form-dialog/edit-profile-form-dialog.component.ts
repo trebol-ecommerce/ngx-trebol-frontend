@@ -8,7 +8,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { map, startWith, tap } from 'rxjs/operators';
-import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
+import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { EditProfileFormService } from './edit-profile-form.service';
 

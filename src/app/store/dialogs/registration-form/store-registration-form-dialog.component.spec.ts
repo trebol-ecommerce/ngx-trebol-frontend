@@ -13,7 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
+import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Registration } from 'src/app/models/Registration';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
