@@ -1,0 +1,17 @@
+.open-menu {
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+.open-menu mat-icon {
+  width: 3rem;
+  height: 3rem;
+  font-size: 3rem;
+}
+
+.open-menu.active {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
