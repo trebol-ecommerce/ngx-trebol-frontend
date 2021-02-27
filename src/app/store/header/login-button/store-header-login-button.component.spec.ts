@@ -1,17 +1,31 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { StoreHeaderLoginButtonComponent } from './store-header-login-button.component';
 
 describe('StoreHeaderLoginButtonComponent', () => {
   let component: StoreHeaderLoginButtonComponent;
   let fixture: ComponentFixture<StoreHeaderLoginButtonComponent>;
+  let mockDialogService: Partial<MatDialog>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ StoreHeaderLoginButtonComponent ]
+  beforeEach(waitForAsync(() => {
+    mockDialogService = {
+      open() { return void 0; }
+    };
+
+    TestBed.configureTestingModule({
+      imports: [
+        MatButtonModule,
+        MatIconModule
+      ],
+      declarations: [ StoreHeaderLoginButtonComponent ],
+      providers: [
+        { provide: MatDialog, useValue: mockDialogService }
+      ]
     })
     .compileComponents();
-  });
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(StoreHeaderLoginButtonComponent);
