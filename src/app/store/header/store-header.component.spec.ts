@@ -8,32 +8,40 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { StoreHeaderComponent } from './store-header.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { StoreHeaderBrandComponent } from './brand/store-header-brand.component';
 import { StoreHeaderNavigationComponent } from './navigation/store-header-navigation.component';
 import { StoreHeaderMiddleComponent } from './middle/store-header-middle.component';
 import { StoreHeaderMenuComponent } from './menu/store-header-menu.component';
 import { StoreHeaderLoginButtonComponent } from './login-button/store-header-login-button.component';
+import { StoreService } from '../store.service';
 
 describe('StoreHeaderComponent', () => {
   let component: StoreHeaderComponent;
   let fixture: ComponentFixture<StoreHeaderComponent>;
   let mockAppService: Partial<AppService>;
+  let mockDialogService: Partial<MatDialog>;
+  let mockStoreService: Partial<StoreService>;
 
   beforeEach(waitForAsync(() => {
     mockAppService = {
       isLoggedIn() { return false; },
       isLoggedInChanges$: of(false)
     };
+    mockDialogService = {
+      open() { return void 0; }
+    };
+    mockStoreService = {
+      cartDetails$: of([]),
+      cartItemCount$: of(0),
+      cartSubtotalValue$: of(0),
+    };
 
     TestBed.configureTestingModule({
       imports: [
-        CommonModule
+        CommonModule,
+        RouterTestingModule
       ],
       declarations: [
         StoreHeaderComponent,
@@ -44,7 +52,9 @@ describe('StoreHeaderComponent', () => {
         StoreHeaderLoginButtonComponent
       ],
       providers: [
-        { provide: AppService, useValue: mockAppService }
+        { provide: AppService, useValue: mockAppService },
+        { provide: MatDialog, useValue: mockDialogService },
+        { provide: StoreService, useValue: mockStoreService },
       ]
     })
     .compileComponents();
