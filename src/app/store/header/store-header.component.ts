@@ -9,12 +9,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, pluck, switchMap, startWith } from 'rxjs/operators';
-import { APP_INITIALS_TITLE, APP_LONG_TITLE } from 'src/app/app.constants';
 import { AppService } from 'src/app/app.service';
 import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 import { EditProfileFormDialogComponent } from 'src/app/shared/edit-profile-form-dialog/edit-profile-form-dialog.component';
 import { LOGOUT_MESSAGE } from 'src/text/messages';
-import { StoreCompanyDetailsDialogComponent } from '../dialogs/company-details/store-company-details-dialog.component';
 import { StoreLoginFormDialogComponent } from '../dialogs/login-form/store-login-form-dialog.component';
 import { StoreService } from '../store.service';
 
@@ -30,9 +28,6 @@ export class StoreHeaderComponent
   public cartItemCountLabel$: Observable<string>;
   public cartSubtotalValue$: Observable<number>;
   public isLoggedIn$: Observable<boolean>;
-
-  public readonly desktopTitle: string = APP_LONG_TITLE;
-  public readonly mobileTitle: string = APP_INITIALS_TITLE;
 
   public userName$: Observable<string>;
   public canNavigateManagement$: Observable<boolean>;
@@ -111,12 +106,6 @@ export class StoreHeaderComponent
           this.router.navigateByUrl('/management');
         }
       }
-    );
-  }
-
-  public onClickViewCompanyDetails(): void {
-    this.dialogService.open(
-      StoreCompanyDetailsDialogComponent
     );
   }
 
