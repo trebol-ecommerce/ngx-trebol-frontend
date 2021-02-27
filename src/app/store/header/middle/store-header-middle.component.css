@@ -1,6 +1,7 @@
 .middle {
   flex: 1 1 auto;
   font-size: 1.25rem;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
