@@ -16,17 +16,17 @@ import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
 import { HttpService } from 'src/app/shared/http.aservice';
 import { SessionApiIService } from '../session-api.iservice';
-import { sessionStorageTokenItemName, authorizationHeaderName, sessionApiURL } from 'src/environments/session-api.environment';
 import { Registration } from 'src/app/models/Registration';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class HttpSessionApiService
   extends HttpService
   implements SessionApiIService {
 
-  protected baseURI = sessionApiURL;
-  protected readonly sessionStorageTokenItemName = sessionStorageTokenItemName;
-  protected readonly authorizationHeader = authorizationHeaderName;
+  protected baseURI = environment.apiUrls.session;
+  protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
+  protected readonly authorizationHeader = environment.secrets.authHeader;
 
   constructor(
     protected http: HttpClient

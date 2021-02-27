@@ -11,7 +11,7 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { ManagementModule } from './management/management.module';
 import { StoreModule } from './store/store.module';
-import { environment } from 'src/environments/environment';
+import { environmentModules } from 'src/environments/environment-modules';
 
 const DEBUG_ROUTES = false;
 
@@ -22,12 +22,10 @@ const DEBUG_ROUTES = false;
   imports: [
     BrowserModule,
     SharedModule,
-    environment.dataApiModule,
-    environment.authApiModule,
-    environment.storeApiModule,
     StoreModule,
     ManagementModule,
-    AppRoutingModule
+    AppRoutingModule,
+    environmentModules
   ],
   bootstrap: [
     AppComponent
