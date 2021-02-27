@@ -9,14 +9,14 @@ import { Observable } from 'rxjs';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 import { HttpService } from 'src/app/shared/http.aservice';
 import { HttpClient } from '@angular/common/http';
-import { dataAccessApiURL } from 'src/environments/data-access-api.environment';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class HttpDataAccessApiService
   extends HttpService
   implements DataAccessApiIService {
 
-  protected baseURI = dataAccessApiURL;
+  protected baseURI = environment.apiUrls.access;
 
   constructor(
     protected http: HttpClient
