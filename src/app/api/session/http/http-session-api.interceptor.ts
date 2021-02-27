@@ -6,14 +6,15 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { sessionStorageTokenItemName, authorizationHeaderName } from 'src/environments/session-api.environment';
+import { authorizationHeaderName } from 'src/environments/session-api.environment';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class HttpSessionApiInterceptor
   implements HttpInterceptor {
 
   //TODO these should be refactored
-  protected readonly sessionStorageTokenItemName = sessionStorageTokenItemName;
+  protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
   protected readonly authorizationHeader = authorizationHeaderName;
 
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

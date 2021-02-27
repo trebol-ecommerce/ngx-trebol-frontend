@@ -7,13 +7,13 @@ import { DataAccessApiIService } from '../data-access.api.iservice';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
-import { sessionStorageTokenItemName } from 'src/environments/session-api.environment';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class LocalMemoryDataAccessApiService
   implements DataAccessApiIService {
 
-  protected readonly sessionStorageTokenItemName = sessionStorageTokenItemName;
+  protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
 
   protected returnAsyncIfLoggedIn(obj: any): Observable<any> {
     return new Observable(

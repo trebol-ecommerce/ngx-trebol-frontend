@@ -9,6 +9,9 @@ export const environment = {
     data: '',
     session: '',
     store: ''
+  },
+  secrets: {
+    sessionTokenName: 'trebol/bearer-token'
   }
 };
 

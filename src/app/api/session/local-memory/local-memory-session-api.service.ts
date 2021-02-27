@@ -8,8 +8,9 @@ import { Observable, of } from 'rxjs';
 import { Person } from 'src/app/models/entities/Person';
 import { makeid } from 'src/functions/makeid';
 import { SessionApiIService } from '../session-api.iservice';
-import { sessionStorageTokenItemName, authorizationHeaderName } from 'src/environments/session-api.environment';
+import { authorizationHeaderName } from 'src/environments/session-api.environment';
 import { Registration } from 'src/app/models/Registration';
+import { environment } from 'src/environments/environment';
 
 function getNewSessionId(): number {
   const localSessionId = localStorage.getItem('latestSessionId');
@@ -23,7 +24,7 @@ function getNewSessionId(): number {
 export class LocalMemorySessionApiService
   implements SessionApiIService {
 
-  protected readonly sessionStorageTokenItemName = sessionStorageTokenItemName;
+  protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
   protected readonly authorizationHeader = authorizationHeaderName;
 
   constructor() { }
