@@ -5,61 +5,49 @@
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of, empty, EMPTY } from 'rxjs';
+import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { StoreService } from '../store.service';
 import { StoreHeaderComponent } from './store-header.component';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { MatDialogModule, MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { StoreCompanyDetailsDialogComponent } from '../dialogs/company-details/store-company-details-dialog.component';
-import { StoreLoginFormDialogComponent } from '../dialogs/login-form/store-login-form-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { StoreHeaderBrandComponent } from './brand/store-header-brand.component';
+import { StoreHeaderNavigationComponent } from './navigation/store-header-navigation.component';
+import { StoreHeaderMiddleComponent } from './middle/store-header-middle.component';
+import { StoreHeaderMenuComponent } from './menu/store-header-menu.component';
+import { StoreHeaderLoginButtonComponent } from './login-button/store-header-login-button.component';
 
 describe('StoreHeaderComponent', () => {
   let component: StoreHeaderComponent;
   let fixture: ComponentFixture<StoreHeaderComponent>;
-  let storeService: Partial<StoreService>;
-  let appService: Partial<AppService>;
-  let dialogService: MatDialog;
-  let snackBarService: MatSnackBar;
+  let mockAppService: Partial<AppService>;
 
   beforeEach(waitForAsync(() => {
-    storeService = {
-      cartDetails$: of([]),
-      cartItemCount$: of(0),
-      cartSubtotalValue$: of(0)
-    };
-    appService = {
+    mockAppService = {
       isLoggedIn() { return false; },
-      isLoggedInChanges$: of(false),
-      closeCurrentSession() {},
-      getUserProfile() { return of(null); }
+      isLoggedInChanges$: of(false)
     };
 
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
-        RouterTestingModule,
-        MatButtonModule,
-        MatMenuModule,
-        MatIconModule,
-        MatDialogModule,
-        MatSnackBarModule
+        CommonModule
       ],
-      declarations: [ StoreHeaderComponent ],
+      declarations: [
+        StoreHeaderComponent,
+        StoreHeaderBrandComponent,
+        StoreHeaderNavigationComponent,
+        StoreHeaderMiddleComponent,
+        StoreHeaderMenuComponent,
+        StoreHeaderLoginButtonComponent
+      ],
       providers: [
-        { provide: StoreService, useValue: storeService },
-        { provide: AppService, useValue: appService }
+        { provide: AppService, useValue: mockAppService }
       ]
     })
     .compileComponents();
-    dialogService = TestBed.inject(MatDialog);
-    snackBarService = TestBed.inject(MatSnackBar);
-    spyOn(dialogService, 'open').and.returnValue({ afterClosed: () => EMPTY });
-    spyOn(snackBarService, 'open');
   }));
 
   beforeEach(() => {
@@ -70,20 +58,5 @@ describe('StoreHeaderComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should prompt a login dialog', () => {
-    component.onClickLogIn();
-    expect(dialogService.open).toHaveBeenCalled();
-  });
-
-  it('should prompt a logout confirmation, only when logged in', () => {
-    component.onClickLogout();
-    expect(dialogService.open).not.toHaveBeenCalled();
-
-    appService.isLoggedInChanges$ = of(true);
-    appService.isLoggedIn = (() => true);
-    component.onClickLogout();
-    expect(dialogService.open).toHaveBeenCalled();
   });
 });
