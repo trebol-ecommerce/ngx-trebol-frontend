@@ -16,7 +16,6 @@ import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
 import { HttpService } from 'src/app/shared/http.aservice';
 import { SessionApiIService } from '../session-api.iservice';
-import { authorizationHeaderName } from 'src/environments/session-api.environment';
 import { Registration } from 'src/app/models/Registration';
 import { environment } from 'src/environments/environment';
 
@@ -27,7 +26,7 @@ export class HttpSessionApiService
 
   protected baseURI = environment.apiUrls.session;
   protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
-  protected readonly authorizationHeader = authorizationHeaderName;
+  protected readonly authorizationHeader = environment.secrets.authHeader;
 
   constructor(
     protected http: HttpClient
