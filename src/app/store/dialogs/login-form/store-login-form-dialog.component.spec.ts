@@ -17,7 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { DialogSwitcherButtonComponent } from 'src/app/shared/dialog-switcher-button/dialog-switcher-button.component';
-import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/centered-mat-spinner/component';
+import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 
 describe('StoreLoginFormDialogComponent', () => {
   let component: StoreLoginFormDialogComponent;

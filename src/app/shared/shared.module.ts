@@ -12,7 +12,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import { PersonFormComponent } from './person-form/person-form.component';
 import { EditProfileFormDialogComponent } from './edit-profile-form-dialog/edit-profile-form-dialog.component';
 import { ProductFiltersPanelComponent } from './product-filters-panel/product-filters-panel.component';
-import { CenteredMatProgressSpinnerComponent } from './centered-mat-spinner/component';
+import { CenteredMatProgressSpinnerComponent } from './components/centered-mat-spinner/centered-mat-spinner.component';
 import { DialogSwitcherButtonComponent } from './dialog-switcher-button/dialog-switcher-button.component';
 import { InformationDialogComponent } from './information-dialog/information-dialog.component';
 
