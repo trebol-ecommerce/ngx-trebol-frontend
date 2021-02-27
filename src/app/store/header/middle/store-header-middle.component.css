@@ -1,0 +1,22 @@
+.middle {
+  flex: 1 1 auto;
+  font-size: 1.25rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.middle>span {
+  display: none;
+}
+
+@media(min-width: 640px) {
+  .middle>span {
+    display: inline;
+  }
+}
+
+@media(min-width: 800px) {
+  .middle>span {
+    font-size: 1.75rem;
+  }
+}

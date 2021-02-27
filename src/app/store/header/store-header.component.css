@@ -26,6 +26,10 @@ app-store-header-navigation {
   flex: 0 0 auto;
 }
 
+app-store-header-middle {
+  flex: 1 1 auto;
+}
+
 .action {
   flex: 0 0 auto;
   justify-content: center;
@@ -43,27 +47,4 @@ app-store-header-navigation {
   border-top-style: solid;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-}
-
-.middle {
-  flex: 1 1 auto;
-  font-size: 1.25rem;
-  justify-content: center;
-  align-items: center;
-}
-
-.middle>span {
-  display: none;
-}
-
-@media(min-width: 640px) {
-  .middle>span {
-    display: inline;
-  }
-}
-
-@media(min-width: 800px) {
-  .middle>span {
-    font-size: 1.75rem;
-  }
 }
