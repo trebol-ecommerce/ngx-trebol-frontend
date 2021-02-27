@@ -5,7 +5,7 @@
 
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/entities/Product';
-import { ProductFilters } from 'src/app/shared/product-filters-panel/product-filters-panel.component';
+import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';

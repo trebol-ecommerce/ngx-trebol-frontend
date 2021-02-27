@@ -11,7 +11,7 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { PersonFormComponent } from './components/person-form/person-form.component';
 import { EditProfileFormDialogComponent } from './edit-profile-form-dialog/edit-profile-form-dialog.component';
-import { ProductFiltersPanelComponent } from './product-filters-panel/product-filters-panel.component';
+import { ProductFiltersPanelComponent } from './components/product-filters-panel/product-filters-panel.component';
 import { CenteredMatProgressSpinnerComponent } from './components/centered-mat-spinner/centered-mat-spinner.component';
 import { DialogSwitcherButtonComponent } from './components/dialog-switcher-button/dialog-switcher-button.component';
 import { InformationDialogComponent } from './information-dialog/information-dialog.component';
