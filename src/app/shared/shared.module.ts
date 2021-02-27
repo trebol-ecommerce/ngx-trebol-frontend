@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularMaterialModule } from './angular-material.module';
+import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { PersonFormComponent } from './person-form/person-form.component';
 import { EditProfileFormDialogComponent } from './edit-profile-form-dialog/edit-profile-form-dialog.component';

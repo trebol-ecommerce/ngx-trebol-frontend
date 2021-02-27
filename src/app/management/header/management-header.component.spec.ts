@@ -8,7 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { Person } from 'src/app/models/entities/Person';
-import { AngularMaterialModule } from 'src/app/shared/angular-material.module';
+import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
 import { ManagementService } from '../management.service';
 import { ManagementHeaderComponent } from './management-header.component';
 import { Router } from '@angular/router';
