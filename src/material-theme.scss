@@ -5,13 +5,13 @@
  * https://opensource.org/licenses/MIT
  */
 
+// https://material.io/design/color/
 @import '~@angular/material/theming';
 
 @include mat-core();
 
-// https://material.io/design/color/
-$trebol-app-primary:   mat-palette($mat-blue-grey, 600);
-$trebol-app-accent:    mat-palette($mat-purple, 600, 400, 800);
+$trebol-app-primary:   mat-palette($mat-purple, 800);
+$trebol-app-accent:    mat-palette($mat-blue, 600, 400, 800);
 $trebol-app-warn:      mat-palette($mat-red);
 
 $trebol-app-theme: mat-light-theme((
@@ -30,8 +30,22 @@ $trebol-app-theme: mat-light-theme((
 @import 'src/assets/mixins/store-footer.component';
 @include store-footer-theme($trebol-app-theme);
 
+// Pages / Routes
+
+$trebol-page-app-primary:   mat-palette($mat-blue-grey, 800);
+$trebol-page-app-accent:    mat-palette($mat-indigo, 600, 400, 800);
+$trebol-page-app-warn:      mat-palette($mat-red);
+
+$trebol-page-app-theme: mat-light-theme((
+  color: (
+    primary: $trebol-page-app-primary,
+    accent: $trebol-page-app-accent,
+    warn: $trebol-page-app-warn
+  )
+));
+
 @import 'src/assets/mixins/store-catalog.component';
-@include store-catalog-theme($trebol-app-theme);
+@include store-catalog-theme($trebol-page-app-theme);
 
 @import 'src/assets/mixins/store-cart-review.component';
-@include store-cart-review-theme($trebol-app-theme);
+@include store-cart-review-theme($trebol-page-app-theme);

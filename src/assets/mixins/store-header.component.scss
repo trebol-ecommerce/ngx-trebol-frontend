@@ -13,15 +13,16 @@
   $accent: map-get($config, accent);
 
   .header {
-    background-color: mat-color($primary, lighter);
+    background-color: mat-color($primary);
+    color: white;
   }
 
   .header .navigation>* {
-    border-color: mat-color($primary, light);
+    border-color: mat-color($primary, 900);
   }
 
   .header .action.active {
-    border-color: mat-color($primary, light);
+    border-color: mat-color($primary, 900);
   }
 }
 
