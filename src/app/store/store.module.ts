@@ -29,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreHeaderBrandComponent } from './header/brand/store-header-brand.component';
 import { StoreHeaderNavigationComponent } from './header/navigation/store-header-navigation.component';
 import { StoreHeaderMiddleComponent } from './header/middle/store-header-middle.component';
+import { StoreHeaderMenuComponent } from './header/menu/store-header-menu.component';
 
 
 const SNACKBAR_DEFAULTS = {
@@ -53,7 +54,8 @@ const SNACKBAR_DEFAULTS = {
     StoreCompanyDetailsDialogComponent,
     StoreHeaderBrandComponent,
     StoreHeaderNavigationComponent,
-    StoreHeaderMiddleComponent
+    StoreHeaderMiddleComponent,
+    StoreHeaderMenuComponent
   ],
   imports: [
     HttpClientModule,
