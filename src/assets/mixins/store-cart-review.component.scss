@@ -1,0 +1,37 @@
+/**
+ * Copyright (c) 2021 Benjamin La Madrid
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+@import '~@angular/material/theming';
+
+@mixin store-cart-review-color($theme) {
+  $config: mat-get-color-config($theme);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+
+  // .cart-review {
+  //   background-color: mat-color($primary, 50);
+  // }
+
+  .cart-review h2,
+  .cart-review h3 {
+    background-color: mat-color($primary, 50);
+    color: mat-color($primary);
+  }
+
+  .cart-review div.summary {
+    background-color: mat-color($primary, 50);
+  }
+}
+
+@mixin store-cart-review-theme($theme) {
+  $color: mat-get-color-config($theme);
+  // $typography: mat-get-typography-config($theme);
+
+  @if $color != null {
+    @include store-cart-review-color($color);
+  }
+}

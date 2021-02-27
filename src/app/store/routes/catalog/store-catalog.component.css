@@ -1,22 +1,22 @@
 /**
- * Copyright (c) 2020 Benjamin La Madrid
+ * Copyright (c) 2021 Benjamin La Madrid
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
-.catalog-container {
-  height: 100%;
+.catalog {
   display: flex;
   flex-flow: column nowrap;
-  align-content: stretch;
-  background-color: var(--color-bg-dark);
+  align-items: stretch;
+  justify-items: stretch;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 h2 {
   margin: 0;
   padding: 1rem 1rem 0 1rem;
-  color: var(--color-content);
 }
 
 @media(min-width: 720px) {
@@ -31,20 +31,22 @@ app-product-filters-panel {
 }
 
 centered-mat-spinner {
-  background-color: var(--color-bg-secondary);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-.catalog {
+.products {
   flex: 1 1 auto;
+  align-self: stretch;
   padding: 0.5rem;
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(1fr, 20rem));
-  grid-auto-rows: max-content;
+  grid-template-columns: repeat(auto-fill, 20rem);
   justify-content: center;
-  overflow-x: hidden;
-  overflow-y: auto;
-  background-color: var(--color-bg-secondary-light);
+  overflow: hidden;
 }
 
 @media(min-width: 800px) {
@@ -52,8 +54,12 @@ centered-mat-spinner {
     padding: 1rem;
   }
 
-  .catalog {
-    grid-template-columns: repeat(auto-fit, 20rem);
+  .products {
     padding: 1rem;
+  }
+}
+@media(min-width: 1000px) {
+  .products {
+    grid-template-columns: repeat(4, 20rem);
   }
 }

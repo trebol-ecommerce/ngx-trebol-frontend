@@ -1,11 +1,11 @@
 <!--
- Copyright (c) 2020 Benjamin La Madrid
+ Copyright (c) 2021 Benjamin La Madrid
 
  This software is released under the MIT License.
  https://opensource.org/licenses/MIT
 -->
 
-<div class="catalog-container">
+<div class="catalog">
   <h2>Catálogo de Productos</h2>
   <app-product-filters-panel (filtersChanges)="onFiltersChange($event)">
   </app-product-filters-panel>
@@ -13,7 +13,7 @@
   <centered-mat-spinner *ngIf="loading$ | async">
   </centered-mat-spinner>
 
-  <div class="catalog" [hidden]="loading$ | async">
+  <div class="products" [hidden]="loading$ | async">
     <app-store-catalog-product-card *ngFor="let product of (products$ | async)"
       [product]="product">
     </app-store-catalog-product-card>
