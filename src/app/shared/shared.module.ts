@@ -14,7 +14,7 @@ import { EditProfileFormDialogComponent } from './dialogs/edit-profile-form-dial
 import { ProductFiltersPanelComponent } from './components/product-filters-panel/product-filters-panel.component';
 import { CenteredMatProgressSpinnerComponent } from './components/centered-mat-spinner/centered-mat-spinner.component';
 import { DialogSwitcherButtonComponent } from './components/dialog-switcher-button/dialog-switcher-button.component';
-import { InformationDialogComponent } from './components/information-dialog/information-dialog.component';
+import { InformationDialogComponent } from './dialogs/information-dialog/information-dialog.component';
 
 
 @NgModule({
