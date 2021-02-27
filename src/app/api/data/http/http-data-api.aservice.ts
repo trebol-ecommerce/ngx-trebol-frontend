@@ -4,10 +4,10 @@
 // https://opensource.org/licenses/MIT
 
 import { HttpService } from 'src/app/shared/http.aservice';
-import { dataApiURL } from 'src/environments/data-api.environment';
+import { environment } from 'src/environments/environment';
 
 export abstract class HttpDataApiService
   extends HttpService {
 
-  protected baseURI = dataApiURL;
+  protected baseURI = environment.apiUrls.data;
 }
