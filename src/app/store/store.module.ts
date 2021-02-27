@@ -27,6 +27,7 @@ import { StoreRoutingModule } from './store-routing.module';
 import { StoreComponent } from './store.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreHeaderBrandComponent } from './header/brand/store-header-brand.component';
+import { StoreHeaderNavigationComponent } from './header/navigation/store-header-navigation.component';
 
 
 const SNACKBAR_DEFAULTS = {
@@ -49,7 +50,8 @@ const SNACKBAR_DEFAULTS = {
     StoreProductDetailsDialogComponent,
     StoreCatalogProductCardComponent,
     StoreCompanyDetailsDialogComponent,
-    StoreHeaderBrandComponent
+    StoreHeaderBrandComponent,
+    StoreHeaderNavigationComponent
   ],
   imports: [
     HttpClientModule,

@@ -22,34 +22,8 @@ app-store-header-brand {
   flex: 0 0 auto;
 }
 
-.navigation {
+app-store-header-navigation {
   flex: 0 0 auto;
-  justify-content: space-evenly;
-  align-items: stretch;
-}
-
-.navigation>* {
-  display: inline-flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  border-left-width: 1px;
-  border-left-style: solid;
-  border-right-width: 1px;
-  border-right-style: solid;
-  border-radius: 0;
-}
-
-.navigation mat-icon {
-  font-size: 2rem;
-  width: 2rem;
-  height: 2rem;
-}
-
-.cart-summary {
-  display: inline-flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  padding: 0 1rem;
 }
 
 .action {

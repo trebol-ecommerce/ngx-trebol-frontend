@@ -7,20 +7,7 @@
 
 <div class="header">
   <app-store-header-brand></app-store-header-brand>
-  <div class="navigation">
-    <a mat-button title="Ir al Catálogo de Productos" routerLink="/store">
-      <mat-icon>storefront</mat-icon>
-    </a>
-    <ng-container *ngIf="cartHasItems$ | async">
-      <a mat-button title="Ir al Carrito" [routerLink]="['/store', 'cart']">
-        <mat-icon>shopping_cart</mat-icon>
-        <span class="cart-summary">
-          <span>{{ cartItemCountLabel$ | async }}</span>
-          <span>${{ cartSubtotalValue$ | async }}</span>
-        </span>
-      </a>
-    </ng-container>
-  </div>
+  <app-store-header-navigation></app-store-header-navigation>
   <div class="middle">
     <span>Tienda On-line</span>
   </div>
