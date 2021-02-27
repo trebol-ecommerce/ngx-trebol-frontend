@@ -15,15 +15,15 @@ import { StoreApiIService } from '../store-api.iservice';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
-import { storeApiURL } from 'src/environments/store-api.environment';
 import { Receipt } from 'src/app/models/entities/Receipt';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class HttpStoreApiService
   extends HttpService
   implements StoreApiIService {
 
-  protected baseURI = storeApiURL;
+  protected baseURI = environment.apiUrls.store;
 
   constructor(
     protected http: HttpClient

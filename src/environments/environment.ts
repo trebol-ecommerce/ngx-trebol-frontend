@@ -7,7 +7,8 @@ export const environment = {
   apiUrls: {
     access: '',
     data: '',
-    session: ''
+    session: '',
+    store: ''
   }
 };
 
