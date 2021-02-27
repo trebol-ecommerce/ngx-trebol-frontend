@@ -13,7 +13,7 @@
   $accent: map-get($config, accent);
 
   .footer {
-    background-color: mat-color($primary, 100);
+    background-color: mat-color($primary, lighter);
   }
 }
 

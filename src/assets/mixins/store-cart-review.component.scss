@@ -12,13 +12,13 @@
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
 
-  .cart-review {
-    background-color: mat-color($primary, 50);
-  }
+  // .cart-review {
+  //   background-color: mat-color($primary, 50);
+  // }
 
   .cart-review h2,
   .cart-review h3 {
-    background-color: mat-color($primary, 100);
+    background-color: mat-color($primary, 50);
     color: mat-color($primary);
   }
 

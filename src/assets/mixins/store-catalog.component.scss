@@ -12,12 +12,16 @@
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
 
-  .catalog {
+  // .catalog {
+  //   background-color: mat-color($primary, 50);
+  // }
+  .catalog h2 {
     background-color: mat-color($primary, 50);
+    color: mat-color($primary);
   }
 
   .catalog .banners {
-    border-bottom-color: mat-color($primary, darker);
+    border-bottom-color: mat-color($primary, lighter);
   }
 }
 
