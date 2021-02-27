@@ -9,7 +9,6 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { PersonFormComponent } from 'src/app/shared/person-form/person-form.component';
-import { StoreRegistrationFormDialogComponent } from '../registration-form/store-registration-form-dialog.component';
 
 @Component({
   selector: 'app-store-guest-shipping-form-dialog',
@@ -28,7 +27,7 @@ export class StoreGuestShippingFormDialogComponent
 
   constructor(
     protected appService: AppService,
-    protected dialog: MatDialogRef<StoreRegistrationFormDialogComponent>,
+    protected dialog: MatDialogRef<StoreGuestShippingFormDialogComponent>,
     protected formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({});
