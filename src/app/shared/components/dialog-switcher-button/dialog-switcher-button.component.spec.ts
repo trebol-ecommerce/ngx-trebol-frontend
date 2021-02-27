@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { DialogSwitcherButtonComponent } from './dialog-switcher-button.component';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { InformationDialogComponent } from '../dialogs/information-dialog/information-dialog.component';
+import { InformationDialogComponent } from 'src/app/shared/dialogs/information-dialog/information-dialog.component';
 
 describe('DialogSwitcherButtonComponent', () => {
   let component: DialogSwitcherButtonComponent;

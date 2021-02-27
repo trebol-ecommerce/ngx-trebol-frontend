@@ -7,7 +7,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ProductFiltersPanelComponent } from './product-filters-panel.component';
 import { ProductFiltersPanelService } from './product-filters-panel.service';
-import { SharedModule } from '../shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { of } from 'rxjs';
 
 describe('ProductFiltersPanelComponent', () => {

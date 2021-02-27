@@ -7,7 +7,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { Person } from 'src/app/models/entities/Person';
-import { SharedModule } from '../shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { EditProfileFormDialogComponent } from './edit-profile-form-dialog.component';
 import { EditProfileFormService } from './edit-profile-form.service';
 
