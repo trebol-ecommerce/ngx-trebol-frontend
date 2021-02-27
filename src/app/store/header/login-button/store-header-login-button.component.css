@@ -1,0 +1,15 @@
+button {
+  padding: 0;
+}
+button mat-icon {
+  width: 3rem;
+  height: 3rem;
+  font-size: 3rem;
+}
+
+button.active {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}

@@ -10,7 +10,6 @@ import { Observable, of } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
-import { StoreLoginFormDialogComponent } from '../dialogs/login-form/store-login-form-dialog.component';
 
 @Component({
   selector: 'app-store-header',
@@ -51,15 +50,6 @@ export class StoreHeaderComponent
         if (resp) {
           this.router.navigateByUrl('/management');
         }
-      }
-    );
-  }
-
-  public onClickLogIn(): void {
-    this.dialogService.open(
-      StoreLoginFormDialogComponent,
-      {
-        width: '24rem'
       }
     );
   }

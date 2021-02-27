@@ -13,10 +13,6 @@
     <app-store-header-menu></app-store-header-menu>
   </ng-container>
   <ng-template #notLoggedIn>
-    <button mat-button type="button"
-      class="login action" title="Aún no has iniciado sesión"
-      (click)="onClickLogIn()">
-      <mat-icon>person_outline</mat-icon>
-    </button>
+    <app-store-header-login-button></app-store-header-login-button>
   </ng-template>
 </div>

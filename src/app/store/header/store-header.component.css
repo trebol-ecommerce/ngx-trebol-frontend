@@ -30,25 +30,7 @@ app-store-header-middle {
   flex: 1 1 auto;
 }
 
-app-store-header-menu {
+app-store-header-menu,
+app-store-header-login-button {
   flex: 0 0 auto;
-}
-
-.action {
-  flex: 0 0 auto;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-}
-.action mat-icon {
-  width: 3rem;
-  height: 3rem;
-  font-size: 3rem;
-}
-
-.action.active {
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
 }

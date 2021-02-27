@@ -30,6 +30,7 @@ import { StoreHeaderBrandComponent } from './header/brand/store-header-brand.com
 import { StoreHeaderNavigationComponent } from './header/navigation/store-header-navigation.component';
 import { StoreHeaderMiddleComponent } from './header/middle/store-header-middle.component';
 import { StoreHeaderMenuComponent } from './header/menu/store-header-menu.component';
+import { StoreHeaderLoginButtonComponent } from './header/login-button/store-header-login-button.component';
 
 
 const SNACKBAR_DEFAULTS = {
@@ -55,7 +56,8 @@ const SNACKBAR_DEFAULTS = {
     StoreHeaderBrandComponent,
     StoreHeaderNavigationComponent,
     StoreHeaderMiddleComponent,
-    StoreHeaderMenuComponent
+    StoreHeaderMenuComponent,
+    StoreHeaderLoginButtonComponent
   ],
   imports: [
     HttpClientModule,
