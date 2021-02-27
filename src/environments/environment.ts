@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   apiUrls: {
     access: '',
-    data: ''
+    data: '',
+    session: ''
   }
 };
 
