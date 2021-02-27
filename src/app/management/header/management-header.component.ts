@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { APP_INITIALS_TITLE, APP_LONG_TITLE } from 'src/app/app.constants';
 import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
-import { EditProfileFormDialogComponent } from 'src/app/shared/components/edit-profile-form-dialog/edit-profile-form-dialog.component';
+import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form-dialog/edit-profile-form-dialog.component';
 import { ManagementService } from '../management.service';
 import { pluck } from 'rxjs/operators';
 import { LOGOUT_MESSAGE } from 'src/text/messages';
