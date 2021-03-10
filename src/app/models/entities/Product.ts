@@ -5,6 +5,7 @@
 
 import { AbstractEntity } from 'src/app/models/AbstractEntity';
 import { ProductType } from './ProductType';
+import { Image } from './Image';
 
 export class Product
   extends AbstractEntity {
@@ -18,5 +19,5 @@ export class Product
   public description?: string;
   public currentStock?: number;
   public criticalStock?: number;
-  public imagesURL?: string[];
+  public images?: Image[];
 }

@@ -6,7 +6,7 @@
 -->
 
 <div class="dialog">
-  <img [src]="product?.imagesURL[0]" [alt]="product?.name" />
+  <img [src]="product?.images[0].url" [alt]="product?.name" />
   <div class="about">
     <h2 class="name">{{ product?.name }}</h2>
     <h4 class="barcode">{{ product?.barcode }}</h4>

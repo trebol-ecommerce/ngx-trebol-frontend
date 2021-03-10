@@ -25,7 +25,12 @@ export const MOCK_PRODUCTS: Partial<Product>[] = [
       description: 'Zapatillas Hombre',
       productFamily: { id: 1 }
     },
-    imagesURL: [ 'assets/img/products/photo-1578116922645-3976907a7671.jpg' ]
+    images: [
+      {
+        filename: 'photo-1578116922645-3976907a7671.jpg',
+        url: 'assets/img/products/photo-1578116922645-3976907a7671.jpg'
+      }
+    ]
   },
   {
     id: 2,
@@ -39,7 +44,12 @@ export const MOCK_PRODUCTS: Partial<Product>[] = [
       description: 'Zapatillas Hombre',
       productFamily: { id: 1 }
     },
-    imagesURL: [ 'assets/img/products/photo-1578172433613-9f1b258f7d5b.jpg' ]
+    images: [
+      {
+        filename: 'photo-1578172433613-9f1b258f7d5b.jpg',
+        url: 'assets/img/products/photo-1578172433613-9f1b258f7d5b.jpg'
+      }
+    ]
   },
   {
     id: 3,
@@ -53,7 +63,12 @@ export const MOCK_PRODUCTS: Partial<Product>[] = [
       description: 'Zapatillas Hombre',
       productFamily: { id: 1 }
     },
-    imagesURL: [ 'assets/img/products/photo-1580143881495-b21dde95fc60.jpg' ]
+    images: [
+      {
+        filename: 'photo-1580143881495-b21dde95fc60.jpg',
+        url: 'assets/img/products/photo-1580143881495-b21dde95fc60.jpg'
+      }
+    ]
   }
 ];
 

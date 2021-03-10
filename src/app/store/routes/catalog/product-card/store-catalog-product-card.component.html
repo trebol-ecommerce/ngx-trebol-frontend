@@ -11,8 +11,8 @@
       <mat-card-title>{{ product?.name }}</mat-card-title>
       <mat-card-subtitle>{{ product?.barcode }}</mat-card-subtitle>
     </mat-card-header>
-    <img *ngIf="product?.imagesURL"
-      [src]="product?.imagesURL[0]"
+    <img *ngIf="product?.images?.length"
+      [src]="product?.images[0].url"
       [alt]="product?.name" />
   </div>
   <div class="actions">
