@@ -15,6 +15,7 @@ import { ProductFiltersPanelComponent } from './components/product-filters-panel
 import { CenteredMatProgressSpinnerComponent } from './components/centered-mat-spinner/centered-mat-spinner.component';
 import { DialogSwitcherButtonComponent } from './components/dialog-switcher-button/dialog-switcher-button.component';
 import { InformationDialogComponent } from './dialogs/information-dialog/information-dialog.component';
+import { SlideshowComponent } from './components/slideshow/slideshow.component';
 
 
 const PUBLIC_COMPONENTS = [
@@ -24,7 +25,8 @@ const PUBLIC_COMPONENTS = [
   ProductFiltersPanelComponent,
   EditProfileFormDialogComponent,
   DialogSwitcherButtonComponent,
-  InformationDialogComponent
+  InformationDialogComponent,
+  SlideshowComponent
 ];
 
 @NgModule({

@@ -1,0 +1,25 @@
+.slides {
+  position: relative;
+}
+
+.slides > .slide-remove {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+
+.selectors,
+.slide-wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.selectors {
+  padding: 0.5rem;
+}
+
+.slide-wrapper img {
+  align-self: flex-start;
+  max-width: 100%;
+}
