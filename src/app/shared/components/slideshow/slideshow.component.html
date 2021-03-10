@@ -1,10 +1,10 @@
 <div class="slideshow">
   <div class="slides">
-    <ng-container *ngIf="imageUrls?.length; else noImageAvailable">
-      <div *ngFor="let url of imageUrls; index as i"
+    <ng-container *ngIf="images?.length; else noImageAvailable">
+      <div *ngFor="let image of images; index as i"
         class="slide-wrapper">
         <img [hidden]="(currentIndex$ | async) != i"
-          [src]="url" alt="" [@fadeInOut]="((currentIndex$ | async) != i) ? 'transparent' : 'opaque'"
+          [src]="image.url" alt="" [@fadeInOut]="((currentIndex$ | async) != i) ? 'transparent' : 'opaque'"
           (mouseenter)="stopAutoRotation()" (mouseleave)="startAutoRotation()" />
       </div>
       <ng-container *ngIf="editable">
@@ -23,7 +23,7 @@
     </ng-template>
   </div>
   <div class="selectors">
-    <ng-container *ngFor="let url of imageUrls; index as i">
+    <ng-container *ngFor="let image of images; index as i">
       <ng-container *ngIf="(currentIndex$ | async) == i; then selected; else notSelected"></ng-container>
       <ng-template #selected>
         <button type="button" class="slide-selector"

@@ -9,6 +9,7 @@ import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, 
 import { BehaviorSubject, interval, Observable, Subscription } from 'rxjs';
 import { delay, tap, mapTo } from 'rxjs/operators';
 import { fadeInOut } from 'src/animations/fadeInOut';
+import { Image } from 'src/app/models/entities/Image';
 
 @Component({
   selector: 'app-slideshow',
@@ -26,7 +27,7 @@ export class SlideshowComponent
   private autoRotateImagesSubscription: Subscription;
   private autoRotationInterval = 5000;
 
-  @Input() @Output() imageUrls = [];
+  @Input() @Output() images: Image[] = [];
   @Input() autocycle = true;
   @Input() editable = false;
   @Output() navigate = new EventEmitter<void>();
@@ -55,7 +56,7 @@ export class SlideshowComponent
   }
 
   slideForwards(): void {
-    if (this.imageUrls.length - 1 > this.currentIndex) {
+    if (this.images.length - 1 > this.currentIndex) {
       this.currentIndex++;
     } else {
       this.currentIndex = 0;
@@ -68,14 +69,14 @@ export class SlideshowComponent
     if (this.currentIndex > 1) {
       this.currentIndex--;
     } else {
-      this.currentIndex = this.imageUrls.length - 1;
+      this.currentIndex = this.images.length - 1;
     }
     this.navigate.emit();
     this.currentIndexSource.next(this.currentIndex);
   }
 
   goToSlide(index: number): void {
-    if (index >= 0 && this.imageUrls.length > index && this.currentIndex !== index) {
+    if (index >= 0 && this.images.length > index && this.currentIndex !== index) {
       this.currentIndex = index;
       this.navigate.emit();
       this.currentIndexSource.next(this.currentIndex);
@@ -106,7 +107,7 @@ export class SlideshowComponent
   }
 
   onClickRemove(): void {
-    this.imageUrls.splice(this.currentIndex, 1);
+    this.images.splice(this.currentIndex, 1);
     this.slideBackwards();
   }
 
