@@ -1,5 +1,5 @@
 <!--
- Copyright (c) 2020 Benjamin La Madrid
+ Copyright (c) 2021 Benjamin La Madrid
 
  This software is released under the MIT License.
  https://opensource.org/licenses/MIT
@@ -13,15 +13,22 @@
   <div [hidden]="saving$ | async">
     <form [formGroup]="formGroup" (submit)="onSubmit()">
 
-      <mat-form-field style="grid-area: code">
+      <app-slideshow class="images"
+        [(images)]="images"
+        [autocycle]="false"
+        [editable]="true"
+        (add)="onClickAddImage()">
+      </app-slideshow>
+
+      <mat-form-field class="code">
         <input matInput placeholder="Código" formControlName="code" />
       </mat-form-field>
 
-      <mat-form-field style="grid-area: name">
+      <mat-form-field class="name">
         <input matInput placeholder="Nombre" formControlName="name" />
       </mat-form-field>
 
-      <mat-form-field style="grid-area: pFamily">
+      <mat-form-field class="family">
         <mat-select placeholder="Familia de Producto" formControlName="family">
           <mat-option *ngFor="let f of (productFamilies$ | async)" [value]="f.id">
             {{ f.name }}
@@ -29,7 +36,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field style="grid-area: pType">
+      <mat-form-field class="type">
         <mat-select placeholder="Tipo de Producto" formControlName="type">
           <mat-option *ngFor="let t of (productTypes$ | async)" [value]="t.id">
             {{ t.name }}
@@ -37,23 +44,23 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field style="grid-area: price">
+      <mat-form-field class="price">
         <input matInput placeholder="Precio" formControlName="price" />
       </mat-form-field>
 
-      <mat-form-field style="grid-area: stock">
+      <mat-form-field class="stock">
         <input matInput placeholder="Stock Actual" formControlName="stock" />
       </mat-form-field>
 
-      <mat-form-field style="grid-area: cStock">
+      <mat-form-field class="cStock">
         <input matInput placeholder="Stock crítico" formControlName="criticalStock" />
       </mat-form-field>
 
-      <mat-form-field style="grid-area: desc">
+      <mat-form-field class="desc">
         <textarea matInput placeholder="Descripción" formControlName="description"></textarea>
       </mat-form-field>
 
-      <div style="grid-area: actions" class="actions">
+      <div class="actions">
         <button mat-button mat-raised-button type="submit"
           color="primary"
           [disabled]="formGroup.invalid">

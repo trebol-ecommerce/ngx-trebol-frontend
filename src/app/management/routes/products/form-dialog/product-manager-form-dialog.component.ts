@@ -1,4 +1,4 @@
-// Copyright (c) 2020 Benjamin La Madrid
+// Copyright (c) 2021 Benjamin La Madrid
 //
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
@@ -15,6 +15,7 @@ import { ProductType } from 'src/app/models/entities/ProductType';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerFormComponentDirective } from '../../data-manager-form.component-directive';
 import { ProductManagerFormService } from './product-manager-form.service';
+import { Image } from 'src/app/models/entities/Image';
 
 export interface ProductManagerFormDialogData {
   product: Product;
@@ -47,6 +48,7 @@ export class ProductManagerFormDialogComponent
   public get criticalStock(): FormControl { return this.formGroup.get('criticalStock') as FormControl; }
   public get description(): FormControl { return this.formGroup.get('description') as FormControl; }
 
+  public images: Image[];
   public get dialogTitle(): string { return ((this.data?.product?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Producto'; }
 
   constructor(
@@ -91,6 +93,10 @@ export class ProductManagerFormDialogComponent
 
     if (p.description) {
       this.description.setValue(p.description, { emitEvent: false, onlySelf: true });
+    }
+
+    if (p.images?.length) {
+      this.images = p.images.slice();
     }
 
     this.onChangeFamily();
@@ -142,10 +148,15 @@ export class ProductManagerFormDialogComponent
           currentStock: this.stock.value,
           criticalStock: this.criticalStock.value,
           description: this.description.value,
-          barcode: this.code.value
+          barcode: this.code.value,
+          images: this.images
         }
       );
     }
+  }
+
+  public onClickAddImage(): void {
+    alert('TODO');
   }
 
   public onSubmit(): void {
