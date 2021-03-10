@@ -17,15 +17,19 @@ import { DialogSwitcherButtonComponent } from './components/dialog-switcher-butt
 import { InformationDialogComponent } from './dialogs/information-dialog/information-dialog.component';
 
 
+const PUBLIC_COMPONENTS = [
+  CenteredMatProgressSpinnerComponent,
+  ConfirmationDialogComponent,
+  PersonFormComponent,
+  ProductFiltersPanelComponent,
+  EditProfileFormDialogComponent,
+  DialogSwitcherButtonComponent,
+  InformationDialogComponent
+];
+
 @NgModule({
   declarations: [
-    CenteredMatProgressSpinnerComponent,
-    ConfirmationDialogComponent,
-    PersonFormComponent,
-    ProductFiltersPanelComponent,
-    EditProfileFormDialogComponent,
-    DialogSwitcherButtonComponent,
-    InformationDialogComponent
+    ...PUBLIC_COMPONENTS
   ],
   imports: [
     CommonModule,
@@ -41,13 +45,7 @@ import { InformationDialogComponent } from './dialogs/information-dialog/informa
     BrowserAnimationsModule,
     AngularMaterialModule,
 
-    CenteredMatProgressSpinnerComponent,
-    ConfirmationDialogComponent,
-    PersonFormComponent,
-    ProductFiltersPanelComponent,
-    EditProfileFormDialogComponent,
-    DialogSwitcherButtonComponent,
-    InformationDialogComponent
+    ...PUBLIC_COMPONENTS
   ]
 })
 export class SharedModule { }
