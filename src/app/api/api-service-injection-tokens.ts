@@ -11,6 +11,7 @@ export const API_SERVICE_INJECTION_TOKENS = {
   shared: 'SharedData',
   dataAccess: 'DataAccess',
   customersCrud: 'CustomersCrud',
+  imagesCrud: 'imagesCrud',
   salespeopleCrud: 'SalespeopleCrud',
   productsCrud: 'ProductsCrud',
   usersCrud: 'UsersCrud',
