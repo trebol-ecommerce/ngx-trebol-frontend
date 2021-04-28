@@ -1,0 +1,13 @@
+.search {
+  width: 100%;
+  padding-bottom: 1rem;
+}
+.list-wrapper {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+.actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem 0;
+}
