@@ -9,7 +9,7 @@ import { concatMap as switchMap, map } from 'rxjs/operators';
 import { Image } from 'src/app/models/entities/Image';
 import { ImagesService } from 'src/app/shared/services/images.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ImagesArrayService
   implements OnDestroy {
 
