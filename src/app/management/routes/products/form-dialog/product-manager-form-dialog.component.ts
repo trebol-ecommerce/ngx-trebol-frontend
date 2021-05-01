@@ -5,7 +5,7 @@
 
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -16,6 +16,8 @@ import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages
 import { DataManagerFormComponentDirective } from '../../data-manager-form.component-directive';
 import { ProductManagerFormService } from './product-manager-form.service';
 import { Image } from 'src/app/models/entities/Image';
+import { ImagesArrayDialogComponent } from 'src/app/management/dialogs/images-array/images-array-dialog.component';
+import { ImagesArrayDialogData } from 'src/app/management/dialogs/images-array/ImagesArrayDialogData';
 
 export interface ProductManagerFormDialogData {
   product: Product;
@@ -56,7 +58,8 @@ export class ProductManagerFormDialogComponent
     protected service: ProductManagerFormService,
     protected dialog: MatDialogRef<ProductManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
-    protected formBuilder: FormBuilder
+    protected formBuilder: FormBuilder,
+    private dialogService: MatDialog
   ) {
     super();
     this.formGroup = this.formBuilder.group({
@@ -156,7 +159,22 @@ export class ProductManagerFormDialogComponent
   }
 
   public onClickAddImage(): void {
-    alert('TODO');
+    const data: ImagesArrayDialogData = {
+      existing: this.images
+    };
+    this.dialogService.open(
+      ImagesArrayDialogComponent,
+      {
+        data
+      }
+    ).afterClosed().pipe(
+      tap((images: Image[]) => {
+        if (images && images.length) {
+          this.images = images;
+        }
+      })
+    )
+    .subscribe();
   }
 
   public onSubmit(): void {
