@@ -5,14 +5,16 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy, ViewChild, Inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectionList } from '@angular/material/list';
-import { BehaviorSubject, ReplaySubject, Subscription, Observable } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { Subscription, Observable, iif } from 'rxjs';
+import { debounceTime, map, tap, share } from 'rxjs/operators';
 import { Image } from 'src/app/models/entities/Image';
 import { ImagesArrayService } from './images-array.service';
+import { ImageArrayOption } from './imageArrayOption'
+import { ImagesArrayDialogData } from './ImagesArrayDialogData';
 
 @Component({
   selector: 'app-images-array-dialog',
@@ -22,23 +24,20 @@ import { ImagesArrayService } from './images-array.service';
 export class ImagesArrayDialogComponent
   implements OnDestroy {
 
-  private selectedImages: Image[] = [];
-  private selectedImagesSource = new BehaviorSubject<Image[]>(null);
-  private focusImageSource = new BehaviorSubject<Image | null>(null);
   private filterChangeSub: Subscription;
 
-  selectedImages$ = this.selectedImagesSource.asObservable();
-  focusImage$ = this.focusImageSource.asObservable();
   filterFormControl = new FormControl();
-  images$: Observable<Image[]>;
+  options$: Observable<ImageArrayOption[]>;
 
   @ViewChild('imageSelectionList', { static: true }) imageSelectionList: MatSelectionList;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) private data: ImagesArrayDialogData,
     private dialog: MatDialogRef<ImagesArrayDialogComponent>,
     private service: ImagesArrayService
   ) {
-    this.images$ = this.service.imageList$.pipe();
+    this.options$ = data ? this.service.fetchOptions(data) :
+                            this.service.fetchOptions();
     this.filterChangeSub = this.filterFormControl.valueChanges.pipe(
       debounceTime(500)
     ).subscribe(
@@ -52,19 +51,16 @@ export class ImagesArrayDialogComponent
     this.filterChangeSub.unsubscribe();
   }
 
-  includeImage(img: Image): void {
-    this.selectedImages.push(img);
-    this.selectedImagesSource.next(this.selectedImages);
-  }
-
-  excludeImage(img: Image): void {
-    const index = this.selectedImages.findIndex(img2 => img.filename === img2.filename)
-    this.selectedImages.splice(index, 1);
-    this.selectedImagesSource.next(this.selectedImages);
-  }
-
   onClickAccept(): void {
-    this.dialog.close(this.selectedImages);
+    const selectedUrls: Image[] = this.imageSelectionList.selectedOptions
+      .selected
+      .map((option) => Object.assign(
+        new Image(), {
+          url: option.value,
+          filename: option.getLabel()
+        }
+      ));
+    this.dialog.close(selectedUrls);
   }
 
 }

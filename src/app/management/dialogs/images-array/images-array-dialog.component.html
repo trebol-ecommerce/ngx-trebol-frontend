@@ -6,9 +6,12 @@
   </mat-form-field>
   <div class="list-wrapper">
     <mat-selection-list #imageSelectionList>
-      <mat-list-option *ngFor="let image of (images$ | async)" [value]="image.url">
-        <img matListIcon [src]="image.url" alt="">
-        <p matLine>{{ image.filename }}</p>
+      <mat-list-option *ngFor="let opt of (options$ | async)"
+        [value]="opt.image.url"
+        [selected]="opt.selected"
+        [disabled]="opt.disabled">
+        <img matListIcon [src]="opt.image.url" alt="">
+        <p matLine>{{ opt.image.filename }}</p>
       </mat-list-option>
     </mat-selection-list>
   </div>
