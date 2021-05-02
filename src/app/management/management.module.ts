@@ -32,7 +32,7 @@ import { UserManagerComponent } from './routes/users/user-manager.component';
 import { UserManagerService } from './routes/users/user-manager.service';
 import { ManagementSidenavComponent } from './sidenav/management-sidenav.component';
 import { ImagesArrayDialogComponent } from './dialogs/images-array/images-array-dialog.component';
-import { ImageManagementComponent } from './routes/images/image-manager.component';
+import { ImageManagerComponent } from './routes/images/image-manager.component';
 import { ImageManagerService } from './routes/images/image-manager.service';
 
 const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
@@ -58,7 +58,7 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     SellManagerFormDialogComponent,
     UserManagerComponent,
     UserManagerFormDialogComponent,
-    ImageManagementComponent,
+    ImageManagerComponent,
   ],
   imports: [
     SharedModule,

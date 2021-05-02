@@ -5,21 +5,21 @@
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ImageManagementComponent } from './image-manager.component';
+import { ImageManagerComponent } from './image-manager.component';
 
-describe('ImageManagementComponent', () => {
-  let component: ImageManagementComponent;
-  let fixture: ComponentFixture<ImageManagementComponent>;
+describe('ImageManagerComponent', () => {
+  let component: ImageManagerComponent;
+  let fixture: ComponentFixture<ImageManagerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ImageManagementComponent ]
+      declarations: [ ImageManagerComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ImageManagementComponent);
+    fixture = TestBed.createComponent(ImageManagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

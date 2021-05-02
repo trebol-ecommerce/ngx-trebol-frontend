@@ -11,7 +11,7 @@ import { DataManagerServiceDirective } from '../data-manager.service-directive';
 
 @Injectable()
 export class ImageManagerService
-extends DataManagerServiceDirective<Image> {
+  extends DataManagerServiceDirective<Image> {
 
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.imagesCrud) protected dataService: EntityDataApiIService<Image>

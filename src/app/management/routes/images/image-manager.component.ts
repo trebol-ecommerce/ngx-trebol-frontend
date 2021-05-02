@@ -5,10 +5,10 @@
 
 import { Component, OnInit } from '@angular/core';
 import { DataManagerComponentDirective } from '../data-manager.component-directive';
-import { Product } from 'src/app/models/entities/Product';
-import { DataManagerServiceDirective } from '../data-manager.service-directive';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { ImageManagerService } from './image-manager.service';
+import { Image } from 'src/app/models/entities/Image';
 
 @Component({
   selector: 'app-image-manager',
@@ -18,14 +18,14 @@ import { ActivatedRoute } from '@angular/router';
     './image-manager.component.css'
   ]
 })
-export class ImageManagementComponent
-  extends DataManagerComponentDirective<Product>
+export class ImageManagerComponent
+  extends DataManagerComponentDirective<Image>
   implements OnInit {
 
   public tableColumns: string[] = [  ];
 
   constructor(
-    protected service: DataManagerServiceDirective<Product>,
+    protected service: ImageManagerService,
     protected route: ActivatedRoute
   ) {
     super();
@@ -41,7 +41,7 @@ export class ImageManagementComponent
     );
   }
 
-  public openFormDialog(item: Product): Observable<Product> {
+  public openFormDialog(item: Image): Observable<Image> {
     throw new Error("Method not implemented.");
   }
 
