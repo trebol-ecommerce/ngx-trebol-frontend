@@ -18,6 +18,8 @@ import { SalespersonManagerAccessResolver } from './routes/salespeople/salespers
 import { SalespersonManagerComponent } from './routes/salespeople/salesperson-manager.component';
 import { UserManagerAccessResolver } from './routes/users/user-manager.access-resolver';
 import { UserManagerComponent } from './routes/users/user-manager.component';
+import { ImageManagerComponent } from './routes/images/image-manager.component';
+import { ImageManagerAccessResolver } from './routes/images/image-manager.access-resolver';
 
 export interface ManagementChildRoute extends Route {
   data: { matIcon: string, title: string };
@@ -52,6 +54,11 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
     path: 'users', component: UserManagerComponent,
     data: { matIcon: 'person', title: 'Usuarios' },
     resolve: { access: UserManagerAccessResolver }
+  },
+  {
+    path: 'images', component: ImageManagerComponent,
+    data: { matIcon: 'image', title: 'Imágenes' },
+    resolve: { access: ImageManagerAccessResolver }
   }
 ];
 
