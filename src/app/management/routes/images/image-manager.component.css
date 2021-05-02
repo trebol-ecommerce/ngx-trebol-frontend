@@ -1,0 +1,18 @@
+/**
+ * Copyright (c) 2021 Benjamin La Madrid
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+.mat-column-thumb {
+  max-width: 8rem;
+}
+
+.mat-column-thumb img {
+  max-height: 100%;
+}
+
+.mat-column-filename {
+  max-width: 100%;
+}

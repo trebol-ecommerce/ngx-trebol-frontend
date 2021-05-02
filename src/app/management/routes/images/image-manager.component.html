@@ -1,0 +1,50 @@
+<!--
+ Copyright (c) 2020 Benjamin La Madrid
+
+ This software is released under the MIT License.
+ https://opensource.org/licenses/MIT
+-->
+
+<div class="loading" *ngIf="loading$ | async">
+  <centered-mat-spinner>
+  </centered-mat-spinner>
+</div>
+<div class="data-manager" [hidden]="loading$ | async">
+  <div class="table-wrapper">
+
+    <table mat-table class="full-width-min" [dataSource]="items$">
+      <ng-container matColumnDef="thumb">
+        <th mat-header-cell *matHeaderCellDef> Imagen </th>
+        <td mat-cell *matCellDef="let image">
+          <img [src]="image.url" alt="">
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="filename">
+        <th mat-header-cell *matHeaderCellDef> Nombre de Archivo </th>
+        <td mat-cell *matCellDef="let image">
+          {{ image.filename }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let image">
+          <button mat-button mat-icon-button type="button"
+            *ngIf="canDelete$ | async"
+            color="warn"
+            [disabled]="busy$ | async"
+            (click)="onClickDelete(image)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+    </table>
+
+  </div>
+  <app-management-data-actions
+    *ngIf="canAdd$ | async"
+    (add)="onClickAdd()">
+  </app-management-data-actions>
+</div>
