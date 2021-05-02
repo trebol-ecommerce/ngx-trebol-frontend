@@ -6,8 +6,8 @@
  */
 
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, of, ReplaySubject, iif } from 'rxjs';
-import { concatMap as switchMap, map, share } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, ReplaySubject, iif, Subject } from 'rxjs';
+import { concatMap as switchMap, map, share, tap } from 'rxjs/operators';
 import { Image } from 'src/app/models/entities/Image';
 import { ImagesService } from 'src/app/shared/services/images.service';
 import { ImageArrayOption } from './imageArrayOption';
@@ -17,9 +17,11 @@ import { ImagesArrayDialogData } from './ImagesArrayDialogData';
 export class ImagesArrayService
   implements OnDestroy {
 
-  private filterSource = new BehaviorSubject('');
+  private filterSource = new BehaviorSubject<string>('');
+  private dialogDataSource = new BehaviorSubject<ImagesArrayDialogData>(undefined);
 
   imageList$: Observable<Image[]>;
+  imageOptions$: Observable<ImageArrayOption[]>;
 
   set filter(value: string) {
     this.filterSource.next(value);
@@ -29,20 +31,32 @@ export class ImagesArrayService
     private imageDataService: ImagesService
   ) {
     this.imageList$ = this.filterCachedImages();
+    this.imageOptions$ = this.dialogDataSource.asObservable().pipe(
+      switchMap(data => this.imageOptionsObservable(data))
+    );
   }
 
   ngOnDestroy(): void {
     this.filterSource.complete();
+    this.dialogDataSource.complete();
   }
 
-  fetchOptions(data?: ImagesArrayDialogData): Observable<ImageArrayOption[]> {
+  triggerOptionsFetch(data?: ImagesArrayDialogData): void {
+    if (data) {
+      this.dialogDataSource.next(data);
+    } else {
+      this.dialogDataSource.next(null);
+    }
+  }
+
+  private imageOptionsObservable(data: ImagesArrayDialogData): Observable<ImageArrayOption[]> {
+    console.log('do shit');
+
     return iif(
       () => (data?.existing?.length !== 0 &&
-              data.existing.length > 0),
-      this.convertImagesToOptionsAndProcessExistingFrom(data),
-      this.convertImagesToOptions()
-    ).pipe(
-      share()
+        data.existing.length > 0),
+      this.fetchImageOptionsAndProcessExisting(data),
+      this.fetchImageOptions()
     );
   }
 
@@ -62,7 +76,7 @@ export class ImagesArrayService
     );
   }
 
-  private convertImagesToOptions(): Observable<ImageArrayOption[]> {
+  private fetchImageOptions(): Observable<ImageArrayOption[]> {
     return this.imageList$.pipe(
       map(imageList => imageList.map(
             image => ({ image, selected: false, disabled: false })
@@ -70,7 +84,7 @@ export class ImagesArrayService
     );
   }
 
-  private convertImagesToOptionsAndProcessExistingFrom(data: ImagesArrayDialogData): Observable<ImageArrayOption[]> {
+  private fetchImageOptionsAndProcessExisting(data: ImagesArrayDialogData): Observable<ImageArrayOption[]> {
     return this.imageList$.pipe(
       map(imageList => imageList.map(
             image => {

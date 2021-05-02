@@ -5,15 +5,15 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnDestroy, ViewChild, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectionList } from '@angular/material/list';
-import { Subscription, Observable, iif } from 'rxjs';
-import { debounceTime, map, tap, share } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { Image } from 'src/app/models/entities/Image';
+import { ImageArrayOption } from './imageArrayOption';
 import { ImagesArrayService } from './images-array.service';
-import { ImageArrayOption } from './imageArrayOption'
 import { ImagesArrayDialogData } from './ImagesArrayDialogData';
 
 @Component({
@@ -22,7 +22,7 @@ import { ImagesArrayDialogData } from './ImagesArrayDialogData';
   styleUrls: ['./images-array-dialog.component.css']
 })
 export class ImagesArrayDialogComponent
-  implements OnDestroy {
+  implements OnInit, OnDestroy {
 
   private filterChangeSub: Subscription;
 
@@ -36,8 +36,7 @@ export class ImagesArrayDialogComponent
     private dialog: MatDialogRef<ImagesArrayDialogComponent>,
     private service: ImagesArrayService
   ) {
-    this.options$ = data ? this.service.fetchOptions(data) :
-                            this.service.fetchOptions();
+    this.options$ = this.service.imageOptions$.pipe();
     this.filterChangeSub = this.filterFormControl.valueChanges.pipe(
       debounceTime(500)
     ).subscribe(
@@ -45,6 +44,10 @@ export class ImagesArrayDialogComponent
         this.service.filter = filter;
       }
     );
+  }
+
+  ngOnInit(): void {
+    this.service.triggerOptionsFetch(this.data);
   }
 
   ngOnDestroy(): void {
