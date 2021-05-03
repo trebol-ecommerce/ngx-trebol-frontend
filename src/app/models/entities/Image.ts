@@ -13,4 +13,5 @@ export class Image
   filename: string;
   url: string;
   get id() { return this.url; }
+  file?: File; // TODO refactor this out
 }
