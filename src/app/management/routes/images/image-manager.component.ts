@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ImageManagerService } from './image-manager.service';
 import { Image } from 'src/app/models/entities/Image';
+import { MatDialog } from '@angular/material/dialog';
+import { ImageManagerUploadDialogComponent } from './upload-dialog/image-manager-upload-dialog.component';
 
 @Component({
   selector: 'app-image-manager',
@@ -26,7 +28,8 @@ export class ImageManagerComponent
 
   constructor(
     protected service: ImageManagerService,
-    protected route: ActivatedRoute
+    protected route: ActivatedRoute,
+    protected dialogService: MatDialog
   ) {
     super();
   }
@@ -42,7 +45,12 @@ export class ImageManagerComponent
   }
 
   public openFormDialog(item: Image): Observable<Image> {
-    throw new Error("Method not implemented.");
+    return this.dialogService.open(
+      ImageManagerUploadDialogComponent,
+      {
+        width: '40rem'
+      }
+    ).afterClosed();
   }
 
 }
