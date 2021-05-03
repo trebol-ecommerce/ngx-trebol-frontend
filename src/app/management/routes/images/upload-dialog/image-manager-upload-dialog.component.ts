@@ -86,7 +86,7 @@ export class ImageManagerUploadDialogComponent
           }
         },
         () => {
-          setTimeout(() => { this.dialog.close(); }, 1000);
+          setTimeout(() => { this.dialog.close(true); }, 1000);
           this.snackBarService.open(`${this.completedUploads} de ${this.uploadQueueSize} imágenes subidas exitosamente`, 'OK');
         }
       );
