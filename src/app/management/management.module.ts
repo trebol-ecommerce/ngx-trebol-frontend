@@ -34,6 +34,7 @@ import { ManagementSidenavComponent } from './sidenav/management-sidenav.compone
 import { ImagesArrayDialogComponent } from './dialogs/images-array/images-array-dialog.component';
 import { ImageManagerComponent } from './routes/images/image-manager.component';
 import { ImageManagerService } from './routes/images/image-manager.service';
+import { ImageManagerUploadDialogComponent } from './routes/images/upload-dialog/image-manager-upload-dialog.component';
 
 const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
   duration: 5000
@@ -59,6 +60,7 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     UserManagerComponent,
     UserManagerFormDialogComponent,
     ImageManagerComponent,
+    ImageManagerUploadDialogComponent
   ],
   imports: [
     SharedModule,
