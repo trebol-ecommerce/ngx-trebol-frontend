@@ -22,7 +22,7 @@ export class ImageManagerComponent
   extends DataManagerComponentDirective<Image>
   implements OnInit {
 
-  public tableColumns: string[] = [  ];
+  public tableColumns: string[] = [ 'thumb', 'filename', 'actions' ];
 
   constructor(
     protected service: ImageManagerService,
