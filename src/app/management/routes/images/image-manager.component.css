@@ -6,13 +6,19 @@
  */
 
 .mat-column-thumb {
-  max-width: 8rem;
+  max-width: 3rem;
+  padding: 4px 0.5rem 0;
 }
 
-.mat-column-thumb img {
+.mat-column-thumb .thumb-wrapper > img {
+  max-width: 100%;
   max-height: 100%;
 }
 
 .mat-column-filename {
   max-width: 100%;
+}
+td.mat-column-filename {
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
 }

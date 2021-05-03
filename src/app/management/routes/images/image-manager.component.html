@@ -16,7 +16,9 @@
       <ng-container matColumnDef="thumb">
         <th mat-header-cell *matHeaderCellDef> Imagen </th>
         <td mat-cell *matCellDef="let image">
-          <img [src]="image.url" alt="">
+          <div class="thumb-wrapper">
+            <img [src]="image.url" alt="">
+          </div>
         </td>
       </ng-container>
       <ng-container matColumnDef="filename">
