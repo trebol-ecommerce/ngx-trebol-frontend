@@ -3,19 +3,20 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
 import { StoreApiIService } from '../store-api.iservice';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { Product } from 'src/app/models/entities/Product';
-import { MOCK_PRODUCTS } from 'src/app/api/data/local-memory/impl/products.local-memory-data-api.service';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { MOCK_PRODUCT_TYPES, MOCK_PRODUCT_FAMILIES } from 'src/app/api/data/local-memory/impl/shared.local-memory-data-api.service';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 import { Receipt } from 'src/app/models/entities/Receipt';
+import { API_SERVICE_INJECTION_TOKENS } from '../../api-service-injection-tokens';
+import { EntityLocalMemoryDataApiService } from '../../data/local-memory/entity.local-memory-data-api.aservice';
 
 export const MOCK_COMPANY_DETAILS: CompanyDetails = {
   name: 'Importaciones NBazaar',
@@ -34,7 +35,15 @@ export const MOCK_EXTERNAL_PAYMENT_REDIRECT_DATA: ExternalPaymentRedirectionData
 export class LocalMemoryStoreApiService
   implements StoreApiIService {
 
-  protected items: Product[] = MOCK_PRODUCTS.map(p => Object.assign(new Product(), p));
+  protected items: Product[] = [];
+
+  constructor(
+    @Inject(API_SERVICE_INJECTION_TOKENS.productsCrud) private dataService: EntityLocalMemoryDataApiService<Product>
+  ) {
+    this.dataService.readAll().subscribe(items => {
+      this.items = items;
+    });
+  }
 
 
   protected filterItems(filter: ProductFilters): Product[] {
