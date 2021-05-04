@@ -16,11 +16,13 @@ import { CenteredMatProgressSpinnerComponent } from './components/centered-mat-s
 import { DialogSwitcherButtonComponent } from './components/dialog-switcher-button/dialog-switcher-button.component';
 import { InformationDialogComponent } from './dialogs/information-dialog/information-dialog.component';
 import { SlideshowComponent } from './components/slideshow/slideshow.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 
 const PUBLIC_COMPONENTS = [
   CenteredMatProgressSpinnerComponent,
   ConfirmationDialogComponent,
+  FileUploadComponent,
   PersonFormComponent,
   ProductFiltersPanelComponent,
   EditProfileFormDialogComponent,

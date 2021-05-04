@@ -139,9 +139,9 @@ export abstract class EntityLocalMemoryDataApiService<T extends AbstractEntity>
   public update(d: T, id: number): Observable<number> {
     return new Observable(
       observer => {
-        if (!!d.id) {
-          observer.error({ status: 400 });
-        }
+        // if (!!d.id) {
+        //   observer.error({ status: 400 });
+        // }
 
         const indexInDb = this.items.findIndex(dv => dv.id === id);
         if (indexInDb === -1) {
