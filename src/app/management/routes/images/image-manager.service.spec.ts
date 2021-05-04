@@ -4,14 +4,19 @@
 // https://opensource.org/licenses/MIT
 
 import { TestBed } from '@angular/core/testing';
-
+import { LocalMemoryDataModule } from 'src/app/api/data/local-memory/local-memory-data-api.module';
 import { ImageManagerService } from './image-manager.service';
 
 describe('ImageManagerService', () => {
   let service: ImageManagerService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [ LocalMemoryDataModule ],
+      providers: [
+        ImageManagerService
+      ]
+    });
     service = TestBed.inject(ImageManagerService);
   });
 

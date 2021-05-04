@@ -13,6 +13,7 @@ import { of } from 'rxjs';
 import { FileUploadComponent } from 'src/app/shared/components/file-upload/file-upload.component';
 import { ImageManagerUploadDialogComponent } from './image-manager-upload-dialog.component';
 import { ImageManagerUploadService } from './image-manager-upload.service';
+import { LocalMemoryDataModule } from 'src/app/api/data/local-memory/local-memory-data-api.module';
 
 describe('ImageManagerUploadDialogComponent', () => {
   let component: ImageManagerUploadDialogComponent;
@@ -23,7 +24,7 @@ describe('ImageManagerUploadDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     mockService = {
-      submit() { return of(void 0); }
+      submit() { return of(true); }
     };
     mockSnackBarService = {
       open() { return void 0; }
@@ -35,16 +36,17 @@ describe('ImageManagerUploadDialogComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        LocalMemoryDataModule
       ],
       declarations: [
         ImageManagerUploadDialogComponent,
         FileUploadComponent
       ],
       providers: [
-        { provide: ImageManagerUploadService, useValue: mockService },
+        { provide: MatDialogRef, useValue: mockDialog },
         { provide: MatSnackBar, useValue: mockSnackBarService },
-        { provide: MatDialogRef, useValue: mockDialog }
+        { provide: ImageManagerUploadService, useValue: mockService },
       ]
     })
     .compileComponents();
