@@ -6,7 +6,9 @@
 -->
 
 <div class="dialog">
-  <img [src]="product?.images[0].url" [alt]="product?.name" />
+  <app-slideshow [images]="product.images"
+    [autocycle]="false">
+  </app-slideshow>
   <div class="about">
     <h2 class="name">{{ product?.name }}</h2>
     <h4 class="barcode">{{ product?.barcode }}</h4>

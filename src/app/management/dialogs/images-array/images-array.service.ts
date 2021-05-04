@@ -10,7 +10,7 @@ import { BehaviorSubject, Observable, of, ReplaySubject, iif, Subject } from 'rx
 import { concatMap as switchMap, map, share, tap } from 'rxjs/operators';
 import { Image } from 'src/app/models/entities/Image';
 import { ImagesService } from 'src/app/shared/services/images.service';
-import { ImageArrayOption } from './imageArrayOption';
+import { ImageArrayOption } from './ImageArrayOption';
 import { ImagesArrayDialogData } from './ImagesArrayDialogData';
 
 @Injectable({ providedIn: 'root' })
@@ -50,11 +50,9 @@ export class ImagesArrayService
   }
 
   private imageOptionsObservable(data: ImagesArrayDialogData): Observable<ImageArrayOption[]> {
-    console.log('do shit');
-
     return iif(
       () => (data?.existing?.length !== 0 &&
-        data.existing.length > 0),
+        data?.existing?.length > 0),
       this.fetchImageOptionsAndProcessExisting(data),
       this.fetchImageOptions()
     );

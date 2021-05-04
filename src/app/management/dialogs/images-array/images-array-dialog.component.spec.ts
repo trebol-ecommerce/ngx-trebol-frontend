@@ -8,29 +8,29 @@
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { StoreService } from 'src/app/store/store.service';
 import { ImagesArrayDialogComponent } from './images-array-dialog.component';
 import { ImagesArrayService } from './images-array.service';
 
-describe('StoreImagesPickerDialogComponent', () => {
+describe('ImagesArrayDialogComponent', () => {
   let component: ImagesArrayDialogComponent;
   let fixture: ComponentFixture<ImagesArrayDialogComponent>;
   let mockDialogRef: Partial<MatDialogRef<ImagesArrayDialogComponent>>;
-  let mockImagesArrayService: Partial<ImagesArrayService>;
+  let mockService: Partial<ImagesArrayService>;
 
   beforeEach(waitForAsync(() => {
     mockDialogRef = {
       close() {}
     };
-    mockImagesArrayService = {
-      imageList$: of(void 0),
-      filter: ''
+    mockService = {
+      imageOptions$: of([]),
+      filter: '',
+      triggerOptionsFetch() {}
     };
 
     TestBed.configureTestingModule({
@@ -44,8 +44,9 @@ describe('StoreImagesPickerDialogComponent', () => {
       ],
       declarations: [ ImagesArrayDialogComponent ],
       providers: [
+        { provide: MAT_DIALOG_DATA, useValue: null },
         { provide: MatDialogRef, useValue: mockDialogRef },
-        { provide: StoreService, useValue: mockImagesArrayService },
+        { provide: ImagesArrayService, useValue: mockService },
       ]
     })
     .compileComponents();
@@ -59,5 +60,11 @@ describe('StoreImagesPickerDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should return an array when the "accept" button is pressed', () => {
+    const dialogCloseSpy = spyOn(mockDialogRef, 'close').and.callThrough();
+    component.onClickAccept();
+    expect(dialogCloseSpy.calls.mostRecent().args[0] instanceof Array).toBeTruthy();
   });
 });
