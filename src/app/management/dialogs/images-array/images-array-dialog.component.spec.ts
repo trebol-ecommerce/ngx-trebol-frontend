@@ -61,4 +61,10 @@ describe('ImagesArrayDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should return an array when the "accept" button is pressed', () => {
+    const dialogCloseSpy = spyOn(mockDialogRef, 'close').and.callThrough();
+    component.onClickAccept();
+    expect(dialogCloseSpy.calls.mostRecent().args[0] instanceof Array).toBeTruthy()
+  });
 });
