@@ -1,0 +1,30 @@
+<div class="images">
+  <h2>Asociar imágenes</h2>
+  <mat-form-field class="search" appearance="fill">
+    <mat-label>Buscar imágenes</mat-label>
+    <input matInput type="text" [formControl]="filterFormControl" />
+  </mat-form-field>
+  <div class="list-wrapper">
+    <mat-selection-list #imageSelectionList>
+      <mat-list-option *ngFor="let opt of (options$ | async)"
+        [value]="opt.image.url"
+        [selected]="opt.selected"
+        [disabled]="opt.disabled">
+        <img matListIcon [src]="opt.image.url" alt="">
+        <p matLine>{{ opt.image.filename }}</p>
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
+  <div class="actions">
+    <button mat-button mat-raised-button type="button"
+      (click)="onClickAccept()"
+      mat-dialog-close>
+      Aceptar
+    </button>
+    <button mat-button mat-raised-button type="button"
+      color="warn"
+      mat-dialog-close>
+      Cerrar
+    </button>
+  </div>
+</div>

@@ -1,11 +1,11 @@
-// Copyright (c) 2020 Benjamin La Madrid
+// Copyright (c) 2021 Benjamin La Madrid
 //
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -15,6 +15,9 @@ import { ProductType } from 'src/app/models/entities/ProductType';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerFormComponentDirective } from '../../data-manager-form.component-directive';
 import { ProductManagerFormService } from './product-manager-form.service';
+import { Image } from 'src/app/models/entities/Image';
+import { ImagesArrayDialogComponent } from 'src/app/management/dialogs/images-array/images-array-dialog.component';
+import { ImagesArrayDialogData } from 'src/app/management/dialogs/images-array/ImagesArrayDialogData';
 
 export interface ProductManagerFormDialogData {
   product: Product;
@@ -47,6 +50,7 @@ export class ProductManagerFormDialogComponent
   public get criticalStock(): FormControl { return this.formGroup.get('criticalStock') as FormControl; }
   public get description(): FormControl { return this.formGroup.get('description') as FormControl; }
 
+  public images: Image[];
   public get dialogTitle(): string { return ((this.data?.product?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Producto'; }
 
   constructor(
@@ -54,7 +58,8 @@ export class ProductManagerFormDialogComponent
     protected service: ProductManagerFormService,
     protected dialog: MatDialogRef<ProductManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
-    protected formBuilder: FormBuilder
+    protected formBuilder: FormBuilder,
+    private dialogService: MatDialog
   ) {
     super();
     this.formGroup = this.formBuilder.group({
@@ -91,6 +96,10 @@ export class ProductManagerFormDialogComponent
 
     if (p.description) {
       this.description.setValue(p.description, { emitEvent: false, onlySelf: true });
+    }
+
+    if (p.images?.length) {
+      this.images = p.images.slice();
     }
 
     this.onChangeFamily();
@@ -142,10 +151,30 @@ export class ProductManagerFormDialogComponent
           currentStock: this.stock.value,
           criticalStock: this.criticalStock.value,
           description: this.description.value,
-          barcode: this.code.value
+          barcode: this.code.value,
+          images: this.images
         }
       );
     }
+  }
+
+  public onClickAddImage(): void {
+    const data: ImagesArrayDialogData = {
+      existing: this.images
+    };
+    this.dialogService.open(
+      ImagesArrayDialogComponent,
+      {
+        data
+      }
+    ).afterClosed().pipe(
+      tap((images: Image[]) => {
+        if (images && images.length) {
+          this.images = images;
+        }
+      })
+    )
+    .subscribe();
   }
 
   public onSubmit(): void {

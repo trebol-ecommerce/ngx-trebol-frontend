@@ -12,6 +12,7 @@ import { SalesLocalMemoryDataApiService } from './impl/sales.local-memory-data-a
 import { SharedLocalMemoryDataService } from './impl/shared.local-memory-data-api.service';
 import { UsersLocalMemoryDataApiService } from './impl/users.local-memory-data-api.service';
 import { LocalMemoryDataAccessApiService } from './local-memory-data-access-api.service';
+import { ImagesLocalMemoryDataApiService } from './impl/images.local-memory-data-api.service';
 
 /**
  * Provides services that read and write data using the client's working memory
@@ -19,6 +20,7 @@ import { LocalMemoryDataAccessApiService } from './local-memory-data-access-api.
 @NgModule({
   providers: [
     { provide: API_SERVICE_INJECTION_TOKENS.customersCrud, useClass: CustomersLocalMemoryDataApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.imagesCrud, useClass: ImagesLocalMemoryDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.salespeopleCrud, useClass: SalespeopleLocalMemoryDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.productsCrud, useClass: ProductsLocalMemoryDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.shared, useClass: SharedLocalMemoryDataService },

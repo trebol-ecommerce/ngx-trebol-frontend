@@ -13,6 +13,7 @@ import { SharedHttpDataApiService } from './impl/shared.http-data-api.service';
 import { UsersHttpDataApiService } from './impl/users.http-data-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpDataAccessApiService } from './http-data-access-api.service';
+import { ImagesHttpDataApiService } from './impl/images.http-data-api.service';
 
 /**
  * Provides services that read and write data using an external HTTP server (defined in the environment files)
@@ -26,6 +27,7 @@ import { HttpDataAccessApiService } from './http-data-access-api.service';
   ],
   providers: [
     { provide: API_SERVICE_INJECTION_TOKENS.customersCrud, useClass: CustomersHttpDataApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.imagesCrud, useClass: ImagesHttpDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.salespeopleCrud, useClass: SalespeopleHttpDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.productsCrud, useClass: ProductsHttpDataApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.shared, useClass: SharedHttpDataApiService },

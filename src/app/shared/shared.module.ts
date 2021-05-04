@@ -15,17 +15,23 @@ import { ProductFiltersPanelComponent } from './components/product-filters-panel
 import { CenteredMatProgressSpinnerComponent } from './components/centered-mat-spinner/centered-mat-spinner.component';
 import { DialogSwitcherButtonComponent } from './components/dialog-switcher-button/dialog-switcher-button.component';
 import { InformationDialogComponent } from './dialogs/information-dialog/information-dialog.component';
+import { SlideshowComponent } from './components/slideshow/slideshow.component';
 
+
+const PUBLIC_COMPONENTS = [
+  CenteredMatProgressSpinnerComponent,
+  ConfirmationDialogComponent,
+  PersonFormComponent,
+  ProductFiltersPanelComponent,
+  EditProfileFormDialogComponent,
+  DialogSwitcherButtonComponent,
+  InformationDialogComponent,
+  SlideshowComponent
+];
 
 @NgModule({
   declarations: [
-    CenteredMatProgressSpinnerComponent,
-    ConfirmationDialogComponent,
-    PersonFormComponent,
-    ProductFiltersPanelComponent,
-    EditProfileFormDialogComponent,
-    DialogSwitcherButtonComponent,
-    InformationDialogComponent
+    ...PUBLIC_COMPONENTS
   ],
   imports: [
     CommonModule,
@@ -41,13 +47,7 @@ import { InformationDialogComponent } from './dialogs/information-dialog/informa
     BrowserAnimationsModule,
     AngularMaterialModule,
 
-    CenteredMatProgressSpinnerComponent,
-    ConfirmationDialogComponent,
-    PersonFormComponent,
-    ProductFiltersPanelComponent,
-    EditProfileFormDialogComponent,
-    DialogSwitcherButtonComponent,
-    InformationDialogComponent
+    ...PUBLIC_COMPONENTS
   ]
 })
 export class SharedModule { }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of } from 'rxjs';
-import { pluck, switchMap } from 'rxjs/operators';
+import { pluck, switchMap, mapTo, startWith } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { ConfirmationDialogComponent, ConfirmationDialogData } from 'src/app/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form-dialog/edit-profile-form-dialog.component';
@@ -28,6 +28,7 @@ export class StoreHeaderMenuComponent
   ngOnInit(): void {
 
     this.userName$ = this.appService.isLoggedInChanges$.pipe(
+      startWith(this.appService.isLoggedIn()),
       switchMap(
         (isLoggedIn: boolean) => {
           if (!isLoggedIn) {
@@ -40,9 +41,14 @@ export class StoreHeaderMenuComponent
     );
 
     this.canNavigateManagement$ = this.appService.isLoggedInChanges$.pipe(
+      startWith(this.appService.isLoggedIn()),
       switchMap(
         (isLoggedIn: boolean) => {
-          return of(true);
+          if (!isLoggedIn) {
+            return of(false);
+          } else {
+            return this.appService.getAuthorizedAccess().pipe(mapTo(true));
+          }
         }
       )
     );
