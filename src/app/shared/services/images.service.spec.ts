@@ -3,8 +3,8 @@ import { EntityDataApiIService } from 'src/app/api/data/entity-data-api.iservice
 import { Image } from 'src/app/models/entities/Image';
 import { ImagesService } from './images.service';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { of } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { of, concat } from 'rxjs';
+import { take, takeLast } from 'rxjs/operators';
 
 describe('ImagesService', () => {
   let service: ImagesService;
@@ -20,14 +20,15 @@ describe('ImagesService', () => {
         { provide: API_SERVICE_INJECTION_TOKENS.imagesCrud, useValue: mockDataService }
       ]
     });
-    service = TestBed.inject(ImagesService);
   });
 
   it('should be created', () => {
+    service = TestBed.inject(ImagesService);
     expect(service).toBeTruthy();
   });
 
   it('should cache images after creation and expose an observable of its cache array', () => {
+    service = TestBed.inject(ImagesService);
     service.images$.pipe(
       take(1)
     ).subscribe(
@@ -43,10 +44,13 @@ describe('ImagesService', () => {
       readAll() { return of(exampleImageArray); }
     };
     TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.imagesCrud, { useValue: mockDataService });
+    service = TestBed.inject(ImagesService);
 
-    service.fetch();
-    service.images$.pipe(
-      take(1)
+    concat(
+      service.fetch(),
+      service.images$.pipe(take(1))
+    ).pipe(
+      takeLast(1)
     ).subscribe(
       payload => {
         expect(payload).toEqual(exampleImageArray);
