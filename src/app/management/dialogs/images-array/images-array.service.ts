@@ -50,11 +50,9 @@ export class ImagesArrayService
   }
 
   private imageOptionsObservable(data: ImagesArrayDialogData): Observable<ImageArrayOption[]> {
-    console.log('do shit');
-
     return iif(
       () => (data?.existing?.length !== 0 &&
-        data.existing.length > 0),
+        data?.existing?.length > 0),
       this.fetchImageOptionsAndProcessExisting(data),
       this.fetchImageOptions()
     );
