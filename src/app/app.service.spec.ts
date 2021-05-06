@@ -88,7 +88,7 @@ describe('AppService', () => {
   it('should emit login status through an observable', () => {
     service = TestBed.inject(AppService);
 
-    let loginState = undefined;
+    let loginState;
     service.isLoggedInChanges$
       .pipe(take(2))
       .subscribe(isLoggedIn => { loginState = isLoggedIn; });
