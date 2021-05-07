@@ -10,7 +10,7 @@ import { DataAccessApiIService } from './api/data/data-access.api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from './api/api-service-injection-tokens';
 import { of, throwError } from 'rxjs';
 import { Registration } from './models/Registration';
-import { take } from 'rxjs/operators';
+import { take, catchError } from 'rxjs/operators';
 import { Login } from './models/Login';
 
 const MOCK_LOGIN_DETAILS: Login = {
@@ -71,7 +71,7 @@ describe('AppService', () => {
     });
   });
 
-  it('should emit falsy on incorrect login attempts', () => {
+  it('should rethrow any errors from failing login attempts', () => {
     const mockAuthApiService2 = {
       guestLogin() { return throwError({ status: 500 }); },
       login() { return throwError({ status: 500 }); }
@@ -80,7 +80,9 @@ describe('AppService', () => {
     service = TestBed.inject(AppService);
 
     expect(service).toBeTruthy();
-    service.login(MOCK_LOGIN_DETAILS).subscribe(next => {
+    service.login(MOCK_LOGIN_DETAILS).pipe(
+      catchError(() => of(false))
+    ).subscribe(next => {
       expect(next).toBeFalsy();
     });
   });
