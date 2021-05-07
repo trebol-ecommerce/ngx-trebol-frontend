@@ -52,6 +52,22 @@
                 }
               ]
             },
+            "localhost": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.localhost.ts"
+                },
+                {
+                  "replace": "src/environments/environment-modules.ts",
+                  "with": "src/environments/environment-modules.localhost.ts"
+                }
+              ],
+              "sourceMap": true,
+              "extractCss": true,
+              "namedChunks": true,
+              "aot": true
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -92,6 +108,9 @@
             "browserTarget": "trebol-ng:build"
           },
           "configurations": {
+            "localhost": {
+              "browserTarget": "trebol-ng:build:localhost"
+            },
             "production": {
               "browserTarget": "trebol-ng:build:production"
             }
