@@ -13,6 +13,7 @@ import { SellType } from 'src/app/models/entities/SellType';
 import { SharedDataApiIService } from '../../shared-data-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
 import { HttpDataApiService } from '../http-data-api.aservice';
+import { UserRole } from 'src/app/models/entities/UserRole';
 
 @Injectable()
 export class SharedHttpDataApiService
@@ -57,6 +58,14 @@ export class SharedHttpDataApiService
     return this.http.get<ProductType[]>(
       `${this.baseURI}/product_types`,
       this.httpParamsOf({ familyId })
+    ).pipe(
+      retry(2)
+    );
+  }
+
+  public readAllUserRoles(): Observable<UserRole[]> {
+    return this.http.get<UserRole[]>(
+      `${this.baseURI}/user_roles`
     ).pipe(
       retry(2)
     );

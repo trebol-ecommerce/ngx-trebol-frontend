@@ -10,6 +10,7 @@ import { ProductType } from 'src/app/models/entities/ProductType';
 import { SellType } from 'src/app/models/entities/SellType';
 import { SharedDataApiIService } from '../../shared-data-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
+import { UserRole } from 'src/app/models/entities/UserRole';
 
 export const MOCK_PEOPLE: Partial<Person>[] = [
   { id: 1, name: 'Anónimo' },
@@ -27,6 +28,13 @@ export const MOCK_PRODUCT_TYPES: Partial<ProductType>[] = [
 export const MOCK_SELL_TYPES: SellType[] = [
   { id: 'B', description: 'Boleta' },
   { id: 'F', description: 'Factura' }
+];
+
+export const MOCK_USER_ROLES: Partial<UserRole>[] = [
+  { id: 1, name: 'Administrador' },
+  { id: 2, name: 'Salesperson' },
+  { id: 3, name: 'Overseer' },
+  { id: 4, name: 'Client' }
 ];
 
 @Injectable()
@@ -53,5 +61,9 @@ export class SharedLocalMemoryDataService
 
   public readAllSellTypes(): Observable<SellType[]> {
     return of(MOCK_SELL_TYPES.map(t => Object.assign(new SellType(), t)));
+  }
+
+  public readAllUserRoles(): Observable<UserRole[]> {
+    return of(MOCK_USER_ROLES.map(r => Object.assign(new UserRole(), r)));
   }
 }
