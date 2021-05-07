@@ -11,6 +11,7 @@ import { User } from 'src/app/models/entities/User';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { EntityDataApiIService } from 'src/app/api/data/entity-data-api.iservice';
 import { SharedDataApiIService } from 'src/app/api/data/shared-data-api.iservice';
+import { UserRole } from 'src/app/models/entities/UserRole';
 
 @Injectable()
 export class UserManagerFormService
@@ -25,5 +26,9 @@ export class UserManagerFormService
 
   public getPeople(): Observable<Person[]> {
     return this.sharedDataService.readAllPeople();
+  }
+
+  public getUserRoles(): Observable<UserRole[]> {
+    return this.sharedDataService.readAllUserRoles();
   }
 }

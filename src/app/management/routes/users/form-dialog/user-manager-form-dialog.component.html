@@ -29,6 +29,14 @@
         </mat-select>
       </mat-form-field>
 
+      <mat-form-field>
+        <mat-select placeholder="Rol" formControlName="role">
+          <mat-option *ngFor="let r of (roles$ | async)" [value]="r.id">
+            {{ r.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <div class="actions">
         <button mat-button mat-raised-button type="submit"
           color="primary"

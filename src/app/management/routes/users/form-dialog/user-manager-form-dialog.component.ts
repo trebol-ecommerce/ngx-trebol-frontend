@@ -13,6 +13,7 @@ import { User } from 'src/app/models/entities/User';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerFormComponentDirective } from '../../data-manager-form.component-directive';
 import { UserManagerFormService } from './user-manager-form.service';
+import { UserRole } from 'src/app/models/entities/UserRole';
 
 export interface UserManagerFormDialogData {
   user: User;
@@ -32,11 +33,13 @@ export class UserManagerFormDialogComponent
 
   public saving$: Observable<boolean>;
   public people$: Observable<Person[]>;
+  public roles$: Observable<UserRole[]>;
 
   public formGroup: FormGroup;
   public get name(): FormControl { return this.formGroup.get('name') as FormControl; }
   public get password(): FormControl { return this.formGroup.get('password') as FormControl; }
   public get person(): FormControl { return this.formGroup.get('person') as FormControl; }
+  public get role(): FormControl { return this.formGroup.get('role') as FormControl; }
 
   public get dialogTitle(): string { return ((this.data?.user?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Usuario'; }
 
@@ -51,7 +54,8 @@ export class UserManagerFormDialogComponent
     this.formGroup = this.formBuilder.group({
       name: ['', Validators.required],
       password: [''],
-      person: [undefined, Validators.required]
+      person: [undefined, Validators.required],
+      role: [undefined, Validators.required],
     });
 
     const item: User = (this.data?.user) ? this.data.user : new User();
@@ -66,11 +70,15 @@ export class UserManagerFormDialogComponent
     if (u.person?.id) {
       this.person.setValue(u.person.id, { emitEvent: false, onlySelf: true });
     }
+    if (u.role?.id) {
+      this.role.setValue(u.role.id, { emitEvent: false, onlySelf: true });
+    }
   }
 
   ngOnInit(): void {
     this.saving$ = this.service.saving$.pipe();
     this.people$ = this.service.getPeople();
+    this.roles$ = this.service.getUserRoles();
   }
 
   public asItem(): User {
@@ -83,7 +91,8 @@ export class UserManagerFormDialogComponent
           id: this.itemId,
           name: this.name.value,
           password: this.password.value,
-          person: { id: this.person.value }
+          person: { id: this.person.value },
+          role: { id: this.role.value }
         }
       );
     }
