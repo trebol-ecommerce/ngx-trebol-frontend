@@ -6,7 +6,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of, EMPTY } from 'rxjs';
+import { of, EMPTY, throwError } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { StoreLoginFormDialogComponent } from './store-login-form-dialog.component';
 import { CommonModule } from '@angular/common';
@@ -16,26 +16,35 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
-import { DialogSwitcherButtonComponent } from 'src/app/shared/components/dialog-switcher-button/dialog-switcher-button.component';
 import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
+import { Component } from '@angular/core';
+import { take } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-dialog-switcher-button',
+  template: '',
+  styles: ['']
+})
+class MockDialogSwitcherButtonComponent {}
 
 describe('StoreLoginFormDialogComponent', () => {
   let component: StoreLoginFormDialogComponent;
   let fixture: ComponentFixture<StoreLoginFormDialogComponent>;
-  let snackBarService: MatSnackBar;
   let mockDialog: Partial<MatDialogRef<StoreLoginFormDialogComponent>>;
   let mockAppService: Partial<AppService>;
-  let mockDialogService: Partial<MatDialog>;
+  let mockSnackBarService: Partial<MatSnackBar>;
 
   beforeEach(waitForAsync(() => {
     mockDialog = {
       close() {}
     };
     mockAppService = {
-      login() { return EMPTY; },
+      login() { return of(void 0); },
       cancelAuthentication() {}
     };
-    mockDialogService = {};
+    mockSnackBarService = {
+      open() { return void 0; }
+    };
 
     TestBed.configureTestingModule({
       imports: [
@@ -46,35 +55,33 @@ describe('StoreLoginFormDialogComponent', () => {
         MatIconModule,
         MatInputModule,
         MatFormFieldModule,
-        RouterTestingModule,
-        MatSnackBarModule
+        RouterTestingModule
       ],
       declarations: [
         StoreLoginFormDialogComponent,
         CenteredMatProgressSpinnerComponent,
-        DialogSwitcherButtonComponent
+        MockDialogSwitcherButtonComponent
       ],
       providers: [
         { provide: MatDialogRef, useValue: mockDialog },
-        { provide: AppService, useValue: mockAppService },
-        { provide: MatDialog, useValue: mockDialogService }
+        { provide: MatSnackBar, useValue: mockSnackBarService },
+        { provide: AppService, useValue: mockAppService }
       ]
     })
     .compileComponents();
   }));
 
-  beforeEach(() => {
+  it('should create', () => {
     fixture = TestBed.createComponent(StoreLoginFormDialogComponent);
     component = fixture.componentInstance;
-    snackBarService = TestBed.inject(MatSnackBar);
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
   it('should not submit incomplete form', () => {
+    fixture = TestBed.createComponent(StoreLoginFormDialogComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
     const appServiceLoginSpy = spyOn(mockAppService, 'login').and.callThrough();
     component.onSubmit();
     component.username.setValue('test');
@@ -86,6 +93,9 @@ describe('StoreLoginFormDialogComponent', () => {
   });
 
   it('should submit correct form', () => {
+    fixture = TestBed.createComponent(StoreLoginFormDialogComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
     const appServiceLoginSpy = spyOn(mockAppService, 'login').and.callThrough();
     component.username.setValue('test');
     component.password.setValue('pass');
@@ -93,7 +103,42 @@ describe('StoreLoginFormDialogComponent', () => {
     expect(appServiceLoginSpy).toHaveBeenCalled();
   });
 
+  it('should not close after a failed login attempt', () => {
+    const mockAppService2 = {
+      login() { return throwError({ status: 403 }); },
+      cancelAuthentication() {}
+    };
+    TestBed.overrideProvider(AppService, { useValue: mockAppService2 })
+      .compileComponents();
+    fixture = TestBed.createComponent(StoreLoginFormDialogComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    const dialogCloseSpy = spyOn(mockDialog, 'close').and.callThrough();
+    component.username.setValue('test');
+    component.password.setValue('pass');
+    component.onSubmit();
+    setTimeout(() => {
+      expect(dialogCloseSpy).not.toHaveBeenCalled();
+    }, 50);
+  });
+
+  it('should close upon a successful login', () => {
+    fixture = TestBed.createComponent(StoreLoginFormDialogComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    const dialogCloseSpy = spyOn(mockDialog, 'close').and.callThrough();
+    component.username.setValue('test');
+    component.password.setValue('pass');
+    component.onSubmit();
+    setTimeout(() => {
+      expect(dialogCloseSpy).toHaveBeenCalled();
+    }, 50);
+  });
+
   it('should close upon cancellation', () => {
+    fixture = TestBed.createComponent(StoreLoginFormDialogComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
     const dialogCloseSpy = spyOn(mockDialog, 'close');
     component.onCancel();
     expect(dialogCloseSpy).toHaveBeenCalled();

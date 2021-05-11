@@ -52,6 +52,22 @@
                 }
               ]
             },
+            "localhost": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.localhost.ts"
+                },
+                {
+                  "replace": "src/environments/environment-modules.ts",
+                  "with": "src/environments/environment-modules.localhost.ts"
+                }
+              ],
+              "sourceMap": true,
+              "extractCss": true,
+              "namedChunks": true,
+              "aot": true
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -59,20 +75,8 @@
                   "with": "src/environments/environment.prod.ts"
                 },
                 {
-                  "replace": "src/environments/session-api.environment.ts",
-                  "with": "src/environments/session-api.environment.prod.ts"
-                },
-                {
-                  "replace": "src/environments/store-api.environment.ts",
-                  "with": "src/environments/store-api.environment.prod.ts"
-                },
-                {
-                  "replace": "src/environments/data-api.environment.ts",
-                  "with": "src/environments/data-api.environment.prod.ts"
-                },
-                {
-                  "replace": "src/environments/data-access-api.environment.ts",
-                  "with": "src/environments/data-access-api.environment.prod.ts"
+                  "replace": "src/environments/environment-modules.ts",
+                  "with": "src/environments/environment-modules.prod.ts"
                 }
               ],
               "optimization": true,
@@ -104,6 +108,9 @@
             "browserTarget": "trebol-ng:build"
           },
           "configurations": {
+            "localhost": {
+              "browserTarget": "trebol-ng:build:localhost"
+            },
             "production": {
               "browserTarget": "trebol-ng:build:production"
             }

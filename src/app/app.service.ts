@@ -69,7 +69,6 @@ export class AppService
   public login(credentials: Login): Observable<boolean> {
     return !this.isLoggedIn() ?
       this.authService.login(credentials).pipe(
-        catchError(() => of(false)),
         tap(success => {
           this.innerIsLoggedIn = success;
           this.isLoggedInChangesSource.next(success);
