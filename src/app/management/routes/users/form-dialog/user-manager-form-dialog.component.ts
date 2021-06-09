@@ -64,14 +64,16 @@ export class UserManagerFormDialogComponent
 
   protected load(u: User): void {
     this.itemId = u.id ? u.id : 0;
-    if (this.itemId) { this.password.setValidators(null); }
+    this.name.setValue(u.name);
 
-    this.name.setValue(u.name, { emitEvent: false, onlySelf: true });
+    if (this.itemId) {
+      this.password.setValidators(null);
+    }
     if (u.person?.id) {
-      this.person.setValue(u.person.id, { emitEvent: false, onlySelf: true });
+      this.person.setValue(u.person.id);
     }
     if (u.role?.id) {
-      this.role.setValue(u.role.id, { emitEvent: false, onlySelf: true });
+      this.role.setValue(u.role.id);
     }
   }
 
