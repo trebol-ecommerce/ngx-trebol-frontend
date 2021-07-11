@@ -27,7 +27,7 @@ export class UserManagerComponent
   extends DataManagerComponentDirective<User>
   implements OnInit {
 
-  public tableColumns: string[] = [ 'name', 'actions' ];
+  public tableColumns: string[] = [ 'name', 'role', 'actions' ];
 
   constructor(
     protected service: UserManagerService,
