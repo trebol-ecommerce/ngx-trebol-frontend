@@ -31,7 +31,7 @@
 
       <mat-form-field>
         <mat-select placeholder="Rol" formControlName="role">
-          <mat-option *ngFor="let r of (roles$ | async)" [value]="r.id">
+          <mat-option *ngFor="let r of (roles$ | async)" [value]="r.name">
             {{ r.name }}
           </mat-option>
         </mat-select>

@@ -72,8 +72,8 @@ export class UserManagerFormDialogComponent
     if (u.person?.id) {
       this.person.setValue(u.person.id);
     }
-    if (u.role?.id) {
-      this.role.setValue(u.role.id);
+    if (u.role) {
+      this.role.setValue(u.role);
     }
   }
 
@@ -94,7 +94,7 @@ export class UserManagerFormDialogComponent
           name: this.name.value,
           password: this.password.value,
           person: { id: this.person.value },
-          role: { id: this.role.value }
+          role: this.role.value
         }
       );
     }
