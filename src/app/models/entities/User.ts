@@ -6,7 +6,6 @@
 import { AbstractEntity } from 'src/app/models/AbstractEntity';
 import { Person } from './Person';
 import { Login } from '../Login';
-import { UserRole } from './UserRole';
 
 export class User
   implements AbstractEntity, Partial<Login> {
@@ -15,7 +14,6 @@ export class User
   public name: string;
   public createdOn?: string;
   public password?: string;
-
   public person: Partial<Person>;
-  public role?: Partial<UserRole>;
+  public role?: string;
 }
