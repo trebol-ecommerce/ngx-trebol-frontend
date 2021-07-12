@@ -24,6 +24,10 @@ export class UserManagerFormService
     super();
   }
 
+  getUserDetails(id: number): Observable<User> {
+    return this.dataService.readById(id);
+  }
+
   public getPeople(): Observable<Person[]> {
     return this.sharedDataService.readAllPeople();
   }

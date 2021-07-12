@@ -49,7 +49,7 @@ export class UserManagerComponent
   }
 
   public openFormDialog(user: User): Observable<User> {
-    const dialogData: UserManagerFormDialogData = { user };
+    const dialogData: UserManagerFormDialogData = user ? { user } : null;
 
     return this.dialogService.open(
       UserManagerFormDialogComponent,
