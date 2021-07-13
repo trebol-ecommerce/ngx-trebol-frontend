@@ -8,9 +8,6 @@
 .mat-column-name {
   max-width: 100%;
 }
-.mat-column-creationDate {
+.mat-column-role {
   text-align: center;
-}
-.mat-column-fullName {
-  max-width: 100%;
 }
