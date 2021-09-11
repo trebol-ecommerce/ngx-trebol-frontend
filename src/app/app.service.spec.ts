@@ -5,8 +5,8 @@
 
 import { TestBed } from '@angular/core/testing';
 import { AppService } from './app.service';
-import { SessionApiIService } from './api/session/session-api.iservice';
-import { DataAccessApiIService } from './api/data/data-access.api.iservice';
+import { SessionApiIService } from './api/session-api.iservice';
+import { DataAccessApiIService } from './api/data-access.api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from './api/api-service-injection-tokens';
 import { of, throwError } from 'rxjs';
 import { Registration } from './models/Registration';

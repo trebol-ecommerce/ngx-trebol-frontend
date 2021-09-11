@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ProductType } from 'src/app/models/entities/ProductType';
-import { StoreApiIService } from 'src/app/api/store/store-api.iservice';
+import { StoreApiIService } from 'src/app/api/store-api.iservice';
 
 @Injectable({ providedIn: 'root' })
 export class ProductFiltersPanelService {

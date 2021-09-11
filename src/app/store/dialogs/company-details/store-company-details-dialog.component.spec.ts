@@ -7,7 +7,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { StoreCompanyDetailsDialogComponent } from './store-company-details-dialog.component';
-import { StoreApiIService } from 'src/app/api/store/store-api.iservice';
+import { StoreApiIService } from 'src/app/api/store-api.iservice';
 
 describe('StoreCompanyDetailsDialogComponent', () => {
   let component: StoreCompanyDetailsDialogComponent;

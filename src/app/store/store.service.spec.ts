@@ -5,12 +5,12 @@
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { LocalMemoryDataModule } from 'src/app/api/data/local-memory/local-memory-data-api.module';
+import { LocalMemoryDataModule } from 'src/app/api/local-memory/local-memory-data-api.module';
 import { StoreService } from './store.service';
 import { Product } from 'src/app/models/entities/Product';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { take } from 'rxjs/operators';
-import { StoreApiIService } from '../api/store/store-api.iservice';
+import { StoreApiIService } from '../api/store-api.iservice';
 import { empty, EMPTY } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
 

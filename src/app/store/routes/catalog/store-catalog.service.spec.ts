@@ -7,7 +7,7 @@ import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreCatalogService } from './store-catalog.service';
-import { StoreApiIService } from 'src/app/api/store/store-api.iservice';
+import { StoreApiIService } from 'src/app/api/store-api.iservice';
 import { of, EMPTY } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 

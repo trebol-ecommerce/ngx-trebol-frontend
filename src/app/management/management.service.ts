@@ -8,7 +8,7 @@ import { ActivatedRouteSnapshot, ActivationEnd, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, map, throttleTime } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { SessionApiIService } from 'src/app/api/session/session-api.iservice';
+import { SessionApiIService } from 'src/app/api/session-api.iservice';
 
 @Injectable()
 export class ManagementService

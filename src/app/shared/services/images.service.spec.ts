@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { EntityDataApiIService } from 'src/app/api/data/entity-data-api.iservice';
+import { EntityDataApiIService } from 'src/app/api/entity-data-api.iservice';
 import { Image } from 'src/app/models/entities/Image';
 import { ImagesService } from './images.service';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';

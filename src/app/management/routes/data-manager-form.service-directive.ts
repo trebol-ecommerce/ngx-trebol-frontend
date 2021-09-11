@@ -6,7 +6,7 @@
 import { Directive, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { EntityDataApiIService } from 'src/app/api/data/entity-data-api.iservice';
+import { EntityDataApiIService } from 'src/app/api/entity-data-api.iservice';
 import { AbstractEntity } from 'src/app/models/AbstractEntity';
 
 /**

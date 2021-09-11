@@ -8,7 +8,7 @@ import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { mapTo, pluck, startWith } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
-import { StoreApiIService } from 'src/app/api/store/store-api.iservice';
+import { StoreApiIService } from 'src/app/api/store-api.iservice';
 
 @Component({
   selector: 'app-store-company-details-dialog',

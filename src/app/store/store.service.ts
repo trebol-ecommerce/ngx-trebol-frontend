@@ -10,7 +10,7 @@ import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-
 import { Product } from 'src/app/models/entities/Product';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
-import { StoreApiIService } from '../api/store/store-api.iservice';
+import { StoreApiIService } from '../api/store-api.iservice';
 import { environment } from 'src/environments/environment';
 
 @Injectable()

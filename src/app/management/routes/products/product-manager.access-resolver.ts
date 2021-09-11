@@ -7,9 +7,9 @@ import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { SessionApiIService } from 'src/app/api/session/session-api.iservice';
+import { SessionApiIService } from 'src/app/api/session-api.iservice';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
-import { DataAccessApiIService } from 'src/app/api/data/data-access.api.iservice';
+import { DataAccessApiIService } from 'src/app/api/data-access.api.iservice';
 
 @Injectable({ providedIn: 'root' })
 export class ProductManagerAccessResolver

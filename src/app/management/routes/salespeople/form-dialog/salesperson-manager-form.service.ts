@@ -5,7 +5,7 @@
 
 import { Inject, Injectable } from '@angular/core';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { EntityDataApiIService } from 'src/app/api/data/entity-data-api.iservice';
+import { EntityDataApiIService } from 'src/app/api/entity-data-api.iservice';
 import { Salesperson } from 'src/app/models/entities/Salesperson';
 import { DataManagerFormServiceDirective } from '../../data-manager-form.service-directive';
 

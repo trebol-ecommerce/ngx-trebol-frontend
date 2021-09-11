@@ -7,11 +7,11 @@ import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject, ReplaySubject, throwError } from 'rxjs';
 import { catchError, finalize, mapTo, tap, switchMap, take } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { SessionApiIService } from 'src/app/api/session/session-api.iservice';
+import { SessionApiIService } from 'src/app/api/session-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
 import { Login } from 'src/app/models/Login';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
-import { DataAccessApiIService } from './api/data/data-access.api.iservice';
+import { DataAccessApiIService } from './api/data-access.api.iservice';
 import { Registration } from './models/Registration';
 
 @Injectable({ providedIn: 'root' })
