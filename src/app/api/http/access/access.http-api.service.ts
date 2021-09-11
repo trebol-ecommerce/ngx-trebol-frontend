@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
-export class HttpDataAccessApiService
+export class AccessHttpApiService
   extends HttpService
   implements DataAccessApiIService {
 

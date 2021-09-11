@@ -5,7 +5,7 @@
 
 import { NgModule } from '@angular/core';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { HttpStoreApiService } from './store/http-store-api.service';
+import { StoreHttpApiService } from './store/store.http-api.service';
 import { HttpClientModule } from '@angular/common/http';
 
 /**
@@ -19,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [
-    { provide: API_SERVICE_INJECTION_TOKENS.store, useClass: HttpStoreApiService }
+    { provide: API_SERVICE_INJECTION_TOKENS.store, useClass: StoreHttpApiService }
   ]
 })
 export class HttpStoreApiModule { }

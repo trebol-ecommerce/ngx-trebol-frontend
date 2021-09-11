@@ -6,8 +6,8 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { HttpSessionApiService } from './session/http-session-api.service';
-import { HttpSessionApiInterceptor } from './session/http-session-api.interceptor';
+import { SessionHttpApiService } from './session/session.http-api.service';
+import { SessionHttpApiInterceptor } from './session/session.http-api.interceptor';
 
 @NgModule({
   imports: [
@@ -17,8 +17,8 @@ import { HttpSessionApiInterceptor } from './session/http-session-api.intercepto
     HttpClientModule
   ],
   providers: [
-    { provide: API_SERVICE_INJECTION_TOKENS.auth, useClass: HttpSessionApiService },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpSessionApiInterceptor, multi: true }
+    { provide: API_SERVICE_INJECTION_TOKENS.auth, useClass: SessionHttpApiService },
+    { provide: HTTP_INTERCEPTORS, useClass: SessionHttpApiInterceptor, multi: true }
   ]
 })
 export class HttpSessionApiModule { }

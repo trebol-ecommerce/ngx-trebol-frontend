@@ -12,11 +12,11 @@ import { ProductType } from 'src/app/models/entities/ProductType';
 import { SellType } from 'src/app/models/entities/SellType';
 import { SharedDataApiIService } from '../../shared-data-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
-import { HttpDataApiService } from '../http-data-api.aservice';
+import { HttpDataApiService } from '../entity-data.http-api.abstract.service';
 import { UserRole } from 'src/app/models/entities/UserRole';
 
 @Injectable()
-export class SharedHttpDataApiService
+export class SharedDataHttpApiService
   extends HttpDataApiService
   implements SharedDataApiIService {
 

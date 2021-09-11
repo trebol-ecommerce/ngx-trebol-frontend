@@ -20,7 +20,7 @@ import { Registration } from 'src/app/models/Registration';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
-export class HttpSessionApiService
+export class SessionHttpApiService
   extends HttpService
   implements SessionApiIService {
 

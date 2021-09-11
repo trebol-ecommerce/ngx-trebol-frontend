@@ -9,10 +9,10 @@ import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/entities/Product';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { EntityDataApiIService } from '../../entity-data-api.iservice';
-import { HttpDataApiService } from '../http-data-api.aservice';
+import { HttpDataApiService } from '../entity-data.http-api.abstract.service';
 
 @Injectable()
-export class ProductsHttpDataApiService
+export class ProductsDataHttpApiService
   extends HttpDataApiService
   implements EntityDataApiIService<Product> {
 

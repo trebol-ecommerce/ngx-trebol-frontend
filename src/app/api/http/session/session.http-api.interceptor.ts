@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
-export class HttpSessionApiInterceptor
+export class SessionHttpApiInterceptor
   implements HttpInterceptor {
 
   //TODO these should be refactored

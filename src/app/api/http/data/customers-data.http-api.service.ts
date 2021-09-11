@@ -6,49 +6,49 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Image } from 'src/app/models/entities/Image';
-import { HttpDataApiService } from '../http-data-api.aservice';
+import { Customer } from 'src/app/models/entities/Customer';
+import { HttpDataApiService } from '../entity-data.http-api.abstract.service';
 import { EntityDataApiIService } from '../../entity-data-api.iservice';
 
 @Injectable()
-export class ImagesHttpDataApiService
+export class CustomersDataHttpApiService
   extends HttpDataApiService
-  implements EntityDataApiIService<Image> {
+  implements EntityDataApiIService<Customer> {
 
   constructor(
     protected http: HttpClient
   ) {
     super();
-    this.baseURI = `${this.baseURI}/images`;
+    this.baseURI = `${this.baseURI}/customers`;
   }
 
-  public create(instance: Image): Observable<number> {
+  public create(instance: Customer): Observable<number> {
     return this.http.post<number>(
       this.baseURI,
       instance
     );
   }
 
-  public readById(id: number): Observable<Image> {
-    return this.http.get<Image>(
+  public readById(id: number): Observable<Customer> {
+    return this.http.get<Customer>(
       `${this.baseURI}/${id}`
     );
   }
 
-  public readAll(): Observable<Image[]> {
-    return this.http.get<Image[]>(
+  public readAll(): Observable<Customer[]> {
+    return this.http.get<Customer[]>(
       this.baseURI
     );
   }
 
-  public readFiltered(filters: any): Observable<Image[]> {
-    return this.http.get<Image[]>(
+  public readFiltered(filters: any): Observable<Customer[]> {
+    return this.http.get<Customer[]>(
       this.baseURI,
       this.httpParamsOf(filters)
     );
   }
 
-  public update(instance: Image, id: number): Observable<number> {
+  public update(instance: Customer, id: number): Observable<number> {
     return this.http.put<number>(
       `${this.baseURI}/${id}`,
       instance

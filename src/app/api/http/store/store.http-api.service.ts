@@ -19,7 +19,7 @@ import { Receipt } from 'src/app/models/entities/Receipt';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
-export class HttpStoreApiService
+export class StoreHttpApiService
   extends HttpService
   implements StoreApiIService {
 
