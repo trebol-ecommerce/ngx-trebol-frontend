@@ -6,7 +6,7 @@
 import { Injectable } from '@angular/core';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { Product } from 'src/app/models/entities/Product';
-import { EntityLocalMemoryDataApiService } from '../../../local-memory/entity.local-memory-data-api.aservice';
+import { EntityLocalMemoryDataApiService } from '../entity.local-memory-data-api.aservice';
 import { Observable, of } from 'rxjs';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
