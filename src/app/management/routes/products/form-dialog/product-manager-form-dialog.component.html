@@ -14,7 +14,7 @@
     <form [formGroup]="formGroup" (submit)="onSubmit()">
 
       <app-slideshow class="images"
-        [(images)]="images"
+        [images]="images"
         [autocycle]="false"
         [editable]="true"
         (add)="onClickAddImage()">

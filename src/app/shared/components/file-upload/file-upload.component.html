@@ -12,13 +12,13 @@
     [multiple]="multiple" hidden />
   <ng-container *ngIf="required; else notRequired">
     <textarea matInput cdkTextareaAutosize
-      [placeholder]="placeholder" [focused]="focused" [disabled]="disabled"
+      [placeholder]="placeholder" [disabled]="disabled"
       tabindex="-1"
       required readonly>{{ fileNames$ | async }}</textarea>
   </ng-container>
   <ng-template #notRequired>
     <textarea matInput cdkTextareaAutosize
-      [placeholder]="placeholder" [focused]="focused" [disabled]="disabled"
+      [placeholder]="placeholder" [disabled]="disabled"
       tabindex="-1"
       readonly>{{ fileNames$ | async }}</textarea>
   </ng-template>
