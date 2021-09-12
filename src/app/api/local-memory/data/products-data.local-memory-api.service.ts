@@ -10,70 +10,9 @@ import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api
 import { Observable, of } from 'rxjs';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
-import { MOCK_PRODUCT_FAMILIES, MOCK_PRODUCT_TYPES } from './shared-data.local-memory-api.service';
-
-export const MOCK_PRODUCTS: Partial<Product>[] = [
-  {
-    id: 1,
-    name: 'Zapatillas Nike Air Jordan Azul/Negro',
-    barcode: 'NIKE-AZLNGR-1',
-    price: 14990,
-    currentStock: 40,
-    criticalStock: 5,
-    productType: {
-      id: 1,
-      description: 'Zapatillas Hombre',
-      productFamily: { id: 1 }
-    },
-    images: [
-      {
-        filename: 'photo-1578116922645-3976907a7671.jpg',
-        url: 'assets/img/products/photo-1578116922645-3976907a7671.jpg',
-        id: 'assets/img/products/photo-1578116922645-3976907a7671.jpg'
-      }
-    ]
-  },
-  {
-    id: 2,
-    name: 'Zapatillas Nike Hi-Top Rojo/Negro',
-    barcode: 'NIKE-ROJNGR-1',
-    price: 14990,
-    currentStock: 20,
-    criticalStock: 5,
-    productType: {
-      id: 1,
-      description: 'Zapatillas Hombre',
-      productFamily: { id: 1 }
-    },
-    images: [
-      {
-        filename: 'photo-1578172433613-9f1b258f7d5b.jpg',
-        url: 'assets/img/products/photo-1578172433613-9f1b258f7d5b.jpg',
-        id: 'assets/img/products/photo-1578172433613-9f1b258f7d5b.jpg'
-      }
-    ]
-  },
-  {
-    id: 3,
-    name: 'Zapatillas Nike Hi-Top Rojo/Blanco',
-    barcode: 'NIKE-ROJBCO-1',
-    price: 13990,
-    currentStock: 60,
-    criticalStock: 5,
-    productType: {
-      id: 1,
-      description: 'Zapatillas Hombre',
-      productFamily: { id: 1 }
-    },
-    images: [
-      {
-        filename: 'photo-1580143881495-b21dde95fc60.jpg',
-        url: 'assets/img/products/photo-1580143881495-b21dde95fc60.jpg',
-        id: 'assets/img/products/photo-1580143881495-b21dde95fc60.jpg'
-      }
-    ]
-  }
-];
+import { MOCK_PRODUCTS } from './sources/mock-products.datasource';
+import { MOCK_PRODUCT_TYPES } from './sources/mock-product-types.datasource';
+import { MOCK_PRODUCT_FAMILIES } from './sources/mock-product-families.datasource';
 
 @Injectable()
 export class ProductsDataLocalMemoryApiService
@@ -86,17 +25,15 @@ export class ProductsDataLocalMemoryApiService
   }
 
   public readProductTypes(): Observable<ProductType[]> {
-    return of(MOCK_PRODUCT_TYPES.map(t => Object.assign(new ProductType(), t)));
+    return of(MOCK_PRODUCT_TYPES);
   }
 
   public readProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]> {
-    return of(MOCK_PRODUCT_TYPES.filter(t => t.productFamily.id === productFamilyId)
-      .map(t => Object.assign(new ProductType(), t))
-    );
+    return of(MOCK_PRODUCT_TYPES.filter(t => t.productFamily.id === productFamilyId));
   }
 
   public readProductFamilies(): Observable<ProductFamily[]> {
-    return of(MOCK_PRODUCT_FAMILIES.map(f => Object.assign(new ProductFamily(), f)));
+    return of(MOCK_PRODUCT_FAMILIES);
   }
 
   protected filterItems(filter: ProductFilters): Product[] {

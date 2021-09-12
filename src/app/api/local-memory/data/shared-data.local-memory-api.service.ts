@@ -11,31 +11,11 @@ import { SellType } from 'src/app/models/entities/SellType';
 import { ISharedDataApiService } from '../../shared.data-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
 import { UserRole } from 'src/app/models/entities/UserRole';
-
-export const MOCK_PEOPLE: Partial<Person>[] = [
-  { id: 1, name: 'Anónimo' },
-  { id: 2, name: 'Administrador', idCard: '' }
-];
-
-export const MOCK_PRODUCT_FAMILIES: Partial<ProductFamily>[] = [
-  { id: 1, name: 'Ropa y Calzado' }
-];
-
-export const MOCK_PRODUCT_TYPES: Partial<ProductType>[] = [
-  { id: 1, name: 'Zapatillas Hombre', productFamily: { id: 1 } }
-];
-
-export const MOCK_SELL_TYPES: SellType[] = [
-  { id: 'B', description: 'Boleta' },
-  { id: 'F', description: 'Factura' }
-];
-
-export const MOCK_USER_ROLES: Partial<UserRole>[] = [
-  { id: 1, name: 'Administrador' },
-  { id: 2, name: 'Salesperson' },
-  { id: 3, name: 'Overseer' },
-  { id: 4, name: 'Client' }
-];
+import { MOCK_USER_ROLES } from './sources/mock-user-roles.datasource';
+import { MOCK_SELL_TYPES } from './sources/mock-sell-types.datasource';
+import { MOCK_PRODUCT_TYPES } from './sources/mock-product-types.datasource';
+import { MOCK_PRODUCT_FAMILIES } from './sources/mock-product-families.datasource';
+import { MOCK_PEOPLE } from './sources/mock-people.datasource';
 
 @Injectable()
 export class SharedDataLocalMemoryApiService
@@ -46,24 +26,22 @@ export class SharedDataLocalMemoryApiService
   }
 
   public readAllProductFamilies(): Observable<ProductFamily[]> {
-    return of(MOCK_PRODUCT_FAMILIES.map(f => Object.assign(new ProductFamily(), f)));
+    return of(MOCK_PRODUCT_FAMILIES);
   }
 
   public readAllProductTypes(): Observable<ProductType[]> {
-    return of(MOCK_PRODUCT_TYPES.map(t => Object.assign(new ProductType(), t)));
+    return of(MOCK_PRODUCT_TYPES);
   }
 
   public readAllProductTypesByFamilyId(familyId: number): Observable<ProductType[]> {
-    return of(MOCK_PRODUCT_TYPES.filter(t => t.productFamily.id === familyId)
-      .map(t => Object.assign(new ProductType(), t))
-    );
+    return of(MOCK_PRODUCT_TYPES.filter(t => t.productFamily.id === familyId));
   }
 
   public readAllSellTypes(): Observable<SellType[]> {
-    return of(MOCK_SELL_TYPES.map(t => Object.assign(new SellType(), t)));
+    return of(MOCK_SELL_TYPES);
   }
 
   public readAllUserRoles(): Observable<UserRole[]> {
-    return of(MOCK_USER_ROLES.map(r => Object.assign(new UserRole(), r)));
+    return of(MOCK_USER_ROLES);
   }
 }
