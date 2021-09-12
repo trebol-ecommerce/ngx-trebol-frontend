@@ -13,12 +13,17 @@ import { UserManagerFormService } from './user-manager-form.service';
 describe('UserManagerFormDialogComponent', () => {
   let component: UserManagerFormDialogComponent;
   let fixture: ComponentFixture<UserManagerFormDialogComponent>;
-  let service: Partial<UserManagerFormService>;
+  let mockDialogRef: Partial<MatDialogRef<UserManagerFormDialogComponent>>;
+  let mockService: Partial<UserManagerFormService>;
 
   beforeEach(waitForAsync(() => {
-    service = {
+    mockDialogRef = {
+      close(v?: any) { }
+    };
+    mockService = {
       saving$: of(false),
-      getPeople() { return of([]); }
+      getPeople() { return of([]); },
+      getUserRoles() { return of([]); }
     };
 
     TestBed.configureTestingModule({
@@ -28,14 +33,14 @@ describe('UserManagerFormDialogComponent', () => {
       declarations: [ UserManagerFormDialogComponent ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },
-        { provide: MatDialogRef, useValue: {} }
+        { provide: MatDialogRef, useValue: mockDialogRef },
+        { provide: UserManagerFormService, useValue: mockService }
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    TestBed.overrideProvider(UserManagerFormService, { useValue: service });
     fixture = TestBed.createComponent(UserManagerFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
