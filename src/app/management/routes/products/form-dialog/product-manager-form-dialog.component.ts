@@ -18,10 +18,7 @@ import { ProductManagerFormService } from './product-manager-form.service';
 import { Image } from 'src/app/models/entities/Image';
 import { ImagesArrayDialogComponent } from 'src/app/management/dialogs/images-array/images-array-dialog.component';
 import { ImagesArrayDialogData } from 'src/app/management/dialogs/images-array/ImagesArrayDialogData';
-
-export interface ProductManagerFormDialogData {
-  product: Product;
-}
+import { DataManagerFormDialogData } from '../../DataManagerFormDialogData';
 
 @Component({
   providers: [ ProductManagerFormService ],
@@ -51,10 +48,10 @@ export class ProductManagerFormDialogComponent
   public get description(): FormControl { return this.formGroup.get('description') as FormControl; }
 
   public images: Image[];
-  public get dialogTitle(): string { return ((this.data?.product?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Producto'; }
+  public get dialogTitle(): string { return ((this.data?.item?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Producto'; }
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) protected data: ProductManagerFormDialogData,
+    @Inject(MAT_DIALOG_DATA) protected data: DataManagerFormDialogData<Product>,
     protected service: ProductManagerFormService,
     protected dialog: MatDialogRef<ProductManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
@@ -73,7 +70,7 @@ export class ProductManagerFormDialogComponent
       description: ['']
     });
 
-    const item: Product = (this.data?.product) ? this.data.product : new Product();
+    const item: Product = (this.data?.item) ? this.data.item : new Product();
     this.load(item);
   }
 

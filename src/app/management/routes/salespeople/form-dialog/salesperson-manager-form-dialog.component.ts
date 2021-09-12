@@ -14,10 +14,7 @@ import { PersonFormComponent } from 'src/app/shared/components/person-form/perso
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerFormComponentDirective } from '../../data-manager-form.component-directive';
 import { SalespersonManagerFormService } from './salesperson-manager-form.service';
-
-export interface SalespersonManagementFormDialogData {
-  salesperson: Salesperson;
-}
+import { DataManagerFormDialogData } from '../../DataManagerFormDialogData';
 
 @Component({
   providers: [ SalespersonManagerFormService ],
@@ -37,10 +34,10 @@ export class SalespersonManagerFormDialogComponent
   public get role(): FormControl { return this.formGroup.get('role') as FormControl; }
   @ViewChild('personForm', { static: true }) public personForm: PersonFormComponent;
 
-  public get dialogTitle(): string { return ((this.data?.salesperson?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Empleado'; }
+  public get dialogTitle(): string { return ((this.data?.item?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Empleado'; }
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) protected data: SalespersonManagementFormDialogData,
+    @Inject(MAT_DIALOG_DATA) protected data: DataManagerFormDialogData<Salesperson>,
     protected service: SalespersonManagerFormService,
     protected dialog: MatDialogRef<SalespersonManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
@@ -61,7 +58,7 @@ export class SalespersonManagerFormDialogComponent
   ngAfterViewInit(): void {
     this.formGroup.addControl('person', this.personForm.formGroup);
 
-    const item: Salesperson = (this.data?.salesperson) ? this.data.salesperson : new Salesperson();
+    const item: Salesperson = (this.data?.item) ? this.data.item : new Salesperson();
     this.load(item);
   }
 

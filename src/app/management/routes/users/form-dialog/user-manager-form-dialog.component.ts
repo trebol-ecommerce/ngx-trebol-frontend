@@ -14,10 +14,7 @@ import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages
 import { DataManagerFormComponentDirective } from '../../data-manager-form.component-directive';
 import { UserManagerFormService } from './user-manager-form.service';
 import { UserRole } from 'src/app/models/entities/UserRole';
-
-export interface UserManagerFormDialogData {
-  user: User;
-}
+import { DataManagerFormDialogData } from '../../DataManagerFormDialogData';
 
 @Component({
   providers: [ UserManagerFormService ],
@@ -41,10 +38,10 @@ export class UserManagerFormDialogComponent
   public get person(): FormControl { return this.formGroup.get('person') as FormControl; }
   public get role(): FormControl { return this.formGroup.get('role') as FormControl; }
 
-  public get dialogTitle(): string { return ((this.data?.user?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Usuario'; }
+  public get dialogTitle(): string { return ((this.data?.item?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Usuario'; }
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) protected data: UserManagerFormDialogData,
+    @Inject(MAT_DIALOG_DATA) protected data: DataManagerFormDialogData<User>,
     protected service: UserManagerFormService,
     protected dialog: MatDialogRef<UserManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
@@ -127,8 +124,8 @@ export class UserManagerFormDialogComponent
   }
 
   private getPromptedUserDetails(): Observable<User> {
-    return (!!this.data?.user ?
-      this.service.getUserDetails(this.data.user.id) :
+    return (!!this.data?.item ?
+      this.service.getUserDetails(this.data.item.id) :
       of(new User())
     );
   }

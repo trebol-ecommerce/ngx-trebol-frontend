@@ -19,10 +19,7 @@ import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages
 import { ProductsArrayDialogComponent } from '../../../dialogs/products-array/products-array-dialog.component';
 import { DataManagerFormComponentDirective } from '../../data-manager-form.component-directive';
 import { SellManagerFormService } from './sell-manager-form.service';
-
-export interface SaleManagerFormDialogData {
-  sell: Sell;
-}
+import { DataManagerFormDialogData } from '../../DataManagerFormDialogData';
 
 @Component({
   providers: [ SellManagerFormService ],
@@ -56,10 +53,10 @@ export class SellManagerFormDialogComponent
   public sellIsntReady$: Observable<boolean>;
 
   public tableColumns: string[] = [ 'product', 'price', 'quantity', 'actions' ];
-  public get dialogTitle(): string { return ((this.data?.sell?.id) ? 'Actualizar datos de' : 'Nueva') + ' Venta'; }
+  public get dialogTitle(): string { return ((this.data?.item?.id) ? 'Actualizar datos de' : 'Nueva') + ' Venta'; }
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) protected data: SaleManagerFormDialogData,
+    @Inject(MAT_DIALOG_DATA) protected data: DataManagerFormDialogData<Sell>,
     protected service: SellManagerFormService,
     protected dialog: MatDialogRef<SellManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
@@ -73,7 +70,7 @@ export class SellManagerFormDialogComponent
       customer: [null, Validators.required]
     });
 
-    const item: Sell = (this.data?.sell) ? this.data.sell : new Sell();
+    const item: Sell = (this.data?.item) ? this.data.item : new Sell();
     this.load(item);
   }
 
