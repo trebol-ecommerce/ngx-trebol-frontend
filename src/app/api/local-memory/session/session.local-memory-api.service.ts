@@ -11,14 +11,6 @@ import { ISessionApiService } from '../../session-api.iservice';
 import { Registration } from 'src/app/models/Registration';
 import { environment } from 'src/environments/environment';
 
-function getNewSessionId(): number {
-  const localSessionId = localStorage.getItem('latestSessionId');
-  const sessionId = (localSessionId !== null) ? Number(localSessionId) : 1;
-  localStorage.setItem('latestSessionId', String(sessionId + 1));
-
-  return sessionId;
-}
-
 @Injectable()
 export class SessionLocalMemoryApiService
   implements ISessionApiService {
