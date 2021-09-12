@@ -11,9 +11,12 @@ import { ProductsDataHttpApiService } from './data/products-data.http-api.servic
 import { SalesDataHttpApiService } from './data/sales-data.http-api.service';
 import { SharedDataHttpApiService } from './data/shared-data.http-api.service';
 import { UsersDataHttpApiService } from './data/users-data.http-api.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AccessHttpApiService } from './access/access.http-api.service';
 import { ImagesDataHttpApiService } from './data/images-data.http-api.service';
+import { StoreHttpApiService } from './store/store.http-api.service';
+import { SessionHttpApiService } from './session/session.http-api.service';
+import { SessionHttpApiInterceptor } from './session/session.http-api.interceptor';
 
 /**
  * Provides services that read and write data using an external HTTP server (defined in the environment files)
@@ -33,7 +36,10 @@ import { ImagesDataHttpApiService } from './data/images-data.http-api.service';
     { provide: API_SERVICE_INJECTION_TOKENS.shared, useClass: SharedDataHttpApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.usersCrud, useClass: UsersDataHttpApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.salesCrud, useClass: SalesDataHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.dataAccess, useClass: AccessHttpApiService }
+    { provide: API_SERVICE_INJECTION_TOKENS.dataAccess, useClass: AccessHttpApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.store, useClass: StoreHttpApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.auth, useClass: SessionHttpApiService },
+    { provide: HTTP_INTERCEPTORS, useClass: SessionHttpApiInterceptor, multi: true }
   ]
 })
-export class HttpDataApiModule { }
+export class HttpApiModule { }
