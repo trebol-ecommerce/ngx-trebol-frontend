@@ -5,9 +5,9 @@
 
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { LocalMemorySessionApiModule } from 'src/app/api/local-memory/session.local-memory-api.module';
-import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
+import { SessionLocalMemoryApiService } from 'src/app/api/local-memory/session/session.local-memory-api.service';
 import { ManagementService } from './management.service';
+import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
 
 describe('ManagementService', () => {
   let service: ManagementService;
@@ -15,12 +15,11 @@ describe('ManagementService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-        LocalMemoryApiModule,
-        LocalMemorySessionApiModule
+        RouterTestingModule
       ],
       providers: [
-        ManagementService
+        ManagementService,
+        { provide: API_SERVICE_INJECTION_TOKENS.auth, useClass: SessionLocalMemoryApiService }
       ]
     });
     service = TestBed.inject(ManagementService);
