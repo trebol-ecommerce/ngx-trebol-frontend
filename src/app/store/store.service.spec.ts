@@ -5,7 +5,7 @@
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { LocalMemoryDataModule } from 'src/app/api/local-memory/data.local-memory-api.module';
+import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
 import { StoreService } from './store.service';
 import { Product } from 'src/app/models/entities/Product';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
@@ -28,7 +28,7 @@ describe('StoreService', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        LocalMemoryDataModule,
+        LocalMemoryApiModule,
         HttpClientTestingModule
       ],
       providers: [

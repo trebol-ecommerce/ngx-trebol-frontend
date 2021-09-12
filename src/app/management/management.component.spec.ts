@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { LocalMemoryDataModule } from 'src/app/api/local-memory/data.local-memory-api.module';
+import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
 import { ManagementComponent } from './management.component';
 import { ManagementService } from './management.service';
 import { of } from 'rxjs';
@@ -21,7 +21,7 @@ describe('ManagementComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ ManagementComponent ],
-      imports: [ LocalMemoryDataModule ],
+      imports: [ LocalMemoryApiModule ],
       providers: [
         { provide: ManagementService, useValue: service }
       ]

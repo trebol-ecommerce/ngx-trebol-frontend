@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { TestBed } from '@angular/core/testing';
-import { LocalMemoryDataModule } from 'src/app/api/local-memory/data.local-memory-api.module';
+import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
 import { SalespersonManagerFormService } from './salesperson-manager-form.service';
 
 describe('SalespersonManagerFormService', () => {
@@ -12,7 +12,7 @@ describe('SalespersonManagerFormService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ LocalMemoryDataModule ],
+      imports: [ LocalMemoryApiModule ],
       providers: [
         SalespersonManagerFormService
       ]

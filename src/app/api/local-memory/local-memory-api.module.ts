@@ -13,6 +13,8 @@ import { SharedDataLocalMemoryApiService } from './data/shared-data.local-memory
 import { UsersDataLocalMemoryApiService } from './data/users-data.local-memory-api.service';
 import { AccessLocalMemoryApiService } from './access/access.local-memory-api.service';
 import { ImagesDataLocalMemoryApiService } from './data/images-data.local-memory-api.service';
+import { SessionLocalMemoryApiService } from './session/session.local-memory-api.service';
+import { StoreLocalMemoryApiService } from './store/store.local-memory-api.service';
 
 /**
  * Provides services that read and write data using the client's working memory
@@ -26,7 +28,9 @@ import { ImagesDataLocalMemoryApiService } from './data/images-data.local-memory
     { provide: API_SERVICE_INJECTION_TOKENS.shared, useClass: SharedDataLocalMemoryApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.usersCrud, useClass: UsersDataLocalMemoryApiService },
     { provide: API_SERVICE_INJECTION_TOKENS.salesCrud, useClass: SalesDataLocalMemoryApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.dataAccess, useClass: AccessLocalMemoryApiService }
+    { provide: API_SERVICE_INJECTION_TOKENS.dataAccess, useClass: AccessLocalMemoryApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.auth, useClass: SessionLocalMemoryApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.store, useClass: StoreLocalMemoryApiService }
   ]
 })
-export class LocalMemoryDataModule { }
+export class LocalMemoryApiModule { }

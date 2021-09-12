@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { TestBed } from '@angular/core/testing';
-import { LocalMemoryDataModule } from 'src/app/api/local-memory/data.local-memory-api.module';
+import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
 import { SellManagerFormService } from './sell-manager-form.service';
 
 describe('SellManagerFormService', () => {
@@ -12,7 +12,7 @@ describe('SellManagerFormService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ LocalMemoryDataModule ],
+      imports: [ LocalMemoryApiModule ],
       providers: [
         SellManagerFormService
       ]

@@ -13,7 +13,7 @@ import { of } from 'rxjs';
 import { FileUploadComponent } from 'src/app/shared/components/file-upload/file-upload.component';
 import { ImageManagerUploadDialogComponent } from './image-manager-upload-dialog.component';
 import { ImageManagerUploadService } from './image-manager-upload.service';
-import { LocalMemoryDataModule } from 'src/app/api/local-memory/data.local-memory-api.module';
+import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
 
 describe('ImageManagerUploadDialogComponent', () => {
   let component: ImageManagerUploadDialogComponent;
@@ -37,7 +37,7 @@ describe('ImageManagerUploadDialogComponent', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        LocalMemoryDataModule
+        LocalMemoryApiModule
       ],
       declarations: [
         ImageManagerUploadDialogComponent,
