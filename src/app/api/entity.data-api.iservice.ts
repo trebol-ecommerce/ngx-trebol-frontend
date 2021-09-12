@@ -6,7 +6,7 @@
 import { Observable } from 'rxjs';
 import { AbstractEntity } from 'src/app/models/AbstractEntity';
 
-export interface EntityDataApiIService<T extends AbstractEntity> {
+export interface IEntityDataApiService<T extends AbstractEntity> {
 
   create(instance: T): Observable<number>;
   readById(id: number | string): Observable<T>;

@@ -10,7 +10,7 @@ import { SellType } from 'src/app/models/entities/SellType';
 import { Person } from 'src/app/models/entities/Person';
 import { UserRole } from 'src/app/models/entities/UserRole';
 
-export interface SharedDataApiIService {
+export interface ISharedDataApiService {
   readAllPeople(): Observable<Person[]>;
   readAllProductFamilies(): Observable<ProductFamily[]>;
   readAllProductTypes(): Observable<ProductType[]>;

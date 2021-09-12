@@ -13,7 +13,7 @@ import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 import { Receipt } from 'src/app/models/entities/Receipt';
 
-export interface StoreApiIService {
+export interface IStoreApiService {
   fetchProductById(id: number): Observable<Product>;
   fetchStoreFrontProductCollection(): Observable<Product[]>;
   fetchFilteredProductCollection(filters: ProductFilters): Observable<Product[]>;

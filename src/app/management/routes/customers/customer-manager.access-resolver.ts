@@ -7,16 +7,16 @@ import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { SessionApiIService } from 'src/app/api/session-api.iservice';
+import { ISessionApiService } from 'src/app/api/session-api.iservice';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
-import { DataAccessApiIService } from 'src/app/api/data-access.api.iservice';
+import { IAccessApiService } from 'src/app/api/access-api.iservice';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerManagerAccessResolver
   implements Resolve<AuthorizedAccess> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataAccess) protected apiAccessService: DataAccessApiIService
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataAccess) protected apiAccessService: IAccessApiService
   ) { }
 
   resolve(

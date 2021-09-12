@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Person } from 'src/app/models/entities/Person';
 import { makeid } from 'src/functions/makeid';
-import { SessionApiIService } from '../../session-api.iservice';
+import { ISessionApiService } from '../../session-api.iservice';
 import { Registration } from 'src/app/models/Registration';
 import { environment } from 'src/environments/environment';
 
@@ -21,7 +21,7 @@ function getNewSessionId(): number {
 
 @Injectable()
 export class SessionLocalMemoryApiService
-  implements SessionApiIService {
+  implements ISessionApiService {
 
   protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
   protected readonly authorizationHeader = environment.secrets.authHeader;

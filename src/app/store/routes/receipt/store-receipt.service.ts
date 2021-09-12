@@ -9,9 +9,9 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, pluck, startWith } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
-import { CompositeEntityDataApiIService } from 'src/app/api/composite-entity-data-api.iservice';
+import { ICompositeEntityDataApiService } from 'src/app/api/composite-entity.data-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { StoreApiIService } from 'src/app/api/store-api.iservice';
+import { IStoreApiService } from 'src/app/api/store-api.iservice';
 import { Receipt } from 'src/app/models/entities/Receipt';
 import { ReceiptDetail } from 'src/app/models/entities/ReceiptDetail';
 
@@ -26,7 +26,7 @@ export class StoreReceiptService {
   public date$: Observable<string> = this.receipt$.pipe(pluck('date'));
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected storeApiService: StoreApiIService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected storeApiService: IStoreApiService,
     protected router: Router
   ) {
   }

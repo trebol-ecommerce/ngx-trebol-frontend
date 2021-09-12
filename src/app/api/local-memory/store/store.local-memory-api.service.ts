@@ -6,7 +6,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
-import { StoreApiIService } from '../../store-api.iservice';
+import { IStoreApiService } from '../../store-api.iservice';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { Product } from 'src/app/models/entities/Product';
@@ -33,7 +33,7 @@ export const MOCK_EXTERNAL_PAYMENT_REDIRECT_DATA: ExternalPaymentRedirectionData
 
 @Injectable()
 export class StoreLocalMemoryApiService
-  implements StoreApiIService {
+  implements IStoreApiService {
 
   protected items: Product[] = [];
 

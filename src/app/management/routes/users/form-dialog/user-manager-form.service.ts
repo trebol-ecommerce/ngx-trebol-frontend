@@ -9,8 +9,8 @@ import { DataManagerFormServiceDirective } from '../../data-manager-form.service
 import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { EntityDataApiIService } from 'src/app/api/entity-data-api.iservice';
-import { SharedDataApiIService } from 'src/app/api/shared-data-api.iservice';
+import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
+import { ISharedDataApiService } from 'src/app/api/shared.data-api.iservice';
 import { UserRole } from 'src/app/models/entities/UserRole';
 
 @Injectable()
@@ -18,8 +18,8 @@ export class UserManagerFormService
   extends DataManagerFormServiceDirective<User> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.usersCrud) public dataService: EntityDataApiIService<User>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.shared) protected sharedDataService: SharedDataApiIService
+    @Inject(API_SERVICE_INJECTION_TOKENS.usersCrud) public dataService: IEntityDataApiService<User>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.shared) protected sharedDataService: ISharedDataApiService
   ) {
     super();
   }

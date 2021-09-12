@@ -2,7 +2,7 @@ import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { mapTo, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { EntityDataApiIService } from 'src/app/api/entity-data-api.iservice';
+import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { Image } from 'src/app/models/entities/Image';
 
 @Injectable({ providedIn: 'root' })
@@ -15,7 +15,7 @@ export class ImagesService
   images$ = this.imagesSource.asObservable();
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.imagesCrud) private imageDataService: EntityDataApiIService<Image>
+    @Inject(API_SERVICE_INJECTION_TOKENS.imagesCrud) private imageDataService: IEntityDataApiService<Image>
   ) {
     this.fetch().subscribe();
   }

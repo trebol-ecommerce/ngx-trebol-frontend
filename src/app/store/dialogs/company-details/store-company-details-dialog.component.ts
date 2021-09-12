@@ -8,7 +8,7 @@ import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { mapTo, pluck, startWith } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
-import { StoreApiIService } from 'src/app/api/store-api.iservice';
+import { IStoreApiService } from 'src/app/api/store-api.iservice';
 
 @Component({
   selector: 'app-store-company-details-dialog',
@@ -29,7 +29,7 @@ export class StoreCompanyDetailsDialogComponent
 
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected sharedDataService: StoreApiIService
+    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected sharedDataService: IStoreApiService
   ) { }
 
   ngOnInit(): void {

@@ -8,7 +8,7 @@ import { Person } from 'src/app/models/entities/Person';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 import { Registration } from 'src/app/models/Registration';
 
-export interface SessionApiIService {
+export interface ISessionApiService {
 
   guestLogin(details: Person): Observable<boolean>;
   register(details: Registration): Observable<boolean>;

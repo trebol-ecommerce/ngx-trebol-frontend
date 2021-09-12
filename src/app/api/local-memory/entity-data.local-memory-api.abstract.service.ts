@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { EntityDataApiIService } from '../entity-data-api.iservice';
+import { IEntityDataApiService } from '../entity.data-api.iservice';
 import { AbstractEntity } from 'src/app/models/AbstractEntity';
 import { Observable, of } from 'rxjs';
 
@@ -27,7 +27,7 @@ function matchesAbstractEntityProperty(it: any, propName: string, propValue: Abs
  * Base class for a fully-working CRUD service in the local (client) memory.
  */
 export abstract class EntityDataLocalMemoryApiService<T extends AbstractEntity>
-  implements EntityDataApiIService<T> {
+  implements IEntityDataApiService<T> {
 
   protected abstract items: T[];
 

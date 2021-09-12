@@ -7,13 +7,13 @@ import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreCatalogService } from './store-catalog.service';
-import { StoreApiIService } from 'src/app/api/store-api.iservice';
+import { IStoreApiService } from 'src/app/api/store-api.iservice';
 import { of, EMPTY } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 
 describe('StoreCatalogService', () => {
   let service: StoreCatalogService;
-  let mockApiService: Partial<StoreApiIService>;
+  let mockApiService: Partial<IStoreApiService>;
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(() => {

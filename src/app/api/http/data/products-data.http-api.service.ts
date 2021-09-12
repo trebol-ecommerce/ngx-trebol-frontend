@@ -8,13 +8,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/entities/Product';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
-import { EntityDataApiIService } from '../../entity-data-api.iservice';
+import { IEntityDataApiService } from '../../entity.data-api.iservice';
 import { EntityDataHttpApiService } from '../entity-data.http-api.abstract.service';
 
 @Injectable()
 export class ProductsDataHttpApiService
   extends EntityDataHttpApiService
-  implements EntityDataApiIService<Product> {
+  implements IEntityDataApiService<Product> {
 
   constructor(
     protected http: HttpClient

@@ -5,8 +5,8 @@
 
 import { TestBed } from '@angular/core/testing';
 import { AppService } from './app.service';
-import { SessionApiIService } from './api/session-api.iservice';
-import { DataAccessApiIService } from './api/data-access.api.iservice';
+import { ISessionApiService } from './api/session-api.iservice';
+import { IAccessApiService } from './api/access-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from './api/api-service-injection-tokens';
 import { of, throwError } from 'rxjs';
 import { Registration } from './models/Registration';
@@ -33,8 +33,8 @@ const MOCK_REGISTRATION_DETAILS: Registration = {
 
 describe('AppService', () => {
   let service: AppService;
-  let mockAuthApiService: Partial<SessionApiIService>;
-  let mockAccessApiService: Partial<DataAccessApiIService>;
+  let mockAuthApiService: Partial<ISessionApiService>;
+  let mockAccessApiService: Partial<IAccessApiService>;
 
   beforeEach(() => {
     mockAuthApiService = {

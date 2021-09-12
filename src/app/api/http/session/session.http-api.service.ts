@@ -15,14 +15,14 @@ import { finalize, map, tap } from 'rxjs/operators';
 import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
 import { HttpService } from 'src/app/shared/http.aservice';
-import { SessionApiIService } from '../../session-api.iservice';
+import { ISessionApiService } from '../../session-api.iservice';
 import { Registration } from 'src/app/models/Registration';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class SessionHttpApiService
   extends HttpService
-  implements SessionApiIService {
+  implements ISessionApiService {
 
   protected baseURI = environment.apiUrls.session;
   protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;

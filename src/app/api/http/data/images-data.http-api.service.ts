@@ -8,12 +8,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Image } from 'src/app/models/entities/Image';
 import { EntityDataHttpApiService } from '../entity-data.http-api.abstract.service';
-import { EntityDataApiIService } from '../../entity-data-api.iservice';
+import { IEntityDataApiService } from '../../entity.data-api.iservice';
 
 @Injectable()
 export class ImagesDataHttpApiService
   extends EntityDataHttpApiService
-  implements EntityDataApiIService<Image> {
+  implements IEntityDataApiService<Image> {
 
   constructor(
     protected http: HttpClient

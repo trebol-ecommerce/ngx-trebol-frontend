@@ -10,7 +10,7 @@ import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-
 import { Product } from 'src/app/models/entities/Product';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
-import { StoreApiIService } from '../api/store-api.iservice';
+import { IStoreApiService } from '../api/store-api.iservice';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -27,7 +27,7 @@ export class StoreService
   public cartSubtotalValue$: Observable<number>;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected storeApiService: StoreApiIService
+    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected storeApiService: IStoreApiService
   ) {
     this.cartItemCount$ = this.cartDetails$.pipe(
       map(

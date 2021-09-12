@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { DataAccessApiIService } from '../../data-access.api.iservice';
+import { IAccessApiService } from '../../access-api.iservice';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class AccessHttpApiService
   extends HttpService
-  implements DataAccessApiIService {
+  implements IAccessApiService {
 
   protected baseURI = environment.apiUrls.access;
 

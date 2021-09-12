@@ -9,13 +9,13 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
-import { CompositeEntityDataApiIService } from '../../composite-entity-data-api.iservice';
+import { ICompositeEntityDataApiService } from '../../composite-entity.data-api.iservice';
 import { EntityDataHttpApiService } from '../entity-data.http-api.abstract.service';
 
 @Injectable()
 export class SalesDataHttpApiService
   extends EntityDataHttpApiService
-  implements CompositeEntityDataApiIService<Sell, SellDetail> {
+  implements ICompositeEntityDataApiService<Sell, SellDetail> {
 
   constructor(
     protected http: HttpClient

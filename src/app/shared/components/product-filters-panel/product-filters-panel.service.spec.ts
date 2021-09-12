@@ -6,12 +6,12 @@
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { ProductFiltersPanelService } from './product-filters-panel.service';
-import { StoreApiIService } from 'src/app/api/store-api.iservice';
+import { IStoreApiService } from 'src/app/api/store-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 
 describe('ProductFiltersPanelService', () => {
   let service: Partial<ProductFiltersPanelService>;
-  let catalogService: Partial<StoreApiIService>;
+  let catalogService: Partial<IStoreApiService>;
 
   beforeEach(() => {
     catalogService = {

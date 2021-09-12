@@ -6,7 +6,7 @@
 import { Observable } from 'rxjs';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 
-export interface DataAccessApiIService {
+export interface IAccessApiService {
   getAuthorizedAccess(): Observable<AuthorizedAccess>;
   getResourceAuthorizedAccess(resource: string): Observable<AuthorizedAccess>;
 }

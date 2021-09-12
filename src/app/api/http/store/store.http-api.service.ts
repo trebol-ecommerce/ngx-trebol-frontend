@@ -11,7 +11,7 @@ import { HttpService } from 'src/app/shared/http.aservice';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
-import { StoreApiIService } from '../../store-api.iservice';
+import { IStoreApiService } from '../../store-api.iservice';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
@@ -21,7 +21,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class StoreHttpApiService
   extends HttpService
-  implements StoreApiIService {
+  implements IStoreApiService {
 
   protected baseURI = environment.apiUrls.store;
 

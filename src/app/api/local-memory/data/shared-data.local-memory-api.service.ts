@@ -8,7 +8,7 @@ import { Observable, of } from 'rxjs';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { SellType } from 'src/app/models/entities/SellType';
-import { SharedDataApiIService } from '../../shared-data-api.iservice';
+import { ISharedDataApiService } from '../../shared.data-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
 import { UserRole } from 'src/app/models/entities/UserRole';
 
@@ -39,7 +39,7 @@ export const MOCK_USER_ROLES: Partial<UserRole>[] = [
 
 @Injectable()
 export class SharedDataLocalMemoryApiService
-  implements SharedDataApiIService {
+  implements ISharedDataApiService {
 
   public readAllPeople(): Observable<Person[]> {
     return of(MOCK_PEOPLE.map(f => Object.assign(new Person(), f)));
