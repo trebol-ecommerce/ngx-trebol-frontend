@@ -59,7 +59,7 @@ export abstract class DataManagerServiceDirective<T extends AbstractEntity>
     this.loadingSource.next(true);
     this.dataService.readAll().pipe(
       delay(0),
-      tap(items => { this.itemsSource.next(items); }),
+      tap(response => { this.itemsSource.next(response.items); }),
       finalize(() => { this.loadingSource.next(false); })
     ).subscribe();
   }

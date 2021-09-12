@@ -12,6 +12,7 @@ import {
   matchesDateProperty,
   matchesAbstractEntityProperty
 } from './entity-data.local-memory-api.functions';
+import { DataPage } from 'src/app/models/DataPage';
 
 /**
  * Base class for a fully-working CRUD service in the local (client) memory.
@@ -99,19 +100,29 @@ export abstract class EntityDataLocalMemoryApiService<T extends AbstractEntity>
    * Get the entire collection and emit it.
    * //TODO paging would be nice
    */
-  public readAll(): Observable<T[]> {
-    return of(this.items);
+  public readAll(): Observable<DataPage<T>> {
+    return of({
+      items: this.items,
+      totalCount: this.items.length,
+      pageIndex: 0,
+      pageSize: this.items.length
+    });
   }
 
   /**
    * Filter the collection's items by matching their properties with those of the provided filter object. Then emit the resulting subset.
    * //TODO paging would be nice
    */
-  public readFiltered(filter: any): Observable<T[]> {
+  public readFiltered(filter: any): Observable<DataPage<T>> {
     return new Observable(
       observer => {
         const matchingItems = this.filterItems(filter);
-        observer.next(matchingItems);
+        observer.next({
+          items: this.items.slice(0, 9),
+          totalCount: this.items.length,
+          pageIndex: 0,
+          pageSize: 10
+        });
         observer.complete();
 
         return {

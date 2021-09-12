@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { Customer } from 'src/app/models/entities/Customer';
 import { EntityDataHttpApiService } from '../entity-data.http-api.abstract.service';
 import { IEntityDataApiService } from '../../entity.data-api.iservice';
+import { DataPage } from 'src/app/models/DataPage';
 
 @Injectable()
 export class CustomersDataHttpApiService
@@ -35,13 +36,13 @@ export class CustomersDataHttpApiService
   }
 
   public readAll() {
-    return this.http.get<Customer[]>(
+    return this.http.get<DataPage<Customer>>(
       this.baseUrl
     );
   }
 
   public readFiltered(filters: any) {
-    return this.http.get<Customer[]>(
+    return this.http.get<DataPage<Customer>>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: filters })

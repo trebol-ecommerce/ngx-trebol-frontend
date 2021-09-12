@@ -12,8 +12,7 @@ import { IEntityDataApiService } from '../../entity.data-api.iservice';
 
 @Injectable()
 export class ImagesDataHttpApiService
-  extends EntityDataHttpApiService
-  implements IEntityDataApiService<Image> {
+  extends EntityDataHttpApiService{
 
   baseUrl = `${super.baseUrl}/images`;
 
@@ -46,19 +45,6 @@ export class ImagesDataHttpApiService
       {
         params: new HttpParams({ fromObject: filters })
       }
-    );
-  }
-
-  public update(instance: Image, id: number) {
-    return this.http.put<void>(
-      `${this.baseUrl}/${id}`,
-      instance
-    );
-  }
-
-  public deleteById(id: number) {
-    return this.http.delete<void>(
-      `${this.baseUrl}/${id}`
     );
   }
 }

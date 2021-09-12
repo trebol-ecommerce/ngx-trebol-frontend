@@ -5,12 +5,12 @@
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ICompositeEntityDataApiService } from '../../composite-entity.data-api.iservice';
 import { EntityDataHttpApiService } from '../entity-data.http-api.abstract.service';
+import { DataPage } from 'src/app/models/DataPage';
 
 @Injectable()
 export class SalesDataHttpApiService
@@ -43,13 +43,13 @@ export class SalesDataHttpApiService
   }
 
   public readAll() {
-    return this.http.get<Sell[]>(
+    return this.http.get<DataPage<Sell>>(
       this.baseUrl,
     );
   }
 
   public readFiltered(filters: any) {
-    return this.http.get<Sell[]>(
+    return this.http.get<DataPage<Sell>>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: filters })

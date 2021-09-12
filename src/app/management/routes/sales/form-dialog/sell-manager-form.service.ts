@@ -59,11 +59,11 @@ export class SellManagerFormService
   }
 
   public getAllSalespeople(): Observable<Salesperson[]> {
-    return this.salespeopleDataService.readAll();
+    return this.salespeopleDataService.readAll().pipe(map(response => response.items));
   }
 
   public getAllCustomers(): Observable<Customer[]> {
-    return this.customersDataService.readAll();
+    return this.customersDataService.readAll().pipe(map(response => response.items));
   }
 
   public refreshSellDetailsFromId(id: number): void {

@@ -27,7 +27,7 @@ export class ImagesService
   fetch(): Observable<void> {
     return this.imageDataService.readAll().pipe(
       tap(payload => {
-        this.imageCache = payload;
+        this.imageCache = payload.items;
         this.imagesSource.next(this.imageCache);
       }),
       mapTo(void 0)

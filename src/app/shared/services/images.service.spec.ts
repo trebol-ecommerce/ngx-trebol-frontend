@@ -12,7 +12,14 @@ describe('ImagesService', () => {
 
   beforeEach(() => {
     mockDataService = {
-      readAll() { return of([]); }
+      readAll() {
+        return of({
+          items: [],
+          totalCount: 0,
+          pageIndex: 0,
+          pageSize: 100
+        });
+      }
     };
 
     TestBed.configureTestingModule({
@@ -41,7 +48,14 @@ describe('ImagesService', () => {
   it('should re-cache after calling fetch()', () => {
     const exampleImageArray: Image[] = [ { url: 'fake', filename: 'example', id: 'fake' } ];
     mockDataService = {
-      readAll() { return of(exampleImageArray); }
+      readAll() {
+        return of({
+          items: exampleImageArray,
+          totalCount: 1,
+          pageIndex: 0,
+          pageSize: 100
+        });
+      }
     };
     TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.imagesCrud, { useValue: mockDataService });
     service = TestBed.inject(ImagesService);

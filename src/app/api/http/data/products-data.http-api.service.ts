@@ -10,6 +10,7 @@ import { Product } from 'src/app/models/entities/Product';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { IEntityDataApiService } from '../../entity.data-api.iservice';
 import { EntityDataHttpApiService } from '../entity-data.http-api.abstract.service';
+import { DataPage } from 'src/app/models/DataPage';
 
 @Injectable()
 export class ProductsDataHttpApiService
@@ -36,13 +37,13 @@ export class ProductsDataHttpApiService
   }
 
   public readAll() {
-    return this.http.get<Product[]>(
+    return this.http.get<DataPage<Product>>(
       this.baseUrl,
     );
   }
 
   public readFiltered(filters: ProductFilters) {
-    return this.http.get<Product[]>(
+    return this.http.get<DataPage<Product>>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: filters as any })

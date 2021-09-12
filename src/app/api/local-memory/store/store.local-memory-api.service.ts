@@ -30,8 +30,8 @@ export class StoreLocalMemoryApiService
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.productsCrud) private dataService: EntityDataLocalMemoryApiService<Product>
   ) {
-    this.dataService.readAll().subscribe(items => {
-      this.items = items;
+    this.dataService.readAll().subscribe(response => {
+      this.items = response.items;
     });
   }
 

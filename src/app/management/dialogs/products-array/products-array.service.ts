@@ -9,7 +9,7 @@ import { Subject, BehaviorSubject, Observable, merge } from 'rxjs';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { concatMap, mapTo } from 'rxjs/operators';
+import { concatMap, mapTo, map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class ProductsArrayService {
@@ -35,7 +35,8 @@ export class ProductsArrayService {
             return this.productDataService.readAll();
           }
         }
-      )
+      ),
+      map(response => response.items)
     );
 
     this.loading$ = merge(
