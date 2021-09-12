@@ -34,34 +34,34 @@ export class SessionHttpApiService
 
   public getProfile(): Observable<Person> {
     return this.http.get<Person>(
-      `${this.baseUrl}/profile`
+      `${this.baseUrl}/account/profile`
     );
   }
 
-  public updateProfile(details: Person): Observable<boolean> {
+  public updateProfile(details: Person) {
     return this.http.put<boolean>(
-      `${this.baseUrl}/profile`,
+      `${this.baseUrl}/account/profile`,
       details
     );
   }
 
-  public guestLogin(personDetails: Person): Observable<boolean> {
+  public guestLogin(personDetails: Person) {
     return this.http.post<boolean>(
-      `${this.baseUrl}/guest`,
+      `${this.baseUrl}/public/guest`,
       personDetails
     );
   }
 
-  public register(userDetails: Registration): Observable<boolean> {
+  public register(userDetails: Registration) {
     return this.http.post<boolean>(
-      `${this.baseUrl}/register`,
+      `${this.baseUrl}/public/register`,
       userDetails
     );
   }
 
-  public login(details: any): Observable<boolean> {
+  public login(details: any) {
     return this.http.post(
-      `${this.baseUrl}/login`,
+      `${this.baseUrl}/public/login`,
       details,
       {
         observe: 'response',
@@ -84,9 +84,9 @@ export class SessionHttpApiService
     );
   }
 
-  public logout(): Observable<boolean> {
+  public logout() {
     return this.http.get<boolean>(
-      `${this.baseUrl}/logout`
+      `${this.baseUrl}/account/logout`
     ).pipe(
       finalize(
         () => {
