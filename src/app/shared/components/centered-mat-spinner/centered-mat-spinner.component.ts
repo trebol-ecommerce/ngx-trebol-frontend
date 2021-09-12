@@ -7,9 +7,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'centered-mat-spinner',
-  template: `<div><mat-spinner></mat-spinner></div>`,
+  template: `<mat-spinner></mat-spinner>`,
   styles: [
-    `div {
+    `:host {
       width: 100%;
       height: 100%;
       display: grid;
