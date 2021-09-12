@@ -21,26 +21,26 @@ export class ImagesDataHttpApiService
     super(http);
   }
 
-  public create(instance: Image): Observable<number> {
-    return this.http.post<number>(
+  public create(instance: Image) {
+    return this.http.post<void>(
       this.baseUrl,
       instance
     );
   }
 
-  public readById(id: number): Observable<Image> {
+  public readById(id: number) {
     return this.http.get<Image>(
       `${this.baseUrl}/${id}`
     );
   }
 
-  public readAll(): Observable<Image[]> {
+  public readAll() {
     return this.http.get<Image[]>(
       this.baseUrl
     );
   }
 
-  public readFiltered(filters: any): Observable<Image[]> {
+  public readFiltered(filters: any) {
     return this.http.get<Image[]>(
       this.baseUrl,
       {
@@ -49,15 +49,15 @@ export class ImagesDataHttpApiService
     );
   }
 
-  public update(instance: Image, id: number): Observable<number> {
-    return this.http.put<number>(
+  public update(instance: Image, id: number) {
+    return this.http.put<void>(
       `${this.baseUrl}/${id}`,
       instance
     );
   }
 
-  public deleteById(id: number): Observable<boolean> {
-    return this.http.delete<boolean>(
+  public deleteById(id: number) {
+    return this.http.delete<void>(
       `${this.baseUrl}/${id}`
     );
   }

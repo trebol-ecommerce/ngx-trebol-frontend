@@ -52,7 +52,7 @@ export abstract class EntityDataLocalMemoryApiService<T extends AbstractEntity>
    * Insert an item in the collection and generate its ID. Then emit the updated item.
    * Emit a 400 error if the item comes with an ID of its own.
    */
-  public create(d: T): Observable<number> {
+  public create(d: T): Observable<void> {
     return new Observable(
       observer => {
         if (d.id) {
@@ -63,7 +63,7 @@ export abstract class EntityDataLocalMemoryApiService<T extends AbstractEntity>
         const highestId = devicesById[this.items.length - 1].id as number;
         d.id = highestId + 1;
         this.items.push(d);
-        observer.next(d.id);
+        observer.next();
         observer.complete();
 
         return {
@@ -126,7 +126,7 @@ export abstract class EntityDataLocalMemoryApiService<T extends AbstractEntity>
    * Emit a 400 error if the new item has no ID itself.
    * Emit a 404 error if no item matches the provided ID.
    */
-  public update(d: T, id: number): Observable<number> {
+  public update(d: T, id: number): Observable<void> {
     return new Observable(
       observer => {
         // if (!!d.id) {
@@ -139,7 +139,7 @@ export abstract class EntityDataLocalMemoryApiService<T extends AbstractEntity>
         }
 
         this.items[indexInDb] = d;
-        observer.next(d.id as number);
+        observer.next();
         observer.complete();
 
         return {
@@ -153,7 +153,7 @@ export abstract class EntityDataLocalMemoryApiService<T extends AbstractEntity>
    * Match and delete the item with the provided ID. Then emit.
    * Emit a 404 error if the match could not be made.
    */
-  public deleteById(id: number): Observable<boolean> {
+  public deleteById(id: number): Observable<void> {
     return new Observable(
       observer => {
         const indexInDb = this.items.findIndex(dv => dv.id === id);
@@ -161,7 +161,7 @@ export abstract class EntityDataLocalMemoryApiService<T extends AbstractEntity>
           observer.error({ status: 404 });
         }
         this.items.splice(indexInDb, 1);
-        observer.next(true);
+        observer.next();
         observer.complete();
 
         return {

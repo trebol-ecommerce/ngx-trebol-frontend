@@ -24,19 +24,19 @@ export class SharedDataHttpApiService
     super(http);
   }
 
-  public readAllPeople(): Observable<Person[]> {
+  public readAllPeople() {
     return this.http.get<Person[]>(
       `${this.baseUrl}/people`
     );
   }
 
-  readAllSellTypes(): Observable<SellType[]> {
+  readAllSellTypes() {
     return this.http.get<SellType[]>(
       `${this.baseUrl}/sell_types`
     );
   }
 
-  public readAllProductFamilies(): Observable<ProductFamily[]> {
+  public readAllProductFamilies() {
     return this.http.get<ProductFamily[]>(
       `${this.baseUrl}/product_families`
     ).pipe(
@@ -44,7 +44,7 @@ export class SharedDataHttpApiService
     );
   }
 
-  public readAllProductTypes(): Observable<ProductType[]> {
+  public readAllProductTypes() {
     return this.http.get<ProductType[]>(
       `${this.baseUrl}/product_types`
     ).pipe(
@@ -52,7 +52,7 @@ export class SharedDataHttpApiService
     );
   }
 
-  public readAllProductTypesByFamilyId(familyId: number): Observable<ProductType[]> {
+  public readAllProductTypesByFamilyId(familyId: number) {
     return this.http.get<ProductType[]>(
       `${this.baseUrl}/product_types`,
       {
@@ -65,7 +65,7 @@ export class SharedDataHttpApiService
     );
   }
 
-  public readAllUserRoles(): Observable<UserRole[]> {
+  public readAllUserRoles() {
     return this.http.get<UserRole[]>(
       `${this.baseUrl}/user_roles`
     ).pipe(

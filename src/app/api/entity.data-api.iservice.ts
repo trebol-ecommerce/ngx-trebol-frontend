@@ -8,10 +8,10 @@ import { AbstractEntity } from 'src/app/models/AbstractEntity';
 
 export interface IEntityDataApiService<T extends AbstractEntity> {
 
-  create(instance: T): Observable<number>;
+  create(instance: T): Observable<void>;
   readById(id: number | string): Observable<T>;
   readAll(): Observable<T[]>;
   readFiltered?(f: any): Observable<T[]>;
-  update(instance: T, id: number | string): Observable<number>;
-  deleteById(id: number | string): Observable<boolean>;
+  update(instance: T, id: number | string): Observable<void>;
+  deleteById(id: number | string): Observable<void>;
 }

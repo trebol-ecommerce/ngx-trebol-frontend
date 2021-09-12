@@ -21,26 +21,26 @@ export class SalespeopleDataHttpApiService
     super(http);
   }
 
-  public create(instance: Salesperson): Observable<number> {
-    return this.http.post<number>(
+  public create(instance: Salesperson) {
+    return this.http.post<void>(
       this.baseUrl,
       instance
     );
   }
 
-  public readById(id: number): Observable<Salesperson> {
+  public readById(id: number) {
     return this.http.get<Salesperson>(
       `${this.baseUrl}/${id}`
     );
   }
 
-  public readAll(): Observable<Salesperson[]> {
+  public readAll() {
     return this.http.get<Salesperson[]>(
       this.baseUrl,
     );
   }
 
-  public readFiltered(filters: any): Observable<Salesperson[]> {
+  public readFiltered(filters: any) {
     return this.http.get<Salesperson[]>(
       this.baseUrl,
       {
@@ -49,15 +49,15 @@ export class SalespeopleDataHttpApiService
     );
   }
 
-  public update(instance: Salesperson, id: number): Observable<number> {
-    return this.http.put<number>(
+  public update(instance: Salesperson, id: number) {
+    return this.http.put<void>(
       `${this.baseUrl}/${id}`,
       instance
     );
   }
 
-  public deleteById(id: number): Observable<boolean> {
-    return this.http.delete<boolean>(
+  public deleteById(id: number) {
+    return this.http.delete<void>(
       `${this.baseUrl}/${id}`
     );
   }

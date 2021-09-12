@@ -21,26 +21,26 @@ export class UsersDataHttpApiService
     super(http);
   }
 
-  public create(instance: User): Observable<number> {
-    return this.http.post<number>(
+  public create(instance: User) {
+    return this.http.post<void>(
       this.baseUrl,
       instance
     );
   }
 
-  public readById(id:  number): Observable<User> {
+  public readById(id:  number) {
     return this.http.get<User>(
       `${this.baseUrl}/${id}`
     );
   }
 
-  public readAll(): Observable<User[]> {
+  public readAll() {
     return this.http.get<User[]>(
       this.baseUrl,
     );
   }
 
-  public readFiltered(filters: any): Observable<User[]> {
+  public readFiltered(filters: any) {
     return this.http.get<User[]>(
       this.baseUrl,
       {
@@ -49,15 +49,15 @@ export class UsersDataHttpApiService
     );
   }
 
-  public update(instance: User, id: string | number): Observable<number> {
-    return this.http.put<number>(
+  public update(instance: User, id: string | number) {
+    return this.http.put<void>(
       `${this.baseUrl}/${id}`,
       instance
     );
   }
 
-  public deleteById(id: number): Observable<boolean> {
-    return this.http.delete<boolean>(
+  public deleteById(id: number) {
+    return this.http.delete<void>(
       `${this.baseUrl}/${id}`
     );
   }
