@@ -5,11 +5,7 @@
 
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-export interface ConfirmationDialogData {
-  title: string;
-  message: string;
-}
+import { ConfirmationDialogData } from './ConfirmationDialogData';
 
 @Component({
   selector: 'app-confirmation-dialog',
