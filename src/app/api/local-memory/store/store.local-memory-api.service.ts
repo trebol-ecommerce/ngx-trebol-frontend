@@ -11,25 +11,15 @@ import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { Product } from 'src/app/models/entities/Product';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
-import { MOCK_PRODUCT_TYPES, MOCK_PRODUCT_FAMILIES } from '../data/shared-data.local-memory-api.service';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 import { Receipt } from 'src/app/models/entities/Receipt';
 import { API_SERVICE_INJECTION_TOKENS } from '../../api-service-injection-tokens';
 import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
-
-export const MOCK_COMPANY_DETAILS: CompanyDetails = {
-  name: 'Importaciones NBazaar',
-  description: 'Somos una pequeña empresa de importación de ropa y calzado. Llevamos más de 4 años en el mercado, conectando la manufactura fuera del país con el retail nacional.',
-  bannerImageURL: 'assets/img/mikael-frivold-vJ1Pf0d-0HY-unsplash.jpg',
-  logoImageURL: 'assets/img/logo.png'
-};
-
-export const MOCK_EXTERNAL_PAYMENT_REDIRECT_DATA: ExternalPaymentRedirectionData = {
-  url: '',
-  token: ''
-};
-
+import { MOCK_PRODUCT_TYPES } from '../data/sources/mock-product-types.datasource';
+import { MOCK_PRODUCT_FAMILIES } from '../data/sources/mock-product-families.datasource';
+import { MOCK_COMPANY_DETAILS } from './examples/mock-company-details.examples';
+import { MOCK_EXTERNAL_PAYMENT_REDIRECT_DATA } from './examples/mock-external-payment-redirect-data.examples';
 
 @Injectable()
 export class StoreLocalMemoryApiService
@@ -104,13 +94,11 @@ export class StoreLocalMemoryApiService
   }
 
   public fetchProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]> {
-    return of(MOCK_PRODUCT_TYPES.filter(t => t.productFamily.id === productFamilyId)
-      .map(t => Object.assign(new ProductType(), t))
-    );
+    return of(MOCK_PRODUCT_TYPES.filter(t => t.productFamily.id === productFamilyId));
   }
 
   public fetchAllProductFamilies(): Observable<ProductFamily[]> {
-    return of(MOCK_PRODUCT_FAMILIES.map(f => Object.assign(new ProductFamily(), f)));
+    return of(MOCK_PRODUCT_FAMILIES);
   }
 
   public fetchCompanyDetails(): Observable<CompanyDetails> {
