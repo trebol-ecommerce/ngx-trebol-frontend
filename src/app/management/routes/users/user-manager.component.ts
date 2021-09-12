@@ -12,8 +12,9 @@ import { map } from 'rxjs/operators';
 import { User } from 'src/app/models/entities/User';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerComponentDirective } from '../data-manager.component-directive';
-import { UserManagerFormDialogComponent, UserManagerFormDialogData } from './form-dialog/user-manager-form-dialog.component';
+import { UserManagerFormDialogComponent } from './form-dialog/user-manager-form-dialog.component';
 import { UserManagerService } from './user-manager.service';
+import { DataManagerFormDialogData } from '../DataManagerFormDialogData';
 
 @Component({
   selector: 'app-user-manager',
@@ -48,8 +49,8 @@ export class UserManagerComponent
     );
   }
 
-  public openFormDialog(user: User): Observable<User> {
-    const dialogData: UserManagerFormDialogData = user ? { user } : null;
+  public openFormDialog(item: User): Observable<User> {
+    const dialogData: DataManagerFormDialogData<User> = item ? { item } : null;
 
     return this.dialogService.open(
       UserManagerFormDialogComponent,

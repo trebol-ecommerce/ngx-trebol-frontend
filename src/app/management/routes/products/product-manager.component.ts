@@ -12,8 +12,9 @@ import { map } from 'rxjs/operators';
 import { Product } from 'src/app/models/entities/Product';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerComponentDirective } from '../data-manager.component-directive';
-import { ProductManagerFormDialogComponent, ProductManagerFormDialogData } from './form-dialog/product-manager-form-dialog.component';
+import { ProductManagerFormDialogComponent } from './form-dialog/product-manager-form-dialog.component';
 import { ProductManagerService } from './product-manager.service';
+import { DataManagerFormDialogData } from '../DataManagerFormDialogData';
 
 @Component({
   selector: 'app-product-manager',
@@ -48,8 +49,8 @@ export class ProductManagerComponent
     );
   }
 
-  public openFormDialog(product: Product): Observable<Product> {
-    const dialogData: ProductManagerFormDialogData = { product };
+  public openFormDialog(item: Product): Observable<Product> {
+    const dialogData: DataManagerFormDialogData<Product> = { item };
 
     return this.dialogService.open(
       ProductManagerFormDialogComponent,

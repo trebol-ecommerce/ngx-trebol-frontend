@@ -13,7 +13,8 @@ import { Salesperson } from 'src/app/models/entities/Salesperson';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerComponentDirective } from '../data-manager.component-directive';
 import { SalespersonManagerService } from './salesperson-manager.service';
-import { SalespersonManagementFormDialogData, SalespersonManagerFormDialogComponent } from './form-dialog/salesperson-manager-form-dialog.component';
+import { SalespersonManagerFormDialogComponent } from './form-dialog/salesperson-manager-form-dialog.component';
+import { DataManagerFormDialogData } from '../DataManagerFormDialogData';
 
 @Component({
   selector: 'app-salesperson-manager',
@@ -48,8 +49,8 @@ export class SalespersonManagerComponent
     );
   }
 
-  public openFormDialog(salesperson: Salesperson): Observable<Salesperson> {
-    const dialogData: SalespersonManagementFormDialogData = { salesperson };
+  public openFormDialog(item: Salesperson): Observable<Salesperson> {
+    const dialogData: DataManagerFormDialogData<Salesperson> = { item };
 
     return this.dialogService.open(
       SalespersonManagerFormDialogComponent,
