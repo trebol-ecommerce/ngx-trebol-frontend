@@ -26,7 +26,7 @@ function matchesAbstractEntityProperty(it: any, propName: string, propValue: Abs
 /**
  * Base class for a fully-working CRUD service in the local (client) memory.
  */
-export abstract class EntityLocalMemoryDataApiService<T extends AbstractEntity>
+export abstract class EntityDataLocalMemoryApiService<T extends AbstractEntity>
   implements EntityDataApiIService<T> {
 
   protected abstract items: T[];

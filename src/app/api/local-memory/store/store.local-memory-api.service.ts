@@ -16,7 +16,7 @@ import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 import { Receipt } from 'src/app/models/entities/Receipt';
 import { API_SERVICE_INJECTION_TOKENS } from '../../api-service-injection-tokens';
-import { EntityLocalMemoryDataApiService } from '../entity-data.local-memory-api.abstract.service';
+import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
 
 export const MOCK_COMPANY_DETAILS: CompanyDetails = {
   name: 'Importaciones NBazaar',
@@ -38,7 +38,7 @@ export class StoreLocalMemoryApiService
   protected items: Product[] = [];
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.productsCrud) private dataService: EntityLocalMemoryDataApiService<Product>
+    @Inject(API_SERVICE_INJECTION_TOKENS.productsCrud) private dataService: EntityDataLocalMemoryApiService<Product>
   ) {
     this.dataService.readAll().subscribe(items => {
       this.items = items;

@@ -6,7 +6,7 @@
 import { Injectable } from '@angular/core';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { Product } from 'src/app/models/entities/Product';
-import { EntityLocalMemoryDataApiService } from '../entity-data.local-memory-api.abstract.service';
+import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
 import { Observable, of } from 'rxjs';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
@@ -77,7 +77,7 @@ export const MOCK_PRODUCTS: Partial<Product>[] = [
 
 @Injectable()
 export class ProductsDataLocalMemoryApiService
-  extends EntityLocalMemoryDataApiService<Product> {
+  extends EntityDataLocalMemoryApiService<Product> {
 
   protected items: Product[] = MOCK_PRODUCTS.map(n => Object.assign(new Product(), n));
 
