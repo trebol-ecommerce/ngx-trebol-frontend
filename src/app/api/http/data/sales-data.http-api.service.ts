@@ -10,11 +10,11 @@ import { map } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { CompositeEntityDataApiIService } from '../../composite-entity-data-api.iservice';
-import { HttpDataApiService } from '../entity-data.http-api.abstract.service';
+import { EntityDataHttpApiService } from '../entity-data.http-api.abstract.service';
 
 @Injectable()
 export class SalesDataHttpApiService
-  extends HttpDataApiService
+  extends EntityDataHttpApiService
   implements CompositeEntityDataApiIService<Sell, SellDetail> {
 
   constructor(

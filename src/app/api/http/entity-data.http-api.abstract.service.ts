@@ -6,7 +6,7 @@
 import { HttpService } from 'src/app/shared/http.aservice';
 import { environment } from 'src/environments/environment';
 
-export abstract class HttpDataApiService
+export abstract class EntityDataHttpApiService
   extends HttpService {
 
   protected baseURI = environment.apiUrls.data;
