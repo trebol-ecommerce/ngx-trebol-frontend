@@ -1,12 +1,15 @@
-import { FormGroup, ValidationErrors } from "@angular/forms";
+import { FormGroup, ValidationErrors } from '@angular/forms';
 
 export function validateFormGroup(formGroup: FormGroup): ValidationErrors {
   if (formGroup.valid) {
     return null;
   }
   let errors = {};
-  for (const controlName in formGroup.controls) {
-    errors = addControlErrors(errors, formGroup, controlName);
+  const controls = formGroup.controls;
+  for (const controlName in controls) {
+    if (Object.hasOwnProperty(controlName)) {
+      errors = addControlErrors(errors, formGroup, controlName);
+    }
   }
   return errors;
 }

@@ -29,7 +29,7 @@ describe('SalespersonManagerFormDialogComponent', () => {
       close(v?: any) {}
     };
     mockSnackBarService = {
-      open() { return void 0;}
+      open() { return void 0; }
     };
 
     TestBed.configureTestingModule({

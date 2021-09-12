@@ -4,7 +4,9 @@
 // https://opensource.org/licenses/MIT
 
 import { Component, Input, Output, OnDestroy, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, NG_VALUE_ACCESSOR, NG_VALIDATORS,
+  ControlValueAccessor, Validator, AbstractControl, ValidationErrors
+} from '@angular/forms';
 import { Subscription, merge } from 'rxjs';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { debounceTime, tap } from 'rxjs/operators';
