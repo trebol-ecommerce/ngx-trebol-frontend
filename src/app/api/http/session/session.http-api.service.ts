@@ -14,56 +14,54 @@ import { Observable, of } from 'rxjs';
 import { finalize, map, tap } from 'rxjs/operators';
 import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
-import { HttpService } from 'src/app/shared/http.aservice';
+import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
 import { ISessionApiService } from '../../session-api.iservice';
 import { Registration } from 'src/app/models/Registration';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class SessionHttpApiService
-  extends HttpService
+  extends HttpApiService
   implements ISessionApiService {
 
-  protected baseURI = environment.apiUrls.session;
+  baseUrl = environment.apiUrls.session
   protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
   protected readonly authorizationHeader = environment.secrets.authHeader;
 
-  constructor(
-    protected http: HttpClient
-  ) {
-    super();
+  constructor(http: HttpClient) {
+    super(http);
   }
 
   public getProfile(): Observable<Person> {
     return this.http.get<Person>(
-      `${this.baseURI}/profile`
+      `${this.baseUrl}/profile`
     );
   }
 
   public updateProfile(details: Person): Observable<boolean> {
     return this.http.put<boolean>(
-      `${this.baseURI}/profile`,
+      `${this.baseUrl}/profile`,
       details
     );
   }
 
   public guestLogin(personDetails: Person): Observable<boolean> {
     return this.http.post<boolean>(
-      `${this.baseURI}/guest`,
+      `${this.baseUrl}/guest`,
       personDetails
     );
   }
 
   public register(userDetails: Registration): Observable<boolean> {
     return this.http.post<boolean>(
-      `${this.baseURI}/register`,
+      `${this.baseUrl}/register`,
       userDetails
     );
   }
 
   public login(details: any): Observable<boolean> {
     return this.http.post(
-      `${this.baseURI}/login`,
+      `${this.baseUrl}/login`,
       details,
       {
         observe: 'response',
@@ -88,7 +86,7 @@ export class SessionHttpApiService
 
   public logout(): Observable<boolean> {
     return this.http.get<boolean>(
-      `${this.baseURI}/logout`
+      `${this.baseUrl}/logout`
     ).pipe(
       finalize(
         () => {

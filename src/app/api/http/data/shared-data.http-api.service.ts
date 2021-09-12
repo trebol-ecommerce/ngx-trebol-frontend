@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
@@ -20,27 +20,25 @@ export class SharedDataHttpApiService
   extends EntityDataHttpApiService
   implements ISharedDataApiService {
 
-  constructor(
-    protected http: HttpClient
-  ) {
-    super();
+  constructor(http: HttpClient) {
+    super(http);
   }
 
   public readAllPeople(): Observable<Person[]> {
     return this.http.get<Person[]>(
-      `${this.baseURI}/people`
+      `${this.baseUrl}/people`
     );
   }
 
   readAllSellTypes(): Observable<SellType[]> {
     return this.http.get<SellType[]>(
-      `${this.baseURI}/sell_types`
+      `${this.baseUrl}/sell_types`
     );
   }
 
   public readAllProductFamilies(): Observable<ProductFamily[]> {
     return this.http.get<ProductFamily[]>(
-      `${this.baseURI}/product_families`
+      `${this.baseUrl}/product_families`
     ).pipe(
       retry(2)
     );
@@ -48,7 +46,7 @@ export class SharedDataHttpApiService
 
   public readAllProductTypes(): Observable<ProductType[]> {
     return this.http.get<ProductType[]>(
-      `${this.baseURI}/product_types`
+      `${this.baseUrl}/product_types`
     ).pipe(
       retry(2)
     );
@@ -56,8 +54,12 @@ export class SharedDataHttpApiService
 
   public readAllProductTypesByFamilyId(familyId: number): Observable<ProductType[]> {
     return this.http.get<ProductType[]>(
-      `${this.baseURI}/product_types`,
-      this.httpParamsOf({ familyId })
+      `${this.baseUrl}/product_types`,
+      {
+        params: new HttpParams({ fromObject: {
+          familyId: String(familyId)
+        } })
+      }
     ).pipe(
       retry(2)
     );
@@ -65,7 +67,7 @@ export class SharedDataHttpApiService
 
   public readAllUserRoles(): Observable<UserRole[]> {
     return this.http.get<UserRole[]>(
-      `${this.baseURI}/user_roles`
+      `${this.baseUrl}/user_roles`
     ).pipe(
       retry(2)
     );

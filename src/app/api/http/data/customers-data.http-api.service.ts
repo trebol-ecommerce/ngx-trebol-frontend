@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Customer } from 'src/app/models/entities/Customer';
@@ -15,49 +15,50 @@ export class CustomersDataHttpApiService
   extends EntityDataHttpApiService
   implements IEntityDataApiService<Customer> {
 
-  constructor(
-    protected http: HttpClient
-  ) {
-    super();
-    this.baseURI = `${this.baseURI}/customers`;
+  baseUrl = `${super.baseUrl}/customers`;
+
+  constructor(http: HttpClient) {
+    super(http);
   }
 
   public create(instance: Customer): Observable<number> {
     return this.http.post<number>(
-      this.baseURI,
+      this.baseUrl,
       instance
     );
   }
 
   public readById(id: number): Observable<Customer> {
     return this.http.get<Customer>(
-      `${this.baseURI}/${id}`
+      `${this.baseUrl}/${id}`
     );
   }
 
   public readAll(): Observable<Customer[]> {
     return this.http.get<Customer[]>(
-      this.baseURI
+      this.baseUrl
     );
   }
 
   public readFiltered(filters: any): Observable<Customer[]> {
     return this.http.get<Customer[]>(
-      this.baseURI,
-      this.httpParamsOf(filters)
+      this.baseUrl,
+      {
+        params: new HttpParams({ fromObject: filters })
+      }
     );
   }
 
   public update(instance: Customer, id: number): Observable<number> {
     return this.http.put<number>(
-      `${this.baseURI}/${id}`,
+      `${this.baseUrl}/${id}`,
       instance
     );
   }
 
   public deleteById(id: number): Observable<boolean> {
     return this.http.delete<boolean>(
-      `${this.baseURI}/${id}`
+      `${this.baseUrl}/${id}`
     );
   }
 }

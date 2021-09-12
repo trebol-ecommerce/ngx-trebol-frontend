@@ -3,11 +3,11 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/entities/Product';
-import { HttpService } from 'src/app/shared/http.aservice';
+import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
@@ -20,64 +20,62 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class StoreHttpApiService
-  extends HttpService
+  extends HttpApiService
   implements IStoreApiService {
 
-  protected baseURI = environment.apiUrls.store;
+  protected baseUrl = environment.apiUrls.store;
 
-  constructor(
-    protected http: HttpClient
-  ) {
-    super();
+  constructor(http: HttpClient) {
+    super(http);
   }
 
   public fetchProductById(id: number): Observable<Product> {
     return this.http.get<Product>(
-      `${this.baseURI}/product/${id}`
+      `${this.baseUrl}/product/${id}`
     );
   }
 
   public fetchStoreFrontProductCollection(): Observable<Product[]> {
     return this.http.get<Product[]>(
-      `${this.baseURI}/front`
+      `${this.baseUrl}/front`
     );
   }
 
   public fetchFilteredProductCollection(filters: ProductFilters): Observable<Product[]> {
     return this.http.get<Product[]>(
-      `${this.baseURI}/front`,
-      this.httpParamsOf(filters)
+      `${this.baseUrl}/front`,
+      {  params: new HttpParams({ fromObject: filters as any }) }
     );
   }
 
   public fetchProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]> {
     return this.http.get<ProductType[]>(
-      `${this.baseURI}/categories/${productFamilyId}`
+      `${this.baseUrl}/categories/${productFamilyId}`
     );
   }
 
   public fetchAllProductFamilies(): Observable<ProductFamily[]> {
     return this.http.get<ProductFamily[]>(
-      `${this.baseURI}/categories`
+      `${this.baseUrl}/categories`
     );
   }
 
   public fetchCompanyDetails(): Observable<CompanyDetails> {
     return this.http.get<CompanyDetails>(
-      `${this.baseURI}/about`
+      `${this.baseUrl}/about`
     );
   }
 
   public submitCart(details: SellDetail[]): Observable<ExternalPaymentRedirectionData> {
     return this.http.post<ExternalPaymentRedirectionData>(
-      `${this.baseURI}/checkout`,
+      `${this.baseUrl}/checkout`,
       details
     );
   }
 
   public fetchTransactionReceiptById(id: number): Observable<Receipt> {
     return this.http.get<Receipt>(
-      `${this.baseURI}/receipt/${id}`
+      `${this.baseUrl}/receipt/${id}`
     );
   }
 }

@@ -3,11 +3,16 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { HttpService } from 'src/app/shared/http.aservice';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { HttpApiService } from './http-api.abstract.service';
 
 export abstract class EntityDataHttpApiService
-  extends HttpService {
+  extends HttpApiService {
 
-  protected baseURI = environment.apiUrls.data;
+  baseUrl = environment.apiUrls.data;
+
+  constructor(http: HttpClient) {
+    super(http);
+  }
 }

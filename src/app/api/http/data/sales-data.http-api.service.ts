@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -17,23 +17,22 @@ export class SalesDataHttpApiService
   extends EntityDataHttpApiService
   implements ICompositeEntityDataApiService<Sell, SellDetail> {
 
-  constructor(
-    protected http: HttpClient
-  ) {
-    super();
-    this.baseURI = `${this.baseURI}/sales`;
+  baseUrl = `${super.baseUrl}/sales`;
+
+  constructor(http: HttpClient) {
+    super(http);
   }
 
   public create(instance: Sell): Observable<number> {
     return this.http.post<number>(
-      this.baseURI,
+      this.baseUrl,
       instance
     );
   }
 
   public readById(id: number): Observable<Sell> {
     return this.http.get<Sell>(
-      `${this.baseURI}/${id}`
+      `${this.baseUrl}/${id}`
     );
   }
 
@@ -45,27 +44,29 @@ export class SalesDataHttpApiService
 
   public readAll(): Observable<Sell[]> {
     return this.http.get<Sell[]>(
-      this.baseURI,
+      this.baseUrl,
     );
   }
 
   public readFiltered(filters: any): Observable<Sell[]> {
     return this.http.get<Sell[]>(
-      this.baseURI,
-      this.httpParamsOf(filters)
+      this.baseUrl,
+      {
+        params: new HttpParams({ fromObject: filters })
+      }
     );
   }
 
   public update(instance: Sell, id: number): Observable<number> {
     return this.http.put<number>(
-      `${this.baseURI}/${id}`,
+      `${this.baseUrl}/${id}`,
       instance
     );
   }
 
   public deleteById(id: number): Observable<boolean> {
     return this.http.delete<boolean>(
-      `${this.baseURI}/${id}`
+      `${this.baseUrl}/${id}`
     );
   }
 }

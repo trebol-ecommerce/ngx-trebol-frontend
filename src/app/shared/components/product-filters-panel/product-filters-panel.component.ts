@@ -11,7 +11,7 @@ import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { ProductFiltersPanelService } from './product-filters-panel.service';
 
-export interface ProductFilters {
+export class ProductFilters {
   name?: string;
   typeId?: number;
   familyId?: number;
