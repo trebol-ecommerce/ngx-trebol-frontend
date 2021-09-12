@@ -13,7 +13,7 @@
   <div [hidden]="saving$ | async">
     <form [formGroup]="formGroup" (submit)="onSubmit()">
 
-      <app-person-form #personForm>
+      <app-person-form formControlName="person">
       </app-person-form>
 
       <div class="actions">

@@ -12,13 +12,12 @@
 
   <div [hidden]="saving$ | async">
     <form [formGroup]="formGroup" (submit)="onSubmit()">
-      <app-person-form #personForm>
+      <app-person-form formControlName="person">
       </app-person-form>
 
       <div class="actions">
         <button mat-button mat-raised-button type="submit"
-          color="primary"
-          [disabled]="formGroup.invalid">
+          color="primary">
           Aceptar
         </button>
         <button mat-button mat-raised-button type="button"
@@ -27,6 +26,5 @@
         </button>
       </div>
     </form>
-
   </div>
 </div>

@@ -10,13 +10,12 @@
   <centered-mat-spinner *ngIf="saving$ | async">
   </centered-mat-spinner>
 
-  <div [hidden]="saving$ | async">
-    <app-person-form #personForm>
+  <form [formGroup]="formGroup">
+    <app-person-form formControlName="person">
     </app-person-form>
 
     <div class="actions">
       <button mat-button mat-raised-button type="button"
-        [disabled]="invalid$ | async"
         (click)="onSubmit()">
         Aceptar
       </button>
@@ -26,5 +25,5 @@
         Cancelar
       </button>
     </div>
-  </div>
+  </form>
 </div>

@@ -9,7 +9,7 @@ import { delay, switchMap, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { Person } from 'src/app/models/entities/Person';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class EditProfileFormService
   implements OnDestroy {
 

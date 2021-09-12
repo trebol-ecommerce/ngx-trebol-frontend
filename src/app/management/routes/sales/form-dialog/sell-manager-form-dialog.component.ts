@@ -22,7 +22,6 @@ import { SellManagerFormService } from './sell-manager-form.service';
 import { DataManagerFormDialogData } from '../../DataManagerFormDialogData';
 
 @Component({
-  providers: [ SellManagerFormService ],
   selector: 'app-sell-manager-form-dialog',
   templateUrl: './sell-manager-form-dialog.component.html',
   styleUrls: [ './sell-manager-form-dialog.component.css' ]

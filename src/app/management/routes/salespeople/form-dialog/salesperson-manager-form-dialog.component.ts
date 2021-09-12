@@ -9,30 +9,25 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Salesperson } from 'src/app/models/entities/Salesperson';
-import { Person } from 'src/app/models/entities/Person';
-import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerFormComponentDirective } from '../../data-manager-form.component-directive';
 import { SalespersonManagerFormService } from './salesperson-manager-form.service';
 import { DataManagerFormDialogData } from '../../DataManagerFormDialogData';
 
 @Component({
-  providers: [ SalespersonManagerFormService ],
   selector: 'app-salesperson-manager-form-dialog',
   templateUrl: './salesperson-manager-form-dialog.component.html',
   styleUrls: [ './salesperson-manager-form-dialog.component.css' ]
 })
 export class SalespersonManagerFormDialogComponent
-  extends DataManagerFormComponentDirective<Salesperson>
-  implements AfterViewInit {
+  extends DataManagerFormComponentDirective<Salesperson> {
 
   protected itemId: number;
 
   public saving$: Observable<boolean>;
 
   public formGroup: FormGroup;
-  public get role(): FormControl { return this.formGroup.get('role') as FormControl; }
-  @ViewChild('personForm', { static: true }) public personForm: PersonFormComponent;
+  get person() { return this.formGroup.get('person') as FormControl; }
 
   public get dialogTitle(): string { return ((this.data?.item?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Empleado'; }
 
@@ -45,21 +40,15 @@ export class SalespersonManagerFormDialogComponent
   ) {
     super();
     this.formGroup = this.formBuilder.group({
-      role: [null, Validators.required]
+      person: ['']
     });
-  }
-
-  protected load(e: Salesperson): void {
-    this.itemId = e.id ? e.id : 0;
-
-    this.personForm.person = (e.person) ? e.person : new Person();
-  }
-
-  ngAfterViewInit(): void {
-    this.formGroup.addControl('person', this.personForm.formGroup);
 
     const item: Salesperson = (this.data?.item) ? this.data.item : new Salesperson();
     this.load(item);
+  }
+
+  protected load(e: Salesperson): void {
+    this.person.setValue(e);
   }
 
   public asItem(): Salesperson {
@@ -70,7 +59,7 @@ export class SalespersonManagerFormDialogComponent
         new Salesperson(),
         {
           id: this.itemId,
-          person: this.personForm.asPerson()
+          person: this.person.value
         }
       );
     }

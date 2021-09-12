@@ -26,7 +26,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./store-registration-form-dialog.component.css']
 })
 export class StoreRegistrationFormDialogComponent
-  implements OnInit, OnDestroy {
+  implements OnDestroy {
 
   protected registeringSource: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
@@ -36,7 +36,7 @@ export class StoreRegistrationFormDialogComponent
   public get name(): FormControl { return this.formGroup.get('name') as FormControl; }
   public get pass1(): FormControl { return this.formGroup.get('pass1') as FormControl; }
   public get pass2(): FormControl { return this.formGroup.get('pass2') as FormControl; }
-  @ViewChild('personForm', { static: true }) public personForm: PersonFormComponent;
+  get person() { return this.formGroup.get('person') as FormControl; }
 
   constructor(
     protected appService: AppService,
@@ -47,14 +47,10 @@ export class StoreRegistrationFormDialogComponent
     this.formGroup = this.formBuilder.group({
       name: ['', Validators.required],
       pass1: ['', Validators.required],
-      pass2: ['', Validators.required]
+      pass2: ['', Validators.required],
+      person: ['']
     }, passwordMatcher);
   }
-
-  ngOnInit(): void {
-    this.formGroup.addControl('person', this.personForm.formGroup);
-  }
-
   ngOnDestroy(): void {
     this.registeringSource.complete();
   }
@@ -63,15 +59,7 @@ export class StoreRegistrationFormDialogComponent
     if (this.formGroup.invalid) {
       return undefined;
     } else {
-      const person: Person = this.personForm.asPerson();
-      const profile = {
-        name: person.name,
-        idCard: person.idCard,
-        email: person.email,
-        address: person.address,
-        phone1: person.phone1,
-        phone2: person.phone2
-      };
+      const profile = this.person.value as Person;
 
       return Object.assign<Registration, Partial<Registration>>(
         new Registration(),

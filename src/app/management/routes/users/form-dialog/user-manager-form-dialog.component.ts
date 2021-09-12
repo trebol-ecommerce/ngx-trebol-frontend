@@ -17,7 +17,6 @@ import { UserRole } from 'src/app/models/entities/UserRole';
 import { DataManagerFormDialogData } from '../../DataManagerFormDialogData';
 
 @Component({
-  providers: [ UserManagerFormService ],
   selector: 'app-user-manager-form-dialog',
   templateUrl: './user-manager-form-dialog.component.html',
   styleUrls: [ './user-manager-form-dialog.component.css' ]

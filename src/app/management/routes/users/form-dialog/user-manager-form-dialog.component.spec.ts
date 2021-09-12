@@ -6,9 +6,11 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { UserManagerFormDialogComponent } from './user-manager-form-dialog.component';
 import { UserManagerFormService } from './user-manager-form.service';
+import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('UserManagerFormDialogComponent', () => {
   let component: UserManagerFormDialogComponent;
@@ -28,7 +30,10 @@ describe('UserManagerFormDialogComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        SharedModule
+        NoopAnimationsModule,
+        ReactiveFormsModule,
+        FormsModule,
+        AngularMaterialModule
       ],
       declarations: [ UserManagerFormDialogComponent ],
       providers: [

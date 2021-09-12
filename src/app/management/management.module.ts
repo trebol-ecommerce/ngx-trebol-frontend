@@ -35,6 +35,10 @@ import { ImagesArrayDialogComponent } from './dialogs/images-array/images-array-
 import { ImageManagerComponent } from './routes/images/image-manager.component';
 import { ImageManagerService } from './routes/images/image-manager.service';
 import { ImageManagerUploadDialogComponent } from './routes/images/upload-dialog/image-manager-upload-dialog.component';
+import { UserManagerFormService } from './routes/users/form-dialog/user-manager-form.service';
+import { ProductManagerFormService } from './routes/products/form-dialog/product-manager-form.service';
+import { SalespersonManagerFormService } from './routes/salespeople/form-dialog/salesperson-manager-form.service';
+import { SellManagerFormService } from './routes/sales/form-dialog/sell-manager-form.service';
 
 const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
   duration: 5000
@@ -73,9 +77,13 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     CustomerManagerService,
     ImageManagerService,
     SalespersonManagerService,
+    SalespersonManagerFormService,
     ProductManagerService,
+    ProductManagerFormService,
     UserManagerService,
-    SellManagerService
+    UserManagerFormService,
+    SellManagerService,
+    SellManagerFormService
   ]
 })
 export class ManagementModule { }

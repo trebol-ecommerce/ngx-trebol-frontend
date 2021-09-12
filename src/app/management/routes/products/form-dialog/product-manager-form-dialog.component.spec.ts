@@ -6,9 +6,11 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { ProductManagerFormDialogComponent } from './product-manager-form-dialog.component';
 import { ProductManagerFormService } from './product-manager-form.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
 
 describe('ProductManagerFormDialogComponent', () => {
   let component: ProductManagerFormDialogComponent;
@@ -26,7 +28,10 @@ describe('ProductManagerFormDialogComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        SharedModule
+        NoopAnimationsModule,
+        ReactiveFormsModule,
+        FormsModule,
+        AngularMaterialModule
       ],
       declarations: [ ProductManagerFormDialogComponent ],
       providers: [

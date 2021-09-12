@@ -11,11 +11,12 @@ import { map, startWith, tap } from 'rxjs/operators';
 import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { EditProfileFormService } from './edit-profile-form.service';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Person } from 'src/app/models/entities/Person';
 
 export const TIEMPO_CONFIRMACION_SALIR = 2000;
 
 @Component({
-  providers: [ EditProfileFormService ],
   selector: 'app-edit-profile-form-dialog',
   templateUrl: './edit-profile-form-dialog.component.html',
   styleUrls: ['./edit-profile-form-dialog.component.css']
@@ -27,38 +28,43 @@ export class EditProfileFormDialogComponent
 
   public saving$: Observable<boolean>;
   public cancelButtonColor$: Observable<string>;
-
-  @ViewChild('personForm', { static: true }) public personForm: PersonFormComponent;
-
   public invalid$: Observable<boolean>;
+
+  formGroup: FormGroup;
+
+  get person() { return this.formGroup.get('person') as FormControl; }
 
   constructor(
     protected service: EditProfileFormService,
     protected dialog: MatDialogRef<EditProfileFormDialogComponent>,
     protected snackBarService: MatSnackBar,
+    private formBuilder: FormBuilder
   ) {
     this.saving$ = this.service.saving$.pipe();
     this.cancelButtonColor$ = this.service.confirmCancel$.pipe(
       tap(c => { this.confirmCancel = c; }),
       map(c => (c ? 'warn' : 'default'))
     );
+    this.formGroup = this.formBuilder.group({
+      person: ['']
+    });
   }
 
   ngOnInit(): void {
     this.service.loadProfile().subscribe(
       p => {
-        this.personForm.person = p;
+        this.person.setValue(p);
       }
     );
 
-    this.invalid$ = this.personForm.formGroup.statusChanges.pipe(
+    this.invalid$ = this.formGroup.statusChanges.pipe(
       map(status => status !== 'VALID'),
       startWith(true)
     );
   }
 
   public onSubmit(): void {
-    const datosUsuario = this.personForm.asPerson();
+    const datosUsuario = this.person.value as Person;
     if (datosUsuario) {
       this.service.saveProfile(datosUsuario).subscribe(
         success => {

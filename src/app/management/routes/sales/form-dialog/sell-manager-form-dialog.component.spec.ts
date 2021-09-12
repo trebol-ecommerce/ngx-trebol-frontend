@@ -6,9 +6,11 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { SellManagerFormDialogComponent } from './sell-manager-form-dialog.component';
 import { SellManagerFormService } from './sell-manager-form.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
 
 describe('SellManagerFormDialogComponent', () => {
   let component: SellManagerFormDialogComponent;
@@ -34,7 +36,10 @@ describe('SellManagerFormDialogComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        SharedModule
+        NoopAnimationsModule,
+        ReactiveFormsModule,
+        FormsModule,
+        AngularMaterialModule
       ],
       declarations: [ SellManagerFormDialogComponent ],
       providers: [
