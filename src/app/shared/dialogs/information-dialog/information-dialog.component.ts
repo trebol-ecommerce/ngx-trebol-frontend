@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { InformationDialogData } from './InformationDialogData';
 
 @Component({
   selector: 'app-information-dialog',
@@ -12,7 +13,7 @@ export class InformationDialogComponent {
   public action = 'OK';
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: InformationDialogData
   ) {
     if (data?.message) {
       this.message = data.message;
