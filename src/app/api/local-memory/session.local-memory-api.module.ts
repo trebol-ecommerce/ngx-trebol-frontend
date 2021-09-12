@@ -5,11 +5,11 @@
 
 import { NgModule } from '@angular/core';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { LocalMemorySessionApiService } from './session/local-memory-session-api.service';
+import { SessionLocalMemoryApiService } from './session/session.local-memory-api.service';
 
 @NgModule({
   providers: [
-    { provide: API_SERVICE_INJECTION_TOKENS.auth, useClass: LocalMemorySessionApiService }
+    { provide: API_SERVICE_INJECTION_TOKENS.auth, useClass: SessionLocalMemoryApiService }
   ]
 })
 export class LocalMemorySessionApiModule { }

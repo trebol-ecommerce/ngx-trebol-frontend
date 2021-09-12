@@ -38,7 +38,7 @@ export const MOCK_USER_ROLES: Partial<UserRole>[] = [
 ];
 
 @Injectable()
-export class SharedLocalMemoryDataService
+export class SharedDataLocalMemoryApiService
   implements SharedDataApiIService {
 
   public readAllPeople(): Observable<Person[]> {

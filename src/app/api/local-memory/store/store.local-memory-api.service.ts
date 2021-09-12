@@ -11,12 +11,12 @@ import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { ProductType } from 'src/app/models/entities/ProductType';
 import { Product } from 'src/app/models/entities/Product';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
-import { MOCK_PRODUCT_TYPES, MOCK_PRODUCT_FAMILIES } from '../data/shared.local-memory-data-api.service';
+import { MOCK_PRODUCT_TYPES, MOCK_PRODUCT_FAMILIES } from '../data/shared-data.local-memory-api.service';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 import { Receipt } from 'src/app/models/entities/Receipt';
 import { API_SERVICE_INJECTION_TOKENS } from '../../api-service-injection-tokens';
-import { EntityLocalMemoryDataApiService } from '../entity.local-memory-data-api.aservice';
+import { EntityLocalMemoryDataApiService } from '../entity-data.local-memory-api.abstract.service';
 
 export const MOCK_COMPANY_DETAILS: CompanyDetails = {
   name: 'Importaciones NBazaar',
@@ -32,7 +32,7 @@ export const MOCK_EXTERNAL_PAYMENT_REDIRECT_DATA: ExternalPaymentRedirectionData
 
 
 @Injectable()
-export class LocalMemoryStoreApiService
+export class StoreLocalMemoryApiService
   implements StoreApiIService {
 
   protected items: Product[] = [];

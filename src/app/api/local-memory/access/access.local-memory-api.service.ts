@@ -10,7 +10,7 @@ import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
-export class LocalMemoryDataAccessApiService
+export class AccessLocalMemoryApiService
   implements DataAccessApiIService {
 
   protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;

@@ -9,7 +9,7 @@ import { map, tap } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { CompositeEntityDataApiIService } from '../../composite-entity-data-api.iservice';
-import { EntityLocalMemoryDataApiService } from '../entity.local-memory-data-api.aservice';
+import { EntityLocalMemoryDataApiService } from '../entity-data.local-memory-api.abstract.service';
 
 export const MOCK_SALES: Partial<Sell>[] = [
   {
@@ -57,7 +57,7 @@ export const MOCK_SALES: Partial<Sell>[] = [
 ];
 
 @Injectable()
-export class SalesLocalMemoryDataApiService
+export class SalesDataLocalMemoryApiService
   extends EntityLocalMemoryDataApiService<Sell>
   implements CompositeEntityDataApiIService<Sell, SellDetail> {
 

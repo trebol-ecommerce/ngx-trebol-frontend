@@ -20,7 +20,7 @@ function getNewSessionId(): number {
 }
 
 @Injectable()
-export class LocalMemorySessionApiService
+export class SessionLocalMemoryApiService
   implements SessionApiIService {
 
   protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;

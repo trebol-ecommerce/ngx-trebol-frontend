@@ -5,14 +5,14 @@
 
 import { NgModule } from '@angular/core';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { LocalMemoryStoreApiService } from './store/local-memory-store-api.service';
+import { StoreLocalMemoryApiService } from './store/store.local-memory-api.service';
 
 /**
  * Provides services that read and write data using the client's working memory
  */
 @NgModule({
   providers: [
-    { provide: API_SERVICE_INJECTION_TOKENS.store, useClass: LocalMemoryStoreApiService }
+    { provide: API_SERVICE_INJECTION_TOKENS.store, useClass: StoreLocalMemoryApiService }
   ]
 })
 export class LocalMemoryStoreApiModule { }

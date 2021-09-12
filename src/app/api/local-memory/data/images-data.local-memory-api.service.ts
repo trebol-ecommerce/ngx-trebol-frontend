@@ -5,7 +5,7 @@
 
 import { Injectable } from '@angular/core';
 import { Image } from 'src/app/models/entities/Image';
-import { EntityLocalMemoryDataApiService } from '../entity.local-memory-data-api.aservice';
+import { EntityLocalMemoryDataApiService } from '../entity-data.local-memory-api.abstract.service';
 
 export const MOCK_IMAGES: Partial<Image>[] = [
   {
@@ -23,7 +23,7 @@ export const MOCK_IMAGES: Partial<Image>[] = [
 ];
 
 @Injectable()
-export class ImagesLocalMemoryDataApiService
+export class ImagesDataLocalMemoryApiService
   extends EntityLocalMemoryDataApiService<Image> {
 
   protected items: Image[] = MOCK_IMAGES.map(n => Object.assign(new Image(), n));
