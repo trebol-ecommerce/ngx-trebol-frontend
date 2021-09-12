@@ -17,6 +17,7 @@ import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 import { Receipt } from 'src/app/models/entities/Receipt';
 import { environment } from 'src/environments/environment';
+import { DataPage } from 'src/app/models/DataPage';
 
 @Injectable()
 export class StoreHttpApiService
@@ -29,51 +30,51 @@ export class StoreHttpApiService
     super(http);
   }
 
-  public fetchProductById(id: number): Observable<Product> {
+  public fetchProductById(id: number) {
     return this.http.get<Product>(
-      `${this.baseUrl}/product/${id}`
+      `${this.baseUrl}/products/${id}`
     );
   }
 
-  public fetchStoreFrontProductCollection(): Observable<Product[]> {
-    return this.http.get<Product[]>(
-      `${this.baseUrl}/front`
+  public fetchStoreFrontProductCollection() {
+    return this.http.get<DataPage<Product>>(
+      `${this.baseUrl}/products`
     );
   }
 
-  public fetchFilteredProductCollection(filters: ProductFilters): Observable<Product[]> {
-    return this.http.get<Product[]>(
-      `${this.baseUrl}/front`,
+  public fetchFilteredProductCollection(filters: ProductFilters) {
+    return this.http.get<DataPage<Product>>(
+      `${this.baseUrl}/products`,
       {  params: new HttpParams({ fromObject: filters as any }) }
     );
   }
 
-  public fetchProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]> {
+  public fetchProductTypesByFamilyId(productFamilyId: number) {
     return this.http.get<ProductType[]>(
       `${this.baseUrl}/categories/${productFamilyId}`
     );
   }
 
-  public fetchAllProductFamilies(): Observable<ProductFamily[]> {
+  public fetchAllProductFamilies() {
     return this.http.get<ProductFamily[]>(
       `${this.baseUrl}/categories`
     );
   }
 
-  public fetchCompanyDetails(): Observable<CompanyDetails> {
+  public fetchCompanyDetails() {
     return this.http.get<CompanyDetails>(
       `${this.baseUrl}/about`
     );
   }
 
-  public submitCart(details: SellDetail[]): Observable<ExternalPaymentRedirectionData> {
+  public submitCart(details: SellDetail[]) {
     return this.http.post<ExternalPaymentRedirectionData>(
       `${this.baseUrl}/checkout`,
       details
     );
   }
 
-  public fetchTransactionReceiptById(id: number): Observable<Receipt> {
+  public fetchTransactionReceiptById(id: number) {
     return this.http.get<Receipt>(
       `${this.baseUrl}/receipt/${id}`
     );

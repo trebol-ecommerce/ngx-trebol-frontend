@@ -12,11 +12,12 @@ import { CompanyDetails } from 'src/app/models/CompanyDetails';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 import { Receipt } from 'src/app/models/entities/Receipt';
+import { DataPage } from '../models/DataPage';
 
 export interface IStoreApiService {
   fetchProductById(id: number): Observable<Product>;
-  fetchStoreFrontProductCollection(): Observable<Product[]>;
-  fetchFilteredProductCollection(filters: ProductFilters): Observable<Product[]>;
+  fetchStoreFrontProductCollection(): Observable<DataPage<Product>>;
+  fetchFilteredProductCollection(filters: ProductFilters): Observable<DataPage<Product>>;
   fetchProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]>;
   fetchAllProductFamilies(): Observable<ProductFamily[]>;
   fetchCompanyDetails(): Observable<CompanyDetails>;

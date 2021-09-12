@@ -13,6 +13,7 @@ import { Product } from 'src/app/models/entities/Product';
 import { IStoreApiService } from 'src/app/api/store-api.iservice';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { StoreProductDetailsDialogComponent, StoreProductDetailsDialogData } from '../../dialogs/product-details/store-product-details-dialog.component';
+import { DataPage } from 'src/app/models/DataPage';
 
 @Injectable()
 export class StoreCatalogService
@@ -76,7 +77,7 @@ export class StoreCatalogService
   public reloadItems(): void {
     this.itemsSource.next(null);
 
-    let p: Observable<Product[]>;
+    let p: Observable<DataPage<Product>>;
 
     if (JSON.stringify(this.filters) !== '{}') {
       p = this.apiService.fetchFilteredProductCollection(this.filters);
@@ -87,7 +88,7 @@ export class StoreCatalogService
     p.pipe(
       delay(0)
     ).subscribe(
-      items => this.itemsSource.next(items)
+      response => { this.itemsSource.next(response.items); }
     );
   }
 
