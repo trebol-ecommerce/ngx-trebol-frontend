@@ -12,19 +12,22 @@ import { ProductType } from 'src/app/models/entities/ProductType';
 import { SellType } from 'src/app/models/entities/SellType';
 import { ISharedDataApiService } from '../../shared.data-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
-import { EntityDataHttpApiService } from '../entity-data.http-api.abstract.service';
 import { UserRole } from 'src/app/models/entities/UserRole';
+import { HttpApiService } from '../http-api.abstract.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class SharedDataHttpApiService
-  extends EntityDataHttpApiService
+  extends HttpApiService
   implements ISharedDataApiService {
+
+  baseUrl = environment.apiUrls.data;
 
   constructor(http: HttpClient) {
     super(http);
   }
 
-  public readAllPeople() {
+  readAllPeople() {
     return this.http.get<Person[]>(
       `${this.baseUrl}/people`
     );
@@ -36,7 +39,7 @@ export class SharedDataHttpApiService
     );
   }
 
-  public readAllProductFamilies() {
+  readAllProductFamilies() {
     return this.http.get<ProductFamily[]>(
       `${this.baseUrl}/product_families`
     ).pipe(
@@ -44,7 +47,7 @@ export class SharedDataHttpApiService
     );
   }
 
-  public readAllProductTypes() {
+  readAllProductTypes() {
     return this.http.get<ProductType[]>(
       `${this.baseUrl}/product_types`
     ).pipe(
@@ -52,7 +55,7 @@ export class SharedDataHttpApiService
     );
   }
 
-  public readAllProductTypesByFamilyId(familyId: number) {
+  readAllProductTypesByFamilyId(familyId: number) {
     return this.http.get<ProductType[]>(
       `${this.baseUrl}/product_types`,
       {
@@ -65,7 +68,7 @@ export class SharedDataHttpApiService
     );
   }
 
-  public readAllUserRoles() {
+  readAllUserRoles() {
     return this.http.get<UserRole[]>(
       `${this.baseUrl}/user_roles`
     ).pipe(

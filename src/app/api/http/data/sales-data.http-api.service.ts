@@ -9,12 +9,12 @@ import { map } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ICompositeEntityDataApiService } from '../../composite-entity.data-api.iservice';
-import { EntityDataHttpApiService } from '../entity-data.http-api.abstract.service';
+import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
 import { DataPage } from 'src/app/models/DataPage';
 
 @Injectable()
 export class SalesDataHttpApiService
-  extends EntityDataHttpApiService
+  extends TransactionalEntityDataHttpApiService<Sell>
   implements ICompositeEntityDataApiService<Sell, SellDetail> {
 
   baseUrl = `${super.baseUrl}/sales`;
@@ -23,50 +23,9 @@ export class SalesDataHttpApiService
     super(http);
   }
 
-  public create(instance: Sell) {
-    return this.http.post<void>(
-      this.baseUrl,
-      instance
-    );
-  }
-
-  public readById(id: number) {
-    return this.http.get<Sell>(
-      `${this.baseUrl}/${id}`
-    );
-  }
-
   public readDetailsById(id: number) {
     return this.readById(id).pipe(
       map(s => s.details)
-    );
-  }
-
-  public readAll() {
-    return this.http.get<DataPage<Sell>>(
-      this.baseUrl,
-    );
-  }
-
-  public readFiltered(filters: any) {
-    return this.http.get<DataPage<Sell>>(
-      this.baseUrl,
-      {
-        params: new HttpParams({ fromObject: filters })
-      }
-    );
-  }
-
-  public update(instance: Sell, id: number) {
-    return this.http.put<void>(
-      `${this.baseUrl}/${id}`,
-      instance
-    );
-  }
-
-  public deleteById(id: number) {
-    return this.http.delete<void>(
-      `${this.baseUrl}/${id}`
     );
   }
 }

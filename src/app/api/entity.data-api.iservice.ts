@@ -9,10 +9,10 @@ import { DataPage } from '../models/DataPage';
 
 export interface IEntityDataApiService<T extends AbstractEntity> {
 
-  create(instance: T): Observable<void>;
+  create?(instance: T): Observable<void>;
   readById(id: number | string): Observable<T>;
   readAll(): Observable<DataPage<T>>;
   readFiltered?(f: any): Observable<DataPage<T>>;
-  update(instance: T, id: number | string): Observable<void>;
-  deleteById(id: number | string): Observable<void>;
+  update?(instance: T, id: number | string): Observable<void>;
+  deleteById?(id: number | string): Observable<void>;
 }
