@@ -29,7 +29,7 @@ export class StoreCompanyDetailsDialogComponent
 
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected sharedDataService: IStoreApiService
+    @Inject(API_SERVICE_INJECTION_TOKENS.categories) protected sharedDataService: IStoreApiService
   ) { }
 
   ngOnInit(): void {

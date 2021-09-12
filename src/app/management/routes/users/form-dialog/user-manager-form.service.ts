@@ -18,8 +18,8 @@ export class UserManagerFormService
   extends DataManagerFormServiceDirective<User> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.usersCrud) public dataService: IEntityDataApiService<User>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.shared) protected sharedDataService: ISharedDataApiService
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataUsers) public dataService: IEntityDataApiService<User>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataShared) protected sharedDataService: ISharedDataApiService
   ) {
     super();
   }

@@ -22,7 +22,7 @@ describe('StoreCompanyDetailsDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ StoreCompanyDetailsDialogComponent ],
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.store, useValue: service }
+        { provide: API_SERVICE_INJECTION_TOKENS.categories, useValue: service }
       ]
     })
     .compileComponents();

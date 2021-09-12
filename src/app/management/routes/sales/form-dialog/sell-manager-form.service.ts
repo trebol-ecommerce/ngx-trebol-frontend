@@ -31,11 +31,11 @@ export class SellManagerFormService
   public sellTotalValue$: Observable<number>;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.salesCrud) protected dataService: ICompositeEntityDataApiService<Sell, SellDetail>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.productsCrud) protected productDataService: IEntityDataApiService<Product>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.customersCrud) protected customersDataService: IEntityDataApiService<Customer>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.salespeopleCrud) protected salespeopleDataService: IEntityDataApiService<Salesperson>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.shared) protected sharedDataService: ISharedDataApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataSales) protected dataService: ICompositeEntityDataApiService<Sell, SellDetail>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) protected productDataService: IEntityDataApiService<Product>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataCustomers) protected customersDataService: IEntityDataApiService<Customer>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataSalespeople) protected salespeopleDataService: IEntityDataApiService<Salesperson>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataShared) protected sharedDataService: ISharedDataApiService,
   ) {
     super();
 

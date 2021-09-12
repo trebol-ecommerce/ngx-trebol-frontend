@@ -15,7 +15,7 @@ export class ImagesService
   images$ = this.imagesSource.asObservable();
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.imagesCrud) private imageDataService: IEntityDataApiService<Image>
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataImages) private imageDataService: IEntityDataApiService<Image>
   ) {
     this.fetch().subscribe();
   }

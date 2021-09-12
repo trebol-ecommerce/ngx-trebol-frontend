@@ -21,7 +21,7 @@ describe('ProductFiltersPanelService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.store, useValue: catalogService }
+        { provide: API_SERVICE_INJECTION_TOKENS.categories, useValue: catalogService }
       ]
     });
     service = TestBed.inject(ProductFiltersPanelService);

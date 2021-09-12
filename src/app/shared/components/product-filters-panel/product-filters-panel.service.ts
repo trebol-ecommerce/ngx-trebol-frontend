@@ -14,7 +14,7 @@ import { IStoreApiService } from 'src/app/api/store-api.iservice';
 export class ProductFiltersPanelService {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected apiService: IStoreApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.categories) protected apiService: IStoreApiService,
   ) { }
 
   public getAllProductFamilies(): Observable<ProductFamily[]> {

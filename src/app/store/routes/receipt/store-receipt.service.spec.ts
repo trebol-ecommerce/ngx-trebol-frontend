@@ -21,7 +21,7 @@ describe('StoreReceiptService', () => {
       ],
       providers: [
         StoreReceiptService,
-        { provide: API_SERVICE_INJECTION_TOKENS.store, useClass: StoreLocalMemoryApiService }
+        { provide: API_SERVICE_INJECTION_TOKENS.categories, useClass: StoreLocalMemoryApiService }
       ]
     });
     service = TestBed.inject(StoreReceiptService);

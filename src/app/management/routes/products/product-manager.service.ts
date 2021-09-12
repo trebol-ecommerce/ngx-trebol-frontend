@@ -14,7 +14,7 @@ export class ProductManagerService
   extends DataManagerServiceDirective<Product> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.productsCrud) protected dataService: IEntityDataApiService<Product>
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) protected dataService: IEntityDataApiService<Product>
   ) {
     super();
   }

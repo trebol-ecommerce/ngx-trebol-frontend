@@ -51,8 +51,8 @@ describe('AppService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.auth, useValue: mockAuthApiService },
-        { provide: API_SERVICE_INJECTION_TOKENS.dataAccess, useValue: mockAccessApiService }
+        { provide: API_SERVICE_INJECTION_TOKENS.login, useValue: mockAuthApiService },
+        { provide: API_SERVICE_INJECTION_TOKENS.access, useValue: mockAccessApiService }
       ]
     });
   });
@@ -76,7 +76,7 @@ describe('AppService', () => {
       guestLogin() { return throwError({ status: 500 }); },
       login() { return throwError({ status: 500 }); }
     };
-    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.auth, { useValue: mockAuthApiService2 });
+    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.login, { useValue: mockAuthApiService2 });
     service = TestBed.inject(AppService);
 
     expect(service).toBeTruthy();
@@ -127,7 +127,7 @@ describe('AppService', () => {
     const mockAuthApiService2 = {
       register() { return throwError({ status: 500 }); }
     };
-    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.auth, { useValue: mockAuthApiService2 });
+    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.login, { useValue: mockAuthApiService2 });
     service = TestBed.inject(AppService);
 
     expect(service).toBeTruthy();
@@ -141,7 +141,7 @@ describe('AppService', () => {
     const mockAuthApiService2 = {
       register() { return throwError({ status: 500 }); }
     };
-    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.auth, { useValue: mockAuthApiService2 });
+    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.login, { useValue: mockAuthApiService2 });
     service = TestBed.inject(AppService);
 
     expect(service).toBeTruthy();

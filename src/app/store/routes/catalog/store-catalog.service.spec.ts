@@ -32,7 +32,7 @@ describe('StoreCatalogService', () => {
       ],
       providers: [
         StoreCatalogService,
-        { provide: API_SERVICE_INJECTION_TOKENS.store, useValue: mockApiService },
+        { provide: API_SERVICE_INJECTION_TOKENS.categories, useValue: mockApiService },
         { provide: MatDialog, useValue: mockDialogService }
       ]
     });

@@ -29,16 +29,16 @@ import { SessionHttpApiInterceptor } from './session/session.http-api.intercepto
     HttpClientModule
   ],
   providers: [
-    { provide: API_SERVICE_INJECTION_TOKENS.customersCrud, useClass: CustomersDataHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.imagesCrud, useClass: ImagesDataHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.salespeopleCrud, useClass: SalespeopleDataHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.productsCrud, useClass: ProductsDataHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.shared, useClass: SharedDataHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.usersCrud, useClass: UsersDataHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.salesCrud, useClass: SalesDataHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.dataAccess, useClass: AccessHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.store, useClass: StoreHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.auth, useClass: SessionHttpApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.dataCustomers, useClass: CustomersDataHttpApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.dataImages, useClass: ImagesDataHttpApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.dataSalespeople, useClass: SalespeopleDataHttpApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.dataProducts, useClass: ProductsDataHttpApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.dataShared, useClass: SharedDataHttpApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.dataUsers, useClass: UsersDataHttpApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.dataSales, useClass: SalesDataHttpApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.access, useClass: AccessHttpApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.categories, useClass: StoreHttpApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.login, useClass: SessionHttpApiService },
     { provide: HTTP_INTERCEPTORS, useClass: SessionHttpApiInterceptor, multi: true }
   ]
 })

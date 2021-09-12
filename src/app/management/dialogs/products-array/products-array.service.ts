@@ -24,7 +24,7 @@ export class ProductsArrayService {
   public filteredProductsArray$: Observable<Product[]>;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.productsCrud) protected productDataService: IEntityDataApiService<Product>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) protected productDataService: IEntityDataApiService<Product>,
   ) {
     this.filteredProductsArray$ = this.productFiltersSource.asObservable().pipe(
       concatMap(

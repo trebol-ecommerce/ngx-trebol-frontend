@@ -15,7 +15,7 @@ export class ImageManagerUploadService
   extends DataManagerFormServiceDirective<Image> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.imagesCrud) protected dataService: IEntityDataApiService<Image>
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataImages) protected dataService: IEntityDataApiService<Image>
   ) {
     super();
   }

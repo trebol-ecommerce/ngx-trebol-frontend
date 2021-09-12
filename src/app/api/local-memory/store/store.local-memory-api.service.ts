@@ -28,7 +28,7 @@ export class StoreLocalMemoryApiService
   protected items: Product[] = [];
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.productsCrud) private dataService: EntityDataLocalMemoryApiService<Product>
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) private dataService: EntityDataLocalMemoryApiService<Product>
   ) {
     this.dataService.readAll().subscribe(response => {
       this.items = response.items;

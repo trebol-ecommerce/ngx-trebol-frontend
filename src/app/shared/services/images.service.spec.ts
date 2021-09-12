@@ -24,7 +24,7 @@ describe('ImagesService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.imagesCrud, useValue: mockDataService }
+        { provide: API_SERVICE_INJECTION_TOKENS.dataImages, useValue: mockDataService }
       ]
     });
   });
@@ -57,7 +57,7 @@ describe('ImagesService', () => {
         });
       }
     };
-    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.imagesCrud, { useValue: mockDataService });
+    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.dataImages, { useValue: mockDataService });
     service = TestBed.inject(ImagesService);
 
     concat(

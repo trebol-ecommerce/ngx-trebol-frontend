@@ -24,8 +24,8 @@ export class ProductManagerFormService
   public productTypes$: Observable<ProductType[]>;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.productsCrud) protected dataService: IEntityDataApiService<Product>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.shared) protected sharedDataService: ISharedDataApiService
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) protected dataService: IEntityDataApiService<Product>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataShared) protected sharedDataService: ISharedDataApiService
   ) {
     super();
 

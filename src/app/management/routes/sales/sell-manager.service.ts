@@ -15,7 +15,7 @@ export class SellManagerService
   extends DataManagerServiceDirective<Sell> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.salesCrud) protected dataService: ICompositeEntityDataApiService<Sell, SellDetail>
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataSales) protected dataService: ICompositeEntityDataApiService<Sell, SellDetail>
   ) {
     super();
   }

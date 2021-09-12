@@ -26,7 +26,7 @@ export class StoreCatalogService
   public filters: ProductFilters = {};
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected apiService: IStoreApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.categories) protected apiService: IStoreApiService,
     protected dialogService: MatDialog,
     protected route: ActivatedRoute,
     protected router: Router,

@@ -21,16 +21,16 @@ import { StoreLocalMemoryApiService } from './store/store.local-memory-api.servi
  */
 @NgModule({
   providers: [
-    { provide: API_SERVICE_INJECTION_TOKENS.customersCrud, useClass: CustomersDataLocalMemoryApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.imagesCrud, useClass: ImagesDataLocalMemoryApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.salespeopleCrud, useClass: SalespeopleDataLocalMemoryApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.productsCrud, useClass: ProductsDataLocalMemoryApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.shared, useClass: SharedDataLocalMemoryApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.usersCrud, useClass: UsersDataLocalMemoryApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.salesCrud, useClass: SalesDataLocalMemoryApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.dataAccess, useClass: AccessLocalMemoryApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.auth, useClass: SessionLocalMemoryApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.store, useClass: StoreLocalMemoryApiService }
+    { provide: API_SERVICE_INJECTION_TOKENS.dataCustomers, useClass: CustomersDataLocalMemoryApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.dataImages, useClass: ImagesDataLocalMemoryApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.dataSalespeople, useClass: SalespeopleDataLocalMemoryApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.dataProducts, useClass: ProductsDataLocalMemoryApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.dataShared, useClass: SharedDataLocalMemoryApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.dataUsers, useClass: UsersDataLocalMemoryApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.dataSales, useClass: SalesDataLocalMemoryApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.access, useClass: AccessLocalMemoryApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.login, useClass: SessionLocalMemoryApiService },
+    { provide: API_SERVICE_INJECTION_TOKENS.categories, useClass: StoreLocalMemoryApiService }
   ]
 })
 export class LocalMemoryApiModule { }

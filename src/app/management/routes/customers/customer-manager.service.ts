@@ -14,7 +14,7 @@ export class CustomerManagerService
   extends DataManagerServiceDirective<Customer> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.customersCrud) protected dataService: IEntityDataApiService<Customer>
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataCustomers) protected dataService: IEntityDataApiService<Customer>
   ) {
     super();
   }

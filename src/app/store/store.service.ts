@@ -27,7 +27,7 @@ export class StoreService
   public cartSubtotalValue$: Observable<number>;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected storeApiService: IStoreApiService
+    @Inject(API_SERVICE_INJECTION_TOKENS.categories) protected storeApiService: IStoreApiService
   ) {
     this.cartItemCount$ = this.cartDetails$.pipe(
       map(

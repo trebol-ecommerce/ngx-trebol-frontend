@@ -22,7 +22,7 @@ export class ManagementService
   public currentPageName$: Observable<string>;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.auth) protected authService: ISessionApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.login) protected authService: ISessionApiService,
     protected router: Router
   ) {
 

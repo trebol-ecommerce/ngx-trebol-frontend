@@ -29,8 +29,8 @@ export class AppService
   public checkoutAuthCancel$ = this.checkoutAuthCancelSource.asObservable();
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.auth) protected authService: ISessionApiService,
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataAccess) protected apiAccessService: IAccessApiService
+    @Inject(API_SERVICE_INJECTION_TOKENS.login) protected authService: ISessionApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.access) protected apiAccessService: IAccessApiService
   ) {
     this.validateSession().subscribe();
   }

@@ -19,7 +19,7 @@ describe('ManagementService', () => {
       ],
       providers: [
         ManagementService,
-        { provide: API_SERVICE_INJECTION_TOKENS.auth, useClass: SessionLocalMemoryApiService }
+        { provide: API_SERVICE_INJECTION_TOKENS.login, useClass: SessionLocalMemoryApiService }
       ]
     });
     service = TestBed.inject(ManagementService);

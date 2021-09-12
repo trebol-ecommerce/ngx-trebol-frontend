@@ -14,7 +14,7 @@ export class SalespersonManagerFormService
   extends DataManagerFormServiceDirective<Salesperson> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.salespeopleCrud) protected dataService: IEntityDataApiService<Salesperson>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataSalespeople) protected dataService: IEntityDataApiService<Salesperson>,
   ) {
     super();
   }

@@ -16,7 +16,7 @@ export class SellManagerAccessResolver
   implements Resolve<AuthorizedAccess> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataAccess) protected apiAccessService: IAccessApiService
+    @Inject(API_SERVICE_INJECTION_TOKENS.access) protected apiAccessService: IAccessApiService
   ) { }
 
   resolve(

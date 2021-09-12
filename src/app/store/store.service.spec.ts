@@ -33,7 +33,7 @@ describe('StoreService', () => {
       ],
       providers: [
         StoreService,
-        { provide: API_SERVICE_INJECTION_TOKENS.store, useValue: apiService }
+        { provide: API_SERVICE_INJECTION_TOKENS.categories, useValue: apiService }
       ]
     });
     service = TestBed.inject(StoreService);

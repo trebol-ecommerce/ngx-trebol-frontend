@@ -26,7 +26,7 @@ export class StoreReceiptService {
   public date$: Observable<string> = this.receipt$.pipe(pluck('date'));
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected storeApiService: IStoreApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.categories) protected storeApiService: IStoreApiService,
     protected router: Router
   ) {
   }
