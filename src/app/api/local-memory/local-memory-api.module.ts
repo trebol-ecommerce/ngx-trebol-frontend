@@ -9,7 +9,7 @@ import { CustomersDataLocalMemoryApiService } from './data/customers-data.local-
 import { SalespeopleDataLocalMemoryApiService } from './data/salespeople-data.local-memory-api.service';
 import { ProductsDataLocalMemoryApiService } from './data/products-data.local-memory-api.service';
 import { SalesDataLocalMemoryApiService } from './data/sales-data.local-memory-api.service';
-import { SharedDataLocalMemoryApiService } from './data/shared-data.local-memory-api.service';
+import { ProductCategoriesDataLocalMemoryApiService } from './data/product-categories-data.local-memory-api.service';
 import { UsersDataLocalMemoryApiService } from './data/users-data.local-memory-api.service';
 import { AccessLocalMemoryApiService } from './access/access.local-memory-api.service';
 import { ImagesDataLocalMemoryApiService } from './data/images-data.local-memory-api.service';
@@ -22,6 +22,9 @@ import { GuestPublicLocalMemoryApiService } from './public/guest-public.local-me
 import { ProfileAccountLocalMemoryApiService } from './account/profile-account.local-memory-api.service';
 import { RegisterPublicLocalMemoryApiService } from './public/register-public.local-memory-api.service';
 import { ProductsPublicLocalMemoryApiService } from './public/products-public.local-memory-api.service';
+import { BillingTypesDataLocalMemoryApiService } from './data/billing-types-data.local-memory-api.service';
+import { PeopleDataLocalMemoryApiService } from './data/people-data.local-memory-api.service';
+import { UserRolesDataLocalMemoryApiService } from './data/user-roles-data.local-memory-api.service';
 
 /**
  * Provides services that read and write data using the client's working memory
@@ -38,7 +41,7 @@ import { ProductsPublicLocalMemoryApiService } from './public/products-public.lo
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataBillingTypes,
-      useClass: SharedDataLocalMemoryApiService
+      useClass: BillingTypesDataLocalMemoryApiService
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataCustomers,
@@ -50,19 +53,15 @@ import { ProductsPublicLocalMemoryApiService } from './public/products-public.lo
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataPeople,
-      useClass: SharedDataLocalMemoryApiService
+      useClass: PeopleDataLocalMemoryApiService
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataProductCategories,
-      useClass: SharedDataLocalMemoryApiService
+      useClass: ProductCategoriesDataLocalMemoryApiService
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataProducts,
       useClass: ProductsDataLocalMemoryApiService
-    },
-    {
-      provide: API_SERVICE_INJECTION_TOKENS.dataShared,
-      useClass: SharedDataLocalMemoryApiService
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataSales,
@@ -74,7 +73,7 @@ import { ProductsPublicLocalMemoryApiService } from './public/products-public.lo
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataUserRoles,
-      useClass: SharedDataLocalMemoryApiService
+      useClass: UserRolesDataLocalMemoryApiService
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataUsers,

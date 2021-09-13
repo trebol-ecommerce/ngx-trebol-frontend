@@ -7,7 +7,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { HttpApiService } from './http-api.abstract.service';
 import { DataPage } from 'src/app/models/DataPage';
-import { Observable } from 'rxjs';
 import { IEntityDataApiService } from '../entity.data-api.iservice';
 
 export abstract class EntityDataHttpApiService<T>
@@ -22,8 +21,6 @@ export abstract class EntityDataHttpApiService<T>
       this.baseUrl += urlSuffix;
     }
   }
-
-  abstract fetchExisting(itemLike: Partial<T>): Observable<T>;
 
   fetchPage() {
     return this.http.get<DataPage<T>>(

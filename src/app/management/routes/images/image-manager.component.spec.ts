@@ -18,7 +18,6 @@ describe('ImageManagerComponent', () => {
 
   beforeEach(waitForAsync(() => {
     mockService = {
-      removeItems() { return of([true]); },
       reloadItems() {},
       loading$: of(false),
       focusedItems$: of([]),

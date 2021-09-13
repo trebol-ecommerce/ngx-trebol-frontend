@@ -9,7 +9,7 @@ import { CustomersDataHttpApiService } from './data/customers-data.http-api.serv
 import { SalespeopleDataHttpApiService } from './data/salespeople-data.http-api.service';
 import { ProductsDataHttpApiService } from './data/products-data.http-api.service';
 import { SalesDataHttpApiService } from './data/sales-data.http-api.service';
-import { SharedDataHttpApiService } from './data/shared-data.http-api.service';
+import { UserRolesDataHttpApiService } from './data/user-roles-data.http-api.service';
 import { UsersDataHttpApiService } from './data/users-data.http-api.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AccessHttpApiService } from './access/access.http-api.service';
@@ -24,6 +24,9 @@ import { ReceiptPublicHttpApiService } from './public/receipt-public.http-api.se
 import { RegisterPublicHttpApiService } from './public/register-public.http-api.service';
 import { ProfileAccountHttpApiService } from './account/profile-account.http-api.service';
 import { GuestPublicHttpApiService } from './public/guest-public.http-api.service';
+import { BillingTypesDataHttpApiService } from './data/billing-types-data.http-api.service';
+import { PeopleDataHttpApiService } from './data/people-data.http-api.service';
+import { ProductCategoriesDataHttpApiService } from './data/product-categories-data.http-api.service';
 
 /**
  * Provides services that read and write data using an external HTTP server (defined in the environment files)
@@ -46,7 +49,7 @@ import { GuestPublicHttpApiService } from './public/guest-public.http-api.servic
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataBillingTypes,
-      useClass: SharedDataHttpApiService
+      useClass: BillingTypesDataHttpApiService
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataCustomers,
@@ -58,19 +61,15 @@ import { GuestPublicHttpApiService } from './public/guest-public.http-api.servic
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataPeople,
-      useClass: SharedDataHttpApiService
+      useClass: PeopleDataHttpApiService
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataProductCategories,
-      useClass: SharedDataHttpApiService
+      useClass: ProductCategoriesDataHttpApiService
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataProducts,
       useClass: ProductsDataHttpApiService
-    },
-    {
-      provide: API_SERVICE_INJECTION_TOKENS.dataShared,
-      useClass: SharedDataHttpApiService
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataSales,
@@ -82,7 +81,7 @@ import { GuestPublicHttpApiService } from './public/guest-public.http-api.servic
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataUserRoles,
-      useClass: SharedDataHttpApiService
+      useClass: UserRolesDataHttpApiService
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataUsers,

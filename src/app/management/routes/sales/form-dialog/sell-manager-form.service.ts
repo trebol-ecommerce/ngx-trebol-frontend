@@ -16,8 +16,6 @@ import { BillingType } from 'src/app/models/entities/BillingType';
 import { ICompositeEntityDataApiService } from 'src/app/api/composite-entity.data-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { IUserRolesDataApiService } from 'src/app/api/user-roles.data-api.iservice';
-import { IBillingTypesDataApiService } from 'src/app/api/billing-types.data-api.iservice';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 
 @Injectable()
@@ -37,8 +35,7 @@ export class SellManagerFormService
     @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) protected productDataService: ITransactionalEntityDataApiService<Product>,
     @Inject(API_SERVICE_INJECTION_TOKENS.dataCustomers) protected customersDataService: IEntityDataApiService<Customer>,
     @Inject(API_SERVICE_INJECTION_TOKENS.dataSalespeople) protected salespeopleDataService: IEntityDataApiService<Salesperson>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataShared) protected sharedDataService: IUserRolesDataApiService,
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataBillingTypes) protected billingTypesDataApiService: IBillingTypesDataApiService
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataBillingTypes) protected billingTypesDataApiService: IEntityDataApiService<BillingType>
   ) {
     super();
 
@@ -58,7 +55,7 @@ export class SellManagerFormService
   }
 
   getAllBillingTypes(): Observable<BillingType[]> {
-    return this.billingTypesDataApiService.readAllBillingTypes();
+    return this.billingTypesDataApiService.fetchPage().pipe(map(page => page.items));
   }
 
   public getAllSalespeople(): Observable<Salesperson[]> {

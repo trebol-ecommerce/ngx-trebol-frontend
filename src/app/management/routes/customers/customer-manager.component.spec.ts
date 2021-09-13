@@ -16,7 +16,6 @@ describe('CustomerManagerComponent', () => {
 
   beforeEach(waitForAsync(() => {
     managerService = {
-      removeItems() { return of([true]); },
       reloadItems() {},
       loading$: of(false),
       focusedItems$: of([]),
