@@ -4,24 +4,28 @@
 // https://opensource.org/licenses/MIT
 
 import { TestBed } from '@angular/core/testing';
-import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
 import { StoreReceiptService } from './store-receipt.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { AboutPublicLocalMemoryApiService } from 'src/app/api/local-memory/store/about-public.local-memory-api.service';
+import { IReceiptPublicApiService } from 'src/app/api/receipt-public-api.iservice';
+import { EMPTY } from 'rxjs';
 
 describe('StoreReceiptService', () => {
   let service: StoreReceiptService;
+  let mockReceiptApiService: Partial<IReceiptPublicApiService>;
 
   beforeEach(() => {
+    mockReceiptApiService = {
+      fetchTransactionReceiptById() { return EMPTY; }
+    };
+
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-        LocalMemoryApiModule
+        RouterTestingModule
       ],
       providers: [
         StoreReceiptService,
-        { provide: API_SERVICE_INJECTION_TOKENS.categories, useClass: AboutPublicLocalMemoryApiService }
+        { provide: API_SERVICE_INJECTION_TOKENS.receipt, useValue: mockReceiptApiService }
       ]
     });
     service = TestBed.inject(StoreReceiptService);
