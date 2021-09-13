@@ -6,7 +6,7 @@
 import { Injectable } from '@angular/core';
 import { Image } from 'src/app/models/entities/Image';
 import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
-import { MOCK_IMAGES } from './sources/mock-images.datasource';
+import { MOCK_IMAGES } from '../mock/mock-images.datasource';
 
 @Injectable()
 export class ImagesDataLocalMemoryApiService

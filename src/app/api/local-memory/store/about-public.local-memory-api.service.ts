@@ -11,7 +11,7 @@ import { Receipt } from 'src/app/models/entities/Receipt';
 import { IAboutPublicApiService } from '../../about-public-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from '../../api-service-injection-tokens';
 import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
-import { MOCK_COMPANY_DETAILS } from './examples/mock-company-details.examples';
+import { MOCK_COMPANY_DETAILS } from '../mock/mock-company-details.examples';
 
 @Injectable()
 export class AboutPublicLocalMemoryApiService

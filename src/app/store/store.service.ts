@@ -10,8 +10,8 @@ import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-
 import { Product } from 'src/app/models/entities/Product';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
-import { IAboutPublicApiService } from '../api/about-public-api.iservice';
 import { environment } from 'src/environments/environment';
+import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
 
 @Injectable()
 export class StoreService
@@ -27,7 +27,7 @@ export class StoreService
   public cartSubtotalValue$: Observable<number>;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.categories) protected storeApiService: IAboutPublicApiService
+    @Inject(API_SERVICE_INJECTION_TOKENS.checkout) protected checkoutApiService: ICheckoutPublicApiService
   ) {
     this.cartItemCount$ = this.cartDetails$.pipe(
       map(
@@ -113,6 +113,6 @@ export class StoreService
   }
 
   public submitCart(): Observable<ExternalPaymentRedirectionData> {
-    return this.storeApiService.submitCart(this.sellDetails);
+    return this.checkoutApiService.submitCart(this.sellDetails);
   }
 }

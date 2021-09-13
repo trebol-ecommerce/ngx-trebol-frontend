@@ -12,7 +12,7 @@ export const API_SERVICE_INJECTION_TOKENS = {
   dataCustomers: 'CustomersDataApi',
   dataImages: 'imagesDataApi',
   dataPeople: 'PeopleDataApi',
-  dataProductCategories: 'ProductsCataegoriesDataApi',
+  dataProductCategories: 'ProductsCategoriesDataApi',
   dataProducts: 'ProductsDataApi',
   dataShared: 'SharedDataApi',
   dataSales: 'SalesDataApi',

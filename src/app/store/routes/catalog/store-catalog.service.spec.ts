@@ -7,18 +7,17 @@ import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreCatalogService } from './store-catalog.service';
-import { IAboutPublicApiService } from 'src/app/api/about-public-api.iservice';
 import { of, EMPTY } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { ICategoriesPublicApiService } from 'src/app/api/categories-public-api.iservice';
+import { IProductsPublicApiService } from 'src/app/api/products-public-api.iservice';
 
 describe('StoreCatalogService', () => {
   let service: StoreCatalogService;
-  let mockStoreApiService: Partial<IAboutPublicApiService>;
+  let mockProductsApiService: Partial<IProductsPublicApiService>;
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(() => {
-    mockStoreApiService = {
+    mockProductsApiService = {
       fetchProductByBarcode() { return EMPTY; },
       fetchFilteredProductCollection() {
         return of({
@@ -47,7 +46,7 @@ describe('StoreCatalogService', () => {
       ],
       providers: [
         StoreCatalogService,
-        { provide: API_SERVICE_INJECTION_TOKENS.products, useValue: mockStoreApiService },
+        { provide: API_SERVICE_INJECTION_TOKENS.products, useValue: mockProductsApiService },
         { provide: MatDialog, useValue: mockDialogService }
       ]
     });

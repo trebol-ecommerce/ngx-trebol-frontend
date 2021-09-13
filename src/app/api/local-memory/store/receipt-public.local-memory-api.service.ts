@@ -10,7 +10,7 @@ import { Receipt } from 'src/app/models/entities/Receipt';
 import { API_SERVICE_INJECTION_TOKENS } from '../../api-service-injection-tokens';
 import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
 import { IReceiptPublicApiService } from '../../receipt-public-api.iservice';
-import { MOCK_SALES } from '../data/sources/mock-sales.datasource';
+import { MOCK_SALES } from '../mock/mock-sales.datasource';
 import { map } from 'rxjs/operators';
 
 @Injectable()

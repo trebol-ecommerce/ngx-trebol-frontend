@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from 'src/app/models/entities/User';
 import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
-import { MOCK_USERS } from './sources/mock-users.datasource';
+import { MOCK_USERS } from '../mock/mock-users.datasource';
 
 @Injectable()
 export class UsersDataLocalMemoryApiService

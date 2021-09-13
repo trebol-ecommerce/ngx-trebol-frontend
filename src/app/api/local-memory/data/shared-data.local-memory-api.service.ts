@@ -10,10 +10,10 @@ import { SellType } from 'src/app/models/entities/SellType';
 import { ISharedDataApiService } from '../../shared.data-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
 import { UserRole } from 'src/app/models/entities/UserRole';
-import { MOCK_USER_ROLES } from './sources/mock-user-roles.datasource';
-import { MOCK_SELL_TYPES } from './sources/mock-sell-types.datasource';
-import { MOCK_PRODUCT_CATEGORIES } from './sources/mock-product-categories.datasource';
-import { MOCK_PEOPLE } from './sources/mock-people.datasource';
+import { MOCK_USER_ROLES } from '../mock/mock-user-roles.datasource';
+import { MOCK_SELL_TYPES } from '../mock/mock-sell-types.datasource';
+import { MOCK_PRODUCT_CATEGORIES } from '../mock/mock-product-categories.datasource';
+import { MOCK_PEOPLE } from '../mock/mock-people.datasource';
 
 @Injectable()
 export class SharedDataLocalMemoryApiService

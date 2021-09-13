@@ -10,11 +10,10 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { concatMap, delay, map, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { Product } from 'src/app/models/entities/Product';
-import { IAboutPublicApiService } from 'src/app/api/about-public-api.iservice';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { StoreProductDetailsDialogComponent, StoreProductDetailsDialogData } from '../../dialogs/product-details/store-product-details-dialog.component';
 import { DataPage } from 'src/app/models/DataPage';
-import { ICategoriesPublicApiService } from 'src/app/api/categories-public-api.iservice';
+import { IProductsPublicApiService } from 'src/app/api/products-public-api.iservice';
 
 @Injectable()
 export class StoreCatalogService
@@ -28,7 +27,7 @@ export class StoreCatalogService
   public filters: ProductFilters = {};
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.products) protected storeApiService: IAboutPublicApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.products) protected productsApiService: IProductsPublicApiService,
     protected dialogService: MatDialog,
     protected route: ActivatedRoute,
     protected router: Router,
@@ -63,7 +62,7 @@ export class StoreCatalogService
       (params) => {
         if (params.has('barcode')) {
           const barcode = params.get('barcode');
-          this.storeApiService.fetchProductByBarcode(barcode).pipe(
+          this.productsApiService.fetchProductByBarcode(barcode).pipe(
             concatMap(p => this.promptProductDetails(p))
           ).subscribe();
         }
@@ -81,9 +80,9 @@ export class StoreCatalogService
     let p: Observable<DataPage<Product>>;
 
     if (JSON.stringify(this.filters) !== '{}') {
-      p = this.storeApiService.fetchFilteredProductCollection(this.filters);
+      p = this.productsApiService.fetchFilteredProductCollection(this.filters);
     } else {
-      p = this.storeApiService.fetchStoreFrontProductCollection();
+      p = this.productsApiService.fetchStoreFrontProductCollection();
     }
 
     p.pipe(

@@ -10,7 +10,7 @@ import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ICompositeEntityDataApiService } from '../../composite-entity.data-api.iservice';
 import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
-import { MOCK_SALES } from './sources/mock-sales.datasource';
+import { MOCK_SALES } from '../mock/mock-sales.datasource';
 
 @Injectable()
 export class SalesDataLocalMemoryApiService

@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { Product } from 'src/app/models/entities/Product';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
-import { MOCK_PRODUCTS } from './sources/mock-products.datasource';
+import { MOCK_PRODUCTS } from '../mock/mock-products.datasource';
 
 @Injectable()
 export class ProductsDataLocalMemoryApiService

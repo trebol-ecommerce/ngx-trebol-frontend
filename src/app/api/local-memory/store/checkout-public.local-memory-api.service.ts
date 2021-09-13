@@ -10,7 +10,7 @@ import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRe
 import { API_SERVICE_INJECTION_TOKENS } from '../../api-service-injection-tokens';
 import { ICheckoutPublicApiService } from '../../checkout-public-api.iservice';
 import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
-import { MOCK_EXTERNAL_PAYMENT_REDIRECT_DATA } from './examples/mock-external-payment-redirect-data.examples';
+import { MOCK_EXTERNAL_PAYMENT_REDIRECT_DATA } from '../mock/mock-external-payment-redirect-data.examples';
 
 @Injectable()
 export class CheckoutPublicLocalMemoryApiService

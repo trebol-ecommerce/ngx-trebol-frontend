@@ -10,13 +10,13 @@ import { StoreService } from './store.service';
 import { Product } from 'src/app/models/entities/Product';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { take } from 'rxjs/operators';
-import { IAboutPublicApiService } from '../api/about-public-api.iservice';
 import { empty, EMPTY } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
+import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
 
 describe('StoreService', () => {
   let service: StoreService;
-  let apiService: Partial<IAboutPublicApiService>;
+  let mockCheckoutApiService: Partial<ICheckoutPublicApiService>;
   const mockProduct: Product = {
     barcode: 'example',
     name: 'test product',
@@ -31,10 +31,10 @@ describe('StoreService', () => {
   };
 
   beforeEach(() => {
-    apiService = {
+    mockCheckoutApiService = {
       submitCart() { return EMPTY; }
     };
-    spyOn(apiService, 'submitCart').and.callThrough();
+    spyOn(mockCheckoutApiService, 'submitCart').and.callThrough();
 
     TestBed.configureTestingModule({
       imports: [
@@ -43,7 +43,7 @@ describe('StoreService', () => {
       ],
       providers: [
         StoreService,
-        { provide: API_SERVICE_INJECTION_TOKENS.categories, useValue: apiService }
+        { provide: API_SERVICE_INJECTION_TOKENS.checkout, useValue: mockCheckoutApiService }
       ]
     });
     service = TestBed.inject(StoreService);
@@ -143,7 +143,7 @@ describe('StoreService', () => {
   it('should checkout the cart', () => {
     service.submitCart().subscribe(
       () => {
-        expect(apiService.submitCart).toHaveBeenCalled();
+        expect(mockCheckoutApiService.submitCart).toHaveBeenCalled();
       }
     );
   });
