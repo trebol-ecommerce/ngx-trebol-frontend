@@ -35,7 +35,7 @@ export class ProductsDataLocalMemoryApiService
     }
     if (filter.categoryCode) {
       matchingItems = matchingItems.filter(
-        it => it.category.id === filter.categoryCode
+        it => it.category.code === filter.categoryCode
       );
     }
 

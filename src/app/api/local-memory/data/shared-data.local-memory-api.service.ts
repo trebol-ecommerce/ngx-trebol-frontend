@@ -28,7 +28,7 @@ export class SharedDataLocalMemoryApiService
   }
 
   public readAllProductCategoriesByParentCode(parentCode: string): Observable<ProductCategory[]> {
-    return of(MOCK_PRODUCT_CATEGORIES.filter(t => t.parent.id === parentCode));
+    return of(MOCK_PRODUCT_CATEGORIES.filter(t => t.parent.code === parentCode));
   }
 
   public readAllSellTypes(): Observable<SellType[]> {
