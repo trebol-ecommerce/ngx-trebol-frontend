@@ -13,18 +13,20 @@ import { ICategoriesPublicApiService } from '../../categories-public-api.iservic
 import { MOCK_PRODUCT_CATEGORIES } from '../mock/mock-product-categories.datasource';
 import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
 
+// TODO uncomment when data api for product categories is created
+
 @Injectable()
 export class CategoriesPublicLocalMemoryApiService
   implements ICategoriesPublicApiService {
 
-  protected items: ProductCategory[] = [];
+  // protected items: ProductCategory[] = [];
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductCategories) private dataService: EntityDataLocalMemoryApiService<ProductCategory>
+    // @Inject(API_SERVICE_INJECTION_TOKENS.dataProductCategories) private dataService: EntityDataLocalMemoryApiService<ProductCategory>
   ) {
-    this.dataService.fetchPage().subscribe(response => {
-      this.items = response.items;
-    });
+    // this.dataService.fetchPage().subscribe(response => {
+    //   this.items = response.items;
+    // });
   }
 
   public fetchChildrenProductCategoriesByParentCode(parentCode: string): Observable<DataPage<ProductCategory>> {

@@ -7,12 +7,15 @@ import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject, ReplaySubject, throwError } from 'rxjs';
 import { catchError, finalize, mapTo, tap, switchMap, take } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { ISessionApiService } from 'src/app/api/session-api.iservice';
+import { ILoginPublicApiService } from 'src/app/api/login-public-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
 import { Login } from 'src/app/models/Login';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 import { IAccessApiService } from './api/access-api.iservice';
 import { Registration } from './models/Registration';
+import { IGuestPublicApiService } from './api/guest-public-api.iservice';
+import { IRegisterPublicApiService } from './api/register-public-api.iservice copy';
+import { IProfileAccountApiService } from './api/profile-account-api.iservice';
 
 @Injectable({ providedIn: 'root' })
 export class AppService
@@ -29,7 +32,10 @@ export class AppService
   public checkoutAuthCancel$ = this.checkoutAuthCancelSource.asObservable();
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.login) protected authService: ISessionApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.login) protected loginApiService: ILoginPublicApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.guest) protected guestApiService: IGuestPublicApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.register) protected registerApiService: IRegisterPublicApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.accountProfile) protected profileApiService: IProfileAccountApiService,
     @Inject(API_SERVICE_INJECTION_TOKENS.access) protected apiAccessService: IAccessApiService
   ) {
     this.validateSession().subscribe();
@@ -49,12 +55,12 @@ export class AppService
   }
 
   public guestLogin(personDetails: Person): Observable<boolean> {
-    return this.authService.guestLogin(personDetails);
+    return this.guestApiService.guestLogin(personDetails);
   }
 
   /** Send an error-safe register request. */
   public register(userDetails: Registration): Observable<boolean> {
-    return this.authService.register(userDetails).pipe(
+    return this.registerApiService.register(userDetails).pipe(
       mapTo(true),
       switchMap(
         () => this.login({
@@ -68,7 +74,7 @@ export class AppService
 
   public login(credentials: Login): Observable<boolean> {
     return !this.isLoggedIn() ?
-      this.authService.login(credentials).pipe(
+      this.loginApiService.login(credentials).pipe(
         tap(success => {
           this.innerIsLoggedIn = success;
           this.isLoggedInChangesSource.next(success);
@@ -96,17 +102,17 @@ export class AppService
   }
 
   public getUserProfile(): Observable<Person> {
-    return this.authService.getProfile();
+    return this.profileApiService.getProfile();
   }
 
   public updateUserProfile(details: Person): Observable<boolean> {
-    return this.authService.updateProfile(details);
+    return this.profileApiService.updateProfile(details);
   }
 
   public closeCurrentSession(): void {
     this.innerIsLoggedIn = false;
     this.isLoggedInChangesSource.next(false);
-    this.authService.logout().subscribe();
+    this.loginApiService.logout();
   }
 
 }

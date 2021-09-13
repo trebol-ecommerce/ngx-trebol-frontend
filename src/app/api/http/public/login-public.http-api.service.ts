@@ -10,21 +10,17 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { finalize, map, tap } from 'rxjs/operators';
-import { Person } from 'src/app/models/entities/Person';
-import { User } from 'src/app/models/entities/User';
+import { map } from 'rxjs/operators';
 import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
-import { ISessionApiService } from '../../session-api.iservice';
-import { Registration } from 'src/app/models/Registration';
 import { environment } from 'src/environments/environment';
+import { ILoginPublicApiService } from '../../login-public-api.iservice';
 
 @Injectable()
-export class SessionHttpApiService
+export class LoginPublicHttpApiService
   extends HttpApiService
-  implements ISessionApiService {
+  implements ILoginPublicApiService {
 
-  baseUrl = environment.apiUrls.account;
+  baseUrl = `${environment.apiUrls.public}/login`;
   protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
   protected readonly authorizationHeader = environment.secrets.authHeader;
 
@@ -32,36 +28,9 @@ export class SessionHttpApiService
     super(http);
   }
 
-  public getProfile(): Observable<Person> {
-    return this.http.get<Person>(
-      `${this.baseUrl}/account/profile`
-    );
-  }
-
-  public updateProfile(details: Person) {
-    return this.http.put<boolean>(
-      `${this.baseUrl}/account/profile`,
-      details
-    );
-  }
-
-  public guestLogin(personDetails: Person) {
-    return this.http.post<boolean>(
-      `${this.baseUrl}/public/guest`,
-      personDetails
-    );
-  }
-
-  public register(userDetails: Registration) {
-    return this.http.post<boolean>(
-      `${this.baseUrl}/public/register`,
-      userDetails
-    );
-  }
-
-  public login(details: any) {
+  login(details: any) {
     return this.http.post(
-      `${this.baseUrl}/public/login`,
+      this.baseUrl,
       details,
       {
         observe: 'response',
@@ -84,15 +53,7 @@ export class SessionHttpApiService
     );
   }
 
-  public logout() {
-    return this.http.get<boolean>(
-      `${this.baseUrl}/account/logout`
-    ).pipe(
-      finalize(
-        () => {
-          sessionStorage.removeItem(this.sessionStorageTokenItemName);
-        }
-      )
-    );
+  logout(): void {
+    sessionStorage.removeItem(this.sessionStorageTokenItemName);
   }
 }

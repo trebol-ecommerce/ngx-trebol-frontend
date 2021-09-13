@@ -7,7 +7,7 @@ import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { ISessionApiService } from 'src/app/api/session-api.iservice';
+import { ILoginPublicApiService } from 'src/app/api/login-public-api.iservice';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 import { IAccessApiService } from 'src/app/api/access-api.iservice';
 

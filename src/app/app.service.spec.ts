@@ -5,7 +5,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { AppService } from './app.service';
-import { ISessionApiService } from './api/session-api.iservice';
+import { ILoginPublicApiService } from './api/login-public-api.iservice';
 import { IAccessApiService } from './api/access-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from './api/api-service-injection-tokens';
 import { of, throwError } from 'rxjs';
@@ -33,7 +33,7 @@ const MOCK_REGISTRATION_DETAILS: Registration = {
 
 describe('AppService', () => {
   let service: AppService;
-  let mockAuthApiService: Partial<ISessionApiService>;
+  let mockAuthApiService: Partial<ILoginPublicApiService>;
   let mockAccessApiService: Partial<IAccessApiService>;
 
   beforeEach(() => {

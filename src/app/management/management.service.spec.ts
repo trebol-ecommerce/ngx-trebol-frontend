@@ -5,7 +5,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SessionLocalMemoryApiService } from 'src/app/api/local-memory/session/session.local-memory-api.service';
+import { LoginPublicLocalMemoryApiService } from 'src/app/api/local-memory/store/login-public.local-memory-api.service';
 import { ManagementService } from './management.service';
 import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
 
@@ -19,7 +19,7 @@ describe('ManagementService', () => {
       ],
       providers: [
         ManagementService,
-        { provide: API_SERVICE_INJECTION_TOKENS.login, useClass: SessionLocalMemoryApiService }
+        { provide: API_SERVICE_INJECTION_TOKENS.login, useClass: LoginPublicLocalMemoryApiService }
       ]
     });
     service = TestBed.inject(ManagementService);

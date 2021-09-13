@@ -8,6 +8,7 @@
  */
 export const API_SERVICE_INJECTION_TOKENS = {
   access: 'AccessApi',
+  accountProfile: 'ProfileAccountApi',
   dataBillingTypes: 'BillingTypesDataApi',
   dataCustomers: 'CustomersDataApi',
   dataImages: 'imagesDataApi',

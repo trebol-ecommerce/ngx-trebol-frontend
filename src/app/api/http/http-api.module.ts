@@ -15,12 +15,15 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AccessHttpApiService } from './access/access.http-api.service';
 import { ImagesDataHttpApiService } from './data/images-data.http-api.service';
 import { AboutPublicHttpApiService } from './public/about-public.http-api.service';
-import { SessionHttpApiService } from './session/session.http-api.service';
-import { SessionHttpApiInterceptor } from './session/session.http-api.interceptor';
+import { LoginPublicHttpApiService } from './public/login-public.http-api.service';
+import { SessionHttpApiInterceptor } from './session.http-api.interceptor';
 import { CategoriesPublicHttpApiService } from './public/categories-public.http-api.service';
 import { CheckoutPublicHttpApiService } from './public/checkout-public.http-api.service ';
 import { ProductsPublicHttpApiService } from './public/products-public.http-api.service';
 import { ReceiptPublicHttpApiService } from './public/receipt-public.http-api.service';
+import { RegisterPublicHttpApiService } from './public/register-public.http-api.service';
+import { ProfileAccountHttpApiService } from './account/profile-account.http-api.service';
+import { GuestPublicHttpApiService } from './public/guest-public.http-api.service';
 
 /**
  * Provides services that read and write data using an external HTTP server (defined in the environment files)
@@ -36,6 +39,10 @@ import { ReceiptPublicHttpApiService } from './public/receipt-public.http-api.se
     {
       provide: API_SERVICE_INJECTION_TOKENS.access,
       useClass: AccessHttpApiService
+    },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.accountProfile,
+      useClass: ProfileAccountHttpApiService
     },
     // {
     //   provide: API_SERVICE_INJECTION_TOKENS.dataBillingTypes,
@@ -93,13 +100,13 @@ import { ReceiptPublicHttpApiService } from './public/receipt-public.http-api.se
       provide: API_SERVICE_INJECTION_TOKENS.checkout,
       useClass: CheckoutPublicHttpApiService
     },
-    // {
-    //   provide: API_SERVICE_INJECTION_TOKENS.guest,
-    //   useClass:
-    // },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.guest,
+      useClass: GuestPublicHttpApiService
+    },
     {
       provide: API_SERVICE_INJECTION_TOKENS.login,
-      useClass: SessionHttpApiService
+      useClass: LoginPublicHttpApiService
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.products,
@@ -109,10 +116,10 @@ import { ReceiptPublicHttpApiService } from './public/receipt-public.http-api.se
       provide: API_SERVICE_INJECTION_TOKENS.receipt,
       useClass: ReceiptPublicHttpApiService
     },
-    // {
-    //   provide: API_SERVICE_INJECTION_TOKENS.register,
-    //   useClass: CustomersDataHttpApiService
-    // },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.register,
+      useClass: RegisterPublicHttpApiService
+    },
     { provide: HTTP_INTERCEPTORS, useClass: SessionHttpApiInterceptor, multi: true }
   ]
 })
