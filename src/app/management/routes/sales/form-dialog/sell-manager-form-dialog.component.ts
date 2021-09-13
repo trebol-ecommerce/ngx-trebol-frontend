@@ -14,7 +14,7 @@ import { Salesperson } from 'src/app/models/entities/Salesperson';
 import { Product } from 'src/app/models/entities/Product';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
-import { SellType } from 'src/app/models/entities/SellType';
+import { BillingType } from 'src/app/models/entities/BillingType';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { ProductsArrayDialogComponent } from '../../../dialogs/products-array/products-array-dialog.component';
 import { DataManagerFormComponentDirective } from '../../data-manager-form.component-directive';
@@ -38,7 +38,7 @@ export class SellManagerFormDialogComponent
   public sellSubtotalValue$: Observable<number>;
   public sellTotalValue$: Observable<number>;
 
-  public sellTypes$: Observable<SellType[]>;
+  billingTypes$: Observable<BillingType[]>;
   public salespeople$: Observable<Salesperson[]>;
   public customers$: Observable<Customer[]>;
 
@@ -95,7 +95,7 @@ export class SellManagerFormDialogComponent
 
     this.sellDetails$ = this.service.sellDetails$.pipe(tap(details => { this.sellDetails = details; }));
 
-    this.sellTypes$ = this.service.getAllSellTypes();
+    this.billingTypes$ = this.service.getAllBillingTypes();
     this.salespeople$ = this.service.getAllSalespeople();
     this.customers$ = this.service.getAllCustomers();
 

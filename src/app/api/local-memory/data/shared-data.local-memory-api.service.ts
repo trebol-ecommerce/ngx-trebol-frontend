@@ -4,38 +4,38 @@
 // https://opensource.org/licenses/MIT
 
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { ProductCategory } from 'src/app/models/entities/ProductCategory';
-import { SellType } from 'src/app/models/entities/SellType';
-import { ISharedDataApiService } from '../../shared.data-api.iservice';
+import { of } from 'rxjs';
+import { IUserRolesDataApiService } from '../../user-roles.data-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
-import { UserRole } from 'src/app/models/entities/UserRole';
 import { MOCK_USER_ROLES } from '../mock/mock-user-roles.datasource';
 import { MOCK_SELL_TYPES } from '../mock/mock-sell-types.datasource';
 import { MOCK_PRODUCT_CATEGORIES } from '../mock/mock-product-categories.datasource';
 import { MOCK_PEOPLE } from '../mock/mock-people.datasource';
+import { IPeopleDataApiService } from '../../people.data-api.iservice';
+import { IProductCategoriesDataApiService } from '../../product-categories.data-api.iservice';
+import { IBillingTypesDataApiService } from '../../billing-types.data-api.iservice';
 
 @Injectable()
 export class SharedDataLocalMemoryApiService
-  implements ISharedDataApiService {
+  implements IPeopleDataApiService, IProductCategoriesDataApiService, IBillingTypesDataApiService, IUserRolesDataApiService {
 
-  public readAllPeople(): Observable<Person[]> {
+  readAllPeople() {
     return of(MOCK_PEOPLE.map(f => Object.assign(new Person(), f)));
   }
 
-  public readAllProductCategories(): Observable<ProductCategory[]> {
+  readAllProductCategories() {
     return of(MOCK_PRODUCT_CATEGORIES);
   }
 
-  public readAllProductCategoriesByParentCode(parentCode: string): Observable<ProductCategory[]> {
+  readAllProductCategoriesByParentCode(parentCode: string) {
     return of(MOCK_PRODUCT_CATEGORIES.filter(t => t.parent.code === parentCode));
   }
 
-  public readAllSellTypes(): Observable<SellType[]> {
+  readAllBillingTypes() {
     return of(MOCK_SELL_TYPES);
   }
 
-  public readAllUserRoles(): Observable<UserRole[]> {
+  readAllUserRoles() {
     return of(MOCK_USER_ROLES);
   }
 }

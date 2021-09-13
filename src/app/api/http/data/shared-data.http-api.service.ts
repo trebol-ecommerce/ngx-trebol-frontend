@@ -8,18 +8,21 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { retry, map } from 'rxjs/operators';
 import { ProductCategory } from 'src/app/models/entities/ProductCategory';
-import { SellType } from 'src/app/models/entities/SellType';
-import { ISharedDataApiService } from '../../shared.data-api.iservice';
+import { BillingType } from 'src/app/models/entities/BillingType';
+import { IUserRolesDataApiService } from '../../user-roles.data-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
 import { UserRole } from 'src/app/models/entities/UserRole';
 import { HttpApiService } from '../http-api.abstract.service';
 import { environment } from 'src/environments/environment';
 import { DataPage } from 'src/app/models/DataPage';
+import { IPeopleDataApiService } from '../../people.data-api.iservice';
+import { IBillingTypesDataApiService } from '../../billing-types.data-api.iservice';
+import { IProductCategoriesDataApiService } from '../../product-categories.data-api.iservice';
 
 @Injectable()
 export class SharedDataHttpApiService
   extends HttpApiService
-  implements ISharedDataApiService {
+  implements IProductCategoriesDataApiService, IPeopleDataApiService, IBillingTypesDataApiService, IUserRolesDataApiService {
 
   baseUrl = environment.apiUrls.data;
 
@@ -33,9 +36,9 @@ export class SharedDataHttpApiService
     );
   }
 
-  readAllSellTypes() {
-    return this.http.get<SellType[]>(
-      `${this.baseUrl}/sell_types`
+  readAllBillingTypes() {
+    return this.http.get<BillingType[]>(
+      `${this.baseUrl}/billing_types`
     );
   }
 

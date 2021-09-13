@@ -10,8 +10,9 @@ import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { ISharedDataApiService } from 'src/app/api/shared.data-api.iservice';
+import { IUserRolesDataApiService } from 'src/app/api/user-roles.data-api.iservice';
 import { UserRole } from 'src/app/models/entities/UserRole';
+import { IPeopleDataApiService } from 'src/app/api/people.data-api.iservice';
 
 @Injectable()
 export class UserManagerFormService
@@ -19,7 +20,8 @@ export class UserManagerFormService
 
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.dataUsers) public dataService: IEntityDataApiService<User>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataShared) protected sharedDataService: ISharedDataApiService
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataPeople) protected peopleDataApiService: IPeopleDataApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataUserRoles) protected userRolesDataApiService: IUserRolesDataApiService
   ) {
     super();
   }
@@ -29,10 +31,10 @@ export class UserManagerFormService
   }
 
   public getPeople(): Observable<Person[]> {
-    return this.sharedDataService.readAllPeople();
+    return this.peopleDataApiService.readAllPeople();
   }
 
   public getUserRoles(): Observable<UserRole[]> {
-    return this.sharedDataService.readAllUserRoles();
+    return this.userRolesDataApiService.readAllUserRoles();
   }
 }

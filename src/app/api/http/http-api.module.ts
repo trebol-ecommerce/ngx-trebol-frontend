@@ -44,10 +44,10 @@ import { GuestPublicHttpApiService } from './public/guest-public.http-api.servic
       provide: API_SERVICE_INJECTION_TOKENS.accountProfile,
       useClass: ProfileAccountHttpApiService
     },
-    // {
-    //   provide: API_SERVICE_INJECTION_TOKENS.dataBillingTypes,
-    //   useClass:
-    // },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.dataBillingTypes,
+      useClass: SharedDataHttpApiService
+    },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataCustomers,
       useClass: CustomersDataHttpApiService
@@ -56,14 +56,14 @@ import { GuestPublicHttpApiService } from './public/guest-public.http-api.servic
       provide: API_SERVICE_INJECTION_TOKENS.dataImages,
       useClass: ImagesDataHttpApiService
     },
-    // {
-    //   provide: API_SERVICE_INJECTION_TOKENS.dataPeople,
-    //   useClass:
-    // },
-    // {
-    //   provide: API_SERVICE_INJECTION_TOKENS.dataProductCategories,
-    //   useClass:
-    // },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.dataPeople,
+      useClass: SharedDataHttpApiService
+    },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.dataProductCategories,
+      useClass: SharedDataHttpApiService
+    },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataProducts,
       useClass: ProductsDataHttpApiService
@@ -80,10 +80,10 @@ import { GuestPublicHttpApiService } from './public/guest-public.http-api.servic
       provide: API_SERVICE_INJECTION_TOKENS.dataSalespeople,
       useClass: SalespeopleDataHttpApiService
     },
-    // {
-    //   provide: API_SERVICE_INJECTION_TOKENS.dataUserRoles,
-    //   useClass:
-    // },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.dataUserRoles,
+      useClass: SharedDataHttpApiService
+    },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataUsers,
       useClass: UsersDataHttpApiService

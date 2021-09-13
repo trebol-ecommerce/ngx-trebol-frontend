@@ -5,14 +5,8 @@
 
 import { Observable } from 'rxjs';
 import { ProductCategory } from 'src/app/models/entities/ProductCategory';
-import { SellType } from 'src/app/models/entities/SellType';
-import { Person } from 'src/app/models/entities/Person';
-import { UserRole } from 'src/app/models/entities/UserRole';
 
-export interface ISharedDataApiService {
-  readAllPeople(): Observable<Person[]>;
+export interface IProductCategoriesDataApiService {
   readAllProductCategories(): Observable<ProductCategory[]>;
   readAllProductCategoriesByParentCode(parentCode: string): Observable<ProductCategory[]>;
-  readAllSellTypes(): Observable<SellType[]>;
-  readAllUserRoles(): Observable<UserRole[]>;
 }

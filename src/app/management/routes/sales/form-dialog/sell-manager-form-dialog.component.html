@@ -19,8 +19,8 @@
 
       <mat-form-field style="grid-area: type">
         <mat-select placeholder="Tipo de Venta" formControlName="type">
-          <mat-option *ngFor="let t of (sellTypes$ | async)" [value]="t.id">
-            {{ t.description }}
+          <mat-option *ngFor="let b of (billingTypes$ | async)" [value]="b.id">
+            {{ b.description }}
           </mat-option>
         </mat-select>
       </mat-form-field>

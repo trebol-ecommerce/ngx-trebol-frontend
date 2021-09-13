@@ -36,10 +36,10 @@ import { ProductsPublicLocalMemoryApiService } from './public/products-public.lo
       provide: API_SERVICE_INJECTION_TOKENS.accountProfile,
       useClass: ProfileAccountLocalMemoryApiService
     },
-    // {
-    //   provide: API_SERVICE_INJECTION_TOKENS.dataBillingTypes,
-    //   useClass:
-    // },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.dataBillingTypes,
+      useClass: SharedDataLocalMemoryApiService
+    },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataCustomers,
       useClass: CustomersDataLocalMemoryApiService
@@ -48,14 +48,14 @@ import { ProductsPublicLocalMemoryApiService } from './public/products-public.lo
       provide: API_SERVICE_INJECTION_TOKENS.dataImages,
       useClass: ImagesDataLocalMemoryApiService
     },
-    // {
-    //   provide: API_SERVICE_INJECTION_TOKENS.dataPeople,
-    //   useClass:
-    // },
-    // {
-    //   provide: API_SERVICE_INJECTION_TOKENS.dataProductCategories,
-    //   useClass:
-    // },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.dataPeople,
+      useClass: SharedDataLocalMemoryApiService
+    },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.dataProductCategories,
+      useClass: SharedDataLocalMemoryApiService
+    },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataProducts,
       useClass: ProductsDataLocalMemoryApiService
@@ -72,10 +72,10 @@ import { ProductsPublicLocalMemoryApiService } from './public/products-public.lo
       provide: API_SERVICE_INJECTION_TOKENS.dataSalespeople,
       useClass: SalespeopleDataLocalMemoryApiService
     },
-    // {
-    //   provide: API_SERVICE_INJECTION_TOKENS.dataUserRoles,
-    //   useClass:
-    // },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.dataUserRoles,
+      useClass: SharedDataLocalMemoryApiService
+    },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataUsers,
       useClass: UsersDataLocalMemoryApiService
