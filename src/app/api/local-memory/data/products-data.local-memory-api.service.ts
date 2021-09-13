@@ -8,11 +8,9 @@ import { ProductFilters } from 'src/app/shared/components/product-filters-panel/
 import { Product } from 'src/app/models/entities/Product';
 import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
 import { Observable, of } from 'rxjs';
-import { ProductFamily } from 'src/app/models/entities/ProductFamily';
-import { ProductType } from 'src/app/models/entities/ProductType';
+import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { MOCK_PRODUCTS } from './sources/mock-products.datasource';
-import { MOCK_PRODUCT_TYPES } from './sources/mock-product-types.datasource';
-import { MOCK_PRODUCT_FAMILIES } from './sources/mock-product-families.datasource';
+import { MOCK_PRODUCT_CATEGORIES } from './sources/mock-product-categories.datasource';
 
 @Injectable()
 export class ProductsDataLocalMemoryApiService
@@ -24,16 +22,8 @@ export class ProductsDataLocalMemoryApiService
     super();
   }
 
-  public readProductTypes(): Observable<ProductType[]> {
-    return of(MOCK_PRODUCT_TYPES);
-  }
-
-  public readProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]> {
-    return of(MOCK_PRODUCT_TYPES.filter(t => t.productFamily.id === productFamilyId));
-  }
-
-  public readProductFamilies(): Observable<ProductFamily[]> {
-    return of(MOCK_PRODUCT_FAMILIES);
+  public readProductTypes(): Observable<ProductCategory[]> {
+    return of(MOCK_PRODUCT_CATEGORIES);
   }
 
   protected filterItems(filter: ProductFilters): Product[] {
@@ -43,14 +33,9 @@ export class ProductsDataLocalMemoryApiService
         it => it.name.toUpperCase().includes(filter.name.toUpperCase())
       );
     }
-    if (filter.familyId) {
+    if (filter.categoryCode) {
       matchingItems = matchingItems.filter(
-        it => it.productType.productFamily.id === filter.familyId
-      );
-    }
-    if (filter.typeId) {
-      matchingItems = matchingItems.filter(
-        it => it.productType.id === filter.typeId
+        it => it.category.id === filter.categoryCode
       );
     }
 

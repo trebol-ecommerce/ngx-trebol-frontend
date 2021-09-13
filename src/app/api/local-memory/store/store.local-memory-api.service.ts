@@ -7,8 +7,6 @@ import { Injectable, Inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
 import { IStoreApiService } from '../../store-api.iservice';
-import { ProductFamily } from 'src/app/models/entities/ProductFamily';
-import { ProductType } from 'src/app/models/entities/ProductType';
 import { Product } from 'src/app/models/entities/Product';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
@@ -16,10 +14,10 @@ import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRe
 import { Receipt } from 'src/app/models/entities/Receipt';
 import { API_SERVICE_INJECTION_TOKENS } from '../../api-service-injection-tokens';
 import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
-import { MOCK_PRODUCT_TYPES } from '../data/sources/mock-product-types.datasource';
-import { MOCK_PRODUCT_FAMILIES } from '../data/sources/mock-product-families.datasource';
 import { MOCK_COMPANY_DETAILS } from './examples/mock-company-details.examples';
 import { MOCK_EXTERNAL_PAYMENT_REDIRECT_DATA } from './examples/mock-external-payment-redirect-data.examples';
+import { DataPage } from 'src/app/models/DataPage';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class StoreLocalMemoryApiService
@@ -43,14 +41,9 @@ export class StoreLocalMemoryApiService
         it => it.name.toUpperCase().includes(filter.name.toUpperCase())
       );
     }
-    if (filter.familyId) {
+    if (filter.categoryCode) {
       matchingItems = matchingItems.filter(
-        it => it.productType.productFamily.id === filter.familyId
-      );
-    }
-    if (filter.typeId) {
-      matchingItems = matchingItems.filter(
-        it => it.productType.id === filter.typeId
+        it => it.category.id === filter.categoryCode
       );
     }
 
@@ -75,15 +68,27 @@ export class StoreLocalMemoryApiService
     );
   }
 
-  public fetchStoreFrontProductCollection(): Observable<Product[]> {
-    return of(this.items);
+  public fetchStoreFrontProductCollection(): Observable<DataPage<Product>> {
+    return of(this.items).pipe(
+      map(items => ({
+        totalCount: items.length,
+        items,
+        pageSize: items.length,
+        pageIndex: 0
+      }))
+    );
   }
 
-  public fetchFilteredProductCollection(filter: ProductFilters): Observable<Product[]> {
+  public fetchFilteredProductCollection(filter: ProductFilters): Observable<DataPage<Product>> {
     return new Observable(
       observer => {
         const matchingItems = this.filterItems(filter);
-        observer.next(matchingItems);
+        observer.next({
+          totalCount: matchingItems.length,
+          items: matchingItems,
+          pageSize: matchingItems.length,
+          pageIndex: 0
+        });
         observer.complete();
 
         return {
@@ -91,14 +96,6 @@ export class StoreLocalMemoryApiService
         };
       }
     );
-  }
-
-  public fetchProductTypesByFamilyId(productFamilyId: number): Observable<ProductType[]> {
-    return of(MOCK_PRODUCT_TYPES.filter(t => t.productFamily.id === productFamilyId));
-  }
-
-  public fetchAllProductFamilies(): Observable<ProductFamily[]> {
-    return of(MOCK_PRODUCT_FAMILIES);
   }
 
   public fetchCompanyDetails(): Observable<CompanyDetails> {

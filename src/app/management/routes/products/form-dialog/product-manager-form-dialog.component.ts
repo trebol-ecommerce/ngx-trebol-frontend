@@ -10,8 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Product } from 'src/app/models/entities/Product';
-import { ProductFamily } from 'src/app/models/entities/ProductFamily';
-import { ProductType } from 'src/app/models/entities/ProductType';
+import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerFormComponentDirective } from '../../data-manager-form.component-directive';
 import { ProductManagerFormService } from './product-manager-form.service';
@@ -27,20 +26,17 @@ import { DataManagerFormDialogData } from '../../DataManagerFormDialogData';
 })
 export class ProductManagerFormDialogComponent
   extends DataManagerFormComponentDirective<Product>
-  implements OnInit, OnDestroy {
+  implements OnInit {
 
   protected itemId: number;
-  protected familyChangeSub: Subscription;
 
   public saving$: Observable<boolean>;
-  public productFamilies$: Observable<ProductFamily[]>;
-  public productTypes$: Observable<ProductType[]>;
+  categories$: Observable<ProductCategory[]>;
 
   public formGroup: FormGroup;
   public get code(): FormControl { return this.formGroup.get('code') as FormControl; }
   public get name(): FormControl { return this.formGroup.get('name') as FormControl; }
-  public get family(): FormControl { return this.formGroup.get('family') as FormControl; }
-  public get type(): FormControl { return this.formGroup.get('type') as FormControl; }
+  public get category(): FormControl { return this.formGroup.get('category') as FormControl; }
   public get price(): FormControl { return this.formGroup.get('price') as FormControl; }
   public get stock(): FormControl { return this.formGroup.get('stock') as FormControl; }
   public get criticalStock(): FormControl { return this.formGroup.get('criticalStock') as FormControl; }
@@ -61,8 +57,7 @@ export class ProductManagerFormDialogComponent
     this.formGroup = this.formBuilder.group({
       code: ['', Validators.required],
       name: ['', Validators.required],
-      family: [null, Validators.required],
-      type: [{value: null, disabled: true}, Validators.required],
+      category: ['', Validators.required],
       price: ['', Validators.required],
       stock: ['', Validators.required],
       criticalStock: ['', Validators.required],
@@ -82,12 +77,10 @@ export class ProductManagerFormDialogComponent
     this.stock.setValue(p.currentStock, { emitEvent: false, onlySelf: true });
     this.criticalStock.setValue(p.criticalStock, { emitEvent: false, onlySelf: true });
 
-    if (p.productType?.id) {
-      this.type.setValue(p.productType.id, { emitEvent: false, onlySelf: true });
-      this.family.setValue(p.productType.productFamily.id, { emitEvent: false, onlySelf: true });
+    if (p.category?.code) {
+      this.category.setValue(p.category.code, { emitEvent: false, onlySelf: true });
     } else {
-      this.type.setValue(null, { emitEvent: false, onlySelf: true });
-      this.family.setValue(null, { emitEvent: false, onlySelf: true });
+      this.category.setValue('', { emitEvent: false, onlySelf: true });
     }
 
     if (p.description) {
@@ -98,39 +91,12 @@ export class ProductManagerFormDialogComponent
       this.images = p.images.slice();
     }
 
-    this.onChangeFamily();
+    // TODO revalidate here
   }
 
   ngOnInit(): void {
     this.saving$ = this.service.saving$.pipe();
-    this.productFamilies$ = this.service.getAllProductFamilies();
-    this.productTypes$ = this.service.productTypes$.pipe(
-      tap(
-        (types: ProductType[]) => {
-          const productTypeId = this.type.value;
-          if (!(types?.length > 0 && types.find(t => t.id === productTypeId))) {
-            this.type.reset();
-          }
-        }
-      )
-    );
-    this.familyChangeSub = this.family.valueChanges.subscribe(() => { this.onChangeFamily(); });
-  }
-
-  ngOnDestroy(): void {
-    if (this.familyChangeSub) { this.familyChangeSub.unsubscribe(); }
-  }
-
-  protected onChangeFamily(): void {
-    const productFamilyId = this.family.value;
-    this.service.updateSelectedFamily(productFamilyId);
-    if (productFamilyId) {
-      if (this.type.disabled) {
-        this.type.enable({ emitEvent: false, onlySelf: true });
-      }
-    } else {
-      this.type.reset({ value: null, disabled: true });
-    }
+    this.categories$ = this.service.categories$.pipe();
   }
 
   public asItem(): Product {
@@ -141,7 +107,7 @@ export class ProductManagerFormDialogComponent
         new Product(),
         {
           id: this.itemId,
-          productType: { id: this.type.value, productFamily: { id: this.family.value } },
+          category: { code: this.category.value },
           name: this.name.value,
           price: this.price.value,
           currentStock: this.stock.value,

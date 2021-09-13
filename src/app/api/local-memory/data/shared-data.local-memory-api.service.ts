@@ -5,16 +5,14 @@
 
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { ProductFamily } from 'src/app/models/entities/ProductFamily';
-import { ProductType } from 'src/app/models/entities/ProductType';
+import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { SellType } from 'src/app/models/entities/SellType';
 import { ISharedDataApiService } from '../../shared.data-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
 import { UserRole } from 'src/app/models/entities/UserRole';
 import { MOCK_USER_ROLES } from './sources/mock-user-roles.datasource';
 import { MOCK_SELL_TYPES } from './sources/mock-sell-types.datasource';
-import { MOCK_PRODUCT_TYPES } from './sources/mock-product-types.datasource';
-import { MOCK_PRODUCT_FAMILIES } from './sources/mock-product-families.datasource';
+import { MOCK_PRODUCT_CATEGORIES } from './sources/mock-product-categories.datasource';
 import { MOCK_PEOPLE } from './sources/mock-people.datasource';
 
 @Injectable()
@@ -25,16 +23,12 @@ export class SharedDataLocalMemoryApiService
     return of(MOCK_PEOPLE.map(f => Object.assign(new Person(), f)));
   }
 
-  public readAllProductFamilies(): Observable<ProductFamily[]> {
-    return of(MOCK_PRODUCT_FAMILIES);
+  public readAllProductCategories(): Observable<ProductCategory[]> {
+    return of(MOCK_PRODUCT_CATEGORIES);
   }
 
-  public readAllProductTypes(): Observable<ProductType[]> {
-    return of(MOCK_PRODUCT_TYPES);
-  }
-
-  public readAllProductTypesByFamilyId(familyId: number): Observable<ProductType[]> {
-    return of(MOCK_PRODUCT_TYPES.filter(t => t.productFamily.id === familyId));
+  public readAllProductCategoriesByParentCode(parentCode: string): Observable<ProductCategory[]> {
+    return of(MOCK_PRODUCT_CATEGORIES.filter(t => t.parent.id === parentCode));
   }
 
   public readAllSellTypes(): Observable<SellType[]> {

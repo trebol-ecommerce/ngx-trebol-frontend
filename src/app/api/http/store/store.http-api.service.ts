@@ -9,8 +9,6 @@ import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/entities/Product';
 import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
-import { ProductFamily } from 'src/app/models/entities/ProductFamily';
-import { ProductType } from 'src/app/models/entities/ProductType';
 import { IStoreApiService } from '../../store-api.iservice';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
@@ -46,18 +44,6 @@ export class StoreHttpApiService
     return this.http.get<DataPage<Product>>(
       `${this.baseUrl}/products`,
       {  params: new HttpParams({ fromObject: filters as any }) }
-    );
-  }
-
-  public fetchProductTypesByFamilyId(productFamilyId: number) {
-    return this.http.get<ProductType[]>(
-      `${this.baseUrl}/categories/${productFamilyId}`
-    );
-  }
-
-  public fetchAllProductFamilies() {
-    return this.http.get<ProductFamily[]>(
-      `${this.baseUrl}/categories`
     );
   }
 

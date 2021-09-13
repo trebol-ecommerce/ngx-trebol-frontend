@@ -28,18 +28,11 @@
         <input matInput placeholder="Nombre" formControlName="name" />
       </mat-form-field>
 
-      <mat-form-field class="family">
-        <mat-select placeholder="Familia de Producto" formControlName="family">
-          <mat-option *ngFor="let f of (productFamilies$ | async)" [value]="f.id">
+      <mat-form-field class="category">
+        <mat-select placeholder="Familia de Producto" formControlName="category">
+          <mat-option *ngFor="let f of (categories$ | async)"
+            [value]="f.code">
             {{ f.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field class="type">
-        <mat-select placeholder="Tipo de Producto" formControlName="type">
-          <mat-option *ngFor="let t of (productTypes$ | async)" [value]="t.id">
-            {{ t.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>

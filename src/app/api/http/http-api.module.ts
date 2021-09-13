@@ -17,6 +17,7 @@ import { ImagesDataHttpApiService } from './data/images-data.http-api.service';
 import { StoreHttpApiService } from './store/store.http-api.service';
 import { SessionHttpApiService } from './session/session.http-api.service';
 import { SessionHttpApiInterceptor } from './session/session.http-api.interceptor';
+import { CategoriesHttpApiService } from './store/categories-public.http-api.service';
 
 /**
  * Provides services that read and write data using an external HTTP server (defined in the environment files)
@@ -29,16 +30,86 @@ import { SessionHttpApiInterceptor } from './session/session.http-api.intercepto
     HttpClientModule
   ],
   providers: [
-    { provide: API_SERVICE_INJECTION_TOKENS.dataCustomers, useClass: CustomersDataHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.dataImages, useClass: ImagesDataHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.dataSalespeople, useClass: SalespeopleDataHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.dataProducts, useClass: ProductsDataHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.dataShared, useClass: SharedDataHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.dataUsers, useClass: UsersDataHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.dataSales, useClass: SalesDataHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.access, useClass: AccessHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.categories, useClass: StoreHttpApiService },
-    { provide: API_SERVICE_INJECTION_TOKENS.login, useClass: SessionHttpApiService },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.access,
+      useClass: AccessHttpApiService
+    },
+    // {
+    //   provide: API_SERVICE_INJECTION_TOKENS.dataBillingTypes,
+    //   useClass:
+    // },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.dataCustomers,
+      useClass: CustomersDataHttpApiService
+    },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.dataImages,
+      useClass: ImagesDataHttpApiService
+    },
+    // {
+    //   provide: API_SERVICE_INJECTION_TOKENS.dataPeople,
+    //   useClass:
+    // },
+    // {
+    //   provide: API_SERVICE_INJECTION_TOKENS.dataProductCategories,
+    //   useClass:
+    // },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.dataProducts,
+      useClass: CustomersDataHttpApiService
+    },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.dataShared,
+      useClass: SharedDataHttpApiService
+    },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.dataSales,
+      useClass: SalesDataHttpApiService
+    },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.dataSalespeople,
+      useClass: SalespeopleDataHttpApiService
+    },
+    // {
+    //   provide: API_SERVICE_INJECTION_TOKENS.dataUserRoles,
+    //   useClass:
+    // },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.dataUsers,
+      useClass: UsersDataHttpApiService
+    },
+    // {
+    //   provide: API_SERVICE_INJECTION_TOKENS.about,
+    //   useClass:
+    // },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.categories,
+      useClass: CategoriesHttpApiService
+    },
+    // {
+    //   provide: API_SERVICE_INJECTION_TOKENS.checkout,
+    //   useClass:
+    // },
+    // {
+    //   provide: API_SERVICE_INJECTION_TOKENS.guest,
+    //   useClass:
+    // },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.login,
+      useClass: SessionHttpApiService
+    },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.products,
+      useClass: StoreHttpApiService
+    },
+    // {
+    //   provide: API_SERVICE_INJECTION_TOKENS.receipt,
+    //   useClass: CustomersDataHttpApiService
+    // },
+    // {
+    //   provide: API_SERVICE_INJECTION_TOKENS.register,
+    //   useClass: CustomersDataHttpApiService
+    // },
     { provide: HTTP_INTERCEPTORS, useClass: SessionHttpApiInterceptor, multi: true }
   ]
 })

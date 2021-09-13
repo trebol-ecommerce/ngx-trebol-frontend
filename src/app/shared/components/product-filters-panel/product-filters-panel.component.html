@@ -13,34 +13,22 @@
 
     <mat-form-field>
       <mat-select placeholder="Familia de Productos"
-        formControlName="productFamily">
-        <mat-option *ngFor="let family of (families$ | async)"
-          [value]="family.id">
+        formControlName="category">
+        <mat-option *ngFor="let family of (categories$ | async)"
+          [value]="family.code">
           {{ family.name }}
         </mat-option>
       </mat-select>
-      <button matSuffix mat-button mat-icon-button *ngIf="productFamily.value"
-        aria-label="Limpiar" (click)="onClickResetProductFamily($event)">
+      <button matSuffix mat-button mat-icon-button *ngIf="category.value"
+        aria-label="Limpiar"
+        title="Limpiar"
+        (click)="onClickResetProductCategory($event)">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="Tipo de Producto"
-        formControlName="productType">
-        <mat-option *ngFor="let type of (types$ | async)"
-          [value]="type.id">
-          {{ type.name }}
-        </mat-option>
-      </mat-select>
-      <button matSuffix mat-button mat-icon-button *ngIf="productType.value"
-        aria-label="Limpiar" (click)="onClickResetProductType($event)">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="Nombre de Producto" formControlName="productName" />
+      <input matInput placeholder="Nombre de Producto" formControlName="name" />
     </mat-form-field>
   </form>
 </mat-expansion-panel>

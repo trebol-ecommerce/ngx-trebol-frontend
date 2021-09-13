@@ -20,9 +20,9 @@ describe('ProductManagerFormDialogComponent', () => {
   beforeEach(waitForAsync(() => {
     service = {
       saving$: of(false),
-      productTypes$: of([]),
-      getAllProductFamilies() { return of([]); },
-      updateSelectedFamily(i) {},
+      categories$: of([]),
+      getAllRootProductCategories() { return of([]); },
+      updateSelectedCategory(i) {},
       submit(i) { return of(true); }
     };
 

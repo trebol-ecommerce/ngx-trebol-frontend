@@ -10,17 +10,32 @@ import { StoreCatalogService } from './store-catalog.service';
 import { IStoreApiService } from 'src/app/api/store-api.iservice';
 import { of, EMPTY } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { ICategoriesPublicApiService } from 'src/app/api/categories-public-api.iservice';
 
 describe('StoreCatalogService', () => {
   let service: StoreCatalogService;
-  let mockApiService: Partial<IStoreApiService>;
+  let mockStoreApiService: Partial<IStoreApiService>;
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(() => {
-    mockApiService = {
+    mockStoreApiService = {
       fetchProductById() { return EMPTY; },
-      fetchFilteredProductCollection() { return of([]); },
-      fetchStoreFrontProductCollection() { return of([]); }
+      fetchFilteredProductCollection() {
+        return of({
+          items: [],
+          totalCount: 0,
+          pageIndex: 0,
+          pageSize: 10
+        });
+      },
+      fetchStoreFrontProductCollection() {
+        return of({
+          items: [],
+          totalCount: 0,
+          pageIndex: 0,
+          pageSize: 10
+        });
+      }
     };
     mockDialogService = {
       open() { return void 0; }
@@ -32,7 +47,7 @@ describe('StoreCatalogService', () => {
       ],
       providers: [
         StoreCatalogService,
-        { provide: API_SERVICE_INJECTION_TOKENS.categories, useValue: mockApiService },
+        { provide: API_SERVICE_INJECTION_TOKENS.products, useValue: mockStoreApiService },
         { provide: MatDialog, useValue: mockDialogService }
       ]
     });

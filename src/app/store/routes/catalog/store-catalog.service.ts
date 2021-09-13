@@ -14,6 +14,7 @@ import { IStoreApiService } from 'src/app/api/store-api.iservice';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { StoreProductDetailsDialogComponent, StoreProductDetailsDialogData } from '../../dialogs/product-details/store-product-details-dialog.component';
 import { DataPage } from 'src/app/models/DataPage';
+import { ICategoriesPublicApiService } from 'src/app/api/categories-public-api.iservice';
 
 @Injectable()
 export class StoreCatalogService
@@ -27,7 +28,7 @@ export class StoreCatalogService
   public filters: ProductFilters = {};
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.categories) protected apiService: IStoreApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.products) protected storeApiService: IStoreApiService,
     protected dialogService: MatDialog,
     protected route: ActivatedRoute,
     protected router: Router,
@@ -62,7 +63,7 @@ export class StoreCatalogService
       (params) => {
         if (params.has('id')) {
           const id = Number(params.get('id'));
-          this.apiService.fetchProductById(id).pipe(
+          this.storeApiService.fetchProductById(id).pipe(
             concatMap(p => this.promptProductDetails(p))
           ).subscribe();
         }
@@ -80,9 +81,9 @@ export class StoreCatalogService
     let p: Observable<DataPage<Product>>;
 
     if (JSON.stringify(this.filters) !== '{}') {
-      p = this.apiService.fetchFilteredProductCollection(this.filters);
+      p = this.storeApiService.fetchFilteredProductCollection(this.filters);
     } else {
-      p = this.apiService.fetchStoreFrontProductCollection();
+      p = this.storeApiService.fetchStoreFrontProductCollection();
     }
 
     p.pipe(

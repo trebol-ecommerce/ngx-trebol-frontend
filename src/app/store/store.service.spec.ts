@@ -17,8 +17,20 @@ import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-token
 describe('StoreService', () => {
   let service: StoreService;
   let apiService: Partial<IStoreApiService>;
-  const mockProduct: Product = { id: 1, barcode: 'example', name: 'test product', price: 500, productType: { id: 1 } };
-  const mockProductTwo: Product = { id: 2, barcode: 'example2', name: 'test product two', price: 1000, productType: { id: 1 } };
+  const mockProduct: Product = {
+    id: 1,
+    barcode: 'example',
+    name: 'test product',
+    price: 500,
+    category: { code: '1' }
+  };
+  const mockProductTwo: Product = {
+    id: 2,
+    barcode: 'example2',
+    name: 'test product two',
+    price: 1000,
+    category: { code: '1' }
+  };
 
   beforeEach(() => {
     apiService = {

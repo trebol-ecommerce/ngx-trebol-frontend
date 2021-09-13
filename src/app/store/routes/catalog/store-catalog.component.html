@@ -7,7 +7,8 @@
 
 <div class="catalog">
   <h2>Catálogo de Productos</h2>
-  <app-product-filters-panel (filtersChanges)="onFiltersChange($event)">
+  <app-product-filters-panel
+    (filtersChanges)="onFiltersChange($event)">
   </app-product-filters-panel>
 
   <centered-mat-spinner *ngIf="loading$ | async">

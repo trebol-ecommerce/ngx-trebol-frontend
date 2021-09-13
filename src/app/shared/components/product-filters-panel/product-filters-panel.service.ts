@@ -5,24 +5,29 @@
 
 import { Injectable, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductFamily } from 'src/app/models/entities/ProductFamily';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { ProductType } from 'src/app/models/entities/ProductType';
+import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { IStoreApiService } from 'src/app/api/store-api.iservice';
+import { ICategoriesPublicApiService } from 'src/app/api/categories-public-api.iservice';
+import { map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class ProductFiltersPanelService {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.categories) protected apiService: IStoreApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.categories) protected apiService: ICategoriesPublicApiService,
   ) { }
 
-  public getAllProductFamilies(): Observable<ProductFamily[]> {
-    return this.apiService.fetchAllProductFamilies();
+  public getRootProductCategories(): Observable<ProductCategory[]> {
+    return this.apiService.fetchRootProductCategories().pipe(
+      map(page => page.items)
+    );
   }
 
-  public getProductTypesFromFamilyId(id: number): Observable<ProductType[]> {
-    return this.apiService.fetchProductTypesByFamilyId(id);
+  public getChildrenProductCategoryByParentCode(code: string): Observable<ProductCategory[]> {
+    return this.apiService.fetchChildrenProductCategoriesByParentCode(code).pipe(
+      map(page => page.items)
+    );
   }
 
 }

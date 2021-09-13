@@ -6,15 +6,15 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { retry } from 'rxjs/operators';
-import { ProductFamily } from 'src/app/models/entities/ProductFamily';
-import { ProductType } from 'src/app/models/entities/ProductType';
+import { retry, map } from 'rxjs/operators';
+import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { SellType } from 'src/app/models/entities/SellType';
 import { ISharedDataApiService } from '../../shared.data-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
 import { UserRole } from 'src/app/models/entities/UserRole';
 import { HttpApiService } from '../http-api.abstract.service';
 import { environment } from 'src/environments/environment';
+import { DataPage } from 'src/app/models/DataPage';
 
 @Injectable()
 export class SharedDataHttpApiService
@@ -39,31 +39,25 @@ export class SharedDataHttpApiService
     );
   }
 
-  readAllProductFamilies() {
-    return this.http.get<ProductFamily[]>(
-      `${this.baseUrl}/product_families`
+  readAllProductCategories() {
+    return this.http.get<DataPage<ProductCategory>>(
+      `${this.baseUrl}/product_categories`
     ).pipe(
+      map(page => page.items),
       retry(2)
     );
   }
 
-  readAllProductTypes() {
-    return this.http.get<ProductType[]>(
-      `${this.baseUrl}/product_types`
-    ).pipe(
-      retry(2)
-    );
-  }
-
-  readAllProductTypesByFamilyId(familyId: number) {
-    return this.http.get<ProductType[]>(
-      `${this.baseUrl}/product_types`,
+  readAllProductCategoriesByParentCode(parentCode: string) {
+    return this.http.get<DataPage<ProductCategory>>(
+      `${this.baseUrl}/product_categories`,
       {
         params: new HttpParams({ fromObject: {
-          familyId: String(familyId)
+          familyId: String(parentCode)
         } })
       }
     ).pipe(
+      map(page => page.items),
       retry(2)
     );
   }

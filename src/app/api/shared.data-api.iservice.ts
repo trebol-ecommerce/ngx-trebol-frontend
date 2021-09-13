@@ -4,17 +4,15 @@
 // https://opensource.org/licenses/MIT
 
 import { Observable } from 'rxjs';
-import { ProductFamily } from 'src/app/models/entities/ProductFamily';
-import { ProductType } from 'src/app/models/entities/ProductType';
+import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { SellType } from 'src/app/models/entities/SellType';
 import { Person } from 'src/app/models/entities/Person';
 import { UserRole } from 'src/app/models/entities/UserRole';
 
 export interface ISharedDataApiService {
   readAllPeople(): Observable<Person[]>;
-  readAllProductFamilies(): Observable<ProductFamily[]>;
-  readAllProductTypes(): Observable<ProductType[]>;
-  readAllProductTypesByFamilyId(familyId: number): Observable<ProductType[]>;
+  readAllProductCategories(): Observable<ProductCategory[]>;
+  readAllProductCategoriesByParentCode(parentCode: string): Observable<ProductCategory[]>;
   readAllSellTypes(): Observable<SellType[]>;
   readAllUserRoles(): Observable<UserRole[]>;
 }

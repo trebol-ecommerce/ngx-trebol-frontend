@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { AbstractEntity } from 'src/app/models/AbstractEntity';
-import { ProductType } from './ProductType';
+import { ProductCategory } from './ProductCategory';
 import { Image } from './Image';
 
 export class Product
@@ -14,7 +14,7 @@ export class Product
   public name: string;
   public barcode: string;
   public price: number;
-  public productType: Partial<ProductType>;
+  public category: Partial<ProductCategory>;
 
   public description?: string;
   public currentStock?: number;

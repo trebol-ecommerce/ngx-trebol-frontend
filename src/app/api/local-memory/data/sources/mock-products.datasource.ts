@@ -1,4 +1,5 @@
 import { Product } from 'src/app/models/entities/Product';
+import { MOCK_PRODUCT_CATEGORIES } from './mock-product-categories.datasource';
 
 export const MOCK_PRODUCTS: Partial<Product>[] = [
   {
@@ -8,11 +9,7 @@ export const MOCK_PRODUCTS: Partial<Product>[] = [
     price: 14990,
     currentStock: 40,
     criticalStock: 5,
-    productType: {
-      id: 1,
-      description: 'Zapatillas Hombre',
-      productFamily: { id: 1 }
-    },
+    category: MOCK_PRODUCT_CATEGORIES[0],
     images: [
       {
         filename: 'photo-1578116922645-3976907a7671.jpg',
@@ -28,11 +25,7 @@ export const MOCK_PRODUCTS: Partial<Product>[] = [
     price: 14990,
     currentStock: 20,
     criticalStock: 5,
-    productType: {
-      id: 1,
-      description: 'Zapatillas Hombre',
-      productFamily: { id: 1 }
-    },
+    category: MOCK_PRODUCT_CATEGORIES[0],
     images: [
       {
         filename: 'photo-1578172433613-9f1b258f7d5b.jpg',
@@ -48,11 +41,7 @@ export const MOCK_PRODUCTS: Partial<Product>[] = [
     price: 13990,
     currentStock: 60,
     criticalStock: 5,
-    productType: {
-      id: 1,
-      description: 'Zapatillas Hombre',
-      productFamily: { id: 1 }
-    },
+    category: MOCK_PRODUCT_CATEGORIES[0],
     images: [
       {
         filename: 'photo-1580143881495-b21dde95fc60.jpg',

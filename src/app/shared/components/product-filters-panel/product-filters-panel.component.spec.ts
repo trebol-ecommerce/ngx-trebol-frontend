@@ -17,8 +17,8 @@ describe('ProductFiltersPanelComponent', () => {
 
   beforeEach(waitForAsync(() => {
     service = {
-      getAllProductFamilies() { return of([]); },
-      getProductTypesFromFamilyId(i) { return of([]); }
+      getRootProductCategories() { return of([]); },
+      getChildrenProductCategoryByParentCode(i) { return of([]); }
     };
 
     TestBed.configureTestingModule({

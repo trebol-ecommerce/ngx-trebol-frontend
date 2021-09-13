@@ -5,52 +5,53 @@
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import { DataManagerFormServiceDirective } from '../../data-manager-form.service-directive';
 import { Product } from 'src/app/models/entities/Product';
-import { ProductFamily } from 'src/app/models/entities/ProductFamily';
-import { ProductType } from 'src/app/models/entities/ProductType';
+import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { ISharedDataApiService } from 'src/app/api/shared.data-api.iservice';
+import { ICategoriesPublicApiService } from 'src/app/api/categories-public-api.iservice';
 
 @Injectable()
 export class ProductManagerFormService
   extends DataManagerFormServiceDirective<Product>
   implements OnDestroy {
 
-  protected selectedFamilyIdSource: Subject<number> = new BehaviorSubject(undefined);
+  private selectedCategoryIdSource = new BehaviorSubject('');
 
-  public productTypes$: Observable<ProductType[]>;
+  categories$: Observable<ProductCategory[]>;
 
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) protected dataService: IEntityDataApiService<Product>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataShared) protected sharedDataService: ISharedDataApiService
+    @Inject(API_SERVICE_INJECTION_TOKENS.categories) private categoriesApiService: ICategoriesPublicApiService
   ) {
     super();
 
-    this.productTypes$ = this.selectedFamilyIdSource.asObservable().pipe(
-      switchMap(
-        (id: number) => {
-          if (!id) {
-            return of([]);
-          } else {
-            return this.sharedDataService.readAllProductTypesByFamilyId(id);
-          }
+    this.categories$ = this.selectedCategoryIdSource.asObservable().pipe(
+      switchMap(id => {
+        if (!id) {
+          return of([]);
+        } else {
+          return this.categoriesApiService.fetchChildrenProductCategoriesByParentCode(id).pipe(
+            map(page => page.items)
+          );
         }
-      )
+      })
     );
   }
 
   ngOnDestroy(): void {
-    this.selectedFamilyIdSource.complete();
+    this.selectedCategoryIdSource.complete();
   }
 
-  public getAllProductFamilies(): Observable<ProductFamily[]> {
-    return this.sharedDataService.readAllProductFamilies();
+  getAllRootProductCategories(): Observable<ProductCategory[]> {
+    return this.categoriesApiService.fetchRootProductCategories().pipe(
+      map(page => page.items)
+    );
   }
 
-  public updateSelectedFamily(productFamilyId: number): void {
-    this.selectedFamilyIdSource.next(productFamilyId);
+  updateSelectedCategory(categoryCode: string): void {
+    this.selectedCategoryIdSource.next(categoryCode);
   }
 }
