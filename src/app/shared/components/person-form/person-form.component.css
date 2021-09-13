@@ -9,7 +9,7 @@ form {
   display: grid;
   grid-template-areas:
     'name'
-    'idCard'
+    'idNumber'
     'email'
     'address'
     'phone1'
@@ -21,7 +21,7 @@ form {
     grid-gap: 1rem;
     grid-template-areas:
       'name name name name'
-      'idCard email email email'
+      'idNumber email email email'
       'address address address address'
       'phone1 phone1 phone2 phone2';
   }

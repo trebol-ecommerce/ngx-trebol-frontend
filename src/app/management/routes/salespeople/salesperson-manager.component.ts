@@ -28,7 +28,7 @@ export class SalespersonManagerComponent
   extends DataManagerComponentDirective<Salesperson>
   implements OnInit {
 
-  public tableColumns: string[] = [ 'name', 'idCard', 'actions' ];
+  public tableColumns: string[] = [ 'name', 'idNumber', 'actions' ];
 
   constructor(
     protected service: SalespersonManagerService,

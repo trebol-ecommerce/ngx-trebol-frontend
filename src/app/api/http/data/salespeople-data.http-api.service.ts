@@ -20,20 +20,20 @@ export class SalespeopleDataHttpApiService
 
   fetchExisting(salesperson: Partial<Salesperson>) {
     return this.http.get<Salesperson>(
-      `${this.baseUrl}/${salesperson.person.idCard}`
+      `${this.baseUrl}/${salesperson.person.idNumber}`
     );
   }
 
   update(salesperson: Partial<Salesperson>) {
     return this.http.put(
-      `${this.baseUrl}/${salesperson.person.idCard}`,
+      `${this.baseUrl}/${salesperson.person.idNumber}`,
       salesperson
     );
   }
 
   delete(salesperson: Partial<Salesperson>) {
     return this.http.delete(
-      `${this.baseUrl}/${salesperson.person.idCard}`
+      `${this.baseUrl}/${salesperson.person.idNumber}`
     );
   }
 }

@@ -41,7 +41,7 @@ export class PersonFormComponent
 
   get id() { return this.formGroup.get('id') as FormControl; }
   get name() { return this.formGroup.get('name') as FormControl; }
-  get idCard() { return this.formGroup.get('idCard') as FormControl; }
+  get idNumber() { return this.formGroup.get('idNumber') as FormControl; }
   get email() { return this.formGroup.get('email') as FormControl; }
   get address() { return this.formGroup.get('address') as FormControl; }
   get phone1() { return this.formGroup.get('phone1') as FormControl; }
@@ -53,7 +53,7 @@ export class PersonFormComponent
     this.formGroup = this.formBuilder.group({
       id: [''],
       name: ['', Validators.required],
-      idCard: ['', Validators.required],
+      idNumber: ['', Validators.required],
       email: ['', Validators.required],
       address: ['', Validators.required],
       phone1: [''],
@@ -74,7 +74,7 @@ export class PersonFormComponent
   writeValue(obj: any): void {
     this.id.reset('', { emitEvent: false });
     this.name.reset('', { emitEvent: false });
-    this.idCard.reset('', { emitEvent: false });
+    this.idNumber.reset('', { emitEvent: false });
     this.email.reset('', { emitEvent: false });
     this.phone1.reset('', { emitEvent: false });
     this.phone2.reset('', { emitEvent: false });

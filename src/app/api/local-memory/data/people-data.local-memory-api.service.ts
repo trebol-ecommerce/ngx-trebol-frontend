@@ -19,10 +19,10 @@ export class PeopleDataLocalMemoryApiService
   }
 
   protected itemExists(person: Partial<Person>) {
-    return this.items.some(person2 => (person.idCard === person2.idCard));
+    return this.items.some(person2 => (person.idNumber === person2.idNumber));
   }
 
   protected getIndexOfItem(person: Partial<Person>) {
-    return this.items.findIndex(person2 => (person.idCard === person2.idCard));
+    return this.items.findIndex(person2 => (person.idNumber === person2.idNumber));
   }
 }

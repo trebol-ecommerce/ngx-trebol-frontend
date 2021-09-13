@@ -24,8 +24,8 @@
       <mat-form-field>
         <mat-select placeholder="Persona" formControlName="person">
           <mat-option *ngFor="let p of (people$ | async)"
-            [value]="p.idCard">
-            {{ p.name + " (" + p.idCard + ")" }}
+            [value]="p.idNumber">
+            {{ p.name + " (" + p.idNumber + ")" }}
           </mat-option>
         </mat-select>
       </mat-form-field>

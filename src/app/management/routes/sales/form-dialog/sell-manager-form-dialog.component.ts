@@ -78,11 +78,11 @@ export class SellManagerFormDialogComponent
     if (s.type?.id) {
       this.type.setValue(s.type.id, { emitEvent: false, onlySelf: true });
     }
-    if (s.customer?.person.idCard) {
-      this.customer.setValue(s.customer.person.idCard, { emitEvent: false, onlySelf: true });
+    if (s.customer?.person.idNumber) {
+      this.customer.setValue(s.customer.person.idNumber, { emitEvent: false, onlySelf: true });
     }
-    if (s.salesperson?.person.idCard) {
-      this.salesperson.setValue(s.salesperson.person.idCard, { emitEvent: false, onlySelf: true });
+    if (s.salesperson?.person.idNumber) {
+      this.salesperson.setValue(s.salesperson.person.idNumber, { emitEvent: false, onlySelf: true });
     }
 
     if (s.id) {
@@ -151,8 +151,8 @@ export class SellManagerFormDialogComponent
           id: this.itemId,
           type: { id: this.type.value },
           soldOn: this.sellDate ? this.sellDate : null,
-          customer: { person: { idCard: this.customer.value } },
-          salesperson: { person: { idCard: this.salesperson.value } },
+          customer: { person: { idNumber: this.customer.value } },
+          salesperson: { person: { idNumber: this.salesperson.value } },
           details: this.sellDetails
         }
       );

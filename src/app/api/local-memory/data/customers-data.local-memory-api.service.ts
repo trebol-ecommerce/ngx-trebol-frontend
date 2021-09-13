@@ -20,10 +20,10 @@ export class CustomersDataLocalMemoryApiService
   }
 
   protected itemExists(customer: Partial<Customer>) {
-    return this.items.some(customer2 => (customer.person.idCard === customer2.person.idCard));
+    return this.items.some(customer2 => (customer.person.idNumber === customer2.person.idNumber));
   }
 
   protected getIndexOfItem(customer: Partial<Customer>) {
-    return this.items.findIndex(customer2 => (customer.person.idCard === customer2.person.idCard));
+    return this.items.findIndex(customer2 => (customer.person.idNumber === customer2.person.idNumber));
   }
 }

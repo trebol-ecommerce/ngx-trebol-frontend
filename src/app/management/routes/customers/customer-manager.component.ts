@@ -22,7 +22,7 @@ export class CustomerManagerComponent
   extends DataManagerComponentDirective<Customer>
   implements OnInit {
 
-  public tableColumns: string[] = [ 'name', 'idCard' ];
+  public tableColumns: string[] = [ 'name', 'idNumber' ];
 
   constructor(
     protected service: CustomerManagerService,

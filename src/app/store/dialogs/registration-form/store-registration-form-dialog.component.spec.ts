@@ -97,7 +97,7 @@ describe('StoreRegistrationFormDialogComponent', () => {
       name: 'test-name',
       address: 'test-address',
       email: 'test-email',
-      idCard: 'test-idcard'
+      idNumber: 'test-idNumber'
     });
     component.name.setValue('username');
     component.pass1.setValue('password');

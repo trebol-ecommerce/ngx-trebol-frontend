@@ -26,7 +26,7 @@ const MOCK_REGISTRATION_DETAILS: Registration = {
   password: 'test',
   profile: {
     name: 'fulano mengano',
-    idCard: '123456789',
+    idNumber: '123456789',
     email: 'test@test.org',
     address: 'lorem ipsum',
     phone1: 11111111,

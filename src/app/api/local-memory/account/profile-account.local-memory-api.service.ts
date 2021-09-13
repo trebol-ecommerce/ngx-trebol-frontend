@@ -38,7 +38,7 @@ export class ProfileAccountLocalMemoryApiService
     return this.returnAsyncIfLoggedIn({
       id: 1,
       name: 'admin',
-      idCard: '1111',
+      idNumber: '1111',
       email: 'text@example.com',
       address: 'example address',
     });

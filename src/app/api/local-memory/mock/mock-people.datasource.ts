@@ -2,8 +2,8 @@ import { Person } from 'src/app/models/entities/Person';
 
 export const MOCK_PEOPLE: Partial<Person>[] = [
   { name: 'Anónimo' },
-  { name: 'Administrador', idCard: '4' },
-  { name: 'Mánager', idCard: '3' },
-  { name: 'Vendedor', idCard: '2' },
-  { name: 'Cliente', idCard: '1' },
+  { name: 'Administrador', idNumber: '4' },
+  { name: 'Mánager', idNumber: '3' },
+  { name: 'Vendedor', idNumber: '2' },
+  { name: 'Cliente', idNumber: '1' },
 ];

@@ -5,9 +5,9 @@
 
 export class Person {
   public name: string;
-  public idCard: string;
+  public idNumber: string;
   public email: string;
-  public address: string;
+  public address?: string;
   public phone1?: number;
   public phone2?: number;
 }

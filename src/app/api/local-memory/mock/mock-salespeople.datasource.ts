@@ -4,7 +4,7 @@ export const MOCK_SALESPEOPLE: Partial<Salesperson>[] = [
   {
     person: {
       name: 'Anónimo',
-      idCard: '1111111-1',
+      idNumber: '1111111-1',
       address: 'Ejemplo 275',
       email: 'example@domain.com'
     }
@@ -12,7 +12,7 @@ export const MOCK_SALESPEOPLE: Partial<Salesperson>[] = [
   {
     person: {
       name: 'Esteban Z.',
-      idCard: '2296001-7',
+      idNumber: '2296001-7',
       address: 'Carre Transistmica 9684',
       email: 'esteban@domain.com'
     }
@@ -20,7 +20,7 @@ export const MOCK_SALESPEOPLE: Partial<Salesperson>[] = [
   {
     person: {
       name: 'Felipe N.',
-      idCard: '3380154-6',
+      idNumber: '3380154-6',
       address: 'Edison 2525',
       email: 'felipe@domain.com'
     }
@@ -28,7 +28,7 @@ export const MOCK_SALESPEOPLE: Partial<Salesperson>[] = [
   {
     person: {
       name: 'Gloria S.',
-      idCard: '4436747-1',
+      idNumber: '4436747-1',
       address: 'Gutemberg 179',
       email: 'gloria@domain.com'
     }
@@ -36,7 +36,7 @@ export const MOCK_SALESPEOPLE: Partial<Salesperson>[] = [
   {
     person: {
       name: 'Herminia J.',
-      idCard: '5529827-2',
+      idNumber: '5529827-2',
       address: 'Jose Puga 1735',
       email: 'herminia@domain.com'
     }

@@ -57,8 +57,8 @@ export class UserManagerFormDialogComponent
     // if (this.itemId) {
     //   this.password.setValidators(null);
     // }
-    if (u.person?.idCard) {
-      this.person.setValue(u.person.idCard);
+    if (u.person?.idNumber) {
+      this.person.setValue(u.person.idNumber);
     }
     if (u.role) {
       this.role.setValue(u.role);
@@ -80,7 +80,7 @@ export class UserManagerFormDialogComponent
         {
           name: this.name.value,
           password: this.password.value,
-          person: { idCard: this.person.value },
+          person: { idNumber: this.person.value },
           role: this.role.value
         }
       );

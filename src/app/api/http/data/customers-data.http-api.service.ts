@@ -20,19 +20,19 @@ export class CustomersDataHttpApiService
 
   fetchExisting(customer: Customer) {
     return this.http.get<Customer>(
-      `${this.baseUrl}/${customer.person.idCard}`
+      `${this.baseUrl}/${customer.person.idNumber}`
     );
   }
 
   update(customer: Customer) {
     return this.http.get(
-      `${this.baseUrl}/${customer.person.idCard}`
+      `${this.baseUrl}/${customer.person.idNumber}`
     );
   }
 
   delete(customer: Customer) {
     return this.http.get(
-      `${this.baseUrl}/${customer.person.idCard}`
+      `${this.baseUrl}/${customer.person.idNumber}`
     );
   }
 }
