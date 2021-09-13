@@ -24,7 +24,7 @@ export class SessionHttpApiService
   extends HttpApiService
   implements ISessionApiService {
 
-  baseUrl = environment.apiUrls.session
+  baseUrl = environment.apiUrls.account;
   protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
   protected readonly authorizationHeader = environment.secrets.authHeader;
 

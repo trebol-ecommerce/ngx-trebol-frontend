@@ -17,7 +17,7 @@ import { environment } from 'src/environments/environment';
 export class StoreService
   implements OnDestroy {
 
-  protected checkoutURL = environment.apiUrls.store;
+  protected checkoutURL = environment.apiUrls.public;
   protected sellDetails: SellDetail[] = [];
   protected sellDetailsSource: Subject<SellDetail[]> = new BehaviorSubject([]);
   protected sellSubtotalValue: number;

@@ -16,7 +16,7 @@ export class CategoriesHttpApiService
   extends HttpApiService
   implements ICategoriesPublicApiService {
 
-  protected baseUrl = environment.apiUrls.store;
+  protected baseUrl = environment.apiUrls.public;
 
   constructor(http: HttpClient) {
     super(http);

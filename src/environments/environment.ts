@@ -6,9 +6,9 @@ export const environment = {
   production: false,
   apiUrls: {
     access: '',
+    account: '',
     data: '',
-    session: '',
-    store: ''
+    public: ''
   },
   secrets: {
     sessionTokenName: 'trebol/bearer-token',

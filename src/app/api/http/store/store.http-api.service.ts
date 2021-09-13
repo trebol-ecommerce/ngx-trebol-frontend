@@ -22,7 +22,7 @@ export class StoreHttpApiService
   extends HttpApiService
   implements IStoreApiService {
 
-  protected baseUrl = environment.apiUrls.store;
+  protected baseUrl = environment.apiUrls.public;
 
   constructor(http: HttpClient) {
     super(http);

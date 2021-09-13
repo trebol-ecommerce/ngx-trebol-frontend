@@ -20,8 +20,8 @@ export class SessionHttpApiInterceptor
   private readonly acceptedUrls: string[] = [
     environment.apiUrls.access,
     environment.apiUrls.data,
-    environment.apiUrls.store,
-    environment.apiUrls.session
+    environment.apiUrls.public,
+    environment.apiUrls.account
   ];
   private readonly regexps: RegExp[] = [];
 
