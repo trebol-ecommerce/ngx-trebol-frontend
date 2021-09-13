@@ -47,7 +47,7 @@ export class StoreProductDetailsDialogComponent
 
     this.storeService.cartDetails$.subscribe(
       details => {
-        const index = details.findIndex(d => d.product?.id === this.product.id);
+        const index = details.findIndex(d => d.product?.barcode === this.product.barcode);
         if (index !== -1) {
 
           this.matchingCartSellDetailSource.next(details[index]);

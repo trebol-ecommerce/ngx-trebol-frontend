@@ -3,20 +3,35 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Image } from 'src/app/models/entities/Image';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
-import { IEntityDataApiService } from '../../entity.data-api.iservice';
 
 @Injectable()
 export class ImagesDataHttpApiService
   extends TransactionalEntityDataHttpApiService<Image> {
 
-  baseUrl = `${super.baseUrl}/images`;
-
   constructor(http: HttpClient) {
-    super(http);
+    super(http, '/images');
+  }
+
+  fetchExisting(image: Partial<Image>) {
+    return this.http.get<Image>(
+      `${this.baseUrl}/${image.filename}`
+    );
+  }
+
+  update(image: Partial<Image>) {
+    return this.http.put(
+      `${this.baseUrl}/${image.filename}`,
+      image
+    );
+  }
+
+  delete(image: Partial<Image>) {
+    return this.http.delete(
+      `${this.baseUrl}/${image.filename}`
+    );
   }
 }

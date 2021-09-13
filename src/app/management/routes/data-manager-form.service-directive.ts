@@ -13,14 +13,14 @@ import { AbstractEntity } from 'src/app/models/AbstractEntity';
  * Base class for data form component services.
  */
 @Directive()
-export abstract class DataManagerFormServiceDirective<T extends AbstractEntity>
+export abstract class DataManagerFormServiceDirective<T>
   implements OnDestroy {
 
   protected abstract dataService: IEntityDataApiService<T>;
 
   protected savingSource: Subject<boolean> = new BehaviorSubject(false);
   public saving$: Observable<boolean> = this.savingSource.asObservable();
-
+  isNewItem: boolean;
 
   ngOnDestroy(): void {
     this.savingSource.complete();
@@ -28,7 +28,7 @@ export abstract class DataManagerFormServiceDirective<T extends AbstractEntity>
 
   public submit(item: T): Observable<boolean> {
     this.savingSource.next(true);
-    const doSubmit = ((item.id) ? this.dataService.update(item, item.id) : this.dataService.create(item));
+    const doSubmit = ((this.isNewItem) ? this.dataService.create(item) : this .dataService.update(item));
     return doSubmit.pipe(
       catchError(() => of(null)),
       tap(() => { this.savingSource.next(false); }),

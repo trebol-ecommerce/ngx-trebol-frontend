@@ -14,9 +14,8 @@ import { DataManagerFormDialogData } from './DataManagerFormDialogData';
  * Base class for data form component templates.
  */
 @Directive()
-export abstract class DataManagerFormComponentDirective<T extends AbstractEntity> {
+export abstract class DataManagerFormComponentDirective<T> {
   protected abstract data: DataManagerFormDialogData<T>;
-  protected abstract itemId: number;
   protected abstract service: DataManagerFormServiceDirective<T>;
   public abstract saving$: Observable<boolean>;
   public abstract formGroup: FormGroup;

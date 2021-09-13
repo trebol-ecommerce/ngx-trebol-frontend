@@ -17,4 +17,12 @@ export class SalespeopleDataLocalMemoryApiService
   constructor() {
     super();
   }
+
+  protected itemExists(salesperson: Partial<Salesperson>) {
+    return this.items.some(salesperson2 => (salesperson.person.idCard === salesperson2.person.idCard));
+  }
+
+  protected getIndexOfItem(customer: Partial<Salesperson>) {
+    return this.items.findIndex(salesperson2 => (customer.person.idCard === salesperson2.person.idCard));
+  }
 }

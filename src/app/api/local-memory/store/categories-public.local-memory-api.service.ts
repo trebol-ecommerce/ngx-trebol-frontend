@@ -23,7 +23,7 @@ export class CategoriesPublicLocalMemoryApiService
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) private dataService: EntityDataLocalMemoryApiService<Product>
   ) {
-    this.dataService.readAll().subscribe(response => {
+    this.dataService.fetchPage().subscribe(response => {
       this.items = response.items;
     });
   }

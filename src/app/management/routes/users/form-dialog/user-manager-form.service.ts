@@ -24,8 +24,8 @@ export class UserManagerFormService
     super();
   }
 
-  getUserDetails(id: number): Observable<User> {
-    return this.dataService.readById(id);
+  getUserDetails(user: User): Observable<User> {
+    return this.dataService.fetchExisting(user);
   }
 
   public getPeople(): Observable<Person[]> {

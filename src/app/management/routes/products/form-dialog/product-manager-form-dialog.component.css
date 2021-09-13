@@ -26,8 +26,8 @@ form {
   .images {
     grid-area: images;
   }
-  .code {
-    grid-area: code;
+  .barcode {
+    grid-area: barcode;
   }
   .name {
     grid-area: name;
@@ -57,7 +57,7 @@ form {
   form {
     grid-template-areas:
       'images images images'
-      'code name name'
+      'barcode name name'
       'family family family'
       'type type type'
       'price stock cStock'

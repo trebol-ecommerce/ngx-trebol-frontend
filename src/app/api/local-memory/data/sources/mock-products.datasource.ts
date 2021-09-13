@@ -3,7 +3,6 @@ import { MOCK_PRODUCT_CATEGORIES } from './mock-product-categories.datasource';
 
 export const MOCK_PRODUCTS: Partial<Product>[] = [
   {
-    id: 1,
     name: 'Zapatillas Nike Air Jordan Azul/Negro',
     barcode: 'NIKE-AZLNGR-1',
     price: 14990,
@@ -19,7 +18,6 @@ export const MOCK_PRODUCTS: Partial<Product>[] = [
     ]
   },
   {
-    id: 2,
     name: 'Zapatillas Nike Hi-Top Rojo/Negro',
     barcode: 'NIKE-ROJNGR-1',
     price: 14990,
@@ -35,7 +33,6 @@ export const MOCK_PRODUCTS: Partial<Product>[] = [
     ]
   },
   {
-    id: 3,
     name: 'Zapatillas Nike Hi-Top Rojo/Blanco',
     barcode: 'NIKE-ROJBCO-1',
     price: 13990,

@@ -15,15 +15,19 @@ import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-m
 describe('ProductManagerFormDialogComponent', () => {
   let component: ProductManagerFormDialogComponent;
   let fixture: ComponentFixture<ProductManagerFormDialogComponent>;
-  let service: Partial<ProductManagerFormService>;
+  let mockService: Partial<ProductManagerFormService>;
+  let mockDialogRef: Partial<MatDialogRef<ProductManagerFormDialogComponent>>;
 
   beforeEach(waitForAsync(() => {
-    service = {
+    mockService = {
       saving$: of(false),
       categories$: of([]),
       getAllRootProductCategories() { return of([]); },
       updateSelectedCategory(i) {},
       submit(i) { return of(true); }
+    };
+    mockDialogRef = {
+      close() { }
     };
 
     TestBed.configureTestingModule({
@@ -36,14 +40,14 @@ describe('ProductManagerFormDialogComponent', () => {
       declarations: [ ProductManagerFormDialogComponent ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },
-        { provide: MatDialogRef, useValue: {} }
+        { provide: ProductManagerFormService, useValue: mockService },
+        { provide: MatDialogRef, useValue: mockDialogRef }
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    TestBed.overrideProvider(ProductManagerFormService, { useValue: service });
     fixture = TestBed.createComponent(ProductManagerFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

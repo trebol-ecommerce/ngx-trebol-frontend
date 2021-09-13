@@ -7,29 +7,29 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { HttpApiService } from './http-api.abstract.service';
 import { DataPage } from 'src/app/models/DataPage';
+import { Observable } from 'rxjs';
 
-export abstract class ReadOnlyEntityDataHttpApiService<T>
+export abstract class EntityDataHttpApiService<T>
   extends HttpApiService {
 
   baseUrl = environment.apiUrls.data;
 
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient, urlSuffix?: string) {
     super(http);
+    if (urlSuffix) {
+      this.baseUrl += urlSuffix;
+    }
   }
 
-  readById(id: number) {
-    return this.http.get<T>(
-      `${this.baseUrl}/${id}`
-    );
-  }
+  abstract fetchExisting(itemLike: Partial<T>): Observable<T>;
 
-  readAll() {
+  fetchPage() {
     return this.http.get<DataPage<T>>(
       this.baseUrl
     );
   }
 
-  readFiltered(filters: any) {
+  fetchPageFilteredBy(filters: any) {
     return this.http.get<DataPage<T>>(
       this.baseUrl,
       {

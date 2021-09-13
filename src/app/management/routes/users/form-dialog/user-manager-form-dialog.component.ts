@@ -124,7 +124,7 @@ export class UserManagerFormDialogComponent
 
   private getPromptedUserDetails(): Observable<User> {
     return (!!this.data?.item ?
-      this.service.getUserDetails(this.data.item.id) :
+      this.service.getUserDetails(this.data.item) :
       of(new User())
     );
   }

@@ -61,9 +61,9 @@ export class StoreCatalogService
   protected checkRouteForProductIdParam(): void {
     this.route.queryParamMap.subscribe(
       (params) => {
-        if (params.has('id')) {
-          const id = Number(params.get('id'));
-          this.storeApiService.fetchProductById(id).pipe(
+        if (params.has('barcode')) {
+          const barcode = params.get('barcode');
+          this.storeApiService.fetchProductByBarcode(barcode).pipe(
             concatMap(p => this.promptProductDetails(p))
           ).subscribe();
         }
@@ -98,7 +98,7 @@ export class StoreCatalogService
       [],
       {
         relativeTo: this.route,
-        queryParams: { id: p.id },
+        queryParams: { barcode: p.barcode },
         queryParamsHandling: 'merge'
       }
     );

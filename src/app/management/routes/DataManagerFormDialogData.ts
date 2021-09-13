@@ -1,5 +1,3 @@
-import { AbstractEntity } from 'src/app/models/AbstractEntity';
-
-export interface DataManagerFormDialogData<T extends AbstractEntity> {
+export interface DataManagerFormDialogData<T> {
   item: T;
 }

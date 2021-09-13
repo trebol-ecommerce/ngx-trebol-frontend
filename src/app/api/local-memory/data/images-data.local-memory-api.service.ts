@@ -17,4 +17,12 @@ export class ImagesDataLocalMemoryApiService
   constructor() {
     super();
   }
+
+  protected itemExists(image: Partial<Image>) {
+    return this.items.some(image2 => (image.filename === image2.filename));
+  }
+
+  protected getIndexOfItem(image: Partial<Image>) {
+    return this.items.findIndex(image2 => (image.filename === image2.filename));
+  }
 }

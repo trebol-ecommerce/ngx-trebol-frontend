@@ -13,7 +13,7 @@ import { Receipt } from 'src/app/models/entities/Receipt';
 import { DataPage } from '../models/DataPage';
 
 export interface IStoreApiService {
-  fetchProductById(id: number): Observable<Product>;
+  fetchProductByBarcode(barcode: string): Observable<Product>;
   fetchStoreFrontProductCollection(): Observable<DataPage<Product>>;
   fetchFilteredProductCollection(filters: ProductFilters): Observable<DataPage<Product>>;
   fetchCompanyDetails(): Observable<CompanyDetails>;

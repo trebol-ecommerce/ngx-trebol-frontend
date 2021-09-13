@@ -3,22 +3,36 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { User } from 'src/app/models/entities/User';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
 import { IEntityDataApiService } from '../../entity.data-api.iservice';
-import { DataPage } from 'src/app/models/DataPage';
 
 @Injectable()
 export class UsersDataHttpApiService
   extends TransactionalEntityDataHttpApiService<User>
   implements IEntityDataApiService<User> {
 
-  baseUrl = `${super.baseUrl}/users`;
-
   constructor(http: HttpClient) {
-    super(http);
+    super(http, '/users');
+  }
+
+  fetchExisting(user: Partial<User>) {
+    return this.http.get<User>(
+      `${this.baseUrl}/${user.name}`
+    );
+  }
+
+  update(user: Partial<User>) {
+    return this.http.get(
+      `${this.baseUrl}/${user.name}`
+    );
+  }
+
+  delete(user: Partial<User>) {
+    return this.http.get(
+      `${this.baseUrl}/${user.name}`
+    );
   }
 }

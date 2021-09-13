@@ -4,13 +4,10 @@
 // https://opensource.org/licenses/MIT
 
 import { Injectable } from '@angular/core';
-import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { Product } from 'src/app/models/entities/Product';
+import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
-import { Observable, of } from 'rxjs';
-import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { MOCK_PRODUCTS } from './sources/mock-products.datasource';
-import { MOCK_PRODUCT_CATEGORIES } from './sources/mock-product-categories.datasource';
 
 @Injectable()
 export class ProductsDataLocalMemoryApiService
@@ -22,10 +19,7 @@ export class ProductsDataLocalMemoryApiService
     super();
   }
 
-  public readProductTypes(): Observable<ProductCategory[]> {
-    return of(MOCK_PRODUCT_CATEGORIES);
-  }
-
+  // TODO update accepted query params
   protected filterItems(filter: ProductFilters): Product[] {
     let matchingItems = this.items;
     if (filter.name) {
@@ -40,5 +34,13 @@ export class ProductsDataLocalMemoryApiService
     }
 
     return matchingItems;
+  }
+
+  protected itemExists(product: Partial<Product>) {
+    return this.items.some(product2 => (product.barcode === product2.barcode));
+  }
+
+  protected getIndexOfItem(product: Partial<Product>) {
+    return this.items.findIndex(product2 => (product.barcode === product2.barcode));
   }
 }

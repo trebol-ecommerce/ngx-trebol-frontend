@@ -19,7 +19,7 @@ describe('StoreCatalogService', () => {
 
   beforeEach(() => {
     mockStoreApiService = {
-      fetchProductById() { return EMPTY; },
+      fetchProductByBarcode() { return EMPTY; },
       fetchFilteredProductCollection() {
         return of({
           items: [],

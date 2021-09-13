@@ -10,22 +10,39 @@ import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ICompositeEntityDataApiService } from '../../composite-entity.data-api.iservice';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
-import { DataPage } from 'src/app/models/DataPage';
 
 @Injectable()
 export class SalesDataHttpApiService
   extends TransactionalEntityDataHttpApiService<Sell>
   implements ICompositeEntityDataApiService<Sell, SellDetail> {
 
-  baseUrl = `${super.baseUrl}/sales`;
-
   constructor(http: HttpClient) {
-    super(http);
+    super(http, '/sales');
   }
 
-  public readDetailsById(id: number) {
-    return this.readById(id).pipe(
+  fetchExisting(sell: Partial<Sell>) {
+    return this.http.get<Sell>(
+      `${this.baseUrl}/${sell.id}`
+    );
+  }
+
+  fetchInnerDataFrom(item: Sell) {
+    return this.fetchExisting(item).pipe(
       map(s => s.details)
     );
   }
+
+  update(sell: Partial<Sell>) {
+    return this.http.put(
+      `${this.baseUrl}/${sell.id}`,
+      sell
+    );
+  }
+
+  delete(sell: Partial<Sell>) {
+    return this.http.delete(
+      `${this.baseUrl}/${sell.id}`
+    );
+  }
+
 }

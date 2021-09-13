@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
@@ -23,9 +23,17 @@ export class SalesDataLocalMemoryApiService
     super();
   }
 
-  public readDetailsById(id: number): Observable<SellDetail[]> {
-    return this.readById(id).pipe(
+  fetchInnerDataFrom(sell: Sell) {
+    return this.fetchExisting(sell).pipe(
       map(s => s.details)
     );
+  }
+
+  protected itemExists(sell: Partial<Sell>) {
+    return this.items.some(sell2 => (sell.id === sell2.id));
+  }
+
+  protected getIndexOfItem(sell: Partial<Sell>) {
+    return this.items.findIndex(sell2 => (sell.id === sell2.id));
   }
 }

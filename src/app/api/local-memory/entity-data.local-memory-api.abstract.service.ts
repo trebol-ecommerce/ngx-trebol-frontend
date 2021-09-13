@@ -4,7 +4,6 @@
 // https://opensource.org/licenses/MIT
 
 import { IEntityDataApiService } from '../entity.data-api.iservice';
-import { AbstractEntity } from 'src/app/models/AbstractEntity';
 import { Observable, of } from 'rxjs';
 import {
   matchesStringProperty,
@@ -17,15 +16,16 @@ import { DataPage } from 'src/app/models/DataPage';
 /**
  * Base class for a fully-working CRUD service in the local (client) memory.
  */
-export abstract class EntityDataLocalMemoryApiService<T extends AbstractEntity>
+export abstract class EntityDataLocalMemoryApiService<T>
   implements IEntityDataApiService<T> {
 
   protected abstract items: T[];
+  protected abstract itemExists(itemLike: Partial<T>): boolean;
+  protected abstract getIndexOfItem(itemLike: Partial<T>): number;
 
   /**
-   * From the entire item collection, for each property and value in the provided object,
-   * filters all items matching the value in the property.
-   * It then returns a non-repeated
+   * Iterates each key-value property pair in the provided object,
+   * filters all items matching the same properties.
    */
   protected filterItems(filter: any): T[] {
     let matchingItems = this.items;
@@ -49,24 +49,15 @@ export abstract class EntityDataLocalMemoryApiService<T extends AbstractEntity>
     return matchingItems;
   }
 
-  /**
-   * Insert an item in the collection and generate its ID. Then emit the updated item.
-   * Emit a 400 error if the item comes with an ID of its own.
-   */
-  public create(d: T): Observable<void> {
-    return new Observable(
+  create(item: T) {
+    return new Observable<void>(
       observer => {
-        if (d.id) {
+        if (this.itemExists(item)) {
           observer.error({ status: 400 });
         }
-
-        const devicesById = this.items.sort((a, b) => ((a.id as number) - (b.id as number)));
-        const highestId = devicesById[this.items.length - 1].id as number;
-        d.id = highestId + 1;
-        this.items.push(d);
+        this.items.push(item);
         observer.next();
         observer.complete();
-
         return {
           unsubscribe() { }
         };
@@ -74,52 +65,32 @@ export abstract class EntityDataLocalMemoryApiService<T extends AbstractEntity>
     );
   }
 
-  /**
-   * Get the item of the collection that matches the given numeric ID. Then emit that item.
-   * Emit a 404 error if none is found.
-   */
-  public readById(id: number): Observable<T> {
-    return new Observable(
-      observer => {
-        const index = this.items.findIndex(d => d.id === id);
-        if (index === -1) {
-          observer.error({ status: 404 });
-        }
 
-        observer.next(this.items[index]);
-        observer.complete();
-
-        return {
-          unsubscribe() {}
-        };
-      }
-    );
+  fetchExisting(itemLike: Partial<T>) {
+    const index = this.getIndexOfItem(itemLike);
+    return of<T>(this.items[index]);
   }
 
   /**
    * Get the entire collection and emit it.
    * //TODO paging would be nice
    */
-  public readAll(): Observable<DataPage<T>> {
-    return of({
-      items: this.items,
+  fetchPage() {
+    return of<DataPage<T>>({
+      items: this.items.slice(0, 9),
       totalCount: this.items.length,
       pageIndex: 0,
-      pageSize: this.items.length
+      pageSize: 10
     });
   }
 
-  /**
-   * Filter the collection's items by matching their properties with those of the provided filter object. Then emit the resulting subset.
-   * //TODO paging would be nice
-   */
-  public readFiltered(filter: any): Observable<DataPage<T>> {
-    return new Observable(
+  fetchPageFilteredBy(filters: any) {
+    return new Observable<DataPage<T>>(
       observer => {
-        const matchingItems = this.filterItems(filter);
+        const matchingItems = this.filterItems(filters);
         observer.next({
-          items: this.items.slice(0, 9),
-          totalCount: this.items.length,
+          items: matchingItems.slice(0, 9),
+          totalCount: matchingItems.length,
           pageIndex: 0,
           pageSize: 10
         });
@@ -132,26 +103,17 @@ export abstract class EntityDataLocalMemoryApiService<T extends AbstractEntity>
     );
   }
 
-  /**
-   * Replace the item matching the ID with a new item. Then emit the new item.
-   * Emit a 400 error if the new item has no ID itself.
-   * Emit a 404 error if no item matches the provided ID.
-   */
-  public update(d: T, id: number): Observable<void> {
-    return new Observable(
+  update(d: T) {
+    return new Observable<void>(
       observer => {
-        // if (!!d.id) {
-        //   observer.error({ status: 400 });
-        // }
-
-        const indexInDb = this.items.findIndex(dv => dv.id === id);
-        if (indexInDb === -1) {
+        const existingItem = this.fetchExisting(d);
+        if (existingItem === null) {
           observer.error({ status: 404 });
+        } else {
+          Object.assign(existingItem, d);
+          observer.next();
+          observer.complete();
         }
-
-        this.items[indexInDb] = d;
-        observer.next();
-        observer.complete();
 
         return {
           unsubscribe() { }
@@ -160,20 +122,17 @@ export abstract class EntityDataLocalMemoryApiService<T extends AbstractEntity>
     );
   }
 
-  /**
-   * Match and delete the item with the provided ID. Then emit.
-   * Emit a 404 error if the match could not be made.
-   */
-  public deleteById(id: number): Observable<void> {
-    return new Observable(
+  delete(item: Partial<T>) {
+    return new Observable<void>(
       observer => {
-        const indexInDb = this.items.findIndex(dv => dv.id === id);
-        if (indexInDb === -1) {
+        const index = this.getIndexOfItem(item);
+        if (index === -1) {
           observer.error({ status: 404 });
+        } else {
+          this.items.splice(index, 1);
+          observer.next();
+          observer.complete();
         }
-        this.items.splice(indexInDb, 1);
-        observer.next();
-        observer.complete();
 
         return {
           unsubscribe() { }

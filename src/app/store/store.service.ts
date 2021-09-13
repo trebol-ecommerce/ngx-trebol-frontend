@@ -58,12 +58,12 @@ export class StoreService
     this.sellDetailsSource.next([]);
   }
 
-  protected findSellDetailsIndexByProductId(id: number): number {
-    return this.sellDetails.findIndex(d => d.product?.id === id);
+  protected findSellDetailsIndexByProductBarcode(barcode: string): number {
+    return this.sellDetails.findIndex(d => d.product?.barcode === barcode);
   }
 
   public addProductToCart(product: Product): void {
-    const index: number = this.findSellDetailsIndexByProductId(product.id);
+    const index: number = this.findSellDetailsIndexByProductBarcode(product.barcode);
 
     if (index !== -1) {
       const matchingSellDetail = this.sellDetails[index];

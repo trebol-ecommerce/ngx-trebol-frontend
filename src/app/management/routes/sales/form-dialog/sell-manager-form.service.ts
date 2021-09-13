@@ -59,18 +59,18 @@ export class SellManagerFormService
   }
 
   public getAllSalespeople(): Observable<Salesperson[]> {
-    return this.salespeopleDataService.readAll().pipe(map(response => response.items));
+    return this.salespeopleDataService.fetchPage().pipe(map(response => response.items));
   }
 
   public getAllCustomers(): Observable<Customer[]> {
-    return this.customersDataService.readAll().pipe(map(response => response.items));
+    return this.customersDataService.fetchPage().pipe(map(response => response.items));
   }
 
-  public refreshSellDetailsFromId(id: number): void {
-    this.dataService.readDetailsById(id).pipe(
+  public refreshSellDetailsFrom(sell: Partial<Sell>): void {
+    this.dataService.fetchInnerDataFrom(sell).pipe(
       switchMap(sellDetails => from(sellDetails)),
       concatMap(
-        detail => this.productDataService.readById(detail.product.id).pipe(
+        detail => this.productDataService.fetchExisting(detail.product).pipe(
           map((product) => {
             detail.product = product;
             return detail;

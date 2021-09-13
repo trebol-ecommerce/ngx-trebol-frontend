@@ -16,19 +16,19 @@ import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
  * model classes' instances and easily operate with their related CRUD API.
  */
 @Directive()
-export abstract class DataManagerServiceDirective<T extends AbstractEntity>
+export abstract class DataManagerServiceDirective<T>
   implements OnDestroy {
 
   protected abstract dataService: IEntityDataApiService<T>;
 
-  protected focusedItemsSource: Subject<T[]> = new BehaviorSubject([]);
-  protected itemsSource: Subject<T[]> = new ReplaySubject();
-  protected loadingSource: Subject<boolean> = new BehaviorSubject(false);
-  protected authorizedAccessSource: Subject<AuthorizedAccess> = new ReplaySubject();
+  protected focusedItemsSource = new BehaviorSubject<T[]>([]);
+  protected itemsSource = new ReplaySubject<T[]>();
+  protected loadingSource = new BehaviorSubject(false);
+  protected authorizedAccessSource = new ReplaySubject<AuthorizedAccess>();
 
-  public focusedItems$: Observable<T[]> = this.focusedItemsSource.asObservable();
-  public items$: Observable<T[]> = this.itemsSource.asObservable();
-  public loading$: Observable<boolean> = this.loadingSource.asObservable();
+  public focusedItems$ = this.focusedItemsSource.asObservable();
+  public items$ = this.itemsSource.asObservable();
+  public loading$ = this.loadingSource.asObservable();
 
   public canEdit$: Observable<boolean>;
   public canAdd$: Observable<boolean>;
@@ -41,7 +41,7 @@ export abstract class DataManagerServiceDirective<T extends AbstractEntity>
   }
 
   public get focusedItems(): T[] {
-    return (this.focusedItemsSource as BehaviorSubject<T[]>)?.getValue();
+    return this.focusedItemsSource.getValue();
   }
   public set focusedItems(i: T[]) {
     this.focusedItemsSource.next(i);
@@ -57,7 +57,7 @@ export abstract class DataManagerServiceDirective<T extends AbstractEntity>
   public reloadItems(): void {
     this.focusedItemsSource.next([]);
     this.loadingSource.next(true);
-    this.dataService.readAll().pipe(
+    this.dataService.fetchPage().pipe(
       delay(0),
       tap(response => { this.itemsSource.next(response.items); }),
       finalize(() => { this.loadingSource.next(false); })
@@ -68,7 +68,7 @@ export abstract class DataManagerServiceDirective<T extends AbstractEntity>
   public removeItems(items: T[]): Observable<boolean[]> {
     this.focusedItems = items;
     return from(items).pipe(
-      mergeMap(item => this.dataService.deleteById(item.id).pipe(mapTo(true), catchError(() => of(false)))),
+      mergeMap(item => this.dataService.delete(item).pipe(mapTo(true), catchError(() => of(false)))),
       toArray(),
       tap(
         (results) => {

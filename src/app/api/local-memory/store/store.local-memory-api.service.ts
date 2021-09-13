@@ -28,7 +28,7 @@ export class StoreLocalMemoryApiService
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) private dataService: EntityDataLocalMemoryApiService<Product>
   ) {
-    this.dataService.readAll().subscribe(response => {
+    this.dataService.fetchPage().subscribe(response => {
       this.items = response.items;
     });
   }
@@ -50,10 +50,10 @@ export class StoreLocalMemoryApiService
     return matchingItems;
   }
 
-  public fetchProductById(id: number): Observable<Product> {
+  public fetchProductByBarcode(barcode: string): Observable<Product> {
     return new Observable(
       observer => {
-        const index = this.items.findIndex(d => d.id === id);
+        const index = this.items.findIndex(d => d.barcode === barcode);
         if (index === -1) {
           observer.error({ status: 404 });
         }

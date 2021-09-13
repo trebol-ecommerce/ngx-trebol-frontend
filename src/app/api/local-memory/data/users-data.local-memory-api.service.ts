@@ -19,4 +19,12 @@ export class UsersDataLocalMemoryApiService
   constructor() {
     super();
   }
+
+  protected itemExists(user: Partial<User>) {
+    return this.items.some(user2 => (user.name === user2.name));
+  }
+
+  protected getIndexOfItem(user: Partial<User>) {
+    return this.items.findIndex(user2 => (user.name === user2.name));
+  }
 }

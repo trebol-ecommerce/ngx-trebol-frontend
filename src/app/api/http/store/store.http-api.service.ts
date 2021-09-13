@@ -28,9 +28,9 @@ export class StoreHttpApiService
     super(http);
   }
 
-  public fetchProductById(id: number) {
+  fetchProductByBarcode(barcode: string) {
     return this.http.get<Product>(
-      `${this.baseUrl}/products/${id}`
+      `${this.baseUrl}/products/${barcode}`
     );
   }
 

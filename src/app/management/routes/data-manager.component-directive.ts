@@ -16,7 +16,7 @@ import { DataManagerServiceDirective } from './data-manager.service-directive';
  * which will be used to view and edit the stored data (or insert new).
  */
 @Directive()
-export abstract class DataManagerComponentDirective<T extends AbstractEntity> {
+export abstract class DataManagerComponentDirective<T> {
 
   public loading$: Observable<boolean>;
   public busy$: Observable<boolean>;

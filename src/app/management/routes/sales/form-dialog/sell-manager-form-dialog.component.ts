@@ -80,15 +80,15 @@ export class SellManagerFormDialogComponent
     if (s.type?.id) {
       this.type.setValue(s.type.id, { emitEvent: false, onlySelf: true });
     }
-    if (s.customer?.id) {
-      this.customer.setValue(s.customer.id, { emitEvent: false, onlySelf: true });
+    if (s.customer?.person.idCard) {
+      this.customer.setValue(s.customer.person.idCard, { emitEvent: false, onlySelf: true });
     }
-    if (s.salesperson?.id) {
-      this.salesperson.setValue(s.salesperson.id, { emitEvent: false, onlySelf: true });
+    if (s.salesperson?.person.idCard) {
+      this.salesperson.setValue(s.salesperson.person.idCard, { emitEvent: false, onlySelf: true });
     }
 
-    if (this.itemId) {
-      this.service.refreshSellDetailsFromId(this.itemId);
+    if (s.id) {
+      this.service.refreshSellDetailsFrom(s);
     }
   }
 

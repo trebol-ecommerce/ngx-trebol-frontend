@@ -12,7 +12,7 @@ describe('ImagesService', () => {
 
   beforeEach(() => {
     mockDataService = {
-      readAll() {
+      fetchPage() {
         return of({
           items: [],
           totalCount: 0,
@@ -48,7 +48,7 @@ describe('ImagesService', () => {
   it('should re-cache after calling fetch()', () => {
     const exampleImageArray: Image[] = [ { url: 'fake', filename: 'example', id: 'fake' } ];
     mockDataService = {
-      readAll() {
+      fetchPage() {
         return of({
           items: exampleImageArray,
           totalCount: 1,

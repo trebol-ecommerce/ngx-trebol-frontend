@@ -10,5 +10,5 @@ import { AbstractEntity } from 'src/app/models/AbstractEntity';
 export interface ICompositeEntityDataApiService<T extends AbstractEntity, X extends AbstractEntity>
   extends IEntityDataApiService<T> {
 
-  readDetailsById(id: number): Observable<X[]>;
+  fetchInnerDataFrom(itemLike: Partial<T>): Observable<X[]>;
 }

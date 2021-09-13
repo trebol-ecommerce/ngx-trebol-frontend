@@ -28,13 +28,11 @@ export class ProductManagerFormDialogComponent
   extends DataManagerFormComponentDirective<Product>
   implements OnInit {
 
-  protected itemId: number;
-
   public saving$: Observable<boolean>;
   categories$: Observable<ProductCategory[]>;
 
   public formGroup: FormGroup;
-  public get code(): FormControl { return this.formGroup.get('code') as FormControl; }
+  public get barcode(): FormControl { return this.formGroup.get('barcode') as FormControl; }
   public get name(): FormControl { return this.formGroup.get('name') as FormControl; }
   public get category(): FormControl { return this.formGroup.get('category') as FormControl; }
   public get price(): FormControl { return this.formGroup.get('price') as FormControl; }
@@ -43,7 +41,7 @@ export class ProductManagerFormDialogComponent
   public get description(): FormControl { return this.formGroup.get('description') as FormControl; }
 
   public images: Image[];
-  public get dialogTitle(): string { return ((this.data?.item?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Producto'; }
+  public get dialogTitle(): string { return ((this.data?.item?.barcode) ? 'Actualizar datos de' : 'Nuevo') + ' Producto'; }
 
   constructor(
     @Inject(MAT_DIALOG_DATA) protected data: DataManagerFormDialogData<Product>,
@@ -55,7 +53,7 @@ export class ProductManagerFormDialogComponent
   ) {
     super();
     this.formGroup = this.formBuilder.group({
-      code: ['', Validators.required],
+      barcode: ['', Validators.required],
       name: ['', Validators.required],
       category: ['', Validators.required],
       price: ['', Validators.required],
@@ -69,10 +67,8 @@ export class ProductManagerFormDialogComponent
   }
 
   protected load(p: Product): void {
-    this.itemId = p.id ? p.id : 0;
-
     this.name.setValue(p.name, { emitEvent: false, onlySelf: true });
-    this.code.setValue(p.barcode, { emitEvent: false, onlySelf: true });
+    this.barcode.setValue(p.barcode, { emitEvent: false, onlySelf: true });
     this.price.setValue(p.price, { emitEvent: false, onlySelf: true });
     this.stock.setValue(p.currentStock, { emitEvent: false, onlySelf: true });
     this.criticalStock.setValue(p.criticalStock, { emitEvent: false, onlySelf: true });
@@ -106,14 +102,13 @@ export class ProductManagerFormDialogComponent
       return Object.assign<Product, Partial<Product>>(
         new Product(),
         {
-          id: this.itemId,
           category: { code: this.category.value },
           name: this.name.value,
           price: this.price.value,
           currentStock: this.stock.value,
           criticalStock: this.criticalStock.value,
           description: this.description.value,
-          barcode: this.code.value,
+          barcode: this.barcode.value,
           images: this.images
         }
       );
@@ -145,11 +140,7 @@ export class ProductManagerFormDialogComponent
       this.service.submit(item).subscribe(
         success => {
           if (success) {
-            if (item.id) {
-              this.snackBarService.open(`Producto ${item.name} actualizado exitosamente`, 'OK');
-            } else {
-              this.snackBarService.open(`Producto ${item.name} registrado exitosamente`, 'OK');
-            }
+            this.snackBarService.open(`Producto ${item.name} actualizado exitosamente`, 'OK');
             this.dialog.close(item);
           } else {
             this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');

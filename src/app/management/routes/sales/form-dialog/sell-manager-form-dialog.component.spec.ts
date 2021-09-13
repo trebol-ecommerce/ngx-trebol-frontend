@@ -20,7 +20,7 @@ describe('SellManagerFormDialogComponent', () => {
   beforeEach(waitForAsync(() => {
     service = {
       saving$: of(false),
-      refreshSellDetailsFromId(i) {},
+      refreshSellDetailsFrom(i) {},
       getAllSellTypes() { return of([]); },
       getAllSalespeople() { return of([]); },
       getAllCustomers() { return of([]); },

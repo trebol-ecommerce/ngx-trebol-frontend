@@ -1,4 +1,5 @@
 import { Sell } from 'src/app/models/entities/Sell';
+import { MOCK_PRODUCTS } from './mock-products.datasource';
 
 export const MOCK_SALES: Partial<Sell>[] = [
   {
@@ -6,8 +7,8 @@ export const MOCK_SALES: Partial<Sell>[] = [
     soldOn: '2020-06-16',
     salesperson: { id: 1 },
     details: [
-      { id: 1, product: { id: 1 }, units: 4 },
-      { id: 2, product: { id: 2 }, units: 1 },
+      { id: 1, product: MOCK_PRODUCTS[0], units: 4 },
+      { id: 2, product: MOCK_PRODUCTS[1], units: 1 },
     ]
   },
   {
@@ -15,7 +16,7 @@ export const MOCK_SALES: Partial<Sell>[] = [
     soldOn: '2020-06-18',
     salesperson: { id: 1 },
     details: [
-      { id: 3, product: { id: 3 }, units: 2 },
+      { id: 3, product: MOCK_PRODUCTS[0], units: 2 },
     ]
   },
   {
@@ -23,7 +24,7 @@ export const MOCK_SALES: Partial<Sell>[] = [
     soldOn: '2020-06-18',
     salesperson: { id: 1 },
     details: [
-      { id: 4, product: { id: 2 }, units: 1 },
+      { id: 4, product: MOCK_PRODUCTS[1], units: 1 },
     ]
   },
   {
@@ -31,7 +32,7 @@ export const MOCK_SALES: Partial<Sell>[] = [
     soldOn: '2020-06-22',
     salesperson: { id: 3 },
     details: [
-      { id: 5, product: { id: 1 }, units: 2 },
+      { id: 5, product: MOCK_PRODUCTS[0], units: 2 },
     ]
   },
   {
@@ -39,8 +40,8 @@ export const MOCK_SALES: Partial<Sell>[] = [
     soldOn: '2020-07-03',
     salesperson: { id: 5 },
     details: [
-      { id: 6, product: { id: 1 }, units: 1 },
-      { id: 7, product: { id: 3 }, units: 1 },
+      { id: 6, product: MOCK_PRODUCTS[0], units: 1 },
+      { id: 7, product: MOCK_PRODUCTS[2], units: 1 },
     ]
   }
 ];

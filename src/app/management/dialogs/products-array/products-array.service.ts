@@ -30,9 +30,9 @@ export class ProductsArrayService {
       concatMap(
         (filters: ProductFilters) => {
           if (JSON.stringify(filters) !== '{}') {
-            return this.productDataService.readFiltered(filters);
+            return this.productDataService.fetchPageFilteredBy(filters);
           } else {
-            return this.productDataService.readAll();
+            return this.productDataService.fetchPage();
           }
         }
       ),
