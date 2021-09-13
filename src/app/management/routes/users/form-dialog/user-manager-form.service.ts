@@ -9,17 +9,17 @@ import { DataManagerFormServiceDirective } from '../../data-manager-form.service
 import { Person } from 'src/app/models/entities/Person';
 import { User } from 'src/app/models/entities/User';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { IUserRolesDataApiService } from 'src/app/api/user-roles.data-api.iservice';
 import { UserRole } from 'src/app/models/entities/UserRole';
 import { IPeopleDataApiService } from 'src/app/api/people.data-api.iservice';
+import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 
 @Injectable()
 export class UserManagerFormService
   extends DataManagerFormServiceDirective<User> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataUsers) public dataService: IEntityDataApiService<User>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataUsers) public dataService: ITransactionalEntityDataApiService<User>,
     @Inject(API_SERVICE_INJECTION_TOKENS.dataPeople) protected peopleDataApiService: IPeopleDataApiService,
     @Inject(API_SERVICE_INJECTION_TOKENS.dataUserRoles) protected userRolesDataApiService: IUserRolesDataApiService
   ) {

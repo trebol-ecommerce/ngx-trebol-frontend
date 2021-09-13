@@ -8,11 +8,11 @@ import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ICompositeEntityDataApiService } from 'src/app/api/composite-entity.data-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { DataManagerServiceDirective } from '../data-manager.service-directive';
+import { TransactionalDataManagerServiceDirective } from '../transactional-data-manager.service-directive';
 
 @Injectable()
 export class SellManagerService
-  extends DataManagerServiceDirective<Sell> {
+  extends TransactionalDataManagerServiceDirective<Sell> {
 
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.dataSales) protected dataService: ICompositeEntityDataApiService<Sell, SellDetail>

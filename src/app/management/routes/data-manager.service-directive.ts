@@ -4,16 +4,11 @@
 // https://opensource.org/licenses/MIT
 
 import { Directive, OnDestroy } from '@angular/core';
-import { BehaviorSubject, from, Observable, of, Subject, ReplaySubject } from 'rxjs';
-import { catchError, delay, finalize, map, mapTo, mergeMap, startWith, tap, toArray } from 'rxjs/operators';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { delay, finalize, map, tap } from 'rxjs/operators';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 
-/**
- * Base class for data manager services.
- * Through a final EntityCrudIService, this class brings the needed boilerplate for caching
- * model classes' instances and easily operate with their related CRUD API.
- */
 @Directive()
 export abstract class DataManagerServiceDirective<T>
   implements OnDestroy {
@@ -61,22 +56,6 @@ export abstract class DataManagerServiceDirective<T>
       tap(response => { this.itemsSource.next(response.items); }),
       finalize(() => { this.loadingSource.next(false); })
     ).subscribe();
-  }
-
-  /** Delete items contained in the array one by one */
-  public removeItems(items: T[]): Observable<boolean[]> {
-    this.focusedItems = items;
-    return from(items).pipe(
-      mergeMap(item => this.dataService.delete(item).pipe(mapTo(true), catchError(() => of(false)))),
-      toArray(),
-      tap(
-        (results) => {
-          if (results.every(r => r)) {
-            this.focusedItems = [];
-          }
-        }
-      )
-    );
   }
 
   /**

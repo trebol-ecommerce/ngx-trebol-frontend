@@ -6,12 +6,12 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
-import { DataManagerFormServiceDirective } from '../../data-manager-form.service-directive';
 import { Product } from 'src/app/models/entities/Product';
 import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { ICategoriesPublicApiService } from 'src/app/api/categories-public-api.iservice';
+import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
+import { DataManagerFormServiceDirective } from '../../data-manager-form.service-directive';
 
 @Injectable()
 export class ProductManagerFormService
@@ -23,7 +23,7 @@ export class ProductManagerFormService
   categories$: Observable<ProductCategory[]>;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) protected dataService: IEntityDataApiService<Product>,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) protected dataService: ITransactionalEntityDataApiService<Product>,
     @Inject(API_SERVICE_INJECTION_TOKENS.categories) private categoriesApiService: ICategoriesPublicApiService
   ) {
     super();

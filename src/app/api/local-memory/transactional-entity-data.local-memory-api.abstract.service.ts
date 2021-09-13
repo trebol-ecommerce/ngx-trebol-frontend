@@ -3,7 +3,6 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { IEntityDataApiService } from '../entity.data-api.iservice';
 import { Observable, of } from 'rxjs';
 import {
   matchesStringProperty,
@@ -12,12 +11,13 @@ import {
   matchesIdProperty
 } from './entity-data.local-memory-api.functions';
 import { DataPage } from 'src/app/models/DataPage';
+import { ITransactionalEntityDataApiService } from '../transactional-entity.data-api.iservice';
 
 /**
  * Base class for a fully-working CRUD service in the local (client) memory.
  */
-export abstract class EntityDataLocalMemoryApiService<T>
-  implements IEntityDataApiService<T> {
+export abstract class TransactionalEntityDataLocalMemoryApiService<T>
+  implements ITransactionalEntityDataApiService<T> {
 
   protected abstract items: T[];
   protected abstract itemExists(itemLike: Partial<T>): boolean;

@@ -8,9 +8,11 @@ import { environment } from 'src/environments/environment';
 import { HttpApiService } from './http-api.abstract.service';
 import { DataPage } from 'src/app/models/DataPage';
 import { Observable } from 'rxjs';
+import { IEntityDataApiService } from '../entity.data-api.iservice';
 
 export abstract class EntityDataHttpApiService<T>
-  extends HttpApiService {
+  extends HttpApiService
+  implements IEntityDataApiService<T> {
 
   baseUrl = environment.apiUrls.data;
 

@@ -4,17 +4,17 @@
 // https://opensource.org/licenses/MIT
 
 import { Inject, Injectable } from '@angular/core';
-import { User } from 'src/app/models/entities/User';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { DataManagerServiceDirective } from '../data-manager.service-directive';
+import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
+import { User } from 'src/app/models/entities/User';
+import { TransactionalDataManagerServiceDirective } from '../transactional-data-manager.service-directive';
 
 @Injectable()
 export class UserManagerService
-  extends DataManagerServiceDirective<User> {
+  extends TransactionalDataManagerServiceDirective<User> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataUsers) protected dataService: IEntityDataApiService<User>
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataUsers) protected dataService: ITransactionalEntityDataApiService<User>
   ) {
     super();
   }

@@ -4,10 +4,10 @@
 // https://opensource.org/licenses/MIT
 
 import { Observable } from 'rxjs';
-import { IEntityDataApiService } from './entity.data-api.iservice';
+import { ITransactionalEntityDataApiService } from './transactional-entity.data-api.iservice';
 
 export interface ICompositeEntityDataApiService<T, X>
-  extends IEntityDataApiService<T> {
+  extends ITransactionalEntityDataApiService<T> {
 
   fetchInnerDataFrom(itemLike: Partial<T>): Observable<X[]>;
 }

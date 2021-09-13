@@ -11,7 +11,7 @@ import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { API_SERVICE_INJECTION_TOKENS } from '../../api-service-injection-tokens';
 import { ICategoriesPublicApiService } from '../../categories-public-api.iservice';
 import { MOCK_PRODUCT_CATEGORIES } from '../mock/mock-product-categories.datasource';
-import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
+import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
 
 // TODO uncomment when data api for product categories is created
 

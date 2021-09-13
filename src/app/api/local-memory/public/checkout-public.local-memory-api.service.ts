@@ -9,7 +9,7 @@ import { Product } from 'src/app/models/entities/Product';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 import { API_SERVICE_INJECTION_TOKENS } from '../../api-service-injection-tokens';
 import { ICheckoutPublicApiService } from '../../checkout-public-api.iservice';
-import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
+import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
 import { MOCK_EXTERNAL_PAYMENT_REDIRECT_DATA } from '../mock/mock-external-payment-redirect-data.examples';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class CheckoutPublicLocalMemoryApiService
   protected items: Product[] = [];
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) private dataService: EntityDataLocalMemoryApiService<Product>
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) private dataService: TransactionalEntityDataLocalMemoryApiService<Product>
   ) {
     this.dataService.fetchPage().subscribe(response => {
       this.items = response.items;

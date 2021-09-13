@@ -6,7 +6,7 @@
 import { Directive, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
+import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 
 /**
  * Base class for data form component services.
@@ -15,7 +15,7 @@ import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 export abstract class DataManagerFormServiceDirective<T>
   implements OnDestroy {
 
-  protected abstract dataService: IEntityDataApiService<T>;
+  protected abstract dataService: ITransactionalEntityDataApiService<T>;
 
   protected savingSource: Subject<boolean> = new BehaviorSubject(false);
   public saving$: Observable<boolean> = this.savingSource.asObservable();

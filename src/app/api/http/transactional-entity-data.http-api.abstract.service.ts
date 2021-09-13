@@ -4,14 +4,13 @@
 // https://opensource.org/licenses/MIT
 
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { EntityDataHttpApiService } from './entity-data.http-api.abstract.service';
 import { Observable } from 'rxjs';
-import { IEntityDataApiService } from '../entity.data-api.iservice';
+import { ITransactionalEntityDataApiService } from '../transactional-entity.data-api.iservice';
 
 export abstract class TransactionalEntityDataHttpApiService<T>
   extends EntityDataHttpApiService<T>
-  implements IEntityDataApiService<T> {
+  implements ITransactionalEntityDataApiService<T> {
 
   constructor(http: HttpClient, urlSuffix?: string) {
     super(http);

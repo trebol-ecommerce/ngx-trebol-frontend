@@ -9,12 +9,12 @@ import { map, tap } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ICompositeEntityDataApiService } from '../../composite-entity.data-api.iservice';
-import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
+import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
 import { MOCK_SALES } from '../mock/mock-sales.datasource';
 
 @Injectable()
 export class SalesDataLocalMemoryApiService
-  extends EntityDataLocalMemoryApiService<Sell>
+  extends TransactionalEntityDataLocalMemoryApiService<Sell>
   implements ICompositeEntityDataApiService<Sell, SellDetail> {
 
   protected items: Sell[] = MOCK_SALES.map(n => Object.assign(new Sell(), n));
