@@ -6,42 +6,50 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { ManagementService } from '../management.service';
-import { ManagementSidenavComponent } from './management-sidenav.component';
 import { AppService } from 'src/app/app.service';
+import { Person } from 'src/app/models/entities/Person';
+import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
+import { ManagementService } from 'src/app/management/management.service';
+import { ManagementHeaderComponent } from './management-header.component';
+import { Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 
-
-describe('ManagementSidenavComponent', () => {
-  let component: ManagementSidenavComponent;
-  let fixture: ComponentFixture<ManagementSidenavComponent>;
+describe('ManagementHeaderComponent', () => {
+  let component: ManagementHeaderComponent;
+  let fixture: ComponentFixture<ManagementHeaderComponent>;
   let managementService: Partial<ManagementService>;
   let appService: Partial<AppService>;
+  let router: Router;
 
   beforeEach(waitForAsync(() => {
     managementService = {
-      activeRouteSnapshot$: of(null)
+      switchSidenav() {},
+      currentPageName$: of('')
     };
+
     appService = {
-      getAuthorizedAccess() { return of({
-        routes: []
-      }); }
+      getUserProfile() { return of(new Person()); },
+      closeCurrentSession() {}
     };
 
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        AngularMaterialModule
       ],
-      declarations: [ ManagementSidenavComponent ],
+      declarations: [ ManagementHeaderComponent ],
       providers: [
         { provide: ManagementService, useValue: managementService },
         { provide: AppService, useValue: appService }
       ]
     })
     .compileComponents();
+    router = TestBed.inject(Router);
+    spyOn(router, 'navigateByUrl');
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManagementSidenavComponent);
+    fixture = TestBed.createComponent(ManagementHeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
