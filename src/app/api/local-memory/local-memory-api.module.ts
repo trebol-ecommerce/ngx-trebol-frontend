@@ -16,6 +16,8 @@ import { ImagesDataLocalMemoryApiService } from './data/images-data.local-memory
 import { SessionLocalMemoryApiService } from './session/session.local-memory-api.service';
 import { StoreLocalMemoryApiService } from './store/store.local-memory-api.service';
 
+// TODO update tokens
+
 /**
  * Provides services that read and write data using the client's working memory
  */
