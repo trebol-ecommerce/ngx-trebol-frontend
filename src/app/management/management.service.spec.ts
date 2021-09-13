@@ -5,9 +5,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { LoginPublicLocalMemoryApiService } from 'src/app/api/local-memory/store/login-public.local-memory-api.service';
 import { ManagementService } from './management.service';
-import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
 
 describe('ManagementService', () => {
   let service: ManagementService;
@@ -18,8 +16,7 @@ describe('ManagementService', () => {
         RouterTestingModule
       ],
       providers: [
-        ManagementService,
-        { provide: API_SERVICE_INJECTION_TOKENS.login, useClass: LoginPublicLocalMemoryApiService }
+        ManagementService
       ]
     });
     service = TestBed.inject(ManagementService);

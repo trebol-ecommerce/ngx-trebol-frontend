@@ -22,7 +22,6 @@ export class ManagementService
   public currentPageName$: Observable<string>;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.login) protected authService: ILoginPublicApiService,
     protected router: Router
   ) {
 
