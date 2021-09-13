@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { StoreService } from '../../store.service';
+import { StoreService } from 'src/app/store/store.service';
 import { map } from 'rxjs/operators';
 
 @Component({

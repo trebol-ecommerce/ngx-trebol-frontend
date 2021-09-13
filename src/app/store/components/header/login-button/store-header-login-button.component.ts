@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { StoreLoginFormDialogComponent } from '../../dialogs/login-form/store-login-form-dialog.component';
+import { StoreLoginFormDialogComponent } from 'src/app/store/dialogs/login-form/store-login-form-dialog.component';
 
 @Component({
   selector: 'app-store-header-login-button',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { StoreCompanyDetailsDialogComponent } from '../../dialogs/company-details/store-company-details-dialog.component';
+import { StoreCompanyDetailsDialogComponent } from 'src/app/store/dialogs/company-details/store-company-details-dialog.component';
 import { APP_LONG_TITLE, APP_INITIALS_TITLE } from 'src/app/app.constants';
 
 @Component({

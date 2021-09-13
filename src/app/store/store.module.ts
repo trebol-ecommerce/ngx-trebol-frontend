@@ -14,8 +14,8 @@ import { StorePaymentRedirectPromptDialogComponent
         } from './dialogs/payment-redirect-prompt/store-payment-redirect-prompt-dialog.component';
 import { StoreProductDetailsDialogComponent } from './dialogs/product-details/store-product-details-dialog.component';
 import { StoreRegistrationFormDialogComponent } from './dialogs/registration-form/store-registration-form-dialog.component';
-import { StoreFooterComponent } from './footer/store-footer.component';
-import { StoreHeaderComponent } from './header/store-header.component';
+import { StoreFooterComponent } from './components/footer/store-footer.component';
+import { StoreHeaderComponent } from './components/header/store-header.component';
 import { StoreCartReviewComponent } from './routes/cart-review/store-cart-review.component';
 import { StoreCatalogProductCardComponent } from './routes/catalog/product-card/store-catalog-product-card.component';
 import { StoreCatalogComponent } from './routes/catalog/store-catalog.component';
@@ -26,11 +26,11 @@ import { StoreService } from './store.service';
 import { StoreRoutingModule } from './store-routing.module';
 import { StoreComponent } from './store.component';
 import { HttpClientModule } from '@angular/common/http';
-import { StoreHeaderBrandComponent } from './header/brand/store-header-brand.component';
-import { StoreHeaderNavigationComponent } from './header/navigation/store-header-navigation.component';
-import { StoreHeaderMiddleComponent } from './header/middle/store-header-middle.component';
-import { StoreHeaderMenuComponent } from './header/menu/store-header-menu.component';
-import { StoreHeaderLoginButtonComponent } from './header/login-button/store-header-login-button.component';
+import { StoreHeaderBrandComponent } from './components/header/brand/store-header-brand.component';
+import { StoreHeaderNavigationComponent } from './components/header/navigation/store-header-navigation.component';
+import { StoreHeaderMiddleComponent } from './components/header/middle/store-header-middle.component';
+import { StoreHeaderMenuComponent } from './components/header/menu/store-header-menu.component';
+import { StoreHeaderLoginButtonComponent } from './components/header/login-button/store-header-login-button.component';
 
 
 const SNACKBAR_DEFAULTS = {
