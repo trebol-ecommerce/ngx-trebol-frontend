@@ -3,14 +3,10 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { AbstractEntity } from 'src/app/models/AbstractEntity';
 import { Person } from './Person';
 import { Login } from '../Login';
 
-export class User
-  implements AbstractEntity, Partial<Login> {
-
-  public id: number;
+export class User implements Partial<Login> {
   public name: string;
   public createdOn?: string;
   public password?: string;

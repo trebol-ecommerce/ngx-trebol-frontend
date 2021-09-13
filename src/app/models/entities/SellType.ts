@@ -3,11 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { AbstractEntity } from 'src/app/models/AbstractEntity';
-
-export class SellType
-  extends AbstractEntity {
-
+export class SellType {
   public id: string;
   public description: string;
 }

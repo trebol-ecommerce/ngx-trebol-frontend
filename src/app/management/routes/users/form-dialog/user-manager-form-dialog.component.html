@@ -6,7 +6,7 @@
 -->
 
 <div>
-  <h2 mat-dialog-title>{{ dialogTitle }}</h2>
+  <h2 mat-dialog-title>Datos del Usuario</h2>
   <centered-mat-spinner *ngIf="saving$ | async">
   </centered-mat-spinner>
 
@@ -33,7 +33,7 @@
       <mat-form-field>
         <mat-select placeholder="Rol" formControlName="role">
           <mat-option *ngFor="let r of (roles$ | async)"
-            [value]="r.id">
+            [value]="r.name">
             {{ r.name }}
           </mat-option>
         </mat-select>

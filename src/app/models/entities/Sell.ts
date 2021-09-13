@@ -3,15 +3,12 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { AbstractEntity } from 'src/app/models/AbstractEntity';
 import { Customer } from './Customer';
 import { Salesperson } from './Salesperson';
 import { SellDetail } from './SellDetail';
 import { SellType } from './SellType';
 
-export class Sell
-  extends AbstractEntity {
-
+export class Sell {
   public id: number;
   public details: SellDetail[];
   public type: Partial<SellType>;

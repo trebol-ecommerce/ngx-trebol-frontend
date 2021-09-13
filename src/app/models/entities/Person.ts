@@ -3,14 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { AbstractEntity } from 'src/app/models/AbstractEntity';
-
-/**
- *
- */
-export class Person
-  implements AbstractEntity {
-
+export class Person {
   public id: number;
   public name: string;
   public idCard: string;

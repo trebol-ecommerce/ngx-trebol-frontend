@@ -27,8 +27,7 @@ import { DataManagerFormDialogData } from '../../DataManagerFormDialogData';
   styleUrls: [ './sell-manager-form-dialog.component.css' ]
 })
 export class SellManagerFormDialogComponent
-  extends DataManagerFormComponentDirective<Sell>
-  implements OnInit {
+  implements OnInit, DataManagerFormComponentDirective<Sell> {
 
   protected itemId: number;
   protected sellDetails: SellDetail[];
@@ -55,14 +54,13 @@ export class SellManagerFormDialogComponent
   public get dialogTitle(): string { return ((this.data?.item?.id) ? 'Actualizar datos de' : 'Nueva') + ' Venta'; }
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) protected data: DataManagerFormDialogData<Sell>,
-    protected service: SellManagerFormService,
+    @Inject(MAT_DIALOG_DATA) public data: DataManagerFormDialogData<Sell>,
+    public service: SellManagerFormService,
     protected dialog: MatDialogRef<SellManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
     protected formBuilder: FormBuilder,
     protected dialogService: MatDialog
   ) {
-    super();
     this.formGroup = this.formBuilder.group({
       type: [null, Validators.required],
       salesperson: [null],
@@ -73,7 +71,7 @@ export class SellManagerFormDialogComponent
     this.load(item);
   }
 
-  protected load(s: Sell): void {
+  load(s: Sell): void {
     this.itemId = s.id ? s.id : 0;
 
     this.sellDate = s.soldOn;
@@ -143,7 +141,7 @@ export class SellManagerFormDialogComponent
     this.service.removeDetailAtIndex(i);
   }
 
-  public asItem(): Sell {
+  asItem(): Sell {
     if (this.formGroup.invalid) {
       return undefined;
     } else {
@@ -153,8 +151,8 @@ export class SellManagerFormDialogComponent
           id: this.itemId,
           type: { id: this.type.value },
           soldOn: this.sellDate ? this.sellDate : null,
-          customer: { id: this.customer.value },
-          salesperson: { id: this.salesperson.value },
+          customer: { person: { idCard: this.customer.value } },
+          salesperson: { person: { idCard: this.salesperson.value } },
           details: this.sellDetails
         }
       );

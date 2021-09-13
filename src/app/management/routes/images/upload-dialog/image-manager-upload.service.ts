@@ -25,8 +25,7 @@ export class ImageManagerUploadService
               super.submit({
                 url: undefined,
                 filename: item.name,
-                file: item,
-                id: undefined
+                file: item
               }) :
             (item instanceof Image) ?
               super.submit(item) :

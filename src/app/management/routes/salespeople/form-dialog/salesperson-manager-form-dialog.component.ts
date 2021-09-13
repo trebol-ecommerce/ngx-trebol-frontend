@@ -20,25 +20,20 @@ import { DataManagerFormDialogData } from '../../DataManagerFormDialogData';
   styleUrls: [ './salesperson-manager-form-dialog.component.css' ]
 })
 export class SalespersonManagerFormDialogComponent
-  extends DataManagerFormComponentDirective<Salesperson> {
-
-  protected itemId: number;
+  implements DataManagerFormComponentDirective<Salesperson> {
 
   public saving$: Observable<boolean>;
 
-  public formGroup: FormGroup;
+  formGroup: FormGroup;
   get person() { return this.formGroup.get('person') as FormControl; }
 
-  public get dialogTitle(): string { return ((this.data?.item?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Empleado'; }
-
   constructor(
-    @Inject(MAT_DIALOG_DATA) protected data: DataManagerFormDialogData<Salesperson>,
-    protected service: SalespersonManagerFormService,
+    @Inject(MAT_DIALOG_DATA) public data: DataManagerFormDialogData<Salesperson>,
+    public service: SalespersonManagerFormService,
     protected dialog: MatDialogRef<SalespersonManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
     protected formBuilder: FormBuilder
   ) {
-    super();
     this.formGroup = this.formBuilder.group({
       person: ['']
     });
@@ -47,36 +42,18 @@ export class SalespersonManagerFormDialogComponent
     this.load(item);
   }
 
-  protected load(e: Salesperson): void {
+  load(e: Salesperson): void {
     this.person.setValue(e);
   }
 
-  public asItem(): Salesperson {
-    if (this.formGroup.invalid) {
-      return undefined;
-    } else {
-      return Object.assign<Salesperson, Partial<Salesperson>>(
-        new Salesperson(),
-        {
-          id: this.itemId,
-          person: this.person.value
-        }
-      );
-    }
-  }
-
   public onSubmit(): void {
-    const item = this.asItem();
-    if (item) {
-      this.service.submit(item).subscribe(
+    if (this.formGroup.valid) {
+      const salesperson = this.formGroup.value as Salesperson;
+      this.service.submit(salesperson).subscribe(
         success => {
           if (success) {
-            if (item.id) {
-              this.snackBarService.open(`Empleado ${item.person.name} actualizado/a exitosamente.`, 'OK');
-            } else {
-              this.snackBarService.open(`Empleado ${item.person.name} registrado/a exitosamente.`, 'OK');
-            }
-            this.dialog.close(item);
+            this.snackBarService.open(`Vendedor/a ${salesperson.person.name} guardado/a exitosamente.`, 'OK');
+            this.dialog.close(salesperson);
           } else {
             this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
           }

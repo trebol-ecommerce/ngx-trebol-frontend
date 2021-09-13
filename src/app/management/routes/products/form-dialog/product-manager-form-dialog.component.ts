@@ -25,8 +25,7 @@ import { DataManagerFormDialogData } from '../../DataManagerFormDialogData';
   styleUrls: [ './product-manager-form-dialog.component.css' ]
 })
 export class ProductManagerFormDialogComponent
-  extends DataManagerFormComponentDirective<Product>
-  implements OnInit {
+  implements OnInit, DataManagerFormComponentDirective<Product> {
 
   public saving$: Observable<boolean>;
   categories$: Observable<ProductCategory[]>;
@@ -44,14 +43,13 @@ export class ProductManagerFormDialogComponent
   public get dialogTitle(): string { return ((this.data?.item?.barcode) ? 'Actualizar datos de' : 'Nuevo') + ' Producto'; }
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) protected data: DataManagerFormDialogData<Product>,
-    protected service: ProductManagerFormService,
+    @Inject(MAT_DIALOG_DATA) public data: DataManagerFormDialogData<Product>,
+    public service: ProductManagerFormService,
     protected dialog: MatDialogRef<ProductManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
     protected formBuilder: FormBuilder,
     private dialogService: MatDialog
   ) {
-    super();
     this.formGroup = this.formBuilder.group({
       barcode: ['', Validators.required],
       name: ['', Validators.required],
@@ -66,7 +64,12 @@ export class ProductManagerFormDialogComponent
     this.load(item);
   }
 
-  protected load(p: Product): void {
+  ngOnInit(): void {
+    this.saving$ = this.service.saving$.pipe();
+    this.categories$ = this.service.categories$.pipe();
+  }
+
+  load(p: Product): void {
     this.name.setValue(p.name, { emitEvent: false, onlySelf: true });
     this.barcode.setValue(p.barcode, { emitEvent: false, onlySelf: true });
     this.price.setValue(p.price, { emitEvent: false, onlySelf: true });
@@ -88,11 +91,6 @@ export class ProductManagerFormDialogComponent
     }
 
     // TODO revalidate here
-  }
-
-  ngOnInit(): void {
-    this.saving$ = this.service.saving$.pipe();
-    this.categories$ = this.service.categories$.pipe();
   }
 
   public asItem(): Product {

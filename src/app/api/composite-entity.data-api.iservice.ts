@@ -5,9 +5,8 @@
 
 import { Observable } from 'rxjs';
 import { IEntityDataApiService } from './entity.data-api.iservice';
-import { AbstractEntity } from 'src/app/models/AbstractEntity';
 
-export interface ICompositeEntityDataApiService<T extends AbstractEntity, X extends AbstractEntity>
+export interface ICompositeEntityDataApiService<T, X>
   extends IEntityDataApiService<T> {
 
   fetchInnerDataFrom(itemLike: Partial<T>): Observable<X[]>;

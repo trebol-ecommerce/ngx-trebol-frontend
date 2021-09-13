@@ -7,7 +7,6 @@ import { Directive, OnDestroy } from '@angular/core';
 import { BehaviorSubject, from, Observable, of, Subject, ReplaySubject } from 'rxjs';
 import { catchError, delay, finalize, map, mapTo, mergeMap, startWith, tap, toArray } from 'rxjs/operators';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { AbstractEntity } from 'src/app/models/AbstractEntity';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 
 /**

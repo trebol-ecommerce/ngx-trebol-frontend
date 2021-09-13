@@ -7,7 +7,6 @@ import { Directive, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { AbstractEntity } from 'src/app/models/AbstractEntity';
 
 /**
  * Base class for data form component services.

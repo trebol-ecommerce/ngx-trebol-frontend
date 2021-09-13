@@ -5,13 +5,9 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { AbstractEntity } from '../AbstractEntity';
-
-export class Image
-  extends AbstractEntity {
+export class Image{
 
   filename: string;
   url: string;
-  get id() { return this.url; }
   file?: File; // TODO refactor this out
 }

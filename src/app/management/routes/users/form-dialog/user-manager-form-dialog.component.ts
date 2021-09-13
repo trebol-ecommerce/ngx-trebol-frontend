@@ -22,10 +22,7 @@ import { DataManagerFormDialogData } from '../../DataManagerFormDialogData';
   styleUrls: [ './user-manager-form-dialog.component.css' ]
 })
 export class UserManagerFormDialogComponent
-  extends DataManagerFormComponentDirective<User>
-  implements OnInit {
-
-  protected itemId: number;
+  implements OnInit, DataManagerFormComponentDirective<User> {
 
   public saving$: Observable<boolean>;
   public people$: Observable<Person[]>;
@@ -37,16 +34,13 @@ export class UserManagerFormDialogComponent
   public get person(): FormControl { return this.formGroup.get('person') as FormControl; }
   public get role(): FormControl { return this.formGroup.get('role') as FormControl; }
 
-  public get dialogTitle(): string { return ((this.data?.item?.id) ? 'Actualizar datos de' : 'Nuevo') + ' Usuario'; }
-
   constructor(
-    @Inject(MAT_DIALOG_DATA) protected data: DataManagerFormDialogData<User>,
-    protected service: UserManagerFormService,
+    @Inject(MAT_DIALOG_DATA) public data: DataManagerFormDialogData<User>,
+    public service: UserManagerFormService,
     protected dialog: MatDialogRef<UserManagerFormDialogComponent>,
     protected snackBarService: MatSnackBar,
     protected formBuilder: FormBuilder
   ) {
-    super();
     this.formGroup = this.formBuilder.group({
       name: ['', Validators.required],
       password: [''],
@@ -57,13 +51,12 @@ export class UserManagerFormDialogComponent
     this.getPromptedUserDetails().subscribe(user => this.load(user));
   }
 
-  protected load(u: User): void {
-    this.itemId = u.id ? u.id : 0;
+  load(u: User): void {
     this.name.setValue(u.name);
 
-    if (this.itemId) {
-      this.password.setValidators(null);
-    }
+    // if (this.itemId) {
+    //   this.password.setValidators(null);
+    // }
     if (u.person?.id) {
       this.person.setValue(u.person.id);
     }
@@ -85,7 +78,6 @@ export class UserManagerFormDialogComponent
       return Object.assign<User, Partial<User>>(
         new User(),
         {
-          id: this.itemId,
           name: this.name.value,
           password: this.password.value,
           person: { id: this.person.value },
@@ -101,11 +93,7 @@ export class UserManagerFormDialogComponent
       this.service.submit(item).subscribe(
         success => {
           if (success) {
-            if (this.itemId) {
-              this.snackBarService.open(`Usuario ${item.name} actualizado/a exitosamente.`, 'OK');
-            } else {
-              this.snackBarService.open(`Usuario ${item.name} registrado/a exitosamente.`, 'OK');
-            }
+            this.snackBarService.open(`Usuario/a ${item.name} guardado/a exitosamente.`, 'OK');
             this.dialog.close(item);
           } else {
             this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');

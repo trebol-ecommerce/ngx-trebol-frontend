@@ -9,7 +9,7 @@ import {
   matchesStringProperty,
   matchesNumberProperty,
   matchesDateProperty,
-  matchesAbstractEntityProperty
+  matchesIdProperty
 } from './entity-data.local-memory-api.functions';
 import { DataPage } from 'src/app/models/DataPage';
 
@@ -40,7 +40,7 @@ export abstract class EntityDataLocalMemoryApiService<T>
           if (propValue instanceof Date) {
             matchingItems = matchingItems.filter(it => matchesDateProperty(it, propName, propValue));
           } else if ('id' in propValue) {
-            matchingItems = matchingItems.filter(it => matchesAbstractEntityProperty(it, propName, propValue));
+            matchingItems = matchingItems.filter(it => matchesIdProperty(it, propName, propValue));
           }
         }
       }

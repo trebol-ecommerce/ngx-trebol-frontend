@@ -6,14 +6,11 @@
 import { Directive, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { AbstractEntity } from 'src/app/models/AbstractEntity';
 import { DataManagerServiceDirective } from './data-manager.service-directive';
 
 /**
- * Base class for data manager template components.
- * A 'Data Manager' is a table-based interface for doing CRUD operations on all persisted instances of classes derived from AbstractEntity.
- * It it expected to provide an openFormDialog() method that interacts with a DataManagerFormComponent,
- * which will be used to view and edit the stored data (or insert new).
+ * Base  for data manager template components.
+ * Implement openFormDialog() to view/edit data
  */
 @Directive()
 export abstract class DataManagerComponentDirective<T> {

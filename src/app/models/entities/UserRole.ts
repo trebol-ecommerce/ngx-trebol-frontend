@@ -3,12 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { AbstractEntity } from '../AbstractEntity';
-
-export class UserRole
-  implements AbstractEntity {
-
-  public id: string | number;
+export class UserRole {
   public name?: string;
   public description?: string;
 }
