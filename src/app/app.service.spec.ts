@@ -12,6 +12,9 @@ import { of, throwError } from 'rxjs';
 import { Registration } from './models/Registration';
 import { take, catchError } from 'rxjs/operators';
 import { Login } from './models/Login';
+import { IGuestPublicApiService } from './api/guest-public-api.iservice';
+import { IRegisterPublicApiService } from './api/register-public-api.iservice copy';
+import { IProfileAccountApiService } from './api/profile-account-api.iservice';
 
 const MOCK_LOGIN_DETAILS: Login = {
   name: 'test',
@@ -33,17 +36,26 @@ const MOCK_REGISTRATION_DETAILS: Registration = {
 
 describe('AppService', () => {
   let service: AppService;
-  let mockAuthApiService: Partial<ILoginPublicApiService>;
+  let mockLoginApiService: Partial<ILoginPublicApiService>;
+  let mockGuestApiService: Partial<IGuestPublicApiService>;
+  let mockRegisterApiService: Partial<IRegisterPublicApiService>;
+  let mockProfileApiService: Partial<IProfileAccountApiService>;
   let mockAccessApiService: Partial<IAccessApiService>;
 
   beforeEach(() => {
-    mockAuthApiService = {
-      guestLogin() { return of(true); },
+    mockLoginApiService = {
+      login() { return of(true); },
+      logout() { }
+    };
+    mockGuestApiService = {
+      guestLogin() { return of(); }
+    };
+    mockRegisterApiService = {
+      register() { return of(); }
+    };
+    mockProfileApiService = {
       getProfile() { return of(null); },
       updateProfile() { return of(true); },
-      logout() { return of(true); },
-      login() { return of(true); },
-      register() { return of(true); }
     };
     mockAccessApiService = {
       getAuthorizedAccess() { return throwError({ status: 403 }); }
@@ -51,7 +63,10 @@ describe('AppService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.login, useValue: mockAuthApiService },
+        { provide: API_SERVICE_INJECTION_TOKENS.login, useValue: mockLoginApiService },
+        { provide: API_SERVICE_INJECTION_TOKENS.guest, useValue: mockGuestApiService },
+        { provide: API_SERVICE_INJECTION_TOKENS.register, useValue: mockRegisterApiService },
+        { provide: API_SERVICE_INJECTION_TOKENS.accountProfile, useValue: mockProfileApiService },
         { provide: API_SERVICE_INJECTION_TOKENS.access, useValue: mockAccessApiService }
       ]
     });
