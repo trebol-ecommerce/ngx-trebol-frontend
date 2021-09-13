@@ -8,6 +8,14 @@ import { of } from 'rxjs';
 import { StoreCatalogComponent } from './store-catalog.component';
 import { StoreCatalogService } from './store-catalog.service';
 import { Product } from 'src/app/models/entities/Product';
+import { Component } from '@angular/core';
+
+@Component({ selector: 'app-product-filters-panel' })
+class MockProductFiltersPanelComponent { }
+@Component({ selector: 'centered-mat-spinner' })
+class MockCenteredMatSpinnerComponent { }
+@Component({ selector: 'app-store-catalog-product-card' })
+class MockStoreCatalogProductCardComponent { }
 
 describe('StoreCatalogComponent', () => {
   let component: StoreCatalogComponent;
@@ -24,7 +32,12 @@ describe('StoreCatalogComponent', () => {
     spyOn(catalogService, 'reloadItems');
 
     TestBed.configureTestingModule({
-      declarations: [ StoreCatalogComponent ],
+      declarations: [
+        StoreCatalogComponent ,
+        MockProductFiltersPanelComponent,
+        MockCenteredMatSpinnerComponent,
+        MockStoreCatalogProductCardComponent
+      ],
       providers: [
         { provide: StoreCatalogService, useValue: catalogService }
       ]

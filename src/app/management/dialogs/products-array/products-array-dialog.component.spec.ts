@@ -7,6 +7,18 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { ProductsArrayDialogComponent } from './products-array-dialog.component';
 import { ProductsArrayService } from './products-array.service';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTableModule } from '@angular/material/table';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+@Component({ selector: 'centered-mat-spinner' })
+class MockCenteredMatSpinnerComponent { }
 
 describe('ProductsArrayDialogComponent', () => {
   let component: ProductsArrayDialogComponent;
@@ -21,9 +33,23 @@ describe('ProductsArrayDialogComponent', () => {
       changeFiltersTo(f) {},
       includeProduct(p) {},
       dropProductByIndex(i) {}
-    },
+    };
+
     TestBed.configureTestingModule({
-      declarations: [ ProductsArrayDialogComponent ],
+      imports: [
+        NoopAnimationsModule,
+        CommonModule,
+        MatExpansionModule,
+        MatTableModule,
+        MatIconModule,
+        MatCardModule,
+        MatButtonModule,
+        MatDialogModule
+      ],
+      declarations: [
+        ProductsArrayDialogComponent,
+        MockCenteredMatSpinnerComponent
+      ],
       providers: [
         { provide: ProductsArrayService, useValue: productsArrayService }
       ]

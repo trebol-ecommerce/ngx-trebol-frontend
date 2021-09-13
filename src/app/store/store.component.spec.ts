@@ -4,8 +4,15 @@
 // https://opensource.org/licenses/MIT
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
 import { StoreComponent } from './store.component';
+import { Component } from '@angular/core';
+
+@Component({ selector: 'router-outlet' })
+class MockRouterOutletComponent { }
+@Component({ selector: 'app-store-header' })
+class MockHeaderComponent { }
+@Component({ selector: 'app-store-footer' })
+class MockFooterComponent { }
 
 describe('StoreComponent', () => {
   let component: StoreComponent;
@@ -13,7 +20,12 @@ describe('StoreComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ StoreComponent ]
+      declarations: [
+        StoreComponent,
+        MockRouterOutletComponent,
+        MockHeaderComponent,
+        MockFooterComponent
+      ]
     })
     .compileComponents();
   }));
