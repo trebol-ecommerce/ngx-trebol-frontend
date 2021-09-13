@@ -4,7 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 import { Observable } from 'rxjs';
-import { Receipt } from 'src/app/models/entities/Receipt';
+import { Receipt } from 'src/app/models/Receipt';
 
 export interface IReceiptPublicApiService {
   fetchTransactionReceiptById(id: number): Observable<Receipt>;

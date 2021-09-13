@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, pluck, startWith } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { Receipt } from 'src/app/models/entities/Receipt';
-import { ReceiptDetail } from 'src/app/models/entities/ReceiptDetail';
+import { Receipt } from 'src/app/models/Receipt';
+import { ReceiptDetail } from 'src/app/models/ReceiptDetail';
 import { IReceiptPublicApiService } from 'src/app/api/receipt-public-api.iservice';
 
 @Injectable()

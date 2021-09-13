@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { StoreReceiptService } from './store-receipt.service';
-import { Receipt } from 'src/app/models/entities/Receipt';
-import { ReceiptDetail } from 'src/app/models/entities/ReceiptDetail';
+import { Receipt } from 'src/app/models/Receipt';
+import { ReceiptDetail } from 'src/app/models/ReceiptDetail';
 
 @Component({
   selector: 'app-store-receipt',

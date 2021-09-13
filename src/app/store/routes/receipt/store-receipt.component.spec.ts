@@ -8,7 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { StoreReceiptComponent } from './store-receipt.component';
 import { StoreReceiptService } from './store-receipt.service';
-import { Receipt } from 'src/app/models/entities/Receipt';
+import { Receipt } from 'src/app/models/Receipt';
 
 describe('StoreReceiptComponent', () => {
   let component: StoreReceiptComponent;

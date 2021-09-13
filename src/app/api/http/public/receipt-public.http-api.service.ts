@@ -6,7 +6,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
-import { Receipt } from 'src/app/models/entities/Receipt';
+import { Receipt } from 'src/app/models/Receipt';
 import { environment } from 'src/environments/environment';
 import { IReceiptPublicApiService } from '../../receipt-public-api.iservice';
 

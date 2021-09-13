@@ -7,7 +7,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
 import { Product } from 'src/app/models/entities/Product';
-import { Receipt } from 'src/app/models/entities/Receipt';
+import { Receipt } from 'src/app/models/Receipt';
 import { IAboutPublicApiService } from '../../about-public-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from '../../api-service-injection-tokens';
 import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
