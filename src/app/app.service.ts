@@ -36,7 +36,7 @@ export class AppService
     @Inject(API_SERVICE_INJECTION_TOKENS.guest) protected guestApiService: IGuestPublicApiService,
     @Inject(API_SERVICE_INJECTION_TOKENS.register) protected registerApiService: IRegisterPublicApiService,
     @Inject(API_SERVICE_INJECTION_TOKENS.accountProfile) protected profileApiService: IProfileAccountApiService,
-    @Inject(API_SERVICE_INJECTION_TOKENS.access) protected apiAccessService: IAccessApiService
+    @Inject(API_SERVICE_INJECTION_TOKENS.access) protected accessApiService: IAccessApiService
   ) {
     this.validateSession().subscribe();
   }
@@ -86,7 +86,7 @@ export class AppService
   public validateSession(): Observable<boolean> {
     this.isValidatingSessionSource.next(true);
 
-    return this.apiAccessService.getAuthorizedAccess().pipe(
+    return this.accessApiService.getAuthorizedAccess().pipe(
       mapTo(true),
       catchError(() => of(false)),
       tap(isValid => {
@@ -98,7 +98,7 @@ export class AppService
   }
 
   public getAuthorizedAccess(): Observable<AuthorizedAccess> {
-    return this.isLoggedIn() ? this.apiAccessService.getAuthorizedAccess() : of(null);
+    return this.isLoggedIn() ? this.accessApiService.getAuthorizedAccess() : of(null);
   }
 
   public getUserProfile(): Observable<Person> {
