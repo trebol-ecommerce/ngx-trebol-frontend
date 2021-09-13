@@ -14,7 +14,7 @@ import { regexMatchStartOfString } from 'src/functions/regexMatchStartOfString';
 export class SessionHttpApiInterceptor
   implements HttpInterceptor {
 
-  //TODO these should be refactored
+  // TODO these should be refactored
   protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
   protected readonly authorizationHeader = environment.secrets.authHeader;
   private readonly acceptedUrls: string[] = [
