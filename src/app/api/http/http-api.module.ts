@@ -56,7 +56,7 @@ import { CategoriesHttpApiService } from './store/categories-public.http-api.ser
     // },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataProducts,
-      useClass: CustomersDataHttpApiService
+      useClass: ProductsDataHttpApiService
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataShared,
