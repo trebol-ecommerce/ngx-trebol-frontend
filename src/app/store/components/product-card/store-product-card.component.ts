@@ -3,10 +3,8 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { Component, Input } from '@angular/core';
-import { StoreService } from 'src/app/store/store.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from 'src/app/models/entities/Product';
-import { StoreCatalogService } from 'src/app/store/routes/catalog/store-catalog.service';
 
 @Component({
   selector: 'app-store-product-card',
@@ -15,19 +13,18 @@ import { StoreCatalogService } from 'src/app/store/routes/catalog/store-catalog.
 })
 export class StoreProductCardComponent {
 
-  @Input() public product: Product = null;
+  @Input() product = new Product();
+  @Output() addToCart = new EventEmitter<void>();
+  @Output() view = new EventEmitter<void>();
 
-  constructor(
-    protected storeService: StoreService,
-    protected catalogService: StoreCatalogService
-  ) { }
+  constructor() { }
 
-  public onClickAddProduct(): void {
-    this.storeService.addProductToCart(this.product);
+  onClickAddProduct(): void {
+    this.addToCart.emit();
   }
 
-  public onClickViewProduct(): void {
-    this.catalogService.viewProduct(this.product);
+  onClickViewProduct(): void {
+    this.view.emit();
   }
 
 }

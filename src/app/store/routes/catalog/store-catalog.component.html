@@ -16,7 +16,9 @@
 
   <div class="products" [hidden]="loading$ | async">
     <app-store-product-card *ngFor="let product of (products$ | async)"
-      [product]="product">
+      [product]="product"
+      (addToCart)="onAddProductToCart(product)"
+      (view)="onViewProduct(product)">
     </app-store-product-card>
   </div>
 </div>

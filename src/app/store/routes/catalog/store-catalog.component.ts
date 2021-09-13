@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/entities/Product';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { StoreCatalogService } from './store-catalog.service';
+import { StoreService } from '../../store.service';
 
 @Component({
   selector: 'app-store-catalog',
@@ -21,7 +22,8 @@ export class StoreCatalogComponent
   public products$: Observable<Product[]>;
 
   constructor(
-    protected catalogService: StoreCatalogService
+    protected catalogService: StoreCatalogService,
+    protected storeService: StoreService
   ) {
     this.loading$ = this.catalogService.loading$.pipe();
     this.products$ = this.catalogService.items$.pipe();
@@ -34,6 +36,13 @@ export class StoreCatalogComponent
   public onFiltersChange(f: ProductFilters) {
     this.catalogService.filters = f;
     this.catalogService.reloadItems();
+  }
+
+  onAddProductToCart(p: Product) {
+    this.storeService.addProductToCart(p);
+  }
+  onViewProduct(p: Product) {
+    this.catalogService.viewProduct(p);
   }
 
 }

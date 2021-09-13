@@ -9,6 +9,7 @@ import { StoreCatalogComponent } from './store-catalog.component';
 import { StoreCatalogService } from './store-catalog.service';
 import { Product } from 'src/app/models/entities/Product';
 import { Component } from '@angular/core';
+import { StoreService } from '../../store.service';
 
 @Component({ selector: 'app-product-filters-panel' })
 class MockProductFiltersPanelComponent { }
@@ -21,15 +22,20 @@ describe('StoreCatalogComponent', () => {
   let component: StoreCatalogComponent;
   let fixture: ComponentFixture<StoreCatalogComponent>;
   let catalogService: Partial<StoreCatalogService>;
+  let storeService: Partial<StoreService>;
 
   beforeEach(waitForAsync(() => {
     catalogService = {
       loading$: of(false),
       items$: of([]),
       reloadItems() {},
-      filters: {}
+      filters: {},
+      viewProduct(p) {}
     };
     spyOn(catalogService, 'reloadItems');
+    storeService = {
+      addProductToCart(p) {}
+    };
 
     TestBed.configureTestingModule({
       declarations: [
@@ -39,7 +45,8 @@ describe('StoreCatalogComponent', () => {
         MockStoreCatalogProductCardComponent
       ],
       providers: [
-        { provide: StoreCatalogService, useValue: catalogService }
+        { provide: StoreCatalogService, useValue: catalogService },
+        { provide: StoreService, useValue: storeService },
       ]
     })
     .compileComponents();
