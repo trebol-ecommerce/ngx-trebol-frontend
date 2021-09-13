@@ -15,8 +15,8 @@
   </centered-mat-spinner>
 
   <div class="products" [hidden]="loading$ | async">
-    <app-store-catalog-product-card *ngFor="let product of (products$ | async)"
+    <app-store-product-card *ngFor="let product of (products$ | async)"
       [product]="product">
-    </app-store-catalog-product-card>
+    </app-store-product-card>
   </div>
 </div>

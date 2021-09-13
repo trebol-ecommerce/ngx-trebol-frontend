@@ -17,7 +17,7 @@ import { StoreRegistrationFormDialogComponent } from './dialogs/registration-for
 import { StoreFooterComponent } from './components/footer/store-footer.component';
 import { StoreHeaderComponent } from './components/header/store-header.component';
 import { StoreCartReviewComponent } from './routes/cart-review/store-cart-review.component';
-import { StoreCatalogProductCardComponent } from './routes/catalog/product-card/store-catalog-product-card.component';
+import { StoreProductCardComponent } from './components/product-card/store-product-card.component';
 import { StoreCatalogComponent } from './routes/catalog/store-catalog.component';
 import { StoreCatalogService } from './routes/catalog/store-catalog.service';
 import { StoreReceiptComponent } from './routes/receipt/store-receipt.component';
@@ -51,7 +51,7 @@ const SNACKBAR_DEFAULTS = {
     StoreRegistrationFormDialogComponent,
     StorePaymentRedirectPromptDialogComponent,
     StoreProductDetailsDialogComponent,
-    StoreCatalogProductCardComponent,
+    StoreProductCardComponent,
     StoreCompanyDetailsDialogComponent,
     StoreHeaderBrandComponent,
     StoreHeaderNavigationComponent,

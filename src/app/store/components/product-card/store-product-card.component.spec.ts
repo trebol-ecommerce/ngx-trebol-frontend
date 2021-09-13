@@ -4,13 +4,13 @@
 // https://opensource.org/licenses/MIT
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { StoreCatalogProductCardComponent } from './store-catalog-product-card.component';
+import { StoreProductCardComponent } from './store-product-card.component';
 import { StoreService } from 'src/app/store/store.service';
-import { StoreCatalogService } from '../store-catalog.service';
+import { StoreCatalogService } from 'src/app/store/routes/catalog/store-catalog.service';
 
-describe('StoreCatalogProductCardComponent', () => {
-  let component: StoreCatalogProductCardComponent;
-  let fixture: ComponentFixture<StoreCatalogProductCardComponent>;
+describe('StoreProductCardComponent', () => {
+  let component: StoreProductCardComponent;
+  let fixture: ComponentFixture<StoreProductCardComponent>;
   let storeService: Partial<StoreService>;
   let catalogService: Partial<StoreCatalogService>;
 
@@ -23,7 +23,7 @@ describe('StoreCatalogProductCardComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [ StoreCatalogProductCardComponent ],
+      declarations: [ StoreProductCardComponent ],
       providers: [
         { provide: StoreService, useValue: storeService },
         { provide: StoreCatalogService, useValue: catalogService }
@@ -33,7 +33,7 @@ describe('StoreCatalogProductCardComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StoreCatalogProductCardComponent);
+    fixture = TestBed.createComponent(StoreProductCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

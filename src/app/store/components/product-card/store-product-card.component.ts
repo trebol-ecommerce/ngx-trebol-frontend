@@ -6,14 +6,14 @@
 import { Component, Input } from '@angular/core';
 import { StoreService } from 'src/app/store/store.service';
 import { Product } from 'src/app/models/entities/Product';
-import { StoreCatalogService } from '../store-catalog.service';
+import { StoreCatalogService } from 'src/app/store/routes/catalog/store-catalog.service';
 
 @Component({
-  selector: 'app-store-catalog-product-card',
-  templateUrl: './store-catalog-product-card.component.html',
-  styleUrls: ['./store-catalog-product-card.component.css']
+  selector: 'app-store-product-card',
+  templateUrl: './store-product-card.component.html',
+  styleUrls: ['./store-product-card.component.css']
 })
-export class StoreCatalogProductCardComponent {
+export class StoreProductCardComponent {
 
   @Input() public product: Product = null;
 
