@@ -12,8 +12,7 @@ export const MOCK_PRODUCTS: Partial<Product>[] = [
     images: [
       {
         filename: 'photo-1578116922645-3976907a7671.jpg',
-        url: 'assets/img/products/photo-1578116922645-3976907a7671.jpg',
-        id: 'assets/img/products/photo-1578116922645-3976907a7671.jpg'
+        url: 'assets/img/products/photo-1578116922645-3976907a7671.jpg'
       }
     ]
   },
@@ -27,8 +26,7 @@ export const MOCK_PRODUCTS: Partial<Product>[] = [
     images: [
       {
         filename: 'photo-1578172433613-9f1b258f7d5b.jpg',
-        url: 'assets/img/products/photo-1578172433613-9f1b258f7d5b.jpg',
-        id: 'assets/img/products/photo-1578172433613-9f1b258f7d5b.jpg'
+        url: 'assets/img/products/photo-1578172433613-9f1b258f7d5b.jpg'
       }
     ]
   },
@@ -42,8 +40,7 @@ export const MOCK_PRODUCTS: Partial<Product>[] = [
     images: [
       {
         filename: 'photo-1580143881495-b21dde95fc60.jpg',
-        url: 'assets/img/products/photo-1580143881495-b21dde95fc60.jpg',
-        id: 'assets/img/products/photo-1580143881495-b21dde95fc60.jpg'
+        url: 'assets/img/products/photo-1580143881495-b21dde95fc60.jpg'
       }
     ]
   }

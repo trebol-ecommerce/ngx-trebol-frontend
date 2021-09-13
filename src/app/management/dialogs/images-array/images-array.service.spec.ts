@@ -38,8 +38,7 @@ describe('ImagesArrayService', () => {
     const mockImagesArray: Image[] = [
       {
         filename: 'test.png',
-        url: 'test/test.png',
-        id: 'test/test.png'
+        url: 'test/test.png'
       }
     ];
     const mockService = { images$: of(mockImagesArray) };
@@ -56,8 +55,7 @@ describe('ImagesArrayService', () => {
   it('should expose an observable of image options for a mat-list', () => {
     const mockImage: Image = {
       filename: 'test.png',
-      url: 'test/test.png',
-      id: 'test/test.png'
+      url: 'test/test.png'
     };
     const mockService = { images$: of([mockImage]) };
     TestBed.overrideProvider(ImagesService, { useValue: mockService });

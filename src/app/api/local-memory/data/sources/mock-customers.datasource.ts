@@ -2,9 +2,7 @@ import { Customer } from 'src/app/models/entities/Customer';
 
 export const MOCK_CUSTOMERS: Partial<Customer>[] = [
   {
-    id: 1,
     person: {
-      id: 1,
       name: 'Anónimo',
       idCard: '1111111-1',
       address: 'Calle Sin Salida 47',
@@ -12,9 +10,7 @@ export const MOCK_CUSTOMERS: Partial<Customer>[] = [
     }
   },
   {
-    id: 2,
     person: {
-      id: 2,
       name: 'Ayla H.',
       idCard: '2222589-9',
       address: 'Hacienda El Tintero 370',
@@ -22,9 +18,7 @@ export const MOCK_CUSTOMERS: Partial<Customer>[] = [
     }
   },
   {
-    id: 3,
     person: {
-      id: 3,
       name: 'Benito F.',
       idCard: '3327271-6',
       address: 'Pedro Loza 533',
@@ -32,9 +26,7 @@ export const MOCK_CUSTOMERS: Partial<Customer>[] = [
     }
   },
   {
-    id: 4,
     person: {
-      id: 4,
       name: 'Camelia M.',
       idCard: '4441755-7',
       address: 'Rio Panuco, 128',
@@ -42,9 +34,7 @@ export const MOCK_CUSTOMERS: Partial<Customer>[] = [
     }
   },
   {
-    id: 5,
     person: {
-      id: 5,
       name: 'Daniel G.',
       idCard: '5591163-8',
       address: 'Constitucion 27',

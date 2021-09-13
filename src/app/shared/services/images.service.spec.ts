@@ -46,7 +46,7 @@ describe('ImagesService', () => {
   });
 
   it('should re-cache after calling fetch()', () => {
-    const exampleImageArray: Image[] = [ { url: 'fake', filename: 'example', id: 'fake' } ];
+    const exampleImageArray: Image[] = [ { url: 'fake', filename: 'example' } ];
     mockDataService = {
       fetchPage() {
         return of({

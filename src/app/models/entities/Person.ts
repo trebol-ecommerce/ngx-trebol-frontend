@@ -4,7 +4,6 @@
 // https://opensource.org/licenses/MIT
 
 export class Person {
-  public id: number;
   public name: string;
   public idCard: string;
   public email: string;
