@@ -7,7 +7,6 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DataPage } from 'src/app/models/DataPage';
-import { Product } from 'src/app/models/entities/Product';
 import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { API_SERVICE_INJECTION_TOKENS } from '../../api-service-injection-tokens';
 import { ICategoriesPublicApiService } from '../../categories-public-api.iservice';
@@ -18,10 +17,10 @@ import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api
 export class CategoriesPublicLocalMemoryApiService
   implements ICategoriesPublicApiService {
 
-  protected items: Product[] = [];
+  protected items: ProductCategory[] = [];
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) private dataService: EntityDataLocalMemoryApiService<Product>
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductCategories) private dataService: EntityDataLocalMemoryApiService<ProductCategory>
   ) {
     this.dataService.fetchPage().subscribe(response => {
       this.items = response.items;
