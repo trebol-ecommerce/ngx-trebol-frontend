@@ -13,15 +13,15 @@ import { SharedDataLocalMemoryApiService } from './data/shared-data.local-memory
 import { UsersDataLocalMemoryApiService } from './data/users-data.local-memory-api.service';
 import { AccessLocalMemoryApiService } from './access/access.local-memory-api.service';
 import { ImagesDataLocalMemoryApiService } from './data/images-data.local-memory-api.service';
-import { LoginPublicLocalMemoryApiService } from './store/login-public.local-memory-api.service';
-import { AboutPublicLocalMemoryApiService } from './store/about-public.local-memory-api.service';
-import { CategoriesPublicLocalMemoryApiService } from './store/categories-public.local-memory-api.service';
-import { CheckoutPublicLocalMemoryApiService } from './store/checkout-public.local-memory-api.service';
-import { ReceiptPublicLocalMemoryApiService } from './store/receipt-public.local-memory-api.service';
-import { GuestPublicLocalMemoryApiService } from './store/guest-public.local-memory-api.service';
+import { LoginPublicLocalMemoryApiService } from './public/login-public.local-memory-api.service';
+import { AboutPublicLocalMemoryApiService } from './public/about-public.local-memory-api.service';
+import { CategoriesPublicLocalMemoryApiService } from './public/categories-public.local-memory-api.service';
+import { CheckoutPublicLocalMemoryApiService } from './public/checkout-public.local-memory-api.service';
+import { ReceiptPublicLocalMemoryApiService } from './public/receipt-public.local-memory-api.service';
+import { GuestPublicLocalMemoryApiService } from './public/guest-public.local-memory-api.service';
 import { ProfileAccountLocalMemoryApiService } from './account/profile-account.local-memory-api.service';
-import { RegisterPublicLocalMemoryApiService } from './store/register-public.local-memory-api.service';
-import { ProductsPublicLocalMemoryApiService } from './store/products-public.local-memory-api.service';
+import { RegisterPublicLocalMemoryApiService } from './public/register-public.local-memory-api.service';
+import { ProductsPublicLocalMemoryApiService } from './public/products-public.local-memory-api.service';
 
 /**
  * Provides services that read and write data using the client's working memory
