@@ -8,7 +8,7 @@ import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.
 import { StoreReceiptService } from './store-receipt.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { StoreLocalMemoryApiService } from 'src/app/api/local-memory/store/store.local-memory-api.service';
+import { AboutPublicLocalMemoryApiService } from 'src/app/api/local-memory/store/about-public.local-memory-api.service';
 
 describe('StoreReceiptService', () => {
   let service: StoreReceiptService;
@@ -21,7 +21,7 @@ describe('StoreReceiptService', () => {
       ],
       providers: [
         StoreReceiptService,
-        { provide: API_SERVICE_INJECTION_TOKENS.categories, useClass: StoreLocalMemoryApiService }
+        { provide: API_SERVICE_INJECTION_TOKENS.categories, useClass: AboutPublicLocalMemoryApiService }
       ]
     });
     service = TestBed.inject(StoreReceiptService);

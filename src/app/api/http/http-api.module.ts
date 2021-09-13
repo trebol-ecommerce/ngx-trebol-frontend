@@ -14,10 +14,13 @@ import { UsersDataHttpApiService } from './data/users-data.http-api.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AccessHttpApiService } from './access/access.http-api.service';
 import { ImagesDataHttpApiService } from './data/images-data.http-api.service';
-import { StoreHttpApiService } from './store/store.http-api.service';
+import { AboutPublicHttpApiService } from './public/about-public.http-api.service';
 import { SessionHttpApiService } from './session/session.http-api.service';
 import { SessionHttpApiInterceptor } from './session/session.http-api.interceptor';
-import { CategoriesHttpApiService } from './store/categories-public.http-api.service';
+import { CategoriesPublicHttpApiService } from './public/categories-public.http-api.service';
+import { CheckoutPublicHttpApiService } from './public/checkout-public.http-api.service ';
+import { ProductsPublicHttpApiService } from './public/products-public.http-api.service';
+import { ReceiptPublicHttpApiService } from './public/receipt-public.http-api.service';
 
 /**
  * Provides services that read and write data using an external HTTP server (defined in the environment files)
@@ -78,18 +81,18 @@ import { CategoriesHttpApiService } from './store/categories-public.http-api.ser
       provide: API_SERVICE_INJECTION_TOKENS.dataUsers,
       useClass: UsersDataHttpApiService
     },
-    // {
-    //   provide: API_SERVICE_INJECTION_TOKENS.about,
-    //   useClass:
-    // },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.about,
+      useClass: AboutPublicHttpApiService
+    },
     {
       provide: API_SERVICE_INJECTION_TOKENS.categories,
-      useClass: CategoriesHttpApiService
+      useClass: CategoriesPublicHttpApiService
     },
-    // {
-    //   provide: API_SERVICE_INJECTION_TOKENS.checkout,
-    //   useClass:
-    // },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.checkout,
+      useClass: CheckoutPublicHttpApiService
+    },
     // {
     //   provide: API_SERVICE_INJECTION_TOKENS.guest,
     //   useClass:
@@ -100,12 +103,12 @@ import { CategoriesHttpApiService } from './store/categories-public.http-api.ser
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.products,
-      useClass: StoreHttpApiService
+      useClass: ProductsPublicHttpApiService
     },
-    // {
-    //   provide: API_SERVICE_INJECTION_TOKENS.receipt,
-    //   useClass: CustomersDataHttpApiService
-    // },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.receipt,
+      useClass: ReceiptPublicHttpApiService
+    },
     // {
     //   provide: API_SERVICE_INJECTION_TOKENS.register,
     //   useClass: CustomersDataHttpApiService

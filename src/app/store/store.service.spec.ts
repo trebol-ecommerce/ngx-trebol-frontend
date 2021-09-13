@@ -10,13 +10,13 @@ import { StoreService } from './store.service';
 import { Product } from 'src/app/models/entities/Product';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { take } from 'rxjs/operators';
-import { IStoreApiService } from '../api/store-api.iservice';
+import { IAboutPublicApiService } from '../api/about-public-api.iservice';
 import { empty, EMPTY } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
 
 describe('StoreService', () => {
   let service: StoreService;
-  let apiService: Partial<IStoreApiService>;
+  let apiService: Partial<IAboutPublicApiService>;
   const mockProduct: Product = {
     barcode: 'example',
     name: 'test product',

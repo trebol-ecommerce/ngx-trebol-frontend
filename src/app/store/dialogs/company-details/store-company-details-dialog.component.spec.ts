@@ -7,12 +7,12 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { StoreCompanyDetailsDialogComponent } from './store-company-details-dialog.component';
-import { IStoreApiService } from 'src/app/api/store-api.iservice';
+import { IAboutPublicApiService } from 'src/app/api/about-public-api.iservice';
 
 describe('StoreCompanyDetailsDialogComponent', () => {
   let component: StoreCompanyDetailsDialogComponent;
   let fixture: ComponentFixture<StoreCompanyDetailsDialogComponent>;
-  let service: Partial<IStoreApiService>;
+  let service: Partial<IAboutPublicApiService>;
 
   beforeEach(waitForAsync(() => {
     service = {

@@ -11,7 +11,7 @@ import { Sell } from 'src/app/models/entities/Sell';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ICompositeEntityDataApiService } from 'src/app/api/composite-entity.data-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { IStoreApiService } from 'src/app/api/store-api.iservice';
+import { IAboutPublicApiService } from 'src/app/api/about-public-api.iservice';
 import { Receipt } from 'src/app/models/entities/Receipt';
 import { ReceiptDetail } from 'src/app/models/entities/ReceiptDetail';
 
@@ -26,7 +26,7 @@ export class StoreReceiptService {
   public date$: Observable<string> = this.receipt$.pipe(pluck('date'));
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.categories) protected storeApiService: IStoreApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.categories) protected storeApiService: IAboutPublicApiService,
     protected router: Router
   ) {
   }

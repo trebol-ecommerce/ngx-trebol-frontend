@@ -7,7 +7,7 @@ import { Injectable, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ProductCategory } from 'src/app/models/entities/ProductCategory';
-import { IStoreApiService } from 'src/app/api/store-api.iservice';
+import { IAboutPublicApiService } from 'src/app/api/about-public-api.iservice';
 import { ICategoriesPublicApiService } from 'src/app/api/categories-public-api.iservice';
 import { map } from 'rxjs/operators';
 

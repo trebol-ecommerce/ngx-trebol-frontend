@@ -10,7 +10,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { concatMap, delay, map, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { Product } from 'src/app/models/entities/Product';
-import { IStoreApiService } from 'src/app/api/store-api.iservice';
+import { IAboutPublicApiService } from 'src/app/api/about-public-api.iservice';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
 import { StoreProductDetailsDialogComponent, StoreProductDetailsDialogData } from '../../dialogs/product-details/store-product-details-dialog.component';
 import { DataPage } from 'src/app/models/DataPage';
@@ -28,7 +28,7 @@ export class StoreCatalogService
   public filters: ProductFilters = {};
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.products) protected storeApiService: IStoreApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.products) protected storeApiService: IAboutPublicApiService,
     protected dialogService: MatDialog,
     protected route: ActivatedRoute,
     protected router: Router,

@@ -12,25 +12,25 @@ import { environment } from 'src/environments/environment';
 import { ICategoriesPublicApiService } from '../../categories-public-api.iservice';
 
 @Injectable()
-export class CategoriesHttpApiService
+export class CategoriesPublicHttpApiService
   extends HttpApiService
   implements ICategoriesPublicApiService {
 
-  protected baseUrl = environment.apiUrls.public;
+  protected baseUrl = `${environment.apiUrls.public}/categories`;
 
   constructor(http: HttpClient) {
     super(http);
   }
 
-  fetchChildrenProductCategoriesByParentCode(parentId: string) {
+  fetchRootProductCategories() {
     return this.http.get<DataPage<ProductCategory>>(
-      `${this.baseUrl}/categories/${parentId}`
+      this.baseUrl
     );
   }
 
-  fetchRootProductCategories() {
+  fetchChildrenProductCategoriesByParentCode(parentCode: string) {
     return this.http.get<DataPage<ProductCategory>>(
-      `${this.baseUrl}/categories`
+      `${this.baseUrl}/${parentCode}`
     );
   }
 }

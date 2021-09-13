@@ -7,14 +7,14 @@ import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreCatalogService } from './store-catalog.service';
-import { IStoreApiService } from 'src/app/api/store-api.iservice';
+import { IAboutPublicApiService } from 'src/app/api/about-public-api.iservice';
 import { of, EMPTY } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ICategoriesPublicApiService } from 'src/app/api/categories-public-api.iservice';
 
 describe('StoreCatalogService', () => {
   let service: StoreCatalogService;
-  let mockStoreApiService: Partial<IStoreApiService>;
+  let mockStoreApiService: Partial<IAboutPublicApiService>;
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(() => {
