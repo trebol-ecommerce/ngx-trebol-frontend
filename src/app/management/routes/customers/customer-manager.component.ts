@@ -5,10 +5,10 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Customer } from 'src/app/models/entities/Customer';
-import { DataManagerComponentDirective } from '../data-manager.component-directive';
+import { DataManagerComponentDirective } from '../../directives/data-manager.component-directive';
 import { CustomerManagerService } from './customer-manager.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-customer-manager',
@@ -26,23 +26,20 @@ export class CustomerManagerComponent
 
   constructor(
     protected service: CustomerManagerService,
-    protected route: ActivatedRoute
+    protected route: ActivatedRoute,
+    protected dialogService: MatDialog
   ) {
     super();
   }
 
   ngOnInit(): void {
-    super.init(this.service);
+    super.ngOnInit();
     this.route.data.subscribe(
       d => {
         this.service.updateAccess(d.access);
         this.service.reloadItems();
       }
     );
-  }
-
-  public openFormDialog(item: Customer): Observable<Customer> {
-    throw new Error('Method not implemented.');
   }
 
 }

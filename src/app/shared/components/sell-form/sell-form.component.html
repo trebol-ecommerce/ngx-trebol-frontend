@@ -1,0 +1,99 @@
+<!--
+ Copyright (c) 2020 Benjamin La Madrid
+
+ This software is released under the MIT License.
+ https://opensource.org/licenses/MIT
+-->
+
+<form [formGroup]="formGroup">
+
+  <mat-form-field style="grid-area: date">
+    <input matInput placeholder="Fecha" [ngModel]="sellDate" [ngModelOptions]="{ standalone: true }" disabled />
+  </mat-form-field>
+
+  <mat-form-field style="grid-area: type">
+    <mat-select placeholder="Tipo de Venta" formControlName="type">
+      <mat-option *ngFor="let b of (billingTypes$ | async)" [value]="b.id">
+        {{ b.description }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field style="grid-area: salesperson">
+    <mat-select placeholder="Vendedor" formControlName="salesperson">
+      <mat-option *ngFor="let e of (salespeople$ | async)" [value]="e.person.idNumber">
+        {{ e.person.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field style="grid-area: customer">
+    <mat-select placeholder="Cliente" formControlName="customer">
+      <mat-option *ngFor="let c of (customers$ | async)" [value]="c.person.idNumber">
+        {{ c.person.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-card style="grid-area: details">
+    <div class="details-header">
+      <h3>Productos de esta Venta</h3>
+      <button mat-button mat-raised-button type="button"
+        color="primary"
+        (click)="onClickAddProducts()">
+        Agregar
+      </button>
+    </div>
+    <div class="details-table-wrapper">
+      <table mat-table [dataSource]="sellDetails$">
+        <ng-container matColumnDef="product">
+          <th mat-header-cell *matHeaderCellDef> Nombre </th>
+          <td mat-cell *matCellDef="let detail">
+            {{ detail.product.name }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef> Precio </th>
+          <td mat-cell *matCellDef="let detail">
+            ${{ detail.product.price }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+          <td mat-cell *matCellDef="let detail; let i=index">
+            <button mat-button mat-icon-button type="button"
+              (click)="onClickIncreaseDetailProductQuantity(i)">
+              <mat-icon>add</mat-icon>
+            </button>
+            {{ detail.units }}
+            <button mat-button mat-icon-button type="button"
+              [disabled]="detail.units < 2"
+              (click)="onClickDecreaseDetailProductQuantity(i)">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let i=index">
+            <button mat-button mat-icon-button type="button"
+              color="warn"
+              (click)="onClickRemoveDetail(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+      </table>
+    </div>
+  </mat-card>
+
+  <div style="grid-area: summary">
+    <div class="summary-data">
+      <div>Subtotal: ${{ sellSubtotalValue$ | async }}</div>
+      <div>Total: ${{ sellTotalValue$ | async }}</div>
+    </div>
+  </div>
+</form>

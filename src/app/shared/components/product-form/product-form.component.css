@@ -1,0 +1,56 @@
+/**
+ * Copyright (c) 2021 Benjamin La Madrid
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem;
+}
+
+@media(min-width: 800px) {
+  .images {
+    grid-area: images;
+  }
+  .barcode {
+    grid-area: barcode;
+  }
+  .name {
+    grid-area: name;
+  }
+  .family {
+    grid-area: family;
+  }
+  .type {
+    grid-area: type;
+  }
+  .price {
+    grid-area: price;
+  }
+  .stock {
+    grid-area: stock;
+  }
+  .cStock {
+    grid-area: cStock;
+  }
+  .desc {
+    grid-area: desc;
+  }
+  .actions {
+    grid-area: actions;
+  }
+
+  form {
+    grid-template-areas:
+      'images images images'
+      'barcode name name'
+      'family family family'
+      'type type type'
+      'price stock cStock'
+      'desc desc desc'
+      'actions actions actions';
+  }
+}

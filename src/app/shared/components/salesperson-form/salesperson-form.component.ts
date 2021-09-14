@@ -3,61 +3,48 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { Component, Input, Output, OnDestroy, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, NG_VALUE_ACCESSOR, NG_VALIDATORS,
+import { Component, OnDestroy, EventEmitter } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR, NG_VALIDATORS,
   ControlValueAccessor, Validator, AbstractControl, ValidationErrors
 } from '@angular/forms';
-import { Subscription, merge } from 'rxjs';
+import { Observable, Subscription, merge } from 'rxjs';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
+import { Person } from 'src/app/models/entities/Person';
 import { debounceTime, tap } from 'rxjs/operators';
 import { validateFormGroup } from 'src/functions/validateFormGroup';
 
 @Component({
-  selector: 'app-person-form',
-  templateUrl: './person-form.component.html',
-  styleUrls: [ './person-form.component.css' ],
+  selector: 'app-salesperson-form',
+  templateUrl: './salesperson-form.component.html',
+  styleUrls: [ './salesperson-form.component.css' ],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: PersonFormComponent
+      useExisting: SalespersonFormComponent
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: PersonFormComponent
+      useExisting: SalespersonFormComponent
     }
   ]
 })
-export class PersonFormComponent
+export class SalespersonFormComponent
   implements OnDestroy, ControlValueAccessor, Validator {
 
   private touchedSubscriptions: Subscription[] = [];
   private valueChangesSubscriptions: Subscription[] = [];
   private touched = new EventEmitter<void>();
-  protected personId: number;
 
   formGroup: FormGroup;
-
-  get id() { return this.formGroup.get('id') as FormControl; }
-  get name() { return this.formGroup.get('name') as FormControl; }
-  get idNumber() { return this.formGroup.get('idNumber') as FormControl; }
-  get email() { return this.formGroup.get('email') as FormControl; }
-  get address() { return this.formGroup.get('address') as FormControl; }
-  get phone1() { return this.formGroup.get('phone1') as FormControl; }
-  get phone2() { return this.formGroup.get('phone2') as FormControl; }
+  get person() { return this.formGroup.get('person') as FormControl; }
 
   constructor(
-    protected formBuilder: FormBuilder
+    private formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
-      id: [''],
-      name: ['', Validators.required],
-      idNumber: ['', Validators.required],
-      email: ['', Validators.required],
-      address: ['', Validators.required],
-      phone1: [''],
-      phone2: ['']
+      person: ['']
     });
   }
 
@@ -69,19 +56,14 @@ export class PersonFormComponent
     }
   }
 
-  onTouched(): void {
-    this.touched.emit();
-  }
-
   writeValue(obj: any): void {
-    this.id.reset('', { emitEvent: false });
-    this.name.reset('', { emitEvent: false });
-    this.idNumber.reset('', { emitEvent: false });
-    this.email.reset('', { emitEvent: false });
-    this.phone1.reset('', { emitEvent: false });
-    this.phone2.reset('', { emitEvent: false });
+    this.person.reset('', { emitEvent: false });
     if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj);
+      if (obj instanceof Person) {
+        this.person.setValue(obj);
+      } else {
+        this.formGroup.patchValue(obj);
+      }
     }
   }
 
@@ -106,9 +88,4 @@ export class PersonFormComponent
   validate(control: AbstractControl): ValidationErrors {
     return validateFormGroup(this.formGroup);
   }
-
-  onParentFormTouched(): void {
-    this.formGroup.markAllAsTouched();
-  }
-
 }

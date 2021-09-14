@@ -7,14 +7,13 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
+import { SellFormComponent } from 'src/app/shared/components/sell-form/sell-form.component';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
-import { DataManagerComponentDirective } from '../data-manager.component-directive';
-import { SellManagerFormDialogComponent } from './form-dialog/sell-manager-form-dialog.component';
+import { DataManagerFormDialogConfig } from '../../dialogs/data-manager-form-dialog/DataManagerFormDialogConfig';
 import { SellManagerService } from './sell-manager.service';
-import { DataManagerFormDialogData } from '../DataManagerFormDialogData';
+import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 
 @Component({
   selector: 'app-sell-manager',
@@ -25,7 +24,7 @@ import { DataManagerFormDialogData } from '../DataManagerFormDialogData';
   ]
 })
 export class SellManagerComponent
-  extends DataManagerComponentDirective<Sell>
+  extends TransactionalDataManagerComponentDirective<Sell>
   implements OnInit {
 
   public tableColumns: string[] = [ 'id', 'date', 'actions' ];
@@ -49,19 +48,18 @@ export class SellManagerComponent
     );
   }
 
-  public openFormDialog(item: Sell): Observable<Sell> {
-    const dialogData: DataManagerFormDialogData<Sell> = { item };
-
-    return this.dialogService.open(
-      SellManagerFormDialogComponent,
-      {
-        width: '80rem',
-        data: dialogData
-      }
-    ).afterClosed();
+  protected createDialogProperties(item: Sell): DataManagerFormDialogConfig<Sell> {
+    return {
+      data: {
+        item,
+        formComponent: SellFormComponent,
+        service: this.service.dataService
+      },
+      width: '80rem'
+    };
   }
 
-  public onClickDelete(s: Sell) {
+  onClickDelete(s: Sell) {
     this.service.removeItems([s]).pipe(
       map(results => results[0])
     ).subscribe(

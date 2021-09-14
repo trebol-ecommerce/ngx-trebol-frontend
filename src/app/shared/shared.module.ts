@@ -17,6 +17,13 @@ import { DialogSwitcherButtonComponent } from './components/dialog-switcher-butt
 import { InformationDialogComponent } from './dialogs/information-dialog/information-dialog.component';
 import { SlideshowComponent } from './components/slideshow/slideshow.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
+import { ImagesArrayDialogComponent } from './dialogs/images-array/images-array-dialog.component';
+import { SalespersonFormComponent } from './components/salesperson-form/salesperson-form.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
+import { SellFormComponent } from './components/sell-form/sell-form.component';
+import { ImageUploadFormComponent } from './components/image-upload-form/image-upload-form.component';
+import { FormControlOutletComponent } from './components/form-control-outlet/form-control-outlet.component';
 
 
 const PUBLIC_COMPONENTS = [
@@ -24,11 +31,18 @@ const PUBLIC_COMPONENTS = [
   ConfirmationDialogComponent,
   FileUploadComponent,
   PersonFormComponent,
+  ProductFormComponent,
+  SalespersonFormComponent,
+  SellFormComponent,
+  UserFormComponent,
   ProductFiltersPanelComponent,
   EditProfileFormDialogComponent,
   DialogSwitcherButtonComponent,
   InformationDialogComponent,
-  SlideshowComponent
+  SlideshowComponent,
+  FormControlOutletComponent,
+  ImagesArrayDialogComponent,
+  ImageUploadFormComponent
 ];
 
 @NgModule({

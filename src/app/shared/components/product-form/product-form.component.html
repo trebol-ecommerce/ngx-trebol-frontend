@@ -1,0 +1,48 @@
+<!--
+ Copyright (c) 2021 Benjamin La Madrid
+
+ This software is released under the MIT License.
+ https://opensource.org/licenses/MIT
+-->
+
+<form [formGroup]="formGroup">
+  <app-slideshow class="images"
+    [images]="images"
+    [autocycle]="false"
+    [editable]="true"
+    (add)="onClickAddImage()">
+  </app-slideshow>
+
+  <mat-form-field class="barcode">
+    <input matInput placeholder="Código" formControlName="barcode" />
+  </mat-form-field>
+
+  <mat-form-field class="name">
+    <input matInput placeholder="Nombre" formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field class="category">
+    <mat-select placeholder="Familia de Producto" formControlName="category">
+      <mat-option *ngFor="let f of (categories$ | async)"
+        [value]="f.code">
+        {{ f.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="price">
+    <input matInput placeholder="Precio" formControlName="price" />
+  </mat-form-field>
+
+  <mat-form-field class="stock">
+    <input matInput placeholder="Stock Actual" formControlName="stock" />
+  </mat-form-field>
+
+  <mat-form-field class="cStock">
+    <input matInput placeholder="Stock crítico" formControlName="criticalStock" />
+  </mat-form-field>
+
+  <mat-form-field class="desc">
+    <textarea matInput placeholder="Descripción" formControlName="description"></textarea>
+  </mat-form-field>
+</form>
