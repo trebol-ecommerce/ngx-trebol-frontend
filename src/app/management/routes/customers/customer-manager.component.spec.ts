@@ -8,6 +8,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { CustomerManagerComponent } from './customer-manager.component';
 import { CustomerManagerService } from './customer-manager.service';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { CommonModule } from '@angular/common';
+import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 describe('CustomerManagerComponent', () => {
   let component: CustomerManagerComponent;
@@ -28,9 +33,16 @@ describe('CustomerManagerComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        CommonModule,
+        NoopAnimationsModule,
+        RouterTestingModule,
+        MatProgressSpinnerModule,
+        MatTableModule
       ],
-      declarations: [ CustomerManagerComponent ],
+      declarations: [
+        CustomerManagerComponent ,
+        CenteredMatProgressSpinnerComponent
+      ],
       providers: [
         { provide: CustomerManagerService, useValue: managerService }
       ]

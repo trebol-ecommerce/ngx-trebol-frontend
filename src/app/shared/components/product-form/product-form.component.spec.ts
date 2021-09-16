@@ -43,7 +43,7 @@ describe('ProductFormComponent', () => {
       ],
       declarations: [ ProductFormComponent ],
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.categories, useValue: null },
+        { provide: API_SERVICE_INJECTION_TOKENS.categories, useValue: mockCategoriesApiService },
         { provide: MAT_DIALOG_DATA, useValue: null },
         { provide: MatDialogRef, useValue: mockDialogRef }
       ]

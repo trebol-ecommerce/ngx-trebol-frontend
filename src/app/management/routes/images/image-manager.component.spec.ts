@@ -9,11 +9,13 @@ import { ImageManagerService } from './image-manager.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { of } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('ImageManagerComponent', () => {
   let component: ImageManagerComponent;
   let fixture: ComponentFixture<ImageManagerComponent>;
   let mockService: Partial<ImageManagerService>;
+  let mockSnackBarService: Partial<MatSnackBar>;
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
@@ -28,6 +30,9 @@ describe('ImageManagerComponent', () => {
       focusedItems: [],
       updateAccess() {}
     };
+    mockSnackBarService = {
+      open(m: string, a: string) { return void 0; }
+    };
     mockDialogService = {
       open() { return void 0; }
     };
@@ -39,6 +44,7 @@ describe('ImageManagerComponent', () => {
       ],
       providers: [
         { provide: ImageManagerService, useValue: mockService },
+        { provide: MatSnackBar, useValue: mockSnackBarService },
         { provide: MatDialog, useValue: mockDialogService }
       ]
     })

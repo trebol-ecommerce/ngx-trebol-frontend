@@ -10,11 +10,22 @@ import { AppService } from 'src/app/app.service';
 import { StoreHeaderComponent } from './store-header.component';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { StoreHeaderBrandComponent } from './brand/store-header-brand.component';
-import { StoreHeaderNavigationComponent } from './navigation/store-header-navigation.component';
-import { StoreHeaderMiddleComponent } from './middle/store-header-middle.component';
-import { StoreHeaderMenuComponent } from './menu/store-header-menu.component';
-import { StoreHeaderLoginButtonComponent } from './login-button/store-header-login-button.component';
+import { Component } from '@angular/core';
+
+@Component({ selector: 'app-store-header-brand', template: '' })
+class MockStoreHeaderBrandComponent { }
+
+@Component({ selector: 'app-store-header-navigation', template: '' })
+class MockStoreHeaderNavigationComponent { }
+
+@Component({ selector: 'app-store-header-middle', template: '' })
+class MockStoreHeaderMiddleComponent { }
+
+@Component({ selector: 'app-store-header-menu', template: '' })
+class MockStoreHeaderMenuComponent { }
+
+@Component({ selector: 'app-store-header-login-button', template: '' })
+class MockStoreHeaderLoginButtonComponent { }
 
 describe('StoreHeaderComponent', () => {
   let component: StoreHeaderComponent;
@@ -34,15 +45,15 @@ describe('StoreHeaderComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        RouterTestingModule
+        RouterTestingModule,
       ],
       declarations: [
         StoreHeaderComponent,
-        StoreHeaderBrandComponent,
-        StoreHeaderNavigationComponent,
-        StoreHeaderMiddleComponent,
-        StoreHeaderMenuComponent,
-        StoreHeaderLoginButtonComponent
+        MockStoreHeaderBrandComponent,
+        MockStoreHeaderNavigationComponent,
+        MockStoreHeaderMiddleComponent,
+        MockStoreHeaderMenuComponent,
+        MockStoreHeaderLoginButtonComponent
       ],
       providers: [
         { provide: AppService, useValue: mockAppService },
