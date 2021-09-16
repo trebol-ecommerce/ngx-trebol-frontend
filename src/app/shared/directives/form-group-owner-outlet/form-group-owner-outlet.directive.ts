@@ -1,5 +1,5 @@
-import { ComponentFactoryResolver, Directive, Input, OnInit, Type, ViewContainerRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ComponentFactoryResolver, Directive, Input, OnInit, Type, ViewContainerRef, Injector, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR, NgControl, ControlValueAccessor } from '@angular/forms';
 import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
 
 @Directive({
@@ -8,7 +8,7 @@ import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: FormGroupOwnerOutletDirective
+      useExisting: forwardRef(() => FormGroupOwnerOutletDirective)
     }
   ]
 })
@@ -19,6 +19,7 @@ export class FormGroupOwnerOutletDirective
   @Input() componentType: Type<any> | undefined;
 
   constructor(
+    private injector: Injector,
     private componentFactoryResolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef
   ) { }
@@ -32,6 +33,8 @@ export class FormGroupOwnerOutletDirective
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.componentType);
       const componentRef = this.viewContainerRef.createComponent(componentFactory);
       this.innerComponent = componentRef.instance;
+
+      this.injector.get(NgControl).valueAccessor = this.innerComponent as any;
     }
   }
 

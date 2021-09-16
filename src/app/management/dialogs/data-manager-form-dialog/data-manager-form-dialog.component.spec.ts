@@ -3,56 +3,42 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
+import { CommonModule } from '@angular/common';
+import { Component, forwardRef } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { of } from 'rxjs';
+import { FormControl, FormGroup, ReactiveFormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor, FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, NG_VALUE_ACCESSOR, NgControl, ControlValueAccessor } from '@angular/forms';
-import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
+import { of } from 'rxjs';
+import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
+import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
+import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
+import { FormGroupOwnerOutletDirective } from 'src/app/shared/directives/form-group-owner-outlet/form-group-owner-outlet.directive';
 import { DataManagerFormDialogComponent } from './data-manager-form-dialog.component';
 import { DataManagerFormDialogData } from './DataManagerFormDialogData';
-import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Directive, Type, Input, Component } from '@angular/core';
-import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
-import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-mock-form',
-  template: '',
+  selector: 'app-mock-form-group-owner',
+  template: '<form [formGroup]="formGroup"><input type="text" formControlName="test" /></form>',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: MockFormComponent
+      useExisting: MockFormGroupOwnerComponent
     }
   ]
 })
-class MockFormComponent implements ControlValueAccessor, FormGroupOwner {
-  formGroup = new FormGroup({ test: new FormControl() });
-  writeValue() { }
+class MockFormGroupOwnerComponent
+  implements ControlValueAccessor, FormGroupOwner {
+  formGroup = new FormGroup({ test: new FormControl('') });
+  writeValue(v: any) { }
   registerOnChange() { }
   registerOnTouched() { }
   setDisabledState() { }
   onParentFormTouched() { }
-}
-
-@Directive({
-  selector: '[appFormGroupOwnerOutlet]',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      multi: true,
-      useExisting: MockFormGroupOwnerOutletDirective
-    }
-  ]
-})
-class MockFormGroupOwnerOutletDirective extends NgControl {
-  @Input() componentType: Type<any>;
-  innerComponent = new MockFormComponent();
-  control = this.innerComponent.formGroup;
-  valueAccessor = this.innerComponent;
-  viewToModelUpdate() { }
 }
 
 describe('DataManagerFormDialogComponent', () => {
@@ -75,7 +61,7 @@ describe('DataManagerFormDialogComponent', () => {
     mockDialogData = {
       item: { test: 'a' },
       service: mockDataApiService,
-      formComponent: MockFormComponent
+      formComponent: MockFormGroupOwnerComponent
     };
     mockDialogRef = {
       close() { }
@@ -88,13 +74,17 @@ describe('DataManagerFormDialogComponent', () => {
       imports: [
         CommonModule,
         NoopAnimationsModule,
+        FormsModule,
         ReactiveFormsModule,
-        AngularMaterialModule
+        MatButtonModule,
+        MatDialogModule,
+        MatProgressSpinnerModule
       ],
       declarations: [
-        DataManagerFormDialogComponent,
-        MockFormComponent,
-        MockFormGroupOwnerOutletDirective
+        MockFormGroupOwnerComponent,
+        CenteredMatProgressSpinnerComponent,
+        FormGroupOwnerOutletDirective,
+        DataManagerFormDialogComponent
       ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: mockDialogData },
@@ -113,5 +103,6 @@ describe('DataManagerFormDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect(component.formGroupOutlet).toBeTruthy();
   });
 });
