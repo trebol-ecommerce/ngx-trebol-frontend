@@ -23,7 +23,7 @@ import { SalespersonFormComponent } from './components/salesperson-form/salesper
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { SellFormComponent } from './components/sell-form/sell-form.component';
 import { ImageUploadFormComponent } from './components/image-upload-form/image-upload-form.component';
-import { FormControlOutletComponent } from './components/form-control-outlet/form-control-outlet.component';
+import { FormGroupOwnerOutletDirective } from './directives/form-group-owner-outlet/form-group-owner-outlet.directive';
 
 
 const PUBLIC_COMPONENTS = [
@@ -40,7 +40,7 @@ const PUBLIC_COMPONENTS = [
   DialogSwitcherButtonComponent,
   InformationDialogComponent,
   SlideshowComponent,
-  FormControlOutletComponent,
+  FormGroupOwnerOutletDirective,
   ImagesArrayDialogComponent,
   ImageUploadFormComponent
 ];

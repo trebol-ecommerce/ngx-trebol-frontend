@@ -14,3 +14,8 @@ form {
   grid-template-columns: 1fr;
   grid-gap: 0.5rem 1rem;
 }
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+}

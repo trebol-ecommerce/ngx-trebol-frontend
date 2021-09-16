@@ -14,8 +14,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, concat, Observable, Subscription, merge } from 'rxjs';
 import { map, startWith, mapTo, debounceTime, tap } from 'rxjs/operators';
 import { ImageManagerUploadService } from './image-upload-form.service';
-import { validateFormGroup } from 'src/functions/validateFormGroup';
+import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
+import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
 
 @Component({
   selector: 'app-image-upload-form',
@@ -35,7 +36,7 @@ import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
   ]
 })
 export class ImageUploadFormComponent
-  implements OnDestroy, ControlValueAccessor, Validator {
+  implements OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
 
   private uploadingSource = new BehaviorSubject<boolean>(false);
   private uploadSubscription: Subscription | undefined;
@@ -103,7 +104,11 @@ export class ImageUploadFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors {
-    return validateFormGroup(this.formGroup);
+    return collectValidationErrors(control);
+  }
+
+  onParentFormTouched(): void {
+    this.formGroup.markAllAsTouched();
   }
 
   onSubmit(): void {

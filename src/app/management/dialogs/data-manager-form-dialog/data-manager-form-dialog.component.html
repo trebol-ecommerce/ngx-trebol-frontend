@@ -10,21 +10,20 @@
 </centered-mat-spinner>
 
 <div [hidden]="busy$ | async">
-  <form [formGroup]="formGroup" (submit)="onSubmit()">
-    <app-form-control-outlet formControlName="item"
-      [type]="data.formComponent">
-    </app-form-control-outlet>
+  <ng-template appFormGroupOwnerOutlet
+    [(ngModel)]="data.item"
+    [componentType]="data.formComponent">
+  </ng-template>
 
-    <div class="actions">
-      <button mat-button mat-raised-button type="submit"
-        color="primary"
-        [disabled]="formGroup.invalid">
-        Aceptar
-      </button>
-      <button mat-button mat-raised-button type="button"
-        (click)="onCancel()">
-        Cancelar
-      </button>
-    </div>
-  </form>
+  <div class="actions">
+    <button mat-button mat-raised-button type="button"
+      (click)="onSubmit()"
+      color="primary">
+      Aceptar
+    </button>
+    <button mat-button mat-raised-button type="button"
+      (click)="onCancel()">
+      Cancelar
+    </button>
+  </div>
 </div>

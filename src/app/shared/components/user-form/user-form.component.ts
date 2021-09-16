@@ -14,7 +14,8 @@ import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { map, debounceTime, tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { validateFormGroup } from 'src/functions/validateFormGroup';
+import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
+import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
 
 @Component({
   selector: 'app-user-form',
@@ -34,7 +35,7 @@ import { validateFormGroup } from 'src/functions/validateFormGroup';
   ]
 })
 export class UserFormComponent
-  implements OnInit, OnDestroy, ControlValueAccessor, Validator {
+  implements OnInit, OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
 
   private touchedSubscriptions: Subscription[] = [];
   private valueChangesSubscriptions: Subscription[] = [];
@@ -104,7 +105,11 @@ export class UserFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors {
-    return validateFormGroup(this.formGroup);
+    return collectValidationErrors(control);
+  }
+
+  onParentFormTouched(): void {
+    this.formGroup.markAllAsTouched();
   }
 
 }

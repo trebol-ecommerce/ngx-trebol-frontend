@@ -3,15 +3,14 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { Component, Inject, ViewChild, ComponentFactoryResolver, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
+import { FormGroupOwnerOutletDirective } from 'src/app/shared/directives/form-group-owner-outlet/form-group-owner-outlet.directive';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerFormDialogData } from './DataManagerFormDialogData';
-import { take, tap, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-data-manager-form-dialog',
@@ -27,68 +26,59 @@ export class DataManagerFormDialogComponent<T>
 
   busy$ = this.busySource.asObservable();
 
-  formGroup: FormGroup;
-  get item() { return this.formGroup.get('item') as FormControl; }
-
   dialogTitle = 'Detalles del elemento';
+
+  @ViewChild(FormGroupOwnerOutletDirective, { static: true }) formGroupOutlet: FormGroupOwnerOutletDirective;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DataManagerFormDialogData<T>,
     private dialog: MatDialogRef<DataManagerFormDialogComponent<T>>,
-    private snackBarService: MatSnackBar,
-    private formBuilder: FormBuilder
+    private snackBarService: MatSnackBar
   ) {
-    this.formGroup = this.formBuilder.group({
-      item: [null]
-    });
     this.service = this.data.service;
     if (this.data.title) {
       this.dialogTitle = this.data.title;
+    }
+    if (this.data.successMessage) {
+      this.successMessage = this.data.successMessage;
     }
   }
 
   ngOnInit(): void {
     if (this.data.item) {
       this.isNew = false;
-      this.item.patchValue(this.data.item);
-      this.item.valueChanges.pipe(debounceTime(200), take(10), tap(() => { console.log(this.item.valid); })).subscribe();
     }
 
     this.busySource.next(false);
   }
 
   onSubmit(): void {
-    if (this.formGroup.valid) {
-      console.log(this.item.errors);
-
-      const item = this.item.value as T;
-      console.log(item);
-      if (this.isNew) {
-        this.service.create(item).subscribe(
-          success => {
-            if (success) {
-              let message: string;
-              if (this.data.successMessage) {
-                message = this.data.successMessage(item);
-              } else {
-                message = 'Elemento guardado con éxito';
-              }
-              this.snackBarService.open(message, 'OK');
-              this.dialog.close(item);
-            } else {
-              this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
-            }
-          },
-          error => {
-            this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
-          }
-        );
-      }
+    const innerComponent = this.formGroupOutlet.innerComponent;
+    if (innerComponent.formGroup.invalid) {
+      innerComponent.onParentFormTouched();
+      this.snackBarService.open('El formulario está incompleto o con errores. Revise la información ingresada e inténtelo nuevamente, por favor.', 'OK');
+    } else {
+      const item = this.data.item;
+      const submitObservable = (this.isNew) ? this.service.create(item) : this.service.update(item);
+      submitObservable.subscribe(
+        success => {
+          const message = this.successMessage(item);
+          this.snackBarService.open(message, 'OK');
+          this.dialog.close(item);
+        },
+        error => {
+          this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
+        }
+      );
     }
   }
 
   onCancel(): void {
     this.dialog.close();
+  }
+
+  private successMessage(item: T) {
+    return 'Elemento guardado con éxito';
   }
 
 }

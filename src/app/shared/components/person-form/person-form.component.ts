@@ -10,7 +10,8 @@ import { FormBuilder, FormGroup, Validators, FormControl, NG_VALUE_ACCESSOR, NG_
 import { Subscription, merge } from 'rxjs';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { debounceTime, tap } from 'rxjs/operators';
-import { validateFormGroup } from 'src/functions/validateFormGroup';
+import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
+import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
 
 @Component({
   selector: 'app-person-form',
@@ -30,7 +31,7 @@ import { validateFormGroup } from 'src/functions/validateFormGroup';
   ]
 })
 export class PersonFormComponent
-  implements OnDestroy, ControlValueAccessor, Validator {
+  implements OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
 
   private touchedSubscriptions: Subscription[] = [];
   private valueChangesSubscriptions: Subscription[] = [];
@@ -104,7 +105,7 @@ export class PersonFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors {
-    return validateFormGroup(this.formGroup);
+    return collectValidationErrors(control);
   }
 
   onParentFormTouched(): void {

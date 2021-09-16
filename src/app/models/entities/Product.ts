@@ -6,6 +6,8 @@
 import { ProductCategory } from './ProductCategory';
 import { Image } from './Image';
 
+// TODO update this model
+
 export class Product {
   public name: string;
   public barcode: string;

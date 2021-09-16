@@ -11,7 +11,8 @@ import { Observable, Subscription, merge } from 'rxjs';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { Person } from 'src/app/models/entities/Person';
 import { debounceTime, tap } from 'rxjs/operators';
-import { validateFormGroup } from 'src/functions/validateFormGroup';
+import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
+import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
 
 @Component({
   selector: 'app-salesperson-form',
@@ -31,7 +32,7 @@ import { validateFormGroup } from 'src/functions/validateFormGroup';
   ]
 })
 export class SalespersonFormComponent
-  implements OnDestroy, ControlValueAccessor, Validator {
+  implements OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
 
   private touchedSubscriptions: Subscription[] = [];
   private valueChangesSubscriptions: Subscription[] = [];
@@ -86,6 +87,10 @@ export class SalespersonFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors {
-    return validateFormGroup(this.formGroup);
+    return collectValidationErrors(control);
+  }
+
+  onParentFormTouched(): void {
+    this.formGroup.markAllAsTouched();
   }
 }

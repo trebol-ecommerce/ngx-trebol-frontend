@@ -17,7 +17,8 @@ import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { ImagesArrayDialogComponent } from '../../dialogs/images-array/images-array-dialog.component';
 import { ImagesArrayDialogData } from '../../dialogs/images-array/ImagesArrayDialogData';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { validateFormGroup } from 'src/functions/validateFormGroup';
+import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
+import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
 
 @Component({
   selector: 'app-product-form',
@@ -37,7 +38,7 @@ import { validateFormGroup } from 'src/functions/validateFormGroup';
   ]
 })
 export class ProductFormComponent
-  implements OnInit, OnDestroy, ControlValueAccessor, Validator {
+  implements OnInit, OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
 
   private touchedSubscriptions: Subscription[] = [];
   private valueChangesSubscriptions: Subscription[] = [];
@@ -66,8 +67,8 @@ export class ProductFormComponent
       name: ['', Validators.required],
       category: ['', Validators.required],
       price: ['', Validators.required],
-      stock: ['', Validators.required],
-      criticalStock: ['', Validators.required],
+      stock: [''],
+      // criticalStock: [''],
       description: ['']
     });
   }
@@ -121,7 +122,11 @@ export class ProductFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors {
-    return validateFormGroup(this.formGroup);
+    return collectValidationErrors(control);
+  }
+
+  onParentFormTouched(): void {
+    this.formGroup.markAllAsTouched();
   }
 
   onClickAddImage(): void {
