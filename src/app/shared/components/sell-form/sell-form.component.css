@@ -14,7 +14,7 @@ form {
   grid-gap: 0.5rem 1rem;
   grid-template-areas:
     'date'
-    'type'
+    'billingType'
     'salesperson'
     'salesperson'
     'customer'
@@ -25,7 +25,7 @@ form {
 @media(min-width: 640px) {
   form {
     grid-template-areas:
-      'date type'
+      'date billingType'
       'salesperson salesperson'
       'customer customer'
       'details details'
@@ -36,7 +36,7 @@ form {
 @media(min-width: 800px) {
   form {
     grid-template-areas:
-      'date date type type none none'
+      'date date billingType billingType none none'
       'salesperson salesperson salesperson customer customer customer'
       'details details details details details details'
       'summary summary summary summary summary summary';
