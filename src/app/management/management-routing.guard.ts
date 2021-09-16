@@ -3,11 +3,14 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, tap, catchError, switchMap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
+import { IAccessApiService } from '../api/access-api.iservice';
+import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class ManagementRoutingGuard
@@ -17,6 +20,7 @@ export class ManagementRoutingGuard
   public route: ActivatedRouteSnapshot;
 
   constructor(
+    @Inject(API_SERVICE_INJECTION_TOKENS.access) protected apiAccessService: IAccessApiService,
     protected router: Router,
     protected appService: AppService
   ) {
@@ -26,14 +30,35 @@ export class ManagementRoutingGuard
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const loggedIn = this.appService.isLoggedIn();
-    return loggedIn ? true : this.router.parseUrl('/');
+    return this.appService.validateSession().pipe(
+      tap(v => { if (!v) { this.router.navigateByUrl('/'); } }));
   }
 
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.canActivate(route, state);
+    const childPath = route.routeConfig.path;
+    if (childPath === 'dashboard') {
+      return this.canActivate(route, state);
+    } else {
+      return this.apiAccessService.getResourceAuthorizedAccess(childPath).pipe(
+        switchMap(authorizedAccess => {
+          const hasPermissions = !!authorizedAccess.permissions?.length;
+          if (!hasPermissions) {
+            this.router.navigateByUrl('/management');
+          }
+          return of(hasPermissions);
+        }),
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 403) {
+            this.router.navigateByUrl('/management');
+          } else {
+            this.router.navigateByUrl('/');
+          }
+          return of(false);
+        })
+      );
+    }
   }
 }
