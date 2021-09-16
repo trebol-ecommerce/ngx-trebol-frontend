@@ -4,12 +4,10 @@
 // https://opensource.org/licenses/MIT
 
 import { Directive, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { DataManagerServiceDirective } from './data-manager.service-directive';
 import { MatDialog } from '@angular/material/dialog';
-import { DataManagerFormDialogComponent } from '../dialogs/data-manager-form-dialog/data-manager-form-dialog.component';
-import { DataManagerFormDialogConfig } from '../dialogs/data-manager-form-dialog/DataManagerFormDialogConfig';
 
 /**
  * Base  for data manager template components.
@@ -27,7 +25,6 @@ export abstract class DataManagerComponentDirective<T>
   canDelete$: Observable<boolean>;
 
   protected abstract service: DataManagerServiceDirective<T>;
-  protected abstract dialogService: MatDialog;
   abstract tableColumns: string[];
 
   ngOnInit() {

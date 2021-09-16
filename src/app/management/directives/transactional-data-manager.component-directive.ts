@@ -6,7 +6,6 @@
 import { Directive, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { DataManagerServiceDirective } from './data-manager.service-directive';
 import { MatDialog } from '@angular/material/dialog';
 import { DataManagerFormDialogComponent } from '../dialogs/data-manager-form-dialog/data-manager-form-dialog.component';
 import { DataManagerFormDialogConfig } from '../dialogs/data-manager-form-dialog/DataManagerFormDialogConfig';
@@ -19,6 +18,8 @@ import { DataManagerComponentDirective } from './data-manager.component-directiv
 @Directive()
 export abstract class TransactionalDataManagerComponentDirective<T>
   extends DataManagerComponentDirective<T> {
+
+  protected abstract dialogService: MatDialog;
 
   onClickEdit(item: T): void {
     this.edit(item).subscribe();
