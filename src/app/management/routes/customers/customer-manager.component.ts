@@ -26,8 +26,7 @@ export class CustomerManagerComponent
 
   constructor(
     protected service: CustomerManagerService,
-    protected route: ActivatedRoute,
-    protected dialogService: MatDialog
+    protected route: ActivatedRoute
   ) {
     super();
   }
