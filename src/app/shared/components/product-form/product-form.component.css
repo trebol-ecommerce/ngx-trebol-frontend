@@ -30,27 +30,25 @@ form {
   .price {
     grid-area: price;
   }
-  .stock {
+  /* .stock {
     grid-area: stock;
   }
   .cStock {
     grid-area: cStock;
-  }
+  } */
   .desc {
     grid-area: desc;
   }
-  .actions {
-    grid-area: actions;
-  }
 
   form {
+    grid-template-columns: none;
     grid-template-areas:
       'images images images'
       'barcode name name'
-      'family family family'
-      'type type type'
-      'price stock cStock'
+      'category category price'
+      /* 'type type type'
+      'price stock cStock' */
       'desc desc desc'
-      'actions actions actions';
+      'desc desc desc';
   }
 }

@@ -15,14 +15,14 @@
   max-width: 9rem;
   text-align: center;
 }
-.mat-column-currentStock {
+/* .mat-column-currentStock {
   max-width: 9rem;
   text-align: center;
 }
 .mat-column-criticalStock {
   max-width: 9rem;
   text-align: center;
-}
+} */
 .mat-column-type {
   max-width: 100%;
 }

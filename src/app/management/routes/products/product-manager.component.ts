@@ -27,7 +27,8 @@ export class ProductManagerComponent
   extends TransactionalDataManagerComponentDirective<Product>
   implements OnInit {
 
-  tableColumns: string[] = [ 'name', 'barcode', 'price', 'currentStock', 'criticalStock', 'actions' ];
+  tableColumns: string[] = [ 'name', 'barcode', 'price', 'actions' ];
+  // tableColumns: string[] = [ 'name', 'barcode', 'price', 'currentStock', 'criticalStock', 'actions' ];
 
   constructor(
     protected service: ProductManagerService,

@@ -6,8 +6,8 @@ export const MOCK_PRODUCTS: Partial<Product>[] = [
     name: 'Zapatillas Nike Air Jordan Azul/Negro',
     barcode: 'NIKE-AZLNGR-1',
     price: 14990,
-    currentStock: 40,
-    criticalStock: 5,
+    // currentStock: 40,
+    // criticalStock: 5,
     category: MOCK_PRODUCT_CATEGORIES[0],
     images: [
       {
@@ -20,8 +20,8 @@ export const MOCK_PRODUCTS: Partial<Product>[] = [
     name: 'Zapatillas Nike Hi-Top Rojo/Negro',
     barcode: 'NIKE-ROJNGR-1',
     price: 14990,
-    currentStock: 20,
-    criticalStock: 5,
+    // currentStock: 20,
+    // criticalStock: 5,
     category: MOCK_PRODUCT_CATEGORIES[0],
     images: [
       {
@@ -34,8 +34,8 @@ export const MOCK_PRODUCTS: Partial<Product>[] = [
     name: 'Zapatillas Nike Hi-Top Rojo/Blanco',
     barcode: 'NIKE-ROJBCO-1',
     price: 13990,
-    currentStock: 60,
-    criticalStock: 5,
+    // currentStock: 60,
+    // criticalStock: 5,
     category: MOCK_PRODUCT_CATEGORIES[0],
     images: [
       {

@@ -14,7 +14,7 @@ export class Product {
   public price: number;
   public category: Partial<ProductCategory>;
   public description?: string;
-  public currentStock?: number;
-  public criticalStock?: number;
+  // public currentStock?: number;
+  // public criticalStock?: number;
   public images?: Image[];
 }

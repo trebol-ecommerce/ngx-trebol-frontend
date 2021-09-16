@@ -51,8 +51,8 @@ export class ProductFormComponent
   get name(): FormControl { return this.formGroup.get('name') as FormControl; }
   get category(): FormControl { return this.formGroup.get('category') as FormControl; }
   get price(): FormControl { return this.formGroup.get('price') as FormControl; }
-  get stock(): FormControl { return this.formGroup.get('stock') as FormControl; }
-  get criticalStock(): FormControl { return this.formGroup.get('criticalStock') as FormControl; }
+  // get stock(): FormControl { return this.formGroup.get('stock') as FormControl; }
+  // get criticalStock(): FormControl { return this.formGroup.get('criticalStock') as FormControl; }
   get description(): FormControl { return this.formGroup.get('description') as FormControl; }
 
   images: Image[];
@@ -67,7 +67,7 @@ export class ProductFormComponent
       name: ['', Validators.required],
       category: ['', Validators.required],
       price: ['', Validators.required],
-      stock: [''],
+      // stock: [''],
       // criticalStock: [''],
       description: ['']
     });
@@ -95,8 +95,8 @@ export class ProductFormComponent
     this.name.reset('', { emitEvent: false });
     this.category.reset('', { emitEvent: false });
     this.price.reset('', { emitEvent: false });
-    this.stock.reset('', { emitEvent: false });
-    this.criticalStock.reset('', { emitEvent: false });
+    // this.stock.reset('', { emitEvent: false });
+    // this.criticalStock.reset('', { emitEvent: false });
     this.description.reset('', { emitEvent: false });
     if (isJavaScriptObject(obj)) {
       this.formGroup.patchValue(obj);
