@@ -27,12 +27,15 @@ import { FormGroupOwnerOutletDirective } from './directives/form-group-owner-out
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { CompanyFormComponent } from './components/company-form/company-form.component';
 import { CartProductUnitsControlComponent } from './components/cart-product-units-control/cart-product-units-control.component';
+import { AddressFormDialogComponent } from './dialogs/address-form/address-form-dialog.component';
+import { AddressPipe } from './pipes/address/address.pipe';
 
 
 const PUBLIC_COMPONENTS = [
   CenteredMatProgressSpinnerComponent,
   ConfirmationDialogComponent,
   AddressFormComponent,
+  AddressFormDialogComponent,
   FileUploadComponent,
   CartProductUnitsControlComponent,
   CompanyFormComponent,
@@ -47,6 +50,7 @@ const PUBLIC_COMPONENTS = [
   InformationDialogComponent,
   SlideshowComponent,
   FormGroupOwnerOutletDirective,
+  AddressPipe,
   ImagesArrayDialogComponent,
   ImageUploadFormComponent
 ];

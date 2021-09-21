@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { Inject, Injectable, OnDestroy } from '@angular/core';
+import { Inject, Injectable, OnDestroy, EventEmitter } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
@@ -11,6 +11,7 @@ import { Product } from 'src/app/models/entities/Product';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
+import { Sell } from '../models/entities/Sell';
 
 @Injectable()
 export class StoreService
@@ -23,6 +24,8 @@ export class StoreService
   public cartDetails$ = this.sellDetailsSource.asObservable();
   public cartItemCount$: Observable<number>;
   public cartNetValue$: Observable<number>;
+  checkoutRequestData: Partial<Sell> = null;
+  checkoutButtonPress = new EventEmitter<void>();
 
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.checkout) protected checkoutApiService: ICheckoutPublicApiService

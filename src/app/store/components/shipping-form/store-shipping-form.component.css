@@ -1,0 +1,28 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+mat-radio-group {
+  display: flex;
+  flex-flow: column nowrap;
+}
+mat-radio-button:not(:first-child) {
+  margin: 1rem 0 0;
+}
+
+app-store-addresses-editor-form {
+  margin-top: 1rem;
+}
+
+@media(min-width: 641px) {
+  mat-radio-group {
+    display: initial;
+  }
+
+  mat-radio-button:not(:first-child) {
+    margin: 0 0 0 2rem;
+  }
+}

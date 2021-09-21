@@ -32,6 +32,10 @@ import { StoreHeaderMiddleComponent } from './components/header/middle/store-hea
 import { StoreHeaderMenuComponent } from './components/header/menu/store-header-menu.component';
 import { StoreHeaderLoginButtonComponent } from './components/header/login-button/store-header-login-button.component';
 import { StoreCartReviewGuard } from './routes/cart-review/store-cart-review.guard';
+import { StoreShippingFormComponent } from './components/shipping-form/store-shipping-form.component';
+import { StoreCheckoutRequestFormComponent } from './components/checkout-request-form/store-checkout-request-form.component';
+import { StoreBillingDetailsFormComponent } from './components/billing-details-form/store-billing-details-form.component';
+import { StoreAddressesEditorFormComponent } from './components/addresses-editor-form/store-addresses-editor-form.component';
 
 
 const SNACKBAR_DEFAULTS = {
@@ -41,10 +45,13 @@ const SNACKBAR_DEFAULTS = {
 @NgModule({
   declarations: [
     StoreComponent,
+    StoreAddressesEditorFormComponent,
     StoreHeaderComponent,
     StoreFooterComponent,
+    StoreBillingDetailsFormComponent,
     StoreCatalogComponent,
     StoreCartReviewComponent,
+    StoreCheckoutRequestFormComponent,
     StoreReceiptComponent,
     StoreLoginFormDialogComponent,
     StoreGuestPromptDialogComponent,
@@ -53,6 +60,7 @@ const SNACKBAR_DEFAULTS = {
     StorePaymentRedirectPromptDialogComponent,
     StoreProductDetailsDialogComponent,
     StoreProductCardComponent,
+    StoreShippingFormComponent,
     StoreCompanyDetailsDialogComponent,
     StoreHeaderBrandComponent,
     StoreHeaderNavigationComponent,

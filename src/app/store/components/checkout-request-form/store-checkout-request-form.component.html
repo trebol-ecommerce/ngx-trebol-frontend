@@ -1,0 +1,33 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<form [formGroup]="formGroup">
+  <div class="billing">
+    <h2>Datos de Facturación</h2>
+    <app-store-billing-details-form #billingForm formControlName="billing">
+    </app-store-billing-details-form>
+  </div>
+  <div class="customer">
+    <h2>Información de Contacto</h2>
+    <app-person-form #customerForm formControlName="customer">
+    </app-person-form>
+  </div>
+  <div class="shipping">
+    <h2>Información de Despacho</h2>
+    <app-store-shipping-form #shippingForm formControlName="shipping">
+    </app-store-shipping-form>
+  </div>
+  <div class="actions">
+    <button type="button" class="request"
+      mat-button mat-raised-button
+      color="accent"
+      (click)="onClickRequest()">
+      Continuar
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </div>
+</form>

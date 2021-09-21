@@ -1,0 +1,25 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<h2>{{ title }}</h2>
+<p *ngIf="hint">{{ hint }}</p>
+<app-address-form #addressForm
+  [address]="address">
+</app-address-form>
+<div class="actions">
+  <button type="button" class="cancel" mat-dialog-close
+    mat-button mat-raised-button
+    color="warn">
+    Cancelar
+  </button>
+  <button type="button" class="accept"
+    mat-button mat-raised-button
+    [disabled]="addressForm.formGroup.invalid"
+    (click)="onClickAcceptEdition()">
+    Aceptar
+  </button>
+</div>

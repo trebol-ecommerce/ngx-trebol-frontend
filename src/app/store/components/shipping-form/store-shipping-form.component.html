@@ -1,0 +1,19 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<form [formGroup]="formGroup">
+  <mat-radio-group formControlName="requestShipping"
+    aria-label="Elige una opción para entrega">
+    <mat-radio-button [value]="true" (blur)="onTouched()">Despacho a Domicilio</mat-radio-button>
+    <mat-radio-button [value]="false" (blur)="onTouched()">Retiro en Tienda</mat-radio-button>
+  </mat-radio-group>
+  <app-store-addresses-editor-form #addressForm formControlName="shippingAddress"
+    placeholder="Dirección de despacho"
+    editLabel="Editar dirección de despacho"
+    addLabel="Nueva dirección de despacho">
+  </app-store-addresses-editor-form>
+</form>
