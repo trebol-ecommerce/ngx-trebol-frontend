@@ -27,7 +27,7 @@ export class SellManagerComponent
   extends TransactionalDataManagerComponentDirective<Sell>
   implements OnInit {
 
-  public tableColumns: string[] = [ 'id', 'date', 'actions' ];
+  public tableColumns: string[] = [ 'id', 'date', 'customerName', 'status', 'actions' ];
 
   constructor(
     protected service: SellManagerService,
