@@ -36,13 +36,8 @@ export class StoreCartReviewComponent
   constructor(
     protected storeService: StoreService,
     protected appService: AppService,
-    protected router: Router,
     protected dialogService: MatDialog
   ) {
-    // TODO refactor this into a routing guard
-    this.storeService.cartDetails$.pipe(take(1)).subscribe(
-      array => { if (array.length === 0) { this.router.navigateByUrl('/store'); } }
-    );
   }
 
   ngOnInit(): void {
