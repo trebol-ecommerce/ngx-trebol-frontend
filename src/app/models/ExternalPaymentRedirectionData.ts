@@ -3,7 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-export interface ExternalPaymentRedirectionData {
+export class ExternalPaymentRedirectionData {
   url: string;
   token: string;
 }

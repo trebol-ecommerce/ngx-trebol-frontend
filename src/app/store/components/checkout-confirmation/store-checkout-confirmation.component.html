@@ -1,0 +1,63 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<mat-card *ngIf="checkoutRequest">
+  <mat-card-header>
+    <h3 mat-card-title>¿Son estos datos correctos?</h3>
+  </mat-card-header>
+  <div class="customer">
+    <ng-container *ngIf="checkoutRequest.customer; else noCustomer">
+      <mat-icon>person</mat-icon>&nbsp;
+      <span class="details">
+        <span class="name">{{ checkoutRequest.customer.name }}</span>
+        <b class="idCard">RUT {{ checkoutRequest.customer.idNumber }}</b>
+        <i class="email">{{ checkoutRequest.customer.email }}</i>
+      </span>
+    </ng-container>
+    <ng-template #noCustomer>
+      <mat-icon>person_off</mat-icon>&nbsp;
+      <span class="details">
+        <span class="name">Cliente anónimo</span>
+      </span>
+    </ng-template>
+  </div>
+  <div class="type" *ngIf="checkoutRequest.billing?.sellType">
+    <mat-icon>receipt</mat-icon>&nbsp;
+    <span>{{ checkoutRequest.billing.sellType }}</span>
+  </div>
+  <div class="company" *ngIf="checkoutRequest.billing?.company">
+    <mat-icon>business</mat-icon>&nbsp;
+    <span class="details">
+      <span class="name">{{ checkoutRequest.billing.company.name }}</span>
+      <b class="idNumber">RUT {{ checkoutRequest.billing.company.idNumber }}</b>
+    </span>
+  </div>
+  <div class="shipping">
+    <ng-container *ngIf="checkoutRequest.shipping?.shippingAddress; else noShipping">
+        <mat-icon>local_shipping</mat-icon>&nbsp;
+        <span>{{ checkoutRequest.shipping.shippingAddress | address }}</span>
+    </ng-container>
+    <ng-template #noShipping>
+      <mat-icon>local_shipping</mat-icon>&nbsp;
+      <span class="name">Retiro en Tienda</span>
+    </ng-template>
+  </div>
+</mat-card>
+<p>Si está segur@ que la información ingresada es correcta, haga clic en el botón 'Solicitar transacción':</p>
+<button type="button" class="request"
+  mat-button mat-raised-button
+  color="accent"
+  [disabled]="loading"
+  (click)="onClickRequest()">
+  Solicitar transacción
+  <mat-icon>point_of_sale</mat-icon>
+</button>
+<mat-divider></mat-divider>
+<p>Una vez solicitada la transacción, puede proceder dando clic al botón 'Ir al pago':</p>
+<app-store-checkout-button
+  [checkoutDetails]="checkoutDetails">
+</app-store-checkout-button>

@@ -1,0 +1,18 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<form #form method="post" [action]="checkoutDetails.url">
+  <input type="hidden" name="token_ws" [value]="checkoutDetails.token" />
+  <button type="submit" class="checkout"
+    mat-button mat-raised-button
+    color="accent"
+    [disabled]="disabled"
+    (click)="form.submit()">
+    Ir al pago
+    <mat-icon>attach_money</mat-icon>
+  </button>
+</form>

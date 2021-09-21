@@ -11,9 +11,9 @@ import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { StoreService } from 'src/app/store/store.service';
 
 @Component({
-  selector: 'app-cart-contents-table',
-  templateUrl: './cart-contents-table.component.html',
-  styleUrls: ['./cart-contents-table.component.css']
+  selector: 'app-store-cart-contents-table',
+  templateUrl: './store-cart-contents-table.component.html',
+  styleUrls: ['./store-cart-contents-table.component.css']
 })
 export class StoreCartContentsTableComponent {
 

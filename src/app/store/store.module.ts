@@ -36,6 +36,9 @@ import { StoreShippingFormComponent } from './components/shipping-form/store-shi
 import { StoreCheckoutRequestFormComponent } from './components/checkout-request-form/store-checkout-request-form.component';
 import { StoreBillingDetailsFormComponent } from './components/billing-details-form/store-billing-details-form.component';
 import { StoreAddressesEditorFormComponent } from './components/addresses-editor-form/store-addresses-editor-form.component';
+import { StoreCartContentsTableComponent } from './components/cart-contents-table/store-cart-contents-table.component';
+import { StoreCheckoutConfirmationComponent } from './components/checkout-confirmation/store-checkout-confirmation.component';
+import { StoreCheckoutButtonComponent } from './components/checkout-button/store-checkout-button.component';
 
 
 const SNACKBAR_DEFAULTS = {
@@ -46,11 +49,14 @@ const SNACKBAR_DEFAULTS = {
   declarations: [
     StoreComponent,
     StoreAddressesEditorFormComponent,
+    StoreCartContentsTableComponent,
     StoreHeaderComponent,
     StoreFooterComponent,
     StoreBillingDetailsFormComponent,
     StoreCatalogComponent,
     StoreCartReviewComponent,
+    StoreCheckoutButtonComponent,
+    StoreCheckoutConfirmationComponent,
     StoreCheckoutRequestFormComponent,
     StoreReceiptComponent,
     StoreLoginFormDialogComponent,

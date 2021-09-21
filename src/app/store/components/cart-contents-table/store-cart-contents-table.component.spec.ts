@@ -11,16 +11,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { StoreCartService } from 'src/app/store/routes/cart/store-cart.service';
-import { CartContentsTableComponent } from './cart-contents-table.component';
+import { StoreService } from 'src/app/store/store.service';
+import { StoreCartContentsTableComponent } from './store-cart-contents-table.component';
 
-describe('CartContentsTableComponent', () => {
-  let component: CartContentsTableComponent;
-  let fixture: ComponentFixture<CartContentsTableComponent>;
-  let mockCartService: Partial<StoreCartService>;
+describe('StoreStoreCartContentsTableComponent', () => {
+  let component: StoreCartContentsTableComponent;
+  let fixture: ComponentFixture<StoreCartContentsTableComponent>;
+  let mockStoreService: Partial<StoreService>;
 
   beforeEach(waitForAsync(() => {
-    mockCartService = {
+    mockStoreService = {
       cartDetails$: of([]),
       increaseProductUnits(i) {},
       decreaseProductUnits(i) {},
@@ -33,16 +33,16 @@ describe('CartContentsTableComponent', () => {
         MatIconModule,
         MatTableModule
       ],
-      declarations: [ CartContentsTableComponent ],
+      declarations: [ StoreCartContentsTableComponent ],
       providers: [
-        { provide: StoreCartService, useValue: mockCartService }
+        { provide: StoreService, useValue: mockStoreService }
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CartContentsTableComponent);
+    fixture = TestBed.createComponent(StoreCartContentsTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

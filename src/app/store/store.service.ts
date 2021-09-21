@@ -12,6 +12,7 @@ import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
 import { Sell } from '../models/entities/Sell';
+import { CheckoutRequest } from '../models/CheckoutRequest';
 
 @Injectable()
 export class StoreService
@@ -24,7 +25,7 @@ export class StoreService
   public cartDetails$ = this.sellDetailsSource.asObservable();
   public cartItemCount$: Observable<number>;
   public cartNetValue$: Observable<number>;
-  checkoutRequestData: Partial<Sell> = null;
+  checkoutRequestData: Partial<CheckoutRequest> = null;
   checkoutButtonPress = new EventEmitter<void>();
 
   constructor(
@@ -115,5 +116,43 @@ export class StoreService
 
   public submitCart(): Observable<ExternalPaymentRedirectionData> {
     return this.checkoutApiService.submitCart(this.sellDetails);
+  }
+
+  /**
+   * Sends a request for a new payment transaction
+   *
+   * @param customerData An object containg information about the customer
+   * @param checkoutDetails An array of product/service details about this transaction
+   */
+  requestPayment(): Observable<ExternalPaymentRedirectionData> {
+    const sell = this.createCheckoutRequest();
+    return this.checkoutApiService.submitCart(sell.details);
+  }
+
+  private createCheckoutRequest(): Sell {
+    const target: Partial<Sell> = {
+      customer: {
+        person: this.checkoutRequestData.customer
+      },
+      details: this.sellDetails
+    };
+
+    const billing = this.checkoutRequestData.billing;
+    if (billing) {
+      target.billingType = billing.sellType;
+      if (billing.company) {
+        target.billingCompany = billing.company;
+      }
+      if (billing.address){
+        target.billingAddress = billing.address;
+      }
+    }
+
+    const shipping = this.checkoutRequestData.shipping;
+    if (shipping.requestShipping && shipping.shippingAddress) {
+      target.shippingAddress = shipping.shippingAddress;
+    }
+
+    return target as Sell;
   }
 }
