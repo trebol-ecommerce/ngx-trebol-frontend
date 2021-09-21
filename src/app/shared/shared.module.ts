@@ -24,12 +24,18 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { SellFormComponent } from './components/sell-form/sell-form.component';
 import { ImageUploadFormComponent } from './components/image-upload-form/image-upload-form.component';
 import { FormGroupOwnerOutletDirective } from './directives/form-group-owner-outlet/form-group-owner-outlet.directive';
+import { AddressFormComponent } from './components/address-form/address-form.component';
+import { CompanyFormComponent } from './components/company-form/company-form.component';
+import { CartProductUnitsControlComponent } from './components/cart-product-units-control/cart-product-units-control.component';
 
 
 const PUBLIC_COMPONENTS = [
   CenteredMatProgressSpinnerComponent,
   ConfirmationDialogComponent,
+  AddressFormComponent,
   FileUploadComponent,
+  CartProductUnitsControlComponent,
+  CompanyFormComponent,
   PersonFormComponent,
   ProductFormComponent,
   SalespersonFormComponent,
