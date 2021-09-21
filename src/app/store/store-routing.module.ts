@@ -9,15 +9,30 @@ import { StoreCartReviewComponent } from './routes/cart-review/store-cart-review
 import { StoreCatalogComponent } from './routes/catalog/store-catalog.component';
 import { StoreReceiptComponent } from './routes/receipt/store-receipt.component';
 import { StoreComponent } from './store.component';
+import { StoreCartReviewGuard } from './routes/cart-review/store-cart-review.guard';
 
 const storeRoutes: Routes = [
   {
     path: 'store', component: StoreComponent,
     children: [
-      { path: 'catalog', component: StoreCatalogComponent },
-      { path: 'cart', component: StoreCartReviewComponent },
-      { path: 'receipt/:id', component: StoreReceiptComponent },
-      { path: '**', pathMatch: 'prefix', redirectTo: 'catalog' }
+      {
+        path: 'catalog',
+        component: StoreCatalogComponent
+      },
+      {
+        path: 'cart',
+        component: StoreCartReviewComponent,
+        canActivate: [StoreCartReviewGuard]
+      },
+      {
+        path: 'receipt/:id',
+        component: StoreReceiptComponent
+      },
+      {
+        path: '**',
+        pathMatch: 'prefix',
+        redirectTo: 'catalog'
+      }
     ]
   }
 ];

@@ -31,6 +31,7 @@ import { StoreHeaderNavigationComponent } from './components/header/navigation/s
 import { StoreHeaderMiddleComponent } from './components/header/middle/store-header-middle.component';
 import { StoreHeaderMenuComponent } from './components/header/menu/store-header-menu.component';
 import { StoreHeaderLoginButtonComponent } from './components/header/login-button/store-header-login-button.component';
+import { StoreCartReviewGuard } from './routes/cart-review/store-cart-review.guard';
 
 
 const SNACKBAR_DEFAULTS = {
@@ -68,7 +69,8 @@ const SNACKBAR_DEFAULTS = {
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: SNACKBAR_DEFAULTS},
     StoreService,
     StoreReceiptService,
-    StoreCatalogService
+    StoreCatalogService,
+    StoreCartReviewGuard
   ]
 })
 export class StoreModule { }

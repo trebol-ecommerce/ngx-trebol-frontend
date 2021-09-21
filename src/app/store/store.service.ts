@@ -10,19 +10,17 @@ import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-
 import { Product } from 'src/app/models/entities/Product';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
-import { environment } from 'src/environments/environment';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
 
 @Injectable()
 export class StoreService
   implements OnDestroy {
 
-  protected checkoutURL = environment.apiUrls.public;
   protected sellDetails: SellDetail[] = [];
-  protected sellDetailsSource: Subject<SellDetail[]> = new BehaviorSubject([]);
-  protected sellSubtotalValue: number;
+  protected sellDetailsSource = new BehaviorSubject([]);
+  protected sellSubtotalValue = 0;
 
-  public cartDetails$: Observable<SellDetail[]> = this.sellDetailsSource.asObservable();
+  public cartDetails$ = this.sellDetailsSource.asObservable();
   public cartItemCount$: Observable<number>;
   public cartSubtotalValue$: Observable<number>;
 
