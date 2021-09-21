@@ -1,4 +1,11 @@
-import { trigger, state, style, transition, animate, AnimationTriggerMetadata } from '@angular/animations';
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { animate, AnimationTriggerMetadata, state, style, transition, trigger } from '@angular/animations';
 
 /**
  * Animation with two possible states: 'opaque' and 'transparent'

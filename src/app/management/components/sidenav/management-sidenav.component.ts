@@ -1,10 +1,12 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { ActivatedRouteSnapshot } from '@angular/router';
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { ManagementChildRoute, MANAGEMENT_CHILD_ROUTES } from 'src/app/management/management-routing.module';
@@ -19,28 +21,17 @@ import { SidenavModuleItem } from './SidenavModuleItem';
 export class ManagementSidenavComponent
   implements OnInit, OnDestroy {
 
-  protected modules: SidenavModuleItem[] = [];
-  protected modulesSource: Subject<SidenavModuleItem[]> = new BehaviorSubject(this.modules);
-  protected activeRouteSubscription: Subscription;
+  private modules: SidenavModuleItem[] = [];
+  private modulesSource: Subject<SidenavModuleItem[]> = new BehaviorSubject(this.modules);
+  private activeRouteSubscription: Subscription;
 
-  public modules$: Observable<SidenavModuleItem[]> = this.modulesSource.asObservable();
-  public readonly baseModule = '/management';
+  modules$: Observable<SidenavModuleItem[]> = this.modulesSource.asObservable();
+  readonly baseModule = '/management';
 
   constructor(
-    protected service: ManagementService,
-    protected router: Router,
-    protected appService: AppService
-  ) {
-  }
-
-  protected routeToListItem(r: ManagementChildRoute): SidenavModuleItem {
-    return {
-      path: r.path,
-      text: r.data.title,
-      icon: r.data.matIcon,
-      active: false
-    };
-  }
+    private service: ManagementService,
+    private appService: AppService
+  ) { }
 
   ngOnInit(): void {
     this.appService.getAuthorizedAccess().subscribe(
@@ -66,6 +57,15 @@ export class ManagementSidenavComponent
 
   ngOnDestroy(): void {
     this.activeRouteSubscription.unsubscribe();
+  }
+
+  private routeToListItem(r: ManagementChildRoute): SidenavModuleItem {
+    return {
+      path: r.path,
+      text: r.data.title,
+      icon: r.data.matIcon,
+      active: false
+    };
   }
 
 }

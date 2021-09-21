@@ -1,17 +1,17 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DataPage } from 'src/app/models/DataPage';
 import { ProductCategory } from 'src/app/models/entities/ProductCategory';
-import { API_SERVICE_INJECTION_TOKENS } from '../../api-service-injection-tokens';
 import { ICategoriesPublicApiService } from '../../categories-public-api.iservice';
 import { MOCK_PRODUCT_CATEGORIES } from '../mock/mock-product-categories.datasource';
-import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
 
 // TODO uncomment when data api for product categories is created
 
@@ -29,7 +29,7 @@ export class CategoriesPublicLocalMemoryApiService
     // });
   }
 
-  public fetchChildrenProductCategoriesByParentCode(parentCode: number): Observable<DataPage<ProductCategory>> {
+  fetchChildrenProductCategoriesByParentCode(parentCode: number): Observable<DataPage<ProductCategory>> {
     return of(MOCK_PRODUCT_CATEGORIES.filter(t => t.parent.code === parentCode)).pipe(
       map(items => ({
         totalCount: items.length,
@@ -40,7 +40,7 @@ export class CategoriesPublicLocalMemoryApiService
     );
   }
 
-  public fetchRootProductCategories(): Observable<DataPage<ProductCategory>> {
+  fetchRootProductCategories(): Observable<DataPage<ProductCategory>> {
     return of(MOCK_PRODUCT_CATEGORIES).pipe(
       map(items => ({
         totalCount: items.length,

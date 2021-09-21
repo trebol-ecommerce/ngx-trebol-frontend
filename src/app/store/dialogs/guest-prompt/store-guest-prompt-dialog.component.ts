@@ -1,7 +1,9 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -15,10 +17,10 @@ import { StoreGuestPromptDialogOptions } from './StoreGuestPromptDialogOptions';
 export class StoreGuestPromptDialogComponent {
 
   constructor(
-    protected dialog: MatDialogRef<StoreGuestPromptDialogComponent>
+    private dialog: MatDialogRef<StoreGuestPromptDialogComponent>
   ) { }
 
-  public onClickOption(n: string): void {
+  onClickOption(n: string): void {
     if (n in StoreGuestPromptDialogOptions) {
       this.dialog.close(StoreGuestPromptDialogOptions[n]);
     } else {

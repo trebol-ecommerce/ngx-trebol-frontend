@@ -1,11 +1,13 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { ProductFiltersPanelService } from './product-filters-panel.service';
@@ -28,7 +30,7 @@ export class ProductFiltersPanelComponent
 
   @Output() filtersChanges = new EventEmitter<ProductFilters>();
 
-  public formGroup: FormGroup;
+  formGroup: FormGroup;
   categories$: Observable<ProductCategory[]>;
 
   get category() { return this.formGroup.get('category'); }

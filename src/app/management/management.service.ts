@@ -1,28 +1,28 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Inject, Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRouteSnapshot, ActivationEnd, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, map, throttleTime } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { ILoginPublicApiService } from 'src/app/api/login-public-api.iservice';
 
 @Injectable()
 export class ManagementService
   implements OnDestroy {
 
-  protected isSidenavOpen = true;
-  protected isSidenavOpenSource: Subject<boolean> = new BehaviorSubject(this.isSidenavOpen);
+  private isSidenavOpen = true;
+  private isSidenavOpenSource = new BehaviorSubject(true);
 
-  public isSidenavOpen$: Observable<boolean> = this.isSidenavOpenSource.asObservable();
-  public activeRouteSnapshot$: Observable<ActivatedRouteSnapshot>;
-  public currentPageName$: Observable<string>;
+  isSidenavOpen$ = this.isSidenavOpenSource.asObservable();
+  activeRouteSnapshot$: Observable<ActivatedRouteSnapshot>;
+  currentPageName$: Observable<string>;
 
   constructor(
-    protected router: Router
+    private router: Router
   ) {
 
     this.activeRouteSnapshot$ = this.router.events.pipe(
@@ -36,7 +36,7 @@ export class ManagementService
     );
   }
 
-  public switchSidenav(): void {
+  switchSidenav(): void {
     this.isSidenavOpen = !this.isSidenavOpen;
     this.isSidenavOpenSource.next(this.isSidenavOpen);
   }

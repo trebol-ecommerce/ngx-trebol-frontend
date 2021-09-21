@@ -6,14 +6,14 @@
  */
 
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormControl, NG_VALIDATORS,
-  NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators
+import {
+  AbstractControl, ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Address } from 'src/app/models/entities/Address';
-import { AddressFormDialogData, AddressFormDialogComponent } from 'src/app/shared/dialogs/address-form/address-form-dialog.component';
+import { AddressFormDialogComponent, AddressFormDialogData } from 'src/app/shared/dialogs/address-form/address-form-dialog.component';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 
 @Component({

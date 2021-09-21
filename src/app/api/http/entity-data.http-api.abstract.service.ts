@@ -1,13 +1,15 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { HttpApiService } from './http-api.abstract.service';
 import { DataPage } from 'src/app/models/DataPage';
+import { environment } from 'src/environments/environment';
 import { IEntityDataApiService } from '../entity.data-api.iservice';
+import { HttpApiService } from './http-api.abstract.service';
 
 export abstract class EntityDataHttpApiService<T>
   extends HttpApiService

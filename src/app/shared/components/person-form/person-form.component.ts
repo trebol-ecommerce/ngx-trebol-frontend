@@ -1,17 +1,20 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Component, Input, Output, OnDestroy, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, NG_VALUE_ACCESSOR, NG_VALIDATORS,
-  ControlValueAccessor, Validator, AbstractControl, ValidationErrors
+import { Component, EventEmitter, OnDestroy } from '@angular/core';
+import {
+  AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
+  ValidationErrors, Validator, Validators
 } from '@angular/forms';
-import { Subscription, merge } from 'rxjs';
-import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
+import { merge, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
-import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
 import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
+import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
+import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 
 @Component({
   selector: 'app-person-form',
@@ -36,7 +39,7 @@ export class PersonFormComponent
   private touchedSubscriptions: Subscription[] = [];
   private valueChangesSubscriptions: Subscription[] = [];
   private touched = new EventEmitter<void>();
-  protected personId: number;
+  private personId: number;
 
   formGroup: FormGroup;
 
@@ -48,7 +51,7 @@ export class PersonFormComponent
   get phone2() { return this.formGroup.get('phone2') as FormControl; }
 
   constructor(
-    protected formBuilder: FormBuilder
+    private formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
       id: [''],

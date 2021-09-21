@@ -1,15 +1,17 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
 import { ImageManagerComponent } from './image-manager.component';
 import { ImageManagerService } from './image-manager.service';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MatDialog } from '@angular/material/dialog';
-import { of } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('ImageManagerComponent', () => {
   let component: ImageManagerComponent;

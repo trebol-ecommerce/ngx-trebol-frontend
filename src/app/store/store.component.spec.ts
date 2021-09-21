@@ -1,14 +1,16 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { StoreComponent } from './store.component';
 import { Component } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { StoreService } from './store.service';
 import { of } from 'rxjs';
+import { StoreComponent } from './store.component';
+import { StoreService } from './store.service';
 
 @Component({ selector: 'router-outlet' })
 class MockRouterOutletComponent { }

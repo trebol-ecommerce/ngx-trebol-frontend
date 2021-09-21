@@ -1,18 +1,21 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Component, OnDestroy, EventEmitter } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR, NG_VALIDATORS,
-  ControlValueAccessor, Validator, AbstractControl, ValidationErrors
+import { Component, EventEmitter, OnDestroy } from '@angular/core';
+import {
+  AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
+  ValidationErrors, Validator
 } from '@angular/forms';
-import { Observable, Subscription, merge } from 'rxjs';
-import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { Person } from 'src/app/models/entities/Person';
+import { merge, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
-import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
+import { Person } from 'src/app/models/entities/Person';
 import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
+import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
+import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 
 @Component({
   selector: 'app-salesperson-form',

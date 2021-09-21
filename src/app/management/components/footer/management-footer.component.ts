@@ -1,7 +1,9 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component } from '@angular/core';
 
@@ -12,7 +14,7 @@ import { Component } from '@angular/core';
 })
 export class ManagementFooterComponent {
 
-  public footerText = 'Todos los derechos reservados.';
+  footerText = 'Todos los derechos reservados.';
 
   constructor() { }
 

@@ -1,7 +1,9 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,8 +14,8 @@ import { Sell } from 'src/app/models/entities/Sell';
 import { SellFormComponent } from 'src/app/shared/components/sell-form/sell-form.component';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerFormDialogConfig } from '../../dialogs/data-manager-form-dialog/DataManagerFormDialogConfig';
-import { SellManagerService } from './sell-manager.service';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
+import { SellManagerService } from './sell-manager.service';
 
 @Component({
   selector: 'app-sell-manager',
@@ -27,13 +29,13 @@ export class SellManagerComponent
   extends TransactionalDataManagerComponentDirective<Sell>
   implements OnInit {
 
-  public tableColumns: string[] = [ 'id', 'date', 'customerName', 'status', 'actions' ];
+  tableColumns: string[] = [ 'id', 'date', 'customerName', 'status', 'actions' ];
 
   constructor(
     protected service: SellManagerService,
     protected dialogService: MatDialog,
-    protected snackBarService: MatSnackBar,
-    protected route: ActivatedRoute
+    private snackBarService: MatSnackBar,
+    private route: ActivatedRoute
   ) {
     super();
   }

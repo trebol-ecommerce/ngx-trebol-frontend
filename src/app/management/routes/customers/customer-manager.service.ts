@@ -1,12 +1,14 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Inject, Injectable } from '@angular/core';
-import { Customer } from 'src/app/models/entities/Customer';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
+import { Customer } from 'src/app/models/entities/Customer';
 import { DataManagerServiceDirective } from '../../directives/data-manager.service-directive';
 
 @Injectable()

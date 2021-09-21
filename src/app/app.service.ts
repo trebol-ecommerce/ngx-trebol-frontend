@@ -1,42 +1,44 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, of, Subject, ReplaySubject, throwError } from 'rxjs';
-import { catchError, finalize, mapTo, tap, switchMap, take } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { catchError, finalize, mapTo, switchMap, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ILoginPublicApiService } from 'src/app/api/login-public-api.iservice';
+import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 import { Person } from 'src/app/models/entities/Person';
 import { Login } from 'src/app/models/Login';
-import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 import { IAccessApiService } from './api/access-api.iservice';
-import { Registration } from './models/Registration';
 import { IGuestPublicApiService } from './api/guest-public-api.iservice';
-import { IRegisterPublicApiService } from './api/register-public-api.iservice copy';
 import { IProfileAccountApiService } from './api/profile-account-api.iservice';
+import { IRegisterPublicApiService } from './api/register-public-api.iservice copy';
+import { Registration } from './models/Registration';
 
 @Injectable({ providedIn: 'root' })
 export class AppService
   implements OnDestroy {
 
-  protected innerIsLoggedIn = false;
+  private innerIsLoggedIn = false;
 
-  protected isLoggedInChangesSource = new Subject<boolean>();
-  protected isValidatingSessionSource = new BehaviorSubject<boolean>(false);
-  protected checkoutAuthCancelSource = new Subject<void>();
+  private isLoggedInChangesSource = new Subject<boolean>();
+  private isValidatingSessionSource = new BehaviorSubject<boolean>(false);
+  private checkoutAuthCancelSource = new Subject<void>();
 
-  public isLoggedInChanges$: Observable<boolean> = this.isLoggedInChangesSource.asObservable();
-  public isValidatingSession$: Observable<boolean> = this.isValidatingSessionSource.asObservable();
-  public checkoutAuthCancel$ = this.checkoutAuthCancelSource.asObservable();
+  isLoggedInChanges$: Observable<boolean> = this.isLoggedInChangesSource.asObservable();
+  isValidatingSession$: Observable<boolean> = this.isValidatingSessionSource.asObservable();
+  checkoutAuthCancel$ = this.checkoutAuthCancelSource.asObservable();
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.login) protected loginApiService: ILoginPublicApiService,
-    @Inject(API_SERVICE_INJECTION_TOKENS.guest) protected guestApiService: IGuestPublicApiService,
-    @Inject(API_SERVICE_INJECTION_TOKENS.register) protected registerApiService: IRegisterPublicApiService,
-    @Inject(API_SERVICE_INJECTION_TOKENS.accountProfile) protected profileApiService: IProfileAccountApiService,
-    @Inject(API_SERVICE_INJECTION_TOKENS.access) protected accessApiService: IAccessApiService
+    @Inject(API_SERVICE_INJECTION_TOKENS.login) private loginApiService: ILoginPublicApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.guest) private guestApiService: IGuestPublicApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.register) private registerApiService: IRegisterPublicApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.accountProfile) private profileApiService: IProfileAccountApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.access) private accessApiService: IAccessApiService
   ) {
     this.validateSession().subscribe();
   }
@@ -46,20 +48,20 @@ export class AppService
     this.isValidatingSessionSource.complete();
   }
 
-  public isLoggedIn(): boolean {
+  isLoggedIn(): boolean {
     return this.innerIsLoggedIn;
   }
 
-  public cancelAuthentication(): void {
+  cancelAuthentication(): void {
     this.checkoutAuthCancelSource.next();
   }
 
-  public guestLogin(personDetails: Person): Observable<boolean> {
+  guestLogin(personDetails: Person): Observable<boolean> {
     return this.guestApiService.guestLogin(personDetails);
   }
 
   /** Send an error-safe register request. */
-  public register(userDetails: Registration): Observable<boolean> {
+  register(userDetails: Registration): Observable<boolean> {
     return this.registerApiService.register(userDetails).pipe(
       mapTo(true),
       switchMap(
@@ -72,7 +74,7 @@ export class AppService
     );
   }
 
-  public login(credentials: Login): Observable<boolean> {
+  login(credentials: Login): Observable<boolean> {
     return !this.isLoggedIn() ?
       this.loginApiService.login(credentials).pipe(
         tap(success => {
@@ -83,7 +85,7 @@ export class AppService
       of(true);
   }
 
-  public validateSession(): Observable<boolean> {
+  validateSession(): Observable<boolean> {
     this.isValidatingSessionSource.next(true);
 
     return this.accessApiService.getAuthorizedAccess().pipe(
@@ -97,19 +99,19 @@ export class AppService
     );
   }
 
-  public getAuthorizedAccess(): Observable<AuthorizedAccess> {
+  getAuthorizedAccess(): Observable<AuthorizedAccess> {
     return this.isLoggedIn() ? this.accessApiService.getAuthorizedAccess() : of(null);
   }
 
-  public getUserProfile(): Observable<Person> {
+  getUserProfile(): Observable<Person> {
     return this.profileApiService.getProfile();
   }
 
-  public updateUserProfile(details: Person): Observable<boolean> {
+  updateUserProfile(details: Person): Observable<boolean> {
     return this.profileApiService.updateProfile(details);
   }
 
-  public closeCurrentSession(): void {
+  closeCurrentSession(): void {
     this.innerIsLoggedIn = false;
     this.isLoggedInChangesSource.next(false);
     this.loginApiService.logout();

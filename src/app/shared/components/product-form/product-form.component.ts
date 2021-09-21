@@ -1,24 +1,27 @@
-// Copyright (c) 2021 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Component, Inject, OnInit, EventEmitter, OnDestroy, forwardRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, NG_VALUE_ACCESSOR, NG_VALIDATORS,
-  AbstractControl, ValidationErrors, ControlValueAccessor, Validator
+import { Component, EventEmitter, forwardRef, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
+  ValidationErrors, Validator, Validators
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, merge, Subscription } from 'rxjs';
-import { map, tap, debounceTime, take } from 'rxjs/operators';
+import { merge, Observable, Subscription } from 'rxjs';
+import { debounceTime, map, take, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ICategoriesPublicApiService } from 'src/app/api/categories-public-api.iservice';
 import { Image } from 'src/app/models/entities/Image';
 import { ProductCategory } from 'src/app/models/entities/ProductCategory';
+import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
+import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
+import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { ImagesArrayDialogComponent } from '../../dialogs/images-array/images-array-dialog.component';
 import { ImagesArrayDialogData } from '../../dialogs/images-array/ImagesArrayDialogData';
-import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
-import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
 
 @Component({
   selector: 'app-product-form',

@@ -1,6 +1,13 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
 import { Image } from 'src/app/models/entities/Image';
 
-export const MOCK_IMAGES: Partial<Image>[] = [
+export const MOCK_IMAGES: Image[] = [
   {
     filename: 'photo-1578116922645-3976907a7671.jpg',
     url: '/assets/img/products/photo-1578116922645-3976907a7671.jpg'

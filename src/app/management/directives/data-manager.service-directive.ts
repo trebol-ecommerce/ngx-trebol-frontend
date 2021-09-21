@@ -1,7 +1,9 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Directive, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
@@ -20,25 +22,21 @@ export abstract class DataManagerServiceDirective<T>
   protected loadingSource = new BehaviorSubject(false);
   protected authorizedAccessSource = new ReplaySubject<AuthorizedAccess>();
 
-  public focusedItems$ = this.focusedItemsSource.asObservable();
-  public items$ = this.itemsSource.asObservable();
-  public loading$ = this.loadingSource.asObservable();
+  focusedItems$ = this.focusedItemsSource.asObservable();
+  items$ = this.itemsSource.asObservable();
+  loading$ = this.loadingSource.asObservable();
 
-  public canEdit$: Observable<boolean>;
-  public canAdd$: Observable<boolean>;
-  public canDelete$: Observable<boolean>;
+  canEdit$: Observable<boolean>;
+  canAdd$: Observable<boolean>;
+  canDelete$: Observable<boolean>;
+
+  get focusedItems(): T[] { return this.focusedItemsSource.getValue(); }
+  set focusedItems(i: T[]) { this.focusedItemsSource.next(i); }
 
   constructor() {
     this.canEdit$ = this.authorizedAccessSource.asObservable().pipe(map(a => a?.permissions?.includes('update')));
     this.canAdd$ = this.authorizedAccessSource.asObservable().pipe(map(a => a?.permissions?.includes('create')));
     this.canDelete$ = this.authorizedAccessSource.asObservable().pipe(map(a => a?.permissions?.includes('delete')));
-  }
-
-  public get focusedItems(): T[] {
-    return this.focusedItemsSource.getValue();
-  }
-  public set focusedItems(i: T[]) {
-    this.focusedItemsSource.next(i);
   }
 
   ngOnDestroy(): void {
@@ -48,7 +46,7 @@ export abstract class DataManagerServiceDirective<T>
   }
 
   /** Empty item selections and fetch data from the external service again. */
-  public reloadItems(): void {
+  reloadItems(): void {
     this.focusedItemsSource.next([]);
     this.loadingSource.next(true);
     this.dataService.fetchPage().pipe(
@@ -62,7 +60,7 @@ export abstract class DataManagerServiceDirective<T>
    * Update authorized access
    * @param authAccess The new value
    */
-  public updateAccess(authAccess: AuthorizedAccess): void {
+  updateAccess(authAccess: AuthorizedAccess): void {
     this.authorizedAccessSource.next(authAccess);
   }
 

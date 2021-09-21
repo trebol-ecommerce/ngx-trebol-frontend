@@ -6,15 +6,17 @@
  */
 
 import { Component, EventEmitter, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup,
-  NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
+import {
+  AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup,
+  NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators
+} from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
-import { debounceTime, filter, tap } from 'rxjs/operators';
+import { debounceTime, tap } from 'rxjs/operators';
 import { Address } from 'src/app/models/entities/Address';
-import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
-import { StoreService } from '../../store.service';
 import { AddressesEditorFormComponent } from 'src/app/shared/components/addresses-editor-form/addresses-editor-form.component';
+import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
+import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
+import { StoreService } from '../../store.service';
 
 @Component({
   selector: 'app-store-shipping-form',

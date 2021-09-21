@@ -1,14 +1,16 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/entities/Product';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
-import { StoreCatalogService } from './store-catalog.service';
 import { StoreService } from '../../store.service';
+import { StoreCatalogService } from './store-catalog.service';
 
 @Component({
   selector: 'app-store-catalog',
@@ -18,12 +20,12 @@ import { StoreService } from '../../store.service';
 export class StoreCatalogComponent
   implements OnInit {
 
-  public loading$: Observable<boolean>;
-  public products$: Observable<Product[]>;
+  loading$: Observable<boolean>;
+  products$: Observable<Product[]>;
 
   constructor(
-    protected catalogService: StoreCatalogService,
-    protected storeService: StoreService
+    private catalogService: StoreCatalogService,
+    private storeService: StoreService
   ) {
     this.loading$ = this.catalogService.loading$.pipe();
     this.products$ = this.catalogService.items$.pipe();
@@ -33,7 +35,7 @@ export class StoreCatalogComponent
     this.catalogService.reloadItems();
   }
 
-  public onFiltersChange(f: ProductFilters) {
+  onFiltersChange(f: ProductFilters) {
     this.catalogService.filters = f;
     this.catalogService.reloadItems();
   }

@@ -1,7 +1,13 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { InformationDialogComponent } from './information-dialog.component';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { InformationDialogComponent } from './information-dialog.component';
 
 describe('InformationDialogComponent', () => {
   let component: InformationDialogComponent;

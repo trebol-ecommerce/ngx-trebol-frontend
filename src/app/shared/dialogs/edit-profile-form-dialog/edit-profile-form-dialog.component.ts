@@ -1,20 +1,19 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { map, startWith, tap } from 'rxjs/operators';
-import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
+import { Person } from 'src/app/models/entities/Person';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { EditProfileFormService } from './edit-profile-form.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Person } from 'src/app/models/entities/Person';
-
-export const TIEMPO_CONFIRMACION_SALIR = 2000;
 
 @Component({
   selector: 'app-edit-profile-form-dialog',
@@ -24,20 +23,20 @@ export const TIEMPO_CONFIRMACION_SALIR = 2000;
 export class EditProfileFormDialogComponent
   implements OnInit {
 
-  protected confirmCancel: boolean;
+  private confirmCancel: boolean;
 
-  public saving$: Observable<boolean>;
-  public cancelButtonColor$: Observable<string>;
-  public invalid$: Observable<boolean>;
+  saving$: Observable<boolean>;
+  cancelButtonColor$: Observable<string>;
+  invalid$: Observable<boolean>;
 
   formGroup: FormGroup;
 
   get person() { return this.formGroup.get('person') as FormControl; }
 
   constructor(
-    protected service: EditProfileFormService,
-    protected dialog: MatDialogRef<EditProfileFormDialogComponent>,
-    protected snackBarService: MatSnackBar,
+    private service: EditProfileFormService,
+    private dialog: MatDialogRef<EditProfileFormDialogComponent>,
+    private snackBarService: MatSnackBar,
     private formBuilder: FormBuilder
   ) {
     this.saving$ = this.service.saving$.pipe();
@@ -63,7 +62,7 @@ export class EditProfileFormDialogComponent
     );
   }
 
-  public onSubmit(): void {
+  onSubmit(): void {
     const datosUsuario = this.person.value as Person;
     if (datosUsuario) {
       this.service.saveProfile(datosUsuario).subscribe(
@@ -82,7 +81,7 @@ export class EditProfileFormDialogComponent
     }
   }
 
-  public onCancel(): void {
+  onCancel(): void {
     if (!this.confirmCancel) {
       this.service.confirmCancel();
     } else {

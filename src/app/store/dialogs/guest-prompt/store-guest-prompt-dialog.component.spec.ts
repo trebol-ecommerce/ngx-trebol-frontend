@@ -1,13 +1,15 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef } from '@angular/material/dialog';
 import { StoreGuestPromptDialogComponent } from './store-guest-prompt-dialog.component';
 import { StoreGuestPromptDialogOptions } from './StoreGuestPromptDialogOptions';
-import { MatButtonModule } from '@angular/material/button';
 
 describe('StoreGuestPromptDialogComponent', () => {
   let component: StoreGuestPromptDialogComponent;

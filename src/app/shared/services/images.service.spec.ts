@@ -1,10 +1,17 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
 import { TestBed } from '@angular/core/testing';
+import { concat, of } from 'rxjs';
+import { take, takeLast } from 'rxjs/operators';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { Image } from 'src/app/models/entities/Image';
 import { ImagesService } from './images.service';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { of, concat } from 'rxjs';
-import { take, takeLast } from 'rxjs/operators';
 
 describe('ImagesService', () => {
   let service: ImagesService;

@@ -1,15 +1,17 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
-import { StoreCatalogService } from './store-catalog.service';
-import { of, EMPTY } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IProductsPublicApiService } from 'src/app/api/products-public-api.iservice';
+import { StoreCatalogService } from './store-catalog.service';
 
 describe('StoreCatalogService', () => {
   let service: StoreCatalogService;

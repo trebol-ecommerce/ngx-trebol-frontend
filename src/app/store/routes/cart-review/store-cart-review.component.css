@@ -1,11 +1,11 @@
-/**
- * Copyright (c) 2020 Benjamin La Madrid
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
- :host {
+:host {
   flex: 1 1 auto;
   padding: 0 1rem 2rem;
   display: flex;

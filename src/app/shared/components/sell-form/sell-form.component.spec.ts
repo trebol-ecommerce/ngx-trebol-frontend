@@ -1,18 +1,20 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { of } from 'rxjs';
-import { SellFormComponent } from './sell-form.component';
-import { SellFormService } from './sell-manager-form.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
+import { of } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
+import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
+import { SellFormComponent } from './sell-form.component';
+import { SellFormService } from './sell-manager-form.service';
 
 describe('SellFormComponent', () => {
   let component: SellFormComponent;

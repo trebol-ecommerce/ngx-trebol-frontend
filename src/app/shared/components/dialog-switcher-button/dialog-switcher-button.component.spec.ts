@@ -1,8 +1,15 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DialogSwitcherButtonComponent } from './dialog-switcher-button.component';
-import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { InformationDialogComponent } from 'src/app/shared/dialogs/information-dialog/information-dialog.component';
+import { DialogSwitcherButtonComponent } from './dialog-switcher-button.component';
 
 describe('DialogSwitcherButtonComponent', () => {
   let component: DialogSwitcherButtonComponent;

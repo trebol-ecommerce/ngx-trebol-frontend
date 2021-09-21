@@ -1,5 +1,12 @@
-import { ComponentFactoryResolver, Directive, Input, OnInit, Type, ViewContainerRef, Injector, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, NgControl, ControlValueAccessor } from '@angular/forms';
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { ComponentFactoryResolver, Directive, forwardRef, Injector, Input, OnInit, Type, ViewContainerRef } from '@angular/core';
+import { NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
 
 @Directive({

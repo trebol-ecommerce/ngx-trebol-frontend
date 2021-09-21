@@ -6,9 +6,9 @@
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { CartProductUnitsControlComponent } from './cart-product-units-control.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { CartProductUnitsControlComponent } from './cart-product-units-control.component';
 
 describe('CartProductUnitsControlComponent', () => {
   let component: CartProductUnitsControlComponent;

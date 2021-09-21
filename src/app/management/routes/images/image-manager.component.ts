@@ -1,19 +1,21 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/operators';
 import { Image } from 'src/app/models/entities/Image';
 import { ImageUploadFormComponent } from 'src/app/shared/components/image-upload-form/image-upload-form.component';
+import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerFormDialogConfig } from '../../dialogs/data-manager-form-dialog/DataManagerFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { ImageManagerService } from './image-manager.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { map } from 'rxjs/operators';
-import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 
 @Component({
   selector: 'app-image-manager',
@@ -27,12 +29,12 @@ export class ImageManagerComponent
   extends TransactionalDataManagerComponentDirective<Image>
   implements OnInit {
 
-  public tableColumns: string[] = [ 'thumb', 'filename', 'actions' ];
+  tableColumns: string[] = [ 'thumb', 'filename', 'actions' ];
 
   constructor(
     protected service: ImageManagerService,
-    protected route: ActivatedRoute,
-    protected snackBarService: MatSnackBar,
+    private route: ActivatedRoute,
+    private snackBarService: MatSnackBar,
     protected dialogService: MatDialog
   ) {
     super();

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2021 Benjamin La Madrid
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -7,7 +7,7 @@
 
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { BehaviorSubject, interval, Observable, Subscription } from 'rxjs';
-import { delay, tap, mapTo } from 'rxjs/operators';
+import { delay, mapTo, tap } from 'rxjs/operators';
 import { fadeInOut } from 'src/animations/fadeInOut';
 import { Image } from 'src/app/models/entities/Image';
 
@@ -46,13 +46,6 @@ export class SlideshowComponent
 
   ngOnDestroy(): void {
     this.stopAutoRotation();
-  }
-
-  private autoImageRotationObservable(): Observable<void> {
-    return interval(this.autoRotationInterval).pipe(
-      tap(() => { this.slideForwards(); }),
-      mapTo(void 0)
-    );
   }
 
   slideForwards(): void {
@@ -109,6 +102,13 @@ export class SlideshowComponent
   onClickRemove(): void {
     this.images.splice(this.currentIndex, 1);
     this.slideBackwards();
+  }
+
+  private autoImageRotationObservable(): Observable<void> {
+    return interval(this.autoRotationInterval).pipe(
+      tap(() => { this.slideForwards(); }),
+      mapTo(void 0)
+    );
   }
 
 }

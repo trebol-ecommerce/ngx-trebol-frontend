@@ -1,10 +1,12 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Person } from 'src/app/models/entities/Person';
 import { IGuestPublicApiService } from '../../guest-public-api.iservice';
 
@@ -15,6 +17,6 @@ export class GuestPublicLocalMemoryApiService
   constructor() { }
 
   guestLogin(details: Person): Observable<boolean> {
-    throw new Error('Method not implemented.'); // TODO implement me
+    return of(true);
   }
 }

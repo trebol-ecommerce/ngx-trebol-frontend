@@ -1,23 +1,24 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { of, iif, throwError } from 'rxjs';
-import { skip, take } from 'rxjs/operators';
-import { AppService } from 'src/app/app.service';
-import { StoreRegistrationFormDialogComponent } from './store-registration-form-dialog.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { iif, of, throwError } from 'rxjs';
+import { skip, take } from 'rxjs/operators';
+import { AppService } from 'src/app/app.service';
 import { Registration } from 'src/app/models/Registration';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
-
+import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
+import { StoreRegistrationFormDialogComponent } from './store-registration-form-dialog.component';
 
 describe('StoreRegistrationFormDialogComponent', () => {
   let component: StoreRegistrationFormDialogComponent;

@@ -1,20 +1,22 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { TestBed } from '@angular/core/testing';
-import { AppService } from './app.service';
-import { ILoginPublicApiService } from './api/login-public-api.iservice';
+import { of, throwError } from 'rxjs';
+import { catchError, take } from 'rxjs/operators';
 import { IAccessApiService } from './api/access-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from './api/api-service-injection-tokens';
-import { of, throwError } from 'rxjs';
-import { Registration } from './models/Registration';
-import { take, catchError } from 'rxjs/operators';
-import { Login } from './models/Login';
 import { IGuestPublicApiService } from './api/guest-public-api.iservice';
-import { IRegisterPublicApiService } from './api/register-public-api.iservice copy';
+import { ILoginPublicApiService } from './api/login-public-api.iservice';
 import { IProfileAccountApiService } from './api/profile-account-api.iservice';
+import { IRegisterPublicApiService } from './api/register-public-api.iservice copy';
+import { AppService } from './app.service';
+import { Login } from './models/Login';
+import { Registration } from './models/Registration';
 
 const MOCK_LOGIN_DETAILS: Login = {
   name: 'test',

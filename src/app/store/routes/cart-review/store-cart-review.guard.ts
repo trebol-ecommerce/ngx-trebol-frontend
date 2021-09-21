@@ -1,12 +1,14 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, tap, take } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { StoreService } from '../../store.service';
 
 @Injectable()
@@ -14,8 +16,8 @@ export class StoreCartReviewGuard
   implements CanActivate {
 
   constructor(
-    protected storeService: StoreService,
-    protected router: Router
+    private storeService: StoreService,
+    private router: Router
   ) { }
 
   canActivate(

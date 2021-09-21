@@ -1,12 +1,14 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
@@ -20,12 +22,12 @@ import { ConfirmationDialogData } from 'src/app/shared/dialogs/confirmation-dial
 export class StoreHeaderComponent
   implements OnInit {
 
-  public isLoggedIn$: Observable<boolean>;
+  isLoggedIn$: Observable<boolean>;
 
   constructor(
-    protected appService: AppService,
-    protected dialogService: MatDialog,
-    protected router: Router
+    private appService: AppService,
+    private dialogService: MatDialog,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +37,7 @@ export class StoreHeaderComponent
     );
   }
 
-  protected promptManagementRedirect(): void {
+  private promptManagementRedirect(): void {
     const dialogData: ConfirmationDialogData = {
       title: 'Ha ingresado como administrador',
       message: '¿Desea ingresar al portal de gestión?'

@@ -1,17 +1,16 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Observable, of } from 'rxjs';
-import {
-  matchesStringProperty,
-  matchesNumberProperty,
-  matchesDateProperty,
-  matchesIdProperty
-} from './entity-data.local-memory-api.functions';
 import { DataPage } from 'src/app/models/DataPage';
 import { IEntityDataApiService } from '../entity.data-api.iservice';
+import {
+  matchesDateProperty, matchesIdProperty, matchesNumberProperty, matchesStringProperty
+} from './entity-data.local-memory-api.functions';
 
 /**
  * Base class for a fully-working CRUD service in the local (client) memory.

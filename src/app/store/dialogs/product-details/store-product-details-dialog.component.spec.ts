@@ -1,14 +1,16 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { of } from 'rxjs';
+import { Product } from 'src/app/models/entities/Product';
 import { StoreService } from '../../store.service';
 import { StoreProductDetailsDialogComponent, StoreProductDetailsDialogData } from './store-product-details-dialog.component';
-import { Product } from 'src/app/models/entities/Product';
 
 describe('StoreProductDetailsDialogComponent', () => {
   let component: StoreProductDetailsDialogComponent;

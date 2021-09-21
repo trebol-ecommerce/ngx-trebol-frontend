@@ -1,18 +1,19 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
+import { ManagementService } from 'src/app/management/management.service';
 import { Person } from 'src/app/models/entities/Person';
 import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
-import { ManagementService } from 'src/app/management/management.service';
 import { ManagementHeaderComponent } from './management-header.component';
-import { Router } from '@angular/router';
-import { AppComponent } from 'src/app/app.component';
 
 describe('ManagementHeaderComponent', () => {
   let component: ManagementHeaderComponent;

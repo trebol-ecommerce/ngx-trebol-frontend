@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2020 Benjamin La Madrid
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -11,7 +11,7 @@
   align-items: stretch;
 }
 
-@media(min-width: 720px) {
+@media(min-width: 641px) {
   .actions {
     flex-flow: row nowrap;
     align-items: center;

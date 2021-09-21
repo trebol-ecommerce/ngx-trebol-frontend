@@ -1,28 +1,30 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Injectable, Inject } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map, tap, catchError, switchMap } from 'rxjs/operators';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { IAccessApiService } from '../api/access-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class ManagementRoutingGuard
   implements CanActivate, CanActivateChild {
 
-  public path: ActivatedRouteSnapshot[];
-  public route: ActivatedRouteSnapshot;
+  path: ActivatedRouteSnapshot[];
+  route: ActivatedRouteSnapshot;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.access) protected apiAccessService: IAccessApiService,
-    protected router: Router,
-    protected appService: AppService
+    @Inject(API_SERVICE_INJECTION_TOKENS.access) private apiAccessService: IAccessApiService,
+    private router: Router,
+    private appService: AppService
   ) {
   }
 

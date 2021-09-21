@@ -1,11 +1,12 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Inject, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { DataPage } from 'src/app/models/DataPage';
 import { Product } from 'src/app/models/entities/Product';
 import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
@@ -46,14 +47,7 @@ export class ProductsPublicLocalMemoryApiService
   }
 
   fetchStoreFrontProductCollection(): Observable<DataPage<Product>> {
-    return of(this.items).pipe(
-      map(items => ({
-        totalCount: items.length,
-        items,
-        pageSize: items.length,
-        pageIndex: 0
-      }))
-    );
+    return this.dataService.fetchPage();
   }
 
   fetchFilteredProductCollection(filter: ProductFilters): Observable<DataPage<Product>> {

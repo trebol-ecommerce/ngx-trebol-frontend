@@ -1,23 +1,23 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { Observable, of, empty, EMPTY } from 'rxjs';
-import { concatMap, map, take, tap, mapTo, switchMap, takeUntil } from 'rxjs/operators';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { EMPTY, Observable, of } from 'rxjs';
+import { map, switchMap, take, takeUntil } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { StoreService } from 'src/app/store/store.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { StoreLoginFormDialogComponent } from '../../dialogs/login-form/store-login-form-dialog.component';
-import { StoreRegistrationFormDialogComponent } from '../../dialogs/registration-form/store-registration-form-dialog.component';
-import { StoreGuestShippingFormDialogComponent } from '../../dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component';
-import { StoreGuestPromptDialogOptions } from '../../dialogs/guest-prompt/StoreGuestPromptDialogOptions';
 import { StoreGuestPromptDialogComponent } from '../../dialogs/guest-prompt/store-guest-prompt-dialog.component';
+import { StoreGuestPromptDialogOptions } from '../../dialogs/guest-prompt/StoreGuestPromptDialogOptions';
+import { StoreGuestShippingFormDialogComponent } from '../../dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component';
+import { StoreLoginFormDialogComponent } from '../../dialogs/login-form/store-login-form-dialog.component';
 import { StorePaymentRedirectPromptDialogComponent } from '../../dialogs/payment-redirect-prompt/store-payment-redirect-prompt-dialog.component';
+import { StoreRegistrationFormDialogComponent } from '../../dialogs/registration-form/store-registration-form-dialog.component';
 
 @Component({
   selector: 'app-store-cart-review',
@@ -27,16 +27,16 @@ import { StorePaymentRedirectPromptDialogComponent } from '../../dialogs/payment
 export class StoreCartReviewComponent
   implements OnInit {
 
-  public sellDetails$: Observable<SellDetail[]>;
-  public cartNetValue$: Observable<number>;
-  public cartTotalValue$: Observable<number>;
+  sellDetails$: Observable<SellDetail[]>;
+  cartNetValue$: Observable<number>;
+  cartTotalValue$: Observable<number>;
 
-  public tableColumns: string[] = [ 'product', 'price', 'quantity', 'total', 'actions' ];
+  tableColumns: string[] = [ 'product', 'price', 'quantity', 'total', 'actions' ];
 
   constructor(
-    protected storeService: StoreService,
-    protected appService: AppService,
-    protected dialogService: MatDialog
+    private storeService: StoreService,
+    private appService: AppService,
+    private dialogService: MatDialog
   ) {
   }
 
@@ -47,19 +47,19 @@ export class StoreCartReviewComponent
     this.cartTotalValue$ = this.storeService.cartNetValue$.pipe(map(subtotal => Math.ceil(subtotal * 1.19)));
   }
 
-  public onClickIncreaseProductQuantity(index: number): void {
+  onClickIncreaseProductQuantity(index: number): void {
     this.storeService.increaseProductUnits(index);
   }
 
-  public onClickDecreaseProductQuantity(index: number): void {
+  onClickDecreaseProductQuantity(index: number): void {
     this.storeService.decreaseProductUnits(index);
   }
 
-  public onClickRemoveProduct(index: number): void {
+  onClickRemoveProduct(index: number): void {
     this.storeService.removeProductFromCart(index);
   }
 
-  public promptLoginForm(): MatDialogRef<StoreLoginFormDialogComponent> {
+  promptLoginForm(): MatDialogRef<StoreLoginFormDialogComponent> {
     return this.dialogService.open(
       StoreLoginFormDialogComponent,
       {
@@ -69,7 +69,7 @@ export class StoreCartReviewComponent
     );
   }
 
-  public promptRegistrationForm(): MatDialogRef<StoreRegistrationFormDialogComponent> {
+  promptRegistrationForm(): MatDialogRef<StoreRegistrationFormDialogComponent> {
     return this.dialogService.open(
       StoreRegistrationFormDialogComponent,
       {
@@ -79,7 +79,7 @@ export class StoreCartReviewComponent
     );
   }
 
-  public promptGuestShippingForm(): MatDialogRef<StoreGuestShippingFormDialogComponent> {
+  promptGuestShippingForm(): MatDialogRef<StoreGuestShippingFormDialogComponent> {
     return this.dialogService.open(
       StoreGuestShippingFormDialogComponent,
       {
@@ -105,7 +105,7 @@ export class StoreCartReviewComponent
    * Returns an Observable that emits the user's option choice to continue
    * the checkout process, or completes without emitting.
    */
-  protected promptGuestUserChoices(): Observable<StoreGuestPromptDialogOptions> {
+  private promptGuestUserChoices(): Observable<StoreGuestPromptDialogOptions> {
     return this.dialogService.open(
       StoreGuestPromptDialogComponent
     ).afterClosed();
@@ -114,7 +114,7 @@ export class StoreCartReviewComponent
   /**
    * Displays a dialog with a way for the user to access their preferred payment method.
    */
-  protected promptPaymentRedirection(): void {
+  private promptPaymentRedirection(): void {
     this.dialogService.open(
       StorePaymentRedirectPromptDialogComponent,
       {
@@ -123,7 +123,7 @@ export class StoreCartReviewComponent
     );
   }
 
-  protected requireAuthentication(): Observable<boolean> {
+  private requireAuthentication(): Observable<boolean> {
     return this.appService.isLoggedIn() ?
       of(true) :
       this.promptGuestUserChoices().pipe(
@@ -141,7 +141,7 @@ export class StoreCartReviewComponent
       );
   }
 
-  public onClickAccept(): void {
+  onClickAccept(): void {
     this.requireAuthentication().subscribe(
       verified => {
         if (verified) {

@@ -10,10 +10,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of } from 'rxjs';
+import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
 import { FileUploadComponent } from 'src/app/shared/components/file-upload/file-upload.component';
 import { ImageUploadFormComponent } from './image-upload-form.component';
 import { ImageManagerUploadService } from './image-upload-form.service';
-import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
 
 describe('ImageUploadFormComponent', () => {
   let component: ImageUploadFormComponent;

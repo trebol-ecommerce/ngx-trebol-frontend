@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
 import { Labels, languages, labelsKeys } from './i18n.models';
 import {
   COMMON_WARNING_MESSAGE,

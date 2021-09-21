@@ -1,32 +1,34 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { AccessHttpApiService } from './access/access.http-api.service';
+import { ProfileAccountHttpApiService } from './account/profile-account.http-api.service';
+import { BillingTypesDataHttpApiService } from './data/billing-types-data.http-api.service';
 import { CustomersDataHttpApiService } from './data/customers-data.http-api.service';
-import { SalespeopleDataHttpApiService } from './data/salespeople-data.http-api.service';
+import { ImagesDataHttpApiService } from './data/images-data.http-api.service';
+import { PeopleDataHttpApiService } from './data/people-data.http-api.service';
+import { ProductCategoriesDataHttpApiService } from './data/product-categories-data.http-api.service';
 import { ProductsDataHttpApiService } from './data/products-data.http-api.service';
 import { SalesDataHttpApiService } from './data/sales-data.http-api.service';
+import { SalespeopleDataHttpApiService } from './data/salespeople-data.http-api.service';
 import { UserRolesDataHttpApiService } from './data/user-roles-data.http-api.service';
 import { UsersDataHttpApiService } from './data/users-data.http-api.service';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AccessHttpApiService } from './access/access.http-api.service';
-import { ImagesDataHttpApiService } from './data/images-data.http-api.service';
 import { AboutPublicHttpApiService } from './public/about-public.http-api.service';
-import { LoginPublicHttpApiService } from './public/login-public.http-api.service';
-import { SessionHttpApiInterceptor } from './session.http-api.interceptor';
 import { CategoriesPublicHttpApiService } from './public/categories-public.http-api.service';
 import { CheckoutPublicHttpApiService } from './public/checkout-public.http-api.service ';
+import { GuestPublicHttpApiService } from './public/guest-public.http-api.service';
+import { LoginPublicHttpApiService } from './public/login-public.http-api.service';
 import { ProductsPublicHttpApiService } from './public/products-public.http-api.service';
 import { ReceiptPublicHttpApiService } from './public/receipt-public.http-api.service';
 import { RegisterPublicHttpApiService } from './public/register-public.http-api.service';
-import { ProfileAccountHttpApiService } from './account/profile-account.http-api.service';
-import { GuestPublicHttpApiService } from './public/guest-public.http-api.service';
-import { BillingTypesDataHttpApiService } from './data/billing-types-data.http-api.service';
-import { PeopleDataHttpApiService } from './data/people-data.http-api.service';
-import { ProductCategoriesDataHttpApiService } from './data/product-categories-data.http-api.service';
+import { SessionHttpApiInterceptor } from './session.http-api.interceptor';
 
 /**
  * Provides services that read and write data using an external HTTP server (defined in the environment files)

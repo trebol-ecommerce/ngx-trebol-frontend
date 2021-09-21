@@ -1,13 +1,15 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
+import { Address } from './Address';
+import { BillingCompany } from './BillingCompany';
 import { Customer } from './Customer';
 import { Salesperson } from './Salesperson';
 import { SellDetail } from './SellDetail';
-import { Address } from './Address';
-import { BillingCompany } from './BillingCompany';
 
 export class Sell {
   buyOrder?: number;

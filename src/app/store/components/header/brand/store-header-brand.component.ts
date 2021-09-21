@@ -1,7 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { APP_INITIALS_TITLE, APP_LONG_TITLE } from 'src/app/app.constants';
 import { StoreCompanyDetailsDialogComponent } from 'src/app/store/dialogs/company-details/store-company-details-dialog.component';
-import { APP_LONG_TITLE, APP_INITIALS_TITLE } from 'src/app/app.constants';
 
 @Component({
   selector: 'app-store-header-brand',
@@ -10,14 +17,14 @@ import { APP_LONG_TITLE, APP_INITIALS_TITLE } from 'src/app/app.constants';
 })
 export class StoreHeaderBrandComponent {
 
-  public readonly desktopTitle: string = APP_LONG_TITLE;
-  public readonly mobileTitle: string = APP_INITIALS_TITLE;
+  readonly desktopTitle: string = APP_LONG_TITLE;
+  readonly mobileTitle: string = APP_INITIALS_TITLE;
 
   constructor(
-    protected dialogService: MatDialog
+    private dialogService: MatDialog
   ) { }
 
-  public onClickViewCompanyDetails(): void {
+  onClickViewCompanyDetails(): void {
     this.dialogService.open(
       StoreCompanyDetailsDialogComponent
     );

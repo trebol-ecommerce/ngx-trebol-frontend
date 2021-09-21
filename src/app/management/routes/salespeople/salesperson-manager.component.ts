@@ -1,7 +1,9 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -27,13 +29,13 @@ export class SalespersonManagerComponent
   extends TransactionalDataManagerComponentDirective<Salesperson>
   implements OnInit {
 
-  public tableColumns: string[] = [ 'name', 'idNumber', 'actions' ];
+  tableColumns: string[] = [ 'name', 'idNumber', 'actions' ];
 
   constructor(
     protected service: SalespersonManagerService,
     protected dialogService: MatDialog,
-    protected snackBarService: MatSnackBar,
-    protected route: ActivatedRoute
+    private snackBarService: MatSnackBar,
+    private route: ActivatedRoute
   ) {
     super();
   }

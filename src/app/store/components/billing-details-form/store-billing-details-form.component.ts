@@ -6,17 +6,18 @@
  */
 
 import { Component, EventEmitter, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS,
+import {
+  AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS,
   NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators
 } from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { CompanyFormComponent } from 'src/app/shared/components/company-form/company-form.component';
-import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
+import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { labels } from 'src/text/labels';
 import { StoreService } from '../../store.service';
-import { StoreAddressesEditorFormComponent } from '../addresses-editor-form/store-addresses-editor-form.component';
+import { AddressesEditorFormComponent } from 'src/app/shared/components/addresses-editor-form/addresses-editor-form.component';
 
 @Component({
   selector: 'app-store-billing-details-form',
@@ -52,7 +53,7 @@ export class StoreBillingDetailsFormComponent
   get address() { return this.formGroup.get('address') as FormControl; }
 
   @ViewChild('companyForm', { static: false }) companyForm: CompanyFormComponent;
-  @ViewChild('addressForm', { static: false }) adressForm: StoreAddressesEditorFormComponent;
+  @ViewChild('addressForm', { static: false }) adressForm: AddressesEditorFormComponent;
 
   constructor(
     private formBuilder: FormBuilder,

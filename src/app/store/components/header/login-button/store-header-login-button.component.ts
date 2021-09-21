@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { StoreLoginFormDialogComponent } from 'src/app/store/dialogs/login-form/store-login-form-dialog.component';
 
@@ -10,10 +17,10 @@ import { StoreLoginFormDialogComponent } from 'src/app/store/dialogs/login-form/
 export class StoreHeaderLoginButtonComponent {
 
   constructor(
-    protected dialogService: MatDialog
+    private dialogService: MatDialog
   ) { }
 
-  public onClickLogIn(): void {
+  onClickLogIn(): void {
     this.dialogService.open(
       StoreLoginFormDialogComponent,
       {

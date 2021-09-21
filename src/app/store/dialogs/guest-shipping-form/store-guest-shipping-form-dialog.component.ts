@@ -1,14 +1,15 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Component, OnDestroy, ViewChild, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Component, OnDestroy } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
 
 @Component({
   selector: 'app-store-guest-shipping-form-dialog',
@@ -18,18 +19,18 @@ import { PersonFormComponent } from 'src/app/shared/components/person-form/perso
 export class StoreGuestShippingFormDialogComponent
   implements OnDestroy {
 
-  protected savingSource: Subject<boolean> = new Subject();
+  private savingSource = new Subject<boolean>();
 
-  public saving$: Observable<boolean> = this.savingSource.asObservable();
+  saving$ = this.savingSource.asObservable();
 
-  public formGroup: FormGroup;
+  formGroup: FormGroup;
 
   get person() { return this.formGroup.get('person') as FormControl; }
 
   constructor(
-    protected appService: AppService,
-    protected dialog: MatDialogRef<StoreGuestShippingFormDialogComponent>,
-    protected formBuilder: FormBuilder
+    private appService: AppService,
+    private dialog: MatDialogRef<StoreGuestShippingFormDialogComponent>,
+    private formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
       person: ['']
@@ -40,7 +41,7 @@ export class StoreGuestShippingFormDialogComponent
     this.savingSource.complete();
   }
 
-  public onSubmit(): void {
+  onSubmit(): void {
     this.savingSource.next(true);
     this.appService.guestLogin(this.person.value).subscribe(
       success => {
@@ -54,10 +55,9 @@ export class StoreGuestShippingFormDialogComponent
     );
   }
 
-  public onCancel(): void {
+  onCancel(): void {
     this.appService.cancelAuthentication();
     this.dialog.close();
   }
-
 
 }

@@ -1,13 +1,13 @@
-/**
- * Copyright (c) 2021 Benjamin La Madrid
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, of, ReplaySubject, iif, Subject } from 'rxjs';
-import { concatMap as switchMap, map, share, tap } from 'rxjs/operators';
+import { BehaviorSubject, iif, Observable } from 'rxjs';
+import { concatMap as switchMap, map } from 'rxjs/operators';
 import { Image } from 'src/app/models/entities/Image';
 import { ImagesService } from 'src/app/shared/services/images.service';
 import { ImageArrayOption } from './ImageArrayOption';

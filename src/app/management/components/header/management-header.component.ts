@@ -1,21 +1,23 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AppService } from 'src/app/app.service';
-import { APP_INITIALS_TITLE, APP_LONG_TITLE } from 'src/app/app.constants';
-import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
-import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form-dialog/edit-profile-form-dialog.component';
-import { ManagementService } from 'src/app/management/management.service';
 import { pluck } from 'rxjs/operators';
-import { LOGOUT_MESSAGE } from 'src/text/messages';
+import { APP_INITIALS_TITLE, APP_LONG_TITLE } from 'src/app/app.constants';
+import { AppService } from 'src/app/app.service';
+import { ManagementService } from 'src/app/management/management.service';
+import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogData } from 'src/app/shared/dialogs/confirmation-dialog/ConfirmationDialogData';
+import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form-dialog/edit-profile-form-dialog.component';
+import { LOGOUT_MESSAGE } from 'src/text/messages';
 
 @Component({
   selector: 'app-management-header',
@@ -24,11 +26,11 @@ import { ConfirmationDialogData } from 'src/app/shared/dialogs/confirmation-dial
 })
 export class ManagementHeaderComponent {
 
-  public moduleName$: Observable<string>;
-  public userName$: Observable<string>;
+  moduleName$: Observable<string>;
+  userName$: Observable<string>;
 
-  public desktopTitle = APP_LONG_TITLE;
-  public mobileTitle = APP_INITIALS_TITLE;
+  desktopTitle = APP_LONG_TITLE;
+  mobileTitle = APP_INITIALS_TITLE;
 
   constructor(
     protected service: ManagementService,
@@ -41,12 +43,11 @@ export class ManagementHeaderComponent {
     this.userName$ = this.appService.getUserProfile().pipe(pluck('name'));
   }
 
-  public switchSidenavOpenState(): void {
+  switchSidenavOpenState(): void {
     this.service.switchSidenav();
   }
 
-
-  public onClickEditProfile(): void {
+  onClickEditProfile(): void {
     this.dialogService.open(
       EditProfileFormDialogComponent,
       {
@@ -55,7 +56,19 @@ export class ManagementHeaderComponent {
     );
   }
 
-  protected promptLogoutConfirmation(): Observable<boolean> {
+  onClickLogout(): void {
+    this.promptLogoutConfirmation().subscribe(
+      confirmed => {
+        if (confirmed) {
+          this.appService.closeCurrentSession();
+          this.router.navigateByUrl('/');
+          this.snackBarService.open(LOGOUT_MESSAGE, 'OK');
+        }
+      }
+    );
+  }
+
+  private promptLogoutConfirmation(): Observable<boolean> {
     const dialogData: ConfirmationDialogData = {
       title: 'Terminar sesión',
       message: '¿Está segur@?'
@@ -68,18 +81,6 @@ export class ManagementHeaderComponent {
         data: dialogData
       }
     ).afterClosed();
-  }
-
-  public onClickLogout(): void {
-    this.promptLogoutConfirmation().subscribe(
-      confirmed => {
-        if (confirmed) {
-          this.appService.closeCurrentSession();
-          this.router.navigateByUrl('/');
-          this.snackBarService.open(LOGOUT_MESSAGE, 'OK');
-        }
-      }
-    );
   }
 
 }

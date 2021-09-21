@@ -1,7 +1,9 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { NgModule } from '@angular/core';
 import { Route, RouterModule, Routes } from '@angular/router';
@@ -10,6 +12,8 @@ import { ManagementComponent } from './management.component';
 import { CustomerManagerAccessResolver } from './routes/customers/customer-manager.access-resolver';
 import { CustomerManagerComponent } from './routes/customers/customer-manager.component';
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
+import { ImageManagerAccessResolver } from './routes/images/image-manager.access-resolver';
+import { ImageManagerComponent } from './routes/images/image-manager.component';
 import { ProductManagerAccessResolver } from './routes/products/product-manager.access-resolver';
 import { ProductManagerComponent } from './routes/products/product-manager.component';
 import { SellManagerAccessResolver } from './routes/sales/sell-manager.access-resolver';
@@ -18,9 +22,8 @@ import { SalespersonManagerAccessResolver } from './routes/salespeople/salespers
 import { SalespersonManagerComponent } from './routes/salespeople/salesperson-manager.component';
 import { UserManagerAccessResolver } from './routes/users/user-manager.access-resolver';
 import { UserManagerComponent } from './routes/users/user-manager.component';
-import { ImageManagerComponent } from './routes/images/image-manager.component';
-import { ImageManagerAccessResolver } from './routes/images/image-manager.access-resolver';
 
+// TODO move this interface to a new file
 export interface ManagementChildRoute extends Route {
   data: { matIcon: string, title: string };
 }

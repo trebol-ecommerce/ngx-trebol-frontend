@@ -1,35 +1,37 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Inject, Injectable, OnDestroy, EventEmitter } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { EventEmitter, Inject, Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { Product } from 'src/app/models/entities/Product';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
-import { Sell } from '../models/entities/Sell';
 import { CheckoutRequest } from '../models/CheckoutRequest';
+import { Sell } from '../models/entities/Sell';
 
 @Injectable()
 export class StoreService
   implements OnDestroy {
 
-  protected sellDetails: SellDetail[] = [];
-  protected sellDetailsSource = new BehaviorSubject([]);
-  protected sellNetValue = 0;
+  private sellDetails: SellDetail[] = [];
+  private sellDetailsSource = new BehaviorSubject([]);
+  private sellNetValue = 0;
 
-  public cartDetails$ = this.sellDetailsSource.asObservable();
-  public cartItemCount$: Observable<number>;
-  public cartNetValue$: Observable<number>;
+  cartDetails$ = this.sellDetailsSource.asObservable();
+  cartItemCount$: Observable<number>;
+  cartNetValue$: Observable<number>;
   checkoutRequestData: Partial<CheckoutRequest> = null;
   checkoutButtonPress = new EventEmitter<void>();
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.checkout) protected checkoutApiService: ICheckoutPublicApiService
+    @Inject(API_SERVICE_INJECTION_TOKENS.checkout) private checkoutApiService: ICheckoutPublicApiService
   ) {
     this.cartItemCount$ = this.cartDetails$.pipe(
       map(
@@ -55,16 +57,16 @@ export class StoreService
     this.sellDetailsSource.complete();
   }
 
-  public reset(): void {
+  reset(): void {
     this.sellDetails = [];
     this.sellDetailsSource.next([]);
   }
 
-  protected findSellDetailsIndexByProductBarcode(barcode: string): number {
+  private findSellDetailsIndexByProductBarcode(barcode: string): number {
     return this.sellDetails.findIndex(d => d.product?.barcode === barcode);
   }
 
-  public addProductToCart(product: Product): void {
+  addProductToCart(product: Product): void {
     const index: number = this.findSellDetailsIndexByProductBarcode(product.barcode);
 
     if (index !== -1) {
@@ -84,7 +86,7 @@ export class StoreService
     this.sellDetailsSource.next(this.sellDetails);
   }
 
-  public increaseProductUnits(index: number): void {
+  increaseProductUnits(index: number): void {
     if (index !== -1) {
       const detalleConEsteProducto = this.sellDetails[index];
       detalleConEsteProducto.units++;
@@ -93,7 +95,7 @@ export class StoreService
     }
   }
 
-  public decreaseProductUnits(index: number): void {
+  decreaseProductUnits(index: number): void {
     if (index !== -1) {
       const matchingDetail = this.sellDetails[index];
       matchingDetail.units--;
@@ -107,14 +109,14 @@ export class StoreService
     }
   }
 
-  public removeProductFromCart(i: number): void {
+  removeProductFromCart(i: number): void {
     if (i !== -1) {
       this.sellDetails.splice(i, 1);
       this.sellDetailsSource.next(this.sellDetails);
     }
   }
 
-  public submitCart(): Observable<ExternalPaymentRedirectionData> {
+  submitCart(): Observable<ExternalPaymentRedirectionData> {
     return this.checkoutApiService.submitCart(this.sellDetails);
   }
 

@@ -1,11 +1,13 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subject, ReplaySubject, concat, of } from 'rxjs';
-import { concatMap, map, mapTo, startWith, switchMap, catchError } from 'rxjs/operators';
+import { Observable, ReplaySubject, Subject } from 'rxjs';
+import { map, mapTo, startWith } from 'rxjs/operators';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 import { StoreService } from 'src/app/store/store.service';
 
@@ -17,15 +19,15 @@ import { StoreService } from 'src/app/store/store.service';
 export class StorePaymentRedirectPromptDialogComponent
   implements OnInit, OnDestroy {
 
-  protected externalDataSource: Subject<ExternalPaymentRedirectionData | null> = new ReplaySubject(1);
+  private externalDataSource: Subject<ExternalPaymentRedirectionData | null> = new ReplaySubject(1);
 
-  public loading$: Observable<boolean>;
-  public webpayURL$: Observable<string>;
-  public webpayToken$: Observable<string>;
-  public error$: Observable<string | null>;
+  loading$: Observable<boolean>;
+  webpayURL$: Observable<string>;
+  webpayToken$: Observable<string>;
+  error$: Observable<string | null>;
 
   constructor(
-    protected storeService: StoreService
+    private storeService: StoreService
   ) {
     this.loading$ = this.externalDataSource.asObservable().pipe(startWith(true), mapTo(false));
     this.webpayURL$ = this.externalDataSource.asObservable().pipe(map(data => data.url));

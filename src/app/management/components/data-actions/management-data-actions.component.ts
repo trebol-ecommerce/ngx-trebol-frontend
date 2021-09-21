@@ -1,7 +1,9 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, EventEmitter, Output } from '@angular/core';
 
@@ -15,13 +17,13 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class ManagementDataActionsComponent {
 
-  @Output() public add: EventEmitter<void>;
+  @Output() add: EventEmitter<void>;
 
   constructor() {
     this.add = new EventEmitter();
   }
 
-  public onClickAdd(): void {
+  onClickAdd(): void {
     this.add.emit();
   }
 

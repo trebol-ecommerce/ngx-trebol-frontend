@@ -1,15 +1,17 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { StoreCartReviewComponent } from './routes/cart-review/store-cart-review.component';
+import { StoreCartReviewGuard } from './routes/cart-review/store-cart-review.guard';
 import { StoreCatalogComponent } from './routes/catalog/store-catalog.component';
 import { StoreReceiptComponent } from './routes/receipt/store-receipt.component';
 import { StoreComponent } from './store.component';
-import { StoreCartReviewGuard } from './routes/cart-review/store-cart-review.guard';
 
 const storeRoutes: Routes = [
   {

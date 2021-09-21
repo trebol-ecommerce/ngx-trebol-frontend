@@ -1,14 +1,15 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Customer } from 'src/app/models/entities/Customer';
 import { DataManagerComponentDirective } from '../../directives/data-manager.component-directive';
 import { CustomerManagerService } from './customer-manager.service';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-customer-manager',
@@ -22,11 +23,11 @@ export class CustomerManagerComponent
   extends DataManagerComponentDirective<Customer>
   implements OnInit {
 
-  public tableColumns: string[] = [ 'name', 'idNumber' ];
+  tableColumns: string[] = [ 'name', 'idNumber' ];
 
   constructor(
     protected service: CustomerManagerService,
-    protected route: ActivatedRoute
+    private route: ActivatedRoute
   ) {
     super();
   }

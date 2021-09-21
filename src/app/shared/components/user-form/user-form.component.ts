@@ -1,21 +1,24 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Component, OnInit, Inject, OnDestroy, EventEmitter } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, NG_VALUE_ACCESSOR, NG_VALIDATORS,
-  ControlValueAccessor, Validator, AbstractControl, ValidationErrors
+import { Component, EventEmitter, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
+  ValidationErrors, Validator, Validators
 } from '@angular/forms';
-import { Observable, Subscription, merge } from 'rxjs';
-import { Person } from 'src/app/models/entities/Person';
-import { UserRole } from 'src/app/models/entities/UserRole';
+import { merge, Observable, Subscription } from 'rxjs';
+import { debounceTime, map, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { map, debounceTime, tap } from 'rxjs/operators';
-import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
+import { Person } from 'src/app/models/entities/Person';
+import { UserRole } from 'src/app/models/entities/UserRole';
 import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
+import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
+import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 
 @Component({
   selector: 'app-user-form',

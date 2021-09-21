@@ -1,13 +1,15 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { regexMatchStartOfString } from 'src/functions/regexMatchStartOfString';
 
 @Injectable()
@@ -30,7 +32,6 @@ export class SessionHttpApiInterceptor
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // if the request domain matches any of our API
     const requestUrlMatchesAnyApi = this.regexps?.some(r => r.test(req.url));
     const token = sessionStorage.getItem(this.sessionStorageTokenItemName);
     if (requestUrlMatchesAnyApi && token) {

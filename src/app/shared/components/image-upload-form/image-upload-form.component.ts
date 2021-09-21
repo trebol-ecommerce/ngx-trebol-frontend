@@ -5,18 +5,19 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnDestroy, EventEmitter } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, NG_VALUE_ACCESSOR, NG_VALIDATORS,
-  ControlValueAccessor, Validator, AbstractControl, ValidationErrors
+import { Component, EventEmitter, OnDestroy } from '@angular/core';
+import {
+  AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
+  ValidationErrors, Validator, Validators
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, concat, Observable, Subscription, merge } from 'rxjs';
-import { map, startWith, mapTo, debounceTime, tap } from 'rxjs/operators';
-import { ImageManagerUploadService } from './image-upload-form.service';
+import { BehaviorSubject, concat, merge, Observable, Subscription } from 'rxjs';
+import { debounceTime, map, mapTo, startWith, tap } from 'rxjs/operators';
+import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
 import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
+import { ImageManagerUploadService } from './image-upload-form.service';
 
 @Component({
   selector: 'app-image-upload-form',

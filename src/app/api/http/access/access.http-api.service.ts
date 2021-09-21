@@ -1,15 +1,17 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { IAccessApiService } from '../../access-api.iservice';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
-import { HttpClient } from '@angular/common/http';
+import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 import { environment } from 'src/environments/environment';
+import { IAccessApiService } from '../../access-api.iservice';
 
 @Injectable()
 export class AccessHttpApiService

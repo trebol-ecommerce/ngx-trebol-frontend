@@ -1,12 +1,14 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Injectable } from '@angular/core';
+import { Person } from 'src/app/models/entities/Person';
 import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
 import { MOCK_PEOPLE } from '../mock/mock-people.datasource';
-import { Person } from 'src/app/models/entities/Person';
 
 @Injectable()
 export class PeopleDataLocalMemoryApiService

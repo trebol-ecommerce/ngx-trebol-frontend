@@ -1,13 +1,15 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, OnDestroy } from '@angular/core';
-import { StoreService } from './store.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { map, tap, filter } from 'rxjs/operators';
-import { Router, ActivatedRoute } from '@angular/router';
+import { filter, map, tap } from 'rxjs/operators';
+import { StoreService } from './store.service';
 
 @Component({
   selector: 'app-store',
@@ -18,6 +20,7 @@ export class StoreComponent
   implements OnDestroy {
 
   private cartIsEmptySubscription: Subscription;
+
   cartIsEmpty: boolean | undefined;
 
   constructor(

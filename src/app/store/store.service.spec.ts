@@ -1,19 +1,20 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
-import { StoreService } from './store.service';
-import { Product } from 'src/app/models/entities/Product';
-import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { EMPTY } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { empty, EMPTY } from 'rxjs';
+import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
+import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
 import { MOCK_PRODUCTS } from '../api/local-memory/mock/mock-products.datasource';
+import { StoreService } from './store.service';
 
 describe('StoreService', () => {
   let service: StoreService;

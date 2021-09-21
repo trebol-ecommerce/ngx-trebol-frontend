@@ -1,13 +1,20 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of } from 'rxjs';
-import { pluck, switchMap, mapTo, startWith } from 'rxjs/operators';
+import { mapTo, pluck, startWith, switchMap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogData } from 'src/app/shared/dialogs/confirmation-dialog/ConfirmationDialogData';
 import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form-dialog/edit-profile-form-dialog.component';
 import { LOGOUT_MESSAGE } from 'src/text/messages';
-import { ConfirmationDialogData } from 'src/app/shared/dialogs/confirmation-dialog/ConfirmationDialogData';
 
 @Component({
   selector: 'app-store-header-menu',
@@ -17,13 +24,13 @@ import { ConfirmationDialogData } from 'src/app/shared/dialogs/confirmation-dial
 export class StoreHeaderMenuComponent
   implements OnInit {
 
-  public userName$: Observable<string>;
-  public canNavigateManagement$: Observable<boolean>;
+  userName$: Observable<string>;
+  canNavigateManagement$: Observable<boolean>;
 
   constructor(
-    protected appService: AppService,
-    protected snackBarService: MatSnackBar,
-    protected dialogService: MatDialog
+    private appService: AppService,
+    private snackBarService: MatSnackBar,
+    private dialogService: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -55,7 +62,29 @@ export class StoreHeaderMenuComponent
     );
   }
 
-  protected promptLogoutConfirmation(): Observable<boolean> {
+  onClickEditProfile(): void {
+    this.dialogService.open(
+      EditProfileFormDialogComponent,
+      {
+        width: '60rem'
+      }
+    );
+  }
+
+  onClickLogout(): void {
+    if (this.appService.isLoggedIn()) {
+      this.promptLogoutConfirmation().subscribe(
+        confirmed => {
+          if (confirmed) {
+            this.snackBarService.open(LOGOUT_MESSAGE, 'OK');
+            this.appService.closeCurrentSession();
+          }
+        }
+      );
+    }
+  }
+
+  private promptLogoutConfirmation(): Observable<boolean> {
     const dialogData: ConfirmationDialogData = {
       title: '¿Cerrar sesion?',
       message: 'Si esta realizando una transaccion, perdera la informacion que haya guardado.'
@@ -68,28 +97,6 @@ export class StoreHeaderMenuComponent
         data: dialogData
       }
     ).afterClosed();
-  }
-
-  public onClickEditProfile(): void {
-    this.dialogService.open(
-      EditProfileFormDialogComponent,
-      {
-        width: '60rem'
-      }
-    );
-  }
-
-  public onClickLogout(): void {
-    if (this.appService.isLoggedIn()) {
-      this.promptLogoutConfirmation().subscribe(
-        confirmed => {
-          if (confirmed) {
-            this.snackBarService.open(LOGOUT_MESSAGE, 'OK');
-            this.appService.closeCurrentSession();
-          }
-        }
-      );
-    }
   }
 
 }

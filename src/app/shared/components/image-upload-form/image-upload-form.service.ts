@@ -1,7 +1,9 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -19,7 +21,7 @@ export class ImageManagerUploadService
   isNewItem: boolean;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataImages) protected dataService: ITransactionalEntityDataApiService<Image>
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataImages) private dataService: ITransactionalEntityDataApiService<Image>
   ) { }
 
   ngOnDestroy(): void {

@@ -1,14 +1,15 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { of } from 'rxjs';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { ProductFiltersPanelComponent } from './product-filters-panel.component';
 import { ProductFiltersPanelService } from './product-filters-panel.service';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { of } from 'rxjs';
 
 describe('ProductFiltersPanelComponent', () => {
   let component: ProductFiltersPanelComponent;

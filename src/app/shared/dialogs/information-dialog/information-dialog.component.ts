@@ -1,4 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { InformationDialogData } from './InformationDialogData';
 
@@ -9,11 +16,11 @@ import { InformationDialogData } from './InformationDialogData';
 })
 export class InformationDialogComponent {
 
-  public message: string | null;
-  public action = 'OK';
+  message: string | null;
+  action = 'OK';
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: InformationDialogData
+    @Inject(MAT_DIALOG_DATA) data: InformationDialogData
   ) {
     if (data?.message) {
       this.message = data.message;

@@ -1,7 +1,14 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { StoreService } from 'src/app/store/store.service';
 import { map } from 'rxjs/operators';
+import { StoreService } from 'src/app/store/store.service';
 
 @Component({
   selector: 'app-store-header-navigation',
@@ -11,12 +18,12 @@ import { map } from 'rxjs/operators';
 export class StoreHeaderNavigationComponent
   implements OnInit {
 
-  public cartHasItems$: Observable<boolean>;
-  public cartItemCountLabel$: Observable<string>;
-  public cartNetValue$: Observable<number>;
+  cartHasItems$: Observable<boolean>;
+  cartItemCountLabel$: Observable<string>;
+  cartNetValue$: Observable<number>;
 
   constructor(
-    protected storeService: StoreService
+    private storeService: StoreService
   ) { }
 
   ngOnInit(): void {
