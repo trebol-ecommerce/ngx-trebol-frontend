@@ -30,7 +30,7 @@ export class StoreComponent
       filter(isNowEmpty => (this.cartIsEmpty === undefined || isNowEmpty !== this.cartIsEmpty)),
       tap(isNowEmpty => { this.cartIsEmpty = isNowEmpty; }),
       tap(isNowEmpty => {
-        if (isNowEmpty && this.route.firstChild.routeConfig.path === 'cart') {
+        if (isNowEmpty && this.route?.firstChild?.routeConfig.path === 'cart') {
           this.router.navigateByUrl('/');
         }
       })

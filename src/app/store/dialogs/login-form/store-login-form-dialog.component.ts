@@ -54,9 +54,9 @@ export class StoreLoginFormDialogComponent
   }
 
   ngOnInit(): void {
-    this.registerButton.sourceDialogRef = this.dialog;
-    this.registerButton.targetDialogComponent = StoreRegistrationFormDialogComponent;
-    this.registerButton.targetDialogConfig = { width: '40rem', disableClose: true };
+    // this.registerButton.sourceDialogRef = this.dialog;
+    // this.registerButton.targetDialogComponent = StoreRegistrationFormDialogComponent;
+    // this.registerButton.targetDialogConfig = { width: '40rem', disableClose: true };
   }
 
   public showPassword(): void { this.hidePasswordSource.next(false); }
