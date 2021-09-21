@@ -7,27 +7,23 @@
 
 <form [formGroup]="formGroup">
 
-  <mat-form-field style="grid-area: name">
+  <mat-form-field class="name">
     <input matInput placeholder="Nombre Completo" formControlName="name" />
   </mat-form-field>
 
-  <mat-form-field style="grid-area: idNumber">
+  <mat-form-field class="idNumber">
     <input matInput placeholder="Rut" formControlName="idNumber" />
   </mat-form-field>
 
-  <mat-form-field style="grid-area: email">
+  <mat-form-field class="email">
     <input matInput placeholder="Email" formControlName="email" />
   </mat-form-field>
 
-  <mat-form-field style="grid-area: address">
-    <input matInput placeholder="Dirección" formControlName="address" />
-  </mat-form-field>
-
-  <mat-form-field style="grid-area: phone1">
+  <mat-form-field class="phone1">
     <input matInput placeholder="Teléfono 1" formControlName="phone1" />
   </mat-form-field>
 
-  <mat-form-field style="grid-area: phone2">
+  <mat-form-field class="phone2">
     <input matInput placeholder="Teléfono 2" formControlName="phone2" />
   </mat-form-field>
 </form>

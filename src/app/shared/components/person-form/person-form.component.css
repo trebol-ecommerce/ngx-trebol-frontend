@@ -7,22 +7,32 @@
 
 form {
   display: grid;
-  grid-template-areas:
-    'name'
-    'idNumber'
-    'email'
-    'address'
-    'phone1'
-    'phone2';
+  grid-template-columns: 1fr;
 }
 
-@media(min-width: 800px) {
+
+@media(min-width: 641px) {
   form {
     grid-gap: 1rem;
     grid-template-areas:
       'name name name name'
       'idNumber email email email'
-      'address address address address'
       'phone1 phone1 phone2 phone2';
+  }
+
+  .name {
+    grid-area: name;
+  }
+  .idNumber {
+    grid-area: idNumber;
+  }
+  .email {
+    grid-area: email;
+  }
+  .phone1 {
+    grid-area: phone1;
+  }
+  .phone2 {
+    grid-area: phone2;
   }
 }

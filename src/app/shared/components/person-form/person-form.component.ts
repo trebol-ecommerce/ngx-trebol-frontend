@@ -44,7 +44,6 @@ export class PersonFormComponent
   get name() { return this.formGroup.get('name') as FormControl; }
   get idNumber() { return this.formGroup.get('idNumber') as FormControl; }
   get email() { return this.formGroup.get('email') as FormControl; }
-  get address() { return this.formGroup.get('address') as FormControl; }
   get phone1() { return this.formGroup.get('phone1') as FormControl; }
   get phone2() { return this.formGroup.get('phone2') as FormControl; }
 
@@ -56,7 +55,6 @@ export class PersonFormComponent
       name: ['', Validators.required],
       idNumber: ['', Validators.required],
       email: ['', Validators.required],
-      address: ['', Validators.required],
       phone1: [''],
       phone2: ['']
     });
