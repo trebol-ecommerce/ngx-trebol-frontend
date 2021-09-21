@@ -7,16 +7,18 @@ import { Customer } from './Customer';
 import { Salesperson } from './Salesperson';
 import { SellDetail } from './SellDetail';
 import { Address } from './Address';
+import { BillingCompany } from './BillingCompany';
 
 export class Sell {
-  buyOrder: number;
+  buyOrder?: number;
   details: SellDetail[];
-  date: Date;
+  date?: Date;
   billingType: string;
+  billingCompany?: BillingCompany;
   paymentType: string;
-  customer: Partial<Customer>;
+  customer: Customer;
   netValue?: number;
-  salesperson?: Partial<Salesperson>;
+  salesperson?: Salesperson;
   status?: string;
   billingAddress?: Address;
   shippingAddress?: Address;
