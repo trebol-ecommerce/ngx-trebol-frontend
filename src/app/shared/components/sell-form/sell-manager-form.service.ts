@@ -21,14 +21,14 @@ export class SellFormService
   private sellDetailsSource: Subject<SellDetail[]> = new BehaviorSubject([]);
 
   sellDetails$: Observable<SellDetail[]> = this.sellDetailsSource.asObservable();
-  sellSubtotalValue$: Observable<number>;
+  sellNetValue$: Observable<number>;
   sellTotalValue$: Observable<number>;
 
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.dataSales) private dataService: ICompositeEntityDataApiService<Sell, SellDetail>,
     @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) private productDataService: ITransactionalEntityDataApiService<Product>,
   ) {
-    this.sellSubtotalValue$ = this.sellDetails$.pipe(
+    this.sellNetValue$ = this.sellDetails$.pipe(
       map(
         array => {
           if (array.length === 0) { return 0; }
@@ -36,7 +36,7 @@ export class SellFormService
         }
       )
     );
-    this.sellTotalValue$ = this.sellSubtotalValue$.pipe(map(subtotal => Math.ceil(subtotal * 1.19)));
+    this.sellTotalValue$ = this.sellNetValue$.pipe(map(subtotal => Math.ceil(subtotal * 1.19)));
   }
 
   ngOnDestroy(): void {

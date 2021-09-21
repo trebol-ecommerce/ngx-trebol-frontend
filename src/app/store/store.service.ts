@@ -18,11 +18,11 @@ export class StoreService
 
   protected sellDetails: SellDetail[] = [];
   protected sellDetailsSource = new BehaviorSubject([]);
-  protected sellSubtotalValue = 0;
+  protected sellNetValue = 0;
 
   public cartDetails$ = this.sellDetailsSource.asObservable();
   public cartItemCount$: Observable<number>;
-  public cartSubtotalValue$: Observable<number>;
+  public cartNetValue$: Observable<number>;
 
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.checkout) protected checkoutApiService: ICheckoutPublicApiService
@@ -36,14 +36,14 @@ export class StoreService
       )
     );
 
-    this.cartSubtotalValue$ = this.cartDetails$.pipe(
+    this.cartNetValue$ = this.cartDetails$.pipe(
       map(
         array => {
           if (array.length === 0) { return 0; }
           return array.map(p => p.product.price * p.units).reduce((a, b) => a + b);
         }
       ),
-      tap(s => { this.sellSubtotalValue = s; })
+      tap(s => { this.sellNetValue = s; })
     );
   }
 

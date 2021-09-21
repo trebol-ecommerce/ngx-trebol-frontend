@@ -6,7 +6,6 @@
 import { Product } from './Product';
 
 export class SellDetail {
-  public product: Partial<Product>;
-  public units: number;
-  public sellId?: number;
+  product: Partial<Product>;
+  units: number;
 }

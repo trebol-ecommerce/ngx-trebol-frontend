@@ -27,7 +27,7 @@ export class SellFormComponent
   implements OnInit {
 
   sellDetails$: Observable<SellDetail[]>;
-  sellSubtotalValue$: Observable<number>;
+  sellNetValue$: Observable<number>;
   sellTotalValue$: Observable<number>;
 
   billingTypes$: Observable<BillingType[]>;
@@ -66,7 +66,7 @@ export class SellFormComponent
     this.salespeople$ = this.salespeopleDataService.fetchPage().pipe(map(page => page.items));
     this.customers$ = this.customersDataService.fetchPage().pipe(map(page => page.items));
 
-    this.sellSubtotalValue$ = this.service.sellSubtotalValue$.pipe();
+    this.sellNetValue$ = this.service.sellNetValue$.pipe();
     this.sellTotalValue$ = this.service.sellTotalValue$.pipe();
 
     // this.sellIsntReady$ = merge(

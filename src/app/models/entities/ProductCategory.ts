@@ -4,9 +4,7 @@
 // https://opensource.org/licenses/MIT
 
 export class ProductCategory {
-
-  public code: string;
-  public name: string;
-
-  public parent?: Partial<ProductCategory>;
+  code: number;
+  name: string;
+  parent?: Partial<ProductCategory>;
 }

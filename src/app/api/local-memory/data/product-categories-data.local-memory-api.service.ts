@@ -16,7 +16,7 @@ export class ProductCategoriesDataLocalMemoryApiService
     return of(MOCK_PRODUCT_CATEGORIES);
   }
 
-  readAllProductCategoriesByParentCode(parentCode: string) {
+  readAllProductCategoriesByParentCode(parentCode: number) {
     return of(MOCK_PRODUCT_CATEGORIES.filter(t => t.parent.code === parentCode));
   }
 }

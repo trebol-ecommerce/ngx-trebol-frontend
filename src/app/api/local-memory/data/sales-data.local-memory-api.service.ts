@@ -30,10 +30,10 @@ export class SalesDataLocalMemoryApiService
   }
 
   protected itemExists(sell: Partial<Sell>) {
-    return this.items.some(sell2 => (sell.id === sell2.id));
+    return this.items.some(sell2 => (sell.buyOrder === sell2.buyOrder));
   }
 
   protected getIndexOfItem(sell: Partial<Sell>) {
-    return this.items.findIndex(sell2 => (sell.id === sell2.id));
+    return this.items.findIndex(sell2 => (sell.buyOrder === sell2.buyOrder));
   }
 }

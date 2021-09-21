@@ -65,7 +65,7 @@ export class SellManagerComponent
     ).subscribe(
       success => {
         if (success) {
-          this.snackBarService.open(`Venta N°${s.id} (${s.soldOn}) eliminada`);
+          this.snackBarService.open(`Venta N°${s.buyOrder} (${s.date}) eliminada`);
           this.service.reloadItems();
         } else {
           this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');

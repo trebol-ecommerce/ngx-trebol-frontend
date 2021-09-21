@@ -9,12 +9,12 @@ import { Image } from './Image';
 // TODO update this model
 
 export class Product {
-  public name: string;
-  public barcode: string;
-  public price: number;
-  public category: Partial<ProductCategory>;
-  public description?: string;
-  // public currentStock?: number;
-  // public criticalStock?: number;
-  public images?: Image[];
+  name: string;
+  barcode: string;
+  price: number;
+  category: Partial<ProductCategory>;
+  description?: string;
+  // currentStock?: number;
+  // criticalStock?: number;
+  images?: Image[];
 }

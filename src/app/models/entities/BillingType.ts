@@ -4,6 +4,5 @@
 // https://opensource.org/licenses/MIT
 
 export class BillingType {
-  public id: string;
-  public description: string;
+  public name: string;
 }

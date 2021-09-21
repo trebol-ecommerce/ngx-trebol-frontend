@@ -13,8 +13,8 @@
 
   <mat-form-field style="grid-area: billingType">
     <mat-select placeholder="Tipo de Venta" formControlName="billingType">
-      <mat-option *ngFor="let b of (billingTypes$ | async)" [value]="b.id">
-        {{ b.description }}
+      <mat-option *ngFor="let b of (billingTypes$ | async)" [value]="b.name">
+        {{ b.name }}
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -92,7 +92,7 @@
 
   <div style="grid-area: summary">
     <div class="summary-data">
-      <div>Subtotal: ${{ sellSubtotalValue$ | async }}</div>
+      <div>Subtotal: ${{ sellNetValue$ | async }}</div>
       <div>Total: ${{ sellTotalValue$ | async }}</div>
     </div>
   </div>

@@ -32,7 +32,7 @@ export class ProductCategoriesDataHttpApiService
     );
   }
 
-  readAllProductCategoriesByParentCode(parentCode: string) {
+  readAllProductCategoriesByParentCode(parentCode: number) {
     return this.http.get<DataPage<ProductCategory>>(
       this.baseUrl,
       {

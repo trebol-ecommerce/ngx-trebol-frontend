@@ -24,7 +24,7 @@ export class ProductFiltersPanelService {
     );
   }
 
-  public getChildrenProductCategoryByParentCode(code: string): Observable<ProductCategory[]> {
+  public getChildrenProductCategoryByParentCode(code: number): Observable<ProductCategory[]> {
     return this.apiService.fetchChildrenProductCategoriesByParentCode(code).pipe(
       map(page => page.items)
     );

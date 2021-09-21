@@ -13,22 +13,13 @@ import { take } from 'rxjs/operators';
 import { empty, EMPTY } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
+import { MOCK_PRODUCTS } from '../api/local-memory/mock/mock-products.datasource';
 
 describe('StoreService', () => {
   let service: StoreService;
   let mockCheckoutApiService: Partial<ICheckoutPublicApiService>;
-  const mockProduct: Product = {
-    barcode: 'example',
-    name: 'test product',
-    price: 500,
-    category: { code: '1' }
-  };
-  const mockProductTwo: Product = {
-    barcode: 'example2',
-    name: 'test product two',
-    price: 1000,
-    category: { code: '1' }
-  };
+  const mockProduct = MOCK_PRODUCTS[0];
+  const mockProductTwo = MOCK_PRODUCTS[1];
 
   beforeEach(() => {
     mockCheckoutApiService = {

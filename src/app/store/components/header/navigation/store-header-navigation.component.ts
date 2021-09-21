@@ -13,7 +13,7 @@ export class StoreHeaderNavigationComponent
 
   public cartHasItems$: Observable<boolean>;
   public cartItemCountLabel$: Observable<string>;
-  public cartSubtotalValue$: Observable<number>;
+  public cartNetValue$: Observable<number>;
 
   constructor(
     protected storeService: StoreService
@@ -26,7 +26,7 @@ export class StoreHeaderNavigationComponent
     this.cartItemCountLabel$ = this.storeService.cartItemCount$.pipe(
       map(total => total + ' item' + (total > 1 ? 's' : ''))
     );
-    this.cartSubtotalValue$ = this.storeService.cartSubtotalValue$.pipe();
+    this.cartNetValue$ = this.storeService.cartNetValue$.pipe();
   }
 
 }

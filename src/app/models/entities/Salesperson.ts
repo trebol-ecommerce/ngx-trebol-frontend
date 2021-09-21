@@ -6,5 +6,5 @@
 import { Person } from './Person';
 
 export class Salesperson {
-  public person: Partial<Person>;
+  person: Partial<Person>;
 }

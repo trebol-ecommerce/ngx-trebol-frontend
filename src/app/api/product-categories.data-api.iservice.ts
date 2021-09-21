@@ -8,5 +8,5 @@ import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 
 export interface IProductCategoriesDataApiService {
   readAllProductCategories(): Observable<ProductCategory[]>;
-  readAllProductCategoriesByParentCode(parentCode: string): Observable<ProductCategory[]>;
+  readAllProductCategoriesByParentCode(parentCode: number): Observable<ProductCategory[]>;
 }

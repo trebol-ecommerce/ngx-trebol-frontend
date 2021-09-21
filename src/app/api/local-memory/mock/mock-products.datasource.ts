@@ -1,7 +1,7 @@
 import { Product } from 'src/app/models/entities/Product';
 import { MOCK_PRODUCT_CATEGORIES } from './mock-product-categories.datasource';
 
-export const MOCK_PRODUCTS: Partial<Product>[] = [
+export const MOCK_PRODUCTS: Product[] = [
   {
     name: 'Zapatillas Nike Air Jordan Azul/Negro',
     barcode: 'NIKE-AZLNGR-1',

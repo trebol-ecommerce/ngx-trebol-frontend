@@ -19,10 +19,10 @@ export class BillingTypesDataLocalMemoryApiService
   }
 
   protected itemExists(billingType: Partial<BillingType>) {
-    return this.items.some(billingType2 => (billingType.id === billingType2.id));
+    return this.items.some(billingType2 => (billingType.name === billingType2.name));
   }
 
   protected getIndexOfItem(billingType: Partial<BillingType>) {
-    return this.items.findIndex(billingType2 => (billingType.id === billingType2.id));
+    return this.items.findIndex(billingType2 => (billingType.name === billingType2.name));
   }
 }

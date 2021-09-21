@@ -28,7 +28,7 @@ export class CategoriesPublicHttpApiService
     );
   }
 
-  fetchChildrenProductCategoriesByParentCode(parentCode: string) {
+  fetchChildrenProductCategoriesByParentCode(parentCode: number) {
     return this.http.get<DataPage<ProductCategory>>(
       `${this.baseUrl}/${parentCode}`
     );

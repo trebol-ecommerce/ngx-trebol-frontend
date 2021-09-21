@@ -24,7 +24,7 @@ describe('SellFormComponent', () => {
     mockService = {
       refreshSellDetailsFrom(i) {},
       sellDetails$: of([]),
-      sellSubtotalValue$: of(0),
+      sellNetValue$: of(0),
       sellTotalValue$: of(0),
       addProducts(p) {},
       increaseDetailProductQuantityAtIndex(i) {},

@@ -22,7 +22,7 @@ export class SalesDataHttpApiService
 
   fetchExisting(sell: Partial<Sell>) {
     return this.http.get<Sell>(
-      `${this.baseUrl}/${sell.id}`
+      `${this.baseUrl}/${sell.buyOrder}`
     );
   }
 
@@ -34,14 +34,14 @@ export class SalesDataHttpApiService
 
   update(sell: Partial<Sell>) {
     return this.http.put(
-      `${this.baseUrl}/${sell.id}`,
+      `${this.baseUrl}/${sell.buyOrder}`,
       sell
     );
   }
 
   delete(sell: Partial<Sell>) {
     return this.http.delete(
-      `${this.baseUrl}/${sell.id}`
+      `${this.baseUrl}/${sell.buyOrder}`
     );
   }
 

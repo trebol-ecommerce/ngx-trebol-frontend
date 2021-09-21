@@ -28,7 +28,7 @@ export class StoreCartReviewComponent
   implements OnInit {
 
   public sellDetails$: Observable<SellDetail[]>;
-  public cartSubtotalValue$: Observable<number>;
+  public cartNetValue$: Observable<number>;
   public cartTotalValue$: Observable<number>;
 
   public tableColumns: string[] = [ 'product', 'price', 'quantity', 'total', 'actions' ];
@@ -47,9 +47,9 @@ export class StoreCartReviewComponent
 
   ngOnInit(): void {
     this.sellDetails$ = this.storeService.cartDetails$.pipe();
-    this.cartSubtotalValue$ = this.storeService.cartSubtotalValue$.pipe();
+    this.cartNetValue$ = this.storeService.cartNetValue$.pipe();
 
-    this.cartTotalValue$ = this.storeService.cartSubtotalValue$.pipe(map(subtotal => Math.ceil(subtotal * 1.19)));
+    this.cartTotalValue$ = this.storeService.cartNetValue$.pipe(map(subtotal => Math.ceil(subtotal * 1.19)));
   }
 
   public onClickIncreaseProductQuantity(index: number): void {

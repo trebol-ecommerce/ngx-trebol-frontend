@@ -30,7 +30,7 @@ describe('StoreCartReviewComponent', () => {
   beforeEach(waitForAsync(() => {
     mockStoreService = {
       cartDetails$: of([]),
-      cartSubtotalValue$: of(0),
+      cartNetValue$: of(0),
       increaseProductUnits(i) {},
       decreaseProductUnits(i) {},
       removeProductFromCart(i) {}

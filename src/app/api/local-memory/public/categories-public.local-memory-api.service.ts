@@ -29,7 +29,7 @@ export class CategoriesPublicLocalMemoryApiService
     // });
   }
 
-  public fetchChildrenProductCategoriesByParentCode(parentCode: string): Observable<DataPage<ProductCategory>> {
+  public fetchChildrenProductCategoriesByParentCode(parentCode: number): Observable<DataPage<ProductCategory>> {
     return of(MOCK_PRODUCT_CATEGORIES.filter(t => t.parent.code === parentCode)).pipe(
       map(items => ({
         totalCount: items.length,

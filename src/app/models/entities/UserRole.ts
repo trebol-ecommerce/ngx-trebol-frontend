@@ -4,6 +4,6 @@
 // https://opensource.org/licenses/MIT
 
 export class UserRole {
-  public name?: string;
-  public description?: string;
+  name: string;
+  description?: string;
 }

@@ -13,7 +13,7 @@ import { ProductFiltersPanelService } from './product-filters-panel.service';
 // TODO extract into another file
 export class ProductFilters {
   name?: string;
-  categoryCode?: string;
+  categoryCode?: number;
 }
 
 @Component({

@@ -16,7 +16,7 @@ describe('StoreHeaderNavigationComponent', () => {
     mockStoreService = {
       cartDetails$: of([]),
       cartItemCount$: of(0),
-      cartSubtotalValue$: of(0)
+      cartNetValue$: of(0)
     };
 
     TestBed.configureTestingModule({

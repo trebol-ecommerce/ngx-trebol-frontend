@@ -30,8 +30,8 @@ export class ReceiptPublicLocalMemoryApiService
   fetchTransactionReceiptById(id: number): Observable<Receipt> {
     return of(MOCK_SALES[0]).pipe(
       map(s => ({
-        buyOrder: s.id,
-        amount: s.subtotalValue,
+        buyOrder: s.buyOrder,
+        amount: s.netValue,
         details: s.details,
         date: new Date().toUTCString(),
         status: 'Testing'

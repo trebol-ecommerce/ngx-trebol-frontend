@@ -28,7 +28,6 @@ const MOCK_REGISTRATION_DETAILS: Registration = {
     name: 'fulano mengano',
     idNumber: '123456789',
     email: 'test@test.org',
-    address: 'lorem ipsum',
     phone1: 11111111,
     phone2: 11111111,
   }

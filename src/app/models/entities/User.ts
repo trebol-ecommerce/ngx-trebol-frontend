@@ -6,10 +6,10 @@
 import { Person } from './Person';
 import { Login } from '../Login';
 
-export class User implements Partial<Login> {
-  public name: string;
-  public createdOn?: string;
-  public password?: string;
-  public person: Partial<Person>;
-  public role?: string;
+export class User
+  implements Partial<Login> {
+  name: string;
+  password?: string;
+  person?: Partial<Person>;
+  role?: string;
 }
