@@ -29,6 +29,7 @@ import { CompanyFormComponent } from './components/company-form/company-form.com
 import { CartProductUnitsControlComponent } from './components/cart-product-units-control/cart-product-units-control.component';
 import { AddressFormDialogComponent } from './dialogs/address-form/address-form-dialog.component';
 import { AddressPipe } from './pipes/address/address.pipe';
+import { AddressesEditorFormComponent } from './components/addresses-editor-form/addresses-editor-form.component';
 
 
 const PUBLIC_COMPONENTS = [
@@ -36,6 +37,7 @@ const PUBLIC_COMPONENTS = [
   ConfirmationDialogComponent,
   AddressFormComponent,
   AddressFormDialogComponent,
+  AddressesEditorFormComponent,
   FileUploadComponent,
   CartProductUnitsControlComponent,
   CompanyFormComponent,

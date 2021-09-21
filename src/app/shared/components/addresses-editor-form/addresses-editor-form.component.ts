@@ -17,23 +17,23 @@ import { AddressFormDialogData, AddressFormDialogComponent } from 'src/app/share
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 
 @Component({
-  selector: 'app-store-addresses-editor-form',
-  templateUrl: './store-addresses-editor-form.component.html',
-  styleUrls: ['./store-addresses-editor-form.component.css'],
+  selector: 'app-addresses-editor-form',
+  templateUrl: './addresses-editor-form.component.html',
+  styleUrls: ['./addresses-editor-form.component.css'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: StoreAddressesEditorFormComponent
+      useExisting: AddressesEditorFormComponent
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: StoreAddressesEditorFormComponent
+      useExisting: AddressesEditorFormComponent
     }
   ]
 })
-export class StoreAddressesEditorFormComponent
+export class AddressesEditorFormComponent
   implements OnDestroy, ControlValueAccessor, Validator {
 
   private touchedSubscriptions: Subscription[] = [];

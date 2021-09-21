@@ -14,7 +14,7 @@ import { Address } from 'src/app/models/entities/Address';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
 import { StoreService } from '../../store.service';
-import { StoreAddressesEditorFormComponent } from '../addresses-editor-form/store-addresses-editor-form.component';
+import { AddressesEditorFormComponent } from 'src/app/shared/components/addresses-editor-form/addresses-editor-form.component';
 
 @Component({
   selector: 'app-store-shipping-form',
@@ -46,7 +46,7 @@ export class StoreShippingFormComponent
   get requestShipping() { return this.formGroup.get('requestShipping') as FormControl; }
   get shippingAddress() { return this.formGroup.get('shippingAddress') as FormControl; }
 
-  @ViewChild('addressForm', { static: false }) adressForm: StoreAddressesEditorFormComponent;
+  @ViewChild('addressForm', { static: false }) adressForm: AddressesEditorFormComponent;
 
   constructor(
     private formBuilder: FormBuilder,

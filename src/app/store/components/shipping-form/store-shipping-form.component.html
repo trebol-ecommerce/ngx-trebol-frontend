@@ -11,9 +11,9 @@
     <mat-radio-button [value]="true" (blur)="onTouched()">Despacho a Domicilio</mat-radio-button>
     <mat-radio-button [value]="false" (blur)="onTouched()">Retiro en Tienda</mat-radio-button>
   </mat-radio-group>
-  <app-store-addresses-editor-form #addressForm formControlName="shippingAddress"
+  <app-addresses-editor-form #addressForm formControlName="shippingAddress"
     placeholder="Dirección de despacho"
     editLabel="Editar dirección de despacho"
     addLabel="Nueva dirección de despacho">
-  </app-store-addresses-editor-form>
+  </app-addresses-editor-form>
 </form>
