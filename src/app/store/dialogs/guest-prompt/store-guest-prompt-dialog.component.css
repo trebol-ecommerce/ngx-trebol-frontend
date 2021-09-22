@@ -5,26 +5,26 @@
  * https://opensource.org/licenses/MIT
  */
 
-h2, .content {
+:host {
   text-align: center;
 }
 
-h2 {
-  font-size: 1.1rem;
+.hint {
+  color: grey;
+  margin: 2rem 0 0;
 }
 
-.content {
-  padding: 1rem;
-}
-
-.actions {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: stretch;
+@media(max-width: 640px) {
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }
 
 @media(min-width: 641px) {
   .actions {
+    display: flex;
     flex-flow: row nowrap;
     align-items: center;
     justify-content: space-around;
