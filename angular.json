@@ -139,14 +139,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
             ]
           }
         },
@@ -178,11 +175,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "e2e//**/*.ts",
+              "e2e//**/*.html"
             ]
           }
         }
@@ -191,6 +188,7 @@
   },
   "defaultProject": "trebol-ng",
   "cli": {
-    "analytics": "83e020b2-8b28-4f70-a356-9f0dd5cec7e9"
+    "analytics": "83e020b2-8b28-4f70-a356-9f0dd5cec7e9",
+    "defaultCollection": "@angular-eslint/schematics"
   }
 }
