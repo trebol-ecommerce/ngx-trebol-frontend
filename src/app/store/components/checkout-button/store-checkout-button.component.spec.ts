@@ -6,7 +6,10 @@
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { of, throwError } from 'rxjs';
 import { StoreService } from 'src/app/store/store.service';
 import { StoreCheckoutButtonComponent } from './store-checkout-button.component';
@@ -29,6 +32,12 @@ describe('StoreCheckoutButtonComponent', () => {
     };
 
     TestBed.configureTestingModule({
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatIconModule
+      ],
       declarations: [ StoreCheckoutButtonComponent ],
       providers: [
         { provide: StoreService, useValue: mockCartService },

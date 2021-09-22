@@ -5,14 +5,17 @@
  * https://opensource.org/licenses/MIT
  */
 
+import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { ManagementService } from 'src/app/management/management.service';
 import { Person } from 'src/app/models/entities/Person';
-import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
 import { ManagementHeaderComponent } from './management-header.component';
 
 describe('ManagementHeaderComponent', () => {
@@ -35,8 +38,11 @@ describe('ManagementHeaderComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        CommonModule,
         RouterTestingModule,
-        AngularMaterialModule
+        MatButtonModule,
+        MatIconModule,
+        MatMenuModule
       ],
       declarations: [ ManagementHeaderComponent ],
       providers: [
