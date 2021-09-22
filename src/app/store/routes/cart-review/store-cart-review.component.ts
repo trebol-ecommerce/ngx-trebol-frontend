@@ -8,9 +8,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EMPTY, Observable, of } from 'rxjs';
-import { map, switchMap, take, takeUntil } from 'rxjs/operators';
+import { switchMap, take, takeUntil } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
-import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { StoreService } from 'src/app/store/store.service';
 import { StoreGuestPromptDialogComponent } from '../../dialogs/guest-prompt/store-guest-prompt-dialog.component';
 import { StoreGuestPromptDialogOptions } from '../../dialogs/guest-prompt/StoreGuestPromptDialogOptions';
@@ -28,8 +27,6 @@ export class StoreCartReviewComponent
   implements OnInit {
 
   cartNetValue$: Observable<number>;
-
-  tableColumns: string[] = [ 'product', 'price', 'quantity', 'total', 'actions' ];
 
   constructor(
     private storeService: StoreService,
