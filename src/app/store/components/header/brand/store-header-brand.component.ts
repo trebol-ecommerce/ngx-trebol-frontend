@@ -7,8 +7,8 @@
 
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { APP_INITIALS_TITLE, APP_LONG_TITLE } from 'src/app/app.constants';
 import { StoreCompanyDetailsDialogComponent } from 'src/app/store/dialogs/company-details/store-company-details-dialog.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-store-header-brand',
@@ -17,8 +17,7 @@ import { StoreCompanyDetailsDialogComponent } from 'src/app/store/dialogs/compan
 })
 export class StoreHeaderBrandComponent {
 
-  readonly desktopTitle: string = APP_LONG_TITLE;
-  readonly mobileTitle: string = APP_INITIALS_TITLE;
+  readonly appTitle: string = environment.labels.name;
 
   constructor(
     private dialogService: MatDialog

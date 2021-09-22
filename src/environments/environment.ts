@@ -13,6 +13,9 @@ export const environment = {
   secrets: {
     sessionTokenName: 'trebol/bearer-token',
     authHeader: 'Authorization'
+  },
+  labels: {
+    name: 'Trébol'
   }
 };
 
