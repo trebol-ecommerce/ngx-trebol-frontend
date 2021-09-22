@@ -51,29 +51,21 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
     expect(storeServiceSubmitCartSpy).toHaveBeenCalled();
   });
 
-  it('should render a div.dialog HTML element', () => {
-    fixture.detectChanges();
-    const dialogDivElem: HTMLDivElement = fixture.nativeElement.querySelector('div.dialog');
-    expect(dialogDivElem).toBeTruthy();
-  });
-
   it('should render a form with a button upon a successful cart submission', () => {
-    const divElem: HTMLElement = fixture.nativeElement.querySelector('div.dialog');
     mockStoreService.submitCart = (() => of({ url: '', token: '' }));
     fixture.detectChanges();
 
-    const formElement: HTMLFormElement = divElem.querySelector('form');
+    const formElement = fixture.nativeElement.querySelector('form');
     expect(formElement).toBeTruthy();
-    const buttonElement: HTMLButtonElement = formElement.querySelector('button');
+    const buttonElement = formElement.querySelector('button[type="submit"]');
     expect(buttonElement).toBeTruthy();
   });
 
   it('should render an error message label upon a failed cart submission', () => {
-    const divElem: HTMLElement = fixture.nativeElement.querySelector('div.dialog');
     mockStoreService.submitCart = (() => throwError({}));
     fixture.detectChanges();
 
-    const formElement: HTMLSpanElement = divElem.querySelector('span.error');
-    expect(formElement).toBeTruthy();
+    const errorSpan = fixture.nativeElement.querySelector('span.error');
+    expect(errorSpan).toBeTruthy();
   });
 });
