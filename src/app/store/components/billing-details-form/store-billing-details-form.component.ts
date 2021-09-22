@@ -14,8 +14,8 @@ import { merge, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { AddressesEditorFormComponent } from 'src/app/shared/components/addresses-editor-form/addresses-editor-form.component';
 import { CompanyFormComponent } from 'src/app/shared/components/company-form/company-form.component';
+import { environment } from 'src/environments/environment';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { labels } from 'src/text/labels';
 import { StoreService } from '../../store.service';
 
 @Component({
@@ -44,7 +44,7 @@ export class StoreBillingDetailsFormComponent
   private touched = new EventEmitter<void>();
 
   formGroup: FormGroup;
-  types: { [key: string]: string } = labels.sellTypes;
+  types: { [key: string]: string } = environment.labels.sellTypes;
   typesOptions = Object.keys(this.types);
 
   get sellType() { return this.formGroup.get('sellType') as FormControl; }
