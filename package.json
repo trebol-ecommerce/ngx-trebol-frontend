@@ -1,7 +1,7 @@
 {
   "name": "trebol-ng",
   "version": "1.5.17",
-  "revision": 0,
+  "revision": 1,
   "license": "MIT",
   "scripts": {
     "ng": "ng",

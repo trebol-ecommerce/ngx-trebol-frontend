@@ -52,6 +52,11 @@
               ]
             },
             "localhost": {
+              "assets": [
+                "src/favicon.ico",
+                "src/assets/img/logo.png",
+                "src/assets/img/logo-invert.png"
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -67,6 +72,11 @@
               "aot": true
             },
             "production": {
+              "assets": [
+                "src/favicon.ico",
+                "src/assets/img/logo.png",
+                "src/assets/img/logo-invert.png"
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
