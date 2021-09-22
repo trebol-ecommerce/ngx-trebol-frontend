@@ -8,11 +8,11 @@
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { EMPTY, of } from 'rxjs';
+import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { StoreHeaderMenuComponent } from './store-header-menu.component';
 
@@ -22,6 +22,7 @@ describe('StoreHeaderMenuComponent', () => {
   let mockAppService: Partial<AppService>;
   let mockDialogService: Partial<MatDialog>;
   let mockSnackBarService: Partial<MatSnackBar>;
+  let dialogOpenSpy: jasmine.Spy;
 
   beforeEach(waitForAsync( () => {
     mockAppService = {
@@ -36,6 +37,8 @@ describe('StoreHeaderMenuComponent', () => {
     mockSnackBarService = {
       open() { return void 0; }
     };
+    dialogOpenSpy = spyOn(mockDialogService, 'open')
+                      .and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<any>);
 
     TestBed.configureTestingModule({
       imports: [
@@ -65,7 +68,6 @@ describe('StoreHeaderMenuComponent', () => {
   });
 
   it('should prompt a logout confirmation, only when logged in', () => {
-    const dialogOpenSpy = spyOn(mockDialogService, 'open').and.returnValue({ afterClosed() { return EMPTY; } });
     component.onClickLogout();
     expect(dialogOpenSpy).not.toHaveBeenCalled();
 

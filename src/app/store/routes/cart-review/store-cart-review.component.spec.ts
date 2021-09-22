@@ -7,13 +7,12 @@
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { EMPTY, of } from 'rxjs';
+import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { StoreGuestPromptDialogComponent } from '../../dialogs/guest-prompt/store-guest-prompt-dialog.component';
 import { StorePaymentRedirectPromptDialogComponent } from '../../dialogs/payment-redirect-prompt/store-payment-redirect-prompt-dialog.component';
@@ -25,8 +24,7 @@ describe('StoreCartReviewComponent', () => {
   let fixture: ComponentFixture<StoreCartReviewComponent>;
   let mockStoreService: Partial<StoreService>;
   let mockAppService: Partial<AppService>;
-  let router: Router;
-  let dialogService: MatDialog;
+  let mockDialogService: Partial<MatDialog>;
   let dialogOpenSpy: jasmine.Spy;
 
   beforeEach(waitForAsync(() => {
@@ -37,9 +35,14 @@ describe('StoreCartReviewComponent', () => {
       decreaseProductUnits(i) {},
       removeProductFromCart(i) {}
     };
+    mockDialogService = {
+      open() { return void 0; }
+    };
     mockAppService = {
       isLoggedIn() { return false; }
     };
+    dialogOpenSpy = spyOn(mockDialogService, 'open')
+                      .and.returnValue({ afterClosed: () => of(null) } as MatDialogRef<any>);
 
     TestBed.configureTestingModule({
       imports: [
@@ -55,7 +58,8 @@ describe('StoreCartReviewComponent', () => {
       declarations: [ StoreCartReviewComponent ],
       providers: [
         { provide: StoreService, useValue: mockStoreService },
-        { provide: AppService, useValue: mockAppService }
+        { provide: AppService, useValue: mockAppService },
+        { provide: MatDialog, useValue: mockDialogService }
       ]
     })
     .compileComponents();
@@ -64,9 +68,6 @@ describe('StoreCartReviewComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(StoreCartReviewComponent);
     component = fixture.componentInstance;
-    router = TestBed.inject(Router);
-    dialogService = TestBed.inject(MatDialog);
-    dialogOpenSpy = spyOn(dialogService, 'open').and.returnValue({ afterClosed() { return EMPTY; }});
     fixture.detectChanges();
   });
 

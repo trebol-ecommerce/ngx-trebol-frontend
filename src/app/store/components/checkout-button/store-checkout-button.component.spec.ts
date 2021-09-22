@@ -8,13 +8,13 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { of, throwError } from 'rxjs';
-import { StoreCartService } from 'src/app/store/routes/cart/store-cart.service';
+import { StoreService } from 'src/app/store/store.service';
 import { StoreCheckoutButtonComponent } from './store-checkout-button.component';
 
 describe('StoreCheckoutButtonComponent', () => {
   let component: StoreCheckoutButtonComponent;
   let fixture: ComponentFixture<StoreCheckoutButtonComponent>;
-  let mockCartService: Partial<StoreCartService>;
+  let mockCartService: Partial<StoreService>;
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
@@ -31,7 +31,7 @@ describe('StoreCheckoutButtonComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ StoreCheckoutButtonComponent ],
       providers: [
-        { provide: StoreCartService, useValue: mockCartService },
+        { provide: StoreService, useValue: mockCartService },
         { provide: MatDialog, useValue: mockDialogService }
       ]
     })
