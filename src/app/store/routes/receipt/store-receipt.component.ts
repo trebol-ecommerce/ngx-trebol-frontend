@@ -34,7 +34,7 @@ export class StoreReceiptComponent {
   }
 
   private loadReceipt() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.service.fetchReceipt(id);
+    const token = this.route.snapshot.paramMap.get('token');
+    this.service.fetchReceipt(token);
   }
 }

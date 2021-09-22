@@ -27,7 +27,7 @@ const storeRoutes: Routes = [
         canActivate: [StoreCartReviewGuard]
       },
       {
-        path: 'receipt/:id',
+        path: 'receipt/:token',
         component: StoreReceiptComponent
       },
       {

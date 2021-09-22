@@ -18,7 +18,7 @@ export class ReceiptPublicLocalMemoryApiService
 
   constructor() { }
 
-  fetchTransactionReceiptById(id: number): Observable<Receipt> {
+  fetchTransactionReceiptByToken(token: string): Observable<Receipt> {
     return of(MOCK_SALES[0]).pipe(
       map(s => ({
         buyOrder: s.buyOrder,

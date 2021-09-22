@@ -18,7 +18,7 @@ describe('StoreReceiptService', () => {
 
   beforeEach(() => {
     mockReceiptApiService = {
-      fetchTransactionReceiptById() { return EMPTY; }
+      fetchTransactionReceiptByToken() { return EMPTY; }
     };
 
     TestBed.configureTestingModule({

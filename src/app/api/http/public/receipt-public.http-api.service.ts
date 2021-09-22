@@ -23,9 +23,9 @@ export class ReceiptPublicHttpApiService
     super(http);
   }
 
-  fetchTransactionReceiptById(id: number) {
+  fetchTransactionReceiptByToken(token: string) {
     return this.http.get<Receipt>(
-      `${this.baseUrl}/${id}`
+      `${this.baseUrl}/${token}`
     );
   }
 }

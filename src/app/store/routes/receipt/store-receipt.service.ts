@@ -30,8 +30,8 @@ export class StoreReceiptService {
   ) {
   }
 
-  fetchReceipt(id: number): void {
-    this.receiptApiService.fetchTransactionReceiptById(id).subscribe(
+  fetchReceipt(id: string): void {
+    this.receiptApiService.fetchTransactionReceiptByToken(id).subscribe(
       receipt => {
         this.receiptSource.next(receipt);
       },
