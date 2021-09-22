@@ -1,14 +1,14 @@
 {
   "name": "trebol-ng",
   "version": "1.5.16",
-  "revision": 1,
+  "revision": 2,
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "test-headless": "ng test --watch=false --browsers=ChromeHeadless",
+    "test-headless": "ng test --singleRun=true --browsers=ChromeHeadless",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
