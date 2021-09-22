@@ -27,9 +27,7 @@ import { StoreRegistrationFormDialogComponent } from '../../dialogs/registration
 export class StoreCartReviewComponent
   implements OnInit {
 
-  sellDetails$: Observable<SellDetail[]>;
   cartNetValue$: Observable<number>;
-  cartTotalValue$: Observable<number>;
 
   tableColumns: string[] = [ 'product', 'price', 'quantity', 'total', 'actions' ];
 
@@ -37,26 +35,20 @@ export class StoreCartReviewComponent
     private storeService: StoreService,
     private appService: AppService,
     private dialogService: MatDialog
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void {
-    this.sellDetails$ = this.storeService.cartDetails$.pipe();
     this.cartNetValue$ = this.storeService.cartNetValue$.pipe();
-
-    this.cartTotalValue$ = this.storeService.cartNetValue$.pipe(map(subtotal => Math.ceil(subtotal * 1.19)));
   }
 
-  onClickIncreaseProductQuantity(index: number): void {
-    this.storeService.increaseProductUnits(index);
-  }
-
-  onClickDecreaseProductQuantity(index: number): void {
-    this.storeService.decreaseProductUnits(index);
-  }
-
-  onClickRemoveProduct(index: number): void {
-    this.storeService.removeProductFromCart(index);
+  onClickAccept(): void {
+    this.requireAuthentication().subscribe(
+      verified => {
+        if (verified) {
+          this.promptPaymentRedirection();
+        }
+      }
+    );
   }
 
   promptLoginForm(): MatDialogRef<StoreLoginFormDialogComponent> {
@@ -139,15 +131,5 @@ export class StoreCartReviewComponent
           }
         })
       );
-  }
-
-  onClickAccept(): void {
-    this.requireAuthentication().subscribe(
-      verified => {
-        if (verified) {
-          this.promptPaymentRedirection();
-        }
-      }
-    );
   }
 }
