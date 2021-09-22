@@ -101,6 +101,7 @@ describe('StoreLoginFormDialogComponent', () => {
   });
 
   it('should not close after a failed login attempt', () => {
+    // TODO fix has no expectations
     const mockAppService2 = {
       login() { return throwError({ status: 403 }); },
       cancelAuthentication() {}
@@ -120,6 +121,7 @@ describe('StoreLoginFormDialogComponent', () => {
   });
 
   it('should close upon a successful login', () => {
+    // TODO fix has no expectations
     fixture = TestBed.createComponent(StoreLoginFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

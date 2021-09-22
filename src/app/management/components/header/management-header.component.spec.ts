@@ -8,9 +8,10 @@
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
@@ -21,19 +22,25 @@ import { ManagementHeaderComponent } from './management-header.component';
 describe('ManagementHeaderComponent', () => {
   let component: ManagementHeaderComponent;
   let fixture: ComponentFixture<ManagementHeaderComponent>;
-  let managementService: Partial<ManagementService>;
-  let appService: Partial<AppService>;
-  let router: Router;
+  let mockManagementService: Partial<ManagementService>;
+  let mockAppService: Partial<AppService>;
+  let mockSnackBarService: Partial<MatSnackBar>;
+  let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
-    managementService = {
+    mockManagementService = {
       switchSidenav() {},
       currentPageName$: of('')
     };
-
-    appService = {
+    mockAppService = {
       getUserProfile() { return of(new Person()); },
       closeCurrentSession() {}
+    };
+    mockSnackBarService = {
+      open(m: string, a: string) { return void 0; }
+    };
+    mockDialogService = {
+      open() { return void 0; }
     };
 
     TestBed.configureTestingModule({
@@ -46,13 +53,13 @@ describe('ManagementHeaderComponent', () => {
       ],
       declarations: [ ManagementHeaderComponent ],
       providers: [
-        { provide: ManagementService, useValue: managementService },
-        { provide: AppService, useValue: appService }
+        { provide: ManagementService, useValue: mockManagementService },
+        { provide: AppService, useValue: mockAppService },
+        { provide: MatSnackBar, useValue: mockSnackBarService },
+        { provide: MatDialog, useValue: mockDialogService }
       ]
     })
     .compileComponents();
-    router = TestBed.inject(Router);
-    spyOn(router, 'navigateByUrl');
   }));
 
   beforeEach(() => {

@@ -7,6 +7,7 @@
 
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -37,6 +38,8 @@ describe('ImagesArrayDialogComponent', () => {
       imports: [
         NoopAnimationsModule,
         CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         MatButtonModule,
         MatInputModule,
         MatFormFieldModule,
