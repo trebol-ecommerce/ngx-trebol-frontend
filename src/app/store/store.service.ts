@@ -6,12 +6,13 @@
  */
 
 import { EventEmitter, Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { Product } from 'src/app/models/entities/Product';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
+import { labels } from 'src/text/labels';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
 import { CheckoutRequest } from '../models/CheckoutRequest';
 import { Sell } from '../models/entities/Sell';
@@ -123,8 +124,12 @@ export class StoreService
    * @param checkoutDetails An array of product/service details about this transaction
    */
   requestPayment(): Observable<ExternalPaymentRedirectionData> {
-    const sell = this.createCheckoutRequest();
-    return this.checkoutApiService.submitCart(sell);
+    if (!this.checkoutRequestData) {
+      return throwError({ message: 'Invalid checkout data' });
+    } else {
+      const sell = this.createCheckoutRequest();
+      return this.checkoutApiService.submitCart(sell);
+    }
   }
 
   private createCheckoutRequest(): Sell {
@@ -136,8 +141,8 @@ export class StoreService
     };
 
     const billing = this.checkoutRequestData.billing;
-    if (billing) {
-      target.billingType = billing.sellType;
+    target.billingType = billing.sellType;
+    if (billing.sellType === labels.sellTypes['Enterprise Invoice']) {
       if (billing.company) {
         target.billingCompany = billing.company;
       }

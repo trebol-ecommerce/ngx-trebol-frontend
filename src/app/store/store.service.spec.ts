@@ -8,12 +8,14 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { catchError, finalize, take } from 'rxjs/operators';
 import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { labels } from 'src/text/labels';
 import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
 import { MOCK_PRODUCTS } from '../api/local-memory/mock/mock-products.datasource';
+import { CheckoutRequest } from '../models/CheckoutRequest';
 import { StoreService } from './store.service';
 
 describe('StoreService', () => {
@@ -133,12 +135,23 @@ describe('StoreService', () => {
     );
   });
 
-  it('should checkout the cart', () => {
-    service.requestPayment().subscribe(
-      () => {
+  it('should fail requesting a checkout page when data is not filled', () => {
+    service.requestPayment().pipe(
+      catchError(err => of(null))
+    ).subscribe(result => {
+      expect(result).toBe(null);
+    });
+  });
+
+  it('should request a checkout page when data has been correctly filled', () => {
+    service.checkoutRequestData = new CheckoutRequest();
+    service.checkoutRequestData.billing = { sellType: labels.sellTypes.Bill };
+    service.checkoutRequestData.shipping = { requestShipping: false };
+    service.requestPayment().pipe(
+      finalize(() => {
         expect(apiSubmitCartSpy).toHaveBeenCalled();
-      }
-    );
+      })
+    ).subscribe();
   });
 
 });
