@@ -7,7 +7,7 @@
 
 <form [formGroup]="formGroup" (submit)="onSubmit()"
   class="upload-image" >
-  <h2 mat-dialog-title>Subir Imágenes</h2>
+  <h2>Subir Imágenes</h2>
   <mat-form-field appearance="fill">
     <app-file-upload formControlName="files"
       [disabled]="uploading$ | async"
@@ -26,8 +26,7 @@
       Aceptar
     </button>
     <button mat-button mat-raised-button
-      type="button" color="warn"
-      mat-dialog-close>
+      type="button" color="warn">
       Cancelar
     </button>
   </div>

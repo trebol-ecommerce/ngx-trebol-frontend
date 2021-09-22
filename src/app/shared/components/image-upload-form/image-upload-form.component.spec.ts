@@ -7,10 +7,13 @@
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
 import { FileUploadComponent } from 'src/app/shared/components/file-upload/file-upload.component';
 import { ImageUploadFormComponent } from './image-upload-form.component';
 import { ImageManagerUploadService } from './image-upload-form.service';
@@ -35,9 +38,12 @@ describe('ImageUploadFormComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        NoopAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
-        LocalMemoryApiModule
+        MatButtonModule,
+        MatFormFieldModule,
+        MatProgressBarModule,
       ],
       declarations: [
         ImageUploadFormComponent,

@@ -17,6 +17,7 @@ import { iif, of, throwError } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { Registration } from 'src/app/models/Registration';
+import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
 import { StoreRegistrationFormDialogComponent } from './store-registration-form-dialog.component';
 
@@ -52,7 +53,8 @@ describe('StoreRegistrationFormDialogComponent', () => {
       ],
       declarations: [
         StoreRegistrationFormDialogComponent,
-        PersonFormComponent
+        PersonFormComponent,
+        CenteredMatProgressSpinnerComponent
       ],
       providers: [
         { provide: MatDialogRef, useValue: matDialogRef },

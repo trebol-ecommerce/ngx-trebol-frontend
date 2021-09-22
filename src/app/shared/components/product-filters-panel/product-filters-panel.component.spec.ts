@@ -5,9 +5,16 @@
  * https://opensource.org/licenses/MIT
  */
 
+import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { ProductFiltersPanelComponent } from './product-filters-panel.component';
 import { ProductFiltersPanelService } from './product-filters-panel.service';
 
@@ -24,7 +31,15 @@ describe('ProductFiltersPanelComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        SharedModule
+        NoopAnimationsModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatExpansionModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatSelectModule
       ],
       declarations: [ ProductFiltersPanelComponent ],
       providers: [

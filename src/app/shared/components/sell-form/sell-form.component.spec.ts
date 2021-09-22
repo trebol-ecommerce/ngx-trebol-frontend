@@ -5,14 +5,21 @@
  * https://opensource.org/licenses/MIT
  */
 
+import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
 import { SellFormComponent } from './sell-form.component';
 import { SellFormService } from './sell-manager-form.service';
 
@@ -21,6 +28,8 @@ describe('SellFormComponent', () => {
   let fixture: ComponentFixture<SellFormComponent>;
   let mockService: Partial<SellFormService>;
   let mockDataApiService: Partial<IEntityDataApiService<any>>;
+  let mockSnackBarService: Partial<MatSnackBar>;
+  let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
     mockService = {
@@ -43,19 +52,33 @@ describe('SellFormComponent', () => {
         });
       }
     };
+    mockSnackBarService = {
+      open(m: string, a: string) { return void 0; }
+    };
+    mockDialogService = {
+      open() { return void 0; }
+    };
 
     TestBed.configureTestingModule({
       imports: [
+        CommonModule,
         NoopAnimationsModule,
-        ReactiveFormsModule,
         FormsModule,
-        AngularMaterialModule
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatCardModule,
+        MatTableModule
       ],
       declarations: [ SellFormComponent ],
       providers: [
         { provide: API_SERVICE_INJECTION_TOKENS.dataCustomers, useValue: mockDataApiService },
         { provide: API_SERVICE_INJECTION_TOKENS.dataSalespeople, useValue: mockDataApiService },
         { provide: API_SERVICE_INJECTION_TOKENS.dataBillingTypes, useValue: mockDataApiService },
+        { provide: MatSnackBar, useValue: mockSnackBarService },
+        { provide: MatDialog, useValue: mockDialogService },
         { provide: MatDialogRef, useValue: {} }
       ]
     })

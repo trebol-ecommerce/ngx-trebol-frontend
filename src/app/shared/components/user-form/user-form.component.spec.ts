@@ -5,15 +5,18 @@
  * https://opensource.org/licenses/MIT
  */
 
+import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { Person } from 'src/app/models/entities/Person';
 import { UserRole } from 'src/app/models/entities/UserRole';
-import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
 import { UserFormComponent } from './user-form.component';
 
 describe('UserFormComponent', () => {
@@ -46,10 +49,13 @@ describe('UserFormComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        CommonModule,
         NoopAnimationsModule,
-        ReactiveFormsModule,
         FormsModule,
-        AngularMaterialModule
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule
       ],
       declarations: [ UserFormComponent ],
       providers: [

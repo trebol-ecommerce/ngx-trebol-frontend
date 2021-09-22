@@ -5,20 +5,36 @@
  * https://opensource.org/licenses/MIT
  */
 
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
+import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 import { ProductManagerComponent } from './product-manager.component';
 import { ProductManagerService } from './product-manager.service';
+
+@Component({ selector: 'app-management-data-actions' })
+class MockManagementDataActionsComponent {
+  @Output() add = new EventEmitter();
+}
 
 describe('ProductManagerComponent', () => {
   let component: ProductManagerComponent;
   let fixture: ComponentFixture<ProductManagerComponent>;
-  let managerService: Partial<ProductManagerService>;
+  let mockManagerService: Partial<ProductManagerService>;
+  let mockSnackBarService: Partial<MatSnackBar>;
+  let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
-    managerService = {
+    mockManagerService = {
       removeItems() { return of([true]); },
       reloadItems() {},
       loading$: of(false),
@@ -29,15 +45,32 @@ describe('ProductManagerComponent', () => {
       canDelete$: of(true),
       updateAccess(acc) {}
     };
+    mockSnackBarService = {
+      open(m: string, a: string) { return void 0; }
+    };
+    mockDialogService = {
+      open() { return void 0; }
+    };
 
     TestBed.configureTestingModule({
       imports: [
-        AngularMaterialModule,
-        RouterTestingModule
+        CommonModule,
+        NoopAnimationsModule,
+        RouterTestingModule,
+        MatButtonModule,
+        MatIconModule,
+        MatProgressSpinnerModule,
+        MatTableModule,
       ],
-      declarations: [ ProductManagerComponent ],
+      declarations: [
+        ProductManagerComponent,
+        CenteredMatProgressSpinnerComponent,
+        MockManagementDataActionsComponent
+      ],
       providers: [
-        { provide: ProductManagerService, useValue: managerService }
+        { provide: ProductManagerService, useValue: mockManagerService },
+        { provide: MatSnackBar, useValue: mockSnackBarService },
+        { provide: MatDialog, useValue: mockDialogService }
       ]
     })
     .compileComponents();
