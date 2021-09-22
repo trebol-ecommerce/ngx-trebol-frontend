@@ -44,12 +44,15 @@ export class StoreRegistrationFormDialogComponent
     private dialog: MatDialogRef<StoreRegistrationFormDialogComponent>,
     private snackBarService: MatSnackBar
   ) {
-    this.formGroup = this.formBuilder.group({
-      name: ['', Validators.required],
-      pass1: ['', Validators.required],
-      pass2: ['', Validators.required],
-      person: ['']
-    }, passwordMatcher);
+    this.formGroup = this.formBuilder.group(
+      {
+        name: ['', Validators.required],
+        pass1: ['', Validators.required],
+        pass2: ['', Validators.required],
+        person: ['']
+      },
+      { validators: passwordMatcher }
+    );
   }
 
   ngOnDestroy(): void {

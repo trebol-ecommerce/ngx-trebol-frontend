@@ -13,16 +13,16 @@ export const labels = {
     'Paid, Confirmed': 'Confirmado',
     'Paid, Unconfirmed': 'Pagado',
     'Payment Started': 'Por Pagar',
-    'Pending': 'No Iniciada',
+    Pending: 'No Iniciada',
     'Payment Cancelled' : 'Pago Cancelado',
     'Payment Failed': 'Pago Fallido',
-    'Rejected': 'Rechazado',
+    Rejected: 'Rechazado',
     'Delivery Cancelled': 'Entrega Cancelada',
     'Delivery Failed': 'Entrega Fallida',
-    'Returned': 'Devuelto'
+    Returned: 'Devuelto'
   },
   sellTypes: {
-    'Bill': 'Boleta',
+    Bill: 'Boleta',
     'Enterprise Invoice': 'Factura'
   }
 };

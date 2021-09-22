@@ -73,9 +73,7 @@ export class StoreShippingFormComponent
   }
 
   ngOnDestroy(): void {
-    for (let sub of [
-      ...this.touchedSubscriptions,
-      ...this.statusChangesSubscriptions]) {
+    for (const sub of [...this.touchedSubscriptions, ...this.statusChangesSubscriptions]) {
       sub.unsubscribe();
     }
     this.requestShippingChangesSubscription.unsubscribe();
