@@ -36,7 +36,7 @@ export class StorePaymentRedirectPromptDialogComponent
   }
 
   ngOnInit(): void {
-    this.storeService.submitCart().subscribe(
+    this.storeService.requestPayment().subscribe(
       data => {
         this.externalDataSource.next(data);
       },

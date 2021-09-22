@@ -7,7 +7,7 @@
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { EMPTY } from 'rxjs';
+import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
@@ -19,14 +19,15 @@ import { StoreService } from './store.service';
 describe('StoreService', () => {
   let service: StoreService;
   let mockCheckoutApiService: Partial<ICheckoutPublicApiService>;
+  let apiSubmitCartSpy: jasmine.Spy;
   const mockProduct = MOCK_PRODUCTS[0];
   const mockProductTwo = MOCK_PRODUCTS[1];
 
   beforeEach(() => {
     mockCheckoutApiService = {
-      submitCart() { return EMPTY; }
+      submitCart() { return of(void 0); }
     };
-    spyOn(mockCheckoutApiService, 'submitCart').and.callThrough();
+    apiSubmitCartSpy = spyOn(mockCheckoutApiService, 'submitCart').and.callThrough();
 
     TestBed.configureTestingModule({
       imports: [
@@ -133,10 +134,9 @@ describe('StoreService', () => {
   });
 
   it('should checkout the cart', () => {
-    // TODO fix has no expectations
-    service.submitCart().subscribe(
+    service.requestPayment().subscribe(
       () => {
-        expect(mockCheckoutApiService.submitCart).toHaveBeenCalled();
+        expect(apiSubmitCartSpy).toHaveBeenCalled();
       }
     );
   });

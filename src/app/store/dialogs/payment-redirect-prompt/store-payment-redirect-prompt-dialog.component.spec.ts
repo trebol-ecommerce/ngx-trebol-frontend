@@ -7,7 +7,7 @@
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { EMPTY, of, throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { StoreService } from '../../store.service';
 import { StorePaymentRedirectPromptDialogComponent } from './store-payment-redirect-prompt-dialog.component';
 
@@ -15,12 +15,13 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
   let component: StorePaymentRedirectPromptDialogComponent;
   let fixture: ComponentFixture<StorePaymentRedirectPromptDialogComponent>;
   let mockStoreService: Partial<StoreService>;
-  let storeServiceSubmitCartSpy: jasmine.Spy;
+  let storeServiceRequestPaymentSpy: jasmine.Spy;
 
   beforeEach(waitForAsync(() => {
     mockStoreService = {
-      submitCart() { return EMPTY; }
+      requestPayment() { return of(void 0); }
     };
+    storeServiceRequestPaymentSpy = spyOn(mockStoreService, 'requestPayment').and.callThrough();
 
     TestBed.configureTestingModule({
       imports: [
@@ -37,8 +38,7 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(StorePaymentRedirectPromptDialogComponent);
     component = fixture.componentInstance;
-    storeServiceSubmitCartSpy = spyOn(mockStoreService, 'submitCart').and.callThrough();
-    // fixture.detectChanges();
+    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -48,11 +48,11 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
 
   it('should submit the cart upon initializing', () => {
     fixture.detectChanges(); // triggers ngOnInit()
-    expect(storeServiceSubmitCartSpy).toHaveBeenCalled();
+    expect(storeServiceRequestPaymentSpy).toHaveBeenCalled();
   });
 
   it('should render a form with a button upon a successful cart submission', () => {
-    mockStoreService.submitCart = (() => of({ url: '', token: '' }));
+    mockStoreService.requestPayment = (() => of({ url: '', token: '' }));
     fixture.detectChanges();
 
     const formElement = fixture.nativeElement.querySelector('form');
@@ -62,7 +62,7 @@ describe('StorePaymentRedirectPromptDialogComponent', () => {
   });
 
   it('should render an error message label upon a failed cart submission', () => {
-    mockStoreService.submitCart = (() => throwError({}));
+    mockStoreService.requestPayment = (() => throwError({}));
     fixture.detectChanges();
 
     const errorSpan = fixture.nativeElement.querySelector('span.error');

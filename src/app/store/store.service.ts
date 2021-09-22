@@ -116,10 +116,6 @@ export class StoreService
     }
   }
 
-  submitCart(): Observable<ExternalPaymentRedirectionData> {
-    return this.checkoutApiService.submitCart(this.sellDetails);
-  }
-
   /**
    * Sends a request for a new payment transaction
    *
@@ -128,7 +124,7 @@ export class StoreService
    */
   requestPayment(): Observable<ExternalPaymentRedirectionData> {
     const sell = this.createCheckoutRequest();
-    return this.checkoutApiService.submitCart(sell.details);
+    return this.checkoutApiService.submitCart(sell);
   }
 
   private createCheckoutRequest(): Sell {
