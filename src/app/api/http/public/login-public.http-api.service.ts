@@ -7,6 +7,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
 import { environment } from 'src/environments/environment';
@@ -21,7 +22,7 @@ export class LoginPublicHttpApiService
   protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
   protected readonly authorizationHeader = environment.secrets.authHeader;
 
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient, private router: Router) {
     super(http);
   }
 
@@ -52,5 +53,6 @@ export class LoginPublicHttpApiService
 
   logout(): void {
     sessionStorage.removeItem(this.sessionStorageTokenItemName);
+    this.router.navigateByUrl('/');
   }
 }

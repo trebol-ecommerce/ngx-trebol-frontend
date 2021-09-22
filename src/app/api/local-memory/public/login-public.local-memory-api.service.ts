@@ -6,6 +6,7 @@
  */
 
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Login } from 'src/app/models/Login';
 import { environment } from 'src/environments/environment';
@@ -18,7 +19,7 @@ export class LoginPublicLocalMemoryApiService
 
   protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   login(details: Login) {
     return new Observable<void>(
@@ -37,5 +38,6 @@ export class LoginPublicLocalMemoryApiService
 
   logout(): void {
     sessionStorage.removeItem(this.sessionStorageTokenItemName);
+    this.router.navigateByUrl('/');
   }
 }
