@@ -129,7 +129,7 @@ export class StoreBillingDetailsFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors {
-    return collectValidationErrors(this.formGroup);
+    return collectValidationErrors(control);
   }
 
   onParentFormTouched(): void {
