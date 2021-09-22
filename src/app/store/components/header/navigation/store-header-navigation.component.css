@@ -5,24 +5,19 @@
  * https://opensource.org/licenses/MIT
  */
 
- .navigation {
+:host {
   display: flex;
   justify-content: space-evenly;
   align-items: stretch;
 }
 
-.navigation>* {
+:host > * {
   display: inline-flex;
   flex-flow: row nowrap;
   align-items: center;
-  border-left-width: 1px;
-  border-left-style: solid;
-  border-right-width: 1px;
-  border-right-style: solid;
-  border-radius: 0;
 }
 
-.navigation mat-icon {
+mat-icon {
   font-size: 2rem;
   width: 2rem;
   height: 2rem;

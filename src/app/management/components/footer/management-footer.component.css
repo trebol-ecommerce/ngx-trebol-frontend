@@ -5,14 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-.footer {
+:host {
   text-align: center;
-  background-color: var(--color-bg-secondary-light);
   padding: 0.25rem 0;
-  border-top: 1px #e0e0e06b solid;
 }
-@media(min-width: 800px) {
-  .footer {
+@media(min-width: 641px) {
+  :host {
     padding: 0.5rem 0;
   }
 }

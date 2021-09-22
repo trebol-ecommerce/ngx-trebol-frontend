@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-.dialog {
+.content {
   display: grid;
   justify-items: center;
 }
@@ -37,7 +37,7 @@
   font-size: 1.5rem;
 }
 
-@media(min-width: 800px) {
+@media(min-width: 641px) {
   .presentation {
     flex-flow: row nowrap;
     justify-content: center;
@@ -49,7 +49,7 @@
   overflow-y: auto;
 }
 
-@media(min-width: 800px) {
+@media(min-width: 641px) {
   .presentation, .profile {
     width: 65%;
   }

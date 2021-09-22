@@ -1,5 +1,5 @@
-/*
- * Copyright (c) 2021 The Trébol eCommerce Projects
+/**
+ * Copyright (c) 2021 The Trébol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -7,21 +7,25 @@
 
 @import '~@angular/material/theming';
 
-@mixin store-catalog-color($theme) {
+@mixin sidenav-color($theme) {
   $config: mat-get-color-config($theme);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
 
-  app-store-catalog h2 {
-    background-color: mat-color($primary, 50);
-    color: mat-color($primary);
+  mat-sidenav {
+    background-color: mat-color($primary) !important;
+    color: white !important;
+  }
+
+  mat-sidenav * {
+    color: white !important;
   }
 }
 
-@mixin store-catalog-theme($theme) {
+@mixin sidenav-theme($theme) {
   $color: mat-get-color-config($theme);
 
   @if $color != null {
-    @include store-catalog-color($color);
+    @include sidenav-color($color);
   }
 }

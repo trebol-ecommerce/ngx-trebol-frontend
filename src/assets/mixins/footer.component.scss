@@ -7,21 +7,26 @@
 
 @import '~@angular/material/theming';
 
-@mixin store-footer-color($theme) {
+@mixin footer-color($theme) {
   $config: mat-get-color-config($theme);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
 
-  .footer {
-    background-color: mat-color($primary, lighter);
+  app-store-footer {
+    background-color: mat-color($primary);
+    color: white;
+  }
+
+  app-management-footer {
+    background-color: mat-color($primary);
+    color: white;
   }
 }
 
-@mixin store-footer-theme($theme) {
+@mixin footer-theme($theme) {
   $color: mat-get-color-config($theme);
-  // $typography: mat-get-typography-config($theme);
 
   @if $color != null {
-    @include store-footer-color($color);
+    @include footer-color($color);
   }
 }

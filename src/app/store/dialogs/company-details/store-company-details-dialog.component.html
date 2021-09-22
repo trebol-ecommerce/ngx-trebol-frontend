@@ -5,10 +5,9 @@
   https://opensource.org/licenses/MIT
 -->
 
-<div class="loading" *ngIf="loading$ | async">
-  <app-centered-mat-spinner></app-centered-mat-spinner>
-</div>
-<div class="dialog" *ngIf="data$ |async">
+<app-centered-mat-spinner *ngIf="loading$ | async">
+</app-centered-mat-spinner>
+<div class="content" *ngIf="data$ |async">
   <div class="banner">
     <img [src]="bannerURL$ | async" />
   </div>

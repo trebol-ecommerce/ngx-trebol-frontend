@@ -5,20 +5,18 @@
   https://opensource.org/licenses/MIT
 -->
 
-<div class="catalog">
-  <h2>Catálogo de Productos</h2>
-  <app-product-filters-panel
-    (filtersChanges)="onFiltersChange($event)">
-  </app-product-filters-panel>
+<h2>Catálogo de Productos</h2>
+<app-product-filters-panel
+  (filtersChanges)="onFiltersChange($event)">
+</app-product-filters-panel>
 
-  <app-centered-mat-spinner *ngIf="loading$ | async">
-  </app-centered-mat-spinner>
+<app-centered-mat-spinner *ngIf="loading$ | async">
+</app-centered-mat-spinner>
 
-  <div class="products" [hidden]="loading$ | async">
-    <app-store-product-card *ngFor="let product of (products$ | async)"
-      [product]="product"
-      (addToCart)="onAddProductToCart(product)"
-      (view)="onViewProduct(product)">
-    </app-store-product-card>
-  </div>
+<div class="products" [hidden]="loading$ | async">
+  <app-store-product-card *ngFor="let product of (products$ | async)"
+    [product]="product"
+    (addToCart)="onAddProductToCart(product)"
+    (view)="onViewProduct(product)">
+  </app-store-product-card>
 </div>

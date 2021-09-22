@@ -7,30 +7,31 @@
 
 @import '~@angular/material/theming';
 
-@mixin store-header-color($theme) {
+@mixin header-color($theme) {
   $config: mat-get-color-config($theme);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
 
-  .header {
+  app-store-header {
     background-color: mat-color($primary);
     color: white;
   }
 
-  .header .navigation>* {
-    border-color: mat-color($primary, 900);
+  app-management-header {
+    background-color: mat-color($primary);
+    color: white;
   }
 
-  .header .action.active {
-    border-color: mat-color($primary, 900);
+  app-management-header * {
+    color: white;
   }
 }
 
-@mixin store-header-theme($theme) {
+@mixin header-theme($theme) {
   $color: mat-get-color-config($theme);
   // $typography: mat-get-typography-config($theme);
 
   @if $color != null {
-    @include store-header-color($color);
+    @include header-color($color);
   }
 }

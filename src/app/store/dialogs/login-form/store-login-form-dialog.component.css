@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-.dialog {
+:host {
   display: flex;
   flex-flow: column nowrap;
   justify-items: stretch;
@@ -29,7 +29,7 @@ form {
 form > * {
   width: 100%;
 }
-@media(min-width: 480px) {
+@media(min-width: 641px) {
   form {
     padding: 1rem;
   }
@@ -50,7 +50,7 @@ form > * {
   justify-content: space-around;
   justify-items: stretch;
 }
-@media(min-width: 480px) {
+@media(min-width: 641px) {
   .actions {
     flex-flow: row nowrap;
   }

@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-.catalog {
+:host {
   display: flex;
   flex-flow: column nowrap;
   align-items: stretch;
@@ -19,7 +19,7 @@ h2 {
   padding: 1rem 1rem 0 1rem;
 }
 
-@media(min-width: 720px) {
+@media(min-width: 641px) {
   h2 {
     padding: 1rem;
   }
@@ -41,7 +41,7 @@ app-product-filters-panel {
   overflow: hidden;
 }
 
-@media(min-width: 800px) {
+@media(min-width: 641px) {
   app-product-filters-panel {
     padding: 1rem;
   }
@@ -50,7 +50,7 @@ app-product-filters-panel {
     padding: 1rem;
   }
 }
-@media(min-width: 1000px) {
+@media(min-width: 1008px) {
   .products {
     grid-template-columns: repeat(4, 20rem);
   }

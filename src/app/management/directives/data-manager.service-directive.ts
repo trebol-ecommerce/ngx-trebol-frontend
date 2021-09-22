@@ -50,7 +50,7 @@ export abstract class DataManagerServiceDirective<T>
     this.focusedItemsSource.next([]);
     this.loadingSource.next(true);
     this.dataService.fetchPage().pipe(
-      delay(0),
+      delay(1000),
       tap(response => { this.itemsSource.next(response.items); }),
       finalize(() => { this.loadingSource.next(false); })
     ).subscribe();

@@ -11,7 +11,7 @@ form {
   grid-gap: 1rem;
 }
 
-@media(min-width: 800px) {
+@media(min-width: 641px) {
   .images {
     grid-area: images;
   }

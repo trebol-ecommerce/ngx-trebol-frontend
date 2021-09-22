@@ -15,7 +15,7 @@
     'person';
 }
 
-@media(min-width: 800px) {
+@media(min-width: 641px) {
   .form {
     grid-template-areas:
       'name name'

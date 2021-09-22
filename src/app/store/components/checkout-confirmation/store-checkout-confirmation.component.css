@@ -40,7 +40,7 @@ button.request {
   margin: 0 0 1rem;
 }
 
-@media(min-width: 1081px) {
+@media(min-width: 1008px) {
   :host {
     padding: 2rem;
   }

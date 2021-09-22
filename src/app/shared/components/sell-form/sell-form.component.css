@@ -33,7 +33,7 @@ form {
   }
 }
 
-@media(min-width: 800px) {
+@media(min-width: 641px) {
   form {
     grid-template-areas:
       'date date billingType billingType none none'
@@ -81,7 +81,7 @@ form {
   padding: 0.5rem;
 }
 
-@media(min-width: 800px) {
+@media(min-width: 641px) {
   .summary-data {
     grid-template-columns: 1fr 1fr;
   }

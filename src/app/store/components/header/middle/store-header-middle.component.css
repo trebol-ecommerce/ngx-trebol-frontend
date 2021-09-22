@@ -5,26 +5,23 @@
  * https://opensource.org/licenses/MIT
  */
 
-.middle {
-  flex: 1 1 auto;
-  font-size: 1.25rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.middle>span {
+span {
   display: none;
+  text-align: center;
 }
 
-@media(min-width: 640px) {
-  .middle>span {
+@media(min-width: 641px) {
+  span {
     display: inline;
+    position: absolute;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
-@media(min-width: 800px) {
-  .middle>span {
+@media(min-width: 1008px) {
+  span {
     font-size: 1.75rem;
   }
 }

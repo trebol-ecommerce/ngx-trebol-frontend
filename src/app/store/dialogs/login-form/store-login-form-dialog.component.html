@@ -5,51 +5,49 @@
   https://opensource.org/licenses/MIT
 -->
 
-<div class="dialog">
-  <h5>Ingresar</h5>
-  <app-centered-mat-spinner *ngIf="loggingIn$ | async">
-  </app-centered-mat-spinner>
+<h5>Ingresar</h5>
+<app-centered-mat-spinner *ngIf="loggingIn$ | async">
+</app-centered-mat-spinner>
 
-  <div [hidden]="loggingIn$ | async">
-    <form [formGroup]="formGroup" (submit)="onSubmit()">
+<div [hidden]="loggingIn$ | async">
+  <form [formGroup]="formGroup" (submit)="onSubmit()">
+    <mat-form-field>
+      <input matInput placeholder="Nombre de Usuario" formControlName="username" />
+    </mat-form-field>
+
+    <div class="password-form-group">
       <mat-form-field>
-        <input matInput placeholder="Nombre de Usuario" formControlName="username" />
+        <input matInput [type]="passwordInputType$ | async" placeholder="Contraseña" formControlName="password" />
       </mat-form-field>
+      <button mat-icon-button type="button"
+        title="Mantenga presionado para ver..."
+        (mousedown)="showPassword()"
+        (mouseup)="hidePassword()"
+        (mouseleave)="hidePassword()">
+        <mat-icon>{{ togglePasswordIcon$ | async }}</mat-icon>
+      </button>
+    </div>
 
-      <div class="password-form-group">
-        <mat-form-field>
-          <input matInput [type]="passwordInputType$ | async" placeholder="Contraseña" formControlName="password" />
-        </mat-form-field>
-        <button mat-icon-button type="button"
-          title="Mantenga presionado para ver..."
-          (mousedown)="showPassword()"
-          (mouseup)="hidePassword()"
-          (mouseleave)="hidePassword()">
-          <mat-icon>{{ togglePasswordIcon$ | async }}</mat-icon>
-        </button>
-      </div>
-
-      <div class="actions">
-        <button mat-button mat-raised-button type="submit"
-          color="primary"
-          [disabled]="formGroup.invalid">
-          Aceptar
-        </button>
-        <button mat-button mat-raised-button type="reset"
-          [disabled]="formGroup.pristine">
-          Limpiar
-        </button>
-        <button mat-button mat-raised-button type="button"
-          color="warn"
-          (click)="onCancel()">
-          Cancelar
-        </button>
-      </div>
-    </form>
-    <!-- <div class="other actions">
-      <app-dialog-switcher-button #registerButton
-        label="¿No tienes una cuenta? Regístrate aquí">
-      </app-dialog-switcher-button>
-    </div> -->
-  </div>
+    <div class="actions">
+      <button mat-button mat-raised-button type="submit"
+        color="primary"
+        [disabled]="formGroup.invalid">
+        Aceptar
+      </button>
+      <button mat-button mat-raised-button type="reset"
+        [disabled]="formGroup.pristine">
+        Limpiar
+      </button>
+      <button mat-button mat-raised-button type="button"
+        color="warn"
+        (click)="onCancel()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+  <!-- <div class="other actions">
+    <app-dialog-switcher-button #registerButton
+      label="¿No tienes una cuenta? Regístrate aquí">
+    </app-dialog-switcher-button>
+  </div> -->
 </div>

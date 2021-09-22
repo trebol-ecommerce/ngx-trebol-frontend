@@ -5,25 +5,23 @@
   https://opensource.org/licenses/MIT
 -->
 
-<div class="dialog">
-  <h2 mat-dialog-title>Editar Perfil</h2>
-  <app-centered-mat-spinner *ngIf="saving$ | async">
-  </app-centered-mat-spinner>
+<h2 mat-dialog-title>Editar Perfil</h2>
+<app-centered-mat-spinner *ngIf="saving$ | async">
+</app-centered-mat-spinner>
 
-  <form [formGroup]="formGroup">
-    <app-person-form formControlName="person">
-    </app-person-form>
+<form [formGroup]="formGroup">
+  <app-person-form formControlName="person">
+  </app-person-form>
 
-    <div class="actions">
-      <button mat-button mat-raised-button type="button"
-        (click)="onSubmit()">
-        Aceptar
-      </button>
-      <button mat-button mat-raised-button type="button"
-        [color]="cancelButtonColor$ | async"
-        (click)="onCancel()">
-        Cancelar
-      </button>
-    </div>
-  </form>
-</div>
+  <div class="actions">
+    <button mat-button mat-raised-button type="button"
+      (click)="onSubmit()">
+      Aceptar
+    </button>
+    <button mat-button mat-raised-button type="button"
+      [color]="cancelButtonColor$ | async"
+      (click)="onCancel()">
+      Cancelar
+    </button>
+  </div>
+</form>

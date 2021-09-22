@@ -5,19 +5,17 @@
   https://opensource.org/licenses/MIT
 -->
 
-<div class="navigation">
-  <a mat-button routerLink="/store"
-    title="Ir al Catálogo de Productos">
-    <mat-icon>storefront</mat-icon>
+<a mat-button routerLink="/store"
+  title="Ir al Catálogo de Productos">
+  <mat-icon>storefront</mat-icon>
+</a>
+<ng-container *ngIf="cartHasItems$ | async">
+  <a mat-button [routerLink]="['/store', 'cart']"
+    title="Ir al Carrito" >
+    <mat-icon>shopping_cart</mat-icon>
+    <span class="cart-summary">
+      <span>{{ cartItemCountLabel$ | async }}</span>
+      <span>${{ cartNetValue$ | async }}</span>
+    </span>
   </a>
-  <ng-container *ngIf="cartHasItems$ | async">
-    <a mat-button [routerLink]="['/store', 'cart']"
-      title="Ir al Carrito" >
-      <mat-icon>shopping_cart</mat-icon>
-      <span class="cart-summary">
-        <span>{{ cartItemCountLabel$ | async }}</span>
-        <span>${{ cartNetValue$ | async }}</span>
-      </span>
-    </a>
-  </ng-container>
-</div>
+</ng-container>

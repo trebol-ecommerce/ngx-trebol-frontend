@@ -5,26 +5,24 @@
   https://opensource.org/licenses/MIT
 -->
 
-<div class="dialog">
-  <h2>Para continuar con la compra, debe iniciar sesión, registrarse, o ingresar sus datos de facturación.</h2>
-  <div class="content">
-    <span>Si desea volver al carro de compra, haga clic fuera de este diálogo.</span>
-  </div>
-  <div class="actions">
-    <button mat-button mat-raised-button type="button"
-      color="primary"
-      (click)="onClickOption('login')">
-      Iniciar sesión
-    </button>
-    <button mat-button mat-raised-button type="button"
-      color="warn"
-      (click)="onClickOption('register')">
-      Registrarme
-    </button>
-    <button mat-button mat-raised-button type="button"
-      color="default"
-      (click)="onClickOption('guest')">
-      Continuar sin cuenta
-    </button>
-  </div>
+<h2>Para continuar con la compra, debe iniciar sesión, registrarse, o ingresar sus datos de facturación.</h2>
+<div class="content">
+  <span>Si desea volver al carro de compra, haga clic fuera de este diálogo.</span>
+</div>
+<div class="actions">
+  <button mat-button mat-raised-button type="button"
+    color="primary"
+    (click)="onClickOption('login')">
+    Iniciar sesión
+  </button>
+  <button mat-button mat-raised-button type="button"
+    color="warn"
+    (click)="onClickOption('register')">
+    Registrarme
+  </button>
+  <button mat-button mat-raised-button type="button"
+    color="default"
+    (click)="onClickOption('guest')">
+    Continuar sin cuenta
+  </button>
 </div>

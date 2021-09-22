@@ -5,64 +5,22 @@
   https://opensource.org/licenses/MIT
 -->
 
-<div class="dialog">
-  <h2 mat-dialog-title>Agregar Productos</h2>
-  <app-centered-mat-spinner *ngIf="loading$ | async">
-  </app-centered-mat-spinner>
+<h2 mat-dialog-title>Agregar Productos</h2>
+<app-centered-mat-spinner *ngIf="loading$ | async">
+</app-centered-mat-spinner>
 
-  <div [hidden]="loading$ | async">
-    <mat-expansion-panel [expanded]="true">
+<div [hidden]="loading$ | async">
+  <mat-expansion-panel [expanded]="true">
 
-      <mat-expansion-panel-header>
-        Productos disponibles
-      </mat-expansion-panel-header>
+    <mat-expansion-panel-header>
+      Productos disponibles
+    </mat-expansion-panel-header>
 
-      <app-product-filters-panel (filtersChanges)="onFiltersChange($event)">
-      </app-product-filters-panel>
+    <app-product-filters-panel (filtersChanges)="onFiltersChange($event)">
+    </app-product-filters-panel>
 
-      <div class="product-table-wrapper">
-        <table mat-table [dataSource]="filteredProductsArray$">
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Nombre </th>
-            <td mat-cell *matCellDef="let product">
-              {{ product.name }}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef> Precio </th>
-            <td mat-cell *matCellDef="let product">
-              ${{ product.price }}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef> </th>
-            <td mat-cell *matCellDef="let product">
-              <div class="acciones">
-                <button mat-button mat-icon-button type="button"
-                  color="primary"
-                  (click)="onClickIncludeProduct(product)">
-                  <mat-icon>add</mat-icon>
-                </button>
-              </div>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="productTableColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: productTableColumns;"></tr>
-        </table>
-      </div>
-
-    </mat-expansion-panel>
-  </div>
-
-  <mat-card>
-
-    <mat-card-header>
-      <mat-card-title>Productos Seleccionados</mat-card-title>
-    </mat-card-header>
-
-    <mat-card-content class="product-table-wrapper">
-      <table mat-table [dataSource]="productsArray$">
+    <div class="product-table-wrapper">
+      <table mat-table [dataSource]="filteredProductsArray$">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Nombre </th>
           <td mat-cell *matCellDef="let product">
@@ -77,12 +35,12 @@
         </ng-container>
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> </th>
-          <td mat-cell *matCellDef="let i=index">
+          <td mat-cell *matCellDef="let product">
             <div class="acciones">
               <button mat-button mat-icon-button type="button"
-                color="warn"
-                (click)="onClickDropProduct(i)">
-                <mat-icon>remove</mat-icon>
+                color="primary"
+                (click)="onClickIncludeProduct(product)">
+                <mat-icon>add</mat-icon>
               </button>
             </div>
           </td>
@@ -91,19 +49,58 @@
         <tr mat-header-row *matHeaderRowDef="productTableColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: productTableColumns;"></tr>
       </table>
-    </mat-card-content>
-  </mat-card>
-  <div class="actions">
-    <button mat-button mat-raised-button type="button"
-      color="primary"
-      [disabled]="isArrayEmpty$ | async"
-      [mat-dialog-close]="productsArray$ | async">
-      Aceptar
-    </button>
-    <button mat-button mat-raised-button type="button"
-      [mat-dialog-close]="[]">
-      Cancelar
-    </button>
-  </div>
+    </div>
 
+  </mat-expansion-panel>
+</div>
+
+<mat-card>
+
+  <mat-card-header>
+    <mat-card-title>Productos Seleccionados</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content class="product-table-wrapper">
+    <table mat-table [dataSource]="productsArray$">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let product">
+          {{ product.name }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Precio </th>
+        <td mat-cell *matCellDef="let product">
+          ${{ product.price }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let i=index">
+          <div class="acciones">
+            <button mat-button mat-icon-button type="button"
+              color="warn"
+              (click)="onClickDropProduct(i)">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="productTableColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: productTableColumns;"></tr>
+    </table>
+  </mat-card-content>
+</mat-card>
+<div class="actions">
+  <button mat-button mat-raised-button type="button"
+    color="primary"
+    [disabled]="isArrayEmpty$ | async"
+    [mat-dialog-close]="productsArray$ | async">
+    Aceptar
+  </button>
+  <button mat-button mat-raised-button type="button"
+    [mat-dialog-close]="[]">
+    Cancelar
+  </button>
 </div>

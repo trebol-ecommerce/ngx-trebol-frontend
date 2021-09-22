@@ -5,6 +5,10 @@
  * https://opensource.org/licenses/MIT
  */
 
+:host {
+  display: block;
+}
+
 .slides {
   position: relative;
 }

@@ -24,11 +24,14 @@ $trebol-app-theme: mat-light-theme((
 
 @include angular-material-theme($trebol-app-theme);
 
-@import 'src/assets/mixins/store-header.component';
-@include store-header-theme($trebol-app-theme);
+@import 'src/assets/mixins/header.component';
+@include header-theme($trebol-app-theme);
 
-@import 'src/assets/mixins/store-footer.component';
-@include store-footer-theme($trebol-app-theme);
+@import 'src/assets/mixins/footer.component';
+@include footer-theme($trebol-app-theme);
+
+@import 'src/assets/mixins/sidenav.component';
+@include sidenav-theme($trebol-app-theme);
 
 // Pages / Routes
 

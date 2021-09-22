@@ -5,20 +5,18 @@
   https://opensource.org/licenses/MIT
 -->
 
-<div class="receipt">
-  <app-centered-mat-spinner *ngIf="loading$ | async">
-  </app-centered-mat-spinner>
-  <div [hidden]="loading$ | async">
-    <mat-card>
-      <div class="icon-wrapper"><mat-icon>receipt_long</mat-icon></div>
-      <h2 mat-card-title>¡Compra realizada con éxito!</h2>
-      <span>Confirmada el {{ date$ | async }}.</span><br/>
-      <span>Aquí están los detalles:</span>
-      <mat-list>
-        <mat-list-item *ngFor="let detail of (details$ | async)">
-          {{ detail.units }} {{ detail.product.name }}
-        </mat-list-item>
-      </mat-list>
-    </mat-card>
-  </div>
+<app-centered-mat-spinner *ngIf="loading$ | async">
+</app-centered-mat-spinner>
+<div [hidden]="loading$ | async">
+  <mat-card>
+    <div class="icon-wrapper"><mat-icon>receipt_long</mat-icon></div>
+    <h2 mat-card-title>¡Compra realizada con éxito!</h2>
+    <span>Confirmada el {{ date$ | async }}.</span><br/>
+    <span>Aquí están los detalles:</span>
+    <mat-list>
+      <mat-list-item *ngFor="let detail of (details$ | async)">
+        {{ detail.units }} {{ detail.product.name }}
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
 </div>

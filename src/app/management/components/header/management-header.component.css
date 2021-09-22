@@ -5,20 +5,13 @@
  * https://opensource.org/licenses/MIT
  */
 
-.header {
-  height: 100%;
+:host {
   display: flex;
   flex-flow: row nowrap;
   align-items: stretch;
-  background-color: var(--color-bg);
-  border-bottom: 1px solid var(--color-content);
 }
 
-.header * {
-  color: var(--color-content);
-}
-
-.header>* {
+:host>* {
   display: inline-flex;
   flex-flow: row nowrap;
 }
@@ -37,7 +30,7 @@
   display: none;
 }
 
-@media(min-width: 800px) {
+@media(min-width: 641px) {
   .logo {
     padding: 0 1.5rem 0 1rem;
     justify-content: space-between;
@@ -63,7 +56,7 @@
   font-size: 4rem;
 }
 
-@media(min-width: 800px) {
+@media(min-width: 641px) {
   .action {
     padding: 0
   }

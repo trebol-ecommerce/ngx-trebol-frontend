@@ -5,13 +5,13 @@
  * https://opensource.org/licenses/MIT
  */
 
-.data-actions {
+:host {
   display: grid;
   justify-content: center;
   padding: 0.5rem 0;
 }
-@media(min-width: 800px) {
-  .data-actions {
+@media(min-width: 641px) {
+  :host {
     justify-content: flex-end;
     padding: 0.5rem;
   }

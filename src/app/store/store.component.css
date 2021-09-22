@@ -5,14 +5,14 @@
  * https://opensource.org/licenses/MIT
  */
 
-.store {
+:host {
   height: 100%;
   display: flex;
   flex-flow: column nowrap;
 }
 
 app-store-header {
-  flex: 0 0 5.5rem;
+  flex: 0 0 auto;
 }
 
 .content {

@@ -10,7 +10,7 @@ form {
   grid-template-columns: 1fr;
 }
 
-@media(min-width: 720px) {
+@media(min-width: 1008px) {
   form {
     grid-gap: 1rem;
     grid-template-columns: 1fr 1fr 1fr;
