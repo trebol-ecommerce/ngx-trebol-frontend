@@ -21,7 +21,7 @@
     [editable]="true">
     <ng-template matStepLabel>Datos para el pedido</ng-template>
     <app-store-checkout-request-form #checkoutRequest
-      (submit)="stepper.next()">
+      (request)="stepper.next()">
     </app-store-checkout-request-form>
   </mat-step>
   <mat-step #confirmationStep>

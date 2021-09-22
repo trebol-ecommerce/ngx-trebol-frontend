@@ -16,7 +16,6 @@ import { StoreCheckoutRequestFormComponent } from './store-checkout-request-form
 
 @Component({
   selector: 'app-store-billing-details-form',
-  template: '',
   providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockStoreBillingDetailsFormComponent }]
 })
 class MockStoreBillingDetailsFormComponent
@@ -29,7 +28,6 @@ class MockStoreBillingDetailsFormComponent
 
 @Component({
   selector: 'app-person-form',
-  template: '',
   providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockPersonFormComponent }]
 })
 class MockPersonFormComponent
@@ -42,7 +40,6 @@ class MockPersonFormComponent
 
 @Component({
   selector: 'app-store-shipping-form',
-  template: '',
   providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockStoreShippingFormComponent }]
 })
 class MockStoreShippingFormComponent

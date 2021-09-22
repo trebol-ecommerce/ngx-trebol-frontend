@@ -21,11 +21,7 @@ import { AppService } from 'src/app/app.service';
 import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 import { StoreLoginFormDialogComponent } from './store-login-form-dialog.component';
 
-@Component({
-  selector: 'app-dialog-switcher-button',
-  template: '',
-  styles: ['']
-})
+@Component({ selector: 'app-dialog-switcher-button' })
 class MockDialogSwitcherButtonComponent {}
 
 describe('StoreLoginFormDialogComponent', () => {

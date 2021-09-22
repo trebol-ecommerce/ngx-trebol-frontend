@@ -14,7 +14,6 @@ import { StoreShippingFormComponent } from './store-shipping-form.component';
 
 @Component({
   selector: 'app-addresses-editor-form',
-  template: '',
   providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockAddressesEditorFormComponent }]
 })
 class MockAddressesEditorFormComponent

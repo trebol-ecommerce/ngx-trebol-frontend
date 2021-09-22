@@ -33,7 +33,7 @@ export class StoreCheckoutRequestFormComponent
 
   private valueChangesSubscription: Subscription;
 
-  @Output() submit = new EventEmitter<void>();
+  @Output() request = new EventEmitter<void>();
 
   formGroup: FormGroup;
 
@@ -82,7 +82,7 @@ export class StoreCheckoutRequestFormComponent
       this.shippingForm.onParentFormTouched();
       this.snackBarService.open('El formulario está incompleto y/o posee campos inválidos. Verifique la información ingresada e inténtelo nuevamente, por favor.', 'OK');
     } else {
-      this.submit.next();
+      this.request.next();
     }
   }
 

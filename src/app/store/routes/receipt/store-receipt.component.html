@@ -6,8 +6,8 @@
 -->
 
 <div class="receipt">
-  <centered-mat-spinner *ngIf="loading$ | async">
-  </centered-mat-spinner>
+  <app-centered-mat-spinner *ngIf="loading$ | async">
+  </app-centered-mat-spinner>
   <div [hidden]="loading$ | async">
     <mat-card>
       <div class="icon-wrapper"><mat-icon>receipt_long</mat-icon></div>

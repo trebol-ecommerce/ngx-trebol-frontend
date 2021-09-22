@@ -8,7 +8,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'centered-mat-spinner',
+  selector: 'app-centered-mat-spinner',
   template: `<mat-spinner></mat-spinner>`,
   styles: [
     `:host {

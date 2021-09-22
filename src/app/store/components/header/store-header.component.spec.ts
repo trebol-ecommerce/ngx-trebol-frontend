@@ -14,19 +14,19 @@ import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { StoreHeaderComponent } from './store-header.component';
 
-@Component({ selector: 'app-store-header-brand', template: '' })
+@Component({ selector: 'app-store-header-brand' })
 class MockStoreHeaderBrandComponent { }
 
-@Component({ selector: 'app-store-header-navigation', template: '' })
+@Component({ selector: 'app-store-header-navigation' })
 class MockStoreHeaderNavigationComponent { }
 
-@Component({ selector: 'app-store-header-middle', template: '' })
+@Component({ selector: 'app-store-header-middle' })
 class MockStoreHeaderMiddleComponent { }
 
-@Component({ selector: 'app-store-header-menu', template: '' })
+@Component({ selector: 'app-store-header-menu' })
 class MockStoreHeaderMenuComponent { }
 
-@Component({ selector: 'app-store-header-login-button', template: '' })
+@Component({ selector: 'app-store-header-login-button' })
 class MockStoreHeaderLoginButtonComponent { }
 
 describe('StoreHeaderComponent', () => {

@@ -11,11 +11,8 @@ import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddressFormDialogComponent, AddressFormDialogData } from './address-form-dialog.component';
 
-@Component({
-  selector: 'app-address-form',
-  template: ''
-})
-export class MockAddressFormComponent {
+@Component({ selector: 'app-address-form' })
+class MockAddressFormComponent {
   formGroup = new FormGroup({});
 }
 

@@ -15,8 +15,10 @@ import { StoreCatalogService } from './store-catalog.service';
 
 @Component({ selector: 'app-product-filters-panel' })
 class MockProductFiltersPanelComponent { }
-@Component({ selector: 'centered-mat-spinner' })
+
+@Component({ selector: 'app-centered-mat-spinner' })
 class MockCenteredMatSpinnerComponent { }
+
 @Component({ selector: 'app-store-catalog-product-card' })
 class MockStoreCatalogProductCardComponent { }
 

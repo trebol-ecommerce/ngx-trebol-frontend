@@ -13,12 +13,16 @@ import { of } from 'rxjs';
 import { ManagementComponent } from './management.component';
 import { ManagementService } from './management.service';
 
+// eslint-disable-next-line @angular-eslint/component-selector
 @Component({ selector: 'router-outlet' })
 class MockRouterOutletComponent { }
+
 @Component({ selector: 'app-management-header' })
 class MockHeaderComponent { }
+
 @Component({ selector: 'app-management-sidenav' })
 class MockSidenavContentComponent { }
+
 @Component({ selector: 'app-management-footer' })
 class MockFooterComponent { }
 

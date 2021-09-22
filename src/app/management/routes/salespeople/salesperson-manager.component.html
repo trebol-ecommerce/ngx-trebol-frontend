@@ -6,8 +6,8 @@
 -->
 
 <div class="loading" *ngIf="loading$ | async">
-  <centered-mat-spinner>
-  </centered-mat-spinner>
+  <app-centered-mat-spinner>
+  </app-centered-mat-spinner>
 </div>
 <div class="data-manager" [hidden]="loading$ | async">
   <div class="table-wrapper">

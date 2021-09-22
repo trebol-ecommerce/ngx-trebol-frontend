@@ -31,7 +31,7 @@
   </div>
   <div class="selectors">
     <ng-container *ngFor="let image of images; index as i">
-      <ng-container *ngIf="(currentIndex$ | async) == i; then selected; else notSelected"></ng-container>
+      <ng-container *ngIf="(currentIndex$ | async) === i; then selected; else notSelected"></ng-container>
       <ng-template #selected>
         <button type="button" class="slide-selector"
           mat-button mat-icon-button>

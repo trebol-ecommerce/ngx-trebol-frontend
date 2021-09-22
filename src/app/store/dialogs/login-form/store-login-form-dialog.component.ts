@@ -36,7 +36,7 @@ export class StoreLoginFormDialogComponent
   get username(): FormControl { return this.formGroup.get('username') as FormControl; }
   get password(): FormControl { return this.formGroup.get('password') as FormControl; }
 
-  @ViewChild('registerButton', { static: true }) registerButton: DialogSwitcherButtonComponent;
+  // @ViewChild('registerButton', { static: true }) registerButton: DialogSwitcherButtonComponent;
 
   constructor(
     private dialog: MatDialogRef<StoreLoginFormDialogComponent>,
@@ -53,6 +53,8 @@ export class StoreLoginFormDialogComponent
     this.passwordInputType$ = this.hidePasswordSource.asObservable().pipe(map(hide => (hide ? 'password' : 'text')));
   }
 
+  // TODO uncomment these when API support arrives
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
     // this.registerButton.sourceDialogRef = this.dialog;
     // this.registerButton.targetDialogComponent = StoreRegistrationFormDialogComponent;

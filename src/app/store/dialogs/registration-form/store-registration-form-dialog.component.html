@@ -7,8 +7,8 @@
 
 <div class="dialog">
   <h2 mat-dialog-title>Registro de Cliente</h2>
-  <centered-mat-spinner *ngIf="registering$ | async">
-  </centered-mat-spinner>
+  <app-centered-mat-spinner *ngIf="registering$ | async">
+  </app-centered-mat-spinner>
 
   <div [hidden]="registering$ | async">
     <form [formGroup]="formGroup" (submit)="onSubmit()">

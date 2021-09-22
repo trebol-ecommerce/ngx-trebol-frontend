@@ -7,8 +7,8 @@
 
 <div class="dialog">
   <h5>Ingresar</h5>
-  <centered-mat-spinner *ngIf="loggingIn$ | async">
-  </centered-mat-spinner>
+  <app-centered-mat-spinner *ngIf="loggingIn$ | async">
+  </app-centered-mat-spinner>
 
   <div [hidden]="loggingIn$ | async">
     <form [formGroup]="formGroup" (submit)="onSubmit()">

@@ -7,8 +7,8 @@
 
 <div class="dialog">
   <h2 mat-dialog-title>Agregar Productos</h2>
-  <centered-mat-spinner *ngIf="loading$ | async">
-  </centered-mat-spinner>
+  <app-centered-mat-spinner *ngIf="loading$ | async">
+  </app-centered-mat-spinner>
 
   <div [hidden]="loading$ | async">
     <mat-expansion-panel [expanded]="true">

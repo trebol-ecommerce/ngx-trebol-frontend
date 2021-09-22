@@ -6,8 +6,8 @@
 -->
 
 <h2 mat-dialog-title>{{ dialogTitle }}</h2>
-<centered-mat-spinner *ngIf="busy$ | async">
-</centered-mat-spinner>
+<app-centered-mat-spinner *ngIf="busy$ | async">
+</app-centered-mat-spinner>
 
 <div [hidden]="busy$ | async">
   <ng-template appFormGroupOwnerOutlet

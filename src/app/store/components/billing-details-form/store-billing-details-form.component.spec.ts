@@ -14,7 +14,6 @@ import { StoreBillingDetailsFormComponent } from './store-billing-details-form.c
 
 @Component({
   selector: 'app-company-form',
-  template: '',
   providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockCompanyFormComponent }]
 })
 class MockCompanyFormComponent
@@ -27,7 +26,6 @@ class MockCompanyFormComponent
 
 @Component({
   selector: 'app-addresses-editor-form',
-  template: '',
   providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockAddressesEditorFormComponent }]
 })
 class MockAddressesEditorFormComponent

@@ -15,7 +15,7 @@
     </app-file-upload>
   </mat-form-field>
   <mat-progress-bar #uploadProgressBar
-    [hidden]="!(uploading$ | async)"
+    [hidden]="(uploading$ | async) === false"
     mode="determinate"
     [value]="uploadPercentage$ | async">
   </mat-progress-bar>

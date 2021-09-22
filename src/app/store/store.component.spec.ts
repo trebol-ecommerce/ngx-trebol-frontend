@@ -12,10 +12,13 @@ import { of } from 'rxjs';
 import { StoreComponent } from './store.component';
 import { StoreService } from './store.service';
 
+// eslint-disable-next-line @angular-eslint/component-selector
 @Component({ selector: 'router-outlet' })
 class MockRouterOutletComponent { }
+
 @Component({ selector: 'app-store-header' })
 class MockHeaderComponent { }
+
 @Component({ selector: 'app-store-footer' })
 class MockFooterComponent { }
 

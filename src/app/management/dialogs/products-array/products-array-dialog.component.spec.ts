@@ -19,7 +19,7 @@ import { of } from 'rxjs';
 import { ProductsArrayDialogComponent } from './products-array-dialog.component';
 import { ProductsArrayService } from './products-array.service';
 
-@Component({ selector: 'centered-mat-spinner' })
+@Component({ selector: 'app-centered-mat-spinner' })
 class MockCenteredMatSpinnerComponent { }
 
 describe('ProductsArrayDialogComponent', () => {
