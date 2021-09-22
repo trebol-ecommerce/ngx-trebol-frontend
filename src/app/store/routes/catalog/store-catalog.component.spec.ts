@@ -5,8 +5,10 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { of } from 'rxjs';
 import { Product } from 'src/app/models/entities/Product';
 import { StoreService } from '../../store.service';
@@ -14,13 +16,19 @@ import { StoreCatalogComponent } from './store-catalog.component';
 import { StoreCatalogService } from './store-catalog.service';
 
 @Component({ selector: 'app-product-filters-panel' })
-class MockProductFiltersPanelComponent { }
+class MockProductFiltersPanelComponent {
+  @Output() filtersChanges = new EventEmitter();
+}
 
 @Component({ selector: 'app-centered-mat-spinner' })
 class MockCenteredMatSpinnerComponent { }
 
-@Component({ selector: 'app-store-catalog-product-card' })
-class MockStoreCatalogProductCardComponent { }
+@Component({ selector: 'app-store-product-card' })
+class MockStoreCatalogProductCardComponent {
+  @Input() product: Product;
+  @Output() addToCart = new EventEmitter();
+  @Output() view = new EventEmitter();
+}
 
 describe('StoreCatalogComponent', () => {
   let component: StoreCatalogComponent;
@@ -42,6 +50,10 @@ describe('StoreCatalogComponent', () => {
     };
 
     TestBed.configureTestingModule({
+      imports: [
+        CommonModule,
+        MatProgressSpinnerModule
+      ],
       declarations: [
         StoreCatalogComponent ,
         MockProductFiltersPanelComponent,

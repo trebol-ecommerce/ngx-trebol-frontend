@@ -133,6 +133,7 @@ describe('StoreService', () => {
   });
 
   it('should checkout the cart', () => {
+    // TODO fix has no expectations
     service.submitCart().subscribe(
       () => {
         expect(mockCheckoutApiService.submitCart).toHaveBeenCalled();

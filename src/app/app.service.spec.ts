@@ -119,6 +119,7 @@ describe('AppService', () => {
   });
 
   it('should emit truthy state for a succesful registration', () => {
+    // TODO fix has no expectations
     service = TestBed.inject(AppService);
 
     service.register(MOCK_REGISTRATION_DETAILS).subscribe(
@@ -129,6 +130,7 @@ describe('AppService', () => {
   });
 
   it('should try to login after a succesful registration', () => {
+    // TODO fix has no expectations
     service = TestBed.inject(AppService);
 
     const loginSpy = spyOn(service, 'login').and.callThrough();
