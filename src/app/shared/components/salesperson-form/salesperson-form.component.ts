@@ -89,8 +89,18 @@ export class SalespersonFormComponent
     }
   }
 
-  validate(control: AbstractControl): ValidationErrors {
-    return collectValidationErrors(control);
+  validate(control: AbstractControl): ValidationErrors | null {
+    const errors = {} as any;
+    const value = control.value;
+    if (value) {
+      if (!value.person) {
+        errors.requiredPerson = value.person;
+      }
+
+      if (JSON.stringify(errors) !== '{}') {
+        return errors;
+      }
+    }
   }
 
   onParentFormTouched(): void {

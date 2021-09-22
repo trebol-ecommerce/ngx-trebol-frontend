@@ -61,8 +61,8 @@ export class UserFormComponent
     this.formGroup = this.formBuilder.group({
       name: ['', Validators.required],
       password: [''],
-      person: [undefined, Validators.required],
-      role: [undefined, Validators.required],
+      person: ['', Validators.required],
+      role: ['', Validators.required],
     });
   }
 
@@ -107,8 +107,24 @@ export class UserFormComponent
     }
   }
 
-  validate(control: AbstractControl): ValidationErrors {
-    return collectValidationErrors(control);
+  validate(control: AbstractControl): ValidationErrors | null {
+    const errors = {} as any;
+    const value = control.value;
+    if (value) {
+      if (!value.name) {
+        errors.requiredUserName = value.name;
+      }
+      if (!value.person) {
+        errors.requiredUserPerson = value.person;
+      }
+      if (!value.role) {
+        errors.requiredUserRole = value.role;
+      }
+
+      if (JSON.stringify(errors) !== '{}') {
+        return errors;
+      }
+    }
   }
 
   onParentFormTouched(): void {

@@ -13,7 +13,6 @@ import {
 import { merge, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
-import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 
 @Component({
@@ -105,8 +104,24 @@ export class PersonFormComponent
     }
   }
 
-  validate(control: AbstractControl): ValidationErrors {
-    return collectValidationErrors(control);
+  validate(control: AbstractControl): ValidationErrors | null {
+    const errors = {} as any;
+    const value = control.value;
+    if (value) {
+      if (!value.name) {
+        errors.requiredPersonName = value.name;
+      }
+      if (!value.idNumber) {
+        errors.requiredPersonIdNumber = value.idNumber;
+      }
+      if (!value.email) {
+        errors.requiredPersonEmail = value.email;
+      }
+
+      if (JSON.stringify(errors) !== '{}') {
+        return errors;
+      }
+    }
   }
 
   onParentFormTouched(): void {

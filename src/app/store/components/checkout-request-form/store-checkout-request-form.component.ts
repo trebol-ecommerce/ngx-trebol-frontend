@@ -6,13 +6,12 @@
  */
 
 import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, NG_VALIDATORS, ValidationErrors, Validator, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { debounceTime, take, tap } from 'rxjs/operators';
 import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
 import { StoreService } from 'src/app/store/store.service';
-import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
 import { StoreBillingDetailsFormComponent } from '../billing-details-form/store-billing-details-form.component';
 import { StoreShippingFormComponent } from '../shipping-form/store-shipping-form.component';
 
@@ -55,7 +54,6 @@ export class StoreCheckoutRequestFormComponent
       customer: [null],
       shipping: [null]
     });
-    this.formGroup.valueChanges.pipe(take(5), tap(v => console.log(v))).subscribe();
   }
 
   ngOnInit(): void {
@@ -76,6 +74,8 @@ export class StoreCheckoutRequestFormComponent
   }
 
   onClickRequest(): void {
+    console.log(this.formGroup);
+
     this.cartService.checkoutButtonPress.emit();
     if (this.formGroup.invalid) {
       this.billingForm.onParentFormTouched();
@@ -87,8 +87,28 @@ export class StoreCheckoutRequestFormComponent
     }
   }
 
-  validate(control: AbstractControl): ValidationErrors {
-    return collectValidationErrors(control);
+  validate(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (!value) {
+      return { required: value };
+    } else {
+      const errors = {} as any;
+      if (!value.billing) {
+        errors.requiredBilling = value.billing;
+      }
+
+      if (!value.customer) {
+        errors.requiredCustomer = value.customer;
+      }
+
+      if (!value.shipping) {
+        errors.requiredShipping = value.shipping;
+      }
+
+      if (JSON.stringify(errors) !== '{}') {
+        return errors;
+      }
+    }
   }
 
 }

@@ -12,7 +12,6 @@ import {
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
-import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 
 @Component({
@@ -48,8 +47,8 @@ export class CompanyFormComponent
     private formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
-      idNumber: [null, [Validators.required]],
-      name: [null, Validators.required]
+      idNumber: ['', [Validators.required]],
+      name: ['', Validators.required]
     });
   }
 
@@ -92,8 +91,21 @@ export class CompanyFormComponent
     }
   }
 
-  validate(control: AbstractControl): ValidationErrors {
-    return collectValidationErrors(control);
+  validate(control: AbstractControl): ValidationErrors | null {
+    const errors = {} as any;
+    const value = control.value;
+    if (value) {
+      if (!value.idNumber) {
+        errors.requiredCompanyIdNumber = value.idNumber;
+      }
+      if (!value.name) {
+        errors.requiredCompanyName = value.name;
+      }
+
+      if (JSON.stringify(errors) !== '{}') {
+        return errors;
+      }
+    }
   }
 
 }

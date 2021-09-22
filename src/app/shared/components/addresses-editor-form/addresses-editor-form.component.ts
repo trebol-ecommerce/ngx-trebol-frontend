@@ -134,8 +134,26 @@ export class AddressesEditorFormComponent
     ).subscribe();
   }
 
-  validate(control: AbstractControl): ValidationErrors {
-    return this.formControl.errors;
+  validate(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (!value) {
+      return { required: value };
+    } else {
+      const errors = {} as any;
+      if (!value.city) {
+        errors.requiredAddressCity = value.city;
+      }
+      if (!value.municipality) {
+        errors.requiredAddressMunicipality = value.municipality;
+      }
+      if (!value.firstLine) {
+        errors.requiredAddressFirstLine = value.firstLine;
+      }
+
+      if (JSON.stringify(errors) !== '{}') {
+        return errors;
+      }
+    }
   }
 
 }

@@ -5,16 +5,40 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import {
+  AbstractControl,
+  ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS,
+  NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators
+} from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { debounceTime, tap } from 'rxjs/operators';
 import { Address } from 'src/app/models/entities/Address';
+import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 
 @Component({
   selector: 'app-address-form',
   templateUrl: './address-form.component.html',
-  styleUrls: [ './address-form.component.css' ]
+  styleUrls: [ './address-form.component.css' ],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: AddressFormComponent
+    },
+    {
+      provide: NG_VALIDATORS,
+      multi: true,
+      useExisting: AddressFormComponent
+    }
+  ]
 })
-export class AddressFormComponent {
+export class AddressFormComponent
+  implements OnDestroy, ControlValueAccessor, Validator {
+
+  private touchedSubscriptions: Subscription[] = [];
+  private valueChangesSubscriptions: Subscription[] = [];
+  private touched = new EventEmitter<void>();
 
   formGroup: FormGroup;
 
@@ -57,6 +81,64 @@ export class AddressFormComponent {
       secondLine: [''],
       notes: ['']
     });
+  }
+
+  ngOnDestroy(): void {
+    for (const sub of [
+      ...this.touchedSubscriptions,
+      ...this.valueChangesSubscriptions]) {
+      sub.unsubscribe();
+    }
+    this.touched.complete();
+  }
+
+  writeValue(obj: any): void {
+    this.city.reset(null, { emitEvent: false });
+    this.municipality.reset(null, { emitEvent: false });
+    this.firstLine.reset(null, { emitEvent: false });
+    this.secondLine.reset(null, { emitEvent: false });
+    this.notes.reset(null, { emitEvent: false });
+    if (isJavaScriptObject(obj)) {
+      this.formGroup.patchValue(obj, { emitEvent: false });
+    }
+  }
+
+  registerOnChange(fn: (value: any) => void): void {
+    const sub = this.formGroup.valueChanges.pipe(debounceTime(150), tap(fn)).subscribe();
+    this.valueChangesSubscriptions.push(sub);
+  }
+
+  registerOnTouched(fn: () => void): void {
+    const sub = this.touched.pipe(tap(fn)).subscribe();
+    this.touchedSubscriptions.push(sub);
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    if (isDisabled) {
+      this.formGroup.disable({ emitEvent: false });
+    } else {
+      this.formGroup.enable({ emitEvent: false });
+    }
+  }
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    const errors = {} as any;
+    const value = control.value;
+    if (value) {
+      if (!value.city) {
+        errors.requiredAddressCity = value.city;
+      }
+      if (!value.municipality) {
+        errors.requiredAddressMunicipality = value.municipality;
+      }
+      if (!value.firstLine) {
+        errors.requiredAddressFirstLine = value.firstLine;
+      }
+
+      if (JSON.stringify(errors) !== '{}') {
+        return errors;
+      }
+    }
   }
 
 }

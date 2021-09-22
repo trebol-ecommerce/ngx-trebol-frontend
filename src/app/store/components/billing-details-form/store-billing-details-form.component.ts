@@ -12,12 +12,11 @@ import {
 } from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
+import { AddressesEditorFormComponent } from 'src/app/shared/components/addresses-editor-form/addresses-editor-form.component';
 import { CompanyFormComponent } from 'src/app/shared/components/company-form/company-form.component';
-import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { labels } from 'src/text/labels';
 import { StoreService } from '../../store.service';
-import { AddressesEditorFormComponent } from 'src/app/shared/components/addresses-editor-form/addresses-editor-form.component';
 
 @Component({
   selector: 'app-store-billing-details-form',
@@ -60,8 +59,8 @@ export class StoreBillingDetailsFormComponent
     private storeService: StoreService
   ) {
     this.formGroup = this.formBuilder.group({
-      sellType: [null, Validators.required],
-      company: [{ value: null, disabled: true }, Validators.required],
+      sellType: ['', Validators.required],
+      company: [{ value: '', disabled: true }, Validators.required],
       address: [{ value: null, disabled: true }, Validators.required]
     });
   }
@@ -128,8 +127,27 @@ export class StoreBillingDetailsFormComponent
     }
   }
 
-  validate(control: AbstractControl): ValidationErrors {
-    return collectValidationErrors(control);
+  validate(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (!value) {
+      return { required: value };
+    } else {
+      const errors = {} as any;
+      if (!value.sellType) {
+        errors.billingTypeMustBeSelected = value.sellType;
+      } else if (value.sellType === 'Enterprise Invoice') {
+        if (!value.company) {
+          errors.billingCompanyMustBeTruthy = value.company;
+        }
+        if (!value.address) {
+          errors.billingAddressMustBeTruthy = value.address;
+        }
+      }
+
+      if (JSON.stringify(errors) !== '{}') {
+        return errors;
+      }
+    }
   }
 
   onParentFormTouched(): void {

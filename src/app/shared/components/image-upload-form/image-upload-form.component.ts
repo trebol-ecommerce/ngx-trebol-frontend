@@ -104,8 +104,23 @@ export class ImageUploadFormComponent
     }
   }
 
-  validate(control: AbstractControl): ValidationErrors {
-    return collectValidationErrors(control);
+  validate(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (!value) {
+      return { required: value };
+    } else {
+      const errors = {} as any;
+      if (!value.files) {
+        errors.requiredImageUploadFiles = value.files;
+      }
+      if (!value.files.length) {
+        errors.imageUploadFilesAmountMustBePositive = value.files;
+      }
+
+      if (JSON.stringify(errors) !== '{}') {
+        return errors;
+      }
+    }
   }
 
   onParentFormTouched(): void {

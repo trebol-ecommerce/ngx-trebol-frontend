@@ -14,7 +14,6 @@ import { merge, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { Address } from 'src/app/models/entities/Address';
 import { AddressesEditorFormComponent } from 'src/app/shared/components/addresses-editor-form/addresses-editor-form.component';
-import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { StoreService } from '../../store.service';
 
@@ -122,8 +121,22 @@ export class StoreShippingFormComponent
     }
   }
 
-  validate(control: AbstractControl): ValidationErrors {
-    return collectValidationErrors(control);
+  validate(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (!value) {
+      return { required: value };
+    } else {
+      const errors = {} as any;
+      if (!value.requestShipping && value.requestShipping !== false) {
+        errors.shippingMustBeSelected = value.requestShipping;
+      } else if (value.requestShipping === true && !value.shippingAddress) {
+        errors.requiredShippingAddress = value.shippingAddress;
+      }
+
+      if (JSON.stringify(errors) !== '{}') {
+        return errors;
+      }
+    }
   }
 
   onParentFormTouched(): void {

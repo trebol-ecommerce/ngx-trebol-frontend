@@ -18,7 +18,6 @@ import { ICategoriesPublicApiService } from 'src/app/api/categories-public-api.i
 import { Image } from 'src/app/models/entities/Image';
 import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
-import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { ImagesArrayDialogComponent } from '../../dialogs/images-array/images-array-dialog.component';
 import { ImagesArrayDialogData } from '../../dialogs/images-array/ImagesArrayDialogData';
@@ -50,13 +49,13 @@ export class ProductFormComponent
   categories$: Observable<ProductCategory[]>;
 
   formGroup: FormGroup;
-  get barcode(): FormControl { return this.formGroup.get('barcode') as FormControl; }
-  get name(): FormControl { return this.formGroup.get('name') as FormControl; }
-  get category(): FormControl { return this.formGroup.get('category') as FormControl; }
-  get price(): FormControl { return this.formGroup.get('price') as FormControl; }
-  // get stock(): FormControl { return this.formGroup.get('stock') as FormControl; }
-  // get criticalStock(): FormControl { return this.formGroup.get('criticalStock') as FormControl; }
-  get description(): FormControl { return this.formGroup.get('description') as FormControl; }
+  get barcode() { return this.formGroup.get('barcode') as FormControl; }
+  get name() { return this.formGroup.get('name') as FormControl; }
+  get category() { return this.formGroup.get('category') as FormControl; }
+  get price() { return this.formGroup.get('price') as FormControl; }
+  // get stock() { return this.formGroup.get('stock') as FormControl; }
+  // get criticalStock() { return this.formGroup.get('criticalStock') as FormControl; }
+  get description() { return this.formGroup.get('description') as FormControl; }
 
   images: Image[];
 
@@ -68,7 +67,7 @@ export class ProductFormComponent
     this.formGroup = this.formBuilder.group({
       barcode: ['', Validators.required],
       name: ['', Validators.required],
-      category: ['', Validators.required],
+      category: [null, Validators.required],
       price: ['', Validators.required],
       // stock: [''],
       // criticalStock: [''],
@@ -124,8 +123,29 @@ export class ProductFormComponent
     }
   }
 
-  validate(control: AbstractControl): ValidationErrors {
-    return collectValidationErrors(control);
+  validate(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (!value) {
+      return { required: value };
+    } else {
+      const errors = {} as any;
+      if (!value.barcode) {
+        errors.requiredProductBarcode = value.barcode;
+      }
+      if (!value.name) {
+        errors.requiredProductName = value.name;
+      }
+      if (!value.category) {
+        errors.requiredProductCategory = value.category;
+      }
+      if (!value.price) {
+        errors.requiredProductPrice = value.price;
+      }
+
+      if (JSON.stringify(errors) !== '{}') {
+        return errors;
+      }
+    }
   }
 
   onParentFormTouched(): void {
