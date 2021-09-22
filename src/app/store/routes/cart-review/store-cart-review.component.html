@@ -26,7 +26,8 @@
   </mat-step>
   <mat-step #confirmationStep>
     <ng-template matStepLabel>Confirmación</ng-template>
-    <app-store-checkout-confirmation (confirmed)="onClickAccept()">
+    <app-store-checkout-confirmation
+      (confirmed)="onClickAccept()">
     </app-store-checkout-confirmation>
   </mat-step>
 </mat-horizontal-stepper>

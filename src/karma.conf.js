@@ -5,7 +5,7 @@ module.exports = function (config) {
   config.set({
     autoWatch: false,
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
-    logLevel: config.LOG_WARN,
+    logLevel: config.LOG_INFO,
     port: 9876,
     reporters: ['progress', 'kjhtml'],
     restartOnFileChange: true, // when auto-watch is on, cancel and restart unit tests whenever a change is detected

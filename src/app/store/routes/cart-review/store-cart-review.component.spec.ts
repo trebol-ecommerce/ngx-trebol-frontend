@@ -5,10 +5,13 @@
  * https://opensource.org/licenses/MIT
  */
 
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -18,6 +21,19 @@ import { StoreGuestPromptDialogComponent } from '../../dialogs/guest-prompt/stor
 import { StorePaymentRedirectPromptDialogComponent } from '../../dialogs/payment-redirect-prompt/store-payment-redirect-prompt-dialog.component';
 import { StoreService } from '../../store.service';
 import { StoreCartReviewComponent } from './store-cart-review.component';
+
+@Component({ selector: 'app-store-cart-contents-table' })
+class MockStoreCartContenstTableComponent { }
+
+@Component({ selector: 'app-store-checkout-request-form' })
+class MockStoreCheckoutRequestFormComponent {
+  @Output() request = new EventEmitter();
+}
+
+@Component({ selector: 'app-store-checkout-confirmation' })
+class MockStoreCheckoutConfirmationComponent {
+  @Output() confirmed = new EventEmitter();
+}
 
 describe('StoreCartReviewComponent', () => {
   let component: StoreCartReviewComponent;
@@ -52,10 +68,17 @@ describe('StoreCartReviewComponent', () => {
         ]),
         MatButtonModule,
         MatDialogModule,
+        MatDividerModule,
         MatIconModule,
-        MatTableModule
+        MatTableModule,
+        MatStepperModule
       ],
-      declarations: [ StoreCartReviewComponent ],
+      declarations: [
+        StoreCartReviewComponent,
+        MockStoreCartContenstTableComponent,
+        MockStoreCheckoutRequestFormComponent,
+        MockStoreCheckoutConfirmationComponent
+      ],
       providers: [
         { provide: StoreService, useValue: mockStoreService },
         { provide: AppService, useValue: mockAppService },

@@ -38,8 +38,8 @@
   </div>
   <div class="shipping">
     <ng-container *ngIf="checkoutRequest.shipping?.shippingAddress; else noShipping">
-        <mat-icon>local_shipping</mat-icon>&nbsp;
-        <span>{{ checkoutRequest.shipping.shippingAddress | address }}</span>
+      <mat-icon>local_shipping</mat-icon>&nbsp;
+      <span>{{ checkoutRequest.shipping.shippingAddress | address }}</span>
     </ng-container>
     <ng-template #noShipping>
       <mat-icon>local_shipping</mat-icon>&nbsp;
