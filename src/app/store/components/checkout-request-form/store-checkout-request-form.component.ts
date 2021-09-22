@@ -6,10 +6,10 @@
  */
 
 import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, NG_VALIDATORS, ValidationErrors, Validator, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
-import { debounceTime, tap } from 'rxjs/operators';
+import { debounceTime, take, tap } from 'rxjs/operators';
 import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
 import { StoreService } from 'src/app/store/store.service';
 import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
@@ -55,6 +55,7 @@ export class StoreCheckoutRequestFormComponent
       customer: [null],
       shipping: [null]
     });
+    this.formGroup.valueChanges.pipe(take(5), tap(v => console.log(v))).subscribe();
   }
 
   ngOnInit(): void {
@@ -82,7 +83,7 @@ export class StoreCheckoutRequestFormComponent
       this.shippingForm.onParentFormTouched();
       this.snackBarService.open('El formulario está incompleto y/o posee campos inválidos. Verifique la información ingresada e inténtelo nuevamente, por favor.', 'OK');
     } else {
-      this.request.next();
+      this.request.emit();
     }
   }
 
