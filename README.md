@@ -30,16 +30,16 @@ Plus, two folders that matter to the entire codebase:
 
 ## Requirements
 
-* An [Angular CLI](https://cli.angular.io/) 10-compatible [Node.js/NPM](https://nodejs.org/) installation.
+* An [Angular CLI](https://cli.angular.io/) 11-compatible [Node.js/NPM](https://nodejs.org/) installation.
 
 ## Working with the code
 
 * `git clone` the repository somewhere in your machine.
-* `npm install` in the root directory.
+* `npm install` in the root directory of that 'somewhere in your machine'.
 
 ## Testing
 
-Jasmine tests are providing about 60% code coverage, you can give them a try using `ng test` in the root directory. Travis runs these on every push to `source` or any pull request.
+Jasmine tests are providing about 40% of code coverage, you can give them a try using `ng test` in the root directory.
 
 ## Configuring the build / serve process
 
