@@ -16,9 +16,8 @@ import { regexMatchStartOfString } from 'src/functions/regexMatchStartOfString';
 export class SessionHttpApiInterceptor
   implements HttpInterceptor {
 
-  // TODO these should be refactored
-  protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
-  protected readonly authorizationHeader = environment.secrets.authHeader;
+  private readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
+  private readonly tokenHttpHeaderName = environment.secrets.authHeader;
   private readonly acceptedUrls: string[] = [
     environment.apiUrls.access,
     environment.apiUrls.data,
@@ -35,7 +34,7 @@ export class SessionHttpApiInterceptor
     const requestUrlMatchesAnyApi = this.regexps?.some(r => r.test(req.url));
     const token = sessionStorage.getItem(this.sessionStorageTokenItemName);
     if (requestUrlMatchesAnyApi && token) {
-      const headers = req.headers.append(this.authorizationHeader, token);
+      const headers = req.headers.append(this.tokenHttpHeaderName, token);
       const authorizedRequest = req.clone({ headers });
       return next.handle(authorizedRequest).pipe(
         catchError((error: HttpErrorResponse) => {
