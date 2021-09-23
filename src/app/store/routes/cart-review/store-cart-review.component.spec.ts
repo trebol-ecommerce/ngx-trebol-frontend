@@ -8,7 +8,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -36,8 +36,6 @@ describe('StoreCartReviewComponent', () => {
   let component: StoreCartReviewComponent;
   let fixture: ComponentFixture<StoreCartReviewComponent>;
   let mockStoreService: Partial<StoreService>;
-  let mockDialogService: Partial<MatDialog>;
-  let dialogOpenSpy: jasmine.Spy;
 
   beforeEach(waitForAsync(() => {
     mockStoreService = {
@@ -47,11 +45,6 @@ describe('StoreCartReviewComponent', () => {
       decreaseProductUnits(i) {},
       removeProductFromCart(i) {}
     };
-    mockDialogService = {
-      open() { return void 0; }
-    };
-    dialogOpenSpy = spyOn(mockDialogService, 'open')
-                      .and.returnValue({ afterClosed: () => of(null) } as MatDialogRef<any>);
 
     TestBed.configureTestingModule({
       imports: [
@@ -73,8 +66,7 @@ describe('StoreCartReviewComponent', () => {
         MockStoreCheckoutConfirmationComponent
       ],
       providers: [
-        { provide: StoreService, useValue: mockStoreService },
-        { provide: MatDialog, useValue: mockDialogService }
+        { provide: StoreService, useValue: mockStoreService }
       ]
     })
     .compileComponents();

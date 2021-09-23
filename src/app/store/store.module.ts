@@ -27,8 +27,6 @@ import { StoreCompanyDetailsDialogComponent } from './dialogs/company-details/st
 import { StoreGuestPromptDialogComponent } from './dialogs/guest-prompt/store-guest-prompt-dialog.component';
 import { StoreGuestShippingFormDialogComponent } from './dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component';
 import { StoreLoginFormDialogComponent } from './dialogs/login-form/store-login-form-dialog.component';
-import { StorePaymentRedirectPromptDialogComponent
-} from './dialogs/payment-redirect-prompt/store-payment-redirect-prompt-dialog.component';
 import { StoreProductDetailsDialogComponent } from './dialogs/product-details/store-product-details-dialog.component';
 import { StoreRegistrationFormDialogComponent } from './dialogs/registration-form/store-registration-form-dialog.component';
 import { StoreCartReviewComponent } from './routes/cart-review/store-cart-review.component';
@@ -63,7 +61,6 @@ const SNACKBAR_DEFAULTS = {
     StoreGuestPromptDialogComponent,
     StoreGuestShippingFormDialogComponent,
     StoreRegistrationFormDialogComponent,
-    StorePaymentRedirectPromptDialogComponent,
     StoreProductDetailsDialogComponent,
     StoreProductCardComponent,
     StoreShippingFormComponent,

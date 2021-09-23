@@ -6,10 +6,8 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { StoreService } from 'src/app/store/store.service';
-import { StorePaymentRedirectPromptDialogComponent } from '../../dialogs/payment-redirect-prompt/store-payment-redirect-prompt-dialog.component';
 
 @Component({
   selector: 'app-store-cart-review',
@@ -20,22 +18,17 @@ export class StoreCartReviewComponent
   implements OnInit {
 
   cartNetValue$: Observable<number>;
+  inputEditable = true;
 
   constructor(
-    private storeService: StoreService,
-    private dialogService: MatDialog
+    private storeService: StoreService
   ) { }
 
   ngOnInit(): void {
     this.cartNetValue$ = this.storeService.cartNetValue$.pipe();
   }
 
-  onClickAccept(): void {
-    this.dialogService.open(
-      StorePaymentRedirectPromptDialogComponent,
-      {
-        width: '40rem'
-      }
-    );
+  onConfirmation(): void {
+    this.inputEditable = false;
   }
 }

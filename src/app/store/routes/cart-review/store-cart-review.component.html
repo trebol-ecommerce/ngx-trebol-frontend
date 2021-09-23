@@ -18,7 +18,7 @@
 <mat-horizontal-stepper linear #stepper>
   <mat-step #inputStep
     [stepControl]="checkoutRequest.formGroup"
-    [editable]="true">
+    [editable]="inputEditable">
     <ng-template matStepLabel>Datos para el pedido</ng-template>
     <app-store-checkout-request-form #checkoutRequest
       (request)="stepper.next()">
@@ -27,7 +27,7 @@
   <mat-step #confirmationStep>
     <ng-template matStepLabel>Confirmación</ng-template>
     <app-store-checkout-confirmation
-      (confirmed)="onClickAccept()">
+      (confirmed)="onConfirmation()">
     </app-store-checkout-confirmation>
   </mat-step>
 </mat-horizontal-stepper>
