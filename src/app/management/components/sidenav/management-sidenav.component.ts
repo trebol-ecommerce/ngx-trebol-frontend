@@ -9,7 +9,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { ManagementChildRoute, MANAGEMENT_CHILD_ROUTES } from 'src/app/management/management-routing.module';
+import { MANAGEMENT_CHILD_ROUTES } from 'src/app/management/management-routing.module';
+import { ManagementChildRoute } from "src/app/management/ManagementChildRoute";
 import { ManagementService } from 'src/app/management/management.service';
 import { SidenavModuleItem } from './SidenavModuleItem';
 

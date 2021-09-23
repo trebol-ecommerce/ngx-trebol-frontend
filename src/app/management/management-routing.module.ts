@@ -6,9 +6,10 @@
  */
 
 import { NgModule } from '@angular/core';
-import { Route, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementComponent } from './management.component';
+import { ManagementChildRoute } from './ManagementChildRoute';
 import { CustomerManagerAccessResolver } from './routes/customers/customer-manager.access-resolver';
 import { CustomerManagerComponent } from './routes/customers/customer-manager.component';
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
@@ -22,11 +23,6 @@ import { SalespersonManagerAccessResolver } from './routes/salespeople/salespers
 import { SalespersonManagerComponent } from './routes/salespeople/salesperson-manager.component';
 import { UserManagerAccessResolver } from './routes/users/user-manager.access-resolver';
 import { UserManagerComponent } from './routes/users/user-manager.component';
-
-// TODO move this interface to a new file
-export interface ManagementChildRoute extends Route {
-  data: { matIcon: string, title: string };
-}
 
 export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
   {
