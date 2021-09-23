@@ -5,11 +5,12 @@
   https://opensource.org/licenses/MIT
 -->
 
-<h2>Registro de Cliente</h2>
+<h2 mat-dialog-title>Solicitar una compra sin cuenta</h2>
 <app-centered-mat-spinner *ngIf="saving$ | async">
 </app-centered-mat-spinner>
-
 <div [hidden]="saving$ | async">
+  <p>A continuación, por favor indique sus datos de facturación.</p>
+  <p>Usaremos esta información exclusivamente para que su transacción sea más segura.</p>
   <form [formGroup]="formGroup" (submit)="onSubmit()">
     <app-person-form formControlName="person">
     </app-person-form>
