@@ -8,12 +8,7 @@
 <app-centered-mat-spinner *ngIf="loading$ | async">
 </app-centered-mat-spinner>
 <div class="content" *ngIf="data$ |async">
-  <div class="banner">
-    <img [src]="bannerURL$ | async" />
-  </div>
-  <div class="presentation">
-    <img class="logo" [src]="logoURL$ | async" [alt]="name$ | async" />
-    <span class="name">{{ name$ | async }}</span>
-  </div>
-  <p class="profile">{{ description$ | async }}</p>
+  <img [src]="logoURL$ | async" [alt]="name$ | async" />
+  <h4>{{ name$ | async }}</h4>
+  <p>{{ description$ | async }}</p>
 </div>

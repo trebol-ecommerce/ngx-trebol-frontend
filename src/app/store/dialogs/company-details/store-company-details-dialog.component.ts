@@ -22,20 +22,19 @@ export class StoreCompanyDetailsDialogComponent
 
   private dataSource: Subject<CompanyDetails> = new ReplaySubject();
 
-  data$: Observable<CompanyDetails> = this.dataSource.asObservable();
-  loading$: Observable<boolean> = this.data$.pipe(mapTo(false), startWith(true));
-  name$: Observable<string> = this.data$.pipe(pluck('name'));
-  description$: Observable<string> = this.data$.pipe(pluck('description'));
-  bannerURL$: Observable<string> = this.data$.pipe(pluck('bannerImageURL'));
-  logoURL$: Observable<string> = this.data$.pipe(pluck('logoImageURL'));
-
+  data$ = this.dataSource.asObservable();
+  loading$ = this.data$.pipe(mapTo(false), startWith(true));
+  name$ = this.data$.pipe(pluck('name'));
+  description$ = this.data$.pipe(pluck('description'));
+  // bannerURL$ = this.data$.pipe(pluck('bannerImageURL'));
+  logoURL$ = this.data$.pipe(pluck('logoImageURL'));
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.categories) private sharedDataService: IAboutPublicApiService
+    @Inject(API_SERVICE_INJECTION_TOKENS.about) private aboutApiService: IAboutPublicApiService
   ) { }
 
   ngOnInit(): void {
-    this.sharedDataService.fetchCompanyDetails().subscribe(
+    this.aboutApiService.fetchCompanyDetails().subscribe(
       companyDetails => { this.dataSource.next(companyDetails); }
     );
   }

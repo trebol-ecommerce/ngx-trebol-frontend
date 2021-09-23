@@ -5,52 +5,16 @@
  * https://opensource.org/licenses/MIT
  */
 
-.content {
-  display: grid;
-  justify-items: center;
-}
-
-.banner {
-  max-width: 800px;
-  width: 100%;
-  height: 128px;
-  overflow: hidden;
-}
-.banner > img {
-  width: 100%;
-  margin: -204px 0px 0px 0px;
-}
-
-.presentation {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
+:host {
   text-align: center;
-  padding: 4px;
 }
-.logo {
-  width: 96px;
-  height: 96px;
-  margin-right: 1rem;
+
+img {
+  max-width: 100%;
+  height: 128px;
+  object-fit: cover;
 }
-.name {
+
+h4 {
   font-size: 1.5rem;
-}
-
-@media(min-width: 641px) {
-  .presentation {
-    flex-flow: row nowrap;
-    justify-content: center;
-    text-align: initial;
-  }
-}
-
-.profile {
-  overflow-y: auto;
-}
-
-@media(min-width: 641px) {
-  .presentation, .profile {
-    width: 65%;
-  }
 }
