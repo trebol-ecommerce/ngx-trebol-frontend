@@ -15,6 +15,7 @@ import { AppService } from 'src/app/app.service';
 import { Login } from 'src/app/models/Login';
 import { DialogSwitcherButtonComponent } from 'src/app/shared/components/dialog-switcher-button/dialog-switcher-button.component';
 import { LOGIN_ERROR_MESSAGE, LOGIN_SUCCESS_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
+import { StoreRegistrationFormDialogComponent } from '../registration-form/store-registration-form-dialog.component';
 
 @Component({
   selector: 'app-store-login-form-dialog',
@@ -36,7 +37,7 @@ export class StoreLoginFormDialogComponent
   get username(): FormControl { return this.formGroup.get('username') as FormControl; }
   get password(): FormControl { return this.formGroup.get('password') as FormControl; }
 
-  // @ViewChild('registerButton', { static: true }) registerButton: DialogSwitcherButtonComponent;
+  @ViewChild('registerButton', { static: true }) registerButton: DialogSwitcherButtonComponent;
 
   constructor(
     private dialog: MatDialogRef<StoreLoginFormDialogComponent>,
@@ -53,12 +54,10 @@ export class StoreLoginFormDialogComponent
     this.passwordInputType$ = this.hidePasswordSource.asObservable().pipe(map(hide => (hide ? 'password' : 'text')));
   }
 
-  // TODO uncomment these when API support arrives
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
-    // this.registerButton.sourceDialogRef = this.dialog;
-    // this.registerButton.targetDialogComponent = StoreRegistrationFormDialogComponent;
-    // this.registerButton.targetDialogConfig = { width: '40rem', disableClose: true };
+    this.registerButton.sourceDialogRef = this.dialog;
+    this.registerButton.targetDialogComponent = StoreRegistrationFormDialogComponent;
+    this.registerButton.targetDialogConfig = { width: '40rem', disableClose: true };
   }
 
   showPassword(): void { this.hidePasswordSource.next(false); }
