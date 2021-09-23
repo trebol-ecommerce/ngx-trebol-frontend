@@ -22,7 +22,7 @@ module.exports = function (config) {
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     coverageReporter: {
-      dir: require('path').join(__dirname, '../coverage/trebol-ng'),
+      dir: require('path').join(__dirname, '../coverage/ngx-trebol-frontend'),
       reporters: [
         { type: 'html' },
         { type: 'text-summary' }

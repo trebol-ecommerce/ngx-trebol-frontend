@@ -1,7 +1,7 @@
 {
-  "name": "trebol-ng",
-  "version": "1.5.23",
-  "revision": 1,
+  "name": "ngx-trebol-frontend",
+  "version": "1.0.0",
+  "revision": 0,
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -12,7 +12,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^11.2.14",
     "@angular/cdk": "^11.2.13",

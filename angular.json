@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "trebol-ng": {
+    "ngx-trebol-frontend": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -14,7 +14,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
-            "outputPath": "dist/trebol-ng",
+            "outputPath": "dist/ngx-trebol-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -112,21 +112,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "trebol-ng:build"
+            "browserTarget": "ngx-trebol-frontend:build"
           },
           "configurations": {
             "localhost": {
-              "browserTarget": "trebol-ng:build:localhost"
+              "browserTarget": "ngx-trebol-frontend:build:localhost"
             },
             "production": {
-              "browserTarget": "trebol-ng:build:production"
+              "browserTarget": "ngx-trebol-frontend:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "trebol-ng:build"
+            "browserTarget": "ngx-trebol-frontend:build"
           }
         },
         "test": {
@@ -160,14 +160,14 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "baseHref": "https://trebol-ecommerce.github.io/trebol-ng/",
+            "baseHref": "https://trebol-ecommerce.github.io/ngx-trebol-frontend/",
             "branch": "demo",
             "configuration": "demo"
           }
         }
       }
     },
-    "trebol-ng-e2e": {
+    "ngx-trebol-frontend-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -176,11 +176,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "trebol-ng:serve"
+            "devServerTarget": "ngx-trebol-frontend:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "trebol-ng:serve:production"
+              "devServerTarget": "ngx-trebol-frontend:serve:production"
             }
           }
         },
@@ -196,7 +196,7 @@
       }
     }
   },
-  "defaultProject": "trebol-ng",
+  "defaultProject": "ngx-trebol-frontend",
   "cli": {
     "analytics": "83e020b2-8b28-4f70-a356-9f0dd5cec7e9",
     "defaultCollection": "@angular-eslint/schematics"
