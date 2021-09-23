@@ -11,12 +11,7 @@ import { Observable, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { ProductFiltersPanelService } from './product-filters-panel.service';
-
-// TODO extract into another file
-export class ProductFilters {
-  name?: string;
-  categoryCode?: number;
-}
+import { ProductFilters } from './ProductFilters';
 
 @Component({
   selector: 'app-product-filters-panel',

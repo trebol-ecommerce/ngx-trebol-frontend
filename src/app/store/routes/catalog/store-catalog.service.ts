@@ -8,13 +8,13 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { concatMap, delay, map, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IProductsPublicApiService } from 'src/app/api/products-public-api.iservice';
 import { DataPage } from 'src/app/models/DataPage';
 import { Product } from 'src/app/models/entities/Product';
-import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
+import { ProductFilters } from "src/app/shared/components/product-filters-panel/ProductFilters";
 import { StoreProductDetailsDialogComponent, StoreProductDetailsDialogData } from '../../dialogs/product-details/store-product-details-dialog.component';
 
 @Injectable()
