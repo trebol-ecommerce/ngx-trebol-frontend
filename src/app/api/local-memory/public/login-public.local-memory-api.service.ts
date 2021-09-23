@@ -17,7 +17,7 @@ import { ILoginPublicApiService } from '../../login-public-api.iservice';
 export class LoginPublicLocalMemoryApiService
   implements ILoginPublicApiService {
 
-  protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
+  protected readonly sessionStorageTokenItemName = environment.secrets.sessionStorageTokenItem;
 
   constructor(private router: Router) { }
 

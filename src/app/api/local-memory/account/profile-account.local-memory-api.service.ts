@@ -15,7 +15,7 @@ import { IProfileAccountApiService } from '../../profile-account-api.iservice';
 export class ProfileAccountLocalMemoryApiService
   implements IProfileAccountApiService {
 
-  protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
+  protected readonly sessionStorageTokenItemName = environment.secrets.sessionStorageTokenItem;
 
   constructor() { }
 

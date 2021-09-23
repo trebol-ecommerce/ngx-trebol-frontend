@@ -15,7 +15,7 @@ import { IAccessApiService } from '../../access-api.iservice';
 export class AccessLocalMemoryApiService
   implements IAccessApiService {
 
-  protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
+  protected readonly sessionStorageTokenItemName = environment.secrets.sessionStorageTokenItem;
 
   protected returnAsyncIfLoggedIn(obj: any): Observable<any> {
     return new Observable(

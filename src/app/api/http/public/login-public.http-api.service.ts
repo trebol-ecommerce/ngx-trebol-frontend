@@ -19,8 +19,8 @@ export class LoginPublicHttpApiService
   implements ILoginPublicApiService {
 
   baseUrl = `${environment.apiUrls.public}/login`;
-  protected readonly sessionStorageTokenItemName = environment.secrets.sessionTokenName;
-  protected readonly authorizationHeader = environment.secrets.authHeader;
+  protected readonly sessionStorageTokenItemName = environment.secrets.sessionStorageTokenItem;
+  protected readonly authorizationHeader = environment.secrets.tokenHttpHeader;
 
   constructor(http: HttpClient, private router: Router) {
     super(http);
