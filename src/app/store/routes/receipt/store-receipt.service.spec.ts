@@ -1,26 +1,33 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { TestBed } from '@angular/core/testing';
-import { LocalMemoryDataModule } from 'src/app/api/data/local-memory/local-memory-data-api.module';
-import { StoreReceiptService } from './store-receipt.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { LocalMemoryStoreApiModule } from 'src/app/api/store/local-memory/local-memory-store-api.module';
+import { EMPTY } from 'rxjs';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { IReceiptPublicApiService } from 'src/app/api/receipt-public-api.iservice';
+import { StoreReceiptService } from './store-receipt.service';
 
 describe('StoreReceiptService', () => {
   let service: StoreReceiptService;
+  let mockReceiptApiService: Partial<IReceiptPublicApiService>;
 
   beforeEach(() => {
+    mockReceiptApiService = {
+      fetchTransactionReceiptByToken() { return EMPTY; }
+    };
+
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-        LocalMemoryDataModule,
-        LocalMemoryStoreApiModule
+        RouterTestingModule
       ],
       providers: [
-        StoreReceiptService
+        StoreReceiptService,
+        { provide: API_SERVICE_INJECTION_TOKENS.receipt, useValue: mockReceiptApiService }
       ]
     });
     service = TestBed.inject(StoreReceiptService);

@@ -1,30 +1,27 @@
 <!--
- Copyright (c) 2020 Benjamin La Madrid
+  Copyright (c) 2021 The Trébol eCommerce Project
 
- This software is released under the MIT License.
- https://opensource.org/licenses/MIT
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
 -->
 
-<div class="dialog">
-  <h2 mat-dialog-title>Editar Perfil</h2>
-  <centered-mat-spinner *ngIf="saving$ | async">
-  </centered-mat-spinner>
+<h2 mat-dialog-title>Editar Perfil</h2>
+<app-centered-mat-spinner *ngIf="saving$ | async">
+</app-centered-mat-spinner>
 
-  <div [hidden]="saving$ | async">
-    <app-person-form #personForm>
-    </app-person-form>
+<form [formGroup]="formGroup">
+  <app-person-form formControlName="person">
+  </app-person-form>
 
-    <div class="actions">
-      <button mat-button mat-raised-button type="button"
-        [disabled]="invalid$ | async"
-        (click)="onSubmit()">
-        Aceptar
-      </button>
-      <button mat-button mat-raised-button type="button"
-        [color]="cancelButtonColor$ | async"
-        (click)="onCancel()">
-        Cancelar
-      </button>
-    </div>
+  <div class="actions">
+    <button mat-button mat-raised-button type="button"
+      (click)="onSubmit()">
+      Aceptar
+    </button>
+    <button mat-button mat-raised-button type="button"
+      [color]="cancelButtonColor$ | async"
+      (click)="onCancel()">
+      Cancelar
+    </button>
   </div>
-</div>
+</form>

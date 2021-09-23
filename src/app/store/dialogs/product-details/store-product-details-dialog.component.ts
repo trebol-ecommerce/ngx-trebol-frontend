@@ -1,19 +1,17 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from 'src/app/models/entities/Product';
-import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { StoreService } from '../../store.service';
-
-export interface StoreProductDetailsDialogData {
-  product: Product;
-}
+import { StoreProductDetailsDialogData } from './StoreProductDetailsDialogData';
 
 @Component({
   selector: 'app-store-product-details-dialog',
@@ -23,18 +21,20 @@ export interface StoreProductDetailsDialogData {
 export class StoreProductDetailsDialogComponent
   implements OnInit, OnDestroy {
 
-  protected matchingCartSellDetailSource: Subject<SellDetail> = new BehaviorSubject(null);
+  private matchingCartSellDetailSource = new BehaviorSubject(null);
 
-  protected matchingCartIndex: number;
-  public product: Product;
+  private matchingCartIndex: number;
 
-  public matchingCartSellDetail$: Observable<SellDetail> = this.matchingCartSellDetailSource.asObservable();
-  public productNotInCart$: Observable<boolean>;
-  public productUnitsInCart$: Observable<number>;
+  product: Product;
+
+  matchingCartSellDetail$ = this.matchingCartSellDetailSource.asObservable();
+
+  productNotInCart$: Observable<boolean>;
+  productUnitsInCart$: Observable<number>;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) data: StoreProductDetailsDialogData,
-    public storeService: StoreService,
+    @Inject(MAT_DIALOG_DATA) public data: StoreProductDetailsDialogData,
+    private storeService: StoreService,
   ) {
     this.product = data?.product ? data.product : null;
   }
@@ -47,7 +47,7 @@ export class StoreProductDetailsDialogComponent
 
     this.storeService.cartDetails$.subscribe(
       details => {
-        const index = details.findIndex(d => d.product?.id === this.product.id);
+        const index = details.findIndex(d => d.product?.barcode === this.product.barcode);
         if (index !== -1) {
 
           this.matchingCartSellDetailSource.next(details[index]);
@@ -63,14 +63,14 @@ export class StoreProductDetailsDialogComponent
     this.matchingCartSellDetailSource.complete();
   }
 
-  public onClickIncreaseProductQuantity(): void {
+  onClickIncreaseProductQuantity(): void {
     if (this.matchingCartIndex !== -1) {
       this.storeService.increaseProductUnits(this.matchingCartIndex);
     } else {
       this.storeService.addProductToCart(this.product);
     }
   }
-  public onClickDecreaseProductQuantity(): void {
+  onClickDecreaseProductQuantity(): void {
     this.storeService.decreaseProductUnits(this.matchingCartIndex);
   }
 

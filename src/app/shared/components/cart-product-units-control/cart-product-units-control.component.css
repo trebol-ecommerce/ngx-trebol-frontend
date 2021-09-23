@@ -1,0 +1,18 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+.product-units-control,
+.quantity-wrapper {
+  display: grid;
+  gap: 0.5rem;
+  grid-auto-flow: column;
+  align-items: center;
+}
+
+.quantity-wrapper {
+  font-size: 1.25rem;
+}

@@ -1,0 +1,27 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<mat-card>
+  <div class="content" (click)="onClickViewProduct()">
+    <mat-card-header>
+      <mat-card-title>{{ product.name }}</mat-card-title>
+      <mat-card-subtitle>{{ product.barcode }}</mat-card-subtitle>
+    </mat-card-header>
+    <img *ngIf="product.images?.length"
+      [src]="product.images[0].url"
+      [alt]="product.name" />
+  </div>
+  <div class="actions">
+    <span class="price">${{ product.price }}</span>
+    <button mat-button mat-raised-button type="button"
+      class="add-to-cart"
+      color="primary"
+      (click)="onClickAddProduct()">
+      <mat-icon>add_shopping_cart</mat-icon>
+    </button>
+  </div>
+</mat-card>

@@ -1,14 +1,12 @@
 <!--
- Copyright (c) 2020 Benjamin La Madrid
+  Copyright (c) 2021 The Trébol eCommerce Project
 
- This software is released under the MIT License.
- https://opensource.org/licenses/MIT
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
 -->
 
-<div class="loading" *ngIf="loading$ | async">
-  <centered-mat-spinner>
-  </centered-mat-spinner>
-</div>
+<app-centered-mat-spinner *ngIf="loading$ | async">
+</app-centered-mat-spinner>
 <div class="data-manager" [hidden]="loading$ | async">
   <div class="table-wrapper">
 
@@ -19,10 +17,10 @@
           {{ salesperson.person.name }}
         </td>
       </ng-container>
-      <ng-container matColumnDef="idCard">
+      <ng-container matColumnDef="idNumber">
         <th mat-header-cell *matHeaderCellDef> Rut </th>
         <td mat-cell *matCellDef="let salesperson">
-          {{ salesperson.person.idCard }}
+          {{ salesperson.person.idNumber }}
         </td>
       </ng-container>
       <ng-container matColumnDef="actions">

@@ -1,22 +1,23 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
+import { IAccessApiService } from 'src/app/api/access-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { SessionApiIService } from 'src/app/api/session/session-api.iservice';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
-import { DataAccessApiIService } from 'src/app/api/data/data-access.api.iservice';
 
 @Injectable({ providedIn: 'root' })
 export class UserManagerAccessResolver
   implements Resolve<AuthorizedAccess> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataAccess) protected apiAccessService: DataAccessApiIService
+    @Inject(API_SERVICE_INJECTION_TOKENS.access) private apiAccessService: IAccessApiService
   ) { }
 
   resolve(

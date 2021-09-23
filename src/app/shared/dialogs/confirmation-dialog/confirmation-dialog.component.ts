@@ -1,29 +1,23 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-export interface ConfirmationDialogData {
-  title: string;
-  message: string;
-}
+import { ConfirmationDialogData } from './ConfirmationDialogData';
 
 @Component({
   selector: 'app-confirmation-dialog',
   templateUrl: './confirmation-dialog.component.html',
   styleUrls: ['./confirmation-dialog.component.css']
 })
-export class ConfirmationDialogComponent
-  implements OnInit {
+export class ConfirmationDialogComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ConfirmationDialogData
   ) { }
-
-  ngOnInit(): void {
-  }
 
 }

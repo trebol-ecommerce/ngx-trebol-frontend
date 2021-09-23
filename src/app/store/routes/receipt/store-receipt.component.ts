@@ -1,16 +1,15 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Sell } from 'src/app/models/entities/Sell';
-import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { ReceiptDetail } from 'src/app/models/ReceiptDetail';
 import { StoreReceiptService } from './store-receipt.service';
-import { Receipt } from 'src/app/models/entities/Receipt';
-import { ReceiptDetail } from 'src/app/models/entities/ReceiptDetail';
 
 @Component({
   selector: 'app-store-receipt',
@@ -19,17 +18,14 @@ import { ReceiptDetail } from 'src/app/models/entities/ReceiptDetail';
 })
 export class StoreReceiptComponent {
 
-  protected receipt$: Observable<Receipt>;
-
-  public loading$: Observable<boolean>;
-  public details$: Observable<ReceiptDetail[]>;
-  public date$: Observable<string>;
+  loading$: Observable<boolean>;
+  details$: Observable<ReceiptDetail[]>;
+  date$: Observable<string>;
 
   constructor(
-    protected service: StoreReceiptService,
-    protected route: ActivatedRoute
+    private service: StoreReceiptService,
+    private route: ActivatedRoute
   ) {
-    this.receipt$ = this.service.receipt$.pipe();
     this.loading$ = this.service.loading$.pipe();
     this.details$ = this.service.details$.pipe();
     this.date$ = this.service.date$.pipe();
@@ -38,7 +34,7 @@ export class StoreReceiptComponent {
   }
 
   private loadReceipt() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.service.fetchReceipt(id);
+    const token = this.route.snapshot.paramMap.get('token');
+    this.service.fetchReceipt(token);
   }
 }

@@ -1,75 +1,131 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Component, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Person } from 'src/app/models/entities/Person';
+import { Component, EventEmitter, OnDestroy } from '@angular/core';
+import {
+  AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
+  ValidationErrors, Validator, Validators
+} from '@angular/forms';
+import { merge, Subscription } from 'rxjs';
+import { debounceTime, tap } from 'rxjs/operators';
+import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
+import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 
 @Component({
   selector: 'app-person-form',
   templateUrl: './person-form.component.html',
-  styleUrls: [ './person-form.component.css' ]
+  styleUrls: [ './person-form.component.css' ],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: PersonFormComponent
+    },
+    {
+      provide: NG_VALIDATORS,
+      multi: true,
+      useExisting: PersonFormComponent
+    }
+  ]
 })
-export class PersonFormComponent {
+export class PersonFormComponent
+  implements OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
 
-  protected personId: number;
+  private touchedSubscriptions: Subscription[] = [];
+  private valueChangesSubscriptions: Subscription[] = [];
+  private touched = new EventEmitter<void>();
+  private personId: number;
 
-  @Output() public formGroup: FormGroup;
+  formGroup: FormGroup;
+
+  get id() { return this.formGroup.get('id') as FormControl; }
+  get name() { return this.formGroup.get('name') as FormControl; }
+  get idNumber() { return this.formGroup.get('idNumber') as FormControl; }
+  get email() { return this.formGroup.get('email') as FormControl; }
+  get phone1() { return this.formGroup.get('phone1') as FormControl; }
+  get phone2() { return this.formGroup.get('phone2') as FormControl; }
 
   constructor(
-    protected formBuilder: FormBuilder
+    private formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
+      id: [''],
       name: ['', Validators.required],
-      idCard: ['', Validators.required],
+      idNumber: ['', Validators.required],
       email: ['', Validators.required],
-      address: ['', Validators.required],
       phone1: [''],
       phone2: ['']
     });
   }
 
-  public get name(): FormControl { return this.formGroup.get('name') as FormControl; }
-  public get idCard(): FormControl { return this.formGroup.get('idCard') as FormControl; }
-  public get email(): FormControl { return this.formGroup.get('email') as FormControl; }
-  public get address(): FormControl { return this.formGroup.get('address') as FormControl; }
-  public get phone1(): FormControl { return this.formGroup.get('phone1') as FormControl; }
-  public get phone2(): FormControl { return this.formGroup.get('phone2') as FormControl; }
-
-  public asPerson(): Person {
-    if (this.formGroup.invalid) {
-      return undefined;
-    } else {
-      return Object.assign<Person, Partial<Person>>(
-        new Person(),
-        {
-          id: this.personId,
-          name: this.name.value,
-          idCard: this.idCard.value,
-          email: this.email.value,
-          address: this.address.value,
-          phone1: this.phone1.value,
-          phone2: this.phone2.value
-        });
+  ngOnDestroy(): void {
+    for (const sub of [
+      ...this.valueChangesSubscriptions,
+      ...this.touchedSubscriptions]) {
+      sub.unsubscribe();
     }
   }
 
-  @Input() public set person(prs: Person) {
+  onTouched(): void {
+    this.touched.emit();
+  }
 
-    this.personId = prs.id ? prs.id : 0;
-    this.name.setValue(prs.name, { emitEvent: false, onlySelf: true });
-    this.idCard.setValue(prs.idCard, { emitEvent: false, onlySelf: true });
-    this.email.setValue(prs.email, { emitEvent: false, onlySelf: true });
-    this.address.setValue(prs.address, { emitEvent: false, onlySelf: true });
-    if (prs.phone1) {
-      this.phone1.setValue(String(prs.phone1), { emitEvent: false, onlySelf: true });
+  writeValue(obj: any): void {
+    this.id.reset('', { emitEvent: false });
+    this.name.reset('', { emitEvent: false });
+    this.idNumber.reset('', { emitEvent: false });
+    this.email.reset('', { emitEvent: false });
+    this.phone1.reset('', { emitEvent: false });
+    this.phone2.reset('', { emitEvent: false });
+    if (isJavaScriptObject(obj)) {
+      this.formGroup.patchValue(obj);
     }
-    if (prs.phone2) {
-      this.phone2.setValue(String(prs.phone2), { emitEvent: false, onlySelf: true });
+  }
+
+  registerOnChange(fn: (value: any) => void): void {
+    const sub = this.formGroup.valueChanges.pipe(debounceTime(250), tap(fn)).subscribe();
+    this.valueChangesSubscriptions.push(sub);
+  }
+
+  registerOnTouched(fn: () => void): void {
+    const sub = merge(this.touched).pipe(tap(fn)).subscribe();
+    this.touchedSubscriptions.push(sub);
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    if (isDisabled) {
+      this.formGroup.disable({ emitEvent: false });
+    } else {
+      this.formGroup.enable({ emitEvent: false });
     }
-    this.formGroup.updateValueAndValidity();
+  }
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    const errors = {} as any;
+    const value = control.value;
+    if (value) {
+      if (!value.name) {
+        errors.requiredPersonName = value.name;
+      }
+      if (!value.idNumber) {
+        errors.requiredPersonIdNumber = value.idNumber;
+      }
+      if (!value.email) {
+        errors.requiredPersonEmail = value.email;
+      }
+
+      if (JSON.stringify(errors) !== '{}') {
+        return errors;
+      }
+    }
+  }
+
+  onParentFormTouched(): void {
+    this.formGroup.markAllAsTouched();
   }
 
 }

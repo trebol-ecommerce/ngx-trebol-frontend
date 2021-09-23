@@ -9,7 +9,7 @@ You'll need a decent understanding of Angular before diving deep, but there are 
 
 ## Raising issues
 
-Jasmine tests are currently being developed, and the demo in https://bglamadrid.github.io/trebol-ng/ may fail at certain points. You can report any bug or error you find.If you wish, you can suggest additions and changes, I only ask to do it in good faith (see below).
+Jasmine tests are currently being developed, and the demo in https://bglamadrid.github.io/ngx-trebol-frontend/ may fail at certain points. You can report any bug or error you find.If you wish, you can suggest additions and changes, I only ask to do it in good faith (see below).
 
 ### 'Good faith' rules
 

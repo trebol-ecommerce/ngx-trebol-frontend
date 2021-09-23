@@ -1,21 +1,21 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { map, startWith, tap } from 'rxjs/operators';
-import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
+import { Person } from 'src/app/models/entities/Person';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { EditProfileFormService } from './edit-profile-form.service';
 
-export const TIEMPO_CONFIRMACION_SALIR = 2000;
-
 @Component({
-  providers: [ EditProfileFormService ],
   selector: 'app-edit-profile-form-dialog',
   templateUrl: './edit-profile-form-dialog.component.html',
   styleUrls: ['./edit-profile-form-dialog.component.css']
@@ -23,42 +23,47 @@ export const TIEMPO_CONFIRMACION_SALIR = 2000;
 export class EditProfileFormDialogComponent
   implements OnInit {
 
-  protected confirmCancel: boolean;
+  private confirmCancel: boolean;
 
-  public saving$: Observable<boolean>;
-  public cancelButtonColor$: Observable<string>;
+  saving$: Observable<boolean>;
+  cancelButtonColor$: Observable<string>;
+  invalid$: Observable<boolean>;
 
-  @ViewChild('personForm', { static: true }) public personForm: PersonFormComponent;
+  formGroup: FormGroup;
 
-  public invalid$: Observable<boolean>;
+  get person() { return this.formGroup.get('person') as FormControl; }
 
   constructor(
-    protected service: EditProfileFormService,
-    protected dialog: MatDialogRef<EditProfileFormDialogComponent>,
-    protected snackBarService: MatSnackBar,
+    private service: EditProfileFormService,
+    private dialog: MatDialogRef<EditProfileFormDialogComponent>,
+    private snackBarService: MatSnackBar,
+    private formBuilder: FormBuilder
   ) {
     this.saving$ = this.service.saving$.pipe();
     this.cancelButtonColor$ = this.service.confirmCancel$.pipe(
       tap(c => { this.confirmCancel = c; }),
       map(c => (c ? 'warn' : 'default'))
     );
+    this.formGroup = this.formBuilder.group({
+      person: ['']
+    });
   }
 
   ngOnInit(): void {
     this.service.loadProfile().subscribe(
       p => {
-        this.personForm.person = p;
+        this.person.setValue(p);
       }
     );
 
-    this.invalid$ = this.personForm.formGroup.statusChanges.pipe(
+    this.invalid$ = this.formGroup.statusChanges.pipe(
       map(status => status !== 'VALID'),
       startWith(true)
     );
   }
 
-  public onSubmit(): void {
-    const datosUsuario = this.personForm.asPerson();
+  onSubmit(): void {
+    const datosUsuario = this.person.value as Person;
     if (datosUsuario) {
       this.service.saveProfile(datosUsuario).subscribe(
         success => {
@@ -76,7 +81,7 @@ export class EditProfileFormDialogComponent
     }
   }
 
-  public onCancel(): void {
+  onCancel(): void {
     if (!this.confirmCancel) {
       this.service.confirmCancel();
     } else {

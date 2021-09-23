@@ -1,17 +1,22 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { TestBed } from '@angular/core/testing';
-import { AppService } from './app.service';
-import { SessionApiIService } from './api/session/session-api.iservice';
-import { DataAccessApiIService } from './api/data/data-access.api.iservice';
-import { API_SERVICE_INJECTION_TOKENS } from './api/api-service-injection-tokens';
 import { of, throwError } from 'rxjs';
-import { Registration } from './models/Registration';
-import { take, catchError } from 'rxjs/operators';
+import { catchError, take } from 'rxjs/operators';
+import { IAccessApiService } from './api/access-api.iservice';
+import { API_SERVICE_INJECTION_TOKENS } from './api/api-service-injection-tokens';
+import { IGuestPublicApiService } from './api/guest-public-api.iservice';
+import { ILoginPublicApiService } from './api/login-public-api.iservice';
+import { IProfileAccountApiService } from './api/profile-account-api.iservice';
+import { IRegisterPublicApiService } from './api/register-public-api.iservice copy';
+import { AppService } from './app.service';
 import { Login } from './models/Login';
+import { Registration } from './models/Registration';
 
 const MOCK_LOGIN_DETAILS: Login = {
   name: 'test',
@@ -23,9 +28,8 @@ const MOCK_REGISTRATION_DETAILS: Registration = {
   password: 'test',
   profile: {
     name: 'fulano mengano',
-    idCard: '123456789',
+    idNumber: '123456789',
     email: 'test@test.org',
-    address: 'lorem ipsum',
     phone1: 11111111,
     phone2: 11111111,
   }
@@ -33,17 +37,26 @@ const MOCK_REGISTRATION_DETAILS: Registration = {
 
 describe('AppService', () => {
   let service: AppService;
-  let mockAuthApiService: Partial<SessionApiIService>;
-  let mockAccessApiService: Partial<DataAccessApiIService>;
+  let mockLoginApiService: Partial<ILoginPublicApiService>;
+  let mockGuestApiService: Partial<IGuestPublicApiService>;
+  let mockRegisterApiService: Partial<IRegisterPublicApiService>;
+  let mockProfileApiService: Partial<IProfileAccountApiService>;
+  let mockAccessApiService: Partial<IAccessApiService>;
 
   beforeEach(() => {
-    mockAuthApiService = {
-      guestLogin() { return of(true); },
+    mockLoginApiService = {
+      login() { return of(true); },
+      logout() { }
+    };
+    mockGuestApiService = {
+      guestLogin() { return of(); }
+    };
+    mockRegisterApiService = {
+      register() { return of(); }
+    };
+    mockProfileApiService = {
       getProfile() { return of(null); },
       updateProfile() { return of(true); },
-      logout() { return of(true); },
-      login() { return of(true); },
-      register() { return of(true); }
     };
     mockAccessApiService = {
       getAuthorizedAccess() { return throwError({ status: 403 }); }
@@ -51,8 +64,11 @@ describe('AppService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.auth, useValue: mockAuthApiService },
-        { provide: API_SERVICE_INJECTION_TOKENS.dataAccess, useValue: mockAccessApiService }
+        { provide: API_SERVICE_INJECTION_TOKENS.login, useValue: mockLoginApiService },
+        { provide: API_SERVICE_INJECTION_TOKENS.guest, useValue: mockGuestApiService },
+        { provide: API_SERVICE_INJECTION_TOKENS.register, useValue: mockRegisterApiService },
+        { provide: API_SERVICE_INJECTION_TOKENS.accountProfile, useValue: mockProfileApiService },
+        { provide: API_SERVICE_INJECTION_TOKENS.access, useValue: mockAccessApiService }
       ]
     });
   });
@@ -76,7 +92,7 @@ describe('AppService', () => {
       guestLogin() { return throwError({ status: 500 }); },
       login() { return throwError({ status: 500 }); }
     };
-    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.auth, { useValue: mockAuthApiService2 });
+    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.login, { useValue: mockAuthApiService2 });
     service = TestBed.inject(AppService);
 
     expect(service).toBeTruthy();
@@ -103,6 +119,7 @@ describe('AppService', () => {
   });
 
   it('should emit truthy state for a succesful registration', () => {
+    // TODO fix has no expectations
     service = TestBed.inject(AppService);
 
     service.register(MOCK_REGISTRATION_DETAILS).subscribe(
@@ -113,6 +130,7 @@ describe('AppService', () => {
   });
 
   it('should try to login after a succesful registration', () => {
+    // TODO fix has no expectations
     service = TestBed.inject(AppService);
 
     const loginSpy = spyOn(service, 'login').and.callThrough();
@@ -127,7 +145,7 @@ describe('AppService', () => {
     const mockAuthApiService2 = {
       register() { return throwError({ status: 500 }); }
     };
-    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.auth, { useValue: mockAuthApiService2 });
+    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.login, { useValue: mockAuthApiService2 });
     service = TestBed.inject(AppService);
 
     expect(service).toBeTruthy();
@@ -141,7 +159,7 @@ describe('AppService', () => {
     const mockAuthApiService2 = {
       register() { return throwError({ status: 500 }); }
     };
-    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.auth, { useValue: mockAuthApiService2 });
+    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.login, { useValue: mockAuthApiService2 });
     service = TestBed.inject(AppService);
 
     expect(service).toBeTruthy();

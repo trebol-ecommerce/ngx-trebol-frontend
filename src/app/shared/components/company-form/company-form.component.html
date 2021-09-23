@@ -1,0 +1,17 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<form [formGroup]="formGroup">
+  <mat-form-field class="idNumber">
+    <input matInput placeholder="Rut Empresa" formControlName="idNumber"
+      (blur)="onTouched()" />
+  </mat-form-field>
+  <mat-form-field class="name">
+    <input matInput placeholder="Razón Social" formControlName="name"
+      (blur)="onTouched()" />
+  </mat-form-field>
+</form>

@@ -1,35 +1,34 @@
 <!--
- Copyright (c) 2020 Benjamin La Madrid
+  Copyright (c) 2021 The Trébol eCommerce Project
 
- This software is released under the MIT License.
- https://opensource.org/licenses/MIT
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
 -->
 
-<div class="dialog">
-  <app-slideshow [images]="product.images"
-    [autocycle]="false">
-  </app-slideshow>
-  <div class="about">
-    <h2 class="name">{{ product?.name }}</h2>
-    <h4 class="barcode">{{ product?.barcode }}</h4>
-    <p class="description">{{ product?.description }}</p>
-  </div>
-  <div class="actions">
-    <span class="price">${{ product?.price }}</span>
-    <div class="add-to-cart">
-      <mat-icon>shopping_cart</mat-icon>
-      <div class="quantity-wrapper">
-        <button mat-button mat-icon-button type="button"
-          (click)="onClickIncreaseProductQuantity()">
-          <mat-icon>add </mat-icon>
-        </button>
-        <span class="quantity">{{ productUnitsInCart$ | async }}</span>
-        <button mat-button mat-icon-button type="button"
-          [disabled]="productNotInCart$ | async"
-          (click)="onClickDecreaseProductQuantity()">
-          <mat-icon>remove</mat-icon>
-        </button>
-      </div>
+<app-slideshow
+  [images]="product?.images"
+  [autocycle]="false">
+</app-slideshow>
+<div class="about">
+  <h2 class="name">{{ product?.name }}</h2>
+  <h4 class="barcode">{{ product?.barcode }}</h4>
+  <p class="description">{{ product?.description }}</p>
+</div>
+<div class="actions">
+  <span class="price">${{ product?.price }}</span>
+  <div class="add-to-cart">
+    <mat-icon>shopping_cart</mat-icon>
+    <div class="quantity-wrapper">
+      <button mat-button mat-icon-button type="button"
+        (click)="onClickIncreaseProductQuantity()">
+        <mat-icon>add </mat-icon>
+      </button>
+      <span class="quantity">{{ productUnitsInCart$ | async }}</span>
+      <button mat-button mat-icon-button type="button"
+        [disabled]="productNotInCart$ | async"
+        (click)="onClickDecreaseProductQuantity()">
+        <mat-icon>remove</mat-icon>
+      </button>
     </div>
   </div>
 </div>

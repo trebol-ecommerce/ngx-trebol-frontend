@@ -1,28 +1,34 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Injectable, OnInit, Inject } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductFamily } from 'src/app/models/entities/ProductFamily';
+import { map } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { ProductType } from 'src/app/models/entities/ProductType';
-import { StoreApiIService } from 'src/app/api/store/store-api.iservice';
+import { ICategoriesPublicApiService } from 'src/app/api/categories-public-api.iservice';
+import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 
 @Injectable({ providedIn: 'root' })
 export class ProductFiltersPanelService {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected apiService: StoreApiIService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.categories) private apiService: ICategoriesPublicApiService,
   ) { }
 
-  public getAllProductFamilies(): Observable<ProductFamily[]> {
-    return this.apiService.fetchAllProductFamilies();
+  getRootProductCategories(): Observable<ProductCategory[]> {
+    return this.apiService.fetchRootProductCategories().pipe(
+      map(page => page.items)
+    );
   }
 
-  public getProductTypesFromFamilyId(id: number): Observable<ProductType[]> {
-    return this.apiService.fetchProductTypesByFamilyId(id);
+  getChildrenProductCategoryByParentCode(code: number): Observable<ProductCategory[]> {
+    return this.apiService.fetchChildrenProductCategoriesByParentCode(code).pipe(
+      map(page => page.items)
+    );
   }
 
 }

@@ -1,14 +1,14 @@
-export class Registration {
-  public name: string;
-  public password: string;
-  public profile: RegistrationProfile;
-}
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-class RegistrationProfile {
-  public name: string;
-  public idCard: string;
-  public email: string;
-  public address: string;
-  public phone1: number;
-  public phone2: number;
+import { Person } from './entities/Person';
+
+export class Registration {
+  name: string;
+  password: string;
+  profile: Person;
 }

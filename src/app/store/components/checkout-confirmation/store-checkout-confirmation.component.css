@@ -1,0 +1,47 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+:host {
+  display: block;
+  padding: 1rem;
+  text-align: center;
+}
+
+mat-card {
+  text-align: left;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+mat-card div {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  text-align: left;
+}
+
+mat-card .customer > .details,
+mat-card .company > .details {
+  display: inline-flex;
+  flex-flow: column nowrap;
+}
+
+mat-card .customer > .details > .name,
+mat-card .company > .details > .name {
+  white-space: break-spaces;
+}
+
+button.request {
+  margin: 0 0 1rem;
+}
+
+@media(min-width: 1008px) {
+  :host {
+    padding: 2rem;
+  }
+}

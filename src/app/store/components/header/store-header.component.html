@@ -1,0 +1,16 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<app-store-header-brand></app-store-header-brand>
+<app-store-header-navigation></app-store-header-navigation>
+<app-store-header-middle></app-store-header-middle>
+<ng-container *ngIf="(isLoggedIn$ | async); else notLoggedIn">
+  <app-store-header-menu></app-store-header-menu>
+</ng-container>
+<ng-template #notLoggedIn>
+  <app-store-header-login-button></app-store-header-login-button>
+</ng-template>

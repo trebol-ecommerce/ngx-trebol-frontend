@@ -1,7 +1,9 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -15,12 +17,11 @@ import { ManagementService } from './management.service';
 export class ManagementComponent
   implements OnInit {
 
-  public isSidenavOpen$: Observable<boolean>;
+  isSidenavOpen$: Observable<boolean>;
 
   constructor(
-    protected service: ManagementService
-  ) {
-  }
+    private service: ManagementService
+  ) { }
 
   ngOnInit(): void {
     this.isSidenavOpen$ = this.service.isSidenavOpen$.pipe();

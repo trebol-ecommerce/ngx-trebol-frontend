@@ -1,0 +1,26 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<div class="product-units-control">
+  <mat-icon>shopping_cart</mat-icon>
+  <div class="quantity-wrapper">
+    <button type="button" class="decrease-quantity"
+      mat-button mat-icon-button
+      title="Quitar unidad"
+      [disabled]="notInCart"
+      (click)="onClickDecrease()">
+      <mat-icon>remove</mat-icon>
+    </button>
+    <span class="quantity">{{ units }}</span>
+    <button type="button" class="increase-quantity"
+      title="Agregar unidad"
+      mat-button mat-icon-button
+      (click)="onClickIncrease()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<form [formGroup]="formGroup">
+  <mat-radio-group formControlName="sellType"
+    aria-label="Selecciona el tipo de comprobante">
+    <mat-radio-button *ngFor="let option of typesOptions"
+      [value]="option"
+      (blur)="onTouched()">
+      {{ types[option] }}
+    </mat-radio-button>
+  </mat-radio-group>
+  <app-company-form #companyForm formControlName="company">
+  </app-company-form>
+  <app-addresses-editor-form #addressForm formControlName="address"
+    placeholder="Dirección de facturación"
+    editLabel="Editar dirección de facturación"
+    addLabel="Nueva dirección de facturación">
+  </app-addresses-editor-form>
+</form>

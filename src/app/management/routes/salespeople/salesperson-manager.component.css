@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2020 Benjamin La Madrid
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -9,7 +9,7 @@
   max-width: 100%;
 }
 
-.mat-column-idCard {
+.mat-column-idNumber {
   text-align: center;
   max-width: 8rem;
 }

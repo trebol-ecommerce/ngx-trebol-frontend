@@ -1,15 +1,17 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'centered-mat-spinner',
-  template: `<div><mat-spinner></mat-spinner></div>`,
+  selector: 'app-centered-mat-spinner',
+  template: `<mat-spinner></mat-spinner>`,
   styles: [
-    `div {
+    `:host {
       width: 100%;
       height: 100%;
       display: grid;

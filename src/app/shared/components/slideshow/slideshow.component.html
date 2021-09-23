@@ -1,49 +1,54 @@
-<div class="slideshow">
-  <div class="slides">
-    <ng-container *ngIf="images?.length; else noImageAvailable">
-      <div *ngFor="let image of images; index as i"
-        class="slide-wrapper">
-        <img [hidden]="(currentIndex$ | async) != i"
-          [src]="image.url" alt="" [@fadeInOut]="((currentIndex$ | async) != i) ? 'transparent' : 'opaque'"
-          (mouseenter)="stopAutoRotation()" (mouseleave)="startAutoRotation()" />
-      </div>
-      <ng-container *ngIf="editable">
-        <button type="button" class="slide-remove"
-          mat-button mat-mini-fab
-          color="warn"
-          (click)="onClickRemove()">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </ng-container>
-    </ng-container>
-    <ng-template #noImageAvailable>
-      <div class="slide-wrapper">
-        <img src="assets/img/products/unavailable.png" alt="Imagen no disponible" />
-      </div>
-    </ng-template>
-  </div>
-  <div class="selectors">
-    <ng-container *ngFor="let image of images; index as i">
-      <ng-container *ngIf="(currentIndex$ | async) == i; then selected; else notSelected"></ng-container>
-      <ng-template #selected>
-        <button type="button" class="slide-selector"
-          mat-button mat-icon-button>
-          <mat-icon>radio_button_checked</mat-icon>
-        </button>
-      </ng-template>
-      <ng-template #notSelected>
-        <button type="button" class="slide-selector"
-          mat-button mat-icon-button (click)="goToSlide(i)">
-          <mat-icon>radio_button_unchecked</mat-icon>
-        </button>
-      </ng-template>
-    </ng-container>
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<div class="slides">
+  <ng-container *ngIf="images?.length; else noImageAvailable">
+    <div *ngFor="let image of images; index as i"
+      class="slide-wrapper">
+      <img [hidden]="(currentIndex$ | async) != i"
+        [src]="image.url" alt="" [@fadeInOut]="((currentIndex$ | async) != i) ? 'transparent' : 'opaque'"
+        (mouseenter)="stopAutoRotation()" (mouseleave)="startAutoRotation()" />
+    </div>
     <ng-container *ngIf="editable">
-      <button type="button" class="slide-add"
-        mat-button mat-icon-button
-        (click)="onClickAdd()">
-        <mat-icon>add_circle_outline</mat-icon>
+      <button type="button" class="slide-remove"
+        mat-button mat-mini-fab
+        color="warn"
+        (click)="onClickRemove()">
+        <mat-icon>delete</mat-icon>
       </button>
     </ng-container>
-  </div>
+  </ng-container>
+  <ng-template #noImageAvailable>
+    <div class="slide-wrapper">
+      <img src="assets/img/products/unavailable.png" alt="Imagen no disponible" />
+    </div>
+  </ng-template>
+</div>
+<div class="selectors">
+  <ng-container *ngFor="let image of images; index as i">
+    <ng-container *ngIf="(currentIndex$ | async) === i; then selected; else notSelected"></ng-container>
+    <ng-template #selected>
+      <button type="button" class="slide-selector"
+        mat-button mat-icon-button>
+        <mat-icon>radio_button_checked</mat-icon>
+      </button>
+    </ng-template>
+    <ng-template #notSelected>
+      <button type="button" class="slide-selector"
+        mat-button mat-icon-button (click)="goToSlide(i)">
+        <mat-icon>radio_button_unchecked</mat-icon>
+      </button>
+    </ng-template>
+  </ng-container>
+  <ng-container *ngIf="editable">
+    <button type="button" class="slide-add"
+      mat-button mat-icon-button
+      (click)="onClickAdd()">
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+  </ng-container>
 </div>

@@ -1,4 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { Component, Input } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({

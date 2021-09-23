@@ -1,11 +1,15 @@
-/**
- * Copyright (c) 2021 Benjamin La Madrid
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
+import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SlideshowComponent } from './slideshow.component';
 
 describe('SlideshowComponent', () => {
@@ -14,6 +18,12 @@ describe('SlideshowComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      imports: [
+        NoopAnimationsModule,
+        CommonModule,
+        MatButtonModule,
+        MatIconModule
+      ],
       declarations: [ SlideshowComponent ]
     })
     .compileComponents();

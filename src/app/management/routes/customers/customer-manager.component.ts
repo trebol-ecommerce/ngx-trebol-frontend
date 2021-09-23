@@ -1,13 +1,14 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Customer } from 'src/app/models/entities/Customer';
-import { DataManagerComponentDirective } from '../data-manager.component-directive';
+import { DataManagerComponentDirective } from '../../directives/data-manager.component-directive';
 import { CustomerManagerService } from './customer-manager.service';
 
 @Component({
@@ -22,27 +23,23 @@ export class CustomerManagerComponent
   extends DataManagerComponentDirective<Customer>
   implements OnInit {
 
-  public tableColumns: string[] = [ 'name', 'idCard' ];
+  tableColumns: string[] = [ 'name', 'idNumber' ];
 
   constructor(
     protected service: CustomerManagerService,
-    protected route: ActivatedRoute
+    private route: ActivatedRoute
   ) {
     super();
   }
 
   ngOnInit(): void {
-    super.init(this.service);
+    super.ngOnInit();
     this.route.data.subscribe(
       d => {
         this.service.updateAccess(d.access);
         this.service.reloadItems();
       }
     );
-  }
-
-  public openFormDialog(item: Customer): Observable<Customer> {
-    throw new Error('Method not implemented.');
   }
 
 }

@@ -1,0 +1,15 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<mat-nav-list>
+  <a mat-list-item *ngFor="let module of (modules$ | async)"
+    [routerLink]="[baseModule, module.path]"
+    [class.active]="module.active">
+    <mat-icon>{{ module.icon }}</mat-icon>
+    {{ module.text }}
+  </a>
+</mat-nav-list>

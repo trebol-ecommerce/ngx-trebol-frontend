@@ -1,39 +1,44 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { LocalMemoryDataModule } from 'src/app/api/data/local-memory/local-memory-data-api.module';
-import { StoreService } from './store.service';
-import { Product } from 'src/app/models/entities/Product';
+import { of } from 'rxjs';
+import { catchError, finalize, take } from 'rxjs/operators';
+import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
-import { take } from 'rxjs/operators';
-import { StoreApiIService } from '../api/store/store-api.iservice';
-import { empty, EMPTY } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
+import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
+import { MOCK_PRODUCTS } from '../api/local-memory/mock/mock-products.datasource';
+import { CheckoutRequest } from '../models/CheckoutRequest';
+import { StoreService } from './store.service';
 
 describe('StoreService', () => {
   let service: StoreService;
-  let apiService: Partial<StoreApiIService>;
-  const mockProduct: Product = { id: 1, barcode: 'example', name: 'test product', price: 500, productType: { id: 1 } };
-  const mockProductTwo: Product = { id: 2, barcode: 'example2', name: 'test product two', price: 1000, productType: { id: 1 } };
+  let mockCheckoutApiService: Partial<ICheckoutPublicApiService>;
+  let apiSubmitCartSpy: jasmine.Spy;
+  const mockProduct = MOCK_PRODUCTS[0];
+  const mockProductTwo = MOCK_PRODUCTS[1];
 
   beforeEach(() => {
-    apiService = {
-      submitCart() { return EMPTY; }
+    mockCheckoutApiService = {
+      submitCart() { return of(void 0); }
     };
-    spyOn(apiService, 'submitCart').and.callThrough();
+    apiSubmitCartSpy = spyOn(mockCheckoutApiService, 'submitCart').and.callThrough();
 
     TestBed.configureTestingModule({
       imports: [
-        LocalMemoryDataModule,
+        LocalMemoryApiModule,
         HttpClientTestingModule
       ],
       providers: [
         StoreService,
-        { provide: API_SERVICE_INJECTION_TOKENS.store, useValue: apiService }
+        { provide: API_SERVICE_INJECTION_TOKENS.checkout, useValue: mockCheckoutApiService }
       ]
     });
     service = TestBed.inject(StoreService);
@@ -130,12 +135,23 @@ describe('StoreService', () => {
     );
   });
 
-  it('should checkout the cart', () => {
-    service.submitCart().subscribe(
-      () => {
-        expect(apiService.submitCart).toHaveBeenCalled();
-      }
-    );
+  it('should fail requesting a checkout page when data is not filled', () => {
+    service.requestPayment().pipe(
+      catchError(err => of(null))
+    ).subscribe(result => {
+      expect(result).toBe(null);
+    });
+  });
+
+  it('should request a checkout page when data has been correctly filled', () => {
+    service.checkoutRequestData = new CheckoutRequest();
+    service.checkoutRequestData.billing = { sellType: environment.labels.sellTypes.Bill };
+    service.checkoutRequestData.shipping = { requestShipping: false };
+    service.requestPayment().pipe(
+      finalize(() => {
+        expect(apiSubmitCartSpy).toHaveBeenCalled();
+      })
+    ).subscribe();
   });
 
 });

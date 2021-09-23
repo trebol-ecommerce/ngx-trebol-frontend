@@ -1,21 +1,14 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
-
-import { AbstractEntity } from 'src/app/models/AbstractEntity';
-
-/**
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
  *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
  */
-export class Person
-  implements AbstractEntity {
 
-  public id: number;
-  public name: string;
-  public idCard: string;
-  public email: string;
-  public address: string;
-  public phone1?: number;
-  public phone2?: number;
+export class Person {
+  name: string;
+  idNumber: string;
+  email: string;
+  phone1?: number;
+  phone2?: number;
 }

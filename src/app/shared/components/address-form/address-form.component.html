@@ -1,0 +1,24 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<form [formGroup]="formGroup">
+  <mat-form-field class="city">
+    <input matInput placeholder="Ciudad" formControlName="city" />
+  </mat-form-field>
+  <mat-form-field class="municipality">
+    <input matInput placeholder="Comuna" formControlName="municipality" />
+  </mat-form-field>
+  <mat-form-field class="firstLine">
+    <input matInput placeholder="Dirección" formControlName="firstLine" />
+  </mat-form-field>
+  <mat-form-field class="secondLine">
+    <input matInput placeholder="Dirección, línea 2" formControlName="secondLine" />
+  </mat-form-field>
+  <mat-form-field class="notes">
+    <input matInput placeholder="Notas o Indicaciones" formControlName="notes" />
+  </mat-form-field>
+</form>

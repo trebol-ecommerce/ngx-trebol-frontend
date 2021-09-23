@@ -1,18 +1,20 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from 'src/app/models/entities/Product';
+import { ProductFormComponent } from 'src/app/shared/components/product-form/product-form.component';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
-import { DataManagerComponentDirective } from '../data-manager.component-directive';
-import { ProductManagerFormDialogComponent, ProductManagerFormDialogData } from './form-dialog/product-manager-form-dialog.component';
+import { DataManagerFormDialogConfig } from '../../dialogs/data-manager-form-dialog/DataManagerFormDialogConfig';
+import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { ProductManagerService } from './product-manager.service';
 
 @Component({
@@ -24,16 +26,17 @@ import { ProductManagerService } from './product-manager.service';
   ]
 })
 export class ProductManagerComponent
-  extends DataManagerComponentDirective<Product>
+  extends TransactionalDataManagerComponentDirective<Product>
   implements OnInit {
 
-  public tableColumns: string[] = [ 'name', 'barcode', 'price', 'currentStock', 'criticalStock', 'actions' ];
+  tableColumns: string[] = [ 'name', 'barcode', 'price', 'actions' ];
+  // tableColumns: string[] = [ 'name', 'barcode', 'price', 'currentStock', 'criticalStock', 'actions' ];
 
   constructor(
     protected service: ProductManagerService,
     protected dialogService: MatDialog,
-    protected snackBarService: MatSnackBar,
-    protected route: ActivatedRoute
+    private snackBarService: MatSnackBar,
+    private route: ActivatedRoute
   ) {
     super();
   }
@@ -48,19 +51,22 @@ export class ProductManagerComponent
     );
   }
 
-  public openFormDialog(product: Product): Observable<Product> {
-    const dialogData: ProductManagerFormDialogData = { product };
-
-    return this.dialogService.open(
-      ProductManagerFormDialogComponent,
-      {
-        width: '40rem',
-        data: dialogData
-      }
-    ).afterClosed();
+  protected createDialogProperties(item: Product | undefined): DataManagerFormDialogConfig<Product> {
+    const realItem = ( item ? item : new Product() );
+    const title = ( item ? 'Editar' : 'Nuevo' ) + ' Producto';
+    return {
+      data: {
+        item: realItem,
+        formComponent: ProductFormComponent,
+        service: this.service.dataService,
+        title
+      },
+      width: '40rem',
+      maxHeight: '80vh'
+    };
   }
 
-  public onClickDelete(prod: Product) {
+  onClickDelete(prod: Product) {
     this.service.removeItems([prod]).pipe(
       map(results => results[0])
     ).subscribe(

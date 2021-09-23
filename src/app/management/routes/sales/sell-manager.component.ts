@@ -1,18 +1,20 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
+import { SellFormComponent } from 'src/app/shared/components/sell-form/sell-form.component';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
-import { DataManagerComponentDirective } from '../data-manager.component-directive';
-import { SaleManagerFormDialogData, SellManagerFormDialogComponent } from './form-dialog/sell-manager-form-dialog.component';
+import { DataManagerFormDialogConfig } from '../../dialogs/data-manager-form-dialog/DataManagerFormDialogConfig';
+import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { SellManagerService } from './sell-manager.service';
 
 @Component({
@@ -24,16 +26,16 @@ import { SellManagerService } from './sell-manager.service';
   ]
 })
 export class SellManagerComponent
-  extends DataManagerComponentDirective<Sell>
+  extends TransactionalDataManagerComponentDirective<Sell>
   implements OnInit {
 
-  public tableColumns: string[] = [ 'id', 'date', 'actions' ];
+  tableColumns: string[] = [ 'id', 'date', 'customerName', 'status', 'actions' ];
 
   constructor(
     protected service: SellManagerService,
     protected dialogService: MatDialog,
-    protected snackBarService: MatSnackBar,
-    protected route: ActivatedRoute
+    private snackBarService: MatSnackBar,
+    private route: ActivatedRoute
   ) {
     super();
   }
@@ -48,25 +50,24 @@ export class SellManagerComponent
     );
   }
 
-  public openFormDialog(sell: Sell): Observable<Sell> {
-    const dialogData: SaleManagerFormDialogData = { sell };
-
-    return this.dialogService.open(
-      SellManagerFormDialogComponent,
-      {
-        width: '80rem',
-        data: dialogData
-      }
-    ).afterClosed();
+  protected createDialogProperties(item: Sell): DataManagerFormDialogConfig<Sell> {
+    return {
+      data: {
+        item,
+        formComponent: SellFormComponent,
+        service: this.service.dataService
+      },
+      width: '80rem'
+    };
   }
 
-  public onClickDelete(s: Sell) {
+  onClickDelete(s: Sell) {
     this.service.removeItems([s]).pipe(
       map(results => results[0])
     ).subscribe(
       success => {
         if (success) {
-          this.snackBarService.open(`Venta N°${s.id} (${s.soldOn}) eliminada`);
+          this.snackBarService.open(`Venta N°${s.buyOrder} (${s.date}) eliminada`);
           this.service.reloadItems();
         } else {
           this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');

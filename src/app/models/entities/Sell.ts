@@ -1,23 +1,27 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { AbstractEntity } from 'src/app/models/AbstractEntity';
+import { Address } from './Address';
+import { BillingCompany } from './BillingCompany';
 import { Customer } from './Customer';
 import { Salesperson } from './Salesperson';
 import { SellDetail } from './SellDetail';
-import { SellType } from './SellType';
 
-export class Sell
-  extends AbstractEntity {
-
-  public id: number;
-  public details: SellDetail[];
-  public type: Partial<SellType>;
-  public soldOn: string;
-  public customer: Partial<Customer>;
-
-  public subtotalValue?: number;
-  public salesperson?: Partial<Salesperson>;
+export class Sell {
+  buyOrder?: number;
+  details: SellDetail[];
+  date?: Date;
+  billingType: string;
+  billingCompany?: BillingCompany;
+  paymentType: string;
+  customer: Customer;
+  netValue?: number;
+  salesperson?: Salesperson;
+  status?: string;
+  billingAddress?: Address;
+  shippingAddress?: Address;
 }

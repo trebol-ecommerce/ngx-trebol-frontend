@@ -1,13 +1,15 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
+import { map } from 'rxjs/operators';
 import { Product } from 'src/app/models/entities/Product';
+import { ProductFilters } from "src/app/shared/components/product-filters-panel/ProductFilters";
 import { ProductsArrayService } from './products-array.service';
 
 @Component({
@@ -18,19 +20,16 @@ import { ProductsArrayService } from './products-array.service';
 export class ProductsArrayDialogComponent
   implements OnInit {
 
-  protected productsArray: Product[];
-
-  public filteredProductsArray$: Observable<Product[]>;
-  public productsArray$: Observable<Product[]>;
-  public loading$: Observable<boolean>;
-  public isArrayEmpty$: Observable<boolean>;
-
-  public productTableColumns: string[] = [ 'name', 'price', 'actions' ];
+  filteredProductsArray$: Observable<Product[]>;
+  productsArray$: Observable<Product[]>;
+  loading$: Observable<boolean>;
+  isArrayEmpty$: Observable<boolean>;
+  productTableColumns = [ 'name', 'price', 'actions' ];
 
   constructor(
-    protected service: ProductsArrayService,
+    private service: ProductsArrayService,
   ) {
-    this.productsArray$ = this.service.productsArray$.pipe(tap(p => { this.productsArray = p; }));
+    this.productsArray$ = this.service.productsArray$.pipe();
     this.isArrayEmpty$ = this.productsArray$.pipe(map(array => (array.length === 0)));
   }
 
@@ -39,15 +38,15 @@ export class ProductsArrayDialogComponent
     this.loading$ = this.service.loading$.pipe();
   }
 
-  public onFiltersChange(f: ProductFilters): void {
+  onFiltersChange(f: ProductFilters): void {
     this.service.changeFiltersTo(f);
   }
 
-  public onClickIncludeProduct(p: Product): void {
+  onClickIncludeProduct(p: Product): void {
     this.service.includeProduct(p);
   }
 
-  public onClickDropProduct(i: number): void {
+  onClickDropProduct(i: number): void {
     this.service.dropProductByIndex(i);
   }
 

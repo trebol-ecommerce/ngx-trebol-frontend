@@ -1,23 +1,37 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
 import { TestBed } from '@angular/core/testing';
-import { EntityDataApiIService } from 'src/app/api/data/entity-data-api.iservice';
+import { concat, of } from 'rxjs';
+import { take, takeLast } from 'rxjs/operators';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { Image } from 'src/app/models/entities/Image';
 import { ImagesService } from './images.service';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { of, concat } from 'rxjs';
-import { take, takeLast } from 'rxjs/operators';
 
 describe('ImagesService', () => {
   let service: ImagesService;
-  let mockDataService: Partial<EntityDataApiIService<Image>>;
+  let mockDataService: Partial<IEntityDataApiService<Image>>;
 
   beforeEach(() => {
     mockDataService = {
-      readAll() { return of([]); }
+      fetchPage() {
+        return of({
+          items: [],
+          totalCount: 0,
+          pageIndex: 0,
+          pageSize: 100
+        });
+      }
     };
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.imagesCrud, useValue: mockDataService }
+        { provide: API_SERVICE_INJECTION_TOKENS.dataImages, useValue: mockDataService }
       ]
     });
   });
@@ -39,11 +53,18 @@ describe('ImagesService', () => {
   });
 
   it('should re-cache after calling fetch()', () => {
-    const exampleImageArray: Image[] = [ { url: 'fake', filename: 'example', id: 'fake' } ];
+    const exampleImageArray: Image[] = [ { url: 'fake', filename: 'example' } ];
     mockDataService = {
-      readAll() { return of(exampleImageArray); }
+      fetchPage() {
+        return of({
+          items: exampleImageArray,
+          totalCount: 1,
+          pageIndex: 0,
+          pageSize: 100
+        });
+      }
     };
-    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.imagesCrud, { useValue: mockDataService });
+    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.dataImages, { useValue: mockDataService });
     service = TestBed.inject(ImagesService);
 
     concat(

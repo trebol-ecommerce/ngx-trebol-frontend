@@ -1,44 +1,41 @@
 <!--
- Copyright (c) 2020 Benjamin La Madrid
+  Copyright (c) 2021 The Trébol eCommerce Project
 
- This software is released under the MIT License.
- https://opensource.org/licenses/MIT
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
 -->
 
-<div class="dialog">
-  <h2 mat-dialog-title>Registro de Cliente</h2>
-  <centered-mat-spinner *ngIf="registering$ | async">
-  </centered-mat-spinner>
+<h2 mat-dialog-title>Nueva Cuenta de Usuario</h2>
+<app-centered-mat-spinner *ngIf="registering$ | async">
+</app-centered-mat-spinner>
+<div [hidden]="registering$ | async">
+  <form [formGroup]="formGroup" (submit)="onSubmit()">
+    <mat-form-field class="name">
+      <input matInput placeholder="Nombre de Usuario" formControlName="name" />
+    </mat-form-field>
 
-  <div [hidden]="registering$ | async">
-    <form [formGroup]="formGroup" (submit)="onSubmit()">
-      <mat-form-field style="grid-area: name">
-        <input matInput placeholder="Nombre de Usuario" formControlName="name" />
-      </mat-form-field>
+    <mat-form-field class="pass1">
+      <input matInput placeholder="Clave de Usuario" formControlName="pass1" type="password" />
+    </mat-form-field>
 
-      <mat-form-field style="grid-area: pass1">
-        <input matInput placeholder="Clave de Usuario" formControlName="pass1" type="password" />
-      </mat-form-field>
+    <mat-form-field class="pass2">
+      <input matInput placeholder="Repetir Clave" formControlName="pass2" type="password" />
+    </mat-form-field>
 
-      <mat-form-field style="grid-area: pass2">
-        <input matInput placeholder="Repetir Clave" formControlName="pass2" type="password" />
-      </mat-form-field>
+    <app-person-form formControlName="person">
+    </app-person-form>
 
-      <app-person-form #personForm style="grid-area: person">
-      </app-person-form>
+    <div class="actions">
+      <button mat-button mat-raised-button type="submit"
+        color="primary"
+        [disabled]="formGroup.invalid">
+        Aceptar
+      </button>
 
-      <div>
-        <button mat-button mat-raised-button type="submit"
-          color="primary"
-          [disabled]="formGroup.invalid">
-          Aceptar
-        </button>
-
-        <button mat-button mat-raised-button type="button"
-          (click)="onCancel()">
-          Cancelar
-        </button>
-      </div>
-    </form>
-  </div>
+      <button mat-button mat-raised-button type="button"
+        (click)="onCancel()">
+        Cancelar
+      </button>
+    </div>
+  </form>
 </div>

@@ -1,0 +1,30 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<mat-form-field>
+  <mat-select [placeholder]="placeholder" [formControl]="formControl">
+    <mat-option *ngFor="let addr of savedAddresses"
+      [value]="addr"
+      (blur)="onTouched()">
+      {{ addr | address }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<button type="button" class="edit"
+  mat-button mat-mini-fab
+  [disabled]="!formControl.enabled || !formControl.value"
+  [title]="editLabel"
+  (click)="onClickEdit()">
+  <mat-icon>edit</mat-icon>
+</button>
+<button type="button" class="add"
+  mat-button mat-mini-fab
+  [disabled]="!formControl.enabled"
+  [title]="addLabel"
+  (click)="onClickAdd()">
+  <mat-icon>add</mat-icon>
+</button>

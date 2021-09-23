@@ -1,26 +1,42 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
-import { StoreCatalogService } from './store-catalog.service';
-import { StoreApiIService } from 'src/app/api/store/store-api.iservice';
-import { of, EMPTY } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { IProductsPublicApiService } from 'src/app/api/products-public-api.iservice';
+import { StoreCatalogService } from './store-catalog.service';
 
 describe('StoreCatalogService', () => {
   let service: StoreCatalogService;
-  let mockApiService: Partial<StoreApiIService>;
+  let mockProductsApiService: Partial<IProductsPublicApiService>;
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(() => {
-    mockApiService = {
-      fetchProductById() { return EMPTY; },
-      fetchFilteredProductCollection() { return of([]); },
-      fetchStoreFrontProductCollection() { return of([]); }
+    mockProductsApiService = {
+      fetchProductByBarcode() { return EMPTY; },
+      fetchFilteredProductCollection() {
+        return of({
+          items: [],
+          totalCount: 0,
+          pageIndex: 0,
+          pageSize: 10
+        });
+      },
+      fetchStoreFrontProductCollection() {
+        return of({
+          items: [],
+          totalCount: 0,
+          pageIndex: 0,
+          pageSize: 10
+        });
+      }
     };
     mockDialogService = {
       open() { return void 0; }
@@ -32,7 +48,7 @@ describe('StoreCatalogService', () => {
       ],
       providers: [
         StoreCatalogService,
-        { provide: API_SERVICE_INJECTION_TOKENS.store, useValue: mockApiService },
+        { provide: API_SERVICE_INJECTION_TOKENS.products, useValue: mockProductsApiService },
         { provide: MatDialog, useValue: mockDialogService }
       ]
     });

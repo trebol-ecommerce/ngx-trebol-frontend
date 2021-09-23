@@ -1,10 +1,12 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { TestBed } from '@angular/core/testing';
-import { LocalMemoryDataModule } from 'src/app/api/data/local-memory/local-memory-data-api.module';
+import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
 import { ImageManagerService } from './image-manager.service';
 
 describe('ImageManagerService', () => {
@@ -12,7 +14,7 @@ describe('ImageManagerService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ LocalMemoryDataModule ],
+      imports: [ LocalMemoryApiModule ],
       providers: [
         ImageManagerService
       ]

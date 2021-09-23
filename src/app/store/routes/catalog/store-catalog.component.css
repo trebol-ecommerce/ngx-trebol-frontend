@@ -1,11 +1,11 @@
-/**
- * Copyright (c) 2021 Benjamin La Madrid
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
-.catalog {
+:host {
   display: flex;
   flex-flow: column nowrap;
   align-items: stretch;
@@ -19,7 +19,7 @@ h2 {
   padding: 1rem 1rem 0 1rem;
 }
 
-@media(min-width: 720px) {
+@media(min-width: 641px) {
   h2 {
     padding: 1rem;
   }
@@ -28,14 +28,6 @@ h2 {
 app-product-filters-panel {
   flex: 0 1 auto;
   padding: 0.5rem;
-}
-
-centered-mat-spinner {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 
 .products {
@@ -49,7 +41,7 @@ centered-mat-spinner {
   overflow: hidden;
 }
 
-@media(min-width: 800px) {
+@media(min-width: 641px) {
   app-product-filters-panel {
     padding: 1rem;
   }
@@ -58,7 +50,7 @@ centered-mat-spinner {
     padding: 1rem;
   }
 }
-@media(min-width: 1000px) {
+@media(min-width: 1008px) {
   .products {
     grid-template-columns: repeat(4, 20rem);
   }

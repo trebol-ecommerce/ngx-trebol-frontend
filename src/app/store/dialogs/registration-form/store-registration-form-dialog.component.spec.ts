@@ -1,42 +1,46 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { of, iif, throwError } from 'rxjs';
-import { skip, take } from 'rxjs/operators';
-import { AppService } from 'src/app/app.service';
-import { StoreRegistrationFormDialogComponent } from './store-registration-form-dialog.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { iif, of, throwError } from 'rxjs';
+import { AppService } from 'src/app/app.service';
 import { Registration } from 'src/app/models/Registration';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
-
+import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
+import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
+import { StoreRegistrationFormDialogComponent } from './store-registration-form-dialog.component';
 
 describe('StoreRegistrationFormDialogComponent', () => {
   let component: StoreRegistrationFormDialogComponent;
   let fixture: ComponentFixture<StoreRegistrationFormDialogComponent>;
-  let matDialogRef: Partial<MatDialogRef<StoreRegistrationFormDialogComponent>>;
-  let appService: Partial<AppService>;
-  let snackBarService: Partial<MatSnackBar>;
+  let mockMatDialogRef: Partial<MatDialogRef<StoreRegistrationFormDialogComponent>>;
+  let mockAppService: Partial<AppService>;
+  let mockSnackBarService: Partial<MatSnackBar>;
 
   beforeEach(waitForAsync(() => {
-    matDialogRef = {
+    mockMatDialogRef = {
       close() {}
     };
-    appService = {
+    mockAppService = {
       register(u) { return iif(
           () => (u instanceof Registration),
           of(true),
           throwError(new Error('Not an User')) );
       },
       cancelAuthentication() {}
+    };
+    mockSnackBarService = {
+      open(m: string, a: string) { return void 0; }
     };
 
     TestBed.configureTestingModule({
@@ -51,11 +55,13 @@ describe('StoreRegistrationFormDialogComponent', () => {
       ],
       declarations: [
         StoreRegistrationFormDialogComponent,
-        PersonFormComponent
+        PersonFormComponent,
+        CenteredMatProgressSpinnerComponent
       ],
       providers: [
-        { provide: MatDialogRef, useValue: matDialogRef },
-        { provide: AppService, useValue: appService }
+        { provide: MatDialogRef, useValue: mockMatDialogRef },
+        { provide: AppService, useValue: mockAppService },
+        { provide: MatSnackBar, useValue: mockSnackBarService }
       ]
     })
     .compileComponents();
@@ -64,7 +70,6 @@ describe('StoreRegistrationFormDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(StoreRegistrationFormDialogComponent);
     component = fixture.componentInstance;
-    snackBarService = TestBed.inject(MatSnackBar);
     fixture.detectChanges();
   });
 
@@ -81,34 +86,24 @@ describe('StoreRegistrationFormDialogComponent', () => {
   });
 
   it('should submit a correct form', () => {
-    const dialogCloseSpy = spyOn(matDialogRef, 'close');
-    const snackBarOpenSpy = spyOn(snackBarService, 'open');
-    let success: boolean;
+    const registerSpy = spyOn(mockAppService, 'register').and.callThrough();
 
-    component.registering$.pipe(
-      skip(1),
-      take(1)
-    ).subscribe(
-      s => { success = s; }
-    );
-
-    component.personForm.name.setValue('test-name');
-    component.personForm.address.setValue('test-address');
-    component.personForm.email.setValue('test-email');
-    component.personForm.idCard.setValue('test-idcard');
+    component.person.patchValue({
+      name: 'test-name',
+      email: 'test-email',
+      idNumber: 'test-idNumber'
+    });
     component.name.setValue('username');
     component.pass1.setValue('password');
     component.pass2.setValue('password');
-    expect(component.formGroup.status).toBe('VALID');
+    expect(component.formGroup.valid).toBeTruthy();
 
     component.onSubmit();
-    expect(success).toBe(true);
-    expect(snackBarOpenSpy).toHaveBeenCalled();
-    expect(dialogCloseSpy).toHaveBeenCalled();
+    expect(registerSpy).toHaveBeenCalled();
   });
 
   it('should exit when cancelled', () => {
-    const closeSpy = spyOn(matDialogRef, 'close');
+    const closeSpy = spyOn(mockMatDialogRef, 'close');
     component.onCancel();
     expect(closeSpy).toHaveBeenCalled();
   });

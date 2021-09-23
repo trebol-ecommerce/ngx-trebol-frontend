@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
 export const COMMON_WARNING_MESSAGE = 'Hubo un error al procesar. Por favor, inténtelo de nuevo.';
 export const UNKNOWN_ERROR_MESSAGE = 'Error desconocido, intente más tarde';
 

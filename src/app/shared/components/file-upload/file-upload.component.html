@@ -5,24 +5,22 @@
   https://opensource.org/licenses/MIT
 -->
 
-<div class="file-upload">
-  <input #fileInput type="file"
-    (change)="onFileInputChange()"
-    [disabled]="disabled"
-    [multiple]="multiple" hidden />
-  <ng-container *ngIf="required; else notRequired">
-    <textarea matInput cdkTextareaAutosize
-      [placeholder]="placeholder" [focused]="focused" [disabled]="disabled"
-      tabindex="-1"
-      required readonly>{{ fileNames$ | async }}</textarea>
-  </ng-container>
-  <ng-template #notRequired>
-    <textarea matInput cdkTextareaAutosize
-      [placeholder]="placeholder" [focused]="focused" [disabled]="disabled"
-      tabindex="-1"
-      readonly>{{ fileNames$ | async }}</textarea>
-  </ng-template>
-  <button type="button" mat-button mat-icon-button>
-    <mat-icon class="material-icons">attach_file</mat-icon>
-  </button>
-</div>
+<input #fileInput type="file"
+  (change)="onFileInputChange()"
+  [disabled]="disabled"
+  [multiple]="multiple" hidden />
+<ng-container *ngIf="required; else notRequired">
+  <textarea matInput cdkTextareaAutosize
+    [placeholder]="placeholder" [disabled]="disabled"
+    tabindex="-1"
+    required readonly>{{ fileNames$ | async }}</textarea>
+</ng-container>
+<ng-template #notRequired>
+  <textarea matInput cdkTextareaAutosize
+    [placeholder]="placeholder" [disabled]="disabled"
+    tabindex="-1"
+    readonly>{{ fileNames$ | async }}</textarea>
+</ng-template>
+<button type="button" mat-button mat-icon-button>
+  <mat-icon class="material-icons">attach_file</mat-icon>
+</button>

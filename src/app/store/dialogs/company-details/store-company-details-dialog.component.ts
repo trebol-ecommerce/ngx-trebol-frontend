@@ -1,14 +1,16 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, Inject, OnInit } from '@angular/core';
-import { Observable, ReplaySubject, Subject } from 'rxjs';
+import { ReplaySubject, Subject } from 'rxjs';
 import { mapTo, pluck, startWith } from 'rxjs/operators';
+import { IAboutPublicApiService } from 'src/app/api/about-public-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { CompanyDetails } from 'src/app/models/CompanyDetails';
-import { StoreApiIService } from 'src/app/api/store/store-api.iservice';
 
 @Component({
   selector: 'app-store-company-details-dialog',
@@ -20,20 +22,19 @@ export class StoreCompanyDetailsDialogComponent
 
   private dataSource: Subject<CompanyDetails> = new ReplaySubject();
 
-  public data$: Observable<CompanyDetails> = this.dataSource.asObservable();
-  public loading$: Observable<boolean> = this.data$.pipe(mapTo(false), startWith(true));
-  public name$: Observable<string> = this.data$.pipe(pluck('name'));
-  public description$: Observable<string> = this.data$.pipe(pluck('description'));
-  public bannerURL$: Observable<string> = this.data$.pipe(pluck('bannerImageURL'));
-  public logoURL$: Observable<string> = this.data$.pipe(pluck('logoImageURL'));
-
+  data$ = this.dataSource.asObservable();
+  loading$ = this.data$.pipe(mapTo(false), startWith(true));
+  name$ = this.data$.pipe(pluck('name'));
+  description$ = this.data$.pipe(pluck('description'));
+  // bannerURL$ = this.data$.pipe(pluck('bannerImageURL'));
+  logoURL$ = this.data$.pipe(pluck('logoImageURL'));
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected sharedDataService: StoreApiIService
+    @Inject(API_SERVICE_INJECTION_TOKENS.about) private aboutApiService: IAboutPublicApiService
   ) { }
 
   ngOnInit(): void {
-    this.sharedDataService.fetchCompanyDetails().subscribe(
+    this.aboutApiService.fetchCompanyDetails().subscribe(
       companyDetails => { this.dataSource.next(companyDetails); }
     );
   }

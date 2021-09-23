@@ -1,19 +1,21 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Salesperson } from 'src/app/models/entities/Salesperson';
+import { SalespersonFormComponent } from 'src/app/shared/components/salesperson-form/salesperson-form.component';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
-import { DataManagerComponentDirective } from '../data-manager.component-directive';
+import { DataManagerFormDialogConfig } from '../../dialogs/data-manager-form-dialog/DataManagerFormDialogConfig';
+import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { SalespersonManagerService } from './salesperson-manager.service';
-import { SalespersonManagementFormDialogData, SalespersonManagerFormDialogComponent } from './form-dialog/salesperson-manager-form-dialog.component';
 
 @Component({
   selector: 'app-salesperson-manager',
@@ -24,16 +26,16 @@ import { SalespersonManagementFormDialogData, SalespersonManagerFormDialogCompon
   ]
 })
 export class SalespersonManagerComponent
-  extends DataManagerComponentDirective<Salesperson>
+  extends TransactionalDataManagerComponentDirective<Salesperson>
   implements OnInit {
 
-  public tableColumns: string[] = [ 'name', 'idCard', 'actions' ];
+  tableColumns: string[] = [ 'name', 'idNumber', 'actions' ];
 
   constructor(
     protected service: SalespersonManagerService,
     protected dialogService: MatDialog,
-    protected snackBarService: MatSnackBar,
-    protected route: ActivatedRoute
+    private snackBarService: MatSnackBar,
+    private route: ActivatedRoute
   ) {
     super();
   }
@@ -48,19 +50,18 @@ export class SalespersonManagerComponent
     );
   }
 
-  public openFormDialog(salesperson: Salesperson): Observable<Salesperson> {
-    const dialogData: SalespersonManagementFormDialogData = { salesperson };
-
-    return this.dialogService.open(
-      SalespersonManagerFormDialogComponent,
-      {
-        width: '40rem',
-        data: dialogData
-      }
-    ).afterClosed();
+  protected createDialogProperties(item: Salesperson): DataManagerFormDialogConfig<Salesperson> {
+    return {
+      data: {
+        item,
+        formComponent: SalespersonFormComponent,
+        service: this.service.dataService
+      },
+      width: '40rem'
+    };
   }
 
-  public onClickDelete(e: Salesperson) {
+  onClickDelete(e: Salesperson) {
     this.service.removeItems([e]).pipe(
       map(results => results[0])
     ).subscribe(

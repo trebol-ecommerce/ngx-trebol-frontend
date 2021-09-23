@@ -1,0 +1,31 @@
+/**
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+@import '~@angular/material/theming';
+
+@mixin sidenav-color($theme) {
+  $config: mat-get-color-config($theme);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+
+  mat-sidenav {
+    background-color: mat-color($primary) !important;
+    color: white !important;
+  }
+
+  mat-sidenav * {
+    color: white !important;
+  }
+}
+
+@mixin sidenav-theme($theme) {
+  $color: mat-get-color-config($theme);
+
+  @if $color != null {
+    @include sidenav-color($color);
+  }
+}

@@ -1,32 +1,68 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { of } from 'rxjs';
+import { Product } from 'src/app/models/entities/Product';
+import { StoreService } from '../../store.service';
 import { StoreCatalogComponent } from './store-catalog.component';
 import { StoreCatalogService } from './store-catalog.service';
-import { Product } from 'src/app/models/entities/Product';
+
+@Component({ selector: 'app-product-filters-panel' })
+class MockProductFiltersPanelComponent {
+  @Output() filtersChanges = new EventEmitter();
+}
+
+@Component({ selector: 'app-centered-mat-spinner' })
+class MockCenteredMatSpinnerComponent { }
+
+@Component({ selector: 'app-store-product-card' })
+class MockStoreCatalogProductCardComponent {
+  @Input() product: Product;
+  @Output() addToCart = new EventEmitter();
+  @Output() view = new EventEmitter();
+}
 
 describe('StoreCatalogComponent', () => {
   let component: StoreCatalogComponent;
   let fixture: ComponentFixture<StoreCatalogComponent>;
   let catalogService: Partial<StoreCatalogService>;
+  let storeService: Partial<StoreService>;
 
   beforeEach(waitForAsync(() => {
     catalogService = {
       loading$: of(false),
       items$: of([]),
       reloadItems() {},
-      filters: {}
+      filters: {},
+      viewProduct(p) {}
     };
     spyOn(catalogService, 'reloadItems');
+    storeService = {
+      addProductToCart(p) {}
+    };
 
     TestBed.configureTestingModule({
-      declarations: [ StoreCatalogComponent ],
+      imports: [
+        CommonModule,
+        MatProgressSpinnerModule
+      ],
+      declarations: [
+        StoreCatalogComponent ,
+        MockProductFiltersPanelComponent,
+        MockCenteredMatSpinnerComponent,
+        MockStoreCatalogProductCardComponent
+      ],
       providers: [
-        { provide: StoreCatalogService, useValue: catalogService }
+        { provide: StoreCatalogService, useValue: catalogService },
+        { provide: StoreService, useValue: storeService },
       ]
     })
     .compileComponents();

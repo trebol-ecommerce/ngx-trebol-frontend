@@ -1,30 +1,28 @@
 <!--
- Copyright (c) 2020 Benjamin La Madrid
+  Copyright (c) 2021 The Trébol eCommerce Project
 
- This software is released under the MIT License.
- https://opensource.org/licenses/MIT
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
 -->
 
-<div class="dialog">
-  <h2>Para continuar con la compra, debe iniciar sesión, registrarse, o ingresar sus datos de facturación.</h2>
-  <div class="content">
-    <span>Si desea volver al carro de compra, haga clic fuera de este diálogo.</span>
-  </div>
-  <div class="actions">
-    <button mat-button mat-raised-button type="button"
-      color="primary"
-      (click)="onClickOption('login')">
-      Iniciar sesión
-    </button>
-    <button mat-button mat-raised-button type="button"
-      color="warn"
-      (click)="onClickOption('register')">
-      Registrarme
-    </button>
-    <button mat-button mat-raised-button type="button"
-      color="default"
-      (click)="onClickOption('guest')">
-      Continuar sin cuenta
-    </button>
-  </div>
+<h3>Identificación requerida</h3>
+<p>Para proceder a su carrito, debe iniciar sesión, registrarse, o ingresar sus datos de facturación.</p>
+<p>Por favor, elija una de las tres a continuación:</p>
+<div class="actions">
+  <button mat-button mat-raised-button type="button"
+    (click)="onClickOption('login')">
+    Iniciar sesión
+    <mat-icon>verified_user</mat-icon>
+  </button>
+  <button mat-button mat-raised-button type="button"
+    (click)="onClickOption('register')">
+    Registrarme
+    <mat-icon>person_add</mat-icon>
+  </button>
+  <button mat-button mat-raised-button type="button"
+    (click)="onClickOption('guest')">
+    Continuar sin cuenta
+    <mat-icon>remove_moderator</mat-icon>
+  </button>
 </div>
+<p class="hint">Si desea cerrar este diálogo, haga clic fuera de él.</p>

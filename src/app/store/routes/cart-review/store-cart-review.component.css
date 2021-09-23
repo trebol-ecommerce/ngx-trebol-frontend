@@ -1,99 +1,79 @@
-/**
- * Copyright (c) 2020 Benjamin La Madrid
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
-.cart-review {
-  height: 100%;
+:host {
+  flex: 1 1 auto;
+  padding: 0 1rem 2rem;
   display: flex;
   flex-flow: column nowrap;
-  align-items: stretch;
-  align-content: center;
 }
 
-h2.products {
-  flex: 0 0 2rem;
+h1 {
+  font-weight: normal;
   margin: 0;
-  padding: 0.75rem 1rem 0.25rem 1rem;
 }
 
-@media(min-width: 720px) {
-  h2.products {
-    padding: 1rem;
-  }
+h2 {
+  font-weight: lighter;
+  text-align: left;
 }
 
-div.products {
-  flex: 1 1 auto;
-}
-table {
-  opacity: 0.8;
+:host > div {
+  margin: 0.25rem 0;
 }
 
-th, td {
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.cart {
+  display: flex;
+  flex-flow: column nowrap;
+  overflow: auto;
 }
 
-.mat-column-product {
-  min-width: 12rem;
-}
-
-.mat-column-price {
-  text-align: right;
-  min-width: 8rem;
-  padding: 0 1rem;
-}
-
-.mat-column-quantity {
-  text-align: center;
-  min-width: 6rem;
-}
-
-.mat-column-total {
-  text-align: right;
-  min-width: 6rem;
-  padding: 0 1rem;
-}
-
-.mat-column-actions {
-  text-align: right;
-  width: 3rem;
-  padding: 0.5rem 0 0.5rem 0 !important;
-}
-
-.mat-column-product .name {
-  font-size: 1rem;
-}
-.mat-column-product .barcode {
-  font-size: 0.9rem;
-  color: grey;
-}
-
-h3.summary {
+.cart > h2 {
   flex: 0 0 auto;
-  margin: 0;
-  padding: 0.25rem 1rem;
-  font-weight: 500;
 }
-div.summary {
-  flex: 0 0 3rem;
-  padding: 0.5rem 1.5rem;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 0.25rem;
+
+.cart > app-cart-contents-table {
+  flex: 0 1 auto;
+  max-height: 20rem;
+}
+
+.cart > .subtotal {
+  flex: 0 0 auto;
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 0.75rem 1rem;
+  justify-content: space-between;
   align-items: center;
-  align-content: center;
+  text-align: center;
 }
-@media(min-width: 720px) {
-  h3.summary {
-    padding: 0.75rem;
+
+@media(min-width: 641px) {
+  .cart > app-cart-contents-table {
+    flex: 0 1 auto;
+    max-height: 30rem;
   }
-  div.summary {
-    text-align: center;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 0;
+}
+
+@media(min-width: 1008px) {
+  :host {
+    padding: 0 2rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 2rem;
+    column-gap: 4rem;
+    justify-content: center;
+  }
+
+  .cart > app-cart-contents-table {
+    flex: 0 1 auto;
+    max-height: none;
+  }
+
+  .cart > .subtotal {
+    padding: 0.75rem 2rem;
   }
 }

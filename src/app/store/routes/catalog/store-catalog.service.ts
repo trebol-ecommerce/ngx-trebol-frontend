@@ -1,41 +1,91 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { concatMap, delay, map, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { IProductsPublicApiService } from 'src/app/api/products-public-api.iservice';
+import { DataPage } from 'src/app/models/DataPage';
 import { Product } from 'src/app/models/entities/Product';
-import { StoreApiIService } from 'src/app/api/store/store-api.iservice';
-import { ProductFilters } from 'src/app/shared/components/product-filters-panel/product-filters-panel.component';
-import { StoreProductDetailsDialogComponent, StoreProductDetailsDialogData } from '../../dialogs/product-details/store-product-details-dialog.component';
+import { ProductFilters } from "src/app/shared/components/product-filters-panel/ProductFilters";
+import { StoreProductDetailsDialogComponent } from '../../dialogs/product-details/store-product-details-dialog.component';
+import { StoreProductDetailsDialogData } from "../../dialogs/product-details/StoreProductDetailsDialogData";
 
 @Injectable()
 export class StoreCatalogService
   implements OnDestroy {
 
-  protected itemsSource: Subject<Product[]> = new BehaviorSubject(null);
+  private itemsSource = new BehaviorSubject(null);
 
-  public items$: Observable<Product[]> = this.itemsSource.asObservable();
-  public loading$: Observable<boolean>;
+  items$ = this.itemsSource.asObservable();
+  loading$: Observable<boolean>;
 
-  public filters: ProductFilters = {};
+  filters: ProductFilters = {};
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected apiService: StoreApiIService,
-    protected dialogService: MatDialog,
-    protected route: ActivatedRoute,
-    protected router: Router,
+    @Inject(API_SERVICE_INJECTION_TOKENS.products) private productsApiService: IProductsPublicApiService,
+    private dialogService: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
     this.loading$ = this.items$.pipe(map(items => (items === null)));
     this.checkRouteForProductIdParam();
   }
 
-  public promptProductDetails(product: Product): Observable<any> {
+  ngOnDestroy(): void {
+    this.itemsSource.complete();
+  }
+
+  reloadItems(): void {
+    this.itemsSource.next(null);
+
+    let p: Observable<DataPage<Product>>;
+
+    if (JSON.stringify(this.filters) !== '{}') {
+      p = this.productsApiService.fetchFilteredProductCollection(this.filters);
+    } else {
+      p = this.productsApiService.fetchStoreFrontProductCollection();
+    }
+
+    p.pipe(
+      delay(0)
+    ).subscribe(
+      response => { this.itemsSource.next(response.items); }
+    );
+  }
+
+  viewProduct(p: Product): void {
+    this.router.navigate(
+      [],
+      {
+        relativeTo: this.route,
+        queryParams: { barcode: p.barcode },
+        queryParamsHandling: 'merge'
+      }
+    );
+  }
+
+  private checkRouteForProductIdParam(): void {
+    this.route.queryParamMap.subscribe(
+      (params) => {
+        if (params.has('barcode')) {
+          const barcode = params.get('barcode');
+          this.productsApiService.fetchProductByBarcode(barcode).pipe(
+            concatMap(p => this.promptProductDetails(p))
+          ).subscribe();
+        }
+      }
+    );
+  }
+
+  private promptProductDetails(product: Product): Observable<any> {
     const dialogData: StoreProductDetailsDialogData = { product };
     return this.dialogService.open(
       StoreProductDetailsDialogComponent,
@@ -53,52 +103,6 @@ export class StoreCatalogService
           }
         );
       })
-    );
-  }
-
-  protected checkRouteForProductIdParam(): void {
-    this.route.queryParamMap.subscribe(
-      (params) => {
-        if (params.has('id')) {
-          const id = Number(params.get('id'));
-          this.apiService.fetchProductById(id).pipe(
-            concatMap(p => this.promptProductDetails(p))
-          ).subscribe();
-        }
-      }
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.itemsSource.complete();
-  }
-
-  public reloadItems(): void {
-    this.itemsSource.next(null);
-
-    let p: Observable<Product[]>;
-
-    if (JSON.stringify(this.filters) !== '{}') {
-      p = this.apiService.fetchFilteredProductCollection(this.filters);
-    } else {
-      p = this.apiService.fetchStoreFrontProductCollection();
-    }
-
-    p.pipe(
-      delay(0)
-    ).subscribe(
-      items => this.itemsSource.next(items)
-    );
-  }
-
-  public viewProduct(p: Product): void {
-    this.router.navigate(
-      [],
-      {
-        relativeTo: this.route,
-        queryParams: { id: p.id },
-        queryParamsHandling: 'merge'
-      }
     );
   }
 

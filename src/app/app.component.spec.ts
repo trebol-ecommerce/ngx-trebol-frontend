@@ -1,17 +1,25 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
+import { Component } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+
+// eslint-disable-next-line @angular-eslint/component-selector
+@Component({ selector: 'router-outlet' })
+class MockRouterOutletComponent { }
 
 describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [],
       declarations: [
-        AppComponent
+        AppComponent,
+        MockRouterOutletComponent
       ],
     }).compileComponents();
   }));

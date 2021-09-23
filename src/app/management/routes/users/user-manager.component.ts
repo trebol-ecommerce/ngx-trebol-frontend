@@ -1,18 +1,20 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from 'src/app/models/entities/User';
+import { UserFormComponent } from 'src/app/shared/components/user-form/user-form.component';
 import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
-import { DataManagerComponentDirective } from '../data-manager.component-directive';
-import { UserManagerFormDialogComponent, UserManagerFormDialogData } from './form-dialog/user-manager-form-dialog.component';
+import { DataManagerFormDialogConfig } from '../../dialogs/data-manager-form-dialog/DataManagerFormDialogConfig';
+import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { UserManagerService } from './user-manager.service';
 
 @Component({
@@ -24,16 +26,16 @@ import { UserManagerService } from './user-manager.service';
   ]
 })
 export class UserManagerComponent
-  extends DataManagerComponentDirective<User>
+  extends TransactionalDataManagerComponentDirective<User>
   implements OnInit {
 
-  public tableColumns: string[] = [ 'name', 'role', 'actions' ];
+  tableColumns: string[] = [ 'name', 'role', 'actions' ];
 
   constructor(
     protected service: UserManagerService,
     protected dialogService: MatDialog,
-    protected snackBarService: MatSnackBar,
-    protected route: ActivatedRoute
+    private snackBarService: MatSnackBar,
+    private route: ActivatedRoute
   ) {
     super();
   }
@@ -48,19 +50,18 @@ export class UserManagerComponent
     );
   }
 
-  public openFormDialog(user: User): Observable<User> {
-    const dialogData: UserManagerFormDialogData = user ? { user } : null;
-
-    return this.dialogService.open(
-      UserManagerFormDialogComponent,
-      {
-        width: '40rem',
-        data: dialogData
-      }
-    ).afterClosed();
+  protected createDialogProperties(item: User): DataManagerFormDialogConfig<User> {
+    return {
+      data: {
+        item,
+        formComponent: UserFormComponent,
+        service: this.service.dataService
+      },
+      width: '40rem'
+    };
   }
 
-  public onClickDelete(usr: User) {
+  onClickDelete(usr: User) {
     this.service.removeItems([usr]).pipe(
       map(results => results[0])
     ).subscribe(

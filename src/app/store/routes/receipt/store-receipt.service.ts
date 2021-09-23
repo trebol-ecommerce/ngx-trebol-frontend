@@ -1,38 +1,37 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map, pluck, startWith } from 'rxjs/operators';
-import { Sell } from 'src/app/models/entities/Sell';
-import { SellDetail } from 'src/app/models/entities/SellDetail';
-import { CompositeEntityDataApiIService } from 'src/app/api/data/composite-entity-data-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { StoreApiIService } from 'src/app/api/store/store-api.iservice';
-import { Receipt } from 'src/app/models/entities/Receipt';
-import { ReceiptDetail } from 'src/app/models/entities/ReceiptDetail';
+import { IReceiptPublicApiService } from 'src/app/api/receipt-public-api.iservice';
+import { Receipt } from 'src/app/models/Receipt';
+import { ReceiptDetail } from 'src/app/models/ReceiptDetail';
 
 @Injectable()
 export class StoreReceiptService {
 
-  protected receiptSource: Subject<Receipt> = new BehaviorSubject(null);
+  private receiptSource: Subject<Receipt> = new BehaviorSubject(null);
 
-  public receipt$: Observable<Receipt> = this.receiptSource.asObservable();
-  public loading$: Observable<boolean> = this.receipt$.pipe(map(v => !v), startWith(true));
-  public details$: Observable<ReceiptDetail[]> = this.receipt$.pipe(pluck('details'));
-  public date$: Observable<string> = this.receipt$.pipe(pluck('date'));
+  receipt$ = this.receiptSource.asObservable();
+  loading$ = this.receipt$.pipe(map(v => !v), startWith(true));
+  details$ = this.receipt$.pipe(pluck('details'));
+  date$ = this.receipt$.pipe(pluck('date'));
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.store) protected storeApiService: StoreApiIService,
-    protected router: Router
+    @Inject(API_SERVICE_INJECTION_TOKENS.receipt) private receiptApiService: IReceiptPublicApiService,
+    private router: Router
   ) {
   }
 
-  public fetchReceipt(id: number): void {
-    this.storeApiService.fetchTransactionReceiptById(id).subscribe(
+  fetchReceipt(id: string): void {
+    this.receiptApiService.fetchTransactionReceiptByToken(id).subscribe(
       receipt => {
         this.receiptSource.next(receipt);
       },

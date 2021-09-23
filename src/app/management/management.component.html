@@ -1,19 +1,17 @@
 <!--
- Copyright (c) 2020 Benjamin La Madrid
+  Copyright (c) 2021 The Trébol eCommerce Project
 
- This software is released under the MIT License.
- https://opensource.org/licenses/MIT
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
 -->
 
-<div class="management">
-  <app-management-header></app-management-header>
-  <mat-sidenav-container>
-    <mat-sidenav [opened]="isSidenavOpen$ | async" mode="side" role="navigation">
-      <app-management-sidenav></app-management-sidenav>
-    </mat-sidenav>
-    <mat-sidenav-content role="main" class="content">
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
-  <app-management-footer></app-management-footer>
-</div>
+<app-management-header></app-management-header>
+<mat-sidenav-container>
+  <mat-sidenav [opened]="isSidenavOpen$ | async" mode="side" role="navigation">
+    <app-management-sidenav></app-management-sidenav>
+  </mat-sidenav>
+  <mat-sidenav-content role="main" class="content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<app-management-footer></app-management-footer>

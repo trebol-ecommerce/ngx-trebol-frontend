@@ -1,7 +1,9 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, concat, iif, Observable, of, Subject } from 'rxjs';
@@ -9,18 +11,18 @@ import { delay, switchMap, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { Person } from 'src/app/models/entities/Person';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class EditProfileFormService
   implements OnDestroy {
 
-  protected savingSource: Subject<boolean> = new BehaviorSubject(false);
-  protected confirmCancelSource: Subject<boolean> = new BehaviorSubject(false);
+  private savingSource: Subject<boolean> = new BehaviorSubject(false);
+  private confirmCancelSource: Subject<boolean> = new BehaviorSubject(false);
 
-  public saving$: Observable<boolean> = this.savingSource.asObservable();
-  public confirmCancel$: Observable<boolean>;
+  saving$: Observable<boolean> = this.savingSource.asObservable();
+  confirmCancel$: Observable<boolean>;
 
   constructor(
-    protected appService: AppService
+    private appService: AppService
   ) {
     this.confirmCancel$ = this.confirmCancelSource.asObservable().pipe(
       switchMap(
@@ -41,18 +43,18 @@ export class EditProfileFormService
     this.savingSource.complete();
   }
 
-  public loadProfile(): Observable<Person> {
+  loadProfile(): Observable<Person> {
     return this.appService.getUserProfile();
   }
 
-  public saveProfile(p: Person): Observable<boolean> {
+  saveProfile(p: Person): Observable<boolean> {
     this.savingSource.next(true);
     return this.appService.updateUserProfile(p).pipe(
       tap(() => { this.savingSource.next(false); }),
     );
   }
 
-  public confirmCancel() {
+  confirmCancel() {
     this.confirmCancelSource.next(true);
   }
 }

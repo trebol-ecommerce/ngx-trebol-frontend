@@ -1,14 +1,23 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
+import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
+import { Receipt } from 'src/app/models/Receipt';
+import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 import { StoreReceiptComponent } from './store-receipt.component';
 import { StoreReceiptService } from './store-receipt.service';
-import { Receipt } from 'src/app/models/entities/Receipt';
 
 describe('StoreReceiptComponent', () => {
   let component: StoreReceiptComponent;
@@ -26,9 +35,18 @@ describe('StoreReceiptComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        CommonModule,
+        NoopAnimationsModule,
+        RouterTestingModule,
+        MatCardModule,
+        MatIconModule,
+        MatListModule,
+        MatProgressSpinnerModule
       ],
-      declarations: [ StoreReceiptComponent ],
+      declarations: [
+        StoreReceiptComponent,
+        CenteredMatProgressSpinnerComponent
+      ],
       providers: [
         { provide: StoreReceiptService, useValue: service }
       ]

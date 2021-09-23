@@ -1,19 +1,19 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Component, OnDestroy, ViewChild, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { AppService } from 'src/app/app.service';
-import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
-import { User } from 'src/app/models/entities/User';
-import { passwordMatcher } from 'src/functions/passwordMatcher';
-import { Registration } from 'src/app/models/Registration';
-import { Person } from 'src/app/models/entities/Person';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BehaviorSubject } from 'rxjs';
+import { AppService } from 'src/app/app.service';
+import { Person } from 'src/app/models/entities/Person';
+import { Registration } from 'src/app/models/Registration';
+import { passwordMatcher } from 'src/functions/passwordMatcher';
 
 /**
  * Account registration form dialog.
@@ -26,76 +26,51 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./store-registration-form-dialog.component.css']
 })
 export class StoreRegistrationFormDialogComponent
-  implements OnInit, OnDestroy {
+  implements OnDestroy {
 
-  protected registeringSource: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private registeringSource = new BehaviorSubject(false);
 
-  public registering$: Observable<boolean> = this.registeringSource.asObservable();
+  registering$ = this.registeringSource.asObservable();
 
-  public formGroup: FormGroup;
-  public get name(): FormControl { return this.formGroup.get('name') as FormControl; }
-  public get pass1(): FormControl { return this.formGroup.get('pass1') as FormControl; }
-  public get pass2(): FormControl { return this.formGroup.get('pass2') as FormControl; }
-  @ViewChild('personForm', { static: true }) public personForm: PersonFormComponent;
+  formGroup: FormGroup;
+  get name() { return this.formGroup.get('name') as FormControl; }
+  get pass1() { return this.formGroup.get('pass1') as FormControl; }
+  get pass2() { return this.formGroup.get('pass2') as FormControl; }
+  get person() { return this.formGroup.get('person') as FormControl; }
 
   constructor(
-    protected appService: AppService,
-    protected formBuilder: FormBuilder,
-    protected dialog: MatDialogRef<StoreRegistrationFormDialogComponent>,
-    protected snackBarService: MatSnackBar
+    private appService: AppService,
+    private formBuilder: FormBuilder,
+    private dialog: MatDialogRef<StoreRegistrationFormDialogComponent>,
+    private snackBarService: MatSnackBar
   ) {
-    this.formGroup = this.formBuilder.group({
-      name: ['', Validators.required],
-      pass1: ['', Validators.required],
-      pass2: ['', Validators.required]
-    }, passwordMatcher);
-  }
-
-  ngOnInit(): void {
-    this.formGroup.addControl('person', this.personForm.formGroup);
+    this.formGroup = this.formBuilder.group(
+      {
+        name: ['', Validators.required],
+        pass1: ['', Validators.required],
+        pass2: ['', Validators.required],
+        person: ['', Validators.required]
+      },
+      { validators: passwordMatcher }
+    );
   }
 
   ngOnDestroy(): void {
     this.registeringSource.complete();
   }
 
-  private asItem(): Registration {
-    if (this.formGroup.invalid) {
-      return undefined;
-    } else {
-      const person: Person = this.personForm.asPerson();
-      const profile = {
-        name: person.name,
-        idCard: person.idCard,
-        email: person.email,
-        address: person.address,
-        phone1: person.phone1,
-        phone2: person.phone2
-      };
-
-      return Object.assign<Registration, Partial<Registration>>(
-        new Registration(),
-        {
-          name: this.name.value,
-          password: this.pass1.value,
-          profile
-        }
-      );
-    }
-  }
-
-  public onSubmit(): void {
+  onSubmit(): void {
     if (this.formGroup.valid) {
       this.registeringSource.next(true);
-      const details: Registration = this.asItem();
+      const details = this.asItem();
       this.appService.register(details).subscribe(
         s => {
           if (s) {
-            this.snackBarService.open('Su cuenta fue creada con éxito.\nYa puede iniciar sesión con sus credenciales.', 'OK');
+            this.snackBarService.open('Su cuenta fue creada con éxito. Recuerde guardar su contraseña en un lugar seguro, y ¡disfrute las compras!', 'OK');
             this.registeringSource.complete();
             this.dialog.close(true);
           } else {
-            this.snackBarService.open('Hubo un error al crear su cuenta. Por, favor inténtelo nuevamente.', 'OK');
+            this.snackBarService.open('Hubo un error al crear su cuenta. Por favor, inténtelo nuevamente.', 'OK');
             this.registeringSource.next(false);
           }
         }
@@ -103,9 +78,19 @@ export class StoreRegistrationFormDialogComponent
     }
   }
 
-  public onCancel(): void {
+  onCancel(): void {
     this.appService.cancelAuthentication();
     this.dialog.close();
+  }
+
+  private asItem(): Registration | null {
+    if (this.formGroup.valid) {
+      return {
+        name: this.name.value,
+        password: this.pass1.value,
+        profile: this.person.value as Person
+      } as Registration;
+    }
   }
 
 }

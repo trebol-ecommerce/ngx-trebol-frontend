@@ -1,19 +1,20 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { Login } from 'src/app/models/Login';
-import { LOGIN_ERROR_MESSAGE, LOGIN_SUCCESS_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { DialogSwitcherButtonComponent } from 'src/app/shared/components/dialog-switcher-button/dialog-switcher-button.component';
+import { LOGIN_ERROR_MESSAGE, LOGIN_SUCCESS_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
 import { StoreRegistrationFormDialogComponent } from '../registration-form/store-registration-form-dialog.component';
 
 @Component({
@@ -24,25 +25,25 @@ import { StoreRegistrationFormDialogComponent } from '../registration-form/store
 export class StoreLoginFormDialogComponent
   implements OnInit {
 
-  protected loggingInSource: Subject<boolean> = new Subject();
-  protected hidePasswordSource: Subject<boolean> = new BehaviorSubject(true);
+  private loggingInSource = new Subject();
+  private hidePasswordSource = new BehaviorSubject(true);
 
-  public loggingIn$: Observable<boolean> = this.loggingInSource.asObservable();
-  public togglePasswordIcon$: Observable<string>;
-  public passwordInputType$: Observable<string>;
+  loggingIn$ = this.loggingInSource.asObservable();
 
-  public formGroup: FormGroup;
-  public get username(): FormControl { return this.formGroup.get('username') as FormControl; }
-  public get password(): FormControl { return this.formGroup.get('password') as FormControl; }
+  togglePasswordIcon$: Observable<string>;
+  passwordInputType$: Observable<string>;
 
-  @ViewChild('registerButton', { static: true }) public registerButton: DialogSwitcherButtonComponent;
+  formGroup: FormGroup;
+  get username(): FormControl { return this.formGroup.get('username') as FormControl; }
+  get password(): FormControl { return this.formGroup.get('password') as FormControl; }
+
+  @ViewChild('registerButton', { static: true }) registerButton: DialogSwitcherButtonComponent;
 
   constructor(
-    protected dialog: MatDialogRef<StoreLoginFormDialogComponent>,
-    protected formBuilder: FormBuilder,
-    protected router: Router,
-    protected snackBarService: MatSnackBar,
-    protected appService: AppService
+    private dialog: MatDialogRef<StoreLoginFormDialogComponent>,
+    private formBuilder: FormBuilder,
+    private snackBarService: MatSnackBar,
+    private appService: AppService
   ) {
     this.formGroup = this.formBuilder.group({
       username: ['', Validators.required],
@@ -59,10 +60,10 @@ export class StoreLoginFormDialogComponent
     this.registerButton.targetDialogConfig = { width: '40rem', disableClose: true };
   }
 
-  public showPassword(): void { this.hidePasswordSource.next(false); }
-  public hidePassword(): void { this.hidePasswordSource.next(true); }
+  showPassword(): void { this.hidePasswordSource.next(false); }
+  hidePassword(): void { this.hidePasswordSource.next(true); }
 
-  public onSubmit(): void {
+  onSubmit(): void {
     if (this.formGroup.valid) {
       this.loggingInSource.next(true);
 
@@ -89,7 +90,7 @@ export class StoreLoginFormDialogComponent
     }
   }
 
-  public onCancel(): void {
+  onCancel(): void {
     this.appService.cancelAuthentication();
     this.dialog.close();
   }

@@ -1,8 +1,15 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { mapTo, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { EntityDataApiIService } from 'src/app/api/data/entity-data-api.iservice';
+import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { Image } from 'src/app/models/entities/Image';
 
 @Injectable({ providedIn: 'root' })
@@ -15,7 +22,7 @@ export class ImagesService
   images$ = this.imagesSource.asObservable();
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.imagesCrud) private imageDataService: EntityDataApiIService<Image>
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataImages) private imageDataService: IEntityDataApiService<Image>
   ) {
     this.fetch().subscribe();
   }
@@ -25,9 +32,9 @@ export class ImagesService
   }
 
   fetch(): Observable<void> {
-    return this.imageDataService.readAll().pipe(
+    return this.imageDataService.fetchPage().pipe(
       tap(payload => {
-        this.imageCache = payload;
+        this.imageCache = payload.items;
         this.imagesSource.next(this.imageCache);
       }),
       mapTo(void 0)

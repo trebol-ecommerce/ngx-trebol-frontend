@@ -6,8 +6,9 @@
  */
 
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding,
-  Input, OnDestroy, OnInit, Optional, Self, ViewChild } from '@angular/core';
+import {
+  AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnDestroy, OnInit, Optional, Self, ViewChild
+} from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Observable, ReplaySubject, Subject } from 'rxjs';

@@ -1,25 +1,52 @@
-/**
- * Copyright (c) 2020 Benjamin La Madrid
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
-.form {
+form {
   display: grid;
-  grid-gap: 1rem;
-  grid-template-areas:
-    'name'
-    'pass1'
-    'pass2'
-    'person';
+  grid-template-columns: 1fr;
+  gap: 1rem;
 }
 
-@media(min-width: 800px) {
-  .form {
+@media(min-width: 640px) {
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media(min-width: 641px) {
+  form {
+    grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
-      'name name'
-      'pass1 pass2'
-      'person person';
+      'name person person'
+      'pass1 person person'
+      'pass2 person person'
+      'actions actions actions';
+  }
+
+  .name {
+    grid-area: name;
+  }
+  .pass1 {
+    grid-area: pass1;
+  }
+  .pass2 {
+    grid-area: pass2;
+  }
+  app-person-form {
+    grid-area: person;
+  }
+
+  .actions {
+    grid-area: actions;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-around;
   }
 }

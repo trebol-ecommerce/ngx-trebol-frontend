@@ -1,12 +1,7 @@
-import { LocalMemoryDataModule } from 'src/app/api/data/local-memory/local-memory-data-api.module';
-import { LocalMemorySessionApiModule } from 'src/app/api/session/local-memory/local-memory-session-api.module';
-import { LocalMemoryStoreApiModule } from 'src/app/api/store/local-memory/local-memory-store-api.module';
+import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
+// import { HttpApiModule } from 'src/app/api/http/http-api.module';
 
 export const environmentModules = [
-  LocalMemoryDataModule,
-  LocalMemorySessionApiModule,
-  LocalMemoryStoreApiModule,
-  // HttpDataApiModule,
-  // HttpSessionApiModule,
-  // HttpStoreApiModule
+  LocalMemoryApiModule,
+  // HttpApiModule,
 ];

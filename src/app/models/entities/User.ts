@@ -1,19 +1,17 @@
-// Copyright (c) 2020 Benjamin La Madrid
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
 
-import { AbstractEntity } from 'src/app/models/AbstractEntity';
 import { Person } from './Person';
 import { Login } from '../Login';
 
 export class User
-  implements AbstractEntity, Partial<Login> {
-
-  public id: number;
-  public name: string;
-  public createdOn?: string;
-  public password?: string;
-  public person: Partial<Person>;
-  public role?: string;
+  implements Partial<Login> {
+  name: string;
+  password?: string;
+  person?: Partial<Person>;
+  role?: string;
 }
