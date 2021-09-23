@@ -9,7 +9,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { Person } from 'src/app/models/entities/Person';
 import { Registration } from 'src/app/models/Registration';
@@ -28,9 +28,9 @@ import { passwordMatcher } from 'src/functions/passwordMatcher';
 export class StoreRegistrationFormDialogComponent
   implements OnDestroy {
 
-  private registeringSource: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private registeringSource = new BehaviorSubject(false);
 
-  registering$: Observable<boolean> = this.registeringSource.asObservable();
+  registering$ = this.registeringSource.asObservable();
 
   formGroup: FormGroup;
   get name() { return this.formGroup.get('name') as FormControl; }

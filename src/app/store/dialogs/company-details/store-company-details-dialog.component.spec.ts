@@ -14,10 +14,10 @@ import { StoreCompanyDetailsDialogComponent } from './store-company-details-dial
 describe('StoreCompanyDetailsDialogComponent', () => {
   let component: StoreCompanyDetailsDialogComponent;
   let fixture: ComponentFixture<StoreCompanyDetailsDialogComponent>;
-  let service: Partial<IAboutPublicApiService>;
+  let mockService: Partial<IAboutPublicApiService>;
 
   beforeEach(waitForAsync(() => {
-    service = {
+    mockService = {
       fetchCompanyDetails() {
         return of({
           name: 'test',
@@ -31,7 +31,7 @@ describe('StoreCompanyDetailsDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ StoreCompanyDetailsDialogComponent ],
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.categories, useValue: service }
+        { provide: API_SERVICE_INJECTION_TOKENS.about, useValue: mockService }
       ]
     })
     .compileComponents();

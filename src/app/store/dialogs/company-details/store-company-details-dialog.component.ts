@@ -6,7 +6,7 @@
  */
 
 import { Component, Inject, OnInit } from '@angular/core';
-import { Observable, ReplaySubject, Subject } from 'rxjs';
+import { ReplaySubject, Subject } from 'rxjs';
 import { mapTo, pluck, startWith } from 'rxjs/operators';
 import { IAboutPublicApiService } from 'src/app/api/about-public-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
