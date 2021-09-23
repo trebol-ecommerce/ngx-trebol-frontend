@@ -7,16 +7,11 @@
 
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from 'src/app/models/entities/Product';
-import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { StoreService } from '../../store.service';
-
-// TODO refactor to a new file
-export interface StoreProductDetailsDialogData {
-  product: Product;
-}
+import { StoreProductDetailsDialogData } from './StoreProductDetailsDialogData';
 
 @Component({
   selector: 'app-store-product-details-dialog',

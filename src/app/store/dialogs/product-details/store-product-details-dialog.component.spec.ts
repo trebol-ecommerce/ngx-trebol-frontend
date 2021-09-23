@@ -15,7 +15,8 @@ import { EventEmitter } from 'events';
 import { of } from 'rxjs';
 import { Product } from 'src/app/models/entities/Product';
 import { StoreService } from '../../store.service';
-import { StoreProductDetailsDialogComponent, StoreProductDetailsDialogData } from './store-product-details-dialog.component';
+import { StoreProductDetailsDialogComponent } from './store-product-details-dialog.component';
+import { StoreProductDetailsDialogData } from "./StoreProductDetailsDialogData";
 
 @Component({ selector: 'app-slideshow' })
 class MockSlideshowComponent {

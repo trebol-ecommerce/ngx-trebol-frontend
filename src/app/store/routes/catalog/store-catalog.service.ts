@@ -15,7 +15,8 @@ import { IProductsPublicApiService } from 'src/app/api/products-public-api.iserv
 import { DataPage } from 'src/app/models/DataPage';
 import { Product } from 'src/app/models/entities/Product';
 import { ProductFilters } from "src/app/shared/components/product-filters-panel/ProductFilters";
-import { StoreProductDetailsDialogComponent, StoreProductDetailsDialogData } from '../../dialogs/product-details/store-product-details-dialog.component';
+import { StoreProductDetailsDialogComponent } from '../../dialogs/product-details/store-product-details-dialog.component';
+import { StoreProductDetailsDialogData } from "../../dialogs/product-details/StoreProductDetailsDialogData";
 
 @Injectable()
 export class StoreCatalogService
