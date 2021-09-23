@@ -6,11 +6,12 @@
  */
 
 :host {
+  display: grid;
+  gap: 0.5rem;
   text-align: center;
-  padding: 0.25rem 0;
+  padding: 1rem 0;
 }
-@media(min-width: 641px) {
-  :host {
-    padding: 0.5rem 0;
-  }
+
+p {
+  margin: 0;
 }

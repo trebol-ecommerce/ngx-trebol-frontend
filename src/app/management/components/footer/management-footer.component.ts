@@ -6,6 +6,7 @@
  */
 
 import { Component } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-management-footer',
@@ -14,7 +15,7 @@ import { Component } from '@angular/core';
 })
 export class ManagementFooterComponent {
 
-  footerText = 'Todos los derechos reservados.';
+  footerParagraphs = environment.labels.footerParagraphs;
 
   constructor() { }
 
