@@ -9,14 +9,7 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Address } from 'src/app/models/entities/Address';
 import { AddressFormComponent } from '../../components/address-form/address-form.component';
-
-// TODO refactor into a separate file
-export interface AddressFormDialogData {
-  address: Address;
-  readOnly?: boolean;
-  title?: string;
-  hint?: string;
-}
+import { AddressFormDialogData } from './AddressFormDialogData';
 
 @Component({
   selector: 'app-address-form-dialog',

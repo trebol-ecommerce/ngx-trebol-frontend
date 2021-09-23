@@ -9,7 +9,8 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AddressFormDialogComponent, AddressFormDialogData } from './address-form-dialog.component';
+import { AddressFormDialogComponent } from './address-form-dialog.component';
+import { AddressFormDialogData } from "./AddressFormDialogData";
 
 @Component({ selector: 'app-address-form' })
 class MockAddressFormComponent {

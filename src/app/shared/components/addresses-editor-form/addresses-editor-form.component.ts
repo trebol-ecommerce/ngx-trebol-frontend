@@ -13,7 +13,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Address } from 'src/app/models/entities/Address';
-import { AddressFormDialogComponent, AddressFormDialogData } from 'src/app/shared/dialogs/address-form/address-form-dialog.component';
+import { AddressFormDialogComponent } from 'src/app/shared/dialogs/address-form/address-form-dialog.component';
+import { AddressFormDialogData } from "src/app/shared/dialogs/address-form/AddressFormDialogData";
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 
 @Component({
