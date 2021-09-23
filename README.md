@@ -6,7 +6,7 @@
 
 ## Status
 
-Currently undergoing heavy development; first stable version is to be released when the API and backend are aligned to v3.0.
+First stable version released! You can try the demo environment which runs with a mocking data module that shares an equivalent API stored in your browser's local memory.
 
 ## Background
 
