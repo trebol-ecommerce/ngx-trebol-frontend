@@ -17,7 +17,7 @@ export class RegisterPublicHttpApiService
   extends HttpApiService
   implements IRegisterPublicApiService {
 
-  baseUrl = `${environment.apiUrls.account}/register`;
+  baseUrl = `${environment.apiUrls.public}/register`;
 
   constructor(http: HttpClient) {
     super(http);
