@@ -33,9 +33,9 @@ export class StoreRegistrationFormDialogComponent
   registering$: Observable<boolean> = this.registeringSource.asObservable();
 
   formGroup: FormGroup;
-  get name(): FormControl { return this.formGroup.get('name') as FormControl; }
-  get pass1(): FormControl { return this.formGroup.get('pass1') as FormControl; }
-  get pass2(): FormControl { return this.formGroup.get('pass2') as FormControl; }
+  get name() { return this.formGroup.get('name') as FormControl; }
+  get pass1() { return this.formGroup.get('pass1') as FormControl; }
+  get pass2() { return this.formGroup.get('pass2') as FormControl; }
   get person() { return this.formGroup.get('person') as FormControl; }
 
   constructor(
@@ -49,7 +49,7 @@ export class StoreRegistrationFormDialogComponent
         name: ['', Validators.required],
         pass1: ['', Validators.required],
         pass2: ['', Validators.required],
-        person: ['']
+        person: ['', Validators.required]
       },
       { validators: passwordMatcher }
     );
@@ -62,15 +62,15 @@ export class StoreRegistrationFormDialogComponent
   onSubmit(): void {
     if (this.formGroup.valid) {
       this.registeringSource.next(true);
-      const details: Registration = this.asItem();
+      const details = this.asItem();
       this.appService.register(details).subscribe(
         s => {
           if (s) {
-            this.snackBarService.open('Su cuenta fue creada con éxito.\nYa puede iniciar sesión con sus credenciales.', 'OK');
+            this.snackBarService.open('Su cuenta fue creada con éxito. Recuerde guardar su contraseña en un lugar seguro, y ¡disfrute las compras!', 'OK');
             this.registeringSource.complete();
             this.dialog.close(true);
           } else {
-            this.snackBarService.open('Hubo un error al crear su cuenta. Por, favor inténtelo nuevamente.', 'OK');
+            this.snackBarService.open('Hubo un error al crear su cuenta. Por favor, inténtelo nuevamente.', 'OK');
             this.registeringSource.next(false);
           }
         }
@@ -83,20 +83,13 @@ export class StoreRegistrationFormDialogComponent
     this.dialog.close();
   }
 
-  private asItem(): Registration {
-    if (this.formGroup.invalid) {
-      return undefined;
-    } else {
-      const profile = this.person.value as Person;
-
-      return Object.assign<Registration, Partial<Registration>>(
-        new Registration(),
-        {
-          name: this.name.value,
-          password: this.pass1.value,
-          profile
-        }
-      );
+  private asItem(): Registration | null {
+    if (this.formGroup.valid) {
+      return {
+        name: this.name.value,
+        password: this.pass1.value,
+        profile: this.person.value as Person
+      } as Registration;
     }
   }
 

@@ -51,7 +51,7 @@ export class CheckoutPublicHttpApiService
     );
   }
 
-  private shrinkCustomerModel(source: Customer): Customer {
+  private shrinkCustomerModel(source: Customer): Partial<Customer> {
     const target = { person: { } } as any;
     target.person.idNumber = source.person.idNumber;
     target.person.name = source.person.name;

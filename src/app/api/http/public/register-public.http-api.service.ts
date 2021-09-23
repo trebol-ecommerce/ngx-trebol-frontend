@@ -8,6 +8,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
+import { Person } from 'src/app/models/entities/Person';
 import { Registration } from 'src/app/models/Registration';
 import { environment } from 'src/environments/environment';
 import { IRegisterPublicApiService } from '../../register-public-api.iservice copy';
@@ -23,10 +24,29 @@ export class RegisterPublicHttpApiService
     super(http);
   }
 
-  register(userDetails: Registration) {
+  register(registration: Registration) {
+    const payload = {} as any;
+    payload.name = registration.name;
+    payload.password = registration.password;
+    payload.profile = this.shrinkPersonModel(registration.profile);
+
     return this.http.post<boolean>(
       this.baseUrl,
-      userDetails
+      payload
     );
+  }
+
+  private shrinkPersonModel(source: Person): Partial<Person> {
+    const target = { } as any;
+    target.idNumber = source.idNumber;
+    target.name = source.name;
+    target.email = source.email;
+    if (source.phone1) {
+      target.phone1 = source.phone1;
+    }
+    if (source.phone2) {
+      target.phone2 = source.phone2;
+    }
+    return target;
   }
 }
