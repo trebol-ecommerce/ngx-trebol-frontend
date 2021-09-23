@@ -162,7 +162,7 @@
           "options": {
             "baseHref": "https://trebol-ecommerce.github.io/ngx-trebol-frontend/",
             "branch": "demo",
-            "configuration": "demo"
+            "buildTarget": "ngx-trebol-frontend:build:demo"
           }
         }
       }
