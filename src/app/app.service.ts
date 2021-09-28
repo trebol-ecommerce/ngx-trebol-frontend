@@ -13,6 +13,7 @@ import { ILoginPublicApiService } from 'src/app/api/login-public-api.iservice';
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 import { Person } from 'src/app/models/entities/Person';
 import { Login } from 'src/app/models/Login';
+import { environment } from 'src/environments/environment';
 import { IAccessApiService } from './api/access-api.iservice';
 import { IGuestPublicApiService } from './api/guest-public-api.iservice';
 import { IProfileAccountApiService } from './api/profile-account-api.iservice';
@@ -23,6 +24,7 @@ import { Registration } from './models/Registration';
 export class AppService
   implements OnDestroy {
 
+  private readonly sessionStorageTokenItemName = environment.secrets.sessionStorageTokenItem;
   private innerIsLoggedIn = false;
 
   private isLoggedInChangesSource = new Subject<boolean>();
@@ -63,26 +65,26 @@ export class AppService
   /** Send an error-safe register request. */
   register(userDetails: Registration): Observable<boolean> {
     return this.registerApiService.register(userDetails).pipe(
+      switchMap(() => this.login({
+        name: userDetails.name,
+        password: userDetails.password
+      })),
       mapTo(true),
-      switchMap(
-        () => this.login({
-          name: userDetails.name,
-          password: userDetails.password
-        })
-      ),
       catchError(() => of(false)),
     );
   }
 
-  login(credentials: Login): Observable<boolean> {
+  login(credentials: Login): Observable<void> {
     return !this.isLoggedIn() ?
       this.loginApiService.login(credentials).pipe(
-        tap(success => {
-          this.innerIsLoggedIn = success;
-          this.isLoggedInChangesSource.next(success);
-        })
+        tap(token => {
+          sessionStorage.setItem(this.sessionStorageTokenItemName, token);
+          this.innerIsLoggedIn = true;
+          this.isLoggedInChangesSource.next(true);
+        }),
+        mapTo(void 0)
       ) :
-      of(true);
+      of();
   }
 
   validateSession(): Observable<boolean> {
@@ -114,7 +116,7 @@ export class AppService
   closeCurrentSession(): void {
     this.innerIsLoggedIn = false;
     this.isLoggedInChangesSource.next(false);
-    this.loginApiService.logout();
+    sessionStorage.removeItem(this.sessionStorageTokenItemName);
   }
 
 }

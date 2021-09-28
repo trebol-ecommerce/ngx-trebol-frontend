@@ -18,9 +18,9 @@ export class LoginPublicHttpApiService
   extends HttpApiService
   implements ILoginPublicApiService {
 
+  private readonly authorizationHeader = environment.secrets.tokenHttpHeader;
+
   baseUrl = `${environment.apiUrls.public}/login`;
-  protected readonly sessionStorageTokenItemName = environment.secrets.sessionStorageTokenItem;
-  protected readonly authorizationHeader = environment.secrets.tokenHttpHeader;
 
   constructor(http: HttpClient, private router: Router) {
     super(http);
@@ -35,24 +35,17 @@ export class LoginPublicHttpApiService
         responseType: 'text'
       }
     ).pipe(
-      map(
-        response => {
-          if (response.headers.has(this.authorizationHeader)) {
-            sessionStorage.setItem(this.sessionStorageTokenItemName, response.headers.get(this.authorizationHeader));
-            return true;
-          } else if (response.body) {
-            sessionStorage.setItem(this.sessionStorageTokenItemName, response.body);
-            return true;
-          }
-
-          return false;
+      map(response => {
+        if (response.headers.has(this.authorizationHeader)) {
+          return response.headers.get(this.authorizationHeader);
+        } else if (response.body) {
+          const token = new RegExp('$Bearer .+^').test(response.body) ?
+                          response.body :
+                          `Bearer ${response.body}`
+          return token;
         }
-      )
+        return null;
+      })
     );
-  }
-
-  logout(): void {
-    sessionStorage.removeItem(this.sessionStorageTokenItemName);
-    this.router.navigateByUrl('/');
   }
 }

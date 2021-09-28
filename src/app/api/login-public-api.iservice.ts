@@ -9,6 +9,10 @@ import { Observable } from 'rxjs';
 import { Login } from '../models/Login';
 
 export interface ILoginPublicApiService {
-  login(details: Login): Observable<any>;
-  logout(): void;
+  /**
+   *
+   * @param details The credentials to log in with
+   * @returns An observable that will emit a session token or error out.
+   */
+  login(details: Login): Observable<string>;
 }

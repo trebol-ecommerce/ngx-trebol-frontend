@@ -76,8 +76,8 @@ export class StoreHeaderMenuComponent
       this.promptLogoutConfirmation().subscribe(
         confirmed => {
           if (confirmed) {
-            this.snackBarService.open(LOGOUT_MESSAGE, 'OK');
             this.appService.closeCurrentSession();
+            this.snackBarService.open(LOGOUT_MESSAGE, 'OK');
           }
         }
       );

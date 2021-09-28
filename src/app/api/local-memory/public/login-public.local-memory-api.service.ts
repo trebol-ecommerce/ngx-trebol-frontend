@@ -6,10 +6,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Login } from 'src/app/models/Login';
-import { environment } from 'src/environments/environment';
+import { of } from 'rxjs';
 import { makeid } from 'src/functions/makeid';
 import { ILoginPublicApiService } from '../../login-public-api.iservice';
 
@@ -17,27 +14,9 @@ import { ILoginPublicApiService } from '../../login-public-api.iservice';
 export class LoginPublicLocalMemoryApiService
   implements ILoginPublicApiService {
 
-  protected readonly sessionStorageTokenItemName = environment.secrets.sessionStorageTokenItem;
+  constructor() { }
 
-  constructor(private router: Router) { }
-
-  login(details: Login) {
-    return new Observable<void>(
-      observer => {
-        const token = makeid(200);
-        sessionStorage.setItem(this.sessionStorageTokenItemName, token);
-        observer.next();
-        observer.complete();
-
-        return {
-          unsubscribe() { }
-        };
-      }
-    );
-  }
-
-  logout(): void {
-    sessionStorage.removeItem(this.sessionStorageTokenItemName);
-    this.router.navigateByUrl('/');
+  login() {
+    return of(makeid(200));
   }
 }
