@@ -2,16 +2,13 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+![NPM Package](https://img.shields.io/npm/v/ngx-trebol-frontend)
 [![Build Status](https://app.travis-ci.com/trebol-ecommerce/ngx-trebol-frontend.svg?branch=main)](https://travis-ci.com/github/trebol-ecommerce/ngx-trebol-frontend)
 
-## Status
+## Status / Roadmap
 
-First stable version released! You can try the demo environment which runs using a fake API from within your browser's local memory.
-
-## Background
-
-Trébol was born from a career project, a hardware store web system called 'FERME Web'. It was an Angular dashboard application that communicated by a REST API to a backend service. Then it could list all product data stored in a MySQL database, add products to a cart and create fake selling transactions.
-Trébol pushes the idea forward and aims to become an industry-standard online shop application focused on being secure, modern and extensible.
+Currently working towards support for [the next minor API version (v1.1)](https://github.com/trebol-ecommerce/api/releases/tag/v1.1.0).
 
 ## Infrastructure
 
@@ -32,10 +29,9 @@ There are also two folders that matter to the entire codebase:
 
 * An [Angular CLI](https://cli.angular.io/) 11-compatible [Node.js/NPM](https://nodejs.org/) installation.
 
-## Working with the code
+## Getting started with the code
 
-* `git clone` the repository somewhere in your machine.
-* `npm install` in the root directory of that 'somewhere in your machine'.
+Just do `npm install` in the root directory of your copy of the repository.
 
 ## Testing
 
@@ -47,6 +43,12 @@ Jasmine tests are providing about 40% of code coverage, you can give them a try 
 * The `/src/angular.json` file contains two base configuration definitions that you can use: `production` and `localhost`.
 * Make yourself comfortable with the [official guide on Building and Serving Angular Apps](https://angular.io/guide/build). Basically, you need to create a copy of the environment files, rename them following the pattern for your desired configuration, and call the `ng` command, targetting said configuration.
 * You can also use the [angular-cli-ghpages plugin](https://github.com/angular-schule/angular-cli-ghpages#options) to automate your deployment.
+
+
+## Contributing to this repository
+
+Please review the [contributing guidelines](https://github.com/trebol-ecommerce/spring-boot-backend/blob/main/CONTRIBUTING.md) before proceeding.
+
 
 ## Contributors ✨
 
