@@ -7,7 +7,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
-import { catchError, take } from 'rxjs/operators';
+import { catchError, mapTo, take } from 'rxjs/operators';
 import { IAccessApiService } from './api/access-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from './api/api-service-injection-tokens';
 import { IGuestPublicApiService } from './api/guest-public-api.iservice';
@@ -45,8 +45,7 @@ describe('AppService', () => {
 
   beforeEach(() => {
     mockLoginApiService = {
-      login() { return of(true); },
-      logout() { }
+      login() { return of('exampleTokenString'); }
     };
     mockGuestApiService = {
       guestLogin() { return of(); }
@@ -79,10 +78,13 @@ describe('AppService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should emit truthy on succesful login attempts', () => {
+  it('should emit after succesful login attempts', () => {
     service = TestBed.inject(AppService);
 
-    service.login(MOCK_LOGIN_DETAILS).subscribe(next => {
+    service.login(MOCK_LOGIN_DETAILS).pipe(
+      mapTo(true),
+      catchError(() => of(false))
+    ).subscribe(next => {
       expect(next).toBeTruthy();
     });
   });
@@ -97,6 +99,7 @@ describe('AppService', () => {
 
     expect(service).toBeTruthy();
     service.login(MOCK_LOGIN_DETAILS).pipe(
+      mapTo(true),
       catchError(() => of(false))
     ).subscribe(next => {
       expect(next).toBeFalsy();
