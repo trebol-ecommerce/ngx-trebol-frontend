@@ -14,13 +14,16 @@ form {
   form {
     grid-gap: 1rem;
     grid-template-areas:
-      'name name name name'
+      'firstName firstName lastName lastName'
       'idNumber email email email'
       'phone1 phone1 phone2 phone2';
   }
 
-  .name {
-    grid-area: name;
+  .firstName {
+    grid-area: firstName;
+  }
+  .lastName{
+    grid-area: lastName;
   }
   .idNumber {
     grid-area: idNumber;

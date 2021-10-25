@@ -6,7 +6,8 @@
  */
 
 export class Person {
-  name: string;
+  firstName: string;
+  lastName: string;
   idNumber: string;
   email: string;
   phone1?: number;

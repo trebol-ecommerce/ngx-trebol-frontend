@@ -43,7 +43,8 @@ export class PersonFormComponent
   formGroup: FormGroup;
 
   get id() { return this.formGroup.get('id') as FormControl; }
-  get name() { return this.formGroup.get('name') as FormControl; }
+  get firstName() { return this.formGroup.get('firstName') as FormControl; }
+  get lastName() { return this.formGroup.get('lastName') as FormControl; }
   get idNumber() { return this.formGroup.get('idNumber') as FormControl; }
   get email() { return this.formGroup.get('email') as FormControl; }
   get phone1() { return this.formGroup.get('phone1') as FormControl; }
@@ -54,7 +55,8 @@ export class PersonFormComponent
   ) {
     this.formGroup = this.formBuilder.group({
       id: [''],
-      name: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       idNumber: ['', Validators.required],
       email: ['', Validators.required],
       phone1: [''],
@@ -76,7 +78,8 @@ export class PersonFormComponent
 
   writeValue(obj: any): void {
     this.id.reset('', { emitEvent: false });
-    this.name.reset('', { emitEvent: false });
+    this.firstName.reset('', { emitEvent: false });
+    this.lastName.reset('', { emitEvent: false });
     this.idNumber.reset('', { emitEvent: false });
     this.email.reset('', { emitEvent: false });
     this.phone1.reset('', { emitEvent: false });
@@ -108,8 +111,11 @@ export class PersonFormComponent
     const errors = {} as any;
     const value = control.value;
     if (value) {
-      if (!value.name) {
-        errors.requiredPersonName = value.name;
+      if (!value.firstName) {
+        errors.requiredPersonName = value.firstName;
+      }
+      if (!value.lastName) {
+        errors.requiredPersonName = value.lastName;
       }
       if (!value.idNumber) {
         errors.requiredPersonIdNumber = value.idNumber;

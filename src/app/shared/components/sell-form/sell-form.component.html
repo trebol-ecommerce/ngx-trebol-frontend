@@ -22,7 +22,7 @@
   <mat-form-field style="grid-area: salesperson">
     <mat-select placeholder="Vendedor" formControlName="salesperson">
       <mat-option *ngFor="let e of (salespeople$ | async)" [value]="e.person.idNumber">
-        {{ e.person.name }}
+        {{ e.person.firstName }} {{ e.person.lastName }}
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -30,7 +30,7 @@
   <mat-form-field style="grid-area: customer">
     <mat-select placeholder="Cliente" formControlName="customer">
       <mat-option *ngFor="let c of (customers$ | async)" [value]="c.person.idNumber">
-        {{ c.person.name }}
+        {{ c.person.firstName }} {{ c.person.lastName }}
       </mat-option>
     </mat-select>
   </mat-form-field>
