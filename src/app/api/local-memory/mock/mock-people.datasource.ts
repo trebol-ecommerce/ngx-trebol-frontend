@@ -8,10 +8,10 @@
 import { Person } from 'src/app/models/entities/Person';
 
 export const MOCK_PEOPLE: Partial<Person>[] = [
-  { firstName: 'Administrador', lastName: '', idNumber: '4' },
-  { firstName: 'Mánager', lastName: '', idNumber: '3' },
-  { firstName: 'Vendedor', lastName: '', idNumber: '2' },
-  { firstName: 'Cliente', lastName: '', idNumber: '1' },
+  { firstName: 'Administrador', lastName: 'Prueba', idNumber: '4' },
+  { firstName: 'Mánager', lastName: 'Prueba', idNumber: '3' },
+  { firstName: 'Vendedor', lastName: 'Prueba', idNumber: '2' },
+  { firstName: 'Cliente', lastName: 'Prueba', idNumber: '1' },
   {
     firstName: 'Herminia',
     lastName: 'J.',
@@ -38,7 +38,7 @@ export const MOCK_PEOPLE: Partial<Person>[] = [
   },
   {
     firstName: 'Anónimo',
-    lastName: '',
+    lastName: 'P.',
     idNumber: '1111111-1',
     email: 'example@domain.com'
   },

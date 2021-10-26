@@ -112,10 +112,10 @@ export class PersonFormComponent
     const value = control.value;
     if (value) {
       if (!value.firstName) {
-        errors.requiredPersonName = value.firstName;
+        errors.requiredPersonfirstName = value.firstName;
       }
       if (!value.lastName) {
-        errors.requiredPersonName = value.lastName;
+        errors.requiredPersonlastName = value.lastName;
       }
       if (!value.idNumber) {
         errors.requiredPersonIdNumber = value.idNumber;
