@@ -54,7 +54,8 @@ export class CheckoutPublicHttpApiService
   private shrinkCustomerModel(source: Customer): Partial<Customer> {
     const target = { person: { } } as any;
     target.person.idNumber = source.person.idNumber;
-    target.person.name = source.person.name;
+    target.person.firstName = source.person.firstName;
+    target.person.lastName = source.person.lastName;
     target.person.email = source.person.email;
     if (source.person.phone1) {
       target.person.phone1 = source.person.phone1;

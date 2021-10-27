@@ -13,7 +13,7 @@
     <ng-container *ngIf="checkoutRequest.customer; else noCustomer">
       <mat-icon>person</mat-icon>&nbsp;
       <span class="details">
-        <span class="name">{{ checkoutRequest.customer.name }}</span>
+        <span class="name">{{ checkoutRequest.customer.firstName }} {{ checkoutRequest.customer.lastName }}</span>
         <b class="idCard">RUT {{ checkoutRequest.customer.idNumber }}</b>
         <i class="email">{{ checkoutRequest.customer.email }}</i>
       </span>

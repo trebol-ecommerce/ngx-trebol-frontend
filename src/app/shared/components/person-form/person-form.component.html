@@ -7,8 +7,12 @@
 
 <form [formGroup]="formGroup">
 
-  <mat-form-field class="name">
-    <input matInput placeholder="Nombre Completo" formControlName="name" />
+  <mat-form-field class="firstName">
+    <input matInput placeholder="Nombres" formControlName="firstName" />
+  </mat-form-field>
+
+  <mat-form-field class="lastName">
+    <input matInput placeholder="Appelidos" formControlName="lastName" />
   </mat-form-field>
 
   <mat-form-field class="idNumber">

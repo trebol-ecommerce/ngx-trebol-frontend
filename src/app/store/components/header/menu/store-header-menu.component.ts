@@ -42,7 +42,7 @@ export class StoreHeaderMenuComponent
           if (!isLoggedIn) {
             return of('');
           } else {
-            return this.appService.getUserProfile().pipe(pluck('name'));
+            return this.appService.getUserProfile().pipe(pluck('firstName'));
           }
         }
       )

@@ -39,7 +39,8 @@ export class RegisterPublicHttpApiService
   private shrinkPersonModel(source: Person): Partial<Person> {
     const target = { } as any;
     target.idNumber = source.idNumber;
-    target.name = source.name;
+    target.firstName = source.firstName;
+    target.lastName = source.lastName;
     target.email = source.email;
     if (source.phone1) {
       target.phone1 = source.phone1;

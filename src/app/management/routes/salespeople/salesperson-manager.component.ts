@@ -67,7 +67,7 @@ export class SalespersonManagerComponent
     ).subscribe(
       success => {
         if (success) {
-          this.snackBarService.open(`Empleado ${e.person.name} eliminado.`, 'OK');
+          this.snackBarService.open(`Empleado ${e.person.firstName} ${e.person.lastName} eliminado.`, 'OK');
           this.service.reloadItems();
         } else {
           this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
