@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- Add the unitValue property to ReceiptDetail model class making the model
+ compatible with the new API.
+
+### Changed
 - This change updates the entity model for Person and the corresponding
  data forms.
 
