@@ -10,4 +10,5 @@ import { Product } from './entities/Product';
 export class ReceiptDetail {
   product: Partial<Product>;
   units: number;
+  unitValue?: number;
 }
