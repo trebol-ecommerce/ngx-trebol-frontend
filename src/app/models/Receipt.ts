@@ -13,4 +13,9 @@ export class Receipt {
   details: ReceiptDetail[];
   date: string;
   status: string;
+  token?: string;
+  taxValue?: number;
+  transportValue?: number;
+  totalValue?: number;
+  totalItems?: number;
 }
