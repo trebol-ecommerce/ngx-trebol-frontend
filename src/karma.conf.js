@@ -7,7 +7,7 @@ module.exports = function (config) {
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     logLevel: config.LOG_INFO,
     port: 9876,
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['progress', 'kjhtml', 'spec', 'coverage'],
     restartOnFileChange: true, // when auto-watch is on, cancel and restart unit tests whenever a change is detected
     singleRun: false,
     client: {
@@ -16,8 +16,11 @@ module.exports = function (config) {
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
+      require('karma-edge-launcher'),
       require('karma-firefox-launcher'),
+      require('karma-safari-launcher'),
       require('karma-jasmine-html-reporter'),
+      require('karma-spec-reporter'),
       require('karma-coverage'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
