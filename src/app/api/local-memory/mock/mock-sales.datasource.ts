@@ -9,6 +9,7 @@ import { Sell } from 'src/app/models/entities/Sell';
 import { MOCK_CUSTOMERS } from './mock-customers.datasource';
 import { MOCK_PRODUCTS } from './mock-products.datasource';
 import { MOCK_SALESPEOPLE } from './mock-salespeople.datasource';
+import { MOCK_SELL_STATUSES } from './mock-sell-statuses.datasource';
 
 export const MOCK_SALES: Sell[] = [
   {
@@ -21,7 +22,8 @@ export const MOCK_SALES: Sell[] = [
     ],
     customer: MOCK_CUSTOMERS[1],
     paymentType: 'WebPay Plus',
-    billingType: 'Bill'
+    billingType: 'Bill',
+    status: MOCK_SELL_STATUSES.delivered
   },
   {
     buyOrder: 2,
@@ -31,7 +33,8 @@ export const MOCK_SALES: Sell[] = [
     ],
     customer: MOCK_CUSTOMERS[2],
     paymentType: 'WebPay Plus',
-    billingType: 'Bill'
+    billingType: 'Bill',
+    status: MOCK_SELL_STATUSES.delivered
   },
   {
     buyOrder: 3,
@@ -42,7 +45,8 @@ export const MOCK_SALES: Sell[] = [
     ],
     customer: MOCK_CUSTOMERS[0],
     paymentType: 'WebPay Plus',
-    billingType: 'Bill'
+    billingType: 'Bill',
+    status: MOCK_SELL_STATUSES.cancelled
   },
   {
     buyOrder: 4,
@@ -53,7 +57,8 @@ export const MOCK_SALES: Sell[] = [
     ],
     customer: MOCK_CUSTOMERS[4],
     paymentType: 'WebPay Plus',
-    billingType: 'Bill'
+    billingType: 'Bill',
+    status: MOCK_SELL_STATUSES.unpaid
   },
   {
     buyOrder: 5,
@@ -64,6 +69,7 @@ export const MOCK_SALES: Sell[] = [
     ],
     customer: MOCK_CUSTOMERS[3],
     paymentType: 'WebPay Plus',
-    billingType: 'Bill'
+    billingType: 'Bill',
+    status: MOCK_SELL_STATUSES.failed
   }
 ];
