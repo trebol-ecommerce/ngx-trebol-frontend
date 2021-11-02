@@ -20,14 +20,24 @@
       "avatar_url": "https://avatars3.githubusercontent.com/u/11446011?v=4",
       "profile": "https://github.com/dmodena",
       "contributions": [
-        "examples"
+        "example"
+      ]
+    },
+    {
+      "login": "Fictionistique",
+      "name": "Chirag",
+      "avatar_url": "https://avatars.githubusercontent.com/u/40859110?v=4",
+      "profile": "https://github.com/Fictionistique",
+      "contributions": [
+        "code"
       ]
     }
   ],
   "contributorsPerLine": 7,
   "projectName": "ngx-trebol-frontend",
-  "projectOwner": "bglamadrid",
+  "projectOwner": "trebol-ecommerce",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitConvention": "none"
 }
