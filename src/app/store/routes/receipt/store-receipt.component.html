@@ -12,7 +12,7 @@
     <div class="icon-wrapper"><mat-icon>receipt_long</mat-icon></div>
     <h2 mat-card-title>¡Compra realizada con éxito!</h2>
     <p>Confirmada el {{ receipt.date | date }}.</p>
-    <p>Items en total: ${{ receipt.totalValue }}</p>
+    <p>Items en total: ${{ receipt.totalItems }}</p>
     <p *ngIf="receipt.transportValue">Valor del transporte: ${{ receipt.transportValue }}</p>
     <p *ngIf="receipt.taxValue">Impuestos: ${{ receipt.taxValue }}</p>
     <p>Total pagado: ${{ receipt.totalValue }}</p>
