@@ -7,17 +7,16 @@
 
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map, pluck, startWith } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { catchError, map, pluck, startWith, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IReceiptPublicApiService } from 'src/app/api/receipt-public-api.iservice';
 import { Receipt } from 'src/app/models/Receipt';
-import { ReceiptDetail } from 'src/app/models/ReceiptDetail';
 
 @Injectable()
 export class StoreReceiptService {
 
-  private receiptSource: Subject<Receipt> = new BehaviorSubject(null);
+  private receiptSource = new BehaviorSubject<Receipt>(null);
 
   receipt$ = this.receiptSource.asObservable();
   loading$ = this.receipt$.pipe(map(v => !v), startWith(true));
@@ -27,17 +26,22 @@ export class StoreReceiptService {
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.receipt) private receiptApiService: IReceiptPublicApiService,
     private router: Router
-  ) {
-  }
+  ) { }
 
-  fetchReceipt(id: string): void {
-    this.receiptApiService.fetchTransactionReceiptByToken(id).subscribe(
-      receipt => {
-        this.receiptSource.next(receipt);
-      },
-      err => {
-        this.router.navigateByUrl('/');
-      }
-    );
+  /** Request receipt metadata passing the transaction token to a external API.
+   * If it fails or the token is falsy, redirects user away from receipt page. */
+  fetchReceipt(token: string): void {
+    if (!token) {
+      this.router.navigateByUrl('/');
+    } else {
+      this.receiptApiService.fetchTransactionReceiptByToken(token).pipe(
+        tap(receipt => {
+          this.receiptSource.next(receipt);
+        }),
+        catchError(() => {
+          return this.router.navigateByUrl('/');
+        })
+      ).subscribe();
+    }
   }
 }
