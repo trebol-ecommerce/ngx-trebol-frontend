@@ -11,7 +11,7 @@
   <mat-card>
     <div class="icon-wrapper"><mat-icon>receipt_long</mat-icon></div>
     <h2 mat-card-title>¡Compra realizada con éxito!</h2>
-    <span>Confirmada el {{ date$ | async }}.</span><br/>
+    <span>Confirmada el {{ (date$ | async) | date }}.</span><br/>
     <span>Aquí están los detalles:</span>
     <app-store-receipt-details-table [details]="details$ | async">
     </app-store-receipt-details-table>
