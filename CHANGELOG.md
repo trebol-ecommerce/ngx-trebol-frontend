@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Add the unitValue property to ReceiptDetail model class making the model compatible with the new API.
 - This change updates the entity model for Person and the corresponding data forms.
+- Added a table component to display details in the receipt page.
 
 ### Fixed
 - Footer remains stuck at the bottom of the page, instead of the viewport.
