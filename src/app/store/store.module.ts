@@ -35,7 +35,7 @@ import { StoreCartReviewGuard } from './routes/cart-review/store-cart-review.gua
 import { StoreCatalogComponent } from './routes/catalog/store-catalog.component';
 import { StoreCatalogService } from './routes/catalog/store-catalog.service';
 import { StoreReceiptComponent } from './routes/receipt/store-receipt.component';
-import { StoreReceiptService } from './routes/receipt/store-receipt.service';
+// import { StoreReceiptService } from './routes/receipt/store-receipt.service';
 import { StoreRoutingModule } from './store-routing.module';
 import { StoreComponent } from './store.component';
 import { StoreService } from './store.service';
@@ -81,7 +81,7 @@ const SNACKBAR_DEFAULTS = {
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: SNACKBAR_DEFAULTS},
     StoreService,
-    StoreReceiptService,
+    // StoreReceiptService,
     StoreCatalogService,
     StoreCartReviewGuard
   ]
