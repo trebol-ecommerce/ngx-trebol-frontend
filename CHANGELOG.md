@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a table component to display details in the receipt page.
 - Included Edge browser launcher for Karma tests
 - Add properties `token`, `taxValue`, `transportValue`, `totalValue`, `totalItems` to Receipt model class (Compliance with API v1.1)
+  - Also make `amount` optional and make `totalValue` required (`totalValue` will replace `amount`)
 - Include new information in receipt page
 
 ### Fixed
