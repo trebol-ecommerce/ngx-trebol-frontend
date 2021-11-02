@@ -13,24 +13,20 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
-import { Receipt } from 'src/app/models/Receipt';
+import { EMPTY } from 'rxjs';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { IReceiptPublicApiService } from 'src/app/api/receipt-public-api.iservice';
 import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 import { StoreReceiptComponent } from './store-receipt.component';
-import { StoreReceiptService } from './store-receipt.service';
 
 describe('StoreReceiptComponent', () => {
   let component: StoreReceiptComponent;
   let fixture: ComponentFixture<StoreReceiptComponent>;
-  let service: Partial<StoreReceiptService>;
+  let mockReceiptApiService: Partial<IReceiptPublicApiService>;
 
   beforeEach(waitForAsync(() => {
-    service = {
-      receipt$: of(new Receipt()),
-      loading$: of(true),
-      details$: of([]),
-      date$: of(''),
-      fetchReceipt() { }
+    mockReceiptApiService = {
+      fetchTransactionReceiptByToken() { return EMPTY; }
     };
 
     TestBed.configureTestingModule({
@@ -48,7 +44,7 @@ describe('StoreReceiptComponent', () => {
         CenteredMatProgressSpinnerComponent
       ],
       providers: [
-        { provide: StoreReceiptService, useValue: service }
+        { provide: API_SERVICE_INJECTION_TOKENS.receipt, useValue: mockReceiptApiService }
       ]
     })
     .compileComponents();

@@ -13,6 +13,7 @@ import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-
 import { IReceiptPublicApiService } from 'src/app/api/receipt-public-api.iservice';
 import { Receipt } from 'src/app/models/Receipt';
 
+// TODO figure out other uses for this service, otherwise deprecate/remove it
 @Injectable()
 export class StoreReceiptService {
 

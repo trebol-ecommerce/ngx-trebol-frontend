@@ -9,8 +9,13 @@ import { ReceiptDetail } from './ReceiptDetail';
 
 export class Receipt {
   buyOrder: number;
-  amount: number;
+  amount?: number;
   details: ReceiptDetail[];
   date: string;
   status: string;
+  token?: string;
+  taxValue?: number;
+  transportValue?: number;
+  totalValue: number;
+  totalItems?: number;
 }

@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - This change updates the entity model for Person and the corresponding data forms.
 - Added a table component to display details in the receipt page.
 - Included Edge browser launcher for Karma tests
+- Add properties `token`, `taxValue`, `transportValue`, `totalValue`, `totalItems` to Receipt model class (Compliance with API v1.1)
+  - Also make `amount` optional and make `totalValue` required (`totalValue` will replace `amount`)
+- Include new information in receipt page
 
 ### Fixed
 - Footer remains stuck at the bottom of the page, instead of the viewport.

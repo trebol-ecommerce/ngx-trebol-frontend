@@ -6,11 +6,10 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
 import { Receipt } from 'src/app/models/Receipt';
 import { IReceiptPublicApiService } from '../../receipt-public-api.iservice';
-import { MOCK_SALES } from '../mock/mock-sales.datasource';
+import { MOCK_RECEIPTS } from '../mock/mock-receipts.datasource';
 
 @Injectable()
 export class ReceiptPublicLocalMemoryApiService
@@ -19,14 +18,7 @@ export class ReceiptPublicLocalMemoryApiService
   constructor() { }
 
   fetchTransactionReceiptByToken(token: string): Observable<Receipt> {
-    return of(MOCK_SALES[0]).pipe(
-      map(s => ({
-        buyOrder: s.buyOrder,
-        amount: s.netValue,
-        details: s.details,
-        date: new Date().toUTCString(),
-        status: 'Testing'
-      }))
-    );
+    const matchByToken = MOCK_RECEIPTS.find(r => r.token === token);
+    return (!matchByToken) ? throwError({ status : 404 }) : of(matchByToken);
   }
 }
