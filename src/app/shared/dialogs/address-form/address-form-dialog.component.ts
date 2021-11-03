@@ -20,7 +20,7 @@ export class AddressFormDialogComponent {
 
   address = new Address();
   readOnly = true;
-  title = 'Editar dirección';
+  title = $localize `Editar dirección`;
   hint: string | undefined;
 
   @ViewChild('addressForm', { static: false }) addressForm: AddressFormComponent;

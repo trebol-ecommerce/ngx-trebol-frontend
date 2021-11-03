@@ -147,8 +147,9 @@ export class ImageUploadFormComponent
       this.uploadSubscription = uploads$.subscribe(
         percent => {
           if (percent === 0) {
-            const imagen = `Im${this.isSingleFile ? 'a' : 'á'}gen${this.isSingleFile ? '' : 'es'}`;
-            this.snackBarService.open(`Subiendo ${this.uploadQueueSize} ${imagen}`);
+            const imageNoun = this.isSingleFile ? `imagen` : `imágenes`;
+            const uploadStartMessage = $localize `Subiendo ${this.uploadQueueSize} ${imageNoun}`;
+            this.snackBarService.open(uploadStartMessage);
           }
         },
         (error: { status?: number, error?: string }) => {
@@ -156,12 +157,14 @@ export class ImageUploadFormComponent
             this.snackBarService.open(error.error, 'OK');
           } else {
             console.error(error);
-            this.snackBarService.open('Error al intentar subir', 'OK');
+            const uploadErrorMessage = $localize `Error al intentar subir`;
+            this.snackBarService.open(uploadErrorMessage, 'OK');
           }
         },
         () => {
           setTimeout(() => { this.dialog.close(true); }, 1000);
-          this.snackBarService.open(`${this.completedUploads} de ${this.uploadQueueSize} imágenes subidas exitosamente`, 'OK');
+          const uploadFinalMessage = $localize `${this.completedUploads} de ${this.uploadQueueSize} imágenes subidas exitosamente`;
+          this.snackBarService.open(uploadFinalMessage, 'OK');
         }
       );
     }

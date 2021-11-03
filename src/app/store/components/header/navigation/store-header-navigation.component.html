@@ -6,12 +6,12 @@
 -->
 
 <a mat-button routerLink="/store"
-  title="Ir al Catálogo de Productos">
+  title="Ir al Catálogo de Productos" i18n-title>
   <mat-icon>storefront</mat-icon>
 </a>
 <ng-container *ngIf="cartHasItems$ | async">
   <a mat-button [routerLink]="['/store', 'cart']"
-    title="Ir al Carrito" >
+    title="Ir al Carrito" i18n-title>
     <mat-icon>shopping_cart</mat-icon>
     <span class="cart-summary">
       <span>{{ cartItemCountLabel$ | async }}</span>

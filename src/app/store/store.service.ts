@@ -125,7 +125,8 @@ export class StoreService
    */
   requestPayment(): Observable<ExternalPaymentRedirectionData> {
     if (!this.checkoutRequestData) {
-      return throwError({ message: 'Invalid checkout data' });
+      const errorMessage = $localize `Invalid checkout data`;
+      return throwError({ message: errorMessage });
     } else {
       const sell = this.createCheckoutRequest();
       return this.checkoutApiService.submitCart(sell);

@@ -7,11 +7,13 @@
 
 <form [formGroup]="formGroup">
   <mat-form-field class="idNumber">
-    <input matInput placeholder="Rut Empresa" formControlName="idNumber"
+    <input matInput formControlName="idNumber"
+      placeholder="Rut Empresa" i18n-placeholder
       (blur)="onTouched()" />
   </mat-form-field>
   <mat-form-field class="name">
-    <input matInput placeholder="Razón Social" formControlName="name"
+    <input matInput formControlName="name"
+      placeholder="Razón Social" i18n-placeholder
       (blur)="onTouched()" />
   </mat-form-field>
 </form>

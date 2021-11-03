@@ -5,24 +5,24 @@
   https://opensource.org/licenses/MIT
 -->
 
-<h3>Identificación requerida</h3>
-<p>Para proceder a su carrito, debe iniciar sesión, registrarse, o ingresar sus datos de facturación.</p>
-<p>Por favor, elija una de las tres a continuación:</p>
+<h3 mat-dialog-title i18n>Identificación requerida</h3>
+<p i18n>Para proceder a su carrito, debe iniciar sesión, registrarse, o ingresar sus datos de facturación.</p>
+<p i18n>Por favor, elija una de las tres a continuación:</p>
 <div class="actions">
   <button mat-button mat-raised-button type="button"
     (click)="onClickOption('login')">
-    Iniciar sesión
+    <span i18n>Iniciar sesión</span>
     <mat-icon>verified_user</mat-icon>
   </button>
   <button mat-button mat-raised-button type="button"
     (click)="onClickOption('register')">
-    Registrarme
+    <span i18n>Registrarme</span>
     <mat-icon>person_add</mat-icon>
   </button>
   <button mat-button mat-raised-button type="button"
     (click)="onClickOption('guest')">
-    Continuar sin cuenta
+    <span i18n>Continuar sin cuenta</span>
     <mat-icon>remove_moderator</mat-icon>
   </button>
 </div>
-<p class="hint">Si desea cerrar este diálogo, haga clic fuera de él.</p>
+<p class="hint" i18n>Si desea cerrar este diálogo, haga clic fuera de él.</p>

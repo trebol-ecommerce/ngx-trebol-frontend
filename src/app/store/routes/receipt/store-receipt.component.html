@@ -10,13 +10,13 @@
 <ng-template #loadedReceipt>
   <mat-card>
     <div class="icon-wrapper"><mat-icon>receipt_long</mat-icon></div>
-    <h2 mat-card-title>¡Compra realizada con éxito!</h2>
-    <p>Confirmada el {{ receipt.date | date }}.</p>
-    <p>Items en total: {{ receipt.totalItems }}</p>
-    <p *ngIf="receipt.transportValue">Valor del transporte: ${{ receipt.transportValue }}</p>
-    <p *ngIf="receipt.taxValue">Impuestos: ${{ receipt.taxValue }}</p>
-    <p>Total pagado: ${{ receipt.totalValue }}</p>
-    <h3>Detalles de la compra:</h3>
+    <h2 mat-card-title i18n>¡Compra realizada con éxito!</h2>
+    <p i18n>Confirmada el {{ receipt.date | date }}.</p>
+    <p i18n>Items en total: {{ receipt.totalItems }}</p>
+    <p *ngIf="receipt.transportValue" i18n>Valor del transporte: ${{ receipt.transportValue }}</p>
+    <p *ngIf="receipt.taxValue" i18n>Impuestos: ${{ receipt.taxValue }}</p>
+    <p i18n>Total pagado: ${{ receipt.totalValue }}</p>
+    <h3 i18n>Detalles de la compra:</h3>
     <app-store-receipt-details-table [details]="receipt.details">
     </app-store-receipt-details-table>
   </mat-card>

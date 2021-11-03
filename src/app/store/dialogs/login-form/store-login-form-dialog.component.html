@@ -5,22 +5,24 @@
   https://opensource.org/licenses/MIT
 -->
 
-<h5>Ingresar</h5>
+<h2 mat-dialog-title>Ingresar</h2>
 <app-centered-mat-spinner *ngIf="loggingIn$ | async">
 </app-centered-mat-spinner>
 
 <div [hidden]="loggingIn$ | async">
   <form [formGroup]="formGroup" (submit)="onSubmit()">
     <mat-form-field>
-      <input matInput placeholder="Nombre de Usuario" formControlName="username" />
+      <input matInput formControlName="username"
+        placeholder="Nombre de Usuario" i18n-placeholder/>
     </mat-form-field>
 
     <div class="password-form-group">
       <mat-form-field>
-        <input matInput [type]="passwordInputType$ | async" placeholder="Contraseña" formControlName="password" />
+        <input matInput [type]="passwordInputType$ | async" formControlName="password"
+          placeholder="Contraseña" i18n-placeholder/>
       </mat-form-field>
       <button mat-icon-button type="button"
-        title="Mantenga presionado para ver..."
+        title="Mantenga presionado para ver..." i18n-title
         (mousedown)="showPassword()"
         (mouseup)="hidePassword()"
         (mouseleave)="hidePassword()">
@@ -32,22 +34,22 @@
       <button mat-button mat-raised-button type="submit"
         color="primary"
         [disabled]="formGroup.invalid">
-        Aceptar
+        <span i18n>Aceptar</span>
       </button>
       <button mat-button mat-raised-button type="reset"
         [disabled]="formGroup.pristine">
-        Limpiar
+        <span i18n>Limpiar</span>
       </button>
       <button mat-button mat-raised-button type="button"
         color="warn"
         (click)="onCancel()">
-        Cancelar
+        <span i18n>Cancelar</span>
       </button>
     </div>
   </form>
   <div class="other actions">
     <app-dialog-switcher-button #registerButton
-      label="¿No tienes una cuenta? Regístrate aquí">
+      label="¿No tienes una cuenta? Regístrate aquí" i18n-label>
     </app-dialog-switcher-button>
   </div>
 </div>

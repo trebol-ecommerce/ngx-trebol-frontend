@@ -7,18 +7,23 @@
 
 <form [formGroup]="formGroup">
   <mat-form-field class="city">
-    <input matInput placeholder="Ciudad" formControlName="city" />
+    <input matInput formControlName="city"
+      placeholder="Ciudad" i18n-placeholder />
   </mat-form-field>
   <mat-form-field class="municipality">
-    <input matInput placeholder="Comuna" formControlName="municipality" />
+    <input matInput formControlName="municipality"
+      placeholder="Comuna" i18n-placeholder />
   </mat-form-field>
   <mat-form-field class="firstLine">
-    <input matInput placeholder="Dirección" formControlName="firstLine" />
+    <input matInput formControlName="firstLine"
+      placeholder="Dirección" i18n-placeholder />
   </mat-form-field>
   <mat-form-field class="secondLine">
-    <input matInput placeholder="Dirección, línea 2" formControlName="secondLine" />
+    <input matInput formControlName="secondLine"
+      placeholder="Dirección, línea 2" i18n-placeholder />
   </mat-form-field>
   <mat-form-field class="notes">
-    <input matInput placeholder="Notas o Indicaciones" formControlName="notes" />
+    <input matInput formControlName="notes"
+      placeholder="Notas o Indicaciones" i18n-placeholder />
   </mat-form-field>
 </form>

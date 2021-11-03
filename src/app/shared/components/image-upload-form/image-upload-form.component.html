@@ -7,7 +7,7 @@
 
 <form [formGroup]="formGroup" (submit)="onSubmit()"
   class="upload-image" >
-  <h2>Subir Imágenes</h2>
+  <h2 i18n>Subir Imágenes</h2>
   <mat-form-field appearance="fill">
     <app-file-upload formControlName="files"
       [disabled]="uploading$ | async"
@@ -22,12 +22,10 @@
   <div class="actions">
     <button mat-button mat-raised-button
       [disabled]="formGroup.invalid || (uploading$ | async)"
-      type="submit">
-      Aceptar
-    </button>
+      type="submit"
+      i18n>Aceptar</button>
     <button mat-button mat-raised-button
-      type="button" color="warn">
-      Cancelar
-    </button>
+      type="button" color="warn"
+      i18n>Cancelar</button>
   </div>
 </form>

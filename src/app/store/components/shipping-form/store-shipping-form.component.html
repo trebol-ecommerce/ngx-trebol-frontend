@@ -7,13 +7,15 @@
 
 <form [formGroup]="formGroup">
   <mat-radio-group formControlName="requestShipping"
-    aria-label="Elige una opción para entrega">
-    <mat-radio-button [value]="true" (blur)="onTouched()">Despacho a Domicilio</mat-radio-button>
-    <mat-radio-button [value]="false" (blur)="onTouched()">Retiro en Tienda</mat-radio-button>
+    aria-label="Elige una opción para entrega" i18n-aria-label>
+    <mat-radio-button [value]="true" (blur)="onTouched()">
+      <span i18n>Despacho a Domicilio</span>
+    </mat-radio-button>
+    <mat-radio-button [value]="false" (blur)="onTouched()" >
+      <span i18n>Retiro en Tienda</span>
+    </mat-radio-button>
   </mat-radio-group>
   <app-addresses-editor-form #addressForm formControlName="shippingAddress"
-    placeholder="Dirección de despacho"
-    editLabel="Editar dirección de despacho"
-    addLabel="Nueva dirección de despacho">
+    placeholder="Dirección de despacho" i18n-placeholder>
   </app-addresses-editor-form>
 </form>

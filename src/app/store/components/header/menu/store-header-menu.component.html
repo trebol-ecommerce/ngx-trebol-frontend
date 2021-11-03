@@ -12,23 +12,24 @@
     class="edit-profile"
     [routerLink]="['/management']">
     <mat-icon>tune</mat-icon>
-    Administrar
+    <span i18n>Administrar</span>
   </button>
   <button mat-menu-item type="button"
     class="edit-profile"
     (click)="onClickEditProfile()">
     <mat-icon>edit</mat-icon>
-    Editar Perfil
+    <span i18n>Editar Perfil</span>
   </button>
   <button mat-menu-item type="button"
     class="logout"
     (click)="onClickLogout()">
     <mat-icon>exit_to_app</mat-icon>
-    Terminar Sesión
+    <span i18n>Terminar Sesión</span>
   </button>
 </mat-menu>
 <button mat-button type="button"
-  class="open-menu" title="Menú de usuario"
+  class="open-menu"
+  title="Menú de usuario" i18n-title
   [matMenuTriggerFor]="headerMenu">
   <mat-icon>person</mat-icon>
 </button>

@@ -41,9 +41,10 @@ export class AddressesEditorFormComponent
   private valueChangesSubscriptions: Subscription[] = [];
   private touched = new EventEmitter<void>();
 
-  @Input() placeholder = 'Dirección';
-  @Input() editLabel = 'Editar dirección';
-  @Input() addLabel = 'Nueva dirección';
+  editLabel = $localize `Editar dirección`;
+  addLabel = $localize `Nueva dirección`;
+
+  @Input() placeholder = $localize `Dirección`;
   @Input() @Output() savedAddresses: Address[] = [];
 
   formControl = new FormControl('', Validators.required);

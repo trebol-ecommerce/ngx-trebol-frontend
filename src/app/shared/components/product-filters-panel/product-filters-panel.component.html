@@ -7,28 +7,27 @@
 
 <mat-expansion-panel>
   <mat-expansion-panel-header>
-    <mat-panel-title>Filtrar productos por...</mat-panel-title>
+    <mat-panel-title i18n>Filtrar productos por...</mat-panel-title>
   </mat-expansion-panel-header>
   <form [formGroup]="formGroup">
 
     <mat-form-field>
-      <mat-select placeholder="Familia de Productos"
-        formControlName="category">
-        <mat-option *ngFor="let family of (categories$ | async)"
-          [value]="family.code">
-          {{ family.name }}
-        </mat-option>
+      <mat-select formControlName="category"
+        placeholder="Categoría" i18n-placeholder>
+        <mat-option *ngFor="let category of (categories$ | async)"
+          [value]="category.code">{{ category.name }}</mat-option>
       </mat-select>
       <button matSuffix mat-button mat-icon-button *ngIf="category.value"
-        aria-label="Limpiar"
-        title="Limpiar"
+        aria-label="Limpiar" i18n-aria-label
+        title="Limpiar" i18n-title
         (click)="onClickResetProductCategory($event)">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Nombre de Producto" formControlName="name" />
+      <input matInput formControlName="name"
+        placeholder="Nombre de Producto" i18n-placeholder />
     </mat-form-field>
   </form>
 </mat-expansion-panel>

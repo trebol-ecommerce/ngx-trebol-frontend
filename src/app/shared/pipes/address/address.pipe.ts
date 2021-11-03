@@ -12,12 +12,13 @@ import { Address } from 'src/app/models/entities/Address';
 export class AddressPipe
   implements PipeTransform {
 
+  private commentLabel = $localize `Comentario`;
+
   transform(value: Address, ...args: unknown[]): unknown {
-    return (value.firstLine
-      + (value.secondLine ? ', ' + value.secondLine : '')
-      + ', ' + value.city
-      + ', ' + value.municipality
-      + (value.notes ? ' (Comentario: ' + value.notes + ')' : ''));
+    return (value.firstLine +
+      (value.secondLine ? `, ${value.secondLine}` : '') +
+      `, ${value.city}, ${value.municipality}` +
+      (value.notes ? ` (${this.commentLabel}: ${value.notes})` : ''));
   }
 
 }

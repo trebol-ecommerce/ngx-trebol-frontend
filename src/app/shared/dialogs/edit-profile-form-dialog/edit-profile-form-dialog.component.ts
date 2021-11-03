@@ -63,12 +63,13 @@ export class EditProfileFormDialogComponent
   }
 
   onSubmit(): void {
-    const datosUsuario = this.person.value as Person;
-    if (datosUsuario) {
-      this.service.saveProfile(datosUsuario).subscribe(
+    const data = this.person.value as Person;
+    if (data) {
+      this.service.saveProfile(data).subscribe(
         success => {
           if (success) {
-            this.snackBarService.open('Sus datos fueron registrados exitosamente', 'OK');
+            const succesfulSaveMessage = $localize`Sus datos fueron registrados exitosamente`;
+            this.snackBarService.open(succesfulSaveMessage, 'OK');
             this.dialog.close();
           } else {
             this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');

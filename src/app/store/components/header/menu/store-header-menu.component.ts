@@ -85,10 +85,9 @@ export class StoreHeaderMenuComponent
   }
 
   private promptLogoutConfirmation(): Observable<boolean> {
-    const dialogData: ConfirmationDialogData = {
-      title: '¿Cerrar sesion?',
-      message: 'Si esta realizando una transaccion, perdera la informacion que haya guardado.'
-    };
+    const title = $localize `¿Cerrar sesion?`;
+    const message = $localize `Si esta realizando una transaccion, perdera la informacion que haya guardado.`;
+    const dialogData: ConfirmationDialogData = { title, message };
 
     return this.dialogService.open(
       ConfirmationDialogComponent,
