@@ -3,7 +3,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-![NPM Package](https://img.shields.io/npm/v/ngx-trebol-frontend)
+[![NPM Package](https://img.shields.io/npm/v/ngx-trebol-frontend)](https://www.npmjs.com/package/ngx-trebol-frontend)
 [![Build Status](https://app.travis-ci.com/trebol-ecommerce/ngx-trebol-frontend.svg?branch=main)](https://travis-ci.com/github/trebol-ecommerce/ngx-trebol-frontend)
 
 ## Status / Roadmap
@@ -12,7 +12,7 @@ Currently working towards support for [the next minor API version (v1.1)](https:
 
 ## Infrastructure
 
-The application itself lives in the `/src/app/` directory, and is inmediately followed by feature modules. Excepting for the `/api` module, each one is divided into bare components, bare directives, a routing module if any, routed components and dialog components.
+The application itself lives in the `/src/app/` directory, and its structure is as follows:
 
 - `store/` contains everything related to shopping itself; you can view the product catalog, log in or sign up for an account, reviewing cart, check out, etcetera.
 - `management/` contains elements relating to the administration of data internals and POS: you register, update and categorize products; create users; list customers; upload images, etcetera.
@@ -20,20 +20,16 @@ The application itself lives in the `/src/app/` directory, and is inmediately fo
 - `api/` contains the dependency injection tokens, interfaces and modules to interact with the [the backend APIs](https://github.com/trebol-ecommerce/trebol-api)
   - `local-memory/` contains a fake/mock API implementation in client-side code. It's the default option to build and serve with; used for the demo and sometimes for unit tests.
   - `http/` contains the implementation module and services that work with HTTP calls; these require a real, running API.
-
-There are also two folders that matter to the entire codebase:
-
 - `models/` contains the data types (TS classes) used across the application.
-  - `entities/` has those models that are sent to and received from the APIs.
-- `i18n` contains internationalization files. **And needs a heavy update...**
+  - `entities/` has models specific to [the REST API](https://github.com/trebol-ecommerce/trebol-api).
 
 ## Requirements
 
 - An [Angular CLI](https://cli.angular.io/) 11-compatible [Node.js/NPM](https://nodejs.org/) installation.
 
-## Getting started with the code
+## Getting started
 
-Just do `npm install` in the root directory of your copy of the repository.
+`git clone` this repo, then do `npm install` in the root directory.
 
 ## Testing
 
@@ -42,8 +38,8 @@ Jasmine tests are providing about 40% of code coverage, you can give them a try 
 ## Configuring the build / serve process
 
 - The default environment files are located in `/src/environments/`; one is for the simpler variables and the one is for module dependencies.
-- The `/src/angular.json` file contains two base configuration definitions that you can use: `production` and `localhost`.
-- Make yourself comfortable with the [official guide on Building and Serving Angular Apps](https://angular.io/guide/build). Basically, you need to create a copy of the environment files, rename them following the pattern for your desired configuration, and call the `ng` command, targetting said configuration.
+- The `/src/angular.json` file contains two base configuration definitions that you can use: `production` and `localhost`. You can create more if you need.
+- Make yourself comfortable with the [official guide on Building and Serving Angular Apps](https://angular.io/guide/build). Basically, you need to create a copy of the environment files, rename them following the pattern for your desired configuration, and call the `ng serve` or `ng build` command with the `-c` option to target said configuration.
 - You can also use the [angular-cli-ghpages plugin](https://github.com/angular-schule/angular-cli-ghpages#options) to automate your deployment.
 
 ## Contributing to this repository
