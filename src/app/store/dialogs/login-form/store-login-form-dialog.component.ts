@@ -14,7 +14,7 @@ import { map } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { Login } from 'src/app/models/Login';
 import { DialogSwitcherButtonComponent } from 'src/app/shared/components/dialog-switcher-button/dialog-switcher-button.component';
-import { LOGIN_ERROR_MESSAGE, LOGIN_SUCCESS_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
+import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { StoreRegistrationFormDialogComponent } from '../registration-form/store-registration-form-dialog.component';
 
 @Component({
@@ -75,15 +75,17 @@ export class StoreLoginFormDialogComponent
       this.appService.login(details).subscribe(
         () => {
           this.dialog.close();
-          this.snackBarService.open(LOGIN_SUCCESS_MESSAGE, 'OK');
+          const successMessage = $localize`:succesful login message|Message of success after login:Ha iniciado sesión correctamente`
+          this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
         },
         error => {
           if (error.status === 403) {
             this.loggingInSource.next(false);
-            this.snackBarService.open(LOGIN_ERROR_MESSAGE, 'OK');
+            const errorMessage = $localize`:incorrect login message|Message of error due to bad/erroneous credentials:Sus credenciales son incorrectas`;
+            this.snackBarService.open(errorMessage, COMMON_DISMISS_BUTTON_LABEL);
           } else {
             this.loggingInSource.next(false);
-            this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
+            this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
           }
         }
       );

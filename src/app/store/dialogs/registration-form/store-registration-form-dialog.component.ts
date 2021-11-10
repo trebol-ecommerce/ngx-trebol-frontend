@@ -14,6 +14,7 @@ import { AppService } from 'src/app/app.service';
 import { Person } from 'src/app/models/entities/Person';
 import { Registration } from 'src/app/models/Registration';
 import { passwordMatcher } from 'src/functions/passwordMatcher';
+import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 
 /**
  * Account registration form dialog.
@@ -66,13 +67,13 @@ export class StoreRegistrationFormDialogComponent
       this.appService.register(details).subscribe(
         s => {
           if (s) {
-            const successMessage = $localize`:Label for success after registration:Su cuenta fue creada con éxito. Recuerde guardar su contraseña en un lugar seguro, y ¡disfrute las compras!`;
-            this.snackBarService.open(successMessage, 'OK');
+            const successMessage = $localize`:Message of success after registration:Su cuenta fue creada con éxito. Recuerde guardar su contraseña en un lugar seguro, y ¡disfrute las compras!`;
+            this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
             this.registeringSource.complete();
             this.dialog.close(true);
           } else {
-            const errorMessage = $localize`:Label for general error during registration, hint users to try again:Hubo un error al crear su cuenta. Por favor, inténtelo nuevamente.`;
-            this.snackBarService.open(errorMessage, 'OK');
+            const errorMessage = $localize`:Message of error during registration, hint user to try again:Hubo un error al crear su cuenta. Por favor, inténtelo nuevamente.`;
+            this.snackBarService.open(errorMessage, COMMON_DISMISS_BUTTON_LABEL);
             this.registeringSource.next(false);
           }
         }

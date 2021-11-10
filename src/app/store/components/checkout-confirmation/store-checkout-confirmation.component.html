@@ -7,7 +7,7 @@
 
 <mat-card *ngIf="checkoutRequest">
   <mat-card-header>
-    <h3 mat-card-title i18n="Title of widget displaying and requesting to confirm correctness of, billing/personal/shipping information">¿Son estos datos correctos?</h3>
+    <h3 mat-card-title i18n="Title of widget to request confirmation of billing/personal/shipping information being correct">¿Son estos datos correctos?</h3>
   </mat-card-header>
   <div class="customer">
     <ng-container *ngIf="checkoutRequest.customer; else noCustomer">
@@ -43,11 +43,11 @@
     </ng-container>
     <ng-template #noShipping>
       <mat-icon>local_shipping</mat-icon>&nbsp;
-      <span i18n="in-store delivery|Label for choosing to pick items up in store">Retiro en Tienda</span>
+      <span i18n="in-store delivery|Label to choose to pick up items in store">Retiro en Tienda</span>
     </ng-template>
   </div>
 </mat-card>
-<p i18n="Label to instruct users that, after having checked correctness of billing/personal/shipping information, they click the action button to request a new transaction">Si está segur@ que la información ingresada es correcta,
+<p i18n="Label to instruct user that, after having checked correctness of billing/personal/shipping information, they click the action button to request a new transaction">Si está segur@ que la información ingresada es correcta,
   haga clic en el botón 'Solicitar transacción':</p>
 <button type="button" class="request"
   mat-button mat-raised-button
@@ -58,7 +58,7 @@
   <mat-icon>point_of_sale</mat-icon>
 </button>
 <mat-divider></mat-divider>
-<p i18n="Label to instruct users that, after requesting and waiting for a new transaction, they click the action button to proceed towards payment page">Una vez solicitada la transacción,
+<p i18n="Label to instruct user that, after requesting and waiting for a new transaction, they click the action button to proceed towards payment page">Una vez solicitada la transacción,
   puede proceder dando clic al botón 'Ir al pago':</p>
 <app-store-checkout-button
   [checkoutDetails]="checkoutDetails">

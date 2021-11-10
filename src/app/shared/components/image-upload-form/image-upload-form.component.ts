@@ -17,6 +17,7 @@ import { debounceTime, map, mapTo, startWith, tap } from 'rxjs/operators';
 import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
 import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
+import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 import { ImageManagerUploadService } from './image-upload-form.service';
 
 @Component({
@@ -147,23 +148,25 @@ export class ImageUploadFormComponent
       this.uploadSubscription = uploads$.subscribe(
         percent => {
           if (percent === 0) {
-            const imageNoun = this.isSingleFile ? `imagen` : `imágenes`;
-            const uploadStartMessage = $localize`:Label to hint users of total images to be uploaded:Subiendo ${ this.uploadQueueSize }:totalImagesToUpload: ${ imageNoun }`;
+            // TODO use plural expression
+            const uploadStartMessage = $localize`:Label with total images to be uploaded being {{ totalImagesToUpload }}:Subiendo ${ this.uploadQueueSize }:totalImagesToUpload: imágenes`;
             this.snackBarService.open(uploadStartMessage);
           }
         },
         (error: { status?: number, error?: string }) => {
           if (error?.status && error.status === 400) {
-            this.snackBarService.open(error.error, 'OK');
+            this.snackBarService.open(error.error, COMMON_DISMISS_BUTTON_LABEL);
           } else {
             console.error(error);
-            const uploadErrorMessage = $localize`:Label for general error during upload of images:Error al intentar subir`;
-            this.snackBarService.open(uploadErrorMessage, 'OK');
+            const uploadErrorMessage = $localize`:Message of error during upload of images:Error al intentar subir`;
+            this.snackBarService.open(uploadErrorMessage, COMMON_DISMISS_BUTTON_LABEL);
           }
         },
         () => {
           setTimeout(() => { this.dialog.close(true); }, 1000);
-          const uploadFinalMessage = $localize`:Label for success during (and after) upload of images:${ this.completedUploads }:imagesUploadedSoFar: de ${ this.uploadQueueSize }:totalImagesToUpload: imágenes subidas exitosamente`;          this.snackBarService.open(uploadFinalMessage, 'OK');
+          // TODO use plural expression
+          const uploadFinalMessage = $localize`:Message of success during (and after) uploading {{ imagesUploadedSoFar }} images out of a total of {{ totalImagesToUpload }}:Se han subido ${this.completedUploads}:imagesUploadedSoFar: de ${this.uploadQueueSize}:totalImagesToUpload: imágenes exitosamente`;
+          this.snackBarService.open(uploadFinalMessage, COMMON_DISMISS_BUTTON_LABEL);
         }
       );
     }

@@ -14,7 +14,7 @@ import { AppService } from 'src/app/app.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogData } from 'src/app/shared/dialogs/confirmation-dialog/ConfirmationDialogData';
 import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form-dialog/edit-profile-form-dialog.component';
-import { LOGOUT_MESSAGE } from 'src/text/messages';
+import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 
 @Component({
   selector: 'app-store-header-menu',
@@ -77,7 +77,8 @@ export class StoreHeaderMenuComponent
         confirmed => {
           if (confirmed) {
             this.appService.closeCurrentSession();
-            this.snackBarService.open(LOGOUT_MESSAGE, 'OK');
+            const message = $localize`:logout message|Label to notify user that they have logged out:Ha terminado su sesión correctamente`;
+            this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
           }
         }
       );
@@ -85,8 +86,8 @@ export class StoreHeaderMenuComponent
   }
 
   private promptLogoutConfirmation(): Observable<boolean> {
-    const title = $localize`:Label for asking user to confirm log out:¿Cerrar sesión?`;
-    const message = $localize`:Label for hinting users that any undergoing process may be lost when logging out:Si está realizando una transaccion, perderá la informacion que haya guardado.`;
+    const title = $localize`:Label to ask user to confirm logging out:¿Cerrar sesión?`;
+    const message = $localize`:Label to hint user that any undergoing process may be lost when logging out:Si está realizando una transaccion, perderá la informacion que haya guardado.`;
     const dialogData: ConfirmationDialogData = { title, message };
 
     return this.dialogService.open(

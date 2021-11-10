@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-store-header-middle',
@@ -14,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StoreHeaderMiddleComponent {
 
-  label = $localize`:Label for title of application:Tienda On-line`;
+  label = $localize`:Title of application:Tienda On-line`;
 
   constructor() { }
 

@@ -17,7 +17,7 @@ import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation
 import { ConfirmationDialogData } from 'src/app/shared/dialogs/confirmation-dialog/ConfirmationDialogData';
 import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form-dialog/edit-profile-form-dialog.component';
 import { environment } from 'src/environments/environment';
-import { LOGOUT_MESSAGE } from 'src/text/messages';
+import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 
 @Component({
   selector: 'app-management-header',
@@ -61,7 +61,8 @@ export class ManagementHeaderComponent {
         if (confirmed) {
           this.appService.closeCurrentSession();
           this.router.navigateByUrl('/');
-          this.snackBarService.open(LOGOUT_MESSAGE, 'OK');
+          const message = $localize`:logout message|Label to notify user that they have logged out:Ha terminado su sesión correctamente`;
+          this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
         }
       }
     );

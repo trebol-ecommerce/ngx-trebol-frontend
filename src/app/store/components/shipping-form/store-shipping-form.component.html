@@ -7,7 +7,8 @@
 
 <form [formGroup]="formGroup">
   <mat-radio-group formControlName="requestShipping"
-    aria-label="Elige una opción para entrega" i18n-aria-label>
+    aria-label="Elige una opción para entrega"
+    i18n-aria-label="Label to hint user that they must choose a delivery option">
     <mat-radio-button [value]="true" (blur)="onTouched()">
       <span i18n="shipping delivery|Label for option to choose delivery to a shipping address">Despacho a Domicilio</span>
     </mat-radio-button>

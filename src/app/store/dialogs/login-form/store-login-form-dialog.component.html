@@ -37,23 +37,23 @@
       <button mat-button mat-raised-button type="submit"
         color="primary"
         [disabled]="formGroup.invalid">
-        <span i18n="confirm|Label for action button to accept input and log in">Aceptar</span>
+        <span i18n="confirm|Label for action button to accept and proceed">Aceptar</span>
       </button>
       <button mat-button mat-raised-button type="reset"
         [disabled]="formGroup.pristine">
-        <span i18n="clean up|Label for action button to clean fields in login form">Limpiar</span>
+        <span i18n="clean up|Label for action button to clear values in form">Limpiar</span>
       </button>
       <button mat-button mat-raised-button type="button"
         color="warn"
         (click)="onCancel()">
-        <span i18n="cancel|Label for action button to cancel log in">Cancelar</span>
+        <span i18n="cancel|Label for action button to cancel and/or stop an operation">Cancelar</span>
       </button>
     </div>
   </form>
   <div class="other actions">
     <app-dialog-switcher-button #registerButton
       label="¿No tienes una cuenta? Regístrate aquí"
-      i18n-label="Label for action button to hint users to register if they don't have an account">
+      i18n-label="Label to hint user to register if they do not have an account">
     </app-dialog-switcher-button>
   </div>
 </div>

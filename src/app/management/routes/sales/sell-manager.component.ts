@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
 import { SellFormComponent } from 'src/app/shared/components/sell-form/sell-form.component';
-import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
+import { COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerFormDialogConfig } from '../../dialogs/data-manager-form-dialog/DataManagerFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { SellManagerService } from './sell-manager.service';
@@ -67,14 +67,15 @@ export class SellManagerComponent
     ).subscribe(
       success => {
         if (success) {
-          this.snackBarService.open(`Venta N°${s.buyOrder} (${s.date}) eliminada`);
+          const message = $localize`:Message of success after deleting a sell with buy order {{ buyOrder }} on date {{ date }}:Venta N°${s.buyOrder}:buyOrder: (${s.date}:date:) eliminada`;
+          this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
           this.service.reloadItems();
         } else {
-          this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
+          this.snackBarService.open(COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
         }
       },
       error => {
-        this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
+        this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
       }
     );
   }

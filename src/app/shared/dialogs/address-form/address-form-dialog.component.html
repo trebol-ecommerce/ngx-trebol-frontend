@@ -14,10 +14,10 @@
   <button type="button" class="cancel" mat-dialog-close
     mat-button mat-raised-button
     color="warn"
-    i18n="cancel|Label for action button to cancel and discard any changes in address">Cancelar</button>
+    i18n="cancel|Label for action button to cancel and/or stop an operation">Cancelar</button>
   <button type="button" class="accept"
     mat-button mat-raised-button
     [disabled]="addressForm.formGroup.invalid"
     (click)="onClickAcceptEdition()"
-    i18n="confirm|Label for action button to accept and save changes in address">Aceptar</button>
+    i18n="confirm|Label for action button to accept and proceed">Aceptar</button>
 </div>
