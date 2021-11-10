@@ -66,12 +66,12 @@ export class StoreRegistrationFormDialogComponent
       this.appService.register(details).subscribe(
         s => {
           if (s) {
-            const successMessage = $localize `Su cuenta fue creada con éxito. Recuerde guardar su contraseña en un lugar seguro, y ¡disfrute las compras!`;
+            const successMessage = $localize`:Label for success after registration:Su cuenta fue creada con éxito. Recuerde guardar su contraseña en un lugar seguro, y ¡disfrute las compras!`;
             this.snackBarService.open(successMessage, 'OK');
             this.registeringSource.complete();
             this.dialog.close(true);
           } else {
-            const errorMessage = $localize `Hubo un error al crear su cuenta. Por favor, inténtelo nuevamente.`;
+            const errorMessage = $localize`:Label for general error during registration, hint users to try again:Hubo un error al crear su cuenta. Por favor, inténtelo nuevamente.`;
             this.snackBarService.open(errorMessage, 'OK');
             this.registeringSource.next(false);
           }

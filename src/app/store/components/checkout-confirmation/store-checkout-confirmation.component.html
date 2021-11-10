@@ -7,7 +7,7 @@
 
 <mat-card *ngIf="checkoutRequest">
   <mat-card-header>
-    <h3 mat-card-title i18n>¿Son estos datos correctos?</h3>
+    <h3 mat-card-title i18n="Title of widget displaying and requesting to confirm correctness of, billing/personal/shipping information">¿Son estos datos correctos?</h3>
   </mat-card-header>
   <div class="customer">
     <ng-container *ngIf="checkoutRequest.customer; else noCustomer">
@@ -21,15 +21,15 @@
     <ng-template #noCustomer>
       <mat-icon>person_off</mat-icon>&nbsp;
       <span class="details">
-        <span class="name" i18n>Cliente anónimo</span>
+        <span class="name" i18n="Label to indicate that current customer chose not to give personal information">Cliente anónimo</span>
       </span>
     </ng-template>
   </div>
-  <div class="type" *ngIf="checkoutRequest.billing?.sellType">
+  <div class="type" *ngIf="checkoutRequest.billing.sellType">
     <mat-icon>receipt</mat-icon>&nbsp;
     <span>{{ checkoutRequest.billing.sellType }}</span>
   </div>
-  <div class="company" *ngIf="checkoutRequest.billing?.company">
+  <div class="company" *ngIf="checkoutRequest.billing.company">
     <mat-icon>business</mat-icon>&nbsp;
     <span class="details">
       <span class="name">{{ checkoutRequest.billing.company.name }}</span>
@@ -43,21 +43,23 @@
     </ng-container>
     <ng-template #noShipping>
       <mat-icon>local_shipping</mat-icon>&nbsp;
-      <span i18n>Retiro en Tienda</span>
+      <span i18n="in-store delivery|Label for choosing to pick items up in store">Retiro en Tienda</span>
     </ng-template>
   </div>
 </mat-card>
-<p i18n>Si está segur@ que la información ingresada es correcta, haga clic en el botón 'Solicitar transacción':</p>
+<p i18n="Label to instruct users that, after having checked correctness of billing/personal/shipping information, they click the action button to request a new transaction">Si está segur@ que la información ingresada es correcta,
+  haga clic en el botón 'Solicitar transacción':</p>
 <button type="button" class="request"
   mat-button mat-raised-button
   color="accent"
   [disabled]="loading"
   (click)="onClickRequest()">
-  <span i18n>Solicitar transacción</span>
+  <span i18n="Label for action button to request a new transaction from payment service">Solicitar transacción</span>
   <mat-icon>point_of_sale</mat-icon>
 </button>
 <mat-divider></mat-divider>
-<p i18n>Una vez solicitada la transacción, puede proceder dando clic al botón 'Ir al pago':</p>
+<p i18n="Label to instruct users that, after requesting and waiting for a new transaction, they click the action button to proceed towards payment page">Una vez solicitada la transacción,
+  puede proceder dando clic al botón 'Ir al pago':</p>
 <app-store-checkout-button
   [checkoutDetails]="checkoutDetails">
 </app-store-checkout-button>

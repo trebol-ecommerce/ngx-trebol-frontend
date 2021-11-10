@@ -16,10 +16,10 @@
   <div class="actions">
     <button mat-button mat-raised-button type="button"
       (click)="onSubmit()"
-      i18n>Aceptar</button>
+      i18n="confirm|Label for action button to accept and save changes in profile">Aceptar</button>
     <button mat-button mat-raised-button type="button"
       [color]="cancelButtonColor$ | async"
       (click)="onCancel()"
-      i18n>Cancelar</button>
+      i18n="cancel|Label for action button to cancel and discard any changes in profile">Cancelar</button>
   </div>
 </form>

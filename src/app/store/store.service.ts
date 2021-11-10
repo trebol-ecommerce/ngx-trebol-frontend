@@ -125,7 +125,7 @@ export class StoreService
    */
   requestPayment(): Observable<ExternalPaymentRedirectionData> {
     if (!this.checkoutRequestData) {
-      const errorMessage = $localize `Detalles del pedido incompletos`;
+      const errorMessage = $localize`:Label for error in checkout due to incomplete or insufficient supplied data:Detalles del pedido incompletos`;
       return throwError({ message: errorMessage });
     } else {
       const sell = this.createCheckoutRequest();

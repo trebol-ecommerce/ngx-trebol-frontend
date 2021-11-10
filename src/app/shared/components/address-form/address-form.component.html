@@ -8,22 +8,27 @@
 <form [formGroup]="formGroup">
   <mat-form-field class="city">
     <input matInput formControlName="city"
-      placeholder="Ciudad" i18n-placeholder />
+      placeholder="Ciudad"
+      i18n-placeholder="Name of field for the city where a given address exists" />
   </mat-form-field>
   <mat-form-field class="municipality">
     <input matInput formControlName="municipality"
-      placeholder="Comuna" i18n-placeholder />
+      placeholder="Comuna"
+      i18n-placeholder="Name of field for the smallest political unit where a given address exists" />
   </mat-form-field>
   <mat-form-field class="firstLine">
     <input matInput formControlName="firstLine"
-      placeholder="Dirección" i18n-placeholder />
+      placeholder="Dirección"
+      i18n-placeholder="Name of field for a given street's name and number" />
   </mat-form-field>
   <mat-form-field class="secondLine">
     <input matInput formControlName="secondLine"
-      placeholder="Dirección, línea 2" i18n-placeholder />
+      placeholder="Dirección, línea 2"
+      i18n-placeholder="Name of field for the apartment or suite number, and/or any other specific details for a given address" />
   </mat-form-field>
   <mat-form-field class="notes">
     <input matInput formControlName="notes"
-      placeholder="Notas o Indicaciones" i18n-placeholder />
+      placeholder="Notas o indicaciones"
+      i18n-placeholder="Name of field for comments and extra information about a given address" />
   </mat-form-field>
 </form>

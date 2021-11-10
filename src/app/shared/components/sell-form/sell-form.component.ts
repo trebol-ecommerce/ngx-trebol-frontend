@@ -69,10 +69,10 @@ export class SellFormComponent
     this.customers$ = this.customersDataService.fetchPage().pipe(map(page => page.items));
 
     this.sellNetValueLabel$ = this.service.sellNetValue$.pipe(
-      map(netValue => ($localize `Subtotal: $${netValue}`))
+      map(netValue => ($localize`:subtotal sell value|Label for sell subtotal value (products only):Subtotal: $${ netValue }:value:`))
     );
     this.sellTotalValueLabel$ = this.service.sellTotalValue$.pipe(
-      map(totalValue => ($localize `Total: $${totalValue}`))
+      map(totalValue => ($localize`:total sell value|Label for sell total value (products, transport and taxes):Total: $${ totalValue }:value:`))
     );
 
     // this.sellIsntReady$ = merge(

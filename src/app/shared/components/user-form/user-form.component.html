@@ -8,17 +8,20 @@
 <form [formGroup]="formGroup">
   <mat-form-field>
     <input matInput formControlName="name"
-      placeholder="Nombre de Usuario" i18n-placeholder/>
+      placeholder="Nombre de Usuario"
+      i18n-placeholder="Name of field for username to create user with" />
   </mat-form-field>
 
   <mat-form-field>
     <input matInput formControlName="password" type="password"
-      placeholder="Clave de Usuario" i18n-placeholder/>
+      placeholder="Clave de Usuario"
+      i18n-placeholder="Name of field for password to create user with" />
   </mat-form-field>
 
   <mat-form-field>
     <mat-select formControlName="person"
-      placeholder="Persona" i18n-placeholder>
+      placeholder="Persona"
+      i18n-placeholder="Name of field for person profile to create user with">
       <mat-option *ngFor="let p of (people$ | async)"
         [value]="p.idNumber">{{
           p.firstName + " " +
@@ -29,7 +32,8 @@
 
   <mat-form-field>
     <mat-select formControlName="role"
-      placeholder="Rol" i18n-placeholder>
+      placeholder="Rol"
+      i18n-placeholder="Name of field for permissions role to create user with">
       <mat-option *ngFor="let r of (roles$ | async)"
         [value]="r.name">{{ r.name }}</mat-option>
     </mat-select>

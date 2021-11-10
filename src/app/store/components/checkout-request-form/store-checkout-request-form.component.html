@@ -7,17 +7,17 @@
 
 <form [formGroup]="formGroup">
   <div class="billing">
-    <h3 i18n>Tipo de Facturación</h3>
+    <h3 i18n="Title of form for billing information">Tipo de Facturación</h3>
     <app-store-billing-details-form #billingForm formControlName="billing">
     </app-store-billing-details-form>
   </div>
   <div class="customer">
-    <h3 i18n>Información de Contacto</h3>
+    <h3 i18n="Title of form for personal information">Información de Contacto</h3>
     <app-person-form #customerForm formControlName="customer">
     </app-person-form>
   </div>
   <div class="shipping">
-    <h3 i18n>Información de Despacho</h3>
+    <h3 i18n="Title of form for shipping information">Información de Despacho</h3>
     <app-store-shipping-form #shippingForm formControlName="shipping">
     </app-store-shipping-form>
   </div>
@@ -26,7 +26,7 @@
       mat-button mat-raised-button
       color="accent"
       (click)="onClickRequest()">
-      <span i18n>Continuar</span>
+      <span i18n="continue|Label of action button to accept form and proceed to review billing/personal/shipping information">Continuar</span>
       <mat-icon>arrow_forward</mat-icon>
     </button>
   </div>

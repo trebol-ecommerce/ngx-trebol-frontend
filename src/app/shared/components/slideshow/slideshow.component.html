@@ -25,29 +25,28 @@
   <ng-template #noImageAvailable>
     <div class="slide-wrapper">
       <img src="assets/img/products/unavailable.png"
-        alt="Imagen no disponible" i18n-alt />
+        alt="Imagen no disponible"
+        i18n-alt="Label for describing a missing or unavailable image" />
     </div>
   </ng-template>
 </div>
 <div class="selectors">
   <ng-container *ngFor="let image of images; index as i">
-    <ng-container *ngIf="(currentIndex$ | async) === i; then selected; else notSelected"></ng-container>
-    <ng-template #selected>
-      <button type="button" class="slide-selector"
-        mat-button mat-icon-button>
-        <mat-icon>radio_button_checked</mat-icon>
-      </button>
-    </ng-template>
-    <ng-template #notSelected>
-      <button type="button" class="slide-selector"
-        mat-button mat-icon-button (click)="goToSlide(i)">
-        <mat-icon>radio_button_unchecked</mat-icon>
-      </button>
-    </ng-template>
+    <button type="button" class="slide-selector"
+      mat-button mat-icon-button
+      attr.aria-label="Navegar a la imagen {{i+1}}"
+      attr.i18n-aria-label="Label for action button to navigate to slide/image number {{i+1}}"
+      [class.selected]="(currentIndex$ | async) === i"
+      [disabled]="(currentIndex$ | async) === i"
+      (click)="goToSlide(i)">
+      <mat-icon>{{ (currentIndex$ | async) === i ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
+    </button>
   </ng-container>
   <ng-container *ngIf="editable">
     <button type="button" class="slide-add"
       mat-button mat-icon-button
+      aria-label="Agregar imagen"
+      i18n-aria-label="Label for action button to add a slide/image"
       (click)="onClickAdd()">
       <mat-icon>add_circle_outline</mat-icon>
     </button>

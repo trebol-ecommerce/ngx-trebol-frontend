@@ -9,14 +9,14 @@
 </app-centered-mat-spinner>
 <ng-template #loadedReceipt>
   <mat-card>
-    <div class="icon-wrapper"><mat-icon>receipt_long</mat-icon></div>
-    <h2 mat-card-title i18n>¡Compra realizada con éxito!</h2>
-    <p i18n>Confirmada el {{ receipt.date | date }}.</p>
-    <p i18n>Items en total: {{ receipt.totalItems }}</p>
-    <p *ngIf="receipt.transportValue" i18n>Valor del transporte: ${{ receipt.transportValue }}</p>
-    <p *ngIf="receipt.taxValue" i18n>Impuestos: ${{ receipt.taxValue }}</p>
-    <p i18n>Total pagado: ${{ receipt.totalValue }}</p>
-    <h3 i18n>Detalles de la compra:</h3>
+    <div class="icon-wrapper" aria-hidden="true"><mat-icon>receipt_long</mat-icon></div>
+    <h2 mat-card-title i18n="Title of succesful checkout transaction">¡Compra realizada con éxito!</h2>
+    <p i18n="Label for transaction confirmation date">Confirmada el {{ receipt.date | date }}</p>
+    <p i18n="Label for total count of items in transaction being {{ receipt.totalItems }}">Items en total: {{ receipt.totalItems }}</p>
+    <p *ngIf="receipt.transportValue" i18n="Label for total price of transport being {{ receipt.transportValue }}">Valor del transporte: ${{ receipt.transportValue }}</p>
+    <p *ngIf="receipt.taxValue" i18n="Label for total price of taxes being {{ receipt.taxValue }}">Impuestos: ${{ receipt.taxValue }}</p>
+    <p i18n="Label for total price of transaction being {{ receipt.totalValue}}">Total pagado: ${{ receipt.totalValue }}</p>
+    <h3 i18n="Title of widget displaying products and details of transaction">Detalles de la compra</h3>
     <app-store-receipt-details-table [details]="receipt.details">
     </app-store-receipt-details-table>
   </mat-card>

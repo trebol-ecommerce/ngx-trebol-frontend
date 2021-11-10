@@ -148,7 +148,7 @@ export class ImageUploadFormComponent
         percent => {
           if (percent === 0) {
             const imageNoun = this.isSingleFile ? `imagen` : `imágenes`;
-            const uploadStartMessage = $localize `Subiendo ${this.uploadQueueSize} ${imageNoun}`;
+            const uploadStartMessage = $localize`:Label to hint users of total images to be uploaded:Subiendo ${ this.uploadQueueSize }:totalImagesToUpload: ${ imageNoun }`;
             this.snackBarService.open(uploadStartMessage);
           }
         },
@@ -157,14 +157,13 @@ export class ImageUploadFormComponent
             this.snackBarService.open(error.error, 'OK');
           } else {
             console.error(error);
-            const uploadErrorMessage = $localize `Error al intentar subir`;
+            const uploadErrorMessage = $localize`:Label for general error during upload of images:Error al intentar subir`;
             this.snackBarService.open(uploadErrorMessage, 'OK');
           }
         },
         () => {
           setTimeout(() => { this.dialog.close(true); }, 1000);
-          const uploadFinalMessage = $localize `${this.completedUploads} de ${this.uploadQueueSize} imágenes subidas exitosamente`;
-          this.snackBarService.open(uploadFinalMessage, 'OK');
+          const uploadFinalMessage = $localize`:Label for success during (and after) upload of images:${ this.completedUploads }:imagesUploadedSoFar: de ${ this.uploadQueueSize }:totalImagesToUpload: imágenes subidas exitosamente`;          this.snackBarService.open(uploadFinalMessage, 'OK');
         }
       );
     }

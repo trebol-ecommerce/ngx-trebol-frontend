@@ -14,6 +14,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StoreHeaderMiddleComponent {
 
+  label = $localize`:Label for title of application:Tienda On-line`;
+
   constructor() { }
 
 }

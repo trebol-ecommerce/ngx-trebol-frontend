@@ -81,8 +81,7 @@ export class StoreCheckoutRequestFormComponent
       this.billingForm.onParentFormTouched();
       this.customerForm.onParentFormTouched();
       this.shippingForm.onParentFormTouched();
-      const validationErrorMessage = $localize `El formulario está incompleto y/o posee campos inválidos. ` +
-        `Verifique la información ingresada e inténtelo nuevamente, por favor.`;
+      const validationErrorMessage = $localize`:Label for general error in validation of checkout form, hint users to complete and/or fix supplied information:El formulario está incompleto y/o posee campos inválidos. Verifique la información ingresada e inténtelo nuevamente, por favor.`;
       this.snackBarService.open(validationErrorMessage, 'OK');
     } else {
       this.request.emit();
