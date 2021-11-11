@@ -9,26 +9,28 @@
   <span mat-menu-item disabled>{{ userName$ | async }}</span>
   <button mat-menu-item type="button"
     *ngIf="canNavigateManagement$ | async"
-    class="edit-profile"
+    class="navigate-management"
     [routerLink]="['/management']">
     <mat-icon>tune</mat-icon>
-    Administrar
+    <span i18n="Label for link button to navigate to management dashboard">Management</span>
   </button>
   <button mat-menu-item type="button"
     class="edit-profile"
     (click)="onClickEditProfile()">
     <mat-icon>edit</mat-icon>
-    Editar Perfil
+    <span i18n="Label for action button to prompt profile edit">Editar Perfil</span>
   </button>
   <button mat-menu-item type="button"
     class="logout"
     (click)="onClickLogout()">
     <mat-icon>exit_to_app</mat-icon>
-    Terminar Sesión
+    <span i18n="Label for action button to log out">Terminar Sesión</span>
   </button>
 </mat-menu>
 <button mat-button type="button"
-  class="open-menu" title="Menú de usuario"
+  class="open-menu"
+  aria-label="Abrir menú de usuario"
+  i18n-aria-label="Label for action button to open user menu"
   [matMenuTriggerFor]="headerMenu">
   <mat-icon>person</mat-icon>
 </button>

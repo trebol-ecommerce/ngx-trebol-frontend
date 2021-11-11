@@ -10,14 +10,16 @@
   <div class="quantity-wrapper">
     <button type="button" class="decrease-quantity"
       mat-button mat-icon-button
-      title="Quitar unidad"
+      aria-label="Remove one"
+      i18n-aria-label="remove product unit|Label for action button to take one (1) unit of a product away from the shopping cart"
       [disabled]="notInCart"
       (click)="onClickDecrease()">
       <mat-icon>remove</mat-icon>
     </button>
     <span class="quantity">{{ units }}</span>
     <button type="button" class="increase-quantity"
-      title="Agregar unidad"
+      aria-label="Add one"
+      i18n-aria-label="add product unit|Label for action button to include one (1) more unit of a product in the shopping cart"
       mat-button mat-icon-button
       (click)="onClickIncrease()">
       <mat-icon>add</mat-icon>

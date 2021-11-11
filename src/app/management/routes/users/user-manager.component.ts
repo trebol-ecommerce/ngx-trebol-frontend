@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { User } from 'src/app/models/entities/User';
 import { UserFormComponent } from 'src/app/shared/components/user-form/user-form.component';
-import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
+import { COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerFormDialogConfig } from '../../dialogs/data-manager-form-dialog/DataManagerFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { UserManagerService } from './user-manager.service';
@@ -67,14 +67,14 @@ export class UserManagerComponent
     ).subscribe(
       success => {
         if (success) {
-          this.snackBarService.open(`Usuario ${usr.name} eliminado`, 'OK');
+          this.snackBarService.open(`Usuario ${usr.name} eliminado`, COMMON_DISMISS_BUTTON_LABEL);
           this.service.reloadItems();
         } else {
-          this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
+          this.snackBarService.open(COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
         }
       },
       error => {
-        this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
+        this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
       }
     );
   }

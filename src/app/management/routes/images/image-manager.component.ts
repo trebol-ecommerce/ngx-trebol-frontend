@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Image } from 'src/app/models/entities/Image';
 import { ImageUploadFormComponent } from 'src/app/shared/components/image-upload-form/image-upload-form.component';
-import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
+import { COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerFormDialogConfig } from '../../dialogs/data-manager-form-dialog/DataManagerFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { ImageManagerService } from './image-manager.service';
@@ -67,14 +67,15 @@ export class ImageManagerComponent
     ).subscribe(
       success => {
         if (success) {
-          this.snackBarService.open(`Imagen '${img.filename}' eliminada`, 'OK');
+          const deletionSucess = $localize`:Message of success after deleting an image with filename {{ fileName }}:Image '${img.filename}':fileName: deleted`;
+          this.snackBarService.open(deletionSucess, COMMON_DISMISS_BUTTON_LABEL);
           this.service.reloadItems();
         } else {
-          this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
+          this.snackBarService.open(COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
         }
       },
       error => {
-        this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
+        this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
       }
     );
   }

@@ -13,13 +13,11 @@
 <div class="actions">
   <button type="button" class="cancel" mat-dialog-close
     mat-button mat-raised-button
-    color="warn">
-    Cancelar
-  </button>
+    color="warn"
+    i18n="cancel|Label for action button to cancel and/or stop an operation">Cancel</button>
   <button type="button" class="accept"
     mat-button mat-raised-button
     [disabled]="addressForm.formGroup.invalid"
-    (click)="onClickAcceptEdition()">
-    Aceptar
-  </button>
+    (click)="onClickAcceptEdition()"
+    i18n="confirm|Label for action button to accept and proceed">Confirm</button>
 </div>

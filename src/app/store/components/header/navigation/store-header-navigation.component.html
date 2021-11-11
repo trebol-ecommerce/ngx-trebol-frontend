@@ -6,12 +6,14 @@
 -->
 
 <a mat-button routerLink="/store"
-  title="Ir al Catálogo de Productos">
+  aria-label="Go to storefront"
+  i18n-aria-label="Label for link to navigate to storefront">
   <mat-icon>storefront</mat-icon>
 </a>
 <ng-container *ngIf="cartHasItems$ | async">
   <a mat-button [routerLink]="['/store', 'cart']"
-    title="Ir al Carrito" >
+    aria-label="Go to cart review"
+    i18n-aria-label="Label for link to navigate to cart">
     <mat-icon>shopping_cart</mat-icon>
     <span class="cart-summary">
       <span>{{ cartItemCountLabel$ | async }}</span>

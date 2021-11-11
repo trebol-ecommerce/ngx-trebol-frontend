@@ -7,28 +7,35 @@
 
 <form [formGroup]="formGroup">
   <mat-form-field>
-    <input matInput placeholder="Nombre de Usuario" formControlName="name" />
+    <input matInput formControlName="name"
+      placeholder="User name"
+      i18n-placeholder="Name of field for username to create user with" />
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Clave de Usuario" formControlName="password" type="password" />
+    <input matInput formControlName="password" type="password"
+      placeholder="Password"
+      i18n-placeholder="Name of field for password to create user with" />
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select placeholder="Persona" formControlName="person">
+    <mat-select formControlName="person"
+      placeholder="Identity"
+      i18n-placeholder="Name of field for person profile to create user with">
       <mat-option *ngFor="let p of (people$ | async)"
-        [value]="p.idNumber">
-        {{ p.firstName + " " + p.lastName + " (" + p.idNumber + ")" }}
-      </mat-option>
+        [value]="p.idNumber">{{
+          p.firstName + " " +
+          p.lastName + " (" + p.idNumber + ")"
+        }}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select placeholder="Rol" formControlName="role">
+    <mat-select formControlName="role"
+      placeholder="Role"
+      i18n-placeholder="Name of field for permissions role to create user with">
       <mat-option *ngFor="let r of (roles$ | async)"
-        [value]="r.name">
-        {{ r.name }}
-      </mat-option>
+        [value]="r.name">{{ r.name }}</mat-option>
     </mat-select>
   </mat-form-field>
 </form>

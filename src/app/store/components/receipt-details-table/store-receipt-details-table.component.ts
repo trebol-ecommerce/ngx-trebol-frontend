@@ -7,7 +7,7 @@
 
 import { Component, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { ReceiptDetail } from 'src/app/models/ReceiptDetail';
 
 @Component({
   selector: 'app-store-receipt-details-table',
@@ -16,11 +16,11 @@ import { SellDetail } from 'src/app/models/entities/SellDetail';
 })
 export class StoreReceiptDetailsTableComponent {
 
-  dataSource = new MatTableDataSource<SellDetail>();
+  dataSource = new MatTableDataSource<ReceiptDetail>();
 
   @Input()
   get details() { return this.dataSource.data; }
-  set details(data: SellDetail[]) { this.dataSource.data = data; }
+  set details(data: ReceiptDetail[]) { this.dataSource.data = data; }
 
   @Input() tableColumns: string[] = [ 'product', 'price', 'quantity', 'total' ];
 

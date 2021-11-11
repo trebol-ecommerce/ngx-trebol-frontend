@@ -6,12 +6,12 @@
 -->
 
 <div class="cart">
-  <h3>Detalles de la Compra</h3>
+  <h3 i18n="cart review title|Title of widget displaying contents of cart">Cart review</h3>
   <app-store-cart-contents-table>
   </app-store-cart-contents-table>
   <mat-divider></mat-divider>
   <div class="subtotal">
-    <span class="label">Subtotal</span>
+    <span class="label" i18n="subtotal sell value|Label with cart subtotal value (products only)">Subtotal</span>
     <span class="value">${{ cartNetValue$ | async }}</span>
   </div>
 </div>
@@ -19,13 +19,13 @@
   <mat-step #inputStep
     [stepControl]="checkoutRequest.formGroup"
     [editable]="inputEditable">
-    <ng-template matStepLabel>Datos para el pedido</ng-template>
+    <ng-template matStepLabel i18n="Title of form step to input checkout details">Required information</ng-template>
     <app-store-checkout-request-form #checkoutRequest
       (request)="stepper.next()">
     </app-store-checkout-request-form>
   </mat-step>
   <mat-step #confirmationStep>
-    <ng-template matStepLabel>Confirmación</ng-template>
+    <ng-template matStepLabel i18n="Title of form step to confirm checkout details">Confirmation</ng-template>
     <app-store-checkout-confirmation
       (confirmed)="onConfirmation()">
     </app-store-checkout-confirmation>

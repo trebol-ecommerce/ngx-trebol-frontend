@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { debounceTime, take, tap } from 'rxjs/operators';
 import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
 import { StoreService } from 'src/app/store/store.service';
+import { COMMON_VALIDATION_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 import { StoreBillingDetailsFormComponent } from '../billing-details-form/store-billing-details-form.component';
 import { StoreShippingFormComponent } from '../shipping-form/store-shipping-form.component';
 
@@ -81,7 +82,7 @@ export class StoreCheckoutRequestFormComponent
       this.billingForm.onParentFormTouched();
       this.customerForm.onParentFormTouched();
       this.shippingForm.onParentFormTouched();
-      this.snackBarService.open('El formulario está incompleto y/o posee campos inválidos. Verifique la información ingresada e inténtelo nuevamente, por favor.', 'OK');
+      this.snackBarService.open(COMMON_VALIDATION_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
     } else {
       this.request.emit();
     }

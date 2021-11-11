@@ -17,6 +17,7 @@ import { debounceTime, map, mapTo, startWith, tap } from 'rxjs/operators';
 import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
 import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
+import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 import { ImageManagerUploadService } from './image-upload-form.service';
 
 @Component({
@@ -147,21 +148,25 @@ export class ImageUploadFormComponent
       this.uploadSubscription = uploads$.subscribe(
         percent => {
           if (percent === 0) {
-            const imagen = `Im${this.isSingleFile ? 'a' : 'á'}gen${this.isSingleFile ? '' : 'es'}`;
-            this.snackBarService.open(`Subiendo ${this.uploadQueueSize} ${imagen}`);
+            // TODO use plural expression
+            const uploadStartMessage = $localize`:Label with total images to be uploaded being {{ totalImagesToUpload }}:Uploading ${ this.uploadQueueSize }:totalImagesToUpload: images`;
+            this.snackBarService.open(uploadStartMessage);
           }
         },
         (error: { status?: number, error?: string }) => {
           if (error?.status && error.status === 400) {
-            this.snackBarService.open(error.error, 'OK');
+            this.snackBarService.open(error.error, COMMON_DISMISS_BUTTON_LABEL);
           } else {
             console.error(error);
-            this.snackBarService.open('Error al intentar subir', 'OK');
+            const uploadErrorMessage = $localize`:Message of error during upload of images:Error during upload`;
+            this.snackBarService.open(uploadErrorMessage, COMMON_DISMISS_BUTTON_LABEL);
           }
         },
         () => {
           setTimeout(() => { this.dialog.close(true); }, 1000);
-          this.snackBarService.open(`${this.completedUploads} de ${this.uploadQueueSize} imágenes subidas exitosamente`, 'OK');
+          // TODO use plural expression
+          const uploadFinalMessage = $localize`:Message of success during (and after) uploading {{ imagesUploadedSoFar }} images out of a total of {{ totalImagesToUpload }}:Succesfully uploaded ${this.completedUploads}:imagesUploadedSoFar: out of ${this.uploadQueueSize}:totalImagesToUpload: images`;
+          this.snackBarService.open(uploadFinalMessage, COMMON_DISMISS_BUTTON_LABEL);
         }
       );
     }

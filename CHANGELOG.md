@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Angular i18n support
+  - Include localization package
+  - Mark text for translation - __Now it's possible to generate translation files using the command `ng extract-i18n`__
+  - Translate texts to English, set as default language
+  - Include files and build configurations for the following locales:
+    - `en-US` (default)
+    - `es`
+    - `es-CL` (previous default)
+
 ### Changed
 - Add the unitValue property to ReceiptDetail model class making the model compatible with the new API.
 - This change updates the entity model for Person and the corresponding data forms.

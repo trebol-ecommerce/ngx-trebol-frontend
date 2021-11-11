@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { FormGroupOwnerOutletDirective } from 'src/app/shared/directives/form-group-owner-outlet/form-group-owner-outlet.directive';
-import { UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
+import { COMMON_VALIDATION_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerFormDialogData } from './DataManagerFormDialogData';
 
 @Component({
@@ -58,18 +58,18 @@ export class DataManagerFormDialogComponent<T>
     const innerComponent = this.formGroupOutlet.innerComponent;
     if (innerComponent.formGroup.invalid) {
       innerComponent.onParentFormTouched();
-      this.snackBarService.open('El formulario está incompleto o con errores. Revise la información ingresada e inténtelo nuevamente, por favor.', 'OK');
+      this.snackBarService.open(COMMON_VALIDATION_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
     } else {
       const item = this.data.item;
       const submitObservable = (this.isNew) ? this.service.create(item) : this.service.update(item);
       submitObservable.subscribe(
         success => {
           const message = this.successMessage(item);
-          this.snackBarService.open(message, 'OK');
+          this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
           this.dialog.close(item);
         },
         error => {
-          this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
+          this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
         }
       );
     }

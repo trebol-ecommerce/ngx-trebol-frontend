@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Salesperson } from 'src/app/models/entities/Salesperson';
 import { SalespersonFormComponent } from 'src/app/shared/components/salesperson-form/salesperson-form.component';
-import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
+import { COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { DataManagerFormDialogConfig } from '../../dialogs/data-manager-form-dialog/DataManagerFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { SalespersonManagerService } from './salesperson-manager.service';
@@ -67,14 +67,15 @@ export class SalespersonManagerComponent
     ).subscribe(
       success => {
         if (success) {
-          this.snackBarService.open(`Empleado ${e.person.firstName} ${e.person.lastName} eliminado.`, 'OK');
+          const successMessage = $localize`:Message of success after deleting a salesperson with first name {{ firstName }} and last name {{ lastName }}:Salesperson ${e.person.firstName}:firstName: ${e.person.lastName}:lastName: deleted`;
+          this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
           this.service.reloadItems();
         } else {
-          this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
+          this.snackBarService.open(COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
         }
       },
       error => {
-        this.snackBarService.open(UNKNOWN_ERROR_MESSAGE, 'OK');
+        this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
       }
     );
   }

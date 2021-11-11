@@ -15,13 +15,11 @@
 
   <div class="actions">
     <button mat-button mat-raised-button type="button"
-      (click)="onSubmit()">
-      Aceptar
-    </button>
+      (click)="onSubmit()"
+      i18n="confirm|Label for action button to accept and proceed">Confirm</button>
     <button mat-button mat-raised-button type="button"
       [color]="cancelButtonColor$ | async"
-      (click)="onCancel()">
-      Cancelar
-    </button>
+      (click)="onCancel()"
+      i18n="cancel|Label for action button to cancel and/or stop an operation">Cancel</button>
   </div>
 </form>

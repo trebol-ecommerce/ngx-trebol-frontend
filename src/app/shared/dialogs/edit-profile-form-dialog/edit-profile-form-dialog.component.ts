@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { map, startWith, tap } from 'rxjs/operators';
 import { Person } from 'src/app/models/entities/Person';
-import { COMMON_WARNING_MESSAGE, UNKNOWN_ERROR_MESSAGE } from 'src/text/messages';
+import { COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { EditProfileFormService } from './edit-profile-form.service';
 
 @Component({
@@ -63,19 +63,20 @@ export class EditProfileFormDialogComponent
   }
 
   onSubmit(): void {
-    const datosUsuario = this.person.value as Person;
-    if (datosUsuario) {
-      this.service.saveProfile(datosUsuario).subscribe(
+    const data = this.person.value as Person;
+    if (data) {
+      this.service.saveProfile(data).subscribe(
         success => {
           if (success) {
-            this.snackBarService.open('Sus datos fueron registrados exitosamente', 'OK');
+            const succesfulSaveMessage = $localize`:succesful profile edit|Message of success after editing profile information:Your profile information has been saved`;
+            this.snackBarService.open(succesfulSaveMessage, COMMON_DISMISS_BUTTON_LABEL);
             this.dialog.close();
           } else {
-            this.snackBarService.open(COMMON_WARNING_MESSAGE, 'OK');
+            this.snackBarService.open(COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
           }
         },
         error => {
-          this.snackBarService.open(UNKNOWN_ERROR_MESSAGE , 'OK');
+          this.snackBarService.open(COMMON_ERROR_MESSAGE , COMMON_DISMISS_BUTTON_LABEL);
         }
       );
     }
