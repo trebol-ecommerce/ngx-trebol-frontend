@@ -153,7 +153,7 @@
         <note priority="1" from="meaning">add product unit</note>
       </trans-unit>
       <trans-unit id="5b39cb0e5a98201cb9f9ef6998da8161b6409598" datatype="html">
-        <source>Número de id. de empresa</source>
+        <source>Rut de empresa</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/company-form/company-form.component.html</context>
           <context context-type="linenumber">11</context>
@@ -161,7 +161,7 @@
         <note priority="1" from="description">Name of field for company identification number</note>
       </trans-unit>
       <trans-unit id="be95d1a51c39f5b4cee0e5420cc106aa8cace298" datatype="html">
-        <source>Nombre legal de empresa</source>
+        <source>Razón social</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/company-form/company-form.component.html</context>
           <context context-type="linenumber">17</context>
@@ -283,7 +283,7 @@
         <note priority="1" from="description">Name of field for the complete last name of a person</note>
       </trans-unit>
       <trans-unit id="e7edbbcf38270f1222e165f997278e7e644d64e2" datatype="html">
-        <source>Número de id.</source>
+        <source>Rut</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/person-form/person-form.component.html</context>
           <context context-type="linenumber">24</context>
