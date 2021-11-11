@@ -17,7 +17,7 @@ __If you have any questions, don't hesitate to contact [@bglamadrid (me)](https:
     - This codebase is mostly documented through JSDoc comments
     - Suggest or submit better contribution guidelines
   - Find code worth improving, performance-wise or clarity-wise
-  - Translate the application to more languages. Please read the [Angular guide on working with translation files](https://angular.io/guide/i18n-common-translation-files) so you know how to proceed
+  - Translate the application to more languages; please read the [Angular guide on working with translation files](https://angular.io/guide/i18n-common-translation-files) so you know how to proceed
 
 
 ## Submitting issues

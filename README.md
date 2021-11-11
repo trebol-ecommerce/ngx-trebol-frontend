@@ -35,11 +35,22 @@ The application itself lives in the `/src/app/` directory, and its structure is 
 
 Jasmine tests are providing about 40% of code coverage, you can give them a try using `ng test` in the root directory.
 
+## Internationalization
+
+This project uses [Angular i18n features](https://angular.io/guide/i18n-overview); this means you can build the app using different languages. Currently bundled locales are located in `/src/locales`:
+
+- `en-US`
+- `es`
+- `es-CL`
+
+If you wish to translate this frontend to another language, check out [this Angular guide on working with translation files](https://angular.io/guide/i18n-common-translation-files).
+
 ## Configuring the build / serve process
 
 - The default environment files are located in `/src/environments/`; one is for the simpler variables and the one is for module dependencies.
-- The `/src/angular.json` file contains two base configuration definitions that you can use: `production` and `localhost`. You can create more if you need.
-- Make yourself comfortable with the [official guide on Building and Serving Angular Apps](https://angular.io/guide/build). Basically, you need to create a copy of the environment files, rename them following the pattern for your desired configuration, and call the `ng serve` or `ng build` command with the `-c` option to target said configuration.
+- The `/src/angular.json` file contains two base configuration definitions that you can use: `production` and `localhost`. There's also configurations for each bundled locale (listed above). You can create more configurations if you need.
+- Make yourself comfortable with the [official guide on Building and Serving Angular Apps](https://angular.io/guide/build). Basically, you need to create a copy of the environment files, rename them following the pattern for your desired configuration, and call the `serve` or `build` Angular CLI command with the `-c` option in order to target said configuration.
+- Remember you can use multiple build configurations in the same command, separating them by commas (e.g. `ng build -c production,es`).
 - You can also use the [angular-cli-ghpages plugin](https://github.com/angular-schule/angular-cli-ghpages#options) to automate your deployment.
 
 ## Contributing to this repository
