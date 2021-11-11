@@ -25,11 +25,11 @@
       </span>
     </ng-template>
   </div>
-  <div class="type" *ngIf="checkoutRequest.billing.sellType">
+  <div class="type" *ngIf="checkoutRequest.billing?.sellType">
     <mat-icon>receipt</mat-icon>&nbsp;
     <span>{{ checkoutRequest.billing.sellType }}</span>
   </div>
-  <div class="company" *ngIf="checkoutRequest.billing.company">
+  <div class="company" *ngIf="checkoutRequest.billing?.company">
     <mat-icon>business</mat-icon>&nbsp;
     <span class="details">
       <span class="name">{{ checkoutRequest.billing.company.name }}</span>
