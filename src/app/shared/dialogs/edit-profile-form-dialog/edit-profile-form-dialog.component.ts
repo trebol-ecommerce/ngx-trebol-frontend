@@ -68,7 +68,7 @@ export class EditProfileFormDialogComponent
       this.service.saveProfile(data).subscribe(
         success => {
           if (success) {
-            const succesfulSaveMessage = $localize`:succesful profile edit|Message of success after editing profile information:Sus datos fueron registrados exitosamente`;
+            const succesfulSaveMessage = $localize`:succesful profile edit|Message of success after editing profile information:Your profile information has been saved`;
             this.snackBarService.open(succesfulSaveMessage, COMMON_DISMISS_BUTTON_LABEL);
             this.dialog.close();
           } else {

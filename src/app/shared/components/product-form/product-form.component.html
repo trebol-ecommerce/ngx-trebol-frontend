@@ -15,19 +15,19 @@
 
   <mat-form-field class="barcode">
     <input matInput formControlName="barcode"
-      placeholder="Código"
+      placeholder="Code"
       i18n-placeholder="product code field|Name of field for product code" />
   </mat-form-field>
 
   <mat-form-field class="name">
     <input matInput formControlName="name"
-      placeholder="Nombre"
+      placeholder="Name"
       i18n-placeholder="product name field|Name of field for product name" />
   </mat-form-field>
 
   <mat-form-field class="category">
     <mat-select formControlName="category"
-      placeholder="Categoría"
+      placeholder="Category"
       i18n-placeholder="product category field|Name of field for product category">
       <mat-option *ngFor="let f of (categories$ | async)"
         [value]="f.code">{{ f.name }}</mat-option>
@@ -36,25 +36,25 @@
 
   <mat-form-field class="price">
     <input matInput formControlName="price"
-      placeholder="Precio"
+      placeholder="Price"
       i18n-placeholder="product price field|Name of field for product price" />
   </mat-form-field>
 
   <!-- <mat-form-field class="stock">
     <input matInput formControlName="stock"
-      placeholder="Stock Actual"
+      placeholder="Current stock"
       i18n-placeholder="product stock field|Name of field for product units currently held in stock" />
   </mat-form-field> -->
 
   <!-- <mat-form-field class="cStock">
     <input matInput formControlName="criticalStock"
-      placeholder="Stock crítico"
+      placeholder="Low stock treshold"
       i18n-placeholder="product low stock field|Name of field for lowest allowed product units treshold before raising alert of low stock" />
   </mat-form-field> -->
 
   <mat-form-field class="desc">
     <textarea matInput formControlName="description"
-      placeholder="Descripción"
+      placeholder="Description"
       i18n-placeholder="product description field|Name of field for product description"></textarea>
   </mat-form-field>
 </form>

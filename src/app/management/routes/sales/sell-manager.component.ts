@@ -67,7 +67,7 @@ export class SellManagerComponent
     ).subscribe(
       success => {
         if (success) {
-          const message = $localize`:Message of success after deleting a sell with buy order {{ buyOrder }} on date {{ date }}:Venta N°${s.buyOrder}:buyOrder: (${s.date}:date:) eliminada`;
+          const message = $localize`:Message of success after deleting a sell with buy order {{ buyOrder }} on date {{ date }}:Sell N°${s.buyOrder}:buyOrder: (${s.date}:date:) deleted`;
           this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
           this.service.reloadItems();
         } else {

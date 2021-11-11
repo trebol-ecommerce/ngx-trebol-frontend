@@ -8,7 +8,7 @@
 <table mat-table [dataSource]="details$">
   <ng-container matColumnDef="product">
     <th mat-header-cell *matHeaderCellDef>
-      <span i18n="product name header|Name of table header for name of product">Producto</span>
+      <span i18n="product name header|Name of table header for name of product">Name</span>
     </th>
     <td mat-cell *matCellDef="let detail">
       <span class="name">{{ detail.product.name }}</span><br/>
@@ -17,7 +17,7 @@
   </ng-container>
   <ng-container matColumnDef="price">
     <th mat-header-cell *matHeaderCellDef class="center">
-      <span i18n="product price header|Name of table header for price per product unit">Precio / Unidad</span>
+      <span i18n="product price header|Name of table header for price per product unit">Price</span>
     </th>
     <td mat-cell *matCellDef="let detail" class="center">
       <span>${{ detail.product.price }}</span>
@@ -25,11 +25,11 @@
   </ng-container>
   <ng-container matColumnDef="quantity">
     <th mat-header-cell *matHeaderCellDef class="center"
-      i18n="product units header|Name of table header for product units in cart">Unidades</th>
+      i18n="product units header|Name of table header for product units in cart">Units</th>
     <td mat-cell *matCellDef="let detail; let i = index" class="center">
       <button type="button" class="decrease"
         mat-button mat-icon-button
-        aria-label="Quitar unidad"
+        aria-label="Remove one"
         i18n-aria-label="remove product unit|Label for action button to remove one unit of a product"
         [disabled]="detail.units < 2"
         (click)="onClickDecreaseProductQuantity(i)">
@@ -38,7 +38,7 @@
       {{ detail.units }}
       <button type="button" class="increase"
         mat-button mat-icon-button
-        aria-label="Agregar unidad"
+        aria-label="Add one"
         i18n-aria-label="add product unit|Label for action button to add one unit of a product"
         (click)="onClickIncreaseProductQuantity(i)">
         <mat-icon>add</mat-icon>
@@ -47,7 +47,7 @@
   </ng-container>
   <ng-container matColumnDef="total">
     <th mat-header-cell *matHeaderCellDef>
-      <span i18n="product subtotal header|Name of table header for the value of product price x units in cart">Precio</span>
+      <span i18n="product subtotal header|Name of table header for the value of product price x units in cart">Subtotal</span>
     </th>
     <td mat-cell *matCellDef="let detail">
       <span>${{ detail.product.price * detail.units }}</span>
@@ -58,7 +58,7 @@
     <td mat-cell *matCellDef="let detail; let i = index" class="right">
       <button type="button" class="remove"
         mat-button mat-icon-button
-        aria-label="Quitar todas las unidades"
+        aria-label="Remove"
         i18n-aria-label="remove all product units|Label for action button to remove all units of product in cart"
         color="warn"
         (click)="onClickRemoveProduct(i)">

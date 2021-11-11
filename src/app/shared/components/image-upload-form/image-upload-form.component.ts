@@ -149,7 +149,7 @@ export class ImageUploadFormComponent
         percent => {
           if (percent === 0) {
             // TODO use plural expression
-            const uploadStartMessage = $localize`:Label with total images to be uploaded being {{ totalImagesToUpload }}:Subiendo ${ this.uploadQueueSize }:totalImagesToUpload: imágenes`;
+            const uploadStartMessage = $localize`:Label with total images to be uploaded being {{ totalImagesToUpload }}:Uploading ${ this.uploadQueueSize }:totalImagesToUpload: images`;
             this.snackBarService.open(uploadStartMessage);
           }
         },
@@ -158,14 +158,14 @@ export class ImageUploadFormComponent
             this.snackBarService.open(error.error, COMMON_DISMISS_BUTTON_LABEL);
           } else {
             console.error(error);
-            const uploadErrorMessage = $localize`:Message of error during upload of images:Error al intentar subir`;
+            const uploadErrorMessage = $localize`:Message of error during upload of images:Error during upload`;
             this.snackBarService.open(uploadErrorMessage, COMMON_DISMISS_BUTTON_LABEL);
           }
         },
         () => {
           setTimeout(() => { this.dialog.close(true); }, 1000);
           // TODO use plural expression
-          const uploadFinalMessage = $localize`:Message of success during (and after) uploading {{ imagesUploadedSoFar }} images out of a total of {{ totalImagesToUpload }}:Se han subido ${this.completedUploads}:imagesUploadedSoFar: de ${this.uploadQueueSize}:totalImagesToUpload: imágenes exitosamente`;
+          const uploadFinalMessage = $localize`:Message of success during (and after) uploading {{ imagesUploadedSoFar }} images out of a total of {{ totalImagesToUpload }}:Succesfully uploaded ${this.completedUploads}:imagesUploadedSoFar: out of ${this.uploadQueueSize}:totalImagesToUpload: images`;
           this.snackBarService.open(uploadFinalMessage, COMMON_DISMISS_BUTTON_LABEL);
         }
       );

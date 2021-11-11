@@ -67,7 +67,7 @@ export class SalespersonManagerComponent
     ).subscribe(
       success => {
         if (success) {
-          const successMessage = $localize`:Message of success after deleting a salesperson with first name {{ firstName }} and last name {{ lastName }}:Vendedor(a) ${e.person.firstName}:firstName: ${e.person.lastName}:lastName: eliminad@`;
+          const successMessage = $localize`:Message of success after deleting a salesperson with first name {{ firstName }} and last name {{ lastName }}:Salesperson ${e.person.firstName}:firstName: ${e.person.lastName}:lastName: deleted`;
           this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
           this.service.reloadItems();
         } else {

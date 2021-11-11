@@ -13,18 +13,18 @@
   <form [formGroup]="formGroup" (submit)="onSubmit()">
     <mat-form-field>
       <input matInput formControlName="username"
-        placeholder="Nombre de Usuario"
+        placeholder="User name"
         i18n-placeholder="user name field|Name of field for username to log in with" />
     </mat-form-field>
 
     <div class="password-form-group">
       <mat-form-field>
         <input matInput [type]="passwordInputType$ | async" formControlName="password"
-          placeholder="Contraseña"
+          placeholder="Password"
           i18n-placeholder="password field|Name of field for password to log in with" />
       </mat-form-field>
       <button mat-icon-button type="button"
-        aria-label="Mantenga presionado para ver..."
+        aria-label="Hold to peek..."
         i18n-aria-label="Label for action button to show password while held down"
         (mousedown)="showPassword()"
         (mouseup)="hidePassword()"
@@ -37,22 +37,22 @@
       <button mat-button mat-raised-button type="submit"
         color="primary"
         [disabled]="formGroup.invalid">
-        <span i18n="confirm|Label for action button to accept and proceed">Aceptar</span>
+        <span i18n="confirm|Label for action button to accept and proceed">Confirm</span>
       </button>
       <button mat-button mat-raised-button type="reset"
         [disabled]="formGroup.pristine">
-        <span i18n="clean up|Label for action button to clear values in form">Limpiar</span>
+        <span i18n="clean up|Label for action button to clear values in form">Clean up</span>
       </button>
       <button mat-button mat-raised-button type="button"
         color="warn"
         (click)="onCancel()">
-        <span i18n="cancel|Label for action button to cancel and/or stop an operation">Cancelar</span>
+        <span i18n="cancel|Label for action button to cancel and/or stop an operation">Cancel</span>
       </button>
     </div>
   </form>
   <div class="other actions">
     <app-dialog-switcher-button #registerButton
-      label="¿No tienes una cuenta? Regístrate aquí"
+      label="Don't have an account? Register here"
       i18n-label="Label to hint user to register if they do not have an account">
     </app-dialog-switcher-button>
   </div>

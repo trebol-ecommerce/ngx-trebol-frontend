@@ -25,7 +25,7 @@
   <ng-template #noImageAvailable>
     <div class="slide-wrapper">
       <img src="assets/img/products/unavailable.png"
-        alt="Imagen no disponible"
+        alt="Unavailable image"
         i18n-alt="Label to describe a missing or unavailable image" />
     </div>
   </ng-template>
@@ -34,7 +34,7 @@
   <ng-container *ngFor="let image of images; index as i">
     <button type="button" class="slide-selector"
       mat-button mat-icon-button
-      attr.aria-label="Navegar a la imagen {{i+1}}"
+      attr.aria-label="Navigate to slide {{i+1}}"
       attr.i18n-aria-label="Label for action button to navigate to slide/image number {{i+1}}"
       [class.selected]="(currentIndex$ | async) === i"
       [disabled]="(currentIndex$ | async) === i"

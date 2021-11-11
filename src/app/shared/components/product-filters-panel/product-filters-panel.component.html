@@ -8,19 +8,19 @@
 <mat-expansion-panel>
   <mat-expansion-panel-header>
     <mat-panel-title
-      i18n="Title of panel to select conditions to filter products by">Filtrar productos</mat-panel-title>
+      i18n="Title of panel to select conditions to filter products by">Filter products...</mat-panel-title>
   </mat-expansion-panel-header>
   <form [formGroup]="formGroup">
 
     <mat-form-field>
       <mat-select formControlName="category"
-        placeholder="Categoría"
+        placeholder="By Category"
         i18n-placeholder="Name of field for filtering products by selected category">
         <mat-option *ngFor="let category of (categories$ | async)"
           [value]="category.code">{{ category.name }}</mat-option>
       </mat-select>
       <button matSuffix mat-button mat-icon-button *ngIf="category.value"
-        aria-label="Limpiar"
+        aria-label="Clean up"
         i18n-aria-label="clean up|Label for action button to clear values in form"
         (click)="onClickResetProductCategory($event)">
         <mat-icon>close</mat-icon>
@@ -29,7 +29,7 @@
 
     <mat-form-field>
       <input matInput formControlName="name"
-        placeholder="Nombre"
+        placeholder="By Product name"
         i18n-placeholder="Name of field for filtering products by partial name" />
     </mat-form-field>
   </form>

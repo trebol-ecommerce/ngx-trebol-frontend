@@ -9,13 +9,13 @@
 
   <mat-form-field style="grid-area: date">
     <input matInput [ngModel]="sellDate" [ngModelOptions]="{ standalone: true }" disabled
-      placeholder="Fecha y hora"
+      placeholder="Date and time"
       i18n-placeholder="sell date field|Name of field for date and time of sell" />
   </mat-form-field>
 
   <mat-form-field style="grid-area: billingType">
     <mat-select formControlName="billingType"
-      placeholder="Tipo de Venta"
+      placeholder="Billing type"
       i18n-placeholder="sell billing type field|Name of field for billing type of sell">
       <mat-option *ngFor="let b of (billingTypes$ | async)"
         [value]="b.name">{{ b.name }}</mat-option>
@@ -24,7 +24,7 @@
 
   <mat-form-field style="grid-area: salesperson">
     <mat-select formControlName="salesperson"
-      placeholder="Vendedor"
+      placeholder="Salesperson"
       i18n-placeholder="sell salesperson field|Name of field for salesperson that earned/is in charge of sell">
       <mat-option *ngFor="let e of (salespeople$ | async)"
         [value]="e.person.idNumber">{{
@@ -35,7 +35,7 @@
 
   <mat-form-field style="grid-area: customer">
     <mat-select formControlName="customer"
-      placeholder="Cliente"
+      placeholder="Customer"
       i18n-placeholder="sell customer field|Name of field for purchasing customer in sell ">
       <mat-option *ngFor="let c of (customers$ | async)"
         [value]="c.person.idNumber">{{
@@ -46,34 +46,34 @@
 
   <mat-card style="grid-area: details">
     <div class="details-header">
-      <h3 i18n="Title of table displaying products and details of sell">Productos de esta Venta</h3>
+      <h3 i18n="Title of table displaying products and details of sell">Checkout details</h3>
       <button mat-button mat-raised-button type="button"
         color="primary"
         (click)="onClickAddProducts()"
-        i18n="Label for action button to include products into sell">Agregar</button>
+        i18n="Label for action button to include products into sell">Add</button>
     </div>
     <div class="details-table-wrapper">
       <table mat-table [dataSource]="sellDetails$">
         <ng-container matColumnDef="product">
           <th mat-header-cell *matHeaderCellDef
-            i18n="product name header|Name of table header for name of product">Nombre</th>
+            i18n="product name header|Name of table header for name of product">Name</th>
           <td mat-cell *matCellDef="let detail">
             {{ detail.product.name }}
           </td>
         </ng-container>
         <ng-container matColumnDef="price">
           <th mat-header-cell *matHeaderCellDef
-            i18n="product price header|Name of table header for price per product unit">Precio</th>
+            i18n="product price header|Name of table header for price per product unit">Price</th>
           <td mat-cell *matCellDef="let detail">
             ${{ detail.product.price }}
           </td>
         </ng-container>
         <ng-container matColumnDef="quantity">
           <th mat-header-cell *matHeaderCellDef
-            i18n="product units header|Name of table header for quantity of products (in units)">Cantidad</th>
+            i18n="product units header|Name of table header for quantity of products (in units)">Units</th>
           <td mat-cell *matCellDef="let detail; let i=index">
             <button mat-button mat-icon-button type="button"
-              aria-label="Agregar una unidad"
+              aria-label="Add one"
               i18n-aria-label="add product unit|Label for action button to add one unit of a product in a sell"
               (click)="onClickIncreaseDetailProductQuantity(i)">
               <mat-icon>add</mat-icon>
@@ -81,7 +81,7 @@
             {{ detail.units }}
             <button mat-button mat-icon-button type="button"
               [disabled]="detail.units < 2"
-              aria-label="Quitar una unidad"
+              aria-label="Remove one"
               i18n-aria-label="remove product unit|Label for action button to remove one unit of a product in a sell"
               (click)="onClickDecreaseDetailProductQuantity(i)">
               <mat-icon>remove</mat-icon>
@@ -93,7 +93,7 @@
           <td mat-cell *matCellDef="let i=index">
             <button mat-button mat-icon-button type="button"
               color="warn"
-              aria-label="Quitar producto"
+              aria-label="Remove"
               i18n-aria-label="remove all product units|Label for action button to remove all units of a product in a sell"
               (click)="onClickRemoveDetail(i)">
               <mat-icon>delete</mat-icon>

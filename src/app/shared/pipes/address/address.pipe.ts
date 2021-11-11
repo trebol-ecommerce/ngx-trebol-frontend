@@ -12,7 +12,7 @@ import { Address } from 'src/app/models/entities/Address';
 export class AddressPipe
   implements PipeTransform {
 
-  private commentLabel = $localize`:address comments|Label preceding comments made for an address:Comentario`;
+  private commentLabel = $localize`:address comments|Label preceding comments made for an address:Note`;
 
   transform(value: Address, ...args: unknown[]): unknown {
     return (value.firstLine +

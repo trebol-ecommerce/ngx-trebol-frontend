@@ -7,7 +7,7 @@
 
 <form [formGroup]="formGroup">
   <mat-radio-group formControlName="sellType"
-    aria-label="Selecciona el tipo de comprobante"
+    aria-label="Billing type"
     i18n-aria-label="Label for group of choices to select billing type from">
     <mat-radio-button *ngFor="let option of typesOptions"
       [value]="option"
@@ -16,7 +16,7 @@
   <app-company-form #companyForm formControlName="company">
   </app-company-form>
   <app-addresses-editor-form #addressForm formControlName="address"
-    placeholder="Dirección de facturación"
+    placeholder="Billing address"
     i18n-placeholder="Name of field for selecting a billing address">
   </app-addresses-editor-form>
 </form>

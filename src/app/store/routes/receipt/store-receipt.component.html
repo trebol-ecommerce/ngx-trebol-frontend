@@ -10,13 +10,13 @@
 <ng-template #loadedReceipt>
   <mat-card>
     <div class="icon-wrapper" aria-hidden="true"><mat-icon>receipt_long</mat-icon></div>
-    <h2 mat-card-title i18n="Title of widget displaying details of a succesful transaction">Compra realizada con éxito</h2>
-    <p i18n="Label with transaction confirmation date">Confirmada el {{ receipt.date | date }}</p>
-    <p i18n="Label with total count of items in transaction being {{ receipt.totalItems }}">Items en total: {{ receipt.totalItems }}</p>
-    <p *ngIf="receipt.transportValue" i18n="Label with total price of transport being {{ receipt.transportValue }}">Valor del transporte: ${{ receipt.transportValue }}</p>
-    <p *ngIf="receipt.taxValue" i18n="Label with total price of taxes being {{ receipt.taxValue }}">Impuestos: ${{ receipt.taxValue }}</p>
-    <p i18n="Label with total price of transaction being {{ receipt.totalValue}}">Total pagado: ${{ receipt.totalValue }}</p>
-    <h3 i18n="transaction details title|Title of widget displaying products and details of transaction">Detalles de la compra</h3>
+    <h2 mat-card-title i18n="Title of widget displaying details of a succesful transaction">Transaction successful</h2>
+    <p i18n="Label with transaction confirmation date">Confirmed on {{ receipt.date | date }}</p>
+    <p i18n="Label with total count of items in transaction being {{ receipt.totalItems }}">Total items: {{ receipt.totalItems }}</p>
+    <p *ngIf="receipt.transportValue" i18n="Label with total price of transport being {{ receipt.transportValue }}">Transport: ${{ receipt.transportValue }}</p>
+    <p *ngIf="receipt.taxValue" i18n="Label with total price of taxes being {{ receipt.taxValue }}">Taxes: ${{ receipt.taxValue }}</p>
+    <p i18n="Label with total price of transaction being {{ receipt.totalValue}}">Total: ${{ receipt.totalValue }}</p>
+    <h3 i18n="transaction details title|Title of widget displaying products and details of transaction">Details</h3>
     <app-store-receipt-details-table [details]="receipt.details">
     </app-store-receipt-details-table>
   </mat-card>

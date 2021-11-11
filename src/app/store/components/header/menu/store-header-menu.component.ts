@@ -77,7 +77,7 @@ export class StoreHeaderMenuComponent
         confirmed => {
           if (confirmed) {
             this.appService.closeCurrentSession();
-            const message = $localize`:logout message|Label to notify user that they have logged out:Ha terminado su sesión correctamente`;
+            const message = $localize`:logout message|Label to notify user that they have logged out:You have logged out`;
             this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
           }
         }
@@ -86,8 +86,8 @@ export class StoreHeaderMenuComponent
   }
 
   private promptLogoutConfirmation(): Observable<boolean> {
-    const title = $localize`:Label to ask user to confirm logging out:¿Cerrar sesión?`;
-    const message = $localize`:Label to hint user that any undergoing process may be lost when logging out:Si está realizando una transaccion, perderá la informacion que haya guardado.`;
+    const title = $localize`:Label to ask user to confirm logging out:Log out?`;
+    const message = $localize`:Label to hint user that any undergoing process may be lost when logging out:Any unsaved data may be lost`;
     const dialogData: ConfirmationDialogData = { title, message };
 
     return this.dialogService.open(

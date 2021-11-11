@@ -41,10 +41,10 @@ export class AddressesEditorFormComponent
   private valueChangesSubscriptions: Subscription[] = [];
   private touched = new EventEmitter<void>();
 
-  editLabel = $localize `:edit address|Label for action button to edit an address:Editar dirección`;
-  addLabel = $localize `:add address|Label for action button to add a new address:Nueva dirección`;
+  editLabel = $localize `:edit address|Label for action button to edit an address:Edit address`;
+  addLabel = $localize `:add address|Label for action button to add a new address:Add address`;
 
-  @Input() placeholder = $localize`:full address field|Name of field for a complete address:Dirección`;
+  @Input() placeholder = $localize`:full address field|Name of field for a complete address:Full address`;
   @Input() @Output() savedAddresses: Address[] = [];
 
   formControl = new FormControl('', Validators.required);

@@ -13,6 +13,7 @@ import { Product } from 'src/app/models/entities/Product';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 import { environment } from 'src/environments/environment';
+import { COMMON_VALIDATION_ERROR_MESSAGE } from 'src/text/messages';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
 import { CheckoutRequest } from '../models/CheckoutRequest';
 import { Sell } from '../models/entities/Sell';
@@ -125,8 +126,7 @@ export class StoreService
    */
   requestPayment(): Observable<ExternalPaymentRedirectionData> {
     if (!this.checkoutRequestData) {
-      const errorMessage = $localize`:Message of error in checkout due to incomplete or insufficient supplied data:Detalles del pedido incompletos`;
-      return throwError({ message: errorMessage });
+      return throwError({ message: COMMON_VALIDATION_ERROR_MESSAGE });
     } else {
       const sell = this.createCheckoutRequest();
       return this.checkoutApiService.submitCart(sell);

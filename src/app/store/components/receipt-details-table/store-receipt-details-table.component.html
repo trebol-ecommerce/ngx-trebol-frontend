@@ -8,7 +8,7 @@
 <table mat-table [dataSource]="dataSource">
   <ng-container matColumnDef="product">
     <th mat-header-cell *matHeaderCellDef>
-      <span i18n="product header|Name of table header for name and code of product">Producto</span>
+      <span i18n="product header|Name of table header for name and code of product">Name</span>
     </th>
     <td mat-cell *matCellDef="let detail">
       <span class="name">{{ detail.product.name }}</span><br/>
@@ -17,7 +17,7 @@
   </ng-container>
   <ng-container matColumnDef="price">
     <th mat-header-cell *matHeaderCellDef class="center">
-      <span i18n="product price header|Name of table header for price per product unit">Precio / Unidad</span>
+      <span i18n="product price header|Name of table header for price per product unit">Price</span>
     </th>
     <td mat-cell *matCellDef="let detail" class="center">
       <span>${{ detail.unitValue }}</span>
@@ -25,7 +25,7 @@
   </ng-container>
   <ng-container matColumnDef="quantity">
     <th mat-header-cell *matHeaderCellDef class="center">
-      <span i18n="product units header|Name of table header for product units in cart">Unidades</span>
+      <span i18n="product units header|Name of table header for product units in cart">Units</span>
     </th>
     <td mat-cell *matCellDef="let detail" class="center">
       <span>{{ detail.units }}</span>
@@ -33,7 +33,7 @@
   </ng-container>
   <ng-container matColumnDef="total">
     <th mat-header-cell *matHeaderCellDef>
-      <span i18n="product subtotal header|Name of table header for the value of product price x units in cart">Precio</span>
+      <span i18n="product subtotal header|Name of table header for the value of product price x units in cart">Subtotal</span>
     </th>
     <td mat-cell *matCellDef="let detail" class="center">
       <span>${{ detail.unitValue * detail.units }}</span>

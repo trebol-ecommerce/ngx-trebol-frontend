@@ -5,26 +5,26 @@
   https://opensource.org/licenses/MIT
 -->
 
-<h2 mat-dialog-title i18n="Title of dialog prompt for registering a new user account">Nueva Cuenta de Usuario</h2>
+<h2 mat-dialog-title i18n="Title of dialog prompt for registering a new user account">New user account</h2>
 <app-centered-mat-spinner *ngIf="registering$ | async">
 </app-centered-mat-spinner>
 <div [hidden]="registering$ | async">
   <form [formGroup]="formGroup" (submit)="onSubmit()">
     <mat-form-field class="name">
       <input matInput formControlName="name"
-        placeholder="Nombre de Usuario"
+        placeholder="User name"
         i18n-placeholder="user name field|Name of field for username to register with" />
     </mat-form-field>
 
     <mat-form-field class="pass1">
       <input matInput formControlName="pass1" type="password"
-        placeholder="Clave de Usuario"
+        placeholder="Password"
         i18n-placeholder="password field|Name of field for password to register with" />
     </mat-form-field>
 
     <mat-form-field class="pass2">
       <input matInput formControlName="pass2" type="password"
-        placeholder="Repetir Clave"
+        placeholder="Repeat password"
         i18n-placeholder="repeat password field|Name of field for password confirmation by repetition" />
     </mat-form-field>
 
@@ -35,12 +35,12 @@
       <button mat-button mat-raised-button type="submit"
         color="primary"
         [disabled]="formGroup.invalid">
-        <span i18n="confirm|Label for action button to accept and proceed">Aceptar</span>
+        <span i18n="confirm|Label for action button to accept and proceed">Confirm</span>
       </button>
 
       <button mat-button mat-raised-button type="button"
         (click)="onCancel()">
-        <span i18n="cancel|Label for action button to cancel and/or stop an operation">Cancelar</span>
+        <span i18n="cancel|Label for action button to cancel and/or stop an operation">Cancel</span>
       </button>
     </div>
   </form>

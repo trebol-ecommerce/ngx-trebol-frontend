@@ -5,9 +5,9 @@
   https://opensource.org/licenses/MIT
 -->
 
-<h2 i18n="Title of dialog to associate images to a product">Asociar imágenes</h2>
+<h2 i18n="Title of dialog to associate images to a product">Associate images</h2>
 <mat-form-field class="search" appearance="fill">
-  <mat-label i18n="Name of field for filtering all stored images by keyword">Buscar imágenes</mat-label>
+  <mat-label i18n="Name of field for filtering all stored images by keyword">Search by keyword</mat-label>
   <input matInput type="text" [formControl]="filterFormControl" />
 </mat-form-field>
 <div class="list-wrapper">
@@ -25,9 +25,9 @@
   <button mat-button mat-raised-button type="button"
     (click)="onClickAccept()"
     mat-dialog-close
-    i18n="confirm|Label for action button to accept and proceed">Aceptar</button>
+    i18n="confirm|Label for action button to accept and proceed">Confirm</button>
   <button mat-button mat-raised-button type="button"
     color="warn"
     mat-dialog-close
-    i18n="cancel|Label for action button to cancel and/or stop an operation">Cancelar</button>
+    i18n="cancel|Label for action button to cancel and/or stop an operation">Cancel</button>
 </div>

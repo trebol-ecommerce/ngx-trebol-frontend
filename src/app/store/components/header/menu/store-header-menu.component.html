@@ -9,10 +9,10 @@
   <span mat-menu-item disabled>{{ userName$ | async }}</span>
   <button mat-menu-item type="button"
     *ngIf="canNavigateManagement$ | async"
-    class="edit-profile"
+    class="navigate-management"
     [routerLink]="['/management']">
     <mat-icon>tune</mat-icon>
-    <span i18n="Label for link button to navigate to management dashboard">Administrar</span>
+    <span i18n="Label for link button to navigate to management dashboard">Management</span>
   </button>
   <button mat-menu-item type="button"
     class="edit-profile"
