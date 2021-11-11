@@ -9,6 +9,13 @@
       "projectType": "application",
       "prefix": "app",
       "schematics": {},
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "es": "src/locales/messages.es.xlf",
+          "es-CL": "src/locales/messages.es-CL.xlf"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -106,6 +113,12 @@
                   "maximumWarning": "6kb"
                 }
               ]
+            },
+            "es": {
+              "localize": ["es"]
+            },
+            "es-CL": {
+              "localize": ["es-CL"]
             }
           }
         },
@@ -120,6 +133,12 @@
             },
             "production": {
               "browserTarget": "ngx-trebol-frontend:build:production"
+            },
+            "es": {
+              "browserTarget": "ngx-trebol-frontend:build:es"
+            },
+            "es-CL": {
+              "browserTarget": "ngx-trebol-frontend:build:es-CL"
             }
           }
         },
