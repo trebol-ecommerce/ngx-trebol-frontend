@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Image } from 'src/app/models/entities/Image';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
@@ -20,20 +20,35 @@ export class ImagesDataHttpApiService
 
   fetchExisting(image: Partial<Image>) {
     return this.http.get<Image>(
-      `${this.baseUrl}/${image.filename}`
+      this.baseUrl,
+      {
+        params: new HttpParams({ fromObject: {
+          code: String(image.code)
+        } })
+      }
     );
   }
 
   update(image: Partial<Image>) {
     return this.http.put(
-      `${this.baseUrl}/${image.filename}`,
-      image
+      this.baseUrl,
+      image,
+      {
+        params: new HttpParams({ fromObject: {
+          code: String(image.code)
+        } })
+      }
     );
   }
 
   delete(image: Partial<Image>) {
     return this.http.delete(
-      `${this.baseUrl}/${image.filename}`
+      this.baseUrl,
+      {
+        params: new HttpParams({ fromObject: {
+          code: String(image.code)
+        } })
+      }
     );
   }
 }
