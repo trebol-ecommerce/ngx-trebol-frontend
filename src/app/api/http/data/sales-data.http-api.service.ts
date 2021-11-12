@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Sell } from 'src/app/models/entities/Sell';
@@ -24,7 +24,12 @@ export class SalesDataHttpApiService
 
   fetchExisting(sell: Partial<Sell>) {
     return this.http.get<Sell>(
-      `${this.baseUrl}/${sell.buyOrder}`
+      this.baseUrl,
+      {
+        params: new HttpParams({ fromObject: {
+          buyOrder: String(sell.buyOrder)
+        } })
+      }
     );
   }
 
@@ -36,14 +41,24 @@ export class SalesDataHttpApiService
 
   update(sell: Partial<Sell>) {
     return this.http.put(
-      `${this.baseUrl}/${sell.buyOrder}`,
-      sell
+      this.baseUrl,
+      sell,
+      {
+        params: new HttpParams({ fromObject: {
+          buyOrder: String(sell.buyOrder)
+        } })
+      }
     );
   }
 
   delete(sell: Partial<Sell>) {
     return this.http.delete(
-      `${this.baseUrl}/${sell.buyOrder}`
+      this.baseUrl,
+      {
+        params: new HttpParams({ fromObject: {
+          buyOrder: String(sell.buyOrder)
+        } })
+      }
     );
   }
 
