@@ -7,28 +7,23 @@
 
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { ICategoriesPublicApiService } from 'src/app/api/categories-public-api.iservice';
+import { IProductCategoriesDataApiService } from 'src/app/api/product-categories.data-api.iservice';
 import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 
 @Injectable({ providedIn: 'root' })
 export class ProductFiltersPanelService {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.categories) private apiService: ICategoriesPublicApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductCategories) private apiService: IProductCategoriesDataApiService,
   ) { }
 
   getRootProductCategories(): Observable<ProductCategory[]> {
-    return this.apiService.fetchRootProductCategories().pipe(
-      map(page => page.items)
-    );
+    return this.apiService.readAllProductCategories();
   }
 
   getChildrenProductCategoryByParentCode(code: number): Observable<ProductCategory[]> {
-    return this.apiService.fetchChildrenProductCategoriesByParentCode(code).pipe(
-      map(page => page.items)
-    );
+    return this.apiService.readAllProductCategoriesByParentCode(code);
   }
 
 }
