@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from 'src/app/models/entities/Product';
 import { IEntityDataApiService } from '../../entity.data-api.iservice';
@@ -22,20 +22,35 @@ export class ProductsDataHttpApiService
 
   fetchExisting(product: Partial<Product>) {
     return this.http.get<Product>(
-      `${this.baseUrl}/${product.barcode}`
+      this.baseUrl,
+      {
+        params: new HttpParams({ fromObject: {
+          barcode: String(product.barcode)
+        } })
+      }
     );
   }
 
   update(product: Partial<Product>) {
     return this.http.put(
-      `${this.baseUrl}/${product.barcode}`,
-      product
+      this.baseUrl,
+      product,
+      {
+        params: new HttpParams({ fromObject: {
+          barcode: String(product.barcode)
+        } })
+      }
     );
   }
 
   delete(product: Partial<Product>) {
     return this.http.delete(
-      `${this.baseUrl}/${product.barcode}`
+      this.baseUrl,
+      {
+        params: new HttpParams({ fromObject: {
+          barcode: String(product.barcode)
+        } })
+      }
     );
   }
 }
