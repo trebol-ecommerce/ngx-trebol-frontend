@@ -8,5 +8,6 @@
 export class Image{
   filename: string;
   url: string;
+  code?: string;
   file?: File; // TODO refactor this out
 }

@@ -39,7 +39,7 @@ export class ProductCategoriesDataHttpApiService
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
-          familyId: String(parentCode)
+          parentCode: String(parentCode)
         } })
       }
     ).pipe(

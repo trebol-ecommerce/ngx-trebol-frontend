@@ -24,10 +24,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add properties `token`, `taxValue`, `transportValue`, `totalValue`, `totalItems` to Receipt model class (Compliance with API v1.1)
   - Also make `amount` optional and make `totalValue` required (`totalValue` will replace `amount`)
 - Include new information in receipt page
+- Follow deprecation of certain API paths as detailed in the changelog for API v1.1}
+  - Use query parameters instead of path parameters for fetching single entities
+- Introduce `code` property in Image class as temporary identifier generated on server-side
 
 ### Fixed
 - Footer remains stuck at the bottom of the page, instead of the viewport.
 - Karma tests not starting after connected from a browser (+ now displays spec results in console)
+
+### Removed
+- Old `localhost.proxy.conf.json` used to bypass CORS e.g. for servers running in localhost. Angular still guides users on how to create these, but it's not a good practice. Instead, your server should be configured so CORS allows your deployment to do requests.
 
 ## [v1.0.1] - 2021-10-21
 

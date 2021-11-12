@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Salesperson } from 'src/app/models/entities/Salesperson';
 import { IEntityDataApiService } from '../../entity.data-api.iservice';
@@ -22,20 +22,35 @@ export class SalespeopleDataHttpApiService
 
   fetchExisting(salesperson: Partial<Salesperson>) {
     return this.http.get<Salesperson>(
-      `${this.baseUrl}/${salesperson.person.idNumber}`
+      this.baseUrl,
+      {
+        params: new HttpParams({ fromObject: {
+          idNumber: String(salesperson.person.idNumber)
+        } })
+      }
     );
   }
 
   update(salesperson: Partial<Salesperson>) {
     return this.http.put(
-      `${this.baseUrl}/${salesperson.person.idNumber}`,
-      salesperson
+      this.baseUrl,
+      salesperson,
+      {
+        params: new HttpParams({ fromObject: {
+          idNumber: String(salesperson.person.idNumber)
+        } })
+      }
     );
   }
 
   delete(salesperson: Partial<Salesperson>) {
     return this.http.delete(
-      `${this.baseUrl}/${salesperson.person.idNumber}`
+      this.baseUrl,
+      {
+        params: new HttpParams({ fromObject: {
+          idNumber: String(salesperson.person.idNumber)
+        } })
+      }
     );
   }
 }

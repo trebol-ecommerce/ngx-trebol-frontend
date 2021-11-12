@@ -21,10 +21,10 @@ export class ImagesDataLocalMemoryApiService
   }
 
   protected itemExists(image: Partial<Image>) {
-    return this.items.some(image2 => (image.filename === image2.filename));
+    return this.items.some(image2 => (image.code === image2.code));
   }
 
   protected getIndexOfItem(image: Partial<Image>) {
-    return this.items.findIndex(image2 => (image.filename === image2.filename));
+    return this.items.findIndex(image2 => (image.code === image2.code));
   }
 }

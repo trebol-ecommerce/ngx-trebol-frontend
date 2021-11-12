@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Customer } from 'src/app/models/entities/Customer';
 import { IEntityDataApiService } from '../../entity.data-api.iservice';
@@ -22,19 +22,35 @@ export class CustomersDataHttpApiService
 
   fetchExisting(customer: Customer) {
     return this.http.get<Customer>(
-      `${this.baseUrl}/${customer.person.idNumber}`
+      this.baseUrl,
+      {
+        params: new HttpParams({ fromObject: {
+          idNumber: String(customer.person.idNumber)
+        } })
+      }
     );
   }
 
   update(customer: Customer) {
-    return this.http.get(
-      `${this.baseUrl}/${customer.person.idNumber}`
+    return this.http.put(
+      this.baseUrl,
+      customer,
+      {
+        params: new HttpParams({ fromObject: {
+          idNumber: String(customer.person.idNumber)
+        } })
+      }
     );
   }
 
   delete(customer: Customer) {
-    return this.http.get(
-      `${this.baseUrl}/${customer.person.idNumber}`
+    return this.http.delete(
+      this.baseUrl,
+      {
+        params: new HttpParams({ fromObject: {
+          idNumber: String(customer.person.idNumber)
+        } })
+      }
     );
   }
 }

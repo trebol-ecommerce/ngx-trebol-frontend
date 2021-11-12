@@ -16,7 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { ICategoriesPublicApiService } from 'src/app/api/categories-public-api.iservice';
+import { IProductCategoriesDataApiService } from 'src/app/api/product-categories.data-api.iservice';
 import { ProductFormComponent } from './product-form.component';
 
 @Component({ selector: 'app-slideshow' })
@@ -30,20 +30,15 @@ class MockSlideshowComponent {
 describe('ProductFormComponent', () => {
   let component: ProductFormComponent;
   let fixture: ComponentFixture<ProductFormComponent>;
-  let mockCategoriesApiService: Partial<ICategoriesPublicApiService>;
+  let mockCategoriesDataApiService: Partial<IProductCategoriesDataApiService>;
   let mockDialogRef: Partial<MatDialogRef<ProductFormComponent>>;
   let mockSnackBarService: Partial<MatSnackBar>;
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
-    mockCategoriesApiService = {
-      fetchRootProductCategories() {
-        return of({
-          items: [],
-          totalCount: 0,
-          pageIndex: 0,
-          pageSize: 10
-        });
+    mockCategoriesDataApiService = {
+      readAllProductCategories() {
+        return of([]);
       }
     };
     mockDialogRef = {
@@ -70,7 +65,7 @@ describe('ProductFormComponent', () => {
         MockSlideshowComponent
       ],
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.categories, useValue: mockCategoriesApiService },
+        { provide: API_SERVICE_INJECTION_TOKENS.dataProductCategories, useValue: mockCategoriesDataApiService },
         { provide: MAT_DIALOG_DATA, useValue: null },
         { provide: MatDialogRef, useValue: mockDialogRef },
         { provide: MatSnackBar, useValue: mockSnackBarService },
