@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/models/entities/User';
 import { IEntityDataApiService } from '../../entity.data-api.iservice';
@@ -22,19 +22,35 @@ export class UsersDataHttpApiService
 
   fetchExisting(user: Partial<User>) {
     return this.http.get<User>(
-      `${this.baseUrl}/${user.name}`
+      this.baseUrl,
+      {
+        params: new HttpParams({ fromObject: {
+          name: String(user.name)
+        } })
+      }
     );
   }
 
   update(user: Partial<User>) {
-    return this.http.get(
-      `${this.baseUrl}/${user.name}`
+    return this.http.put(
+      this.baseUrl,
+      user,
+      {
+        params: new HttpParams({ fromObject: {
+          name: String(user.name)
+        } })
+      }
     );
   }
 
   delete(user: Partial<User>) {
-    return this.http.get(
-      `${this.baseUrl}/${user.name}`
+    return this.http.delete(
+      this.baseUrl,
+      {
+        params: new HttpParams({ fromObject: {
+          name: String(user.name)
+        } })
+      }
     );
   }
 }
