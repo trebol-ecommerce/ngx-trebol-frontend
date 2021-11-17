@@ -21,6 +21,8 @@ import { SellManagerAccessResolver } from './routes/sales/sell-manager.access-re
 import { SellManagerComponent } from './routes/sales/sell-manager.component';
 import { SalespersonManagerAccessResolver } from './routes/salespeople/salesperson-manager.access-resolver';
 import { SalespersonManagerComponent } from './routes/salespeople/salesperson-manager.component';
+import { ShipperManagerAccessResolver } from './routes/shippers/shipper-manager.access-resolver';
+import { ShipperManagerComponent } from './routes/shippers/shipper-manager.component';
 import { UserManagerAccessResolver } from './routes/users/user-manager.access-resolver';
 import { UserManagerComponent } from './routes/users/user-manager.component';
 
@@ -58,7 +60,12 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
     path: 'images', component: ImageManagerComponent,
     data: { matIcon: 'image', title: 'Imágenes' },
     resolve: { access: ImageManagerAccessResolver }
-  }
+  },
+  {
+    path: 'shippers', component: ShipperManagerComponent,
+    data: { matIcon: 'local_shipping', title: 'Repartidores' },
+    resolve: { access: ShipperManagerAccessResolver }
+  },
 ];
 
 const managementRoutes: Routes = [
