@@ -28,7 +28,7 @@ export class DataManagerFormDialogComponent<T>
 
   busy$ = this.busySource.asObservable();
 
-  dialogTitle = 'Detalles del elemento';
+  dialogTitle = $localize `:Title of dialog used to view and edit some data:Element data`;
 
   @ViewChild(FormGroupOwnerOutletDirective, { static: true }) formGroupOutlet: FormGroupOwnerOutletDirective;
 
@@ -81,7 +81,7 @@ export class DataManagerFormDialogComponent<T>
   }
 
   private successMessage(item: T) {
-    return 'Elemento guardado con éxito';
+    return $localize `:Message of success after saving some data:Data saved successfully`;
   }
 
 }
