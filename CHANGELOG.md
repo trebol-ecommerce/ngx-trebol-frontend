@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Follow deprecation of certain API paths as detailed in the changelog for API v1.1}
   - Use query parameters instead of path parameters for fetching single entities
 - Introduce `code` property in Image class as temporary identifier generated on server-side
+- Introduce `Shipper` class with a single `name` property as new entity model
 
 ### Fixed
 - Footer remains stuck at the bottom of the page, instead of the viewport.
