@@ -69,6 +69,7 @@ export class DataManagerFormDialogComponent<T>
           this.dialog.close(item);
         },
         error => {
+          console.error(error);
           this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
         }
       );
