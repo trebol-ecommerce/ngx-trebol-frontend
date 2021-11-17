@@ -19,6 +19,7 @@ export const API_SERVICE_INJECTION_TOKENS = {
   dataProducts: 'ProductsDataApi',
   dataSales: 'SalesDataApi',
   dataSalespeople: 'SalespeopleDataApi',
+  dataShippers: 'ShippersDataApi',
   dataUserRoles: 'UserRolesDataApi',
   dataUsers: 'UsersDataApi',
   about: 'PublicAboutApi',
