@@ -15,6 +15,22 @@
         <note priority="1" from="description">Label to notify user that they have logged out</note>
         <note priority="1" from="meaning">logout message</note>
       </trans-unit>
+      <trans-unit id="2927965659351774265" datatype="html">
+        <source>Datos del elemento</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/management/dialogs/data-manager-form-dialog/data-manager-form-dialog.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <note priority="1" from="description">Title of dialog used to view and edit some data</note>
+      </trans-unit>
+      <trans-unit id="2185228394767497497" datatype="html">
+        <source>Elemento guardado exitosamente</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/management/dialogs/data-manager-form-dialog/data-manager-form-dialog.component.ts</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+        <note priority="1" from="description">Message of success after saving some data</note>
+      </trans-unit>
       <trans-unit id="7271324698069692652" datatype="html">
         <source>Imagen &apos;<x id="PH" equiv-text="img.filename"/>&apos;:fileName: eliminada</source>
         <context-group purpose="location">
