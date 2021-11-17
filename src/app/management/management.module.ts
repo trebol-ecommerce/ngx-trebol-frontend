@@ -29,6 +29,8 @@ import { SellManagerComponent } from './routes/sales/sell-manager.component';
 import { SellManagerService } from './routes/sales/sell-manager.service';
 import { SalespersonManagerComponent } from './routes/salespeople/salesperson-manager.component';
 import { SalespersonManagerService } from './routes/salespeople/salesperson-manager.service';
+import { ShipperManagerComponent } from './routes/shippers/shipper-manager.component';
+import { ShipperManagerService } from './routes/shippers/shipper-manager.service';
 import { UserManagerComponent } from './routes/users/user-manager.component';
 import { UserManagerService } from './routes/users/user-manager.service';
 
@@ -49,6 +51,7 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     SalespersonManagerComponent,
     ProductManagerComponent,
     SellManagerComponent,
+    ShipperManagerComponent,
     UserManagerComponent,
     ImageManagerComponent,
     DataManagerFormDialogComponent
@@ -67,6 +70,7 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ProductManagerService,
     UserManagerService,
     SellManagerService,
+    ShipperManagerService
   ]
 })
 export class ManagementModule { }

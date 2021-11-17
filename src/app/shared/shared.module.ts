@@ -23,6 +23,7 @@ import { ProductFiltersPanelComponent } from './components/product-filters-panel
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { SalespersonFormComponent } from './components/salesperson-form/salesperson-form.component';
 import { SellFormComponent } from './components/sell-form/sell-form.component';
+import { ShipperFormComponent } from './components/shipper-form/shipper-form.component';
 import { SlideshowComponent } from './components/slideshow/slideshow.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { AddressFormDialogComponent } from './dialogs/address-form/address-form-dialog.component';
@@ -47,6 +48,7 @@ const PUBLIC_COMPONENTS = [
   ProductFormComponent,
   SalespersonFormComponent,
   SellFormComponent,
+  ShipperFormComponent,
   UserFormComponent,
   ProductFiltersPanelComponent,
   EditProfileFormDialogComponent,

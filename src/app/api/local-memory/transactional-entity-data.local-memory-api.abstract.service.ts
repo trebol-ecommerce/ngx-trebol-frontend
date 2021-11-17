@@ -102,14 +102,15 @@ export abstract class TransactionalEntityDataLocalMemoryApiService<T>
     );
   }
 
-  update(d: T) {
+  update(d: T, original?: T) {
     return new Observable<void>(
       observer => {
-        const existingItem = this.fetchExisting(d);
+        const index = original ? this.getIndexOfItem(original) : this.getIndexOfItem(d);
+        const existingItem = this.items[index];
         if (existingItem === null) {
           observer.error({ status: 404 });
         } else {
-          Object.assign(existingItem, d);
+          Object.assign(this.items[index], d);
           observer.next();
           observer.complete();
         }

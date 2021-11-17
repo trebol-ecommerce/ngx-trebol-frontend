@@ -15,6 +15,22 @@
         <note priority="1" from="description">Label to notify user that they have logged out</note>
         <note priority="1" from="meaning">logout message</note>
       </trans-unit>
+      <trans-unit id="2927965659351774265" datatype="html">
+        <source>Element data</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/management/dialogs/data-manager-form-dialog/data-manager-form-dialog.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <note priority="1" from="description">Title of dialog used to view and edit some data</note>
+      </trans-unit>
+      <trans-unit id="2185228394767497497" datatype="html">
+        <source>Data saved successfully</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/management/dialogs/data-manager-form-dialog/data-manager-form-dialog.component.ts</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+        <note priority="1" from="description">Message of success after saving some data</note>
+      </trans-unit>
       <trans-unit id="7271324698069692652" datatype="html">
         <source>Image &apos;<x id="PH" equiv-text="img.filename"/>&apos;:fileName: deleted</source>
         <context-group purpose="location">
@@ -46,6 +62,14 @@
           <context context-type="linenumber">70</context>
         </context-group>
         <note priority="1" from="description">Message of success after deleting a salesperson with first name {{ firstName }} and last name {{ lastName }}</note>
+      </trans-unit>
+      <trans-unit id="4322964496601388916" datatype="html">
+        <source>Shipper &apos;<x id="name" equiv-text="shipper.name"/>&apos; deleted</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/management/routes/shippers/shipper-manager.component.ts</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+        <note priority="1" from="description">Message of success after deleting a shipper with name {{ name }}</note>
       </trans-unit>
       <trans-unit id="5c7012b5a926b32d9e45fefdcc8a1a3cb6f023d0" datatype="html">
         <source>City</source>
@@ -525,6 +549,14 @@
         </context-group>
         <note priority="1" from="description">Label with sell total value (products, transport and taxes) being {{ totalValue }}</note>
         <note priority="1" from="meaning">total sell value</note>
+      </trans-unit>
+      <trans-unit id="cff1428d10d59d14e45edec3c735a27b5482db59" datatype="html">
+        <source>Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/shipper-form/shipper-form.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description">Name of field for the identifiying name of a shipper or shipping service</note>
       </trans-unit>
       <trans-unit id="44ad6e8ded61058a394ed7b1486cbf0aca144198" datatype="html">
         <source>Unavailable image</source>

@@ -24,11 +24,11 @@ export class DataManagerFormDialogComponent<T>
 
   private busySource = new BehaviorSubject(true);
   private service: ITransactionalEntityDataApiService<T>;
-  private isNew = true;
+  private itemCopy = null;
 
   busy$ = this.busySource.asObservable();
 
-  dialogTitle = 'Detalles del elemento';
+  dialogTitle = $localize `:Title of dialog used to view and edit some data:Element data`;
 
   @ViewChild(FormGroupOwnerOutletDirective, { static: true }) formGroupOutlet: FormGroupOwnerOutletDirective;
 
@@ -48,7 +48,7 @@ export class DataManagerFormDialogComponent<T>
 
   ngOnInit(): void {
     if (this.data.item) {
-      this.isNew = false;
+      this.itemCopy = Object.assign({}, this.data.item);
     }
 
     this.busySource.next(false);
@@ -61,7 +61,7 @@ export class DataManagerFormDialogComponent<T>
       this.snackBarService.open(COMMON_VALIDATION_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
     } else {
       const item = this.data.item;
-      const submitObservable = (this.isNew) ? this.service.create(item) : this.service.update(item);
+      const submitObservable = (!this.itemCopy) ? this.service.create(item) : this.service.update(item, this.itemCopy);
       submitObservable.subscribe(
         success => {
           const message = this.successMessage(item);
@@ -69,6 +69,7 @@ export class DataManagerFormDialogComponent<T>
           this.dialog.close(item);
         },
         error => {
+          console.error(error);
           this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
         }
       );
@@ -80,7 +81,7 @@ export class DataManagerFormDialogComponent<T>
   }
 
   private successMessage(item: T) {
-    return 'Elemento guardado con éxito';
+    return $localize `:Message of success after saving some data:Data saved successfully`;
   }
 
 }

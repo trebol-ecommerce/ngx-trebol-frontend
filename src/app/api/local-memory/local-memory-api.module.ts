@@ -7,26 +7,27 @@
 
 import { NgModule } from '@angular/core';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { AccessLocalMemoryApiService } from './access/access.local-memory-api.service';
+import { ProfileAccountLocalMemoryApiService } from './account/profile-account.local-memory-api.service';
+import { BillingTypesDataLocalMemoryApiService } from './data/billing-types-data.local-memory-api.service';
 import { CustomersDataLocalMemoryApiService } from './data/customers-data.local-memory-api.service';
-import { SalespeopleDataLocalMemoryApiService } from './data/salespeople-data.local-memory-api.service';
+import { ImagesDataLocalMemoryApiService } from './data/images-data.local-memory-api.service';
+import { PeopleDataLocalMemoryApiService } from './data/people-data.local-memory-api.service';
+import { ProductCategoriesDataLocalMemoryApiService } from './data/product-categories-data.local-memory-api.service';
 import { ProductsDataLocalMemoryApiService } from './data/products-data.local-memory-api.service';
 import { SalesDataLocalMemoryApiService } from './data/sales-data.local-memory-api.service';
-import { ProductCategoriesDataLocalMemoryApiService } from './data/product-categories-data.local-memory-api.service';
+import { SalespeopleDataLocalMemoryApiService } from './data/salespeople-data.local-memory-api.service';
+import { ShippersDataLocalMemoryApiService } from './data/shippers-data.local-memory-api.service';
+import { UserRolesDataLocalMemoryApiService } from './data/user-roles-data.local-memory-api.service';
 import { UsersDataLocalMemoryApiService } from './data/users-data.local-memory-api.service';
-import { AccessLocalMemoryApiService } from './access/access.local-memory-api.service';
-import { ImagesDataLocalMemoryApiService } from './data/images-data.local-memory-api.service';
-import { LoginPublicLocalMemoryApiService } from './public/login-public.local-memory-api.service';
 import { AboutPublicLocalMemoryApiService } from './public/about-public.local-memory-api.service';
 import { CategoriesPublicLocalMemoryApiService } from './public/categories-public.local-memory-api.service';
 import { CheckoutPublicLocalMemoryApiService } from './public/checkout-public.local-memory-api.service';
-import { ReceiptPublicLocalMemoryApiService } from './public/receipt-public.local-memory-api.service';
 import { GuestPublicLocalMemoryApiService } from './public/guest-public.local-memory-api.service';
-import { ProfileAccountLocalMemoryApiService } from './account/profile-account.local-memory-api.service';
-import { RegisterPublicLocalMemoryApiService } from './public/register-public.local-memory-api.service';
+import { LoginPublicLocalMemoryApiService } from './public/login-public.local-memory-api.service';
 import { ProductsPublicLocalMemoryApiService } from './public/products-public.local-memory-api.service';
-import { BillingTypesDataLocalMemoryApiService } from './data/billing-types-data.local-memory-api.service';
-import { PeopleDataLocalMemoryApiService } from './data/people-data.local-memory-api.service';
-import { UserRolesDataLocalMemoryApiService } from './data/user-roles-data.local-memory-api.service';
+import { ReceiptPublicLocalMemoryApiService } from './public/receipt-public.local-memory-api.service';
+import { RegisterPublicLocalMemoryApiService } from './public/register-public.local-memory-api.service';
 
 /**
  * Provides services that read and write data using the client's working memory
@@ -72,6 +73,10 @@ import { UserRolesDataLocalMemoryApiService } from './data/user-roles-data.local
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataSalespeople,
       useClass: SalespeopleDataLocalMemoryApiService
+    },
+    {
+      provide: API_SERVICE_INJECTION_TOKENS.dataShippers,
+      useClass: ShippersDataLocalMemoryApiService
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.dataUserRoles,
