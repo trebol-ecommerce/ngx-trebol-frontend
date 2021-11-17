@@ -26,11 +26,13 @@ export interface ITransactionalEntityDataApiService<T>
 
   /**
    *
-   * @param item An object containing 1) The item's-class-own identifiying key-value
+   * @param itemLike An object containing 1) The item's-class-own identifiying key-value
    * property (such as id or code), and 2) All other properties to be updated, with
    * their respective new values.
+   * @param originalItem A copy of the item before any changes were made. Optional.
+   * NOTE: added temporarily to support update of Shippers
    */
-  update(itemLike: Partial<T>): Observable<any>;
+  update(itemLike: Partial<T>, originalItem?: T): Observable<any>;
 
   /**
    *

@@ -24,7 +24,7 @@ export class DataManagerFormDialogComponent<T>
 
   private busySource = new BehaviorSubject(true);
   private service: ITransactionalEntityDataApiService<T>;
-  private isNew = true;
+  private itemCopy = null;
 
   busy$ = this.busySource.asObservable();
 
@@ -48,7 +48,7 @@ export class DataManagerFormDialogComponent<T>
 
   ngOnInit(): void {
     if (this.data.item) {
-      this.isNew = false;
+      this.itemCopy = Object.assign({}, this.data.item);
     }
 
     this.busySource.next(false);
@@ -61,7 +61,7 @@ export class DataManagerFormDialogComponent<T>
       this.snackBarService.open(COMMON_VALIDATION_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
     } else {
       const item = this.data.item;
-      const submitObservable = (this.isNew) ? this.service.create(item) : this.service.update(item);
+      const submitObservable = (!this.itemCopy) ? this.service.create(item) : this.service.update(item, this.itemCopy);
       submitObservable.subscribe(
         success => {
           const message = this.successMessage(item);

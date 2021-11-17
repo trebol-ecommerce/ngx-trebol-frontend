@@ -31,13 +31,13 @@ export class ShippersDataHttpApiService
     );
   }
 
-  update(shipper: Shipper) {
+  update(shipper: Shipper, originalShipper?: Shipper) {
     return this.http.put(
       this.baseUrl,
       shipper,
       {
         params: new HttpParams({ fromObject: {
-          idNumber: String(shipper.name)
+          name: String(originalShipper.name)
         } })
       }
     );
@@ -48,7 +48,7 @@ export class ShippersDataHttpApiService
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
-          idNumber: String(shipper.name)
+          name: String(shipper.name)
         } })
       }
     );
