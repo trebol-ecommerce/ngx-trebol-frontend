@@ -11,7 +11,7 @@
     i18n-aria-label="Label for group of choices to select billing type from">
     <mat-radio-button *ngFor="let option of typesOptions"
       [value]="option"
-      (blur)="onTouched()">{{ types[option] }}</mat-radio-button>
+      (blur)="onTouched()">{{ option }}</mat-radio-button>
   </mat-radio-group>
   <app-company-form #companyForm formControlName="company">
   </app-company-form>
