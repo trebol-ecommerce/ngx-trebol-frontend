@@ -51,15 +51,12 @@ export class ProductManagerComponent
     );
   }
 
-  protected createDialogProperties(item: Product | undefined): DataManagerFormDialogConfig<Product> {
-    const realItem = ( item ? item : new Product() );
-    const title = ( item ? 'Editar' : 'Nuevo' ) + ' Producto';
+  protected createDialogProperties(item: Product): DataManagerFormDialogConfig<Product> {
     return {
       data: {
-        item: realItem,
+        item,
         formComponent: ProductFormComponent,
-        service: this.service.dataService,
-        title
+        service: this.service.dataService
       },
       width: '40rem',
       maxHeight: '80vh'

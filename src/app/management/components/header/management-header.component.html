@@ -8,7 +8,8 @@
 <button mat-button type="button"
   class="toggle-sidenav action"
   color="warn"
-  title="Alternar menú lateral"
+  aria-label="Toggle sidebar"
+  i18n-aria-label="Label for action button to show/hide management navigation sidebar"
   (click)="switchSidenavOpenState()">
   <mat-icon>menu</mat-icon>
 </button>
@@ -24,19 +25,17 @@
     class="navigate-store"
     [routerLink]="['/store']">
     <mat-icon>storefront</mat-icon>
-    Volver a la Tienda
+    <span i18n="Label for link button to navigate to storefront">Storefront</span>
   </button>
   <button mat-menu-item type="button"
-    title="Editar Perfil"
     (click)="onClickEditProfile()">
     <mat-icon>edit</mat-icon>
-    Editar Perfil
+    <span i18n="Label for action button to prompt profile edit">Edit Profile</span>
   </button>
   <button mat-menu-item type="button"
-    title="Cerrar Sesion"
     (click)="onClickLogout()">
     <mat-icon>exit_to_app</mat-icon>
-    Terminar Sesión
+    <span i18n="Label for action button to log out">Log Out</span>
   </button>
 </mat-menu>
 <button mat-button type="button"

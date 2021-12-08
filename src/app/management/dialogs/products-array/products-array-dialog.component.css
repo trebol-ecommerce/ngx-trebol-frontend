@@ -32,9 +32,3 @@ th, td {
 mat-expansion-panel, mat-card {
   margin: 1rem 0;
 }
-
-.actions {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-}

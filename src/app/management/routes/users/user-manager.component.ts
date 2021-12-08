@@ -67,7 +67,8 @@ export class UserManagerComponent
     ).subscribe(
       success => {
         if (success) {
-          this.snackBarService.open(`Usuario ${usr.name} eliminado`, COMMON_DISMISS_BUTTON_LABEL);
+          const successMessage = $localize`:Message of success after deleting an user with name {{ username }}:User ${usr.name}:username: deleted`;
+          this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
           this.service.reloadItems();
         } else {
           this.snackBarService.open(COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);

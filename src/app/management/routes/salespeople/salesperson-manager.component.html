@@ -12,13 +12,15 @@
 
     <table mat-table class="full-width-min" [dataSource]="items$">
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <th mat-header-cell *matHeaderCellDef
+          i18n="person name table header|Name of table header for full name of person">Name</th>
         <td mat-cell *matCellDef="let salesperson">
-          {{ salesperson.person.name }}
+          {{ salesperson.person.firstName }} {{ salesperson.person.lastName }}
         </td>
       </ng-container>
       <ng-container matColumnDef="idNumber">
-        <th mat-header-cell *matHeaderCellDef> Rut </th>
+        <th mat-header-cell *matHeaderCellDef
+          i18n="person id number table header|Name of table header for id number of person">Id Number</th>
         <td mat-cell *matCellDef="let salesperson">
           {{ salesperson.person.idNumber }}
         </td>
@@ -29,6 +31,8 @@
           <button mat-button mat-icon-button type="button"
             *ngIf="canEdit$ | async"
             color="primary"
+            aria-label="Edit"
+            i18n-aria-label="edit|Label for action button to edit information of an item"
             [disabled]="busy$ | async"
             (click)="onClickEdit(salesperson)">
             <mat-icon>edit</mat-icon>
@@ -36,6 +40,8 @@
           <button mat-button mat-icon-button type="button"
             *ngIf="canDelete$ | async"
             color="warn"
+            aria-label="Delete"
+            i18n-aria-label="delete|Label for action button to delete an item"
             [disabled]="busy$ | async"
             (click)="onClickDelete(salesperson)">
             <mat-icon>delete</mat-icon>

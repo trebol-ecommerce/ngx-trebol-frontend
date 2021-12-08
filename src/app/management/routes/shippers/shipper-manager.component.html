@@ -12,7 +12,8 @@
 
     <table mat-table class="full-width-min" [dataSource]="items$">
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <th mat-header-cell *matHeaderCellDef
+          i18n="shipper name table header|Name of table header for name of shipper">Name</th>
         <td mat-cell *matCellDef="let shipper">
           {{ shipper.name }}
         </td>
@@ -23,6 +24,8 @@
           <button mat-button mat-icon-button type="button"
             *ngIf="canEdit$ | async"
             color="primary"
+            aria-label="Edit"
+            i18n-aria-label="edit|Label for action button to edit information of an item"
             [disabled]="busy$ | async"
             (click)="onClickEdit(shipper)">
             <mat-icon>edit</mat-icon>
@@ -30,6 +33,8 @@
           <button mat-button mat-icon-button type="button"
             *ngIf="canDelete$ | async"
             color="warn"
+            aria-label="Delete"
+            i18n-aria-label="delete|Label for action button to delete an item"
             [disabled]="busy$ | async"
             (click)="onClickDelete(shipper)">
             <mat-icon>delete</mat-icon>

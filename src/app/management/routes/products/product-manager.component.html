@@ -12,26 +12,30 @@
 
     <table mat-table class="full-width-min" [dataSource]="items$">
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <th mat-header-cell *matHeaderCellDef
+          i18n="product name table header|Name of table header for name of product">Name</th>
         <td mat-cell *matCellDef="let product">
           {{ product.name }}
         </td>
       </ng-container>
       <ng-container matColumnDef="barcode">
-        <th mat-header-cell *matHeaderCellDef> Codigo </th>
+        <th mat-header-cell *matHeaderCellDef
+          i18n="product code table header|Name of table header for code of product">Code</th>
         <td mat-cell *matCellDef="let product">
           {{ product.barcode }}
         </td>
       </ng-container>
       <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef> Precio </th>
+        <th mat-header-cell *matHeaderCellDef
+          i18n="product price table header|Name of table header for price per product unit">Price</th>
         <td mat-cell *matCellDef="let product">
           ${{ product.price }}
         </td>
       </ng-container>
       <!-- <ng-container matColumnDef="currentStock">
         <th mat-header-cell *matHeaderCellDef> Stock Actual </th>
-        <td mat-cell *matCellDef="let product">
+        <td mat-cell *matCellDef="let product"
+          i18n="product table header|Name of table header for price per product unit">
           {{ product.currentStock }}
         </td>
       </ng-container>
@@ -42,7 +46,8 @@
         </td>
       </ng-container> -->
       <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef> Tipo </th>
+        <th mat-header-cell *matHeaderCellDef
+          i18n="product category table header|Name of table header for category of product">Category</th>
         <td mat-cell *matCellDef="let product">
           {{ product.category.name }}
         </td>
@@ -53,6 +58,8 @@
           <button mat-button mat-icon-button type="button"
             *ngIf="canEdit$ | async"
             color="primary"
+            aria-label="Edit"
+            i18n-aria-label="edit|Label for action button to edit information of an item"
             [disabled]="busy$ | async"
             (click)="onClickEdit(product)">
             <mat-icon>edit</mat-icon>
@@ -60,6 +67,8 @@
           <button mat-button mat-icon-button type="button"
             *ngIf="canDelete$ | async"
             color="warn"
+            aria-label="Delete"
+            i18n-aria-label="delete|Label for action button to delete an item"
             [disabled]="busy$ | async"
             (click)="onClickDelete(product)">
             <mat-icon>delete</mat-icon>

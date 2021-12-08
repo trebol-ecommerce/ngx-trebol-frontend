@@ -56,21 +56,21 @@
       <table mat-table [dataSource]="sellDetails$">
         <ng-container matColumnDef="product">
           <th mat-header-cell *matHeaderCellDef
-            i18n="product name header|Name of table header for name of product">Name</th>
+            i18n="product name table header|Name of table header for name of product">Name</th>
           <td mat-cell *matCellDef="let detail">
             {{ detail.product.name }}
           </td>
         </ng-container>
         <ng-container matColumnDef="price">
           <th mat-header-cell *matHeaderCellDef
-            i18n="product price header|Name of table header for price per product unit">Price</th>
+            i18n="product table header|Name of table header for price per product unit">Price</th>
           <td mat-cell *matCellDef="let detail">
             ${{ detail.product.price }}
           </td>
         </ng-container>
         <ng-container matColumnDef="quantity">
           <th mat-header-cell *matHeaderCellDef
-            i18n="product units header|Name of table header for quantity of products (in units)">Units</th>
+            i18n="product units table header|Name of table header for quantity of products (in units)">Units</th>
           <td mat-cell *matCellDef="let detail; let i=index">
             <button mat-button mat-icon-button type="button"
               aria-label="Add one"
