@@ -567,7 +567,7 @@
         <note priority="1" from="description">Label to describe a missing or unavailable image</note>
       </trans-unit>
       <trans-unit id="abc3d67bab12a5595dd6c78eeb0e847c39bd8585" datatype="html">
-        <source>Agregar imagen</source>
+        <source>Add image</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/slideshow/slideshow.component.html</context>
           <context context-type="linenumber">48</context>
@@ -589,6 +589,7 @@
           <context context-type="linenumber">17</context>
         </context-group>
         <note priority="1" from="description">Name of field for password to create user with</note>
+        <note priority="1" from="meaning">password field</note>
       </trans-unit>
       <trans-unit id="71c355c28431d7d6a5ab9bc97469bb60f459e7eb" datatype="html">
         <source>Identity</source>
@@ -803,7 +804,7 @@
         <note priority="1" from="description">Label for link button to navigate to management dashboard</note>
       </trans-unit>
       <trans-unit id="522deee236aba83e56923134e0ac30b72b1fa797" datatype="html">
-        <source>Editar Perfil</source>
+        <source>Edit Profile</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/header/menu/store-header-menu.component.html</context>
           <context context-type="linenumber">21</context>
@@ -811,7 +812,7 @@
         <note priority="1" from="description">Label for action button to prompt profile edit</note>
       </trans-unit>
       <trans-unit id="4f96679372e2b8a85fba2c63a33b361c01ac01c2" datatype="html">
-        <source>Terminar Sesión</source>
+        <source>Log Out</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/header/menu/store-header-menu.component.html</context>
           <context context-type="linenumber">27</context>
@@ -819,7 +820,7 @@
         <note priority="1" from="description">Label for action button to log out</note>
       </trans-unit>
       <trans-unit id="e7016da109c20a47a4d11ff1948c32c565fd3ff4" datatype="html">
-        <source>Abrir menú de usuario</source>
+        <source>Open User Menu</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/header/menu/store-header-menu.component.html</context>
           <context context-type="linenumber">32</context>
@@ -867,7 +868,7 @@
         <note priority="1" from="description">Label for link to navigate to cart</note>
       </trans-unit>
       <trans-unit id="15d10cb49120c640dca3ba9d2f74092279df630c" datatype="html">
-        <source>Name</source>
+        <source>Product</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/receipt-details-table/store-receipt-details-table.component.html</context>
           <context context-type="linenumber">11</context>
@@ -968,6 +969,14 @@
           <context context-type="linenumber">13</context>
         </context-group>
         <note priority="1" from="description">Label to hint user that their billing information is solely used to secure their transaction</note>
+      </trans-unit>
+      <trans-unit id="dcd47f4d6b26b045a1b041b2fc73123bc0cfc118" datatype="html">
+        <source>Log In</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/store/dialogs/login-form/store-login-form-dialog.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <note priority="1" from="description">Title of dialog prompt for logging in</note>
       </trans-unit>
       <trans-unit id="0420ea6c714a79b1e7c9499d25c8b5d2916f23a7" datatype="html">
         <source>User name</source>
@@ -1161,6 +1170,22 @@
         <note priority="1" from="description">Title of widget displaying products and details of transaction</note>
         <note priority="1" from="meaning">transaction details title</note>
       </trans-unit>
+      <trans-unit id="5806543578000217592" datatype="html">
+        <source>Bill</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/billing-type-names.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <note priority="1" from="description">Form of billing commonly requested by most people; a simple statement with details of goods and services</note>
+      </trans-unit>
+      <trans-unit id="6763311202998995228" datatype="html">
+        <source>Enterprise Invoice</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/billing-type-names.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <note priority="1" from="description">Form of billing requested by companies or their representatives; in addition to goods and services, some additional notes or charges (like taxes) may be included</note>
+      </trans-unit>
       <trans-unit id="8078321205268199838" datatype="html">
         <source>There was an error while processing your request. Please try again.</source>
         <context-group purpose="location">
@@ -1196,6 +1221,102 @@
         </context-group>
         <note priority="1" from="description">Label for button to dismiss warnings, errors and other messages</note>
         <note priority="1" from="meaning">common dismiss label</note>
+      </trans-unit>
+      <trans-unit id="3814505654507027228" datatype="html">
+        <source>Delivery Complete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <note priority="1" from="description">Description of status of a sell after its contents have been delivered to the customer</note>
+      </trans-unit>
+      <trans-unit id="945086919382619829" datatype="html">
+        <source>Delivery En Route</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <note priority="1" from="description">Description of status of a sell after it has been shipped</note>
+      </trans-unit>
+      <trans-unit id="4341485281404939936" datatype="html">
+        <source>Paid, Confirmed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description">Description of status of a sell after being acknowledged and confirmed by a salesperson, store clerk, or the next responsible individual</note>
+      </trans-unit>
+      <trans-unit id="813244575473708025" datatype="html">
+        <source>Paid, Unconfirmed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <note priority="1" from="description">Description of status of a sell once payment has been processed, and needs confirmation from the store</note>
+      </trans-unit>
+      <trans-unit id="261729095639909855" datatype="html">
+        <source>Payment Started</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <note priority="1" from="description">Description of status of a sell once payment is requested; the customer must proceed to execute their transaction</note>
+      </trans-unit>
+      <trans-unit id="4416413576346763682" datatype="html">
+        <source>Pending</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <note priority="1" from="description">Description of status of a sell right before requesting payment; customers may never see this state</note>
+      </trans-unit>
+      <trans-unit id="4739012010062717286" datatype="html">
+        <source>Payment Aborted</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <note priority="1" from="description">Description of a failed sell due to the transaction being aborted</note>
+      </trans-unit>
+      <trans-unit id="8105540508362589812" datatype="html">
+        <source>Payment Failed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <note priority="1" from="description">Description of a failed sell due to an uncertain transaction error</note>
+      </trans-unit>
+      <trans-unit id="6395733352391706880" datatype="html">
+        <source>Payment Rejected</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <note priority="1" from="description">Description of a failed sell due to rejection of transaction (most likely, the card was declined)</note>
+      </trans-unit>
+      <trans-unit id="5501791863262140347" datatype="html">
+        <source>Delivery Cancelled</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <note priority="1" from="description">Description of a failed sell due to abortion of the delivery process</note>
+      </trans-unit>
+      <trans-unit id="6861171261641207722" datatype="html">
+        <source>Delivery Failed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <note priority="1" from="description">Description of a failed sell due to a failure in the delivery process</note>
+      </trans-unit>
+      <trans-unit id="1102912391897633655" datatype="html">
+        <source>Returned</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <note priority="1" from="description">Description of a failed sell due to its contents being returned</note>
       </trans-unit>
     </body>
   </file>
