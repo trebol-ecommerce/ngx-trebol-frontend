@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
 import { Receipt } from "src/app/models/Receipt";
 import { MOCK_PRODUCTS } from "./mock-products.datasource";
 import { MOCK_SELL_STATUSES } from "./mock-sell-statuses.datasource";

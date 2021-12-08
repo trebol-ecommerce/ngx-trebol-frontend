@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
 import { SELL_STATUS_NAMES_MAP } from "src/text/sell-status-names";
 
 export const MOCK_SELL_STATUSES = {
