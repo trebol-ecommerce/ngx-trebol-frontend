@@ -12,6 +12,7 @@ import { Customer } from 'src/app/models/entities/Customer';
 import { Sell } from 'src/app/models/entities/Sell';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
 import { environment } from 'src/environments/environment';
+import { BILLING_TYPE_COMPANY, BILLING_TYPE_NAMES_MAP } from 'src/text/billing-type-names';
 import { ICheckoutPublicApiService } from '../../checkout-public-api.iservice';
 
 @Injectable()
@@ -32,7 +33,7 @@ export class CheckoutPublicHttpApiService
     payload.customer = this.shrinkCustomerModel(sell.customer);
     payload.paymentType = "WebPay Plus"; // TODO parameterize this value
 
-    if (sell.billingType === 'Enterprise Invoice') {
+    if (sell.billingType === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
       payload.billingAddress = sell.billingAddress;
       payload.billingCompany = sell.billingCompany;
     }

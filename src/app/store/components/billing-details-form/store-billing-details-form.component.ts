@@ -14,8 +14,8 @@ import { merge, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { AddressesEditorFormComponent } from 'src/app/shared/components/addresses-editor-form/addresses-editor-form.component';
 import { CompanyFormComponent } from 'src/app/shared/components/company-form/company-form.component';
-import { environment } from 'src/environments/environment';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
+import { BILLING_TYPE_COMPANY, BILLING_TYPE_INDIVIDUAL, BILLING_TYPE_NAMES_MAP } from 'src/text/billing-type-names';
 import { StoreService } from '../../store.service';
 
 @Component({
@@ -44,8 +44,7 @@ export class StoreBillingDetailsFormComponent
   private touched = new EventEmitter<void>();
 
   formGroup: FormGroup;
-  types: { [key: string]: string } = environment.labels.sellTypes;
-  typesOptions = Object.keys(this.types);
+  typesOptions = [ ...BILLING_TYPE_NAMES_MAP.values() ];
 
   get sellType() { return this.formGroup.get('sellType') as FormControl; }
   get company() { return this.formGroup.get('company') as FormControl; }
@@ -68,10 +67,10 @@ export class StoreBillingDetailsFormComponent
   ngOnInit(): void {
     this.sellTypeChangesSubscription = this.sellType.valueChanges.pipe(
       tap(v => {
-        if (v === 'Enterprise Invoice') {
+        if (v === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
           this.company.enable();
           this.address.enable();
-        } else if (v === 'Bill') {
+        } else if (v === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_INDIVIDUAL)) {
           this.company.reset({ value: null, disabled: true });
           this.address.reset({ value: null, disabled: true });
         }
@@ -98,7 +97,7 @@ export class StoreBillingDetailsFormComponent
     this.company.disable({ emitEvent: false });
     this.address.disable({ emitEvent: false });
     if (isJavaScriptObject(obj)) {
-      if ('sellType' in obj && obj.sellType === 'Enterprise Invoice') {
+      if ('sellType' in obj && obj.sellType === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
         this.company.enable({ emitEvent: false });
         this.address.enable({ emitEvent: false });
       }
@@ -135,7 +134,7 @@ export class StoreBillingDetailsFormComponent
       const errors = {} as any;
       if (!value.sellType) {
         errors.billingTypeMustBeSelected = value.sellType;
-      } else if (value.sellType === 'Enterprise Invoice') {
+      } else if (value.sellType === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
         if (!value.company) {
           errors.billingCompanyMustBeTruthy = value.company;
         }

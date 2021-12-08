@@ -48,7 +48,7 @@ export const MOCK_RECEIPTS: Receipt[] = [
     ],
     taxValue: 6000,
     transportValue: 3000,
-    status: MOCK_SELL_STATUSES.cancelled,
+    status: MOCK_SELL_STATUSES.deliveryCancelled,
     totalItems: 1,
     totalValue: ( 3000 + 6000 +
       MOCK_PRODUCT_UNIT_VALUES[1]

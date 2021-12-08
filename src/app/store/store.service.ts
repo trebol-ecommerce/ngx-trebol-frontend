@@ -12,7 +12,7 @@ import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-
 import { Product } from 'src/app/models/entities/Product';
 import { SellDetail } from 'src/app/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
-import { environment } from 'src/environments/environment';
+import { BILLING_TYPE_COMPANY, BILLING_TYPE_NAMES_MAP } from 'src/text/billing-type-names';
 import { COMMON_VALIDATION_ERROR_MESSAGE } from 'src/text/messages';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
 import { CheckoutRequest } from '../models/CheckoutRequest';
@@ -143,7 +143,7 @@ export class StoreService
 
     const billing = this.checkoutRequestData.billing;
     target.billingType = billing.sellType;
-    if (billing.sellType === environment.labels.sellTypes['Enterprise Invoice']) {
+    if (billing.sellType === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
       if (billing.company) {
         target.billingCompany = billing.company;
       }
