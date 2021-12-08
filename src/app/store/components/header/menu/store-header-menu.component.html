@@ -18,19 +18,19 @@
     class="edit-profile"
     (click)="onClickEditProfile()">
     <mat-icon>edit</mat-icon>
-    <span i18n="Label for action button to prompt profile edit">Edit Profile</span>
+    <span i18n="edit profile|Label for action button to prompt profile edit">Edit profile</span>
   </button>
   <button mat-menu-item type="button"
     class="logout"
     (click)="onClickLogout()">
     <mat-icon>exit_to_app</mat-icon>
-    <span i18n="Label for action button to log out">Log Out</span>
+    <span i18n="log out|Label for action button to log out">Log out</span>
   </button>
 </mat-menu>
 <button mat-button type="button"
   class="open-menu"
-  aria-label="Abrir menú de usuario"
-  i18n-aria-label="Label for action button to open user menu"
+  aria-label="Open user menu"
+  i18n-aria-label="open user menu|Label for action button to open user menu"
   [matMenuTriggerFor]="headerMenu">
   <mat-icon>person</mat-icon>
 </button>

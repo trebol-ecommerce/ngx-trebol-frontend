@@ -13,28 +13,28 @@
     <table mat-table class="full-width-min" [dataSource]="items$">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef
-          i18n="sell buy order table header|Name of table header for buy order of sell">Buy order no.</th>
+          i18n="Name of table header for buy order of sell">Buy order no.</th>
         <td mat-cell *matCellDef="let sell">
           {{ sell.buyOrder }}
         </td>
       </ng-container>
       <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef
-          i18n="sell date and time table header|Name of table header for date and time of sell">Date and time</th>
+          i18n="Name of table header for date and time of sell">Date and time</th>
         <td mat-cell *matCellDef="let sell">
           {{ sell.date }}
         </td>
       </ng-container>
       <ng-container matColumnDef="customerName">
         <th mat-header-cell *matHeaderCellDef
-          i18n="sell customer name table header|Name of table header for name of customer of sell">Customer</th>
+          i18n="customer|Name of table header for name of customer">Customer</th>
         <td mat-cell *matCellDef="let sell">
           {{ sell.customer.person.name }}
         </td>
       </ng-container>
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef
-          i18n="sell status table header|Name of table header for status of sell">Status</th>
+          i18n="transaction status|Name of table header for status of sell">Status</th>
         <td mat-cell *matCellDef="let sell">
           {{ sell.status }}
         </td>

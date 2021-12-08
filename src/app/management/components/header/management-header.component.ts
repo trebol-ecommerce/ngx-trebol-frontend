@@ -61,7 +61,7 @@ export class ManagementHeaderComponent {
         if (confirmed) {
           this.appService.closeCurrentSession();
           this.router.navigateByUrl('/');
-          const message = $localize`:logout message|Label to notify user that they have logged out:You have logged out`;
+          const message = $localize`:Message after logging out:You have logged out`;
           this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
         }
       }

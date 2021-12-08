@@ -7,7 +7,7 @@
 
 <form [formGroup]="formGroup" (submit)="onSubmit()"
   class="upload-image" >
-  <h2 i18n="Title of form to upload images">Upload images</h2>
+  <h2 i18n="Title of form to upload images">Upload Images</h2>
   <mat-form-field appearance="fill">
     <app-file-upload formControlName="files"
       [disabled]="uploading$ | async"

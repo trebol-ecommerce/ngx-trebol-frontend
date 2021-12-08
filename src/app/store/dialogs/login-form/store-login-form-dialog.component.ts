@@ -75,13 +75,13 @@ export class StoreLoginFormDialogComponent
       this.appService.login(details).subscribe(
         () => {
           this.dialog.close();
-          const successMessage = $localize`:succesful login message|Message of success after login:You have logged in`
+          const successMessage = $localize`:Message of success after login:You have logged in`
           this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
         },
         error => {
           if (error.status === 403) {
             this.loggingInSource.next(false);
-            const errorMessage = $localize`:incorrect login message|Message of error due to bad/erroneous credentials:Your credentials were rejected`;
+            const errorMessage = $localize`:Message of error due to bad/erroneous credentials:Your credentials were rejected`;
             this.snackBarService.open(errorMessage, COMMON_DISMISS_BUTTON_LABEL);
           } else {
             this.loggingInSource.next(false);

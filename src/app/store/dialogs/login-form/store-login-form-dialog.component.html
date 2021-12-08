@@ -14,18 +14,18 @@
     <mat-form-field>
       <input matInput formControlName="username"
         placeholder="User name"
-        i18n-placeholder="user name field|Name of field for username to log in with" />
+        i18n-placeholder="login username|Name of field for username to log in with" />
     </mat-form-field>
 
     <div class="password-form-group">
       <mat-form-field>
         <input matInput [type]="passwordInputType$ | async" formControlName="password"
           placeholder="Password"
-          i18n-placeholder="password field|Name of field for password to log in with" />
+          i18n-placeholder="login password|Name of field for password to log in with" />
       </mat-form-field>
       <button mat-icon-button type="button"
         aria-label="Hold to peek..."
-        i18n-aria-label="Label for action button to show password while held down"
+        i18n-aria-label="hold to show password|Label for action button to show password while held down"
         (mousedown)="showPassword()"
         (mouseup)="hidePassword()"
         (mouseleave)="hidePassword()">

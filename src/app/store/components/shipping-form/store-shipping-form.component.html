@@ -10,14 +10,14 @@
     aria-label="Choose a delivery option"
     i18n-aria-label="Label to hint user that they must choose a delivery option">
     <mat-radio-button [value]="true" (blur)="onTouched()">
-      <span i18n="shipping delivery|Label for option to choose delivery to a shipping address">Deliver to address</span>
+      <span i18n="Label for option to choose delivery to a shipping address">Deliver to address</span>
     </mat-radio-button>
     <mat-radio-button [value]="false" (blur)="onTouched()" >
-      <span i18n="in-store delivery|Label for option to choose pick-up in store">Pickup in store</span>
+      <span i18n="Label for option to choose pick-up in store">Pickup in store</span>
     </mat-radio-button>
   </mat-radio-group>
   <app-addresses-editor-form #addressForm formControlName="shippingAddress"
     placeholder="Shipping address"
-    i18n-placeholder="shipping address field|Name of field for address to deliver items to">
+    i18n-placeholder="Name of field for address to deliver items to">
   </app-addresses-editor-form>
 </form>

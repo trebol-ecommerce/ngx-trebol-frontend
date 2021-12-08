@@ -13,7 +13,7 @@
     <table mat-table class="full-width-min" [dataSource]="items$">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef
-          i18n="shipper name table header|Name of table header for name of shipper">Name</th>
+          i18n="shipper name|Name of table header for name of shipper">Name</th>
         <td mat-cell *matCellDef="let shipper">
           {{ shipper.name }}
         </td>

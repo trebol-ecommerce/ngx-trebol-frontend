@@ -5,7 +5,7 @@
   https://opensource.org/licenses/MIT
 -->
 
-<h3 mat-dialog-title i18n="Title of dialog prompt to indicate users that some sort of ID is required">Identification is required</h3>
+<h3 mat-dialog-title i18n="Title of dialog prompt to indicate users that some sort of ID is required">Identification is Required</h3>
 <p i18n="Label to hint user that they must log in, register or indicate some personal info to proceed">To review your cart, you need to either log in to your account, register anew (it's free) or start a guest session by giving your billing details.</p>
 <p i18n="Label to instruct user that they choose one option out of three">Please, choose one of the following three:</p>
 <div class="actions">
@@ -16,12 +16,12 @@
   </button>
   <button mat-button mat-raised-button type="button"
     (click)="onClickOption('register')">
-    <span i18n="Label for action button to prompt registration">Register</span>
+    <span i18n="register|Label for action button to prompt registration">Register</span>
     <mat-icon>person_add</mat-icon>
   </button>
   <button mat-button mat-raised-button type="button"
     (click)="onClickOption('guest')">
-    <span i18n="Label for action button to prompt a guest, temporary login">Continue as guest</span>
+    <span i18n="continue as guest|Label for action button to prompt a guest, temporary login">Continue as guest</span>
     <mat-icon>remove_moderator</mat-icon>
   </button>
 </div>
