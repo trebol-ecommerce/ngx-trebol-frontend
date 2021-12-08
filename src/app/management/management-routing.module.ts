@@ -29,41 +29,65 @@ import { UserManagerComponent } from './routes/users/user-manager.component';
 export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
   {
     path: 'dashboard', component: ManagementDashboardComponent,
-    data: { matIcon: 'home', title: 'Resumen' }
+    data: {
+      matIcon: 'home',
+      title: $localize`:Title of page for management dashboard:Dashboard`
+     }
   },
   {
     path: 'sales', component: SellManagerComponent,
-    data: { matIcon: 'loyalty', title: 'Ventas' },
+    data: {
+      matIcon: 'loyalty',
+      title: $localize`:Title of page for management of sales:Sales`
+    },
     resolve: { access: SellManagerAccessResolver }
   },
   {
     path: 'products', component: ProductManagerComponent,
-    data: { matIcon: 'list', title: 'Productos' },
+    data: {
+      matIcon: 'list',
+      title: $localize`:Title of page for management of products:Products`
+    },
     resolve: { access: ProductManagerAccessResolver }
   },
   {
     path: 'customers', component: CustomerManagerComponent,
-    data: { matIcon: 'face', title: 'Clientes' },
+    data: {
+      matIcon: 'face',
+      title: $localize`:Title of page for management of customers:Customers`
+    },
     resolve: { access: CustomerManagerAccessResolver }
   },
   {
     path: 'salespeople', component: SalespersonManagerComponent,
-    data: { matIcon: 'work_outline', title: 'Vendedores' },
+    data: {
+      matIcon: 'work_outline',
+      title: $localize`:Title of page for management of salespeople:Salespeople`
+    },
     resolve: { access: SalespersonManagerAccessResolver }
   },
   {
     path: 'users', component: UserManagerComponent,
-    data: { matIcon: 'person', title: 'Usuarios' },
+    data: {
+      matIcon: 'person',
+      title: $localize`:Title of page for management of users:Users`
+    },
     resolve: { access: UserManagerAccessResolver }
   },
   {
     path: 'images', component: ImageManagerComponent,
-    data: { matIcon: 'image', title: 'Imágenes' },
+    data: {
+      matIcon: 'image',
+      title: $localize`:Title of page for management of images:Images`
+    },
     resolve: { access: ImageManagerAccessResolver }
   },
   {
     path: 'shippers', component: ShipperManagerComponent,
-    data: { matIcon: 'local_shipping', title: 'Repartidores' },
+    data: {
+      matIcon: 'local_shipping',
+      title: $localize`:Title of page for management of shippers:Shippers`
+    },
     resolve: { access: ShipperManagerAccessResolver }
   },
 ];
