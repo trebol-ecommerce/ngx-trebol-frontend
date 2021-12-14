@@ -24,6 +24,6 @@ export class ShipperManagerAccessResolver
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<AuthorizedAccess>|Promise<AuthorizedAccess>|AuthorizedAccess {
-    return this.apiAccessService.getResourceAuthorizedAccess('salespeople');
+    return this.apiAccessService.getResourceAuthorizedAccess('shippers');
   }
 }
