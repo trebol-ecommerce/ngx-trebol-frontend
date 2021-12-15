@@ -11,8 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Image } from 'src/app/models/entities/Image';
-import { ImageUploadFormComponent } from 'src/app/shared/components/image-upload-form/image-upload-form.component';
-import { COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
+import { ImageFormComponent } from 'src/app/shared/components/image-form/image-form.component';
+import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE, COMMON_WARNING_MESSAGE } from 'src/text/messages';
 import { DataManagerFormDialogConfig } from '../../dialogs/data-manager-form-dialog/DataManagerFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { ImageManagerService } from './image-manager.service';
@@ -54,7 +54,7 @@ export class ImageManagerComponent
     return {
       data: {
         item,
-        formComponent: ImageUploadFormComponent,
+        formComponent: ImageFormComponent,
         service: this.service.dataService
       },
       width: '40rem'
