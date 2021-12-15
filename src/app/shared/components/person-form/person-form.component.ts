@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
   ValidationErrors, Validator, Validators
@@ -33,7 +33,7 @@ import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
   ]
 })
 export class PersonFormComponent
-  implements OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
+  implements OnInit, OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
 
   private touchedSubscriptions: Subscription[] = [];
   private valueChangesSubscriptions: Subscription[] = [];
@@ -54,14 +54,21 @@ export class PersonFormComponent
     private formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
-      id: [''],
+      id: [undefined],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       idNumber: ['', Validators.required],
       email: ['', Validators.required],
-      phone1: [''],
-      phone2: ['']
+      phone1: [undefined],
+      phone2: [undefined]
     });
+  }
+
+  ngOnInit(): void {
+    this.valueChangesSubscriptions.push(
+      this.phone1.valueChanges.pipe(tap(v => { if (!v) { this.phone1.setValue(undefined, { emitEvent: false }); } })).subscribe(),
+      this.phone2.valueChanges.pipe(tap(v => { if (!v) { this.phone2.setValue(undefined, { emitEvent: false }); } })).subscribe()
+    );
   }
 
   ngOnDestroy(): void {
@@ -77,13 +84,13 @@ export class PersonFormComponent
   }
 
   writeValue(obj: any): void {
-    this.id.reset('', { emitEvent: false });
+    this.id.reset(undefined, { emitEvent: false });
     this.firstName.reset('', { emitEvent: false });
     this.lastName.reset('', { emitEvent: false });
     this.idNumber.reset('', { emitEvent: false });
     this.email.reset('', { emitEvent: false });
-    this.phone1.reset('', { emitEvent: false });
-    this.phone2.reset('', { emitEvent: false });
+    this.phone1.reset(undefined, { emitEvent: false });
+    this.phone2.reset(undefined, { emitEvent: false });
     if (isJavaScriptObject(obj)) {
       this.formGroup.patchValue(obj);
     }
