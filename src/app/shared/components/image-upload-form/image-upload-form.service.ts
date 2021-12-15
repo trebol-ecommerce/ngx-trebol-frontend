@@ -12,7 +12,7 @@ import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { Image } from 'src/app/models/entities/Image';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ImageManagerUploadService
   implements OnDestroy {
 
