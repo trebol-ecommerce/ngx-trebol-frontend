@@ -5,9 +5,8 @@
  * https://opensource.org/licenses/MIT
  */
 
-export class ProductCategory {
-  code: number;
+export class ProductCategoryTreeFlatNode {
   name: string;
-  parent?: Partial<ProductCategory>;
-  children?: ProductCategory[];
+  level: number;
+  expandable: boolean;
 }

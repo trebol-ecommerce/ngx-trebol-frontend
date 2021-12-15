@@ -20,6 +20,7 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
 import { ImageFormComponent } from './components/image-form/image-form.component';
 import { ImageUploadFormComponent } from './components/image-upload-form/image-upload-form.component';
 import { PersonFormComponent } from './components/person-form/person-form.component';
+import { ProductCategoryTreeComponent } from './components/product-category-tree/product-category-tree.component';
 import { ProductFiltersPanelComponent } from './components/product-filters-panel/product-filters-panel.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { SalespersonFormComponent } from './components/salesperson-form/salesperson-form.component';
@@ -32,6 +33,7 @@ import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confi
 import { EditProfileFormDialogComponent } from './dialogs/edit-profile-form-dialog/edit-profile-form-dialog.component';
 import { ImagesArrayDialogComponent } from './dialogs/images-array/images-array-dialog.component';
 import { InformationDialogComponent } from './dialogs/information-dialog/information-dialog.component';
+import { InputDialogComponent } from './dialogs/input-dialog/input-dialog.component';
 import { FormGroupOwnerOutletDirective } from './directives/form-group-owner-outlet/form-group-owner-outlet.directive';
 import { AddressPipe } from './pipes/address/address.pipe';
 
@@ -39,6 +41,7 @@ import { AddressPipe } from './pipes/address/address.pipe';
 const PUBLIC_COMPONENTS = [
   CenteredMatProgressSpinnerComponent,
   ConfirmationDialogComponent,
+  InputDialogComponent,
   AddressFormComponent,
   AddressFormDialogComponent,
   AddressesEditorFormComponent,
@@ -52,6 +55,7 @@ const PUBLIC_COMPONENTS = [
   SellFormComponent,
   ShipperFormComponent,
   UserFormComponent,
+  ProductCategoryTreeComponent,
   ProductFiltersPanelComponent,
   EditProfileFormDialogComponent,
   DialogSwitcherButtonComponent,

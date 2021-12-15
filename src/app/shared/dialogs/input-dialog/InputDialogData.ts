@@ -5,9 +5,10 @@
  * https://opensource.org/licenses/MIT
  */
 
-export class ProductCategory {
-  code: number;
-  name: string;
-  parent?: Partial<ProductCategory>;
-  children?: ProductCategory[];
+import { FormControl } from '@angular/forms';
+
+export interface InputDialogData {
+  title: string;
+  hint: string;
+  formControl: FormControl;
 }

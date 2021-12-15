@@ -1,0 +1,22 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+mat-tree-node {
+  margin: 0;
+  padding: 0;
+}
+
+mat-tree .name {
+  margin-right: 0.5rem;
+}
+
+mat-tree-node.selectable {
+  cursor: pointer;
+}
+mat-tree-node.selectable:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
