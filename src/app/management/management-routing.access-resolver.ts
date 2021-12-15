@@ -13,7 +13,7 @@ import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-
 import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
 
 @Injectable({ providedIn: 'root' })
-export class ImageManagerAccessResolver
+export class ManagementRoutingAccessResolver
   implements Resolve<AuthorizedAccess> {
 
   constructor(
@@ -23,7 +23,8 @@ export class ImageManagerAccessResolver
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<AuthorizedAccess>|Promise<AuthorizedAccess>|AuthorizedAccess {
-    return this.apiAccessService.getResourceAuthorizedAccess('images');
+  ): Observable<AuthorizedAccess> | Promise<AuthorizedAccess> | AuthorizedAccess {
+    const resource = route.routeConfig.path;
+    return this.apiAccessService.getResourceAuthorizedAccess(resource);
   }
 }
