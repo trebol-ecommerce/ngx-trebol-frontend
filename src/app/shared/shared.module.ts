@@ -17,6 +17,7 @@ import { CenteredMatProgressSpinnerComponent } from './components/centered-mat-s
 import { CompanyFormComponent } from './components/company-form/company-form.component';
 import { DialogSwitcherButtonComponent } from './components/dialog-switcher-button/dialog-switcher-button.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { ImageFormComponent } from './components/image-form/image-form.component';
 import { ImageUploadFormComponent } from './components/image-upload-form/image-upload-form.component';
 import { PersonFormComponent } from './components/person-form/person-form.component';
 import { ProductFiltersPanelComponent } from './components/product-filters-panel/product-filters-panel.component';
@@ -44,6 +45,7 @@ const PUBLIC_COMPONENTS = [
   FileUploadComponent,
   CartProductUnitsControlComponent,
   CompanyFormComponent,
+  ImageFormComponent,
   PersonFormComponent,
   ProductFormComponent,
   SalespersonFormComponent,
