@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 import { Product } from 'src/app/models/entities/Product';
 import { ProductFormComponent } from 'src/app/shared/components/product-form/product-form.component';
 import { COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
-import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form-dialog/EntityFormDialogConfig';
+import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form/EntityFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { ProductManagerService } from './product-manager.service';
 

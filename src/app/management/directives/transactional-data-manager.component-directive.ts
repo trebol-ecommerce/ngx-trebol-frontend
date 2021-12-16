@@ -9,8 +9,8 @@ import { Directive, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import { EntityFormDialogComponent } from '../../shared/dialogs/entity-form-dialog/entity-form-dialog.component';
-import { EntityFormDialogConfig } from '../../shared/dialogs/entity-form-dialog/EntityFormDialogConfig';
+import { EntityFormDialogComponent } from '../../shared/dialogs/entity-form/entity-form-dialog.component';
+import { EntityFormDialogConfig } from '../../shared/dialogs/entity-form/EntityFormDialogConfig';
 import { DataManagerComponentDirective } from './data-manager.component-directive';
 
 /**

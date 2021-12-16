@@ -31,7 +31,7 @@ import { SlideshowComponent } from './components/slideshow/slideshow.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { AddressFormDialogComponent } from './dialogs/address-form/address-form-dialog.component';
 import { ConfirmationDialogComponent } from './dialogs/confirmation/confirmation-dialog.component';
-import { EntityFormDialogComponent } from './dialogs/entity-form-dialog/entity-form-dialog.component';
+import { EntityFormDialogComponent } from './dialogs/entity-form/entity-form-dialog.component';
 import { EditProfileFormDialogComponent } from './dialogs/edit-profile-form/edit-profile-form-dialog.component';
 import { ImagesArrayDialogComponent } from './dialogs/images-array/images-array-dialog.component';
 import { InformationDialogComponent } from './dialogs/information/information-dialog.component';
