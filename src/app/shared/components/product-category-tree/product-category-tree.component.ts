@@ -7,7 +7,6 @@
 
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTree, MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
@@ -15,12 +14,10 @@ import { Observable, Subscription } from 'rxjs';
 import { debounceTime, filter, switchMap, tap } from 'rxjs/operators';
 import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
-import { ConfirmationDialogComponent } from '../../dialogs/confirmation-dialog/confirmation-dialog.component';
-import { ConfirmationDialogData } from '../../dialogs/confirmation-dialog/ConfirmationDialogData';
+import { ConfirmationDialogComponent } from '../../dialogs/confirmation/confirmation-dialog.component';
+import { ConfirmationDialogData } from '../../dialogs/confirmation/ConfirmationDialogData';
 import { EntityFormDialogComponent } from '../../dialogs/entity-form-dialog/entity-form-dialog.component';
 import { EntityFormDialogData } from '../../dialogs/entity-form-dialog/EntityFormDialogData';
-import { InputDialogComponent } from '../../dialogs/input-dialog/input-dialog.component';
-import { InputDialogData } from '../../dialogs/input-dialog/InputDialogData';
 import { ProductCategoryFormComponent } from '../product-category-form/product-category-form.component';
 import { ProductCategoryTreeService } from './product-category-tree.service';
 import { ProductCategoryTreeFlatNode } from './ProductCategoryTreeFlatNode';
