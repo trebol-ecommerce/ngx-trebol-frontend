@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 import { User } from 'src/app/models/entities/User';
 import { UserFormComponent } from 'src/app/shared/components/user-form/user-form.component';
 import { COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
-import { DataManagerFormDialogConfig } from '../../dialogs/data-manager-form-dialog/DataManagerFormDialogConfig';
+import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form-dialog/EntityFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { UserManagerService } from './user-manager.service';
 
@@ -50,7 +50,7 @@ export class UserManagerComponent
     );
   }
 
-  protected createDialogProperties(item: User): DataManagerFormDialogConfig<User> {
+  protected createDialogProperties(item: User): EntityFormDialogConfig<User> {
     return {
       data: {
         item,

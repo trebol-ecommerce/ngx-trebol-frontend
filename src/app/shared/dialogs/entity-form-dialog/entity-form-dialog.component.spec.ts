@@ -19,8 +19,8 @@ import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-en
 import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
 import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 import { FormGroupOwnerOutletDirective } from 'src/app/shared/directives/form-group-owner-outlet/form-group-owner-outlet.directive';
-import { DataManagerFormDialogComponent } from './data-manager-form-dialog.component';
-import { DataManagerFormDialogData } from './DataManagerFormDialogData';
+import { EntityFormDialogComponent } from './entity-form-dialog.component';
+import { EntityFormDialogData } from './EntityFormDialogData';
 
 @Component({
   selector: 'app-mock-form-group-owner',
@@ -43,12 +43,12 @@ class MockFormGroupOwnerComponent
   onParentFormTouched() { }
 }
 
-describe('DataManagerFormDialogComponent', () => {
-  let component: DataManagerFormDialogComponent<any>;
-  let fixture: ComponentFixture<DataManagerFormDialogComponent<any>>;
+describe('EntityFormDialogComponent', () => {
+  let component: EntityFormDialogComponent<any>;
+  let fixture: ComponentFixture<EntityFormDialogComponent<any>>;
   let mockDataApiService: ITransactionalEntityDataApiService<any>;
-  let mockDialogData: Partial<DataManagerFormDialogData<any>>;
-  let mockDialogRef: Partial<MatDialogRef<DataManagerFormDialogComponent<any>>>;
+  let mockDialogData: Partial<EntityFormDialogData<any>>;
+  let mockDialogRef: Partial<MatDialogRef<EntityFormDialogComponent<any>>>;
   let mockSnackBarService: Partial<MatSnackBar>;
 
   beforeEach(waitForAsync(() => {
@@ -86,7 +86,7 @@ describe('DataManagerFormDialogComponent', () => {
         MockFormGroupOwnerComponent,
         CenteredMatProgressSpinnerComponent,
         FormGroupOwnerOutletDirective,
-        DataManagerFormDialogComponent
+        EntityFormDialogComponent
       ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: mockDialogData },
@@ -98,7 +98,7 @@ describe('DataManagerFormDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DataManagerFormDialogComponent);
+    fixture = TestBed.createComponent(EntityFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -6,10 +6,10 @@
  */
 
 import { MatDialogConfig } from '@angular/material/dialog';
-import { DataManagerFormDialogData } from './DataManagerFormDialogData';
+import { EntityFormDialogData } from './EntityFormDialogData';
 
-export class DataManagerFormDialogConfig<T>
+export class EntityFormDialogConfig<T>
   extends MatDialogConfig {
 
-  data: DataManagerFormDialogData<T>;
+  data: EntityFormDialogData<T>;
 }

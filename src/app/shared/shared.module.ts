@@ -31,6 +31,7 @@ import { SlideshowComponent } from './components/slideshow/slideshow.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { AddressFormDialogComponent } from './dialogs/address-form/address-form-dialog.component';
 import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
+import { EntityFormDialogComponent } from './dialogs/entity-form-dialog/entity-form-dialog.component';
 import { EditProfileFormDialogComponent } from './dialogs/edit-profile-form-dialog/edit-profile-form-dialog.component';
 import { ImagesArrayDialogComponent } from './dialogs/images-array/images-array-dialog.component';
 import { InformationDialogComponent } from './dialogs/information-dialog/information-dialog.component';
@@ -42,6 +43,7 @@ import { AddressPipe } from './pipes/address/address.pipe';
 const PUBLIC_COMPONENTS = [
   CenteredMatProgressSpinnerComponent,
   ConfirmationDialogComponent,
+  EntityFormDialogComponent,
   InputDialogComponent,
   AddressFormComponent,
   AddressFormDialogComponent,

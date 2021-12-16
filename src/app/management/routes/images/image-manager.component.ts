@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 import { Image } from 'src/app/models/entities/Image';
 import { ImageFormComponent } from 'src/app/shared/components/image-form/image-form.component';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE, COMMON_WARNING_MESSAGE } from 'src/text/messages';
-import { DataManagerFormDialogConfig } from '../../dialogs/data-manager-form-dialog/DataManagerFormDialogConfig';
+import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form-dialog/EntityFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { ImageManagerService } from './image-manager.service';
 
@@ -50,7 +50,7 @@ export class ImageManagerComponent
     );
   }
 
-  protected createDialogProperties(item: Image): DataManagerFormDialogConfig<Image> {
+  protected createDialogProperties(item: Image): EntityFormDialogConfig<Image> {
     return {
       data: {
         item,

@@ -12,14 +12,14 @@ import { BehaviorSubject } from 'rxjs';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { FormGroupOwnerOutletDirective } from 'src/app/shared/directives/form-group-owner-outlet/form-group-owner-outlet.directive';
 import { COMMON_VALIDATION_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
-import { DataManagerFormDialogData } from './DataManagerFormDialogData';
+import { EntityFormDialogData } from './EntityFormDialogData';
 
 @Component({
-  selector: 'app-data-manager-form-dialog',
-  templateUrl: './data-manager-form-dialog.component.html',
-  styleUrls: [ './data-manager-form-dialog.component.css' ]
+  selector: 'app-entity-form-dialog',
+  templateUrl: './entity-form-dialog.component.html',
+  styleUrls: [ './entity-form-dialog.component.css' ]
 })
-export class DataManagerFormDialogComponent<T>
+export class EntityFormDialogComponent<T>
   implements OnInit {
 
   private busySource = new BehaviorSubject(true);
@@ -33,8 +33,8 @@ export class DataManagerFormDialogComponent<T>
   @ViewChild(FormGroupOwnerOutletDirective, { static: true }) formGroupOutlet: FormGroupOwnerOutletDirective;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: DataManagerFormDialogData<T>,
-    private dialog: MatDialogRef<DataManagerFormDialogComponent<T>>,
+    @Inject(MAT_DIALOG_DATA) public data: EntityFormDialogData<T>,
+    private dialog: MatDialogRef<EntityFormDialogComponent<T>>,
     private snackBarService: MatSnackBar
   ) {
     this.service = this.data.service;

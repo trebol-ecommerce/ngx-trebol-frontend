@@ -8,7 +8,7 @@
 import { Type } from '@angular/core';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 
-export interface DataManagerFormDialogData<T> {
+export interface EntityFormDialogData<T> {
   item: T;
   service: ITransactionalEntityDataApiService<T>;
   formComponent: Type<any>;

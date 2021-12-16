@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 import { Shipper } from 'src/app/models/entities/Shipper';
 import { ShipperFormComponent } from 'src/app/shared/components/shipper-form/shipper-form.component';
 import { COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
-import { DataManagerFormDialogConfig } from '../../dialogs/data-manager-form-dialog/DataManagerFormDialogConfig';
+import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form-dialog/EntityFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { ShipperManagerService } from './shipper-manager.service';
 
@@ -50,7 +50,7 @@ export class ShipperManagerComponent
     );
   }
 
-  protected createDialogProperties(item: Shipper): DataManagerFormDialogConfig<Shipper> {
+  protected createDialogProperties(item: Shipper): EntityFormDialogConfig<Shipper> {
     return {
       data: {
         item,
