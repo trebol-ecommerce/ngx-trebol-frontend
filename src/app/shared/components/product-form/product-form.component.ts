@@ -67,7 +67,7 @@ export class ProductFormComponent
     this.formGroup = this.formBuilder.group({
       barcode: ['', Validators.required],
       name: ['', Validators.required],
-      category: [null, Validators.required],
+      category: [null],
       price: ['', Validators.required],
       // stock: [''],
       // criticalStock: [''],
