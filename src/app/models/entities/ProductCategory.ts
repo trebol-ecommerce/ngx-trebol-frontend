@@ -6,7 +6,7 @@
  */
 
 export class ProductCategory {
-  code: number;
+  code: string;
   name: string;
   parent?: Partial<ProductCategory>;
   children?: ProductCategory[];
