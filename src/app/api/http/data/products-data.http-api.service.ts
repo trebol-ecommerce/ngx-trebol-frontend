@@ -8,13 +8,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from 'src/app/models/entities/Product';
-import { IEntityDataApiService } from '../../entity.data-api.iservice';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
 
 @Injectable()
 export class ProductsDataHttpApiService
-  extends TransactionalEntityDataHttpApiService<Product>
-  implements IEntityDataApiService<Product> {
+  extends TransactionalEntityDataHttpApiService<Product> {
 
   constructor(http: HttpClient) {
     super(http, '/products');
