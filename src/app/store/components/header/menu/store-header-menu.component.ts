@@ -13,7 +13,7 @@ import { mapTo, pluck, startWith, switchMap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation-dialog.component';
 import { ConfirmationDialogData } from 'src/app/shared/dialogs/confirmation/ConfirmationDialogData';
-import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form-dialog/edit-profile-form-dialog.component';
+import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 
 @Component({

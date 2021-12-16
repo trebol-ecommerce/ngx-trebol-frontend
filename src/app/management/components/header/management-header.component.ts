@@ -15,7 +15,7 @@ import { AppService } from 'src/app/app.service';
 import { ManagementService } from 'src/app/management/management.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation-dialog.component';
 import { ConfirmationDialogData } from 'src/app/shared/dialogs/confirmation/ConfirmationDialogData';
-import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form-dialog/edit-profile-form-dialog.component';
+import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component';
 import { environment } from 'src/environments/environment';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 
