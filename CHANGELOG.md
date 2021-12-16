@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - `en-US` (default)
     - `es`
     - `es-CL` (previous default)
+- Tree interface for product categories
+  - Only works with API v1.1.2; categories must be identifiable by their code property, which is a string
 
 ### Changed
 - Add the unitValue property to ReceiptDetail model class making the model compatible with the new API.
@@ -32,6 +34,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Footer remains stuck at the bottom of the page, instead of the viewport.
 - Karma tests not starting after connected from a browser (+ now displays spec results in console)
+- Interface for 'inserting' images from the management dashboard
+  - Since there is no available API for uploading them, use a plain-text form as fallback
+- Interface for 'inserting' products
+  - Category was mandatory, but categories did not yet have any interface to create them with 🤦‍♂️
+  - Now one can pick from the category tree
+- Interface for adding new personal information - Phones had to be excluded or comply with a regex pattern
 
 ### Removed
 - Old `localhost.proxy.conf.json` used to bypass CORS e.g. for servers running in localhost. Angular still guides users on how to create these, but it's not a good practice. Instead, your server should be configured so CORS allows your deployment to do requests.
