@@ -35,7 +35,7 @@ import { EntityFormDialogComponent } from './dialogs/entity-form/entity-form-dia
 import { EditProfileFormDialogComponent } from './dialogs/edit-profile-form/edit-profile-form-dialog.component';
 import { ImagesArrayDialogComponent } from './dialogs/images-array/images-array-dialog.component';
 import { InformationDialogComponent } from './dialogs/information/information-dialog.component';
-import { InputDialogComponent } from './dialogs/input-dialog/input-dialog.component';
+import { InputDialogComponent } from './dialogs/input/input-dialog.component';
 import { FormGroupOwnerOutletDirective } from './directives/form-group-owner-outlet/form-group-owner-outlet.directive';
 import { AddressPipe } from './pipes/address/address.pipe';
 
