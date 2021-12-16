@@ -78,7 +78,7 @@ export class ProductCategoryTreeComponent
 
   onClickAddChildNodeTo(parentNode: ProductCategoryTreeFlatNode): void {
     const parent = this.flatNodeMap.get(parentNode);
-    this.requestCategoryName().pipe(
+    this.requestCategoryData().pipe(
       switchMap(newNode => this.service.addNode(newNode, parent)),
       tap(() => this.matTree.renderNodeChanges(this.dataSource.data)), // TODO optimize this?
       tap(() => this.treeControl.expand(parentNode))
@@ -94,7 +94,7 @@ export class ProductCategoryTreeComponent
 
   onClickEditNode(treeNode: ProductCategoryTreeFlatNode): void {
     const node = this.flatNodeMap.get(treeNode);
-    this.requestCategoryName(node).pipe(
+    this.requestCategoryData(node).pipe(
       switchMap(newNode => this.service.editNode(node, newNode))
     ).subscribe(
       (next: ProductCategory) => {
@@ -155,9 +155,7 @@ export class ProductCategoryTreeComponent
     return flatNode;
   }
 
-  private requestCategoryName(item?: ProductCategory): Observable<ProductCategory> {
-
-    // USE
+  private requestCategoryData(item?: ProductCategory): Observable<ProductCategory> {
     const data: EntityFormDialogData<ProductCategory> = {
       item,
       formComponent: ProductCategoryFormComponent,
@@ -170,7 +168,7 @@ export class ProductCategoryTreeComponent
         data
       }
     ).afterClosed().pipe(
-      filter(name => (!!name))
+      filter(category => (!!category))
     );
   }
 
