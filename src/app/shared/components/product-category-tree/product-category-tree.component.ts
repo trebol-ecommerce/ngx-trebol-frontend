@@ -17,8 +17,11 @@ import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 import { ConfirmationDialogComponent } from '../../dialogs/confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogData } from '../../dialogs/confirmation-dialog/ConfirmationDialogData';
+import { EntityFormDialogComponent } from '../../dialogs/entity-form-dialog/entity-form-dialog.component';
+import { EntityFormDialogData } from '../../dialogs/entity-form-dialog/EntityFormDialogData';
 import { InputDialogComponent } from '../../dialogs/input-dialog/input-dialog.component';
 import { InputDialogData } from '../../dialogs/input-dialog/InputDialogData';
+import { ProductCategoryFormComponent } from '../product-category-form/product-category-form.component';
 import { ProductCategoryTreeService } from './product-category-tree.service';
 import { ProductCategoryTreeFlatNode } from './ProductCategoryTreeFlatNode';
 
@@ -78,11 +81,8 @@ export class ProductCategoryTreeComponent
 
   onClickAddChildNodeTo(parentNode: ProductCategoryTreeFlatNode): void {
     const parent = this.flatNodeMap.get(parentNode);
-    this.requestCategoryName(
-      'Nueva categoría',
-      new FormControl('', Validators.required)
-    ).pipe(
-      switchMap(name => this.service.addChildNodeTo(parent, name)),
+    this.requestCategoryName().pipe(
+      switchMap(newNode => this.service.addNode(newNode, parent)),
       tap(() => this.matTree.renderNodeChanges(this.dataSource.data)), // TODO optimize this?
       tap(() => this.treeControl.expand(parentNode))
     ).subscribe(
@@ -97,11 +97,8 @@ export class ProductCategoryTreeComponent
 
   onClickEditNode(treeNode: ProductCategoryTreeFlatNode): void {
     const node = this.flatNodeMap.get(treeNode);
-    this.requestCategoryName(
-      `Editar categoría '${node.name}'`,
-      new FormControl(node.name, Validators.required)
-    ).pipe(
-      switchMap(name => this.service.editNode(node, name))
+    this.requestCategoryName(node).pipe(
+      switchMap(newNode => this.service.editNode(node, newNode))
     ).subscribe(
       (next: ProductCategory) => {
         this.snackbarService.open($localize`:Message of success after renaming category to {{ name }}:Category was renamed to '${next.name}'`, COMMON_DISMISS_BUTTON_LABEL);
@@ -161,16 +158,16 @@ export class ProductCategoryTreeComponent
     return flatNode;
   }
 
-  private requestCategoryName(message: string, formControl: FormControl): Observable<string> {
+  private requestCategoryName(item?: ProductCategory): Observable<ProductCategory> {
 
     // USE
-    const data: InputDialogData = {
-      title: message,
-      hint: $localize`:category name|Name of field for category name:Category name`,
-      formControl
+    const data: EntityFormDialogData<ProductCategory> = {
+      item,
+      formComponent: ProductCategoryFormComponent,
+      service: null
     };
     return this.dialogService.open(
-      InputDialogComponent,
+      EntityFormDialogComponent,
       {
         width: '30rem',
         data

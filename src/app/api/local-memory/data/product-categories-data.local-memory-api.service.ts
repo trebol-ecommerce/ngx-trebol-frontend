@@ -6,19 +6,25 @@
  */
 
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
-import { IProductCategoriesDataApiService } from '../../product-categories.data-api.iservice';
+import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { MOCK_PRODUCT_CATEGORIES } from '../mock/mock-product-categories.datasource';
+import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
 
 @Injectable()
 export class ProductCategoriesDataLocalMemoryApiService
-  implements IProductCategoriesDataApiService {
+  extends TransactionalEntityDataLocalMemoryApiService<ProductCategory> {
 
-  readAllProductCategories() {
-    return of(MOCK_PRODUCT_CATEGORIES);
+  protected items = MOCK_PRODUCT_CATEGORIES.slice();
+
+  constructor() {
+    super();
   }
 
-  readAllProductCategoriesByParentCode(parentCode: number) {
-    return of(MOCK_PRODUCT_CATEGORIES.filter(t => t.parent.code === parentCode));
+  protected itemExists(category: Partial<ProductCategory>): boolean {
+    return this.items.some(category2 => (category.code === category2.code));
+  }
+
+  protected getIndexOfItem(category: Partial<ProductCategory>): number {
+    return this.items.findIndex(category2 => (category.code === category2.code));
   }
 }

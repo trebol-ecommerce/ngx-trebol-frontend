@@ -7,17 +7,16 @@
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, retry } from 'rxjs/operators';
-import { DataPage } from 'src/app/models/DataPage';
+import { Observable } from 'rxjs';
 import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { environment } from 'src/environments/environment';
-import { IProductCategoriesDataApiService } from '../../product-categories.data-api.iservice';
-import { HttpApiService } from '../http-api.abstract.service';
+import { ITransactionalEntityDataApiService } from '../../transactional-entity.data-api.iservice';
+import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
 
 @Injectable()
 export class ProductCategoriesDataHttpApiService
-  extends HttpApiService
-  implements IProductCategoriesDataApiService {
+  extends TransactionalEntityDataHttpApiService<ProductCategory>
+  implements ITransactionalEntityDataApiService<ProductCategory> {
 
   baseUrl = `${environment.apiUrls.data}/product_categories`;
 
@@ -25,26 +24,37 @@ export class ProductCategoriesDataHttpApiService
     super(http);
   }
 
-  readAllProductCategories() {
-    return this.http.get<DataPage<ProductCategory>>(
-      this.baseUrl
-    ).pipe(
-      map(page => page.items),
-      retry(2)
-    );
-  }
-
-  readAllProductCategoriesByParentCode(parentCode: number) {
-    return this.http.get<DataPage<ProductCategory>>(
+  fetchExisting(category: Partial<ProductCategory>): Observable<ProductCategory> {
+    return this.http.get<ProductCategory>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
-          parentCode: String(parentCode)
+          code: String(category.code)
         } })
       }
-    ).pipe(
-      map(page => page.items),
-      retry(2)
+    );
+  }
+
+  update(category: Partial<ProductCategory>, originalItem?: ProductCategory): Observable<any> {
+    return this.http.put(
+      this.baseUrl,
+      category,
+      {
+        params: new HttpParams({ fromObject: {
+          barcode: String(originalItem.code)
+        } })
+      }
+    );
+  }
+
+  delete(category: Partial<ProductCategory>): Observable<any> {
+    return this.http.delete(
+      this.baseUrl,
+      {
+        params: new HttpParams({ fromObject: {
+          barcode: String(category.code)
+        } })
+      }
     );
   }
 }

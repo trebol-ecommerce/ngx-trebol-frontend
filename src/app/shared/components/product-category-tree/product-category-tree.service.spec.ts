@@ -8,28 +8,31 @@
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { IProductCategoriesDataApiService } from 'src/app/api/product-categories-data-api.service.interface';
+import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
+import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { ProductCategoryTreeService } from './product-category-tree.service';
 
 describe('ProductCategoryTreeService', () => {
   let service: ProductCategoryTreeService;
-  let mockCategoriesApiService: Partial<IProductCategoriesDataApiService>;
+  let mockApiService: Partial<ITransactionalEntityDataApiService<ProductCategory>>;
 
   beforeEach(() => {
-    mockCategoriesApiService = {
+    mockApiService = {
       create() { return of(0); },
-      readChildrenByParentCategoryCode() {
+      fetchPage() {
         return of({
-          index: 0,
+          pageIndex: 0,
           items: [],
-          totalCount: 0
+          totalCount: 0,
+          pageSize: 10
         });
       }
     };
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.dataProductCategories, useValue: mockCategoriesApiService }
+        ProductCategoryTreeService,
+        { provide: API_SERVICE_INJECTION_TOKENS.dataProductCategories, useValue: mockApiService },
       ]
     });
     service = TestBed.inject(ProductCategoryTreeService);

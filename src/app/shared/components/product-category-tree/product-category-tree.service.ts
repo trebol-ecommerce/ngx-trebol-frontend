@@ -9,8 +9,8 @@ import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, forkJoin, Observable, of, Subscription } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { IProductCategoriesDataApiService } from 'src/app/api/product-categories-data-api.service.interface';
-import { ProductCategory } from 'src/app/models/ProductCategory';
+import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
+import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 
 @Injectable()
 export class ProductCategoryTreeService
@@ -22,7 +22,7 @@ export class ProductCategoryTreeService
   categories$ = this.categoriesSource.asObservable();
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductCategories) private apiService: IProductCategoriesDataApiService
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductCategories) private apiService: ITransactionalEntityDataApiService<ProductCategory>
   ) { }
 
   ngOnDestroy(): void {
@@ -42,38 +42,37 @@ export class ProductCategoryTreeService
     }
   }
 
-  addChildNodeTo(parent: ProductCategory, name: string) {
-    return this.apiService.create({
-      name,
-      parent: { code: parent.code }
-    }).pipe(
-      map(next => ({ name, code: next } as ProductCategory)),
-      tap(newChild => {
+  addNode(child: ProductCategory, parent?: ProductCategory) {
+    const target: ProductCategory = {
+      code: child.code,
+      name: child.name
+    };
+    if (parent?.code) { target.parent = { code: parent.code }; }
+    return this.apiService.create(target).pipe(
+      tap(() => {
         if (!parent.children) {
-          parent.children = [newChild];
+          parent.children = [target];
         } else {
-          parent.children.push(newChild);
+          parent.children.push(target);
         }
         this.categoriesSource.next(this.categoriesSource.value);
       })
     );
   }
 
-  editNode(node: ProductCategory, name: string) {
-    return this.apiService.update({
-      code: node.code,
-      name
-    }).pipe(
-      map(next => ({ name, code: next } as ProductCategory)),
+  editNode(originalNode: ProductCategory, newNode: ProductCategory) {
+    return this.apiService.update(originalNode, newNode).pipe(
       tap(() => {
-        node.name = name;
+        originalNode.code = newNode.code;
+        originalNode.name = newNode.name;
+        originalNode.parent = newNode.parent;
         this.categoriesSource.next(this.categoriesSource.value);
       })
     );
   }
 
   deleteNode(node: ProductCategory) {
-    return this.apiService.deleteById(node.code).pipe(
+    return this.apiService.delete({ code: node.code }).pipe(
       tap(() => {
         const rootCategories = this.categoriesSource.value;
         const nodeIndex = rootCategories.findIndex(n => (n.code === node.code));
@@ -96,10 +95,10 @@ export class ProductCategoryTreeService
     }));
   }
 
-  private loadChildrenOf(category: ProductCategory): Observable<ProductCategory[]> {
-    return this.apiService.readChildrenByParentCategoryCode(category.code).pipe(
+  private loadChildrenOf(parent: ProductCategory): Observable<ProductCategory[]> {
+    return this.apiService.fetchPageFilteredBy({ parentCode: parent.code }).pipe(
       map(page => page.items as ProductCategory[]),
-      tap(items => (category.children = items))
+      tap(items => (parent.children = items))
     );
   }
 

@@ -10,10 +10,9 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTreeModule } from '@angular/material/tree';
 import { of } from 'rxjs';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { IProductCategoriesDataApiService } from 'src/app/api/product-categories-data-api.service.interface';
 import { ProductCategoryTreeComponent } from './product-category-tree.component';
 import { ProductCategoryTreeService } from './product-category-tree.service';
 
@@ -21,7 +20,7 @@ describe('ProductCategoryTreeService', () => {
   let component: ProductCategoryTreeComponent;
   let fixture: ComponentFixture<ProductCategoryTreeComponent>;
   let mockService: Partial<ProductCategoryTreeService>;
-  let mockCategoriesApiService: Partial<IProductCategoriesDataApiService>;
+  let mockSnackbarService: Partial<MatSnackBar>;
   let mockDialogService: Partial<MatDialog>;
   // let dialogOpenSpy: jasmine.Spy;
 
@@ -29,20 +28,18 @@ describe('ProductCategoryTreeService', () => {
     mockService = {
       categories$: of([]),
       setRootCategories() { },
-      addChildNodeTo() { return of(void 0); },
+      addNode() { return of(void 0); },
       editNode() { return of(void 0); }
     };
-    mockCategoriesApiService = {
-      readChildrenByParentCategoryCode() {
-        return of({
-          index: 0,
-          items: [],
-          totalCount: 0
-        });
-      }
+    mockSnackbarService = {
+      open() { return void 0; }
     };
     mockDialogService = {
-      open() { return void 0; }
+      open() {
+        return {
+          afterClosed() { return of(void 0); }
+        } as MatDialogRef<any>;
+      }
     };
     // dialogOpenSpy = spyOn(mockDialogService, 'open')
     //                   .and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<any>);
@@ -64,7 +61,9 @@ describe('ProductCategoryTreeService', () => {
       ],
       declarations: [ProductCategoryTreeComponent],
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.dataProductCategories, useValue: mockCategoriesApiService }
+        // { provide: ProductCategoryTreeService, useValue: mockService },
+        { provide: MatSnackBar, useValue: mockSnackbarService },
+        { provide: MatDialog, useValue: mockDialogService }
       ]
     })
     .compileComponents();

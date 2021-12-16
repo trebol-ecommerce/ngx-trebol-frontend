@@ -6,21 +6,28 @@
  */
 
 import { TestBed } from '@angular/core/testing';
+import { EMPTY } from 'rxjs';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
+import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { ProductFiltersPanelService } from './product-filters-panel.service';
 
 describe('ProductFiltersPanelService', () => {
   let service: Partial<ProductFiltersPanelService>;
+  let mockApiService: Partial<ITransactionalEntityDataApiService<ProductCategory>>;
 
   beforeEach(() => {
-    service = {
-
+    mockApiService = {
+      fetchPage() { return EMPTY; },
+      fetchPageFilteredBy() { return EMPTY; },
     };
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: ProductFiltersPanelService, useValue: service }
+        { provide: API_SERVICE_INJECTION_TOKENS.dataProductCategories, useValue: mockApiService }
       ]
     });
+    service = TestBed.inject(ProductFiltersPanelService);
   });
 
   it('should be created', () => {

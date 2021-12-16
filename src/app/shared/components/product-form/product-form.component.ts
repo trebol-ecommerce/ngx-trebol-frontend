@@ -12,9 +12,9 @@ import {
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { merge, Observable, Subscription } from 'rxjs';
-import { debounceTime, take, tap } from 'rxjs/operators';
+import { debounceTime, map, take, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { IProductCategoriesDataApiService } from 'src/app/api/product-categories.data-api.iservice';
+import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { Image } from 'src/app/models/entities/Image';
 import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
@@ -60,7 +60,7 @@ export class ProductFormComponent
   images: Image[];
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductCategories) private categoriesApiService: IProductCategoriesDataApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductCategories) private categoriesApiService: ITransactionalEntityDataApiService<ProductCategory>,
     private formBuilder: FormBuilder,
     private dialogService: MatDialog
   ) {
@@ -76,7 +76,7 @@ export class ProductFormComponent
   }
 
   ngOnInit(): void {
-    this.categories$ = this.categoriesApiService.readAllProductCategories(); // TODO this will not include children
+    this.categories$ = this.categoriesApiService.fetchPage().pipe(map(page => page.items)); // TODO this will not include children
     this.formGroup.valueChanges.pipe(debounceTime(200), take(10), tap(() => { console.log(this.formGroup.valid); })).subscribe();
   }
 
