@@ -18,18 +18,18 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
-import { ShipperManagerComponent } from './shipper-manager.component';
-import { ShipperManagerService } from './shipper-manager.service';
+import { ManagementUsersComponent } from './management-users.component';
+import { ManagementUsersService } from './management-users.service';
 
 @Component({ selector: 'app-management-data-actions' })
 class MockManagementDataActionsComponent {
   @Output() add = new EventEmitter();
 }
 
-describe('ShippersManagerComponent', () => {
-  let component: ShipperManagerComponent;
-  let fixture: ComponentFixture<ShipperManagerComponent>;
-  let mockManagerService: Partial<ShipperManagerService>;
+describe('ManagementUsersComponent', () => {
+  let component: ManagementUsersComponent;
+  let fixture: ComponentFixture<ManagementUsersComponent>;
+  let mockManagerService: Partial<ManagementUsersService>;
   let mockSnackBarService: Partial<MatSnackBar>;
   let mockDialogService: Partial<MatDialog>;
 
@@ -63,12 +63,12 @@ describe('ShippersManagerComponent', () => {
         MatTableModule,
       ],
       declarations: [
-        ShipperManagerComponent,
+        ManagementUsersComponent,
         CenteredMatProgressSpinnerComponent,
         MockManagementDataActionsComponent
       ],
       providers: [
-        { provide: ShipperManagerService, useValue: mockManagerService },
+        { provide: ManagementUsersService, useValue: mockManagerService },
         { provide: MatSnackBar, useValue: mockSnackBarService },
         { provide: MatDialog, useValue: mockDialogService }
       ]
@@ -77,7 +77,7 @@ describe('ShippersManagerComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ShipperManagerComponent);
+    fixture = TestBed.createComponent(ManagementUsersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

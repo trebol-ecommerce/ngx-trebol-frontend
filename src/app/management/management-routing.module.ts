@@ -11,14 +11,14 @@ import { ManagementRoutingAccessResolver } from './management-routing.access-res
 import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementComponent } from './management.component';
 import { ManagementChildRoute } from './ManagementChildRoute';
-import { CustomerManagerComponent } from './routes/customers/customer-manager.component';
+import { ManagementCustomersComponent } from './routes/customers/management-customers.component';
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
-import { ImageManagerComponent } from './routes/images/image-manager.component';
-import { ProductManagerComponent } from './routes/products/product-manager.component';
-import { SellManagerComponent } from './routes/sales/sell-manager.component';
-import { SalespersonManagerComponent } from './routes/salespeople/salesperson-manager.component';
-import { ShipperManagerComponent } from './routes/shippers/shipper-manager.component';
-import { UserManagerComponent } from './routes/users/user-manager.component';
+import { ManagementImagesComponent } from './routes/images/management-images.component';
+import { ManagementProductsComponent } from './routes/products/management-products.component';
+import { ManagementSalesComponent } from './routes/sales/management-sales.component';
+import { ManagementSalespeopleComponent } from './routes/salespeople/management-salespeople.component';
+import { ManagementShippersComponent } from './routes/shippers/management-shippers.component';
+import { ManagementUsersComponent } from './routes/users/management-users.component';
 
 export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
   {
@@ -29,7 +29,7 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
      }
   },
   {
-    path: 'sales', component: SellManagerComponent,
+    path: 'sales', component: ManagementSalesComponent,
     data: {
       matIcon: 'loyalty',
       title: $localize`:Title of page for management of sales:Sales`
@@ -37,7 +37,7 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
     resolve: { access: ManagementRoutingAccessResolver }
   },
   {
-    path: 'products', component: ProductManagerComponent,
+    path: 'products', component: ManagementProductsComponent,
     data: {
       matIcon: 'list',
       title: $localize`:Title of page for management of products:Products`
@@ -45,7 +45,7 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
     resolve: { access: ManagementRoutingAccessResolver }
   },
   {
-    path: 'customers', component: CustomerManagerComponent,
+    path: 'customers', component: ManagementCustomersComponent,
     data: {
       matIcon: 'face',
       title: $localize`:Title of page for management of customers:Customers`
@@ -53,7 +53,7 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
     resolve: { access: ManagementRoutingAccessResolver }
   },
   {
-    path: 'salespeople', component: SalespersonManagerComponent,
+    path: 'salespeople', component: ManagementSalespeopleComponent,
     data: {
       matIcon: 'work_outline',
       title: $localize`:Title of page for management of salespeople:Salespeople`
@@ -61,7 +61,7 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
     resolve: { access: ManagementRoutingAccessResolver }
   },
   {
-    path: 'users', component: UserManagerComponent,
+    path: 'users', component: ManagementUsersComponent,
     data: {
       matIcon: 'person',
       title: $localize`:Title of page for management of users:Users`
@@ -69,7 +69,7 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
     resolve: { access: ManagementRoutingAccessResolver }
   },
   {
-    path: 'images', component: ImageManagerComponent,
+    path: 'images', component: ManagementImagesComponent,
     data: {
       matIcon: 'image',
       title: $localize`:Title of page for management of images:Images`
@@ -77,7 +77,7 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
     resolve: { access: ManagementRoutingAccessResolver }
   },
   {
-    path: 'shippers', component: ShipperManagerComponent,
+    path: 'shippers', component: ManagementShippersComponent,
     data: {
       matIcon: 'local_shipping',
       title: $localize`:Title of page for management of shippers:Shippers`

@@ -9,24 +9,24 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Customer } from 'src/app/models/entities/Customer';
 import { DataManagerComponentDirective } from '../../directives/data-manager.component-directive';
-import { CustomerManagerService } from './customer-manager.service';
+import { ManagementCustomersService } from './management-customers.service';
 
 @Component({
-  selector: 'app-customer-manager',
-  templateUrl: './customer-manager.component.html',
+  selector: 'app-management-customers',
+  templateUrl: './management-customers.component.html',
   styleUrls: [
     '../data-manager.styles.css',
-    './customer-manager.component.css'
+    './management-customers.component.css'
   ]
 })
-export class CustomerManagerComponent
+export class ManagementCustomersComponent
   extends DataManagerComponentDirective<Customer>
   implements OnInit {
 
   tableColumns: string[] = [ 'name', 'idNumber' ];
 
   constructor(
-    protected service: CustomerManagerService,
+    protected service: ManagementCustomersService,
     private route: ActivatedRoute
   ) {
     super();

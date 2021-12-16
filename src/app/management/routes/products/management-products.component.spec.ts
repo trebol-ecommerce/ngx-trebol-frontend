@@ -18,20 +18,20 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
-import { SellManagerComponent } from './sell-manager.component';
-import { SellManagerService } from './sell-manager.service';
+import { ManagementProductsComponent } from './management-products.component';
+import { ManagementProductsService } from './management-products.service';
 
 @Component({ selector: 'app-management-data-actions' })
 class MockManagementDataActionsComponent {
   @Output() add = new EventEmitter();
 }
 
-describe('SellManagerComponent', () => {
-  let component: SellManagerComponent;
-  let fixture: ComponentFixture<SellManagerComponent>;
-  let mockManagerService: Partial<SellManagerService>;
-  let mockDialogService: Partial<MatDialog>;
+describe('ManagementProductsComponent', () => {
+  let component: ManagementProductsComponent;
+  let fixture: ComponentFixture<ManagementProductsComponent>;
+  let mockManagerService: Partial<ManagementProductsService>;
   let mockSnackBarService: Partial<MatSnackBar>;
+  let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
     mockManagerService = {
@@ -45,11 +45,11 @@ describe('SellManagerComponent', () => {
       canDelete$: of(true),
       updateAccess(acc) {}
     };
-    mockDialogService = {
-      open() { return void 0; }
-    };
     mockSnackBarService = {
       open(m: string, a: string) { return void 0; }
+    };
+    mockDialogService = {
+      open() { return void 0; }
     };
 
     TestBed.configureTestingModule({
@@ -63,21 +63,21 @@ describe('SellManagerComponent', () => {
         MatTableModule,
       ],
       declarations: [
+        ManagementProductsComponent,
         CenteredMatProgressSpinnerComponent,
-        MockManagementDataActionsComponent,
-        SellManagerComponent
+        MockManagementDataActionsComponent
       ],
       providers: [
-        { provide: SellManagerService, useValue: mockManagerService },
-        { provide: MatDialog, useValue: mockDialogService },
-        { provide: MatSnackBar, useValue: mockSnackBarService }
+        { provide: ManagementProductsService, useValue: mockManagerService },
+        { provide: MatSnackBar, useValue: mockSnackBarService },
+        { provide: MatDialog, useValue: mockDialogService }
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SellManagerComponent);
+    fixture = TestBed.createComponent(ManagementProductsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

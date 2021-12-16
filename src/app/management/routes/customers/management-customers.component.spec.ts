@@ -13,13 +13,13 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
-import { CustomerManagerComponent } from './customer-manager.component';
-import { CustomerManagerService } from './customer-manager.service';
+import { ManagementCustomersComponent } from './management-customers.component';
+import { ManagementCustomersService } from './management-customers.service';
 
-describe('CustomerManagerComponent', () => {
-  let component: CustomerManagerComponent;
-  let fixture: ComponentFixture<CustomerManagerComponent>;
-  let managerService: Partial<CustomerManagerService>;
+describe('ManagementCustomersComponent', () => {
+  let component: ManagementCustomersComponent;
+  let fixture: ComponentFixture<ManagementCustomersComponent>;
+  let managerService: Partial<ManagementCustomersService>;
 
   beforeEach(waitForAsync(() => {
     managerService = {
@@ -42,18 +42,18 @@ describe('CustomerManagerComponent', () => {
         MatTableModule
       ],
       declarations: [
-        CustomerManagerComponent ,
+        ManagementCustomersComponent ,
         CenteredMatProgressSpinnerComponent
       ],
       providers: [
-        { provide: CustomerManagerService, useValue: managerService }
+        { provide: ManagementCustomersService, useValue: managerService }
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CustomerManagerComponent);
+    fixture = TestBed.createComponent(ManagementCustomersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

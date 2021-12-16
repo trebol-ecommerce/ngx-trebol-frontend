@@ -7,19 +7,19 @@
 
 import { TestBed } from '@angular/core/testing';
 import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
-import { SalespersonManagerService } from './salesperson-manager.service';
+import { ManagementImagesService } from './management-images.service';
 
-describe('SalespersonManagerService', () => {
-  let service: SalespersonManagerService;
+describe('ManagementImagesService', () => {
+  let service: ManagementImagesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ LocalMemoryApiModule ],
       providers: [
-        SalespersonManagerService
+        ManagementImagesService
       ]
     });
-    service = TestBed.inject(SalespersonManagerService);
+    service = TestBed.inject(ManagementImagesService);
   });
 
   it('should be created', () => {

@@ -8,15 +8,15 @@
 import { Inject, Injectable } from '@angular/core';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
-import { Product } from 'src/app/models/entities/Product';
+import { Image } from 'src/app/models/entities/Image';
 import { TransactionalDataManagerServiceDirective } from '../../directives/transactional-data-manager.service-directive';
 
 @Injectable()
-export class ProductManagerService
-  extends TransactionalDataManagerServiceDirective<Product> {
+export class ManagementImagesService
+  extends TransactionalDataManagerServiceDirective<Image> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) public dataService: ITransactionalEntityDataApiService<Product>
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataImages) public dataService: ITransactionalEntityDataApiService<Image>
   ) {
     super();
   }

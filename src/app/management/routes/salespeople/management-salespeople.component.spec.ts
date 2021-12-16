@@ -18,18 +18,18 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
-import { UserManagerComponent } from './user-manager.component';
-import { UserManagerService } from './user-manager.service';
+import { ManagementSalespeopleComponent } from './management-salespeople.component';
+import { ManagementSalespeopleService } from './management-salespeople.service';
 
 @Component({ selector: 'app-management-data-actions' })
 class MockManagementDataActionsComponent {
   @Output() add = new EventEmitter();
 }
 
-describe('UserManagerComponent', () => {
-  let component: UserManagerComponent;
-  let fixture: ComponentFixture<UserManagerComponent>;
-  let mockManagerService: Partial<UserManagerService>;
+describe('ManagementSalespeopleComponent', () => {
+  let component: ManagementSalespeopleComponent;
+  let fixture: ComponentFixture<ManagementSalespeopleComponent>;
+  let mockManagerService: Partial<ManagementSalespeopleService>;
   let mockSnackBarService: Partial<MatSnackBar>;
   let mockDialogService: Partial<MatDialog>;
 
@@ -63,12 +63,12 @@ describe('UserManagerComponent', () => {
         MatTableModule,
       ],
       declarations: [
-        UserManagerComponent,
+        ManagementSalespeopleComponent,
         CenteredMatProgressSpinnerComponent,
         MockManagementDataActionsComponent
       ],
       providers: [
-        { provide: UserManagerService, useValue: mockManagerService },
+        { provide: ManagementSalespeopleService, useValue: mockManagerService },
         { provide: MatSnackBar, useValue: mockSnackBarService },
         { provide: MatDialog, useValue: mockDialogService }
       ]
@@ -77,7 +77,7 @@ describe('UserManagerComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserManagerComponent);
+    fixture = TestBed.createComponent(ManagementSalespeopleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

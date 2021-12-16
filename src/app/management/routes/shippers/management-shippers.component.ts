@@ -10,29 +10,29 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { Salesperson } from 'src/app/models/entities/Salesperson';
-import { SalespersonFormComponent } from 'src/app/shared/components/salesperson-form/salesperson-form.component';
+import { Shipper } from 'src/app/models/entities/Shipper';
+import { ShipperFormComponent } from 'src/app/shared/components/shipper-form/shipper-form.component';
 import { COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form/EntityFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
-import { SalespersonManagerService } from './salesperson-manager.service';
+import { ManagementShippersService } from './management-shippers.service';
 
 @Component({
-  selector: 'app-salesperson-manager',
-  templateUrl: './salesperson-manager.component.html',
+  selector: 'app-management-shippers',
+  templateUrl: './management-shippers.component.html',
   styleUrls: [
     '../data-manager.styles.css',
-    './salesperson-manager.component.css'
+    './management-shippers.component.css'
   ]
 })
-export class SalespersonManagerComponent
-  extends TransactionalDataManagerComponentDirective<Salesperson>
+export class ManagementShippersComponent
+  extends TransactionalDataManagerComponentDirective<Shipper>
   implements OnInit {
 
-  tableColumns: string[] = [ 'name', 'idNumber', 'actions' ];
+  tableColumns: string[] = [ 'name', 'actions' ];
 
   constructor(
-    protected service: SalespersonManagerService,
+    protected service: ManagementShippersService,
     protected dialogService: MatDialog,
     private snackBarService: MatSnackBar,
     private route: ActivatedRoute
@@ -50,24 +50,24 @@ export class SalespersonManagerComponent
     );
   }
 
-  protected createDialogProperties(item: Salesperson): EntityFormDialogConfig<Salesperson> {
+  protected createDialogProperties(item: Shipper): EntityFormDialogConfig<Shipper> {
     return {
       data: {
         item,
-        formComponent: SalespersonFormComponent,
+        formComponent: ShipperFormComponent,
         service: this.service.dataService
       },
       width: '40rem'
     };
   }
 
-  onClickDelete(e: Salesperson) {
-    this.service.removeItems([e]).pipe(
+  onClickDelete(shipper: Shipper) {
+    this.service.removeItems([shipper]).pipe(
       map(results => results[0])
     ).subscribe(
       success => {
         if (success) {
-          const successMessage = $localize`:Message of success after deleting a salesperson with first name {{ firstName }} and last name {{ lastName }}:Salesperson ${e.person.firstName}:firstName: ${e.person.lastName}:lastName: deleted`;
+          const successMessage = $localize`:Message of success after deleting a shipper with name {{ name }}:Shipper '${shipper.name}:name:' deleted`;
           this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
           this.service.reloadItems();
         } else {

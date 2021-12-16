@@ -12,7 +12,7 @@ import { Customer } from 'src/app/models/entities/Customer';
 import { DataManagerServiceDirective } from '../../directives/data-manager.service-directive';
 
 @Injectable()
-export class CustomerManagerService
+export class ManagementCustomersService
   extends DataManagerServiceDirective<Customer> {
 
   constructor(

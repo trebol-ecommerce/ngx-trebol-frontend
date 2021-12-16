@@ -18,18 +18,18 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
-import { ImageManagerComponent } from './image-manager.component';
-import { ImageManagerService } from './image-manager.service';
+import { ManagementImagesComponent } from './management-images.component';
+import { ManagementImagesService } from './management-images.service';
 
 @Component({ selector: 'app-management-data-actions' })
 class MockManagementDataActionsComponent {
   @Output() add = new EventEmitter();
 }
 
-describe('ImageManagerComponent', () => {
-  let component: ImageManagerComponent;
-  let fixture: ComponentFixture<ImageManagerComponent>;
-  let mockService: Partial<ImageManagerService>;
+describe('ManagementImagesComponent', () => {
+  let component: ManagementImagesComponent;
+  let fixture: ComponentFixture<ManagementImagesComponent>;
+  let mockService: Partial<ManagementImagesService>;
   let mockSnackBarService: Partial<MatSnackBar>;
   let mockDialogService: Partial<MatDialog>;
 
@@ -63,12 +63,12 @@ describe('ImageManagerComponent', () => {
         MatTableModule,
       ],
       declarations: [
-        ImageManagerComponent,
+        ManagementImagesComponent,
         CenteredMatProgressSpinnerComponent,
         MockManagementDataActionsComponent
       ],
       providers: [
-        { provide: ImageManagerService, useValue: mockService },
+        { provide: ManagementImagesService, useValue: mockService },
         { provide: MatSnackBar, useValue: mockSnackBarService },
         { provide: MatDialog, useValue: mockDialogService }
       ]
@@ -77,7 +77,7 @@ describe('ImageManagerComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ImageManagerComponent);
+    fixture = TestBed.createComponent(ManagementImagesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

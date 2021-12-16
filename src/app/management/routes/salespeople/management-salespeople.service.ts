@@ -6,18 +6,17 @@
  */
 
 import { Inject, Injectable } from '@angular/core';
-import { Sell } from 'src/app/models/entities/Sell';
-import { SellDetail } from 'src/app/models/entities/SellDetail';
-import { ICompositeEntityDataApiService } from 'src/app/api/composite-entity.data-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
+import { Salesperson } from 'src/app/models/entities/Salesperson';
 import { TransactionalDataManagerServiceDirective } from '../../directives/transactional-data-manager.service-directive';
 
 @Injectable()
-export class SellManagerService
-  extends TransactionalDataManagerServiceDirective<Sell> {
+export class ManagementSalespeopleService
+  extends TransactionalDataManagerServiceDirective<Salesperson> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataSales) public dataService: ICompositeEntityDataApiService<Sell, SellDetail>
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataSalespeople) public dataService: ITransactionalEntityDataApiService<Salesperson>
   ) {
     super();
   }

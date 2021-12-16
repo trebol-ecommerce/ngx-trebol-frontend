@@ -15,24 +15,24 @@ import { ImageFormComponent } from 'src/app/shared/components/image-form/image-f
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE, COMMON_WARNING_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form/EntityFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
-import { ImageManagerService } from './image-manager.service';
+import { ManagementImagesService } from './management-images.service';
 
 @Component({
-  selector: 'app-image-manager',
-  templateUrl: './image-manager.component.html',
+  selector: 'app-management-images',
+  templateUrl: './management-images.component.html',
   styleUrls: [
     '../data-manager.styles.css',
-    './image-manager.component.css'
+    './management-images.component.css'
   ]
 })
-export class ImageManagerComponent
+export class ManagementImagesComponent
   extends TransactionalDataManagerComponentDirective<Image>
   implements OnInit {
 
   tableColumns: string[] = [ 'thumb', 'filename', 'actions' ];
 
   constructor(
-    protected service: ImageManagerService,
+    protected service: ManagementImagesService,
     private route: ActivatedRoute,
     private snackBarService: MatSnackBar,
     protected dialogService: MatDialog
