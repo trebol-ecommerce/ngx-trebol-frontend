@@ -20,6 +20,7 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
 import { ImageFormComponent } from './components/image-form/image-form.component';
 import { ImageUploadFormComponent } from './components/image-upload-form/image-upload-form.component';
 import { PersonFormComponent } from './components/person-form/person-form.component';
+import { ProductCategoryFormComponent } from './components/product-category-form/product-category-form.component';
 import { ProductCategoryTreeComponent } from './components/product-category-tree/product-category-tree.component';
 import { ProductFiltersPanelComponent } from './components/product-filters-panel/product-filters-panel.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
@@ -51,6 +52,7 @@ const PUBLIC_COMPONENTS = [
   ImageFormComponent,
   PersonFormComponent,
   ProductFormComponent,
+  ProductCategoryFormComponent,
   SalespersonFormComponent,
   SellFormComponent,
   ShipperFormComponent,
