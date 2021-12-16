@@ -33,11 +33,13 @@ export class EntityFormDialogComponent<T>
   @ViewChild(FormGroupOwnerOutletDirective, { static: true }) formGroupOutlet: FormGroupOwnerOutletDirective;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: EntityFormDialogData<T>,
+    @Inject(MAT_DIALOG_DATA) public data: Partial<EntityFormDialogData<T>>,
     private dialog: MatDialogRef<EntityFormDialogComponent<T>>,
     private snackBarService: MatSnackBar
   ) {
-    this.service = this.data.service;
+    if (this.data.service) {
+      this.service = this.data.service;
+    }
     if (this.data.title) {
       this.dialogTitle = this.data.title;
     }
@@ -61,18 +63,22 @@ export class EntityFormDialogComponent<T>
       this.snackBarService.open(COMMON_VALIDATION_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
     } else {
       const item = this.data.item;
-      const submitObservable = (!this.itemCopy) ? this.service.create(item) : this.service.update(item, this.itemCopy);
-      submitObservable.subscribe(
-        success => {
-          const message = this.successMessage(item);
-          this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
-          this.dialog.close(item);
-        },
-        error => {
-          console.error(error);
-          this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
-        }
-      );
+      if (!this.service) {
+        this.dialog.close(item);
+      } else {
+        const submitObservable = (!this.itemCopy) ? this.service.create(item) : this.service.update(item, this.itemCopy);
+        submitObservable.subscribe(
+          success => {
+            const message = this.successMessage(item);
+            this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
+            this.dialog.close(item);
+          },
+          error => {
+            console.error(error);
+            this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
+          }
+        );
+      }
     }
   }
 
