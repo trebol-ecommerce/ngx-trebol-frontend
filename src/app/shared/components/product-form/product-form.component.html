@@ -25,14 +25,9 @@
       i18n-placeholder="Name of field for product name" />
   </mat-form-field>
 
-  <mat-form-field class="category">
-    <mat-select formControlName="category"
-      placeholder="Category"
-      i18n-placeholder="Name of field for product category">
-      <mat-option *ngFor="let f of (categories$ | async)"
-        [value]="f.code">{{ f.name }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <app-product-category-selector-form-field class="category"
+    formControlName="category">
+  </app-product-category-selector-form-field>
 
   <mat-form-field class="price">
     <input matInput formControlName="price"
