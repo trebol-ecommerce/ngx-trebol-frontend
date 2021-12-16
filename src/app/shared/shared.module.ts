@@ -34,7 +34,7 @@ import { ConfirmationDialogComponent } from './dialogs/confirmation/confirmation
 import { EntityFormDialogComponent } from './dialogs/entity-form-dialog/entity-form-dialog.component';
 import { EditProfileFormDialogComponent } from './dialogs/edit-profile-form/edit-profile-form-dialog.component';
 import { ImagesArrayDialogComponent } from './dialogs/images-array/images-array-dialog.component';
-import { InformationDialogComponent } from './dialogs/information-dialog/information-dialog.component';
+import { InformationDialogComponent } from './dialogs/information/information-dialog.component';
 import { InputDialogComponent } from './dialogs/input-dialog/input-dialog.component';
 import { FormGroupOwnerOutletDirective } from './directives/form-group-owner-outlet/form-group-owner-outlet.directive';
 import { AddressPipe } from './pipes/address/address.pipe';
