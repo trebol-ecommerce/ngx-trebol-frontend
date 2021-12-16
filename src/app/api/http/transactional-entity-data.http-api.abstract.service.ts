@@ -30,7 +30,7 @@ export abstract class TransactionalEntityDataHttpApiService<T>
 
   abstract fetchExisting(itemLike: Partial<T>): Observable<T>;
 
-  abstract update(itemLike: Partial<T>): Observable<any>;
+  abstract update(itemLike: Partial<T>, originalItem?: T): Observable<any>;
 
   abstract delete(itemLike: Partial<T>): Observable<any>;
 }
