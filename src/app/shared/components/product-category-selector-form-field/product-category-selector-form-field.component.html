@@ -1,0 +1,31 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<mat-form-field class="category">
+  <textarea matInput cdkTextareaAutosize
+    [placeholder]="placeholder" [disabled]="true"
+    tabindex="-1"
+    required readonly>{{ productCategory?.name || noCategoryLabel }}</textarea>
+  <button type="button" class="open-category-picker"
+    *ngIf="productCategory"
+    mat-icon-button matSuffix
+    i18n="clear category|Label for action button to clear selection of a category"
+    aria-label="Clear category"
+    [disabled]="isDisabled"
+    (click)="onClickClearCategory()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <button type="button" class="open-category-picker"
+    mat-icon-button matSuffix
+    i18n="open category picker|Label for action button to open a dialog to choose a category from"
+    aria-label="Pick category"
+    [disabled]="isDisabled"
+    (click)="onClickOpenCategoryPicker()">
+    <mat-icon>open_in_new</mat-icon>
+  </button>
+  <mat-hint i18n="Label to hint users to click in a button to the right in order to pick a category">Click on the button to the right to choose a category</mat-hint>
+</mat-form-field>
