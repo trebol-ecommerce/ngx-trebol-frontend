@@ -5,15 +5,13 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, forwardRef, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, forwardRef, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
   ValidationErrors, Validator, Validators
 } from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { Image } from 'src/app/models/entities/Image';
 import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
@@ -51,7 +49,6 @@ export class ImageFormComponent
   images: Image[];
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataImages) private imagesDataApiService: ITransactionalEntityDataApiService<Image>,
     private formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
