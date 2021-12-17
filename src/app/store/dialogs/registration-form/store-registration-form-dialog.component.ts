@@ -50,7 +50,14 @@ export class StoreRegistrationFormDialogComponent
         name: ['', Validators.required],
         pass1: ['', Validators.required],
         pass2: ['', Validators.required],
-        person: ['', Validators.required]
+        person: [{
+          firstName: '',
+          lastName: '',
+          idNumber: '',
+          email: '',
+          phone1: undefined,
+          phone2: undefined
+        }, Validators.required]
       },
       { validators: passwordMatcher }
     );
@@ -63,7 +70,11 @@ export class StoreRegistrationFormDialogComponent
   onSubmit(): void {
     if (this.formGroup.valid) {
       this.registeringSource.next(true);
-      const details = this.asItem();
+      const details: Registration = {
+        name: this.name.value,
+        password: this.pass1.value,
+        profile: this.person.value as Person
+      };
       this.appService.register(details).subscribe(
         s => {
           if (s) {
@@ -85,15 +96,4 @@ export class StoreRegistrationFormDialogComponent
     this.appService.cancelAuthentication();
     this.dialog.close();
   }
-
-  private asItem(): Registration | null {
-    if (this.formGroup.valid) {
-      return {
-        name: this.name.value,
-        password: this.pass1.value,
-        profile: this.person.value as Person
-      } as Registration;
-    }
-  }
-
 }
