@@ -48,7 +48,7 @@ export class SalespersonFormComponent
     private formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
-      person: ['']
+      person: [new Person()]
     });
   }
 

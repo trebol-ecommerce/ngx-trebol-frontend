@@ -11,9 +11,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { AppService } from 'src/app/app.service';
+import { passwordMatcher } from 'src/functions/passwordMatcher';
 import { Person } from 'src/models/entities/Person';
 import { Registration } from 'src/models/Registration';
-import { passwordMatcher } from 'src/functions/passwordMatcher';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 
 /**
@@ -50,14 +50,7 @@ export class StoreRegistrationFormDialogComponent
         name: ['', Validators.required],
         pass1: ['', Validators.required],
         pass2: ['', Validators.required],
-        person: [{
-          firstName: '',
-          lastName: '',
-          idNumber: '',
-          email: '',
-          phone1: undefined,
-          phone2: undefined
-        }, Validators.required]
+        person: [new Person(), Validators.required]
       },
       { validators: passwordMatcher }
     );

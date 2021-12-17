@@ -29,7 +29,7 @@ export class EditProfileFormDialogComponent
   cancelButtonColor$: Observable<string>;
   invalid$: Observable<boolean>;
 
-  formGroup: FormGroup;
+  formGroup: FormGroup; // TODO turn into FormControl
 
   get person() { return this.formGroup.get('person') as FormControl; }
 
@@ -45,7 +45,7 @@ export class EditProfileFormDialogComponent
       map(c => (c ? 'warn' : 'default'))
     );
     this.formGroup = this.formBuilder.group({
-      person: ['']
+      person: [new Person()]
     });
   }
 
