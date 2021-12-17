@@ -30,7 +30,6 @@ describe('ManagementProductCategoriesComponent', () => {
   let component: ManagementProductCategoriesComponent;
   let fixture: ComponentFixture<ManagementProductCategoriesComponent>;
   let mockService: Partial<ManagementProductCategoriesService>;
-  let mockSnackBarService: Partial<MatSnackBar>;
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
@@ -44,9 +43,6 @@ describe('ManagementProductCategoriesComponent', () => {
       canDelete$: of(true),
       focusedItems: [],
       updateAccess() {}
-    };
-    mockSnackBarService = {
-      open(m: string, a: string) { return void 0; }
     };
     mockDialogService = {
       open() { return void 0; }
@@ -69,7 +65,6 @@ describe('ManagementProductCategoriesComponent', () => {
       ],
       providers: [
         { provide: ManagementProductCategoriesService, useValue: mockService },
-        { provide: MatSnackBar, useValue: mockSnackBarService },
         { provide: MatDialog, useValue: mockDialogService }
       ]
     })

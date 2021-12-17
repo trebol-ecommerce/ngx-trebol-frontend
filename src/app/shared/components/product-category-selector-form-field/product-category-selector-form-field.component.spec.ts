@@ -6,15 +6,29 @@
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { of } from 'rxjs';
 import { ProductCategorySelectorFormFieldComponent } from './product-category-selector-form-field.component';
 
 describe('ProductCategorySelectorFormFieldComponent', () => {
   let component: ProductCategorySelectorFormFieldComponent;
   let fixture: ComponentFixture<ProductCategorySelectorFormFieldComponent>;
+  let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
+    mockDialogService = {
+      open() {
+        return {
+          afterClosed() { return of(void 0); }
+        } as MatDialogRef<any>;
+      }
+    };
+
     TestBed.configureTestingModule({
-      declarations: [ ProductCategorySelectorFormFieldComponent ]
+      declarations: [ProductCategorySelectorFormFieldComponent],
+      providers: [
+        { provide: MatDialog, useValue: mockDialogService }
+      ]
     })
     .compileComponents();
   }));
