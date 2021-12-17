@@ -25,13 +25,7 @@ import { EntityFormDialogData } from './EntityFormDialogData';
 @Component({
   selector: 'app-mock-form-group-owner',
   template: '<form [formGroup]="formGroup"><input type="text" formControlName="test" /></form>',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      multi: true,
-      useExisting: MockFormGroupOwnerComponent
-    }
-  ]
+  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockFormGroupOwnerComponent }]
 })
 class MockFormGroupOwnerComponent
   implements ControlValueAccessor, FormGroupOwner {
