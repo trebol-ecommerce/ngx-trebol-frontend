@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, forwardRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, forwardRef, OnDestroy } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
   ValidationErrors, Validator, Validators
@@ -34,7 +34,7 @@ import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
   ]
 })
 export class ImageFormComponent
-  implements OnInit, OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
+  implements OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
 
   private touchedSubscriptions: Subscription[] = [];
   private valueChangesSubscriptions: Subscription[] = [];
@@ -57,10 +57,6 @@ export class ImageFormComponent
       code: [null, Validators.required]
       // file: ['', Validators.required]
     });
-  }
-
-  ngOnInit(): void {
-    // this.formGroup.valueChanges.pipe(debounceTime(200), take(10), tap(() => { console.log(this.formGroup.valid); })).subscribe();
   }
 
   ngOnDestroy(): void {
