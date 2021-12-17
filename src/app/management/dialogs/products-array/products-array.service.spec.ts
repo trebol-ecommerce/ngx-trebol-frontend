@@ -6,17 +6,39 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
+import { of } from 'rxjs';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
+import { Product } from 'src/models/entities/Product';
 import { ProductsArrayService } from './products-array.service';
 
 describe('ProductsArrayService', () => {
   let service: ProductsArrayService;
+  let mockApiService: Partial<IEntityDataApiService<Product>>;
 
   beforeEach(() => {
+    mockApiService = {
+      fetchPage() {
+        return of({
+          items: [],
+          totalCount: 0,
+          pageIndex: 0,
+          pageSize: 10
+        });
+      },
+      fetchPageFilteredBy() {
+        return of({
+          items: [],
+          totalCount: 0,
+          pageIndex: 0,
+          pageSize: 10
+        });
+      }
+    };
+
     TestBed.configureTestingModule({
-      imports: [ LocalMemoryApiModule ],
       providers: [
-        ProductsArrayService
+        { provide: API_SERVICE_INJECTION_TOKENS.dataProducts, useValue: mockApiService }
       ]
     });
     service = TestBed.inject(ProductsArrayService);
