@@ -5,18 +5,15 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, forwardRef, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, forwardRef, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
   ValidationErrors, Validator, Validators
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { merge, Observable, Subscription } from 'rxjs';
-import { debounceTime, map, take, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
+import { merge, Subscription } from 'rxjs';
+import { debounceTime, take, tap } from 'rxjs/operators';
 import { Image } from 'src/app/models/entities/Image';
-import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { ImagesArrayDialogComponent } from '../../dialogs/images-array/images-array-dialog.component';
@@ -46,8 +43,6 @@ export class ProductFormComponent
   private valueChangesSubscriptions: Subscription[] = [];
   private touched = new EventEmitter<void>();
 
-  categories$: Observable<ProductCategory[]>;
-
   formGroup: FormGroup;
   get barcode() { return this.formGroup.get('barcode') as FormControl; }
   get name() { return this.formGroup.get('name') as FormControl; }
@@ -60,7 +55,6 @@ export class ProductFormComponent
   images: Image[];
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductCategories) private categoriesApiService: ITransactionalEntityDataApiService<ProductCategory>,
     private formBuilder: FormBuilder,
     private dialogService: MatDialog
   ) {
@@ -76,7 +70,6 @@ export class ProductFormComponent
   }
 
   ngOnInit(): void {
-    this.categories$ = this.categoriesApiService.fetchPage().pipe(map(page => page.items)); // TODO this will not include children
     this.formGroup.valueChanges.pipe(debounceTime(200), take(10), tap(() => { console.log(this.formGroup.valid); })).subscribe();
   }
 
@@ -134,9 +127,6 @@ export class ProductFormComponent
       }
       if (!value.name) {
         errors.requiredProductName = value.name;
-      }
-      if (!value.category) {
-        errors.requiredProductCategory = value.category;
       }
       if (!value.price) {
         errors.requiredProductPrice = value.price;

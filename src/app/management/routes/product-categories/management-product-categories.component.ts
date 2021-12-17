@@ -5,12 +5,10 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { ProductCategory } from 'src/app/models/entities/ProductCategory';
 import { ProductCategoryFormComponent } from 'src/app/shared/components/product-category-form/product-category-form.component';
 import { EntityFormDialogConfig } from 'src/app/shared/dialogs/entity-form/EntityFormDialogConfig';
@@ -34,9 +32,7 @@ export class ManagementProductCategoriesComponent
   constructor(
     protected service: ManagementProductCategoriesService,
     private route: ActivatedRoute,
-    protected dialogService: MatDialog,
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductCategories) private apiService: ITransactionalEntityDataApiService<ProductCategory>,
-    private snackbarService: MatSnackBar
+    protected dialogService: MatDialog
   ) {
     super();
   }
@@ -56,7 +52,7 @@ export class ManagementProductCategoriesComponent
       data: {
         item,
         formComponent: ProductCategoryFormComponent,
-        service: this.apiService
+        service: this.service.dataService
       },
       width: '40rem'
     };
