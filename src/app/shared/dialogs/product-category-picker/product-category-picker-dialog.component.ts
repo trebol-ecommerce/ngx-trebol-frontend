@@ -30,6 +30,10 @@ export class ProductCategoryPickerDialogComponent {
   }
 
   onSelect(option: ProductCategory) {
-    this.dialog.close(option);
+    const simpleCategory: ProductCategory = {
+      code: option.code,
+      name: option.name
+    };
+    this.dialog.close(simpleCategory);
   }
 }
