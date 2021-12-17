@@ -14,6 +14,7 @@ import { ManagementChildRoute } from './ManagementChildRoute';
 import { ManagementCustomersComponent } from './routes/customers/management-customers.component';
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
 import { ManagementImagesComponent } from './routes/images/management-images.component';
+import { ManagementProductCategoriesComponent } from './routes/product-categories/management-product-categories.component';
 import { ManagementProductsComponent } from './routes/products/management-products.component';
 import { ManagementSalesComponent } from './routes/sales/management-sales.component';
 import { ManagementSalespeopleComponent } from './routes/salespeople/management-salespeople.component';
@@ -41,6 +42,14 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
     data: {
       matIcon: 'list',
       title: $localize`:Title of page for management of products:Products`
+    },
+    resolve: { access: ManagementRoutingAccessResolver }
+  },
+  {
+    path: 'product_categories', component: ManagementProductCategoriesComponent,
+    data: {
+      matIcon: 'format_align_right',
+      title: $localize`:Title of page for management of product categories:Categories`
     },
     resolve: { access: ManagementRoutingAccessResolver }
   },

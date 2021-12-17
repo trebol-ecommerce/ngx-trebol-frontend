@@ -1,0 +1,23 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<app-centered-mat-spinner *ngIf="loading$ | async">
+</app-centered-mat-spinner>
+<div class="data-manager" [hidden]="loading$ | async">
+  <div class="table-wrapper">
+
+    <app-product-category-tree
+      [categories]="items$ | async"
+      [editable]="true">
+    </app-product-category-tree>
+
+  </div>
+  <app-management-data-actions
+    *ngIf="canAdd$ | async"
+    (add)="onClickAdd()">-
+  </app-management-data-actions>
+</div>
