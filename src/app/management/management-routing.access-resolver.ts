@@ -10,7 +10,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable } from 'rxjs';
 import { IAccessApiService } from 'src/app/api/access-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
+import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
 
 @Injectable({ providedIn: 'root' })
 export class ManagementRoutingAccessResolver

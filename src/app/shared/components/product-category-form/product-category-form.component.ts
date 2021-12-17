@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
-import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
+import { FormGroupOwner } from 'src/models/FormGroupOwner';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 
 @Component({

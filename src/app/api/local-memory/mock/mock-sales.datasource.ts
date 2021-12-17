@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Sell } from 'src/app/models/entities/Sell';
+import { Sell } from 'src/models/entities/Sell';
 import { BILLING_TYPE_INDIVIDUAL } from 'src/text/billing-type-names';
 import { MOCK_CUSTOMERS } from './mock-customers.datasource';
 import { MOCK_PRODUCTS } from './mock-products.datasource';

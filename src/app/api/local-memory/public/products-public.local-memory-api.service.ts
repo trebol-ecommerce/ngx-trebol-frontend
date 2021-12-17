@@ -7,8 +7,8 @@
 
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DataPage } from 'src/app/models/DataPage';
-import { Product } from 'src/app/models/entities/Product';
+import { DataPage } from 'src/models/DataPage';
+import { Product } from 'src/models/entities/Product';
 import { ProductFilters } from "src/app/shared/components/product-filters-panel/ProductFilters";
 import { API_SERVICE_INJECTION_TOKENS } from '../../api-service-injection-tokens';
 import { IProductsPublicApiService } from '../../products-public-api.iservice';

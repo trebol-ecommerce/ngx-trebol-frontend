@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CompanyDetails } from 'src/app/models/CompanyDetails';
+import { CompanyDetails } from 'src/models/CompanyDetails';
 
 export const MOCK_COMPANY_DETAILS: CompanyDetails = {
   name: 'Trébol Demo',

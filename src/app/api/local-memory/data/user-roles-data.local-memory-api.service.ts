@@ -6,7 +6,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { UserRole } from 'src/app/models/entities/UserRole';
+import { UserRole } from 'src/models/entities/UserRole';
 import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
 import { MOCK_USER_ROLES } from '../mock/mock-user-roles.datasource';
 

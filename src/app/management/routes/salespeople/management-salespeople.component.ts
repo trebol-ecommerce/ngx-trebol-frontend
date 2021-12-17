@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { Salesperson } from 'src/app/models/entities/Salesperson';
+import { Salesperson } from 'src/models/entities/Salesperson';
 import { SalespersonFormComponent } from 'src/app/shared/components/salesperson-form/salesperson-form.component';
 import { COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form/EntityFormDialogConfig';

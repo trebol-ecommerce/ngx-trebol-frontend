@@ -6,7 +6,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { CompanyDetails } from 'src/app/models/CompanyDetails';
+import { CompanyDetails } from 'src/models/CompanyDetails';
 
 export interface IAboutPublicApiService {
   fetchCompanyDetails(): Observable<CompanyDetails>;

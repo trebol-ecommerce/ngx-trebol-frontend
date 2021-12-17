@@ -14,9 +14,9 @@ import { merge, Observable, Subscription } from 'rxjs';
 import { debounceTime, map, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { Person } from 'src/app/models/entities/Person';
-import { UserRole } from 'src/app/models/entities/UserRole';
-import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
+import { Person } from 'src/models/entities/Person';
+import { UserRole } from 'src/models/entities/UserRole';
+import { FormGroupOwner } from 'src/models/FormGroupOwner';
 import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 

@@ -6,8 +6,8 @@
  */
 
 import { Inject, Injectable } from '@angular/core';
-import { Sell } from 'src/app/models/entities/Sell';
-import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { Sell } from 'src/models/entities/Sell';
+import { SellDetail } from 'src/models/entities/SellDetail';
 import { ICompositeEntityDataApiService } from 'src/app/api/composite-entity.data-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { TransactionalDataManagerServiceDirective } from '../../directives/transactional-data-manager.service-directive';

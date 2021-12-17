@@ -10,7 +10,7 @@ import { ReplaySubject, Subject } from 'rxjs';
 import { mapTo, pluck, startWith } from 'rxjs/operators';
 import { IAboutPublicApiService } from 'src/app/api/about-public-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { CompanyDetails } from 'src/app/models/CompanyDetails';
+import { CompanyDetails } from 'src/models/CompanyDetails';
 
 @Component({
   selector: 'app-store-company-details-dialog',

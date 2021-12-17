@@ -6,7 +6,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Shipper } from 'src/app/models/entities/Shipper';
+import { Shipper } from 'src/models/entities/Shipper';
 import { MOCK_SHIPPERS } from '../mock/mock-shippers.datasource';
 import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
 

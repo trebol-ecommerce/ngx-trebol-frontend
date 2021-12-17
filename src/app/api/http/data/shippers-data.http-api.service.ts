@@ -7,7 +7,7 @@
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Shipper } from 'src/app/models/entities/Shipper';
+import { Shipper } from 'src/models/entities/Shipper';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
 
 @Injectable()

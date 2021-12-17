@@ -6,7 +6,7 @@
  */
 
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { DataPage } from 'src/app/models/DataPage';
+import { DataPage } from 'src/models/DataPage';
 import { environment } from 'src/environments/environment';
 import { IEntityDataApiService } from '../entity.data-api.iservice';
 import { HttpApiService } from './http-api.abstract.service';

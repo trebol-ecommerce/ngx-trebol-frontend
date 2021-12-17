@@ -8,7 +8,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductCategory } from 'src/app/models/entities/ProductCategory';
+import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { environment } from 'src/environments/environment';
 import { ITransactionalEntityDataApiService } from '../../transactional-entity.data-api.iservice';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';

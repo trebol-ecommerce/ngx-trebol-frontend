@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { UserRole } from 'src/app/models/entities/UserRole';
+import { UserRole } from 'src/models/entities/UserRole';
 
 export const MOCK_USER_ROLES: UserRole[] = [
   { name: 'Administrador' },

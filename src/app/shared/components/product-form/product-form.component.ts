@@ -13,8 +13,8 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { merge, Subscription } from 'rxjs';
 import { debounceTime, take, tap } from 'rxjs/operators';
-import { Image } from 'src/app/models/entities/Image';
-import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
+import { Image } from 'src/models/entities/Image';
+import { FormGroupOwner } from 'src/models/FormGroupOwner';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { ImagesArrayDialogComponent } from '../../dialogs/images-array/images-array-dialog.component';
 import { ImagesArrayDialogData } from '../../dialogs/images-array/ImagesArrayDialogData';

@@ -6,7 +6,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { Registration } from 'src/app/models/Registration';
+import { Registration } from 'src/models/Registration';
 
 export interface IRegisterPublicApiService {
   register(details: Registration): Observable<any>;

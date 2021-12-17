@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Address } from 'src/app/models/entities/Address';
+import { Address } from 'src/models/entities/Address';
 
 export interface AddressFormDialogData {
   address: Address;

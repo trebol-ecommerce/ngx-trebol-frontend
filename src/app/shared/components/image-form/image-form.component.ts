@@ -12,8 +12,8 @@ import {
 } from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
-import { Image } from 'src/app/models/entities/Image';
-import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
+import { Image } from 'src/models/entities/Image';
+import { FormGroupOwner } from 'src/models/FormGroupOwner';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 
 @Component({

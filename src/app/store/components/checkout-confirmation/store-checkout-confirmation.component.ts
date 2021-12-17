@@ -8,8 +8,8 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { CheckoutRequest } from 'src/app/models/CheckoutRequest';
-import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
+import { CheckoutRequest } from 'src/models/CheckoutRequest';
+import { ExternalPaymentRedirectionData } from 'src/models/ExternalPaymentRedirectionData';
 import { StoreService } from '../../store.service';
 
 @Component({

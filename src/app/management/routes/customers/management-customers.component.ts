@@ -7,7 +7,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Customer } from 'src/app/models/entities/Customer';
+import { Customer } from 'src/models/entities/Customer';
 import { DataManagerComponentDirective } from '../../directives/data-manager.component-directive';
 import { ManagementCustomersService } from './management-customers.service';
 

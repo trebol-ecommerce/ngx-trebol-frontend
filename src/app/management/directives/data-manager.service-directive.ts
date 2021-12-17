@@ -9,7 +9,7 @@ import { Directive, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { delay, finalize, map, tap } from 'rxjs/operators';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
+import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
 
 @Directive()
 export abstract class DataManagerServiceDirective<T>

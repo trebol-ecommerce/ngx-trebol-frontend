@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ControlValueAccessor, FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
+import { FormGroupOwner } from 'src/models/FormGroupOwner';
 import { FormGroupOwnerOutletDirective } from './form-group-owner-outlet.directive';
 
 @Component({

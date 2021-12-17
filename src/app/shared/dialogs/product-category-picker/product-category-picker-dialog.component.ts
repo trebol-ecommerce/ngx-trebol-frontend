@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
-import { ProductCategory } from 'src/app/models/entities/ProductCategory';
+import { ProductCategory } from 'src/models/entities/ProductCategory';
 
 @Component({
   selector: 'app-product-category-picker-dialog',

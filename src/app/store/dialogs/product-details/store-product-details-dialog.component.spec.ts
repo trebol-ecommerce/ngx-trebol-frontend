@@ -13,7 +13,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { EventEmitter } from 'events';
 import { of } from 'rxjs';
-import { Product } from 'src/app/models/entities/Product';
+import { Product } from 'src/models/entities/Product';
 import { StoreService } from '../../store.service';
 import { StoreProductDetailsDialogComponent } from './store-product-details-dialog.component';
 import { StoreProductDetailsDialogData } from "./StoreProductDetailsDialogData";

@@ -14,7 +14,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, concat, merge, Observable, Subscription } from 'rxjs';
 import { debounceTime, map, mapTo, startWith, tap } from 'rxjs/operators';
-import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
+import { FormGroupOwner } from 'src/models/FormGroupOwner';
 import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';

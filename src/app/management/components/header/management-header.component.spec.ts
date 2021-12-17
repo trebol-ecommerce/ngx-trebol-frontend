@@ -16,7 +16,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { ManagementService } from 'src/app/management/management.service';
-import { Person } from 'src/app/models/entities/Person';
+import { Person } from 'src/models/entities/Person';
 import { ManagementHeaderComponent } from './management-header.component';
 
 describe('ManagementHeaderComponent', () => {

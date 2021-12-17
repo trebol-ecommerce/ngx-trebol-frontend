@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { ProductCategory } from 'src/app/models/entities/ProductCategory';
+import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { ProductCategoryFormComponent } from 'src/app/shared/components/product-category-form/product-category-form.component';
 import { EntityFormDialogConfig } from 'src/app/shared/dialogs/entity-form/EntityFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';

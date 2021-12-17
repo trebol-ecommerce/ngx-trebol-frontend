@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Receipt } from "src/app/models/Receipt";
+import { Receipt } from "src/models/Receipt";
 import { MOCK_PRODUCTS } from "./mock-products.datasource";
 import { MOCK_SELL_STATUSES } from "./mock-sell-statuses.datasource";
 

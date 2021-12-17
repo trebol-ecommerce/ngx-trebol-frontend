@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTree, MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { Observable, Subscription } from 'rxjs';
 import { debounceTime, filter, switchMap, tap } from 'rxjs/operators';
-import { ProductCategory } from 'src/app/models/entities/ProductCategory';
+import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 import { ConfirmationDialogComponent } from '../../dialogs/confirmation/confirmation-dialog.component';
 import { ConfirmationDialogData } from '../../dialogs/confirmation/ConfirmationDialogData';

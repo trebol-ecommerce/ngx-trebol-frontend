@@ -6,7 +6,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { Receipt } from 'src/app/models/Receipt';
+import { Receipt } from 'src/models/Receipt';
 
 export interface IReceiptPublicApiService {
   fetchTransactionReceiptByToken(token: string): Observable<Receipt>;

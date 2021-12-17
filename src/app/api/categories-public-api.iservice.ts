@@ -6,8 +6,8 @@
  */
 
 import { Observable } from 'rxjs';
-import { ProductCategory } from 'src/app/models/entities/ProductCategory';
-import { DataPage } from '../models/DataPage';
+import { ProductCategory } from 'src/models/entities/ProductCategory';
+import { DataPage } from '../../models/DataPage';
 
 export interface ICategoriesPublicApiService {
   fetchChildrenProductCategoriesByParentCode(parentCode: string): Observable<DataPage<ProductCategory>>;

@@ -6,7 +6,7 @@
  */
 
 import { Component, Input } from '@angular/core';
-import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
+import { ExternalPaymentRedirectionData } from 'src/models/ExternalPaymentRedirectionData';
 
 @Component({
   selector: 'app-store-checkout-button',

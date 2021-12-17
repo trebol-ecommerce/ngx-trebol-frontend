@@ -9,7 +9,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Product } from 'src/app/models/entities/Product';
+import { Product } from 'src/models/entities/Product';
 import { StoreService } from '../../store.service';
 import { StoreProductDetailsDialogData } from './StoreProductDetailsDialogData';
 

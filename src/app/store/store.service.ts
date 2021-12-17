@@ -9,14 +9,14 @@ import { EventEmitter, Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { Product } from 'src/app/models/entities/Product';
-import { SellDetail } from 'src/app/models/entities/SellDetail';
-import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
+import { Product } from 'src/models/entities/Product';
+import { SellDetail } from 'src/models/entities/SellDetail';
+import { ExternalPaymentRedirectionData } from 'src/models/ExternalPaymentRedirectionData';
 import { BILLING_TYPE_COMPANY, BILLING_TYPE_NAMES_MAP } from 'src/text/billing-type-names';
 import { COMMON_VALIDATION_ERROR_MESSAGE } from 'src/text/messages';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
-import { CheckoutRequest } from '../models/CheckoutRequest';
-import { Sell } from '../models/entities/Sell';
+import { CheckoutRequest } from '../../models/CheckoutRequest';
+import { Sell } from '../../models/entities/Sell';
 
 @Injectable()
 export class StoreService

@@ -9,7 +9,7 @@ import { TestBed } from '@angular/core/testing';
 import { EMPTY } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
-import { ProductCategory } from 'src/app/models/entities/ProductCategory';
+import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { ProductFiltersPanelService } from './product-filters-panel.service';
 
 describe('ProductFiltersPanelService', () => {

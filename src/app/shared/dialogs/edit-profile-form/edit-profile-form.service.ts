@@ -9,7 +9,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, concat, iif, Observable, of, Subject } from 'rxjs';
 import { delay, switchMap, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
-import { Person } from 'src/app/models/entities/Person';
+import { Person } from 'src/models/entities/Person';
 
 @Injectable({ providedIn: 'root' })
 export class EditProfileFormService

@@ -11,8 +11,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { Person } from 'src/app/models/entities/Person';
-import { Registration } from 'src/app/models/Registration';
+import { Person } from 'src/models/entities/Person';
+import { Registration } from 'src/models/Registration';
 import { passwordMatcher } from 'src/functions/passwordMatcher';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 

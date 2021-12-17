@@ -8,7 +8,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
-import { Shipper } from 'src/app/models/entities/Shipper';
+import { Shipper } from 'src/models/entities/Shipper';
 import { TransactionalDataManagerServiceDirective } from '../../directives/transactional-data-manager.service-directive';
 
 @Injectable()

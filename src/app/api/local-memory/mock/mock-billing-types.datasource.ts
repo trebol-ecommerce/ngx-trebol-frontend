@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { BillingType } from 'src/app/models/entities/BillingType';
+import { BillingType } from 'src/models/entities/BillingType';
 
 export const MOCK_BILLING_TYPES: BillingType[] = [
   { name: 'Boleta' },

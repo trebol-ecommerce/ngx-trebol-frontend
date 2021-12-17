@@ -6,7 +6,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { Person } from 'src/app/models/entities/Person';
+import { Person } from 'src/models/entities/Person';
 
 export interface IProfileAccountApiService {
   getProfile(): Observable<Person>;

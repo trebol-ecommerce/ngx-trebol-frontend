@@ -15,7 +15,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { iif, of, throwError } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { Registration } from 'src/app/models/Registration';
+import { Registration } from 'src/models/Registration';
 import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
 import { StoreRegistrationFormDialogComponent } from './store-registration-form-dialog.component';

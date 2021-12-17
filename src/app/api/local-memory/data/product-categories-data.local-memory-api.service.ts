@@ -6,7 +6,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { ProductCategory } from 'src/app/models/entities/ProductCategory';
+import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { MOCK_PRODUCT_CATEGORIES } from '../mock/mock-product-categories.datasource';
 import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
 

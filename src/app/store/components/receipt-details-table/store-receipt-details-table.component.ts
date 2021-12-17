@@ -7,7 +7,7 @@
 
 import { Component, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { ReceiptDetail } from 'src/app/models/ReceiptDetail';
+import { ReceiptDetail } from 'src/models/ReceiptDetail';
 
 @Component({
   selector: 'app-store-receipt-details-table',

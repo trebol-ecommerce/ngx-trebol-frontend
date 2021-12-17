@@ -12,11 +12,11 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { BillingType } from 'src/app/models/entities/BillingType';
-import { Customer } from 'src/app/models/entities/Customer';
-import { Product } from 'src/app/models/entities/Product';
-import { Salesperson } from 'src/app/models/entities/Salesperson';
-import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { BillingType } from 'src/models/entities/BillingType';
+import { Customer } from 'src/models/entities/Customer';
+import { Product } from 'src/models/entities/Product';
+import { Salesperson } from 'src/models/entities/Salesperson';
+import { SellDetail } from 'src/models/entities/SellDetail';
 import { ProductsArrayDialogComponent } from '../../../management/dialogs/products-array/products-array-dialog.component';
 import { SellFormService } from './sell-manager-form.service';
 

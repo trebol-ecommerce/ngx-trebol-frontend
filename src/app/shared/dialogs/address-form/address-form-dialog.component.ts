@@ -7,7 +7,7 @@
 
 import { Component, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Address } from 'src/app/models/entities/Address';
+import { Address } from 'src/models/entities/Address';
 import { AddressFormComponent } from '../../components/address-form/address-form.component';
 import { AddressFormDialogData } from './AddressFormDialogData';
 

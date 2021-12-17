@@ -6,8 +6,8 @@
  */
 
 import { Observable } from 'rxjs';
-import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
-import { Sell } from '../models/entities/Sell';
+import { ExternalPaymentRedirectionData } from 'src/models/ExternalPaymentRedirectionData';
+import { Sell } from '../../models/entities/Sell';
 
 export interface ICheckoutPublicApiService {
   submitCart(details: Sell): Observable<ExternalPaymentRedirectionData>;

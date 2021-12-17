@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { ExternalPaymentRedirectionData } from 'src/app/models/ExternalPaymentRedirectionData';
+import { ExternalPaymentRedirectionData } from 'src/models/ExternalPaymentRedirectionData';
 
 export const MOCK_EXTERNAL_PAYMENT_REDIRECT_DATA: ExternalPaymentRedirectionData = {
   url: '',

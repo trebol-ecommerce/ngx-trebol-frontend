@@ -8,7 +8,7 @@
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { Person } from 'src/app/models/entities/Person';
+import { Person } from 'src/models/entities/Person';
 import { EditProfileFormService } from './edit-profile-form.service';
 
 describe('EditProfileFormService', () => {

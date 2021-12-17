@@ -6,7 +6,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { Login } from '../models/Login';
+import { Login } from '../../models/Login';
 
 export interface ILoginPublicApiService {
   /**

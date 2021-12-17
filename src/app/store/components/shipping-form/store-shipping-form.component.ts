@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
-import { Address } from 'src/app/models/entities/Address';
+import { Address } from 'src/models/entities/Address';
 import { AddressesEditorFormComponent } from 'src/app/shared/components/addresses-editor-form/addresses-editor-form.component';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { StoreService } from '../../store.service';

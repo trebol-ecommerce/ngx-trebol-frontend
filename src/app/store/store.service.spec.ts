@@ -10,12 +10,12 @@ import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { catchError, finalize, take } from 'rxjs/operators';
 import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
-import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { SellDetail } from 'src/models/entities/SellDetail';
 import { BILLING_TYPE_INDIVIDUAL, BILLING_TYPE_NAMES_MAP } from 'src/text/billing-type-names';
 import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
 import { MOCK_PRODUCTS } from '../api/local-memory/mock/mock-products.datasource';
-import { CheckoutRequest } from '../models/CheckoutRequest';
+import { CheckoutRequest } from '../../models/CheckoutRequest';
 import { StoreService } from './store.service';
 
 describe('StoreService', () => {
