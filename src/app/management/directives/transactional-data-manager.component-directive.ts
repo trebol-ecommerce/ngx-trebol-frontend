@@ -14,8 +14,8 @@ import { EntityFormDialogConfig } from '../../shared/dialogs/entity-form/EntityF
 import { DataManagerComponentDirective } from './data-manager.component-directive';
 
 /**
- * Base  for data manager template components.
- * Implement openFormDialog() to view/edit data
+ * Base for data manager template components.
+ * Implement createDialogProperties() to view/edit data
  */
 @Directive()
 export abstract class TransactionalDataManagerComponentDirective<T>
