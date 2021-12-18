@@ -66,104 +66,6 @@
         </context-group>
         <note priority="1" from="description">Message after logging out</note>
       </trans-unit>
-      <trans-unit id="f2fbea80dffef4a7db435213905990653120122e" datatype="html">
-        <source>Aceptar</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/dialogs/data-manager-form-dialog/data-manager-form-dialog.component.html</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/dialogs/products-array/products-array-dialog.component.html</context>
-          <context context-type="linenumber">106</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/image-upload-form/image-upload-form.component.html</context>
-          <context context-type="linenumber">26</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/dialogs/address-form/address-form-dialog.component.html</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/dialogs/edit-profile-form-dialog/edit-profile-form-dialog.component.html</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/dialogs/images-array/images-array-dialog.component.html</context>
-          <context context-type="linenumber">28</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/store/dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component.html</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/store/dialogs/login-form/store-login-form-dialog.component.html</context>
-          <context context-type="linenumber">40</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/store/dialogs/registration-form/store-registration-form-dialog.component.html</context>
-          <context context-type="linenumber">38</context>
-        </context-group>
-        <note priority="1" from="description">Label for action button to accept and proceed</note>
-        <note priority="1" from="meaning">confirm</note>
-      </trans-unit>
-      <trans-unit id="3054e0afeeddfec20baf90b28904521b55957239" datatype="html">
-        <source>Cancelar</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/dialogs/data-manager-form-dialog/data-manager-form-dialog.component.html</context>
-          <context context-type="linenumber">25</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/dialogs/products-array/products-array-dialog.component.html</context>
-          <context context-type="linenumber">109</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/image-upload-form/image-upload-form.component.html</context>
-          <context context-type="linenumber">29</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/dialogs/address-form/address-form-dialog.component.html</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/dialogs/edit-profile-form-dialog/edit-profile-form-dialog.component.html</context>
-          <context context-type="linenumber">23</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/dialogs/images-array/images-array-dialog.component.html</context>
-          <context context-type="linenumber">32</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/store/dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component.html</context>
-          <context context-type="linenumber">25</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/store/dialogs/login-form/store-login-form-dialog.component.html</context>
-          <context context-type="linenumber">49</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/store/dialogs/registration-form/store-registration-form-dialog.component.html</context>
-          <context context-type="linenumber">43</context>
-        </context-group>
-        <note priority="1" from="description">Label for action button to cancel and/or stop an operation</note>
-        <note priority="1" from="meaning">cancel</note>
-      </trans-unit>
-      <trans-unit id="2927965659351774265" datatype="html">
-        <source>Datos del elemento</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/dialogs/data-manager-form-dialog/data-manager-form-dialog.component.ts</context>
-          <context context-type="linenumber">31</context>
-        </context-group>
-        <note priority="1" from="description">Title of dialog used to view and edit some data</note>
-      </trans-unit>
-      <trans-unit id="2185228394767497497" datatype="html">
-        <source>Elemento guardado exitosamente</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/dialogs/data-manager-form-dialog/data-manager-form-dialog.component.ts</context>
-          <context context-type="linenumber">84</context>
-        </context-group>
-        <note priority="1" from="description">Message of success after saving some data</note>
-      </trans-unit>
       <trans-unit id="93c303ac081fc013a1c68edc4077dcd7a1dadf66" datatype="html">
         <source>Agregar Productos</source>
         <context-group purpose="location">
@@ -259,6 +161,88 @@
         <note priority="1" from="description">Label for action button to unmark a product for addition details of a sell</note>
         <note priority="1" from="meaning">dont add this product</note>
       </trans-unit>
+      <trans-unit id="f2fbea80dffef4a7db435213905990653120122e" datatype="html">
+        <source>Aceptar</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/management/dialogs/products-array/products-array-dialog.component.html</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/image-upload-form/image-upload-form.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/dialogs/address-form/address-form-dialog.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/dialogs/entity-form/entity-form-dialog.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/dialogs/images-array/images-array-dialog.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/store/dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/store/dialogs/login-form/store-login-form-dialog.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/store/dialogs/registration-form/store-registration-form-dialog.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+        <note priority="1" from="description">Label for action button to accept and proceed</note>
+        <note priority="1" from="meaning">confirm</note>
+      </trans-unit>
+      <trans-unit id="3054e0afeeddfec20baf90b28904521b55957239" datatype="html">
+        <source>Cancelar</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/management/dialogs/products-array/products-array-dialog.component.html</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/image-upload-form/image-upload-form.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/dialogs/address-form/address-form-dialog.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/dialogs/entity-form/entity-form-dialog.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/dialogs/images-array/images-array-dialog.component.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/store/dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/store/dialogs/login-form/store-login-form-dialog.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/store/dialogs/registration-form/store-registration-form-dialog.component.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <note priority="1" from="description">Label for action button to cancel and/or stop an operation</note>
+        <note priority="1" from="meaning">cancel</note>
+      </trans-unit>
       <trans-unit id="6570363013146073520" datatype="html">
         <source>Resumen</source>
         <context-group purpose="location">
@@ -282,6 +266,14 @@
           <context context-type="linenumber">43</context>
         </context-group>
         <note priority="1" from="description">Title of page for management of products</note>
+      </trans-unit>
+      <trans-unit id="1902100407096396858" datatype="html">
+        <source>Categorías</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/management/management-routing.module.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+        <note priority="1" from="description">Title of page for management of product categories</note>
       </trans-unit>
       <trans-unit id="8634025124141616528" datatype="html">
         <source>Clientes</source>
@@ -418,10 +410,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/products/product-manager.component.html</context>
           <context context-type="linenumber">50</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/product-form/product-form.component.html</context>
-          <context context-type="linenumber">30</context>
         </context-group>
         <note priority="1" from="description">Name of table header for category of product</note>
       </trans-unit>
@@ -789,6 +777,145 @@
         </context-group>
         <note priority="1" from="description">Name of field for the alternative phone number of a person</note>
       </trans-unit>
+      <trans-unit id="cff1428d10d59d14e45edec3c735a27b5482db59" datatype="html">
+        <source>Nombre</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-category-form/product-category-form.component.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-form/product-form.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/shipper-form/shipper-form.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description">Name of field for the name of a category</note>
+      </trans-unit>
+      <trans-unit id="3a4c2a9e76634ff14a60d52a718296f722d47c67" datatype="html">
+        <source>Anidada en</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-category-form/product-category-form.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+        <note priority="1" from="description">Name of field that references the containing parent of a category</note>
+      </trans-unit>
+      <trans-unit id="c74b415835e6472ae6c895d9ba3e474ed3340ca5" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>close<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-category-selector-form-field/product-category-selector-form-field.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <note priority="1" from="description">Label for action button to clear selection of a category</note>
+        <note priority="1" from="meaning">clear category</note>
+      </trans-unit>
+      <trans-unit id="32acc3ce6314ef9f21cb38375d5ee4b62e4bcdd1" datatype="html">
+        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>open_in_new<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-category-selector-form-field/product-category-selector-form-field.component.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <note priority="1" from="description">Label for action button to open a dialog to choose a category from</note>
+        <note priority="1" from="meaning">open category picker</note>
+      </trans-unit>
+      <trans-unit id="0bf5c0b0dd971b9d6be59f2785c225675efa46c8" datatype="html">
+        <source>Clic en el botón de la izquierda para abrir el diálogo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-category-selector-form-field/product-category-selector-form-field.component.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <note priority="1" from="description">Label to hint users to click in a button to the right in order to pick a category</note>
+      </trans-unit>
+      <trans-unit id="6532010594715087000" datatype="html">
+        <source>Sin categoría</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-category-selector-form-field/product-category-selector-form-field.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <note priority="1" from="description">Label to indicate that a product does not have a category associated</note>
+        <note priority="1" from="meaning">no category chosen</note>
+      </trans-unit>
+      <trans-unit id="5283126894280379202" datatype="html">
+        <source>Expandir/contraer &apos;<x id="PH" equiv-text="n.name"/>&apos;:parentName:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+        <note priority="1" from="description">Label for action button to show or hide subcategories of parent of name {{ parentName }}</note>
+      </trans-unit>
+      <trans-unit id="319986435970002142" datatype="html">
+        <source>Nueva subcategoría en &apos;<x id="PH" equiv-text="n.name"/>&apos;:parentName:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+        <note priority="1" from="description">Label for action button to create a subcategory in parent of name {{ parentName }}</note>
+      </trans-unit>
+      <trans-unit id="1761544725584708883" datatype="html">
+        <source>Editar categoría &apos;<x id="PH" equiv-text="n.name"/>&apos;:name:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+        <note priority="1" from="description">Label for action button to edit category of name {{ name }}</note>
+      </trans-unit>
+      <trans-unit id="8068295462437149311" datatype="html">
+        <source>Eliminar categoría &apos;<x id="PH" equiv-text="n.name"/>&apos;:name:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+        <note priority="1" from="description">Label for action button to delete category of name {{ name }}</note>
+      </trans-unit>
+      <trans-unit id="1888482894922730795" datatype="html">
+        <source>Subcategoría &apos;<x id="PH" equiv-text="next.name"/>&apos;:name: creada</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+        <note priority="1" from="description">Message of success after creating subcategory with name {{ name }}</note>
+      </trans-unit>
+      <trans-unit id="7814133907918842700" datatype="html">
+        <source>La subcategoría no pudo ser creada</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+        <note priority="1" from="description">Message of error during creation of subcategory</note>
+      </trans-unit>
+      <trans-unit id="194523612096867569" datatype="html">
+        <source>Categoría renombrada a &apos;<x id="PH" equiv-text="next.name"/>&apos;</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+        <note priority="1" from="description">Message of success after renaming category to {{ name }}</note>
+      </trans-unit>
+      <trans-unit id="4639897081448841290" datatype="html">
+        <source>La categoría no pudo ser renombrada</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
+          <context context-type="linenumber">104</context>
+        </context-group>
+        <note priority="1" from="description">Message of error while renaming category</note>
+      </trans-unit>
+      <trans-unit id="6150650914166823291" datatype="html">
+        <source>Categoría eliminada</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
+          <context context-type="linenumber">120</context>
+        </context-group>
+        <note priority="1" from="description">Message of success after deleting category</note>
+      </trans-unit>
+      <trans-unit id="5110335752364956578" datatype="html">
+        <source>La categoría no pudo ser eliminada</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
+          <context context-type="linenumber">123</context>
+        </context-group>
+        <note priority="1" from="description">Message of error while deleting category</note>
+      </trans-unit>
       <trans-unit id="5a03e966f1a1e99c560cd1d5c81e52333f67497f" datatype="html">
         <source>Filtrar productos...</source>
         <context-group purpose="location">
@@ -825,18 +952,6 @@
           <context context-type="linenumber">32</context>
         </context-group>
         <note priority="1" from="description">Name of field for filtering products by partial name</note>
-      </trans-unit>
-      <trans-unit id="cff1428d10d59d14e45edec3c735a27b5482db59" datatype="html">
-        <source>Nombre</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/product-form/product-form.component.html</context>
-          <context context-type="linenumber">24</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/shipper-form/shipper-form.component.html</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-        <note priority="1" from="description">Name of field for product name</note>
       </trans-unit>
       <trans-unit id="eec715de352a6b114713b30b640d319fa78207a0" datatype="html">
         <source>Descripción</source>
@@ -1006,6 +1121,22 @@
         <note priority="1" from="description">Message of success after editing profile information</note>
         <note priority="1" from="meaning">succesful profile edit</note>
       </trans-unit>
+      <trans-unit id="2927965659351774265" datatype="html">
+        <source>Datos del Elemento</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/dialogs/entity-form/entity-form-dialog.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <note priority="1" from="description">Title of dialog used to view and edit some data</note>
+      </trans-unit>
+      <trans-unit id="2185228394767497497" datatype="html">
+        <source>Data saved successfully</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/dialogs/entity-form/entity-form-dialog.component.ts</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+        <note priority="1" from="description">Message of success after saving some data</note>
+      </trans-unit>
       <trans-unit id="a4a9ef99a4132cb569e59bf0db2de94e0f7af960" datatype="html">
         <source>Asociar imágenes</source>
         <context-group purpose="location">
@@ -1021,6 +1152,14 @@
           <context context-type="linenumber">10</context>
         </context-group>
         <note priority="1" from="description">Name of field for filtering all stored images by keyword</note>
+      </trans-unit>
+      <trans-unit id="93db31b7c14623f7c88abf080b0a4f84bc2f3ee8" datatype="html">
+        <source>Selección de Categoría</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/dialogs/product-category-picker/product-category-picker-dialog.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <note priority="1" from="description">Title of dialog prompt for users to pick a category from its tree</note>
       </trans-unit>
       <trans-unit id="7108700595295631177" datatype="html">
         <source>Comentario</source>
@@ -1579,7 +1718,7 @@
         </context-group>
         <note priority="1" from="description">Message of error in validation of form, hint user to complete and/or fix supplied information</note>
       </trans-unit>
-      <trans-unit id="1724914333026029786" datatype="html">
+      <trans-unit id="863466904540099349" datatype="html">
         <source>OK</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/text/messages.ts</context>
