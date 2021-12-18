@@ -5,18 +5,48 @@
  * https://opensource.org/licenses/MIT
  */
 
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NgControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of } from 'rxjs';
-import { FileUploadComponent } from 'src/app/shared/components/file-upload/file-upload.component';
+import { Observable, of } from 'rxjs';
 import { ImageUploadFormComponent } from './image-upload-form.component';
 import { ImageManagerUploadService } from './image-upload-form.service';
+
+@Component({
+  selector: 'app-file-upload',
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockFileUploadComponent },
+    { provide: MatFormFieldControl, multi: true, useExisting: MockFileUploadComponent }
+  ]
+})
+class MockFileUploadComponent
+  implements ControlValueAccessor, MatFormFieldControl<FileList> {
+  stateChanges = of(void 0);
+  required = false;
+  disabled = false;
+  shouldLabelFloat = false;
+  focused = false;
+  empty = true;
+  errorState = false;
+  value: FileList;
+  id = '';
+  placeholder = '';
+  ngControl: NgControl;
+  onchange = (v: any) => { }
+  ontouched = () => { }
+  writeValue(obj: any): void { }
+  registerOnChange(fn: (v: any) => any): void { this.onchange = fn; }
+  registerOnTouched(fn: () => any): void { this.ontouched = fn; }
+  setDisabledState(disabled: boolean) { this.disabled = disabled; }
+  setDescribedByIds(ids: string[]): void { }
+  onContainerClick(event: MouseEvent): void { }
+}
 
 describe('ImageUploadFormComponent', () => {
   let component: ImageUploadFormComponent;
@@ -47,7 +77,7 @@ describe('ImageUploadFormComponent', () => {
       ],
       declarations: [
         ImageUploadFormComponent,
-        FileUploadComponent
+        MockFileUploadComponent
       ],
       providers: [
         { provide: MatDialogRef, useValue: mockDialog },
