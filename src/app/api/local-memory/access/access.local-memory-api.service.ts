@@ -7,7 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
+import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
 import { environment } from 'src/environments/environment';
 import { IAccessApiService } from '../../access-api.iservice';
 

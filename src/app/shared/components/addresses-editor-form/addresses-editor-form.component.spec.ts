@@ -6,7 +6,7 @@
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -28,6 +28,7 @@ describe('AddressesEditorFormComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
+        FormsModule,
         ReactiveFormsModule,
         MatButtonModule,
         MatFormFieldModule,

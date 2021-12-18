@@ -11,9 +11,9 @@ import { concatMap, map, switchMap, toArray } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ICompositeEntityDataApiService } from 'src/app/api/composite-entity.data-api.iservice';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
-import { Product } from 'src/app/models/entities/Product';
-import { Sell } from 'src/app/models/entities/Sell';
-import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { Product } from 'src/models/entities/Product';
+import { Sell } from 'src/models/entities/Sell';
+import { SellDetail } from 'src/models/entities/SellDetail';
 
 @Injectable({ providedIn: 'root' })
 export class SellFormService

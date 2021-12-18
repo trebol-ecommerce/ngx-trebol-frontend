@@ -1,0 +1,72 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding
+    [class.selectable]="selectionEnabled"
+    (click)="onClickTreeNode(node)">
+    <button mat-icon-button disabled></button>
+    <span class="name">{{node.name}}</span>
+    <button mat-icon-button type="button" class="edit"
+      *ngIf="editable"
+      [attr.title]="editNodeLabel(node)"
+      [attr.aria-label]="editNodeLabel(node)"
+      (click)="onClickEditNode(node)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button type="button" class="add-child"
+      *ngIf="editable"
+      [attr.title]="addChildNodeLabel(node)"
+      [attr.aria-label]="addChildNodeLabel(node)"
+      (click)="onClickAddChildNodeTo(node)">
+      <mat-icon>playlist_add</mat-icon>
+    </button>
+    <button mat-icon-button type="button" class="delete"
+      *ngIf="editable"
+      [attr.title]="deleteNodeLabel(node)"
+      [attr.aria-label]="deleteNodeLabel(node)"
+      (click)="onClickDeleteNode(node)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-tree-node>
+
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding
+    [class.selectable]="selectionEnabled"
+    (click)="onClickTreeNode(node)">
+    <button mat-icon-button type="button" class="toggle"
+      matTreeNodeToggle
+      [attr.title]="toggleNodeLabel(node)"
+      [attr.aria-label]="toggleNodeLabel(node)">
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
+    </button>
+    <span class="name">{{node.name}}</span>
+    <button mat-icon-button type="button" class="edit"
+      *ngIf="editable"
+      [attr.title]="editNodeLabel(node)"
+      [attr.aria-label]="editNodeLabel(node)"
+      (click)="onClickEditNode(node)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button type="button" class="add-child"
+      *ngIf="editable"
+      [attr.title]="addChildNodeLabel(node)"
+      [attr.aria-label]="addChildNodeLabel(node)"
+      (click)="onClickAddChildNodeTo(node)">
+      <mat-icon>playlist_add</mat-icon>
+    </button>
+    <button mat-icon-button type="button" class="delete"
+      *ngIf="editable"
+      [attr.title]="deleteNodeLabel(node)"
+      [attr.aria-label]="deleteNodeLabel(node)"
+      (click)="onClickDeleteNode(node)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-tree-node>
+</mat-tree>

@@ -21,11 +21,8 @@ form {
   .name {
     grid-area: name;
   }
-  .family {
-    grid-area: family;
-  }
-  .type {
-    grid-area: type;
+  .category {
+    grid-area: category;
   }
   .price {
     grid-area: price;

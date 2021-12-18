@@ -6,7 +6,7 @@
 -->
 
 <div class="cart">
-  <h3 i18n="cart review title|Title of widget displaying contents of cart">Cart review</h3>
+  <h3 i18n="cart contents review|Title of widget displaying contents of cart">Cart Review</h3>
   <app-store-cart-contents-table>
   </app-store-cart-contents-table>
   <mat-divider></mat-divider>
@@ -19,7 +19,7 @@
   <mat-step #inputStep
     [stepControl]="checkoutRequest.formGroup"
     [editable]="inputEditable">
-    <ng-template matStepLabel i18n="Title of form step to input checkout details">Required information</ng-template>
+    <ng-template matStepLabel i18n="Title of form step to input checkout details">Required Information</ng-template>
     <app-store-checkout-request-form #checkoutRequest
       (request)="stepper.next()">
     </app-store-checkout-request-form>

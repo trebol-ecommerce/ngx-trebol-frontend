@@ -6,18 +6,25 @@
  */
 
 import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EMPTY } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IReceiptPublicApiService } from 'src/app/api/receipt-public-api.iservice';
-import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 import { StoreReceiptComponent } from './store-receipt.component';
+
+@Component({ selector: 'app-centered-mat-spinner' })
+class MockCenteredMatSpinnerComponent { }
+
+@Component({ selector: 'app-store-receipt-details-table' })
+class MockReceiptDetailsTableComponent {
+  @Input() details: any[];
+}
 
 describe('StoreReceiptComponent', () => {
   let component: StoreReceiptComponent;
@@ -37,11 +44,11 @@ describe('StoreReceiptComponent', () => {
         MatCardModule,
         MatIconModule,
         MatListModule,
-        MatProgressSpinnerModule
       ],
       declarations: [
         StoreReceiptComponent,
-        CenteredMatProgressSpinnerComponent
+        MockCenteredMatSpinnerComponent,
+        MockReceiptDetailsTableComponent
       ],
       providers: [
         { provide: API_SERVICE_INJECTION_TOKENS.receipt, useValue: mockReceiptApiService }

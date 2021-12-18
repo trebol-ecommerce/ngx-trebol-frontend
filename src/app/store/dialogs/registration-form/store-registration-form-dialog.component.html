@@ -5,7 +5,7 @@
   https://opensource.org/licenses/MIT
 -->
 
-<h2 mat-dialog-title i18n="Title of dialog prompt for registering a new user account">New user account</h2>
+<h2 mat-dialog-title i18n="Title of dialog prompt for registering a new user account">New User Account</h2>
 <app-centered-mat-spinner *ngIf="registering$ | async">
 </app-centered-mat-spinner>
 <div [hidden]="registering$ | async">
@@ -13,19 +13,19 @@
     <mat-form-field class="name">
       <input matInput formControlName="name"
         placeholder="User name"
-        i18n-placeholder="user name field|Name of field for username to register with" />
+        i18n-placeholder="new user name|Name of field for username to register with" />
     </mat-form-field>
 
     <mat-form-field class="pass1">
       <input matInput formControlName="pass1" type="password"
         placeholder="Password"
-        i18n-placeholder="password field|Name of field for password to register with" />
+        i18n-placeholder="new user password|Name of field for password to register with" />
     </mat-form-field>
 
     <mat-form-field class="pass2">
       <input matInput formControlName="pass2" type="password"
         placeholder="Repeat password"
-        i18n-placeholder="repeat password field|Name of field for password confirmation by repetition" />
+        i18n-placeholder="Name of field for password confirmation by repetition" />
     </mat-form-field>
 
     <app-person-form formControlName="person">

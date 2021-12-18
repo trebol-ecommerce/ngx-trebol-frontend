@@ -5,7 +5,8 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Sell } from 'src/app/models/entities/Sell';
+import { Sell } from 'src/models/entities/Sell';
+import { BILLING_TYPE_INDIVIDUAL } from 'src/text/billing-type-names';
 import { MOCK_CUSTOMERS } from './mock-customers.datasource';
 import { MOCK_PRODUCTS } from './mock-products.datasource';
 import { MOCK_SALESPEOPLE } from './mock-salespeople.datasource';
@@ -22,7 +23,7 @@ export const MOCK_SALES: Sell[] = [
     ],
     customer: MOCK_CUSTOMERS[1],
     paymentType: 'WebPay Plus',
-    billingType: 'Bill',
+    billingType: BILLING_TYPE_INDIVIDUAL,
     status: MOCK_SELL_STATUSES.delivered
   },
   {
@@ -33,7 +34,7 @@ export const MOCK_SALES: Sell[] = [
     ],
     customer: MOCK_CUSTOMERS[2],
     paymentType: 'WebPay Plus',
-    billingType: 'Bill',
+    billingType: BILLING_TYPE_INDIVIDUAL,
     status: MOCK_SELL_STATUSES.delivered
   },
   {
@@ -45,8 +46,8 @@ export const MOCK_SALES: Sell[] = [
     ],
     customer: MOCK_CUSTOMERS[0],
     paymentType: 'WebPay Plus',
-    billingType: 'Bill',
-    status: MOCK_SELL_STATUSES.cancelled
+    billingType: BILLING_TYPE_INDIVIDUAL,
+    status: MOCK_SELL_STATUSES.deliveryCancelled
   },
   {
     buyOrder: 4,
@@ -57,7 +58,7 @@ export const MOCK_SALES: Sell[] = [
     ],
     customer: MOCK_CUSTOMERS[4],
     paymentType: 'WebPay Plus',
-    billingType: 'Bill',
+    billingType: BILLING_TYPE_INDIVIDUAL,
     status: MOCK_SELL_STATUSES.unpaid
   },
   {
@@ -69,7 +70,7 @@ export const MOCK_SALES: Sell[] = [
     ],
     customer: MOCK_CUSTOMERS[3],
     paymentType: 'WebPay Plus',
-    billingType: 'Bill',
+    billingType: BILLING_TYPE_INDIVIDUAL,
     status: MOCK_SELL_STATUSES.failed
   }
 ];

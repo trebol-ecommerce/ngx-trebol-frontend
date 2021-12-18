@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
-import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
+import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
 import { environment } from 'src/environments/environment';
 import { IAccessApiService } from '../../access-api.iservice';
 

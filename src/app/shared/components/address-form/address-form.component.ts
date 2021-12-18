@@ -13,7 +13,7 @@ import {
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
-import { Address } from 'src/app/models/entities/Address';
+import { Address } from 'src/models/entities/Address';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 
 @Component({

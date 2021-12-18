@@ -1,4 +1,3 @@
-# Trébol (Spanish Clover), The Virtual Web Store
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
@@ -6,9 +5,13 @@
 [![NPM Package](https://img.shields.io/npm/v/ngx-trebol-frontend)](https://www.npmjs.com/package/ngx-trebol-frontend)
 [![Build Status](https://app.travis-ci.com/trebol-ecommerce/ngx-trebol-frontend.svg?branch=main)](https://travis-ci.com/github/trebol-ecommerce/ngx-trebol-frontend)
 
-## Status / Roadmap
+# Trébol e-Commerce Angular Frontend
 
-Currently working towards support for [the next minor API version (v1.1)](https://github.com/trebol-ecommerce/api/releases/tag/v1.1.0).
+A single-page web application that uses Material Design library.
+
+## Current status
+
+Developing support for [the latest API patch version (v1.1.1)](https://github.com/trebol-ecommerce/api/releases/tag/v1.1.1).
 
 ## Infrastructure
 
@@ -17,11 +20,11 @@ The application itself lives in the `/src/app/` directory, and its structure is 
 - `store/` contains everything related to shopping itself; you can view the product catalog, log in or sign up for an account, reviewing cart, check out, etcetera.
 - `management/` contains elements relating to the administration of data internals and POS: you register, update and categorize products; create users; list customers; upload images, etcetera.
 - `shared/` exports stuff that is used by other modules.
-- `api/` contains the dependency injection tokens, interfaces and modules to interact with the [the backend APIs](https://github.com/trebol-ecommerce/trebol-api)
+- `api/` contains the dependency injection tokens, interfaces and modules to interact with [the backend REST API](https://github.com/trebol-ecommerce/api)
   - `local-memory/` contains a fake/mock API implementation in client-side code. It's the default option to build and serve with; used for the demo and sometimes for unit tests.
   - `http/` contains the implementation module and services that work with HTTP calls; these require a real, running API.
 - `models/` contains the data types (TS classes) used across the application.
-  - `entities/` has models specific to [the REST API](https://github.com/trebol-ecommerce/trebol-api).
+  - `entities/` has models specific to the REST API.
 
 ## Requirements
 

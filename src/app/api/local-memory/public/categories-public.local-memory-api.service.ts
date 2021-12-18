@@ -8,8 +8,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DataPage } from 'src/app/models/DataPage';
-import { ProductCategory } from 'src/app/models/entities/ProductCategory';
+import { DataPage } from 'src/models/DataPage';
+import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { ICategoriesPublicApiService } from '../../categories-public-api.iservice';
 import { MOCK_PRODUCT_CATEGORIES } from '../mock/mock-product-categories.datasource';
 
@@ -29,7 +29,7 @@ export class CategoriesPublicLocalMemoryApiService
     // });
   }
 
-  fetchChildrenProductCategoriesByParentCode(parentCode: number): Observable<DataPage<ProductCategory>> {
+  fetchChildrenProductCategoriesByParentCode(parentCode: string): Observable<DataPage<ProductCategory>> {
     return of(MOCK_PRODUCT_CATEGORIES.filter(t => t.parent.code === parentCode)).pipe(
       map(items => ({
         totalCount: items.length,

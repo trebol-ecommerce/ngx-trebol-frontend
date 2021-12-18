@@ -9,7 +9,7 @@ import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, 
 import { BehaviorSubject, interval, Observable, Subscription } from 'rxjs';
 import { delay, mapTo, tap } from 'rxjs/operators';
 import { fadeInOut } from 'src/animations/fadeInOut';
-import { Image } from 'src/app/models/entities/Image';
+import { Image } from 'src/models/entities/Image';
 
 @Component({
   selector: 'app-slideshow',

@@ -11,7 +11,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectionList } from '@angular/material/list';
 import { Observable, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { Image } from 'src/app/models/entities/Image';
+import { Image } from 'src/models/entities/Image';
 import { ImageArrayOption } from './ImageArrayOption';
 import { ImagesArrayService } from './images-array.service';
 import { ImagesArrayDialogData } from './ImagesArrayDialogData';

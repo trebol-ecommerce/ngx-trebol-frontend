@@ -7,7 +7,7 @@
 
 import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { SellDetail } from 'src/models/entities/SellDetail';
 import { StoreService } from 'src/app/store/store.service';
 
 @Component({

@@ -7,64 +7,91 @@
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ManagementRoutingAccessResolver } from './management-routing.access-resolver';
 import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementComponent } from './management.component';
 import { ManagementChildRoute } from './ManagementChildRoute';
-import { CustomerManagerAccessResolver } from './routes/customers/customer-manager.access-resolver';
-import { CustomerManagerComponent } from './routes/customers/customer-manager.component';
+import { ManagementCustomersComponent } from './routes/customers/management-customers.component';
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
-import { ImageManagerAccessResolver } from './routes/images/image-manager.access-resolver';
-import { ImageManagerComponent } from './routes/images/image-manager.component';
-import { ProductManagerAccessResolver } from './routes/products/product-manager.access-resolver';
-import { ProductManagerComponent } from './routes/products/product-manager.component';
-import { SellManagerAccessResolver } from './routes/sales/sell-manager.access-resolver';
-import { SellManagerComponent } from './routes/sales/sell-manager.component';
-import { SalespersonManagerAccessResolver } from './routes/salespeople/salesperson-manager.access-resolver';
-import { SalespersonManagerComponent } from './routes/salespeople/salesperson-manager.component';
-import { ShipperManagerAccessResolver } from './routes/shippers/shipper-manager.access-resolver';
-import { ShipperManagerComponent } from './routes/shippers/shipper-manager.component';
-import { UserManagerAccessResolver } from './routes/users/user-manager.access-resolver';
-import { UserManagerComponent } from './routes/users/user-manager.component';
+import { ManagementImagesComponent } from './routes/images/management-images.component';
+import { ManagementProductCategoriesComponent } from './routes/product-categories/management-product-categories.component';
+import { ManagementProductsComponent } from './routes/products/management-products.component';
+import { ManagementSalesComponent } from './routes/sales/management-sales.component';
+import { ManagementSalespeopleComponent } from './routes/salespeople/management-salespeople.component';
+import { ManagementShippersComponent } from './routes/shippers/management-shippers.component';
+import { ManagementUsersComponent } from './routes/users/management-users.component';
 
 export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
   {
     path: 'dashboard', component: ManagementDashboardComponent,
-    data: { matIcon: 'home', title: 'Resumen' }
+    data: {
+      matIcon: 'home',
+      title: $localize`:Title of page for management dashboard:Dashboard`
+     }
   },
   {
-    path: 'sales', component: SellManagerComponent,
-    data: { matIcon: 'loyalty', title: 'Ventas' },
-    resolve: { access: SellManagerAccessResolver }
+    path: 'sales', component: ManagementSalesComponent,
+    data: {
+      matIcon: 'loyalty',
+      title: $localize`:Title of page for management of sales:Sales`
+    },
+    resolve: { access: ManagementRoutingAccessResolver }
   },
   {
-    path: 'products', component: ProductManagerComponent,
-    data: { matIcon: 'list', title: 'Productos' },
-    resolve: { access: ProductManagerAccessResolver }
+    path: 'products', component: ManagementProductsComponent,
+    data: {
+      matIcon: 'list',
+      title: $localize`:Title of page for management of products:Products`
+    },
+    resolve: { access: ManagementRoutingAccessResolver }
   },
   {
-    path: 'customers', component: CustomerManagerComponent,
-    data: { matIcon: 'face', title: 'Clientes' },
-    resolve: { access: CustomerManagerAccessResolver }
+    path: 'product_categories', component: ManagementProductCategoriesComponent,
+    data: {
+      matIcon: 'format_align_right',
+      title: $localize`:Title of page for management of product categories:Categories`
+    },
+    resolve: { access: ManagementRoutingAccessResolver }
   },
   {
-    path: 'salespeople', component: SalespersonManagerComponent,
-    data: { matIcon: 'work_outline', title: 'Vendedores' },
-    resolve: { access: SalespersonManagerAccessResolver }
+    path: 'customers', component: ManagementCustomersComponent,
+    data: {
+      matIcon: 'face',
+      title: $localize`:Title of page for management of customers:Customers`
+    },
+    resolve: { access: ManagementRoutingAccessResolver }
   },
   {
-    path: 'users', component: UserManagerComponent,
-    data: { matIcon: 'person', title: 'Usuarios' },
-    resolve: { access: UserManagerAccessResolver }
+    path: 'salespeople', component: ManagementSalespeopleComponent,
+    data: {
+      matIcon: 'work_outline',
+      title: $localize`:Title of page for management of salespeople:Salespeople`
+    },
+    resolve: { access: ManagementRoutingAccessResolver }
   },
   {
-    path: 'images', component: ImageManagerComponent,
-    data: { matIcon: 'image', title: 'Imágenes' },
-    resolve: { access: ImageManagerAccessResolver }
+    path: 'users', component: ManagementUsersComponent,
+    data: {
+      matIcon: 'person',
+      title: $localize`:Title of page for management of users:Users`
+    },
+    resolve: { access: ManagementRoutingAccessResolver }
   },
   {
-    path: 'shippers', component: ShipperManagerComponent,
-    data: { matIcon: 'local_shipping', title: 'Repartidores' },
-    resolve: { access: ShipperManagerAccessResolver }
+    path: 'images', component: ManagementImagesComponent,
+    data: {
+      matIcon: 'image',
+      title: $localize`:Title of page for management of images:Images`
+    },
+    resolve: { access: ManagementRoutingAccessResolver }
+  },
+  {
+    path: 'shippers', component: ManagementShippersComponent,
+    data: {
+      matIcon: 'local_shipping',
+      title: $localize`:Title of page for management of shippers:Shippers`
+    },
+    resolve: { access: ManagementRoutingAccessResolver }
   },
 ];
 

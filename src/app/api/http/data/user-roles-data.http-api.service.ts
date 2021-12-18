@@ -7,7 +7,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserRole } from 'src/app/models/entities/UserRole';
+import { UserRole } from 'src/models/entities/UserRole';
 import { EntityDataHttpApiService } from '../entity-data.http-api.abstract.service';
 
 @Injectable()

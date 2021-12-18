@@ -6,7 +6,7 @@
  */
 
 import { Observable } from 'rxjs';
-import { DataPage } from '../models/DataPage';
+import { DataPage } from '../../models/DataPage';
 
 export interface IEntityDataApiService<T> {
   fetchPage(): Observable<DataPage<T>>;

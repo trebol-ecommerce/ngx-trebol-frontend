@@ -8,7 +8,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
-import { CompanyDetails } from 'src/app/models/CompanyDetails';
+import { CompanyDetails } from 'src/models/CompanyDetails';
 import { environment } from 'src/environments/environment';
 import { IAboutPublicApiService } from '../../about-public-api.iservice';
 

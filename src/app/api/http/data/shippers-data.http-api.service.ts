@@ -7,14 +7,12 @@
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Shipper } from 'src/app/models/entities/Shipper';
-import { IEntityDataApiService } from '../../entity.data-api.iservice';
+import { Shipper } from 'src/models/entities/Shipper';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
 
 @Injectable()
 export class ShippersDataHttpApiService
-  extends TransactionalEntityDataHttpApiService<Shipper>
-  implements IEntityDataApiService<Shipper> {
+  extends TransactionalEntityDataHttpApiService<Shipper> {
 
   constructor(http: HttpClient) {
     super(http, '/shippers');

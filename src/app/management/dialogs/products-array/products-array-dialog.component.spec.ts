@@ -13,13 +13,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 import { ProductsArrayDialogComponent } from './products-array-dialog.component';
 import { ProductsArrayService } from './products-array.service';
+
+@Component({ selector: 'app-centered-mat-spinner' })
+class MockCenteredMatSpinnerComponent { }
 
 @Component({ selector: 'app-product-filters-panel' })
 class MockProductFiltersPanelComponent {
@@ -43,19 +45,18 @@ describe('ProductsArrayDialogComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        NoopAnimationsModule,
         CommonModule,
-        MatExpansionModule,
-        MatTableModule,
-        MatIconModule,
-        MatCardModule,
+        NoopAnimationsModule,
         MatButtonModule,
+        MatCardModule,
+        MatExpansionModule,
         MatDialogModule,
-        MatProgressSpinnerModule
+        MatIconModule,
+        MatTableModule,
       ],
       declarations: [
         ProductsArrayDialogComponent,
-        CenteredMatProgressSpinnerComponent,
+        MockCenteredMatSpinnerComponent,
         MockProductFiltersPanelComponent
       ],
       providers: [

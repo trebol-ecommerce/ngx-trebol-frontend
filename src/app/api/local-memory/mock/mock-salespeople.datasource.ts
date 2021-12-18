@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Salesperson } from 'src/app/models/entities/Salesperson';
+import { Salesperson } from 'src/models/entities/Salesperson';
 import { MOCK_PEOPLE } from './mock-people.datasource';
 
 export const MOCK_SALESPEOPLE: Salesperson[] = [

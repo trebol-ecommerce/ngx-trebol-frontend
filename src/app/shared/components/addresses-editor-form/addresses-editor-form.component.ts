@@ -12,7 +12,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Address } from 'src/app/models/entities/Address';
+import { Address } from 'src/models/entities/Address';
 import { AddressFormDialogComponent } from 'src/app/shared/dialogs/address-form/address-form-dialog.component';
 import { AddressFormDialogData } from "src/app/shared/dialogs/address-form/AddressFormDialogData";
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
@@ -44,7 +44,7 @@ export class AddressesEditorFormComponent
   editLabel = $localize `:edit address|Label for action button to edit an address:Edit address`;
   addLabel = $localize `:add address|Label for action button to add a new address:Add address`;
 
-  @Input() placeholder = $localize`:full address field|Name of field for a complete address:Full address`;
+  @Input() placeholder = $localize`:Name of field for a complete address:Full address`;
   @Input() @Output() savedAddresses: Address[] = [];
 
   formControl = new FormControl('', Validators.required);

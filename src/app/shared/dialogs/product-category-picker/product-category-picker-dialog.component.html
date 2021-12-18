@@ -1,0 +1,14 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<h2 i18n="Title of dialog prompt for users to pick a category from its tree">Category Selection</h2>
+<app-product-category-tree
+  [categories]="categories$ | async"
+  [editable]="false"
+  [selectionEnabled]="true"
+  (selection)="onSelect($event)">
+</app-product-category-tree>

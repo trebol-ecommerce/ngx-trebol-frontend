@@ -12,8 +12,8 @@ import {
 } from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
-import { Person } from 'src/app/models/entities/Person';
-import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
+import { Person } from 'src/models/entities/Person';
+import { FormGroupOwner } from 'src/models/FormGroupOwner';
 import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 
@@ -48,7 +48,7 @@ export class SalespersonFormComponent
     private formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
-      person: ['']
+      person: [new Person()]
     });
   }
 

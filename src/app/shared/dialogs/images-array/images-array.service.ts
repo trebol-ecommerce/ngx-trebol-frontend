@@ -8,7 +8,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, iif, Observable } from 'rxjs';
 import { concatMap as switchMap, map } from 'rxjs/operators';
-import { Image } from 'src/app/models/entities/Image';
+import { Image } from 'src/models/entities/Image';
 import { ImagesService } from 'src/app/shared/services/images.service';
 import { ImageArrayOption } from './ImageArrayOption';
 import { ImagesArrayDialogData } from './ImagesArrayDialogData';

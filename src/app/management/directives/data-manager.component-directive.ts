@@ -26,7 +26,6 @@ export abstract class DataManagerComponentDirective<T>
   canDelete$: Observable<boolean>;
 
   protected abstract service: DataManagerServiceDirective<T>;
-  abstract tableColumns: string[];
 
   ngOnInit() {
     this.init(this.service);

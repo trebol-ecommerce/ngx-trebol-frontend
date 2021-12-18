@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -18,8 +18,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of, throwError } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 import { StoreLoginFormDialogComponent } from './store-login-form-dialog.component';
+
+@Component({ selector: 'app-centered-mat-spinner' })
+class MockCenteredMatSpinnerComponent {}
 
 @Component({ selector: 'app-dialog-switcher-button' })
 class MockDialogSwitcherButtonComponent {}
@@ -45,18 +47,19 @@ describe('StoreLoginFormDialogComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
         NoopAnimationsModule,
-        ReactiveFormsModule,
+        CommonModule,
         FormsModule,
-        MatIconModule,
-        MatInputModule,
+        ReactiveFormsModule,
+        RouterTestingModule,
+        MatDialogModule,
         MatFormFieldModule,
-        RouterTestingModule
+        MatIconModule,
+        MatInputModule
       ],
       declarations: [
         StoreLoginFormDialogComponent,
-        CenteredMatProgressSpinnerComponent,
+        MockCenteredMatSpinnerComponent,
         MockDialogSwitcherButtonComponent
       ],
       providers: [

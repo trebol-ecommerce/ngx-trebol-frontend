@@ -12,27 +12,28 @@ import { ManagementDataActionsComponent } from './components/data-actions/manage
 import { ManagementFooterComponent } from './components/footer/management-footer.component';
 import { ManagementHeaderComponent } from './components/header/management-header.component';
 import { ManagementSidenavComponent } from './components/sidenav/management-sidenav.component';
-import { DataManagerFormDialogComponent } from './dialogs/data-manager-form-dialog/data-manager-form-dialog.component';
 import { ProductsArrayDialogComponent } from './dialogs/products-array/products-array-dialog.component';
 import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementRoutingModule } from './management-routing.module';
 import { ManagementComponent } from './management.component';
 import { ManagementService } from './management.service';
-import { CustomerManagerComponent } from './routes/customers/customer-manager.component';
-import { CustomerManagerService } from './routes/customers/customer-manager.service';
+import { ManagementCustomersComponent } from './routes/customers/management-customers.component';
+import { ManagementCustomersService } from './routes/customers/management-customers.service';
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
-import { ImageManagerComponent } from './routes/images/image-manager.component';
-import { ImageManagerService } from './routes/images/image-manager.service';
-import { ProductManagerComponent } from './routes/products/product-manager.component';
-import { ProductManagerService } from './routes/products/product-manager.service';
-import { SellManagerComponent } from './routes/sales/sell-manager.component';
-import { SellManagerService } from './routes/sales/sell-manager.service';
-import { SalespersonManagerComponent } from './routes/salespeople/salesperson-manager.component';
-import { SalespersonManagerService } from './routes/salespeople/salesperson-manager.service';
-import { ShipperManagerComponent } from './routes/shippers/shipper-manager.component';
-import { ShipperManagerService } from './routes/shippers/shipper-manager.service';
-import { UserManagerComponent } from './routes/users/user-manager.component';
-import { UserManagerService } from './routes/users/user-manager.service';
+import { ManagementImagesComponent } from './routes/images/management-images.component';
+import { ManagementImagesService } from './routes/images/management-images.service';
+import { ManagementProductCategoriesComponent } from './routes/product-categories/management-product-categories.component';
+import { ManagementProductCategoriesService } from './routes/product-categories/management-product-categories.service';
+import { ManagementProductsComponent } from './routes/products/management-products.component';
+import { ManagementProductsService } from './routes/products/management-products.service';
+import { ManagementSalesComponent } from './routes/sales/management-sales.component';
+import { ManagementSalesService } from './routes/sales/management-sales.service';
+import { ManagementSalespeopleComponent } from './routes/salespeople/management-salespeople.component';
+import { ManagementSalespeopleService } from './routes/salespeople/management-salespeople.service';
+import { ManagementShippersComponent } from './routes/shippers/management-shippers.component';
+import { ManagementShippersService } from './routes/shippers/management-shippers.service';
+import { ManagementUsersComponent } from './routes/users/management-users.component';
+import { ManagementUsersService } from './routes/users/management-users.service';
 
 const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
   duration: 5000
@@ -47,14 +48,14 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ProductsArrayDialogComponent,
     ManagementDataActionsComponent,
     ManagementDashboardComponent,
-    CustomerManagerComponent,
-    SalespersonManagerComponent,
-    ProductManagerComponent,
-    SellManagerComponent,
-    ShipperManagerComponent,
-    UserManagerComponent,
-    ImageManagerComponent,
-    DataManagerFormDialogComponent
+    ManagementCustomersComponent,
+    ManagementSalespeopleComponent,
+    ManagementProductsComponent,
+    ManagementProductCategoriesComponent,
+    ManagementSalesComponent,
+    ManagementShippersComponent,
+    ManagementUsersComponent,
+    ManagementImagesComponent
   ],
   imports: [
     SharedModule,
@@ -64,13 +65,14 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: SNACKBAR_DEFAULTS },
     ManagementRoutingGuard,
     ManagementService,
-    CustomerManagerService,
-    ImageManagerService,
-    SalespersonManagerService,
-    ProductManagerService,
-    UserManagerService,
-    SellManagerService,
-    ShipperManagerService
+    ManagementCustomersService,
+    ManagementImagesService,
+    ManagementSalespeopleService,
+    ManagementProductsService,
+    ManagementProductCategoriesService,
+    ManagementUsersService,
+    ManagementSalesService,
+    ManagementShippersService
   ]
 })
 export class ManagementModule { }

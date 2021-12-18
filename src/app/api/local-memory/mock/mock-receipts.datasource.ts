@@ -1,4 +1,11 @@
-import { Receipt } from "src/app/models/Receipt";
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+import { Receipt } from "src/models/Receipt";
 import { MOCK_PRODUCTS } from "./mock-products.datasource";
 import { MOCK_SELL_STATUSES } from "./mock-sell-statuses.datasource";
 
@@ -48,7 +55,7 @@ export const MOCK_RECEIPTS: Receipt[] = [
     ],
     taxValue: 6000,
     transportValue: 3000,
-    status: MOCK_SELL_STATUSES.cancelled,
+    status: MOCK_SELL_STATUSES.deliveryCancelled,
     totalItems: 1,
     totalValue: ( 3000 + 6000 +
       MOCK_PRODUCT_UNIT_VALUES[1]

@@ -15,8 +15,8 @@ import { ILoginPublicApiService } from './api/login-public-api.iservice';
 import { IProfileAccountApiService } from './api/profile-account-api.iservice';
 import { IRegisterPublicApiService } from './api/register-public-api.iservice copy';
 import { AppService } from './app.service';
-import { Login } from './models/Login';
-import { Registration } from './models/Registration';
+import { Login } from '../models/Login';
+import { Registration } from '../models/Registration';
 
 const MOCK_LOGIN_DETAILS: Login = {
   name: 'test',

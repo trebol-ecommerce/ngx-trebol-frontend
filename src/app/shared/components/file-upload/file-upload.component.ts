@@ -9,7 +9,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import {
   AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnDestroy, OnInit, Optional, Self, ViewChild
 } from '@angular/core';
-import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -18,7 +18,18 @@ import { map } from 'rxjs/operators';
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.css'],
-  providers: [{provide: MatFormFieldControl, useExisting: FileUploadComponent}]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: FileUploadComponent
+    },
+    {
+      provide: MatFormFieldControl,
+      multi: true,
+      useExisting: FileUploadComponent
+    }
+  ]
 })
 export class FileUploadComponent
   implements OnInit, AfterViewInit, OnDestroy, MatFormFieldControl<FileList>, ControlValueAccessor {

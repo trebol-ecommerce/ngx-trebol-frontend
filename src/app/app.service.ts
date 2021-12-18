@@ -10,15 +10,15 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, finalize, mapTo, switchMap, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ILoginPublicApiService } from 'src/app/api/login-public-api.iservice';
-import { AuthorizedAccess } from 'src/app/models/AuthorizedAccess';
-import { Person } from 'src/app/models/entities/Person';
-import { Login } from 'src/app/models/Login';
+import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
+import { Person } from 'src/models/entities/Person';
+import { Login } from 'src/models/Login';
 import { environment } from 'src/environments/environment';
 import { IAccessApiService } from './api/access-api.iservice';
 import { IGuestPublicApiService } from './api/guest-public-api.iservice';
 import { IProfileAccountApiService } from './api/profile-account-api.iservice';
 import { IRegisterPublicApiService } from './api/register-public-api.iservice copy';
-import { Registration } from './models/Registration';
+import { Registration } from '../models/Registration';
 
 @Injectable({ providedIn: 'root' })
 export class AppService

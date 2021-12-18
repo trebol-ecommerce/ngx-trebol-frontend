@@ -7,8 +7,8 @@
 
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { Sell } from 'src/app/models/entities/Sell';
-import { SellDetail } from 'src/app/models/entities/SellDetail';
+import { Sell } from 'src/models/entities/Sell';
+import { SellDetail } from 'src/models/entities/SellDetail';
 import { ICompositeEntityDataApiService } from '../../composite-entity.data-api.iservice';
 import { MOCK_SALES } from '../mock/mock-sales.datasource';
 import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';

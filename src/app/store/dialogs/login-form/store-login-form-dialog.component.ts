@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
-import { Login } from 'src/app/models/Login';
+import { Login } from 'src/models/Login';
 import { DialogSwitcherButtonComponent } from 'src/app/shared/components/dialog-switcher-button/dialog-switcher-button.component';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { StoreRegistrationFormDialogComponent } from '../registration-form/store-registration-form-dialog.component';
@@ -75,13 +75,13 @@ export class StoreLoginFormDialogComponent
       this.appService.login(details).subscribe(
         () => {
           this.dialog.close();
-          const successMessage = $localize`:succesful login message|Message of success after login:You have logged in`
+          const successMessage = $localize`:Message of success after login:You have logged in`
           this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
         },
         error => {
           if (error.status === 403) {
             this.loggingInSource.next(false);
-            const errorMessage = $localize`:incorrect login message|Message of error due to bad/erroneous credentials:Your credentials were rejected`;
+            const errorMessage = $localize`:Message of error due to bad/erroneous credentials:Your credentials were rejected`;
             this.snackBarService.open(errorMessage, COMMON_DISMISS_BUTTON_LABEL);
           } else {
             this.loggingInSource.next(false);

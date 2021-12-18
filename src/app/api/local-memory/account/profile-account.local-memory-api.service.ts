@@ -7,7 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Person } from 'src/app/models/entities/Person';
+import { Person } from 'src/models/entities/Person';
 import { environment } from 'src/environments/environment';
 import { IProfileAccountApiService } from '../../profile-account-api.iservice';
 

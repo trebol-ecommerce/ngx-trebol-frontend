@@ -7,7 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { Receipt } from 'src/app/models/Receipt';
+import { Receipt } from 'src/models/Receipt';
 import { IReceiptPublicApiService } from '../../receipt-public-api.iservice';
 import { MOCK_RECEIPTS } from '../mock/mock-receipts.datasource';
 

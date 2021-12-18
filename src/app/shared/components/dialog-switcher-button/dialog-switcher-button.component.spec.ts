@@ -6,9 +6,10 @@
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { InformationDialogComponent } from 'src/app/shared/dialogs/information-dialog/information-dialog.component';
+import { InformationDialogComponent } from 'src/app/shared/dialogs/information/information-dialog.component';
 import { DialogSwitcherButtonComponent } from './dialog-switcher-button.component';
 
 describe('DialogSwitcherButtonComponent', () => {
@@ -20,6 +21,7 @@ describe('DialogSwitcherButtonComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
+        MatButtonModule,
         MatDialogModule
       ],
       declarations: [

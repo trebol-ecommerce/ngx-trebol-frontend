@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Shipper } from 'src/app/models/entities/Shipper';
+import { Shipper } from 'src/models/entities/Shipper';
 
 export const MOCK_SHIPPERS: Shipper[] = [
   { name: 'Shipper A' },

@@ -6,7 +6,7 @@
  */
 
 import { Observable, of } from 'rxjs';
-import { DataPage } from 'src/app/models/DataPage';
+import { DataPage } from 'src/models/DataPage';
 import { ITransactionalEntityDataApiService } from '../transactional-entity.data-api.iservice';
 import {
   matchesDateProperty, matchesIdProperty, matchesNumberProperty, matchesStringProperty

@@ -7,7 +7,7 @@
 
 <mat-card *ngIf="checkoutRequest">
   <mat-card-header>
-    <h3 mat-card-title i18n="Title of widget to request confirmation of billing/personal/shipping information being correct">Is this information correct?</h3>
+    <h3 mat-card-title i18n="Title of widget to request confirmation of billing/personal/shipping information being correct">Is This Information Correct?</h3>
   </mat-card-header>
   <div class="customer">
     <ng-container *ngIf="checkoutRequest.customer; else noCustomer">
@@ -21,7 +21,7 @@
     <ng-template #noCustomer>
       <mat-icon>person_off</mat-icon>&nbsp;
       <span class="details">
-        <span class="name" i18n="Label to indicate that current customer chose not to give personal information">Anonymous</span>
+        <span class="name" i18n="Label to indicate that a customer chose not to give personal information">Anonymous</span>
       </span>
     </ng-template>
   </div>
@@ -43,7 +43,7 @@
     </ng-container>
     <ng-template #noShipping>
       <mat-icon>local_shipping</mat-icon>&nbsp;
-      <span i18n="in-store delivery|Label to choose to pick up items in store">Pickup in store</span>
+      <span i18n="in-store delivery|Label to indicate that a customer chose to pick up items in store">Pickup in store</span>
     </ng-template>
   </div>
 </mat-card>
@@ -54,7 +54,7 @@
   color="accent"
   [disabled]="loading"
   (click)="onClickRequest()">
-  <span i18n="Label for action button to request a new transaction from payment service">Request transaction</span>
+  <span i18n="request transaction|Label for action button to request a new transaction from payment service">Request transaction</span>
   <mat-icon>point_of_sale</mat-icon>
 </button>
 <mat-divider></mat-divider>

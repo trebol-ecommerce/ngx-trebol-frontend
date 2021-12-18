@@ -8,8 +8,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
-import { Person } from 'src/app/models/entities/Person';
-import { Registration } from 'src/app/models/Registration';
+import { Person } from 'src/models/entities/Person';
+import { Registration } from 'src/models/Registration';
 import { environment } from 'src/environments/environment';
 import { IRegisterPublicApiService } from '../../register-public-api.iservice copy';
 

@@ -6,7 +6,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/models/entities/User';
+import { User } from 'src/models/entities/User';
 import { MOCK_USERS } from '../mock/mock-users.datasource';
 import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
 

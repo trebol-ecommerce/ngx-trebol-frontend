@@ -13,9 +13,9 @@ import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { ManagementService } from 'src/app/management/management.service';
-import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
-import { ConfirmationDialogData } from 'src/app/shared/dialogs/confirmation-dialog/ConfirmationDialogData';
-import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form-dialog/edit-profile-form-dialog.component';
+import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation-dialog.component';
+import { ConfirmationDialogData } from 'src/app/shared/dialogs/confirmation/ConfirmationDialogData';
+import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component';
 import { environment } from 'src/environments/environment';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 
@@ -61,7 +61,7 @@ export class ManagementHeaderComponent {
         if (confirmed) {
           this.appService.closeCurrentSession();
           this.router.navigateByUrl('/');
-          const message = $localize`:logout message|Label to notify user that they have logged out:You have logged out`;
+          const message = $localize`:Message after logging out:You have logged out`;
           this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
         }
       }

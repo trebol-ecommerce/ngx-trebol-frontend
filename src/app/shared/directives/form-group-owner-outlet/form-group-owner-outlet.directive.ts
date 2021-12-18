@@ -7,7 +7,7 @@
 
 import { ComponentFactoryResolver, Directive, forwardRef, Injector, Input, OnInit, Type, ViewContainerRef } from '@angular/core';
 import { NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
+import { FormGroupOwner } from 'src/models/FormGroupOwner';
 
 @Directive({
   selector: '[appFormGroupOwnerOutlet]',

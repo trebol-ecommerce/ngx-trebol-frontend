@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
-import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
-import { ConfirmationDialogData } from 'src/app/shared/dialogs/confirmation-dialog/ConfirmationDialogData';
+import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation-dialog.component';
+import { ConfirmationDialogData } from 'src/app/shared/dialogs/confirmation/ConfirmationDialogData';
 
 @Component({
   selector: 'app-store-header',

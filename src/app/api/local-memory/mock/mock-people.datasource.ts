@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Person } from 'src/app/models/entities/Person';
+import { Person } from 'src/models/entities/Person';
 
 export const MOCK_PEOPLE: Partial<Person>[] = [
   { firstName: 'Administrador', lastName: 'Prueba', idNumber: '4' },

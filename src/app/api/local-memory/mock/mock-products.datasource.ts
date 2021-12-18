@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Product } from 'src/app/models/entities/Product';
+import { Product } from 'src/models/entities/Product';
 import { MOCK_PRODUCT_CATEGORIES } from './mock-product-categories.datasource';
 
 export const MOCK_PRODUCTS: Product[] = [

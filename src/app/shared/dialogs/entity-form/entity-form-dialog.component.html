@@ -1,0 +1,27 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<h2 mat-dialog-title>{{ dialogTitle }}</h2>
+<app-centered-mat-spinner *ngIf="busy$ | async">
+</app-centered-mat-spinner>
+
+<div [hidden]="busy$ | async">
+  <ng-template appFormGroupOwnerOutlet
+    [(ngModel)]="data.item"
+    [componentType]="data.formComponent">
+  </ng-template>
+
+  <div class="actions">
+    <button mat-button mat-raised-button type="button"
+      color="primary"
+      i18n="confirm|Label for action button to accept and proceed"
+      (click)="onSubmit()">Confirm</button>
+    <button mat-button mat-raised-button type="button"
+      i18n="cancel|Label for action button to cancel and/or stop an operation"
+      (click)="onCancel()">Cancel</button>
+  </div>
+</div>

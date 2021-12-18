@@ -1,0 +1,19 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<h2>{{ data.title }}</h2>
+<mat-form-field>
+  <input matInput type="text" [formControl]="formControl" [placeholder]="data.hint">
+</mat-form-field>
+<div class="actions">
+  <button mat-button mat-raised-button
+    color="accent"
+    [disabled]="formControl.invalid || formControl.pristine"
+    [mat-dialog-close]="formControl.value">
+    Aceptar
+  </button>
+</div>

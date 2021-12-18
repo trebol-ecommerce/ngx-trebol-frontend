@@ -15,7 +15,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { iif, of, throwError } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { Registration } from 'src/app/models/Registration';
+import { Registration } from 'src/models/Registration';
 import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
 import { StoreRegistrationFormDialogComponent } from './store-registration-form-dialog.component';
@@ -33,7 +33,7 @@ describe('StoreRegistrationFormDialogComponent', () => {
     };
     mockAppService = {
       register(u) { return iif(
-          () => (u instanceof Registration),
+          () => (!!u.name && !!u.password && !!u.profile),
           of(true),
           throwError(new Error('Not an User')) );
       },
@@ -88,14 +88,19 @@ describe('StoreRegistrationFormDialogComponent', () => {
   it('should submit a correct form', () => {
     const registerSpy = spyOn(mockAppService, 'register').and.callThrough();
 
-    component.person.patchValue({
-      name: 'test-name',
-      email: 'test-email',
-      idNumber: 'test-idNumber'
-    });
-    component.name.setValue('username');
-    component.pass1.setValue('password');
-    component.pass2.setValue('password');
+    component.formGroup.patchValue(
+      {
+        name: 'username',
+        pass1: 'password',
+        pass2: 'password',
+        person: {
+          firstName: 'test-name',
+          lastName: 'test-name',
+          email: 'test-email',
+          idNumber: 'test-idNumber'
+        }
+      }
+    );
     expect(component.formGroup.valid).toBeTruthy();
 
     component.onSubmit();

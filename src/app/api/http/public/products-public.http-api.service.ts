@@ -8,8 +8,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
-import { DataPage } from 'src/app/models/DataPage';
-import { Product } from 'src/app/models/entities/Product';
+import { DataPage } from 'src/models/DataPage';
+import { Product } from 'src/models/entities/Product';
 import { ProductFilters } from "src/app/shared/components/product-filters-panel/ProductFilters";
 import { environment } from 'src/environments/environment';
 import { IProductsPublicApiService } from '../../products-public-api.iservice';

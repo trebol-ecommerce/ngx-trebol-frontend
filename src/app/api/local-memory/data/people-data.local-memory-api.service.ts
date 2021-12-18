@@ -6,7 +6,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Person } from 'src/app/models/entities/Person';
+import { Person } from 'src/models/entities/Person';
 import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
 import { MOCK_PEOPLE } from '../mock/mock-people.datasource';
 

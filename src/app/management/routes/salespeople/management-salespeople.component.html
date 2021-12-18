@@ -1,0 +1,61 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<app-centered-mat-spinner *ngIf="loading$ | async">
+</app-centered-mat-spinner>
+<div class="data-manager" [hidden]="loading$ | async">
+  <div class="table-wrapper">
+
+    <table mat-table class="full-width-min" [dataSource]="items$">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef
+          i18n="person full name|Name of table header for full name of person">Name</th>
+        <td mat-cell *matCellDef="let salesperson">
+          {{ salesperson.person.firstName }} {{ salesperson.person.lastName }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="idNumber">
+        <th mat-header-cell *matHeaderCellDef
+          i18n="person id number|Name of table header for id number of person">Id number</th>
+        <td mat-cell *matCellDef="let salesperson">
+          {{ salesperson.person.idNumber }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let salesperson">
+          <button mat-button mat-icon-button type="button"
+            *ngIf="canEdit$ | async"
+            color="primary"
+            aria-label="Edit"
+            i18n-aria-label="edit|Label for action button to edit information of an item"
+            [disabled]="busy$ | async"
+            (click)="onClickEdit(salesperson)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-button mat-icon-button type="button"
+            *ngIf="canDelete$ | async"
+            color="warn"
+            aria-label="Delete"
+            i18n-aria-label="delete|Label for action button to delete an item"
+            [disabled]="busy$ | async"
+            (click)="onClickDelete(salesperson)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+    </table>
+
+  </div>
+  <app-management-data-actions
+    *ngIf="canAdd$ | async"
+    (add)="onClickAdd()">
+  </app-management-data-actions>
+</div>

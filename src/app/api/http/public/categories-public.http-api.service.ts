@@ -8,8 +8,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
-import { DataPage } from 'src/app/models/DataPage';
-import { ProductCategory } from 'src/app/models/entities/ProductCategory';
+import { DataPage } from 'src/models/DataPage';
+import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { environment } from 'src/environments/environment';
 import { ICategoriesPublicApiService } from '../../categories-public-api.iservice';
 
@@ -30,7 +30,7 @@ export class CategoriesPublicHttpApiService
     );
   }
 
-  fetchChildrenProductCategoriesByParentCode(parentCode: number) {
+  fetchChildrenProductCategoriesByParentCode(parentCode: string) {
     return this.http.get<DataPage<ProductCategory>>(
       `${this.baseUrl}/${parentCode}`
     );

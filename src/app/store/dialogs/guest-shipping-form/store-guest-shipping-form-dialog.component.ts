@@ -8,8 +8,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { AppService } from 'src/app/app.service';
+import { Person } from 'src/models/entities/Person';
 
 @Component({
   selector: 'app-store-guest-shipping-form-dialog',
@@ -33,7 +34,7 @@ export class StoreGuestShippingFormDialogComponent
     private formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
-      person: ['']
+      person: [new Person()]
     });
   }
 

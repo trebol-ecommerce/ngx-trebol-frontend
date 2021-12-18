@@ -7,7 +7,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Product } from 'src/app/models/entities/Product';
+import { Product } from 'src/models/entities/Product';
 import { ProductFilters } from "src/app/shared/components/product-filters-panel/ProductFilters";
 import { StoreService } from '../../store.service';
 import { StoreCatalogService } from './store-catalog.service';

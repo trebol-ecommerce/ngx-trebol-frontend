@@ -7,7 +7,8 @@
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { StoreGuestPromptDialogComponent } from './store-guest-prompt-dialog.component';
 import { StoreGuestPromptDialogOptions } from './StoreGuestPromptDialogOptions';
 
@@ -25,7 +26,9 @@ describe('StoreGuestPromptDialogComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        MatButtonModule
+        MatButtonModule,
+        MatDialogModule,
+        MatIconModule
       ],
       declarations: [ StoreGuestPromptDialogComponent ],
       providers: [

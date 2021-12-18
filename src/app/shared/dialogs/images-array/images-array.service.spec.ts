@@ -8,7 +8,7 @@
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { Image } from 'src/app/models/entities/Image';
+import { Image } from 'src/models/entities/Image';
 import { ImagesService } from 'src/app/shared/services/images.service';
 import { ImagesArrayService } from './images-array.service';
 

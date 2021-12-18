@@ -14,8 +14,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, concat, merge, Observable, Subscription } from 'rxjs';
 import { debounceTime, map, mapTo, startWith, tap } from 'rxjs/operators';
-import { FormGroupOwner } from 'src/app/models/FormGroupOwner';
-import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
+import { FormGroupOwner } from 'src/models/FormGroupOwner';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 import { ImageManagerUploadService } from './image-upload-form.service';
@@ -130,6 +129,7 @@ export class ImageUploadFormComponent
 
   onSubmit(): void {
     if (this.formGroup.valid) {
+      this.formGroup.disable();
       this.uploadPercentageSource.next(0);
       this.uploadingSource.next(true);
       const fileList = (this.files.value as FileList);
@@ -160,6 +160,7 @@ export class ImageUploadFormComponent
             console.error(error);
             const uploadErrorMessage = $localize`:Message of error during upload of images:Error during upload`;
             this.snackBarService.open(uploadErrorMessage, COMMON_DISMISS_BUTTON_LABEL);
+            this.formGroup.enable();
           }
         },
         () => {

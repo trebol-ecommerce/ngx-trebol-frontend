@@ -1,0 +1,40 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media(min-width: 641px) {
+  form {
+    grid-gap: 1rem;
+    grid-template-areas:
+      'firstName firstName lastName lastName'
+      'idNumber email email email'
+      'phone1 phone1 phone2 phone2';
+  }
+
+  .firstName {
+    grid-area: firstName;
+  }
+  .lastName{
+    grid-area: lastName;
+  }
+  .idNumber {
+    grid-area: idNumber;
+  }
+  .email {
+    grid-area: email;
+  }
+  .phone1 {
+    grid-area: phone1;
+  }
+  .phone2 {
+    grid-area: phone2;
+  }
+}

@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IReceiptPublicApiService } from 'src/app/api/receipt-public-api.iservice';
-import { Receipt } from 'src/app/models/Receipt';
+import { Receipt } from 'src/models/Receipt';
 
 @Component({
   selector: 'app-store-receipt',

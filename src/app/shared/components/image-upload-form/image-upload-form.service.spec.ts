@@ -6,17 +6,25 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { LocalMemoryApiModule } from 'src/app/api/local-memory/local-memory-api.module';
+import { EMPTY } from 'rxjs';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
+import { Image } from 'src/models/entities/Image';
 import { ImageManagerUploadService } from './image-upload-form.service';
 
 describe('ImageManagerUploadService', () => {
   let service: ImageManagerUploadService;
+  let mockApiService: Partial<ITransactionalEntityDataApiService<Image>>;
 
   beforeEach(() => {
+    mockApiService = {
+      create() { return EMPTY; },
+      update() { return EMPTY; }
+    };
+
     TestBed.configureTestingModule({
-      imports: [ LocalMemoryApiModule ],
       providers: [
-        ImageManagerUploadService
+        { provide: API_SERVICE_INJECTION_TOKENS.dataImages, useValue: mockApiService }
       ]
     });
     service = TestBed.inject(ImageManagerUploadService);

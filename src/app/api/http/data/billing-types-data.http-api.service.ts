@@ -7,7 +7,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BillingType } from 'src/app/models/entities/BillingType';
+import { BillingType } from 'src/models/entities/BillingType';
 import { EntityDataHttpApiService } from '../entity-data.http-api.abstract.service';
 
 @Injectable()
