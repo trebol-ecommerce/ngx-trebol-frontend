@@ -22,7 +22,7 @@ import { StoreReceiptComponent } from './store-receipt.component';
 class MockCenteredMatSpinnerComponent { }
 
 @Component({ selector: 'app-store-receipt-details-table' })
-class MockReceiptDetailsTable {
+class MockReceiptDetailsTableComponent {
   @Input() details: any[];
 }
 
@@ -48,7 +48,7 @@ describe('StoreReceiptComponent', () => {
       declarations: [
         StoreReceiptComponent,
         MockCenteredMatSpinnerComponent,
-        MockReceiptDetailsTable
+        MockReceiptDetailsTableComponent
       ],
       providers: [
         { provide: API_SERVICE_INJECTION_TOKENS.receipt, useValue: mockReceiptApiService }
