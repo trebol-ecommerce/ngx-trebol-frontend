@@ -61,7 +61,6 @@ describe('ProductCategoryTreeService', () => {
       ],
       declarations: [ProductCategoryTreeComponent],
       providers: [
-        // { provide: ProductCategoryTreeService, useValue: mockService },
         { provide: MatSnackBar, useValue: mockSnackbarService },
         { provide: MatDialog, useValue: mockDialogService }
       ]

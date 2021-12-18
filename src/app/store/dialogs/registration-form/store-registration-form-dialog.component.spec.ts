@@ -33,7 +33,7 @@ describe('StoreRegistrationFormDialogComponent', () => {
     };
     mockAppService = {
       register(u) { return iif(
-          () => (u instanceof Registration),
+          () => (!!u.name && !!u.password && !!u.profile),
           of(true),
           throwError(new Error('Not an User')) );
       },

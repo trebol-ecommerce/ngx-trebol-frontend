@@ -7,8 +7,8 @@
 
 <h2>{{ title }}</h2>
 <p *ngIf="hint">{{ hint }}</p>
-<app-address-form #addressForm
-  [address]="address">
+<app-address-form
+  [formControl]="formControl">
 </app-address-form>
 <div class="actions">
   <button type="button" class="cancel" mat-dialog-close
@@ -17,7 +17,7 @@
     i18n="cancel|Label for action button to cancel and/or stop an operation">Cancel</button>
   <button type="button" class="accept"
     mat-button mat-raised-button
-    [disabled]="addressForm.formGroup.invalid"
+    [disabled]="formControl.invalid"
     (click)="onClickAcceptEdition()"
     i18n="confirm|Label for action button to accept and proceed">Confirm</button>
 </div>

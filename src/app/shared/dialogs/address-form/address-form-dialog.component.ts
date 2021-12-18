@@ -5,10 +5,9 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Address } from 'src/models/entities/Address';
-import { AddressFormComponent } from '../../components/address-form/address-form.component';
 import { AddressFormDialogData } from './AddressFormDialogData';
 
 @Component({
@@ -18,29 +17,20 @@ import { AddressFormDialogData } from './AddressFormDialogData';
 })
 export class AddressFormDialogComponent {
 
-  address = new Address();
-  readOnly = true;
+  formControl = new FormControl();
   title = $localize`:edit address|Label for action button to edit an address:Edit address`;
   hint: string | undefined;
 
-  @ViewChild('addressForm', { static: false }) addressForm: AddressFormComponent;
-
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: Partial<AddressFormDialogData>,
+    @Inject(MAT_DIALOG_DATA) data: Partial<AddressFormDialogData>,
     private dialog: MatDialogRef<AddressFormDialogComponent>
   ) {
-    if (data) {
-      this.load(data);
-    }
-  }
-
-  private load(data: Partial<AddressFormDialogData>) {
     if (data.address) {
-      this.address = data.address;
+      this.formControl.setValue(data.address);
     }
 
-    if ('readOnly' in data && typeof data.readOnly === 'boolean') {
-      this.readOnly = data.readOnly;
+    if (data.readOnly) {
+      this.formControl.disable();
     }
 
     if ('title' in data && data.title) {
@@ -53,9 +43,8 @@ export class AddressFormDialogComponent {
   }
 
   onClickAcceptEdition(): void {
-    const editedAddress = this.addressForm.address;
-    if (editedAddress) {
-      this.dialog.close(editedAddress);
+    if (this.formControl.valid) {
+      this.dialog.close(this.formControl.value);
     }
   }
 

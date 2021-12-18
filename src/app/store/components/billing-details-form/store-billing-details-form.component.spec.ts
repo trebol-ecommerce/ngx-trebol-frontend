@@ -18,10 +18,11 @@ import { StoreBillingDetailsFormComponent } from './store-billing-details-form.c
 })
 class MockCompanyFormComponent
   implements ControlValueAccessor {
+  onchange = (v: any) => { }
+  ontouched = () => { }
   writeValue(obj: any): void { }
-  registerOnChange(fn: any): void { }
-  registerOnTouched(fn: any): void { }
-  setDisabledState?(isDisabled: boolean): void { }
+  registerOnChange(fn: (v: any) => any): void { this.onchange = fn; }
+  registerOnTouched(fn: () => any): void { this.ontouched = fn; }
 }
 
 @Component({

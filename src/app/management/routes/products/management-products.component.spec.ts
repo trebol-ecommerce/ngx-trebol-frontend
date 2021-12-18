@@ -21,6 +21,9 @@ import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/c
 import { ManagementProductsComponent } from './management-products.component';
 import { ManagementProductsService } from './management-products.service';
 
+@Component({ selector: 'app-centered-mat-spinner' })
+class MockCenteredMatSpinnerComponent { }
+
 @Component({ selector: 'app-management-data-actions' })
 class MockManagementDataActionsComponent {
   @Output() add = new EventEmitter();
@@ -39,11 +42,13 @@ describe('ManagementProductsComponent', () => {
       reloadItems() {},
       loading$: of(false),
       focusedItems$: of([]),
+      focusedItems: [],
       items$: of([]),
       canEdit$: of(true),
       canAdd$: of(true),
       canDelete$: of(true),
-      updateAccess(acc) {}
+      updateAccess(acc) { },
+      dataService: null
     };
     mockSnackBarService = {
       open(m: string, a: string) { return void 0; }
@@ -59,13 +64,12 @@ describe('ManagementProductsComponent', () => {
         RouterTestingModule,
         MatButtonModule,
         MatIconModule,
-        MatProgressSpinnerModule,
-        MatTableModule,
+        MatTableModule
       ],
       declarations: [
         ManagementProductsComponent,
-        CenteredMatProgressSpinnerComponent,
-        MockManagementDataActionsComponent
+        MockManagementDataActionsComponent,
+        MockCenteredMatSpinnerComponent
       ],
       providers: [
         { provide: ManagementProductsService, useValue: mockManagerService },

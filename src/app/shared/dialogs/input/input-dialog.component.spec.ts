@@ -6,8 +6,12 @@
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { InputDialogComponent } from './input-dialog.component';
 import { InputDialogData } from './InputDialogData';
 
@@ -24,6 +28,15 @@ describe('InputDialogComponent', () => {
     };
 
     TestBed.configureTestingModule({
+      imports: [
+        NoopAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatInputModule,
+        MatFormFieldModule
+      ],
       declarations: [InputDialogComponent],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: mockDialogData }

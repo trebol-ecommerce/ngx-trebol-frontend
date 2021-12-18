@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { AddressPipe } from 'src/app/shared/pipes/address/address.pipe';
 import { StoreService } from '../../store.service';
@@ -36,6 +37,7 @@ describe('StoreCheckoutConfirmationComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        NoopAnimationsModule,
         CommonModule,
         MatButtonModule,
         MatCardModule,

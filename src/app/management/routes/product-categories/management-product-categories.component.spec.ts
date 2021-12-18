@@ -6,24 +6,30 @@
  */
 
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 import { ManagementProductCategoriesComponent } from './management-product-categories.component';
 import { ManagementProductCategoriesService } from './management-product-categories.service';
+
+@Component({ selector: 'app-centered-mat-spinner' })
+class MockCenteredMatSpinnerComponent { }
 
 @Component({ selector: 'app-management-data-actions' })
 class MockManagementDataActionsComponent {
   @Output() add = new EventEmitter();
+}
+
+@Component({ selector: 'app-product-category-tree' })
+class MockProductCategoryTreeComponent {
+  @Input() categories: any[];
+  @Input() editable: boolean;
 }
 
 describe('ManagementProductCategoriesComponent', () => {
@@ -52,16 +58,13 @@ describe('ManagementProductCategoriesComponent', () => {
       imports: [
         CommonModule,
         NoopAnimationsModule,
-        RouterTestingModule,
-        MatButtonModule,
-        MatIconModule,
-        MatProgressSpinnerModule,
-        MatTableModule,
+        RouterTestingModule
       ],
       declarations: [
         ManagementProductCategoriesComponent,
-        CenteredMatProgressSpinnerComponent,
-        MockManagementDataActionsComponent
+        MockManagementDataActionsComponent,
+        MockCenteredMatSpinnerComponent,
+        MockProductCategoryTreeComponent
       ],
       providers: [
         { provide: ManagementProductCategoriesService, useValue: mockService },

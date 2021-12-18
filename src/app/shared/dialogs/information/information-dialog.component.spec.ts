@@ -6,7 +6,8 @@
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { InformationDialogComponent } from './information-dialog.component';
 
 describe('InformationDialogComponent', () => {
@@ -18,6 +19,10 @@ describe('InformationDialogComponent', () => {
     dialogData = {};
 
     TestBed.configureTestingModule({
+      imports: [
+        MatButtonModule,
+        MatDialogModule
+      ],
       declarations: [ InformationDialogComponent ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: dialogData }

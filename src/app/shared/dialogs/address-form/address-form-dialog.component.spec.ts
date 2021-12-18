@@ -5,16 +5,30 @@
  * https://opensource.org/licenses/MIT
  */
 
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddressFormDialogComponent } from './address-form-dialog.component';
 import { AddressFormDialogData } from "./AddressFormDialogData";
 
-@Component({ selector: 'app-address-form' })
-class MockAddressFormComponent {
-  formGroup = new FormGroup({});
+@Component({
+  selector: 'app-address-form',
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockAddressFormComponent },
+    { provide: NG_VALIDATORS, multi: true, useExisting: MockAddressFormComponent }
+  ]
+})
+class MockAddressFormComponent
+  implements ControlValueAccessor, Validator {
+  onchange = (v: any) => { };
+  ontouched = () => { };
+  writeValue() { }
+  registerOnChange(fn: (v: any) => any) { this.onchange = fn; }
+  registerOnTouched(fn: () => any) { this.ontouched = fn; }
+  validate(control: AbstractControl): ValidationErrors { return null; }
 }
 
 describe('AddressFormDialogComponent', () => {
@@ -32,6 +46,13 @@ describe('AddressFormDialogComponent', () => {
     };
 
     TestBed.configureTestingModule({
+      imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatDialogModule
+      ],
       declarations: [
         AddressFormDialogComponent,
         MockAddressFormComponent

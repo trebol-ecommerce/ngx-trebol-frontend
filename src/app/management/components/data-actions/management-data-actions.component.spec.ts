@@ -6,6 +6,7 @@
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatButtonModule } from '@angular/material/button';
 import { ManagementDataActionsComponent } from './management-data-actions.component';
 
 describe('ManagementDataActionsComponent', () => {
@@ -14,6 +15,9 @@ describe('ManagementDataActionsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      imports: [
+        MatButtonModule
+      ],
       declarations: [ ManagementDataActionsComponent ]
     })
     .compileComponents();

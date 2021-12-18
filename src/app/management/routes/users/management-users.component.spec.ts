@@ -11,15 +11,16 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 import { ManagementUsersComponent } from './management-users.component';
 import { ManagementUsersService } from './management-users.service';
+
+@Component({ selector: 'app-centered-mat-spinner' })
+class MockCenteredMatSpinnerComponent { }
 
 @Component({ selector: 'app-management-data-actions' })
 class MockManagementDataActionsComponent {
@@ -59,12 +60,11 @@ describe('ManagementUsersComponent', () => {
         RouterTestingModule,
         MatButtonModule,
         MatIconModule,
-        MatProgressSpinnerModule,
         MatTableModule,
       ],
       declarations: [
         ManagementUsersComponent,
-        CenteredMatProgressSpinnerComponent,
+        MockCenteredMatSpinnerComponent,
         MockManagementDataActionsComponent
       ],
       providers: [

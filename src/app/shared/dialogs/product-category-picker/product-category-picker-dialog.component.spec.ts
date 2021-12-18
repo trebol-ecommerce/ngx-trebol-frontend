@@ -5,6 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs';
@@ -12,6 +13,14 @@ import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { ProductCategoryPickerDialogComponent } from './product-category-picker-dialog.component';
+
+@Component({ selector: 'app-product-category-tree' })
+class MockProductCategoryTreeComponent {
+  @Input() categories: any[];
+  @Input() editable: boolean;
+  @Input() selectionEnabled: boolean;
+  @Output() selection = new EventEmitter<void>();
+}
 
 describe('ProductCategoryPickerDialogComponent', () => {
   let component: ProductCategoryPickerDialogComponent;
@@ -35,7 +44,10 @@ describe('ProductCategoryPickerDialogComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [ProductCategoryPickerDialogComponent],
+      declarations: [
+        MockProductCategoryTreeComponent,
+        ProductCategoryPickerDialogComponent
+      ],
       providers: [
         { provide: API_SERVICE_INJECTION_TOKENS.dataProductCategories, useValue: mockApiService },
         { provide: MatDialogRef, useValue: mockDialog }
