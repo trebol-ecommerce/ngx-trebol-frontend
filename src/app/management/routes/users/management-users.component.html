@@ -28,26 +28,24 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> </th>
         <td mat-cell *matCellDef="let user">
-          <div>
-            <button mat-button mat-icon-button type="button"
-              *ngIf="canEdit$ | async"
-              color="primary"
-              aria-label="Edit"
-              i18n-aria-label="edit|Label for action button to edit information of an item"
-              [disabled]="busy$ | async"
-              (click)="onClickEdit(user)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-button mat-icon-button type="button"
-              *ngIf="canDelete$ | async"
-              color="warn"
-              aria-label="Delete"
-              i18n-aria-label="delete|Label for action button to delete an item"
-              [disabled]="busy$ | async"
-              (click)="onClickDelete(user)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
+          <button mat-button mat-icon-button type="button"
+            *ngIf="canEdit$ | async"
+            color="primary"
+            aria-label="Edit"
+            i18n-aria-label="edit|Label for action button to edit information of an item"
+            [disabled]="busy$ | async"
+            (click)="onClickEdit(user)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-button mat-icon-button type="button"
+            *ngIf="canDelete$ | async"
+            color="warn"
+            aria-label="Delete"
+            i18n-aria-label="delete|Label for action button to delete an item"
+            [disabled]="busy$ | async"
+            (click)="onClickDelete(user)">
+            <mat-icon>delete</mat-icon>
+          </button>
         </td>
       </ng-container>
 
