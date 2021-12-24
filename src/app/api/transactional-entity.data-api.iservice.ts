@@ -8,6 +8,9 @@
 import { Observable } from 'rxjs';
 import { IEntityDataApiService } from './entity.data-api.iservice';
 
+/**
+ * Interface for services that perform all CRUD operations against a REST API
+ */
 export interface ITransactionalEntityDataApiService<T>
   extends IEntityDataApiService<T> {
 
