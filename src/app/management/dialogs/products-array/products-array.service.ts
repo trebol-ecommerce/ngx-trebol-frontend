@@ -30,15 +30,12 @@ export class ProductsArrayService {
     @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) private productDataService: IEntityDataApiService<Product>,
   ) {
     this.filteredProductsArray$ = this.productFiltersSource.asObservable().pipe(
-      concatMap(
-        (filters: ProductFilters) => {
-          if (JSON.stringify(filters) !== '{}') {
-            return this.productDataService.fetchPageFilteredBy(filters);
-          } else {
-            return this.productDataService.fetchPage();
-          }
-        }
-      ),
+      concatMap((filters: ProductFilters) => (
+        (JSON.stringify(filters) !== '{}') ?
+          // TODO pass paging parameters
+          this.productDataService.fetchPage(0, null, null, null, filters) :
+          this.productDataService.fetchPage(0)
+      )),
       map(response => response.items)
     );
 

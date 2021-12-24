@@ -19,7 +19,6 @@ describe('ProductFiltersPanelService', () => {
   beforeEach(() => {
     mockApiService = {
       fetchPage() { return EMPTY; },
-      fetchPageFilteredBy() { return EMPTY; },
     };
 
     TestBed.configureTestingModule({

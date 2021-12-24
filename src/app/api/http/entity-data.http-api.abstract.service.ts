@@ -6,8 +6,8 @@
  */
 
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { DataPage } from 'src/models/DataPage';
 import { environment } from 'src/environments/environment';
+import { DataPage } from 'src/models/DataPage';
 import { IEntityDataApiService } from '../entity.data-api.iservice';
 import { HttpApiService } from './http-api.abstract.service';
 
@@ -24,19 +24,32 @@ export abstract class EntityDataHttpApiService<T>
     }
   }
 
-  fetchPage() {
-    return this.http.get<DataPage<T>>(
-      this.baseUrl
-    );
-  }
+  fetchPage(pageIndex: number, pageSize: number, sortBy?: string, order?: string, filters?: any) {
+    const params = this.makeHttpParams(pageIndex, pageSize, sortBy, order, filters);
 
-  fetchPageFilteredBy(filters: any) {
     return this.http.get<DataPage<T>>(
       this.baseUrl,
-      {
-        params: new HttpParams({ fromObject: filters })
-      }
+      { params }
     );
   }
 
+  protected makeHttpParams(pageIndex: number, pageSize: number, sortBy?: string, order?: string, filters?: any) {
+    let params = (!!filters) ?
+      new HttpParams({ fromObject: filters }) :
+      new HttpParams();
+
+    if (!!pageIndex) {
+      params = params.append('pageIndex', pageIndex.toString());
+    }
+    if (!!pageSize) {
+      params = params.append('pageSize', pageSize.toString());
+    }
+    if (!!sortBy) {
+      params = params.append('sortBy', sortBy);
+    }
+    if (!!order) {
+      params = params.append('order', order);
+    }
+    return params;
+  }
 }

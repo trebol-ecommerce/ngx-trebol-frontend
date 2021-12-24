@@ -51,7 +51,6 @@ describe('EntityFormDialogComponent', () => {
       delete() { return of(void 0); },
       fetchExisting() { return of(void 0); },
       fetchPage() { return of(void 0); },
-      fetchPageFilteredBy() { return of(void 0); },
       update() { return of(void 0); }
     };
     mockDialogData = {

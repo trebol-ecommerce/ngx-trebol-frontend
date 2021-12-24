@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Observable, of } from 'rxjs';
+import { of } from 'rxjs';
 import { DataPage } from 'src/models/DataPage';
 import { IEntityDataApiService } from '../entity.data-api.iservice';
 import {
@@ -13,7 +13,7 @@ import {
 } from './entity-data.local-memory-api.functions';
 
 /**
- * Base class for a fully-working CRUD service in the local (client) memory.
+ * Base class for a service that can fetch data from the local (client) memory.
  */
 export abstract class EntityDataLocalMemoryApiService<T>
   implements IEntityDataApiService<T> {
@@ -21,6 +21,27 @@ export abstract class EntityDataLocalMemoryApiService<T>
   protected abstract items: T[];
   protected abstract itemExists(itemLike: Partial<T>): boolean;
   protected abstract getIndexOfItem(itemLike: Partial<T>): number;
+
+  fetchPage(pageIndex = 0, pageSize = 10, sortBy?: string, order?: string, filters?: any) {
+
+    const filteredItems = !!filters ? this.filterItems(filters) : this.items.slice();
+    const totalCount = filteredItems.length;
+
+    const sortedItems = (!!sortBy) ?
+      filteredItems.sort((a, b) => this.sortItems(a, b, sortBy, order)) :
+      filteredItems;
+
+    const firstIndex = (pageIndex * pageSize);
+    const lastIndex = firstIndex + pageSize;
+    const items = sortedItems.slice(firstIndex, lastIndex);
+
+    return of<DataPage<T>>({
+      items,
+      totalCount,
+      pageIndex,
+      pageSize
+    });
+  }
 
   /**
    * Iterates each key-value property pair in the provided object,
@@ -48,35 +69,28 @@ export abstract class EntityDataLocalMemoryApiService<T>
     return matchingItems;
   }
 
-  /**
-   * Get the entire collection and emit it.
-   * //TODO paging would be nice
-   */
-  fetchPage() {
-    return of<DataPage<T>>({
-      items: this.items.slice(0, 9),
-      totalCount: this.items.length,
-      pageIndex: 0,
-      pageSize: 10
-    });
-  }
-
-  fetchPageFilteredBy(filters: any) {
-    return new Observable<DataPage<T>>(
-      observer => {
-        const matchingItems = this.filterItems(filters);
-        observer.next({
-          items: matchingItems.slice(0, 9),
-          totalCount: matchingItems.length,
-          pageIndex: 0,
-          pageSize: 10
-        });
-        observer.complete();
-
-        return {
-          unsubscribe() {}
-        };
+  protected sortItems(a: T, b: T, sortBy: string, order = 'asc'): number {
+    if ((sortBy in a) &&
+      (sortBy in b) &&
+      a.hasOwnProperty(sortBy) &&
+      b.hasOwnProperty(sortBy)) {
+      const valueInA = (typeof a[sortBy] === 'string') ? a[sortBy].toLowerCase() : a[sortBy];
+      const valueInB = (typeof b[sortBy] === 'string') ? b[sortBy].toLowerCase() : b[sortBy];
+      switch (order) {
+        case 'asc':
+          if (valueInA < valueInB) { return -1; }
+          if (valueInA > valueInB) { return 1; }
+          return 0;
+        case 'desc':
+          if (valueInA < valueInB) { return 1; }
+          if (valueInA > valueInB) { return -1; }
+          return 0;
+        default:
+          if (valueInA < valueInB) { return 1; }
+          if (valueInA > valueInB) { return -1; }
+          return 0;
       }
-    );
+    }
+    return 0;
   }
 }
