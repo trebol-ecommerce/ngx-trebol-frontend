@@ -56,7 +56,7 @@ export const MOCK_SALES: Sell[] = [
     details: [
       { product: MOCK_PRODUCTS[0], units: 2 },
     ],
-    customer: MOCK_CUSTOMERS[4],
+    customer: MOCK_CUSTOMERS[3],
     paymentType: 'WebPay Plus',
     billingType: BILLING_TYPE_INDIVIDUAL,
     status: MOCK_SELL_STATUSES.unpaid
