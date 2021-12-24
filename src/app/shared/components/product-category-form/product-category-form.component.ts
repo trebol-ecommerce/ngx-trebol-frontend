@@ -52,7 +52,7 @@ export class ProductCategoryFormComponent
     this.formGroup = this.formBuilder.group({
       code: ['', Validators.required],
       name: ['', Validators.required],
-      parent: [null]
+      parent: [{ value: null, disabled: true }]
     });
   }
 
@@ -71,7 +71,7 @@ export class ProductCategoryFormComponent
   writeValue(obj: any): void {
     this.code.reset('', { emitEvent: false });
     this.name.reset('', { emitEvent: false });
-    this.parent.reset(null, { emitEvent: false });
+    this.parent.reset({ value: null, disabled: true }, { emitEvent: false });
     if (isJavaScriptObject(obj)) {
       this.formGroup.patchValue(obj);
     }
@@ -92,6 +92,7 @@ export class ProductCategoryFormComponent
       this.formGroup.disable({ emitEvent: false });
     } else {
       this.formGroup.enable({ emitEvent: false });
+      this.parent.disable({ emitEvent: false });
     }
   }
 
