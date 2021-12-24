@@ -56,7 +56,8 @@ export class ProductCategoryTreeService
           parent.children.push(target);
         }
         this.categoriesSource.next(this.categoriesSource.value);
-      })
+      }),
+      mapTo(target)
     );
   }
 

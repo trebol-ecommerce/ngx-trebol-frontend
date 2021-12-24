@@ -78,12 +78,17 @@ export class ProductCategoryTreeComponent
 
   onClickAddChildNodeTo(parentNode: ProductCategoryTreeFlatNode): void {
     const parent = this.flatNodeMap.get(parentNode);
-    this.requestCategoryData().pipe(
+    const newChild: ProductCategory = {
+      name: undefined,
+      code: undefined,
+      parent
+    };
+    this.requestCategoryData(newChild).pipe(
       switchMap(newNode => this.service.addNode(newNode, parent)),
       tap(() => this.matTree.renderNodeChanges(this.dataSource.data)), // TODO optimize this?
       tap(() => this.treeControl.expand(parentNode))
     ).subscribe(
-      (next: ProductCategory) => {
+      next => {
         this.snackbarService.open($localize`:Message of success after creating subcategory with name {{ name }}:Subcategory '${next.name}':name: was created`, COMMON_DISMISS_BUTTON_LABEL);
       },
       error => {
