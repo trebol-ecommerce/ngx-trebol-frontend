@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- Support for sort pagination parameters [API v1.1.2]
+
+### Fixed
+- Creation and general use of categories within local-memory api (such as in, the demo link)
+
 ## [v1.1.1] - 2021-12-18
 
 ### Added
@@ -16,24 +24,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - `es`
     - `es-CL` (previous default)
 - API models
-  - New Class `Shipper` class with a single `name` property
+  - New Class `Shipper` class with a single `name` property [API v1.0.4]
 - UI/UX
   - Manipulation of shippers
   - Manipulation of a product's category
   - Manipulation of all product categories through a tree view
     - Route added to the Management sidenav
-    - This tree works on the assumption that categories are identified by a string property named `code`; see the section below
+    - This tree works on the assumption that categories are identified by a string property named `code`
 
 ### Changed
 - API models
-  - `Image` - add `code` property (API v1.0.4)
-  - `Person` - split `name` property into two: `lastName` and `firstName` (API v1.1.0)
-  - `ReceiptDetail` - add `unitValue` property (API v1.1.1)
+  - `Image` - add `code` property [API v1.0.4]
+  - `Person` - split `name` property into two: `lastName` and `firstName` [API v1.1.0]
+  - `ReceiptDetail` - add `unitValue` property [API v1.1.1]
   - `Receipt`
-    - Add properties `token`, `taxValue`, `transportValue`, `totalValue`, `totalItems` (API v1.1.1)
-    - `totalValue` will replace `amount`; make the former required and the latter optional (API v1.1.1)
+    - Add properties `token`, `taxValue`, `transportValue`, `totalValue`, `totalItems` [API v1.1.1]
+    - `totalValue` will replace `amount`; make the former required and the latter optional [API v1.1.1]
       - `amount` will be removed in future versions
-  - `ProductCategory` - changed type of `code` from number to string (API v.1.2)
+  - `ProductCategory` - changed type of `code` from number to string [API v.1.2]
 - UI/UX
   - Remove requirement of category in interface for creating/editing products
   - Receipt page
