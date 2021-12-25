@@ -6,6 +6,7 @@
  */
 
 import { of } from 'rxjs';
+import { compareObjectsForSort } from 'src/functions/compareObjectsForSort';
 import { DataPage } from 'src/models/DataPage';
 import { IEntityDataApiService } from '../entity.data-api.iservice';
 import {
@@ -70,27 +71,6 @@ export abstract class EntityDataLocalMemoryApiService<T>
   }
 
   protected sortItems(a: T, b: T, sortBy: string, order = 'asc'): number {
-    if ((sortBy in a) &&
-      (sortBy in b) &&
-      a.hasOwnProperty(sortBy) &&
-      b.hasOwnProperty(sortBy)) {
-      const valueInA = (typeof a[sortBy] === 'string') ? a[sortBy].toLowerCase() : a[sortBy];
-      const valueInB = (typeof b[sortBy] === 'string') ? b[sortBy].toLowerCase() : b[sortBy];
-      switch (order) {
-        case 'asc':
-          if (valueInA < valueInB) { return -1; }
-          if (valueInA > valueInB) { return 1; }
-          return 0;
-        case 'desc':
-          if (valueInA < valueInB) { return 1; }
-          if (valueInA > valueInB) { return -1; }
-          return 0;
-        default:
-          if (valueInA < valueInB) { return 1; }
-          if (valueInA > valueInB) { return -1; }
-          return 0;
-      }
-    }
-    return 0;
+    return compareObjectsForSort(a, b, sortBy, order);
   }
 }
