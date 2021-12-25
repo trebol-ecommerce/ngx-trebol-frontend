@@ -61,8 +61,8 @@ export class ProductCategoryTreeService
     );
   }
 
-  editNode(originalNode: ProductCategory, newNode: ProductCategory) {
-    return this.apiService.update(originalNode, newNode).pipe(
+  editNode(newNode: ProductCategory, originalNode: ProductCategory) {
+    return this.apiService.update(newNode, originalNode).pipe(
       tap(() => {
         originalNode.code = newNode.code;
         originalNode.name = newNode.name;

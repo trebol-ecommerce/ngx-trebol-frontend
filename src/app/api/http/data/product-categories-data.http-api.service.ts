@@ -41,7 +41,7 @@ export class ProductCategoriesDataHttpApiService
       category,
       {
         params: new HttpParams({ fromObject: {
-          barcode: String(originalItem.code)
+          code: String(originalItem.code)
         } })
       }
     );
@@ -52,7 +52,7 @@ export class ProductCategoriesDataHttpApiService
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
-          barcode: String(category.code)
+          code: String(category.code)
         } })
       }
     );

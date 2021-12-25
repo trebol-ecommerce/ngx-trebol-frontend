@@ -100,7 +100,7 @@ export class ProductCategoryTreeComponent
   onClickEditNode(treeNode: ProductCategoryTreeFlatNode): void {
     const node = this.flatNodeMap.get(treeNode);
     this.requestCategoryData(node).pipe(
-      switchMap(newNode => this.service.editNode(node, newNode))
+      switchMap(newNode => this.service.editNode(newNode, node))
     ).subscribe(
       (next: ProductCategory) => {
         this.snackbarService.open($localize`:Message of success after renaming category to {{ name }}:Category was renamed to '${next.name}'`, COMMON_DISMISS_BUTTON_LABEL);
