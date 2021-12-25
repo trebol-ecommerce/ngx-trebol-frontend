@@ -10,7 +10,7 @@
 <div class="data-manager" [hidden]="loading$ | async">
   <div class="table-wrapper">
 
-    <table mat-table class="full-width-min" [dataSource]="items$">
+    <table mat-table [dataSource]="items$">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef
           i18n="person full name|Name of table header for full name of person">Name</th>
