@@ -16,6 +16,7 @@ export abstract class EntityDataHttpApiService<T>
   implements IEntityDataApiService<T> {
 
   baseUrl = environment.apiUrls.data;
+  maxIntegerValue = environment.constraints.maxIntegerValue;
 
   constructor(http: HttpClient, urlSuffix?: string) {
     super(http);
@@ -38,10 +39,12 @@ export abstract class EntityDataHttpApiService<T>
       new HttpParams({ fromObject: filters }) :
       new HttpParams();
 
-    if (!!pageIndex) {
+    if (!!pageIndex && pageIndex >= 0) {
+      if (pageIndex >= this.maxIntegerValue) { pageIndex = this.maxIntegerValue; }
       params = params.append('pageIndex', pageIndex.toString());
     }
-    if (!!pageSize) {
+    if (!!pageSize && pageSize > 0) {
+      if (pageSize >= this.maxIntegerValue) { pageSize = this.maxIntegerValue; }
       params = params.append('pageSize', pageSize.toString());
     }
     if (!!sortBy) {

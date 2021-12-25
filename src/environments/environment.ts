@@ -22,6 +22,9 @@ export const environment = {
       `Trébol eCommerce demo site | ${name} v${version}`,
       'Made with ❤ using Angular 11 | Source code licensed under MIT'
     ]
+  },
+  constraints: {
+    maxIntegerValue: 2147483647
   }
 };
 
