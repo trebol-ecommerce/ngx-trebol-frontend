@@ -14,7 +14,7 @@ import { MOCK_USER_ROLES } from '../mock/mock-user-roles.datasource';
 export class UserRolesDataLocalMemoryApiService
   extends EntityDataLocalMemoryApiService<UserRole> {
 
-  protected items = MOCK_USER_ROLES.map(n => Object.assign(new UserRole(), n));
+  protected items = MOCK_USER_ROLES.slice();
 
   constructor() {
     super();

@@ -14,7 +14,7 @@ import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-e
 export class CustomersDataLocalMemoryApiService
   extends TransactionalEntityDataLocalMemoryApiService<Customer> {
 
-  protected items: Customer[] = MOCK_CUSTOMERS.map(n => Object.assign(new Customer(), n));
+  protected items = MOCK_CUSTOMERS.slice();
 
   constructor() {
     super();

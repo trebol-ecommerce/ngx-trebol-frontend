@@ -14,7 +14,7 @@ import { MOCK_BILLING_TYPES } from '../mock/mock-billing-types.datasource';
 export class BillingTypesDataLocalMemoryApiService
   extends EntityDataLocalMemoryApiService<BillingType> {
 
-  protected items = MOCK_BILLING_TYPES.map(n => Object.assign(new BillingType(), n));
+  protected items = MOCK_BILLING_TYPES.slice();
 
   constructor() {
     super();

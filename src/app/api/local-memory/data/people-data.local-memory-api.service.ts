@@ -14,7 +14,7 @@ import { MOCK_PEOPLE } from '../mock/mock-people.datasource';
 export class PeopleDataLocalMemoryApiService
   extends EntityDataLocalMemoryApiService<Person> {
 
-  protected items = MOCK_PEOPLE.map(n => Object.assign(new Person(), n));
+  protected items = MOCK_PEOPLE.slice();
 
   constructor() {
     super();
