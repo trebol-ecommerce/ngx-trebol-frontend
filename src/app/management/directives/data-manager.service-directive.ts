@@ -6,7 +6,7 @@
  */
 
 import { Directive, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject, Subscription } from 'rxjs';
 import { delay, finalize, map, tap } from 'rxjs/operators';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
@@ -21,6 +21,7 @@ export abstract class DataManagerServiceDirective<T>
   protected itemsSource = new ReplaySubject<T[]>();
   protected loadingSource = new BehaviorSubject(false);
   protected authorizedAccessSource = new ReplaySubject<AuthorizedAccess>();
+  protected fetchingSubscription: Subscription;
 
   focusedItems$ = this.focusedItemsSource.asObservable();
   items$ = this.itemsSource.asObservable();
@@ -29,6 +30,12 @@ export abstract class DataManagerServiceDirective<T>
   canEdit$: Observable<boolean>;
   canAdd$: Observable<boolean>;
   canDelete$: Observable<boolean>;
+
+  pageIndex: number | undefined;
+  pageSize: number | undefined;
+  sortBy: string | undefined;
+  order: string | undefined;
+  filters: any | undefined;
 
   get focusedItems(): T[] { return this.focusedItemsSource.getValue(); }
   set focusedItems(i: T[]) { this.focusedItemsSource.next(i); }
@@ -43,13 +50,15 @@ export abstract class DataManagerServiceDirective<T>
     this.focusedItemsSource.complete();
     this.itemsSource.complete();
     this.loadingSource.complete();
+    this.fetchingSubscription?.unsubscribe();
   }
 
   /** Empty item selections and fetch data from the external service again. */
   reloadItems(): void {
+    this.fetchingSubscription?.unsubscribe();
     this.focusedItemsSource.next([]);
     this.loadingSource.next(true);
-    this.dataService.fetchPage().pipe(
+    this.fetchingSubscription = this.dataService.fetchPage(this.pageIndex, this.pageSize, this.sortBy, this.order, this.filters).pipe(
       delay(1000),
       tap(response => { this.itemsSource.next(response.items); }),
       finalize(() => { this.loadingSource.next(false); })

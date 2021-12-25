@@ -6,6 +6,7 @@
  */
 
 import { Directive, OnInit } from '@angular/core';
+import { Sort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DataManagerServiceDirective } from './data-manager.service-directive';
@@ -29,6 +30,12 @@ export abstract class DataManagerComponentDirective<T>
 
   ngOnInit() {
     this.init(this.service);
+  }
+
+  onSortChange(event: Sort): void {
+    this.service.sortBy = event.active;
+    this.service.order = event.direction;
+    this.service.reloadItems();
   }
 
   protected init(service: DataManagerServiceDirective<T>): void {
