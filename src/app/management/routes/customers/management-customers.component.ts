@@ -23,7 +23,7 @@ export class ManagementCustomersComponent
   extends DataManagerComponentDirective<Customer>
   implements OnInit {
 
-  tableColumns: string[] = [ 'name', 'idNumber' ];
+  tableColumns = ['name', 'idNumber'];
 
   constructor(
     protected service: ManagementCustomersService,

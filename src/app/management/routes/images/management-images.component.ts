@@ -29,7 +29,7 @@ export class ManagementImagesComponent
   extends TransactionalDataManagerComponentDirective<Image>
   implements OnInit {
 
-  tableColumns: string[] = [ 'thumb', 'filename', 'actions' ];
+  tableColumns = [ 'thumb', 'filename', 'actions' ];
 
   constructor(
     protected service: ManagementImagesService,

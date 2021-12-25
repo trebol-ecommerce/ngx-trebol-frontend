@@ -29,7 +29,7 @@ export class ManagementSalesComponent
   extends TransactionalDataManagerComponentDirective<Sell>
   implements OnInit {
 
-  tableColumns: string[] = [ 'id', 'date', 'customerName', 'status', 'actions' ];
+  tableColumns = [ 'id', 'date', 'customerName', 'status', 'actions' ];
 
   constructor(
     protected service: ManagementSalesService,
@@ -50,17 +50,6 @@ export class ManagementSalesComponent
     );
   }
 
-  protected createDialogProperties(item: Sell): EntityFormDialogConfig<Sell> {
-    return {
-      data: {
-        item,
-        formComponent: SellFormComponent,
-        service: this.service.dataService
-      },
-      width: '80rem'
-    };
-  }
-
   onClickDelete(s: Sell) {
     this.service.removeItems([s]).pipe(
       map(results => results[0])
@@ -78,6 +67,17 @@ export class ManagementSalesComponent
         this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
       }
     );
+  }
+
+  protected createDialogProperties(item: Sell): EntityFormDialogConfig<Sell> {
+    return {
+      data: {
+        item,
+        formComponent: SellFormComponent,
+        service: this.service.dataService
+      },
+      width: '80rem'
+    };
   }
 
 }
