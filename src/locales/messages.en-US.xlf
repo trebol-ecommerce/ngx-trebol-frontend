@@ -488,7 +488,7 @@
         <source>Sell N°<x id="buyOrder" equiv-text="s.buyOrder"/> (<x id="date" equiv-text="s.date"/>) deleted</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/sales/management-sales.component.ts</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">59</context>
         </context-group>
         <note priority="1" from="description">Message of success after deleting a sell with buy order {{ buyOrder }} on date {{ date }}</note>
       </trans-unit>
@@ -496,7 +496,7 @@
         <source>Salesperson <x id="firstName" equiv-text="e.person.firstName"/> <x id="lastName" equiv-text="e.person.lastName"/> deleted</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/salespeople/management-salespeople.component.ts</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">59</context>
         </context-group>
         <note priority="1" from="description">Message of success after deleting a salesperson with first name {{ firstName }} and last name {{ lastName }}</note>
       </trans-unit>
@@ -513,7 +513,7 @@
         <source>Shipper &apos;<x id="name" equiv-text="shipper.name"/>&apos; deleted</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/shippers/management-shippers.component.ts</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">59</context>
         </context-group>
         <note priority="1" from="description">Message of success after deleting a shipper with name {{ name }}</note>
       </trans-unit>
@@ -545,7 +545,7 @@
         <source>User <x id="username" equiv-text="usr.name"/> deleted</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/users/management-users.component.ts</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">59</context>
         </context-group>
         <note priority="1" from="description">Message of success after deleting an user with name {{ username }}</note>
       </trans-unit>
@@ -876,7 +876,7 @@
         <source>Subcategory &apos;<x id="PH" equiv-text="next.name"/>&apos;:name: was created</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">92</context>
         </context-group>
         <note priority="1" from="description">Message of success after creating subcategory with name {{ name }}</note>
       </trans-unit>
@@ -884,7 +884,7 @@
         <source>Subcategory could not be created</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
-          <context context-type="linenumber">90</context>
+          <context context-type="linenumber">95</context>
         </context-group>
         <note priority="1" from="description">Message of error during creation of subcategory</note>
       </trans-unit>
@@ -892,7 +892,7 @@
         <source>Category was renamed to &apos;<x id="PH" equiv-text="next.name"/>&apos;</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
-          <context context-type="linenumber">101</context>
+          <context context-type="linenumber">106</context>
         </context-group>
         <note priority="1" from="description">Message of success after renaming category to {{ name }}</note>
       </trans-unit>
@@ -900,7 +900,7 @@
         <source>Category could not be renamed</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
-          <context context-type="linenumber">104</context>
+          <context context-type="linenumber">109</context>
         </context-group>
         <note priority="1" from="description">Message of error while renaming category</note>
       </trans-unit>
@@ -908,7 +908,7 @@
         <source>Category was deleted</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
-          <context context-type="linenumber">120</context>
+          <context context-type="linenumber">125</context>
         </context-group>
         <note priority="1" from="description">Message of success after deleting category</note>
       </trans-unit>
@@ -916,7 +916,7 @@
         <source>Category could not be deleted</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
-          <context context-type="linenumber">123</context>
+          <context context-type="linenumber">128</context>
         </context-group>
         <note priority="1" from="description">Message of error while deleting category</note>
       </trans-unit>

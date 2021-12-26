@@ -7,22 +7,24 @@
 
 # Trébol e-Commerce Angular Frontend
 
-A single-page web application that uses Material Design library.
+A single-page web application designed and developed over Angular v11, RxJS and Material Design.
 
 ## Current status
 
-Developing support for [the latest API patch version (v1.1.2)](https://github.com/trebol-ecommerce/api/releases/tag/v1.1.2).
+Support for [the latest API version (v1.1.2)](https://github.com/trebol-ecommerce/api/releases/tag/v1.1.2) is complete!
 
 ## Infrastructure
 
 The application itself is divided into modules in the `/src/app/` directory, and its structure is as follows:
 
-- `store/` contains everything related to shopping itself; you can view the product catalog, log in or sign up for an account, reviewing cart, check out, etcetera
-- `management/` contains elements relating to the administration of data internals and POS: you register, update and categorize products; create users; list customers; upload images, etcetera
-- `shared/` exports stuff that is used by other modules
-- `api/` contains the dependency injection tokens, interfaces and modules to interact with [the backend REST API](https://github.com/trebol-ecommerce/api)
-  - `local-memory/` contains a fake/mock API implementation in client-side code. It's the default option to build and serve with; used for the demo
-  - `http/` contains the implementation module and services that work with HTTP calls; these require a real, running backend with an exposed REST API compliant to the aforementioned one
+- `store/` most of the public-facing components; there's the frontpage aka the product catalog, the checkout page, and the receipt page
+- `management/` the administrative area of the app: there you register, update and categorize products; create users; list customers; upload images, etcetera
+- `shared/` exports components, directives, and other stuff that is used by other modules, and the application as a whole
+- `api/` contains interfaces, modules, and dependency injection tokens to interact with [the backend REST API](https://github.com/trebol-ecommerce/api)
+  - `local-memory/` serves a fake API basically running in the browser itself; it's the default option to build and serve with; and the demo uses it too
+  - `http/` serves the API with HTTP calls; these require a real, running backend with an exposed REST API compliant to the aforementioned one
+
+Since implementation of the `api` module can vary, it is not directly imported by the `app` module, but must be imported through an environment file. See section "Configuring the build / serve process" for more details.
 
 ## Requirements
 
@@ -34,7 +36,7 @@ The application itself is divided into modules in the `/src/app/` directory, and
 
 ## Testing
 
-Jasmine tests are providing about 40% of code coverage, you can give them a try using `ng test` in the root directory.
+This project runs on top of Jasmine, try them out with `ng test` in the root directory.
 
 ## Internationalization
 
@@ -48,8 +50,10 @@ If you wish to translate this frontend to another language, check out [this Angu
 
 ## Configuring the build / serve process
 
-- The default environment files are located in `/src/environments/`; one is for the simpler variables and the one is for module dependencies.
-- The `/src/angular.json` file contains two base configuration definitions that you can use: `production` and `localhost`. There's also configurations for each bundled locale (listed above). You can create more configurations if you need.
+- The default environment files already exist in `/src/environments/`
+  - `environment.ts` defines variables
+  - `environment-modules.ts` defines module dependencies
+- The `/src/angular.json` file contains two base configuration definitions that you can use: `production` and `localhost`. There's also configurations for each bundled locale mentioned above. Create configuration files as you see fit.
 - Make yourself comfortable with the [official guide on Building and Serving Angular Apps](https://angular.io/guide/build). Basically, you need to create a copy of the environment files, rename them following the pattern for your desired configuration, and call the `serve` or `build` Angular CLI command with the `-c` option in order to target said configuration.
 - Remember you can use multiple build configurations in the same command, separating them by commas (e.g. `ng build -c production,es`).
 - You can also use the [angular-cli-ghpages plugin](https://github.com/angular-schule/angular-cli-ghpages#options) to automate your deployment.
