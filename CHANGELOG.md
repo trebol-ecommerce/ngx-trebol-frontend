@@ -8,9 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Support for sort pagination parameters [API v1.1.2]
+- Support for sorting and pagination in datatables in the management page
 
 ### Fixed
 - Creation and general use of categories within local-memory api (such as in, the demo link)
+- Fixed issue updating categories due to calling API with wrong query parameters
 
 ## [v1.1.1] - 2021-12-18
 
