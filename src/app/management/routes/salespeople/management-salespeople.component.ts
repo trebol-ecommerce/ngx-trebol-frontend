@@ -29,7 +29,7 @@ export class ManagementSalespeopleComponent
   extends TransactionalDataManagerComponentDirective<Salesperson>
   implements OnInit {
 
-  tableColumns: string[] = [ 'name', 'idNumber', 'actions' ];
+  tableColumns = [ 'name', 'idNumber', 'actions' ];
 
   constructor(
     protected service: ManagementSalespeopleService,
@@ -50,17 +50,6 @@ export class ManagementSalespeopleComponent
     );
   }
 
-  protected createDialogProperties(item: Salesperson): EntityFormDialogConfig<Salesperson> {
-    return {
-      data: {
-        item,
-        formComponent: SalespersonFormComponent,
-        service: this.service.dataService
-      },
-      width: '40rem'
-    };
-  }
-
   onClickDelete(e: Salesperson) {
     this.service.removeItems([e]).pipe(
       map(results => results[0])
@@ -78,6 +67,17 @@ export class ManagementSalespeopleComponent
         this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
       }
     );
+  }
+
+  protected createDialogProperties(item: Salesperson): EntityFormDialogConfig<Salesperson> {
+    return {
+      data: {
+        item,
+        formComponent: SalespersonFormComponent,
+        service: this.service.dataService
+      },
+      width: '40rem'
+    };
   }
 
 }

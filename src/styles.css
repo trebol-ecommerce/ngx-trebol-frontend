@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500';
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
-@import 'assets/styles/important.css';
 
 * {
   font-family: Roboto, sans-serif;

@@ -10,16 +10,16 @@
 <div class="data-manager" [hidden]="loading$ | async">
   <div class="table-wrapper">
 
-    <table mat-table class="full-width-min" [dataSource]="items$">
+    <table mat-table [dataSource]="items$" matSort (matSortChange)="onSortChange($event)">
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef
+        <th mat-header-cell *matHeaderCellDef mat-sort-header
           i18n="person full name|Name of table header for full name of person">Name</th>
         <td mat-cell *matCellDef="let customer">
           {{ customer.person.firstName }} {{ customer.person.lastName }}
         </td>
       </ng-container>
-      <ng-container matColumnDef="idNumber">
-        <th mat-header-cell *matHeaderCellDef
+      <ng-container matColumnDef="idNumber" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header
           i18n="person id number|Name of table header for id number of person">Id number</th>
         <td mat-cell *matCellDef="let customer">
           {{ customer.person.idNumber }}
@@ -29,6 +29,16 @@
       <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
     </table>
+
+  </div>
+  <div>
+
+    <mat-paginator
+      (page)="onPage($event)"
+      [showFirstLastButtons]="true"
+      [pageSizeOptions]="pageSizeOptions"
+      [length]="totalCount$ | async">
+    </mat-paginator>
 
   </div>
 </div>

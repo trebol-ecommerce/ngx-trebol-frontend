@@ -11,7 +11,9 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -41,10 +43,15 @@ describe('ManagementSalespeopleComponent', () => {
       loading$: of(false),
       focusedItems$: of([]),
       items$: of([]),
+      totalCount$: of(0),
       canEdit$: of(true),
       canAdd$: of(true),
       canDelete$: of(true),
-      updateAccess(acc) {}
+      updateAccess(acc) {},
+      sortBy: undefined,
+      order: undefined,
+      pageIndex: undefined,
+      pageSize: undefined
     };
     mockSnackBarService = {
       open(m: string, a: string) { return void 0; }
@@ -60,6 +67,8 @@ describe('ManagementSalespeopleComponent', () => {
         RouterTestingModule,
         MatButtonModule,
         MatIconModule,
+        MatPaginatorModule,
+        MatSortModule,
         MatTableModule,
       ],
       declarations: [

@@ -7,11 +7,11 @@
 
 import { Person } from 'src/models/entities/Person';
 
-export const MOCK_PEOPLE: Partial<Person>[] = [
-  { firstName: 'Administrador', lastName: 'Prueba', idNumber: '4' },
-  { firstName: 'Mánager', lastName: 'Prueba', idNumber: '3' },
-  { firstName: 'Vendedor', lastName: 'Prueba', idNumber: '2' },
-  { firstName: 'Cliente', lastName: 'Prueba', idNumber: '1' },
+export const MOCK_PEOPLE: Person[] = [
+  { firstName: 'Administrador', lastName: 'Prueba', idNumber: '4', email: '' },
+  { firstName: 'Mánager', lastName: 'Prueba', idNumber: '3', email: '' },
+  { firstName: 'Vendedor', lastName: 'Prueba', idNumber: '2', email: '' },
+  { firstName: 'Cliente', lastName: 'Prueba', idNumber: '1', email: '' },
   {
     firstName: 'Herminia',
     lastName: 'J.',

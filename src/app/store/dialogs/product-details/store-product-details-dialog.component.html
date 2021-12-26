@@ -15,7 +15,7 @@
   <p class="description">{{ product?.description }}</p>
 </div>
 <div class="actions">
-  <span class="price">${{ product?.price }}</span>
+  <span class="price">{{ product?.price | currency }}</span>
   <div class="add-to-cart">
     <mat-icon>shopping_cart</mat-icon>
     <div class="quantity-wrapper">

@@ -14,27 +14,18 @@ form {
   form {
     grid-gap: 1rem;
     grid-template-areas:
-      'firstName firstName lastName lastName'
-      'idNumber email email email'
-      'phone1 phone1 phone2 phone2';
+      'code'
+      'name'
+      'parent';
   }
 
-  .firstName {
-    grid-area: firstName;
+  .code {
+    grid-area: code;
   }
-  .lastName{
-    grid-area: lastName;
+  .name{
+    grid-area: name;
   }
-  .idNumber {
-    grid-area: idNumber;
-  }
-  .email {
-    grid-area: email;
-  }
-  .phone1 {
-    grid-area: phone1;
-  }
-  .phone2 {
-    grid-area: phone2;
+  .parent {
+    grid-area: parent;
   }
 }

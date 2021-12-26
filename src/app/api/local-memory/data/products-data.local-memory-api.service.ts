@@ -7,7 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { Product } from 'src/models/entities/Product';
-import { ProductFilters } from "src/app/shared/components/product-filters-panel/ProductFilters";
+import { matchesDateProperty, matchesIdProperty, matchesNumberProperty, matchesStringProperty } from '../entity-data.local-memory-api.functions';
 import { MOCK_PRODUCTS } from '../mock/mock-products.datasource';
 import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
 
@@ -15,24 +15,39 @@ import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-e
 export class ProductsDataLocalMemoryApiService
   extends TransactionalEntityDataLocalMemoryApiService<Product> {
 
-  protected items: Product[] = MOCK_PRODUCTS.map(n => Object.assign(new Product(), n));
+  protected items = MOCK_PRODUCTS.slice();
 
   constructor() {
     super();
   }
 
-  // TODO update accepted query params
-  protected filterItems(filter: ProductFilters): Product[] {
+  protected filterItems(filter: any): Product[] {
     let matchingItems = this.items;
-    if (filter.name) {
-      matchingItems = matchingItems.filter(
-        it => it.name.toUpperCase().includes(filter.name.toUpperCase())
-      );
-    }
-    if (filter.categoryCode) {
-      matchingItems = matchingItems.filter(
-        it => it.category.code === filter.categoryCode
-      );
+    for (const propName in filter) {
+      if (filter.hasOwnProperty(propName)) {
+        const propValue = filter[propName];
+        if (propName === 'productCategory') {
+          matchingItems = matchingItems.filter(p => (p.category?.name === propValue));
+        } else if (propName === 'nameLike') {
+          const nameRegexp = new RegExp(`^.+${propValue}.+$`);
+          matchingItems = matchingItems.filter(c => nameRegexp.test(c.name));
+        } else if (propName === 'productCategoryLike') {
+          const nameRegexp = new RegExp(`^.+${propValue}.+$`);
+          matchingItems = matchingItems.filter(c => (!!c.category?.name && nameRegexp.test(c.category?.name)));
+        } else if (propName !== 'id') {
+          if (typeof propValue === 'string') {
+            matchingItems = matchingItems.filter(it => matchesStringProperty(it, propName, propValue));
+          } else if (typeof propValue === 'number') {
+            matchingItems = matchingItems.filter(it => matchesNumberProperty(it, propName, propValue));
+          } else if (typeof propValue === 'object') {
+            if (propValue instanceof Date) {
+              matchingItems = matchingItems.filter(it => matchesDateProperty(it, propName, propValue));
+            } else if ('id' in propValue) {
+              matchingItems = matchingItems.filter(it => matchesIdProperty(it, propName, propValue));
+            }
+          }
+        }
+      }
     }
 
     return matchingItems;

@@ -25,14 +25,6 @@ describe('ProductsArrayService', () => {
           pageIndex: 0,
           pageSize: 10
         });
-      },
-      fetchPageFilteredBy() {
-        return of({
-          items: [],
-          totalCount: 0,
-          pageIndex: 0,
-          pageSize: 10
-        });
       }
     };
 

@@ -5,17 +5,17 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, forwardRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, forwardRef, OnDestroy } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
   ValidationErrors, Validator, Validators
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { merge, Subscription } from 'rxjs';
-import { debounceTime, take, tap } from 'rxjs/operators';
+import { debounceTime, tap } from 'rxjs/operators';
+import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { Image } from 'src/models/entities/Image';
 import { FormGroupOwner } from 'src/models/FormGroupOwner';
-import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { ImagesArrayDialogComponent } from '../../dialogs/images-array/images-array-dialog.component';
 import { ImagesArrayDialogData } from '../../dialogs/images-array/ImagesArrayDialogData';
 
@@ -37,7 +37,7 @@ import { ImagesArrayDialogData } from '../../dialogs/images-array/ImagesArrayDia
   ]
 })
 export class ProductFormComponent
-  implements OnInit, OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
+  implements OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
 
   private touchedSubscriptions: Subscription[] = [];
   private valueChangesSubscriptions: Subscription[] = [];
@@ -67,10 +67,6 @@ export class ProductFormComponent
       // criticalStock: [''],
       description: ['']
     });
-  }
-
-  ngOnInit(): void {
-    this.formGroup.valueChanges.pipe(debounceTime(200), take(10), tap(() => { console.log(this.formGroup.valid); })).subscribe();
   }
 
   ngOnDestroy(): void {

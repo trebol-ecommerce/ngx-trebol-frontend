@@ -20,11 +20,15 @@ export class ProductFiltersPanelService {
   ) { }
 
   getRootProductCategories(): Observable<ProductCategory[]> {
-    return this.apiService.fetchPage().pipe(map(page => page.items));
+    return this.apiService.fetchPage().pipe(
+      map(page => page.items)
+    );
   }
 
   getChildrenProductCategoryByParentCode(code: string): Observable<ProductCategory[]> {
-    return this.apiService.fetchPageFilteredBy({ parentCode: code }).pipe(map(page => page.items));
+    return this.apiService.fetchPage(0, Number.MAX_SAFE_INTEGER, null, null, { parentCode: code }).pipe(
+      map(page => page.items)
+    );
   }
 
 }

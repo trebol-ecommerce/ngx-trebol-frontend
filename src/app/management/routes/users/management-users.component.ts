@@ -29,7 +29,7 @@ export class ManagementUsersComponent
   extends TransactionalDataManagerComponentDirective<User>
   implements OnInit {
 
-  tableColumns: string[] = [ 'name', 'role', 'actions' ];
+  tableColumns = [ 'name', 'role', 'actions' ];
 
   constructor(
     protected service: ManagementUsersService,
@@ -50,17 +50,6 @@ export class ManagementUsersComponent
     );
   }
 
-  protected createDialogProperties(item: User): EntityFormDialogConfig<User> {
-    return {
-      data: {
-        item,
-        formComponent: UserFormComponent,
-        service: this.service.dataService
-      },
-      width: '40rem'
-    };
-  }
-
   onClickDelete(usr: User) {
     this.service.removeItems([usr]).pipe(
       map(results => results[0])
@@ -78,6 +67,17 @@ export class ManagementUsersComponent
         this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
       }
     );
+  }
+
+  protected createDialogProperties(item: User): EntityFormDialogConfig<User> {
+    return {
+      data: {
+        item,
+        formComponent: UserFormComponent,
+        service: this.service.dataService
+      },
+      width: '40rem'
+    };
   }
 
 }

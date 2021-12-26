@@ -29,7 +29,7 @@ export class ManagementShippersComponent
   extends TransactionalDataManagerComponentDirective<Shipper>
   implements OnInit {
 
-  tableColumns: string[] = [ 'name', 'actions' ];
+  tableColumns = [ 'name', 'actions' ];
 
   constructor(
     protected service: ManagementShippersService,
@@ -50,17 +50,6 @@ export class ManagementShippersComponent
     );
   }
 
-  protected createDialogProperties(item: Shipper): EntityFormDialogConfig<Shipper> {
-    return {
-      data: {
-        item,
-        formComponent: ShipperFormComponent,
-        service: this.service.dataService
-      },
-      width: '40rem'
-    };
-  }
-
   onClickDelete(shipper: Shipper) {
     this.service.removeItems([shipper]).pipe(
       map(results => results[0])
@@ -78,6 +67,17 @@ export class ManagementShippersComponent
         this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
       }
     );
+  }
+
+  protected createDialogProperties(item: Shipper): EntityFormDialogConfig<Shipper> {
+    return {
+      data: {
+        item,
+        formComponent: ShipperFormComponent,
+        service: this.service.dataService
+      },
+      width: '40rem'
+    };
   }
 
 }

@@ -10,26 +10,26 @@
 <div class="data-manager" [hidden]="loading$ | async">
   <div class="table-wrapper">
 
-    <table mat-table class="full-width-min" [dataSource]="items$">
+    <table mat-table [dataSource]="items$" matSort (matSortChange)="onSortChange($event)">
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef
+        <th mat-header-cell *matHeaderCellDef mat-sort-header
           i18n="product name|Name of table header for name of product">Name</th>
         <td mat-cell *matCellDef="let product">
           {{ product.name }}
         </td>
       </ng-container>
       <ng-container matColumnDef="barcode">
-        <th mat-header-cell *matHeaderCellDef
+        <th mat-header-cell *matHeaderCellDef mat-sort-header
           i18n="product code|Name of table header for code of product">Code</th>
         <td mat-cell *matCellDef="let product">
           {{ product.barcode }}
         </td>
       </ng-container>
       <ng-container matColumnDef="price">
-        <th mat-header-cell *matHeaderCellDef
+        <th mat-header-cell *matHeaderCellDef mat-sort-header
           i18n="Name of table header for price per product unit">Price</th>
         <td mat-cell *matCellDef="let product">
-          ${{ product.price }}
+          {{ product.price | currency }}
         </td>
       </ng-container>
       <!-- <ng-container matColumnDef="currentStock">
@@ -46,7 +46,7 @@
         </td>
       </ng-container> -->
       <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef
+        <th mat-header-cell *matHeaderCellDef mat-sort-header
           i18n="Name of table header for category of product">Category</th>
         <td mat-cell *matCellDef="let product">
           {{ product.category.name }}
@@ -81,8 +81,18 @@
     </table>
 
   </div>
-  <app-management-data-actions
-    *ngIf="canAdd$ | async"
-    (add)="onClickAdd()">
-  </app-management-data-actions>
+  <div>
+
+    <app-management-data-actions
+      *ngIf="canAdd$ | async"
+      (add)="onClickAdd()">
+    </app-management-data-actions>
+    <mat-paginator
+      (page)="onPage($event)"
+      [showFirstLastButtons]="true"
+      [pageSizeOptions]="pageSizeOptions"
+      [length]="totalCount$ | async">
+    </mat-paginator>
+
+  </div>
 </div>

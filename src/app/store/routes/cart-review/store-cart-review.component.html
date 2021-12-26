@@ -12,7 +12,7 @@
   <mat-divider></mat-divider>
   <div class="subtotal">
     <span class="label" i18n="subtotal sell value|Label with cart subtotal value (products only)">Subtotal</span>
-    <span class="value">${{ cartNetValue$ | async }}</span>
+    <span class="value">{{ (cartNetValue$ | async) | currency }}</span>
   </div>
 </div>
 <mat-horizontal-stepper linear #stepper>

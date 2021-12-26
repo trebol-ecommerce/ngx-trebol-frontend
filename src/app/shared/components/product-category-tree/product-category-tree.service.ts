@@ -7,7 +7,7 @@
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, forkJoin, Observable, of, Subscription } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, mapTo, switchMap, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
@@ -56,12 +56,13 @@ export class ProductCategoryTreeService
           parent.children.push(target);
         }
         this.categoriesSource.next(this.categoriesSource.value);
-      })
+      }),
+      mapTo(target)
     );
   }
 
-  editNode(originalNode: ProductCategory, newNode: ProductCategory) {
-    return this.apiService.update(originalNode, newNode).pipe(
+  editNode(newNode: ProductCategory, originalNode: ProductCategory) {
+    return this.apiService.update(newNode, originalNode).pipe(
       tap(() => {
         originalNode.code = newNode.code;
         originalNode.name = newNode.name;
@@ -96,7 +97,7 @@ export class ProductCategoryTreeService
   }
 
   private loadChildrenOf(parent: ProductCategory): Observable<ProductCategory[]> {
-    return this.apiService.fetchPageFilteredBy({ parentCode: parent.code }).pipe(
+    return this.apiService.fetchPage(0, Number.MAX_SAFE_INTEGER, null, null, { parentCode: parent.code }).pipe(
       map(page => page.items as ProductCategory[]),
       tap(items => (parent.children = items))
     );

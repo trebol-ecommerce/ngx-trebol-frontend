@@ -8,6 +8,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -21,18 +23,23 @@ class MockCenteredMatSpinnerComponent { }
 describe('ManagementCustomersComponent', () => {
   let component: ManagementCustomersComponent;
   let fixture: ComponentFixture<ManagementCustomersComponent>;
-  let managerService: Partial<ManagementCustomersService>;
+  let mockService: Partial<ManagementCustomersService>;
 
   beforeEach(waitForAsync(() => {
-    managerService = {
+    mockService = {
       reloadItems() {},
       loading$: of(false),
       focusedItems$: of([]),
       items$: of([]),
+      totalCount$: of(0),
       canEdit$: of(true),
       canAdd$: of(true),
       canDelete$: of(true),
-      updateAccess(acc) {}
+      updateAccess(acc) { },
+      sortBy: undefined,
+      order: undefined,
+      pageIndex: undefined,
+      pageSize: undefined
     };
 
     TestBed.configureTestingModule({
@@ -40,6 +47,8 @@ describe('ManagementCustomersComponent', () => {
         CommonModule,
         NoopAnimationsModule,
         RouterTestingModule,
+        MatPaginatorModule,
+        MatSortModule,
         MatTableModule
       ],
       declarations: [
@@ -47,7 +56,7 @@ describe('ManagementCustomersComponent', () => {
         MockCenteredMatSpinnerComponent
       ],
       providers: [
-        { provide: ManagementCustomersService, useValue: managerService }
+        { provide: ManagementCustomersService, useValue: mockService }
       ]
     })
     .compileComponents();

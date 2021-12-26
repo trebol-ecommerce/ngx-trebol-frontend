@@ -25,7 +25,8 @@
   overflow: auto;
 }
 table {
-  width: max-content;
+  min-width: 100%;
+  /* width: max-content; */
 }
 .mat-header-cell, .mat-cell {
   padding-left: 0.5rem;

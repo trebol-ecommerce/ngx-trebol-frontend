@@ -18,7 +18,7 @@ export class SalesDataLocalMemoryApiService
   extends TransactionalEntityDataLocalMemoryApiService<Sell>
   implements ICompositeEntityDataApiService<Sell, SellDetail> {
 
-  protected items: Sell[] = MOCK_SALES.map(n => Object.assign(new Sell(), n));
+  protected items = MOCK_SALES.slice();
 
   constructor() {
     super();

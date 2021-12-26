@@ -14,7 +14,7 @@ import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-e
 export class ImagesDataLocalMemoryApiService
   extends TransactionalEntityDataLocalMemoryApiService<Image> {
 
-  protected items: Image[] = MOCK_IMAGES.map(n => Object.assign(new Image(), n));
+  protected items = MOCK_IMAGES.slice();
 
   constructor() {
     super();
