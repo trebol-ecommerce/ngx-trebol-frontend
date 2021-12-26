@@ -5,6 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
+import { CurrencyPipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -23,7 +24,8 @@ import { SellFormService } from './sell-manager-form.service';
 @Component({
   selector: 'app-sell-form',
   templateUrl: './sell-form.component.html',
-  styleUrls: [ './sell-form.component.css' ]
+  styleUrls: ['./sell-form.component.css'],
+  providers: [ CurrencyPipe ]
 })
 export class SellFormComponent
   implements OnInit {
@@ -52,7 +54,8 @@ export class SellFormComponent
     @Inject(API_SERVICE_INJECTION_TOKENS.dataBillingTypes) private billingTypesDataApiService: IEntityDataApiService<BillingType>,
     private service: SellFormService,
     private formBuilder: FormBuilder,
-    private dialogService: MatDialog
+    private dialogService: MatDialog,
+    private currencyPipe: CurrencyPipe
   ) {
     this.formGroup = this.formBuilder.group({
       billingType: [null, Validators.required],
@@ -69,10 +72,10 @@ export class SellFormComponent
     this.customers$ = this.customersDataService.fetchPage().pipe(map(page => page.items));
 
     this.sellNetValueLabel$ = this.service.sellNetValue$.pipe(
-      map(netValue => ($localize`:subtotal sell value|Label with sell subtotal value (products only) being {{ subtotalValue }}:Subtotal: $${ netValue }:subtotalValue:`))
+      map(netValue => ($localize`:subtotal sell value|Label with sell subtotal value (products only) being {{ subtotalValue }}:Subtotal: ${ this.currencyPipe.transform(netValue) }:subtotalValue:`))
     );
     this.sellTotalValueLabel$ = this.service.sellTotalValue$.pipe(
-      map(totalValue => ($localize`:total sell value|Label with sell total value (products, transport and taxes) being {{ totalValue }}:Total: $${ totalValue }:totalValue:`))
+      map(totalValue => ($localize`:total sell value|Label with sell total value (products, transport and taxes) being {{ totalValue }}:Total: ${ this.currencyPipe.transform(totalValue) }:totalValue:`))
     );
 
     // this.sellIsntReady$ = merge(

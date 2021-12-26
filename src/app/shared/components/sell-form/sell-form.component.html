@@ -65,7 +65,7 @@
           <th mat-header-cell *matHeaderCellDef
             i18n="Name of table header for price per product unit">Price</th>
           <td mat-cell *matCellDef="let detail">
-            ${{ detail.product.price }}
+            {{ detail.product.price | currency }}
           </td>
         </ng-container>
         <ng-container matColumnDef="quantity">

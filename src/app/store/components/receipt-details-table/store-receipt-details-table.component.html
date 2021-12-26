@@ -20,7 +20,7 @@
       <span i18n="Name of table header for price per product unit">Price</span>
     </th>
     <td mat-cell *matCellDef="let detail" class="center">
-      <span>${{ detail.unitValue }}</span>
+      <span>{{ detail.unitValue | currency }}</span>
     </td>
   </ng-container>
   <ng-container matColumnDef="quantity">
@@ -36,7 +36,7 @@
       <span i18n="Name of table header for the value of product price x units in cart">Subtotal</span>
     </th>
     <td mat-cell *matCellDef="let detail" class="center">
-      <span>${{ detail.unitValue * detail.units }}</span>
+      <span>{{ (detail.unitValue * detail.units) | currency }}</span>
     </td>
   </ng-container>
 

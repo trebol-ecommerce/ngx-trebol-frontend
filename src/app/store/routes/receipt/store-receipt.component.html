@@ -13,9 +13,9 @@
     <h2 mat-card-title i18n="Title of widget displaying details of a succesful transaction">Transaction Successful</h2>
     <p i18n="Label with transaction confirmation date">Confirmed on {{ receipt.date | date }}</p>
     <p i18n="Label with total count of items in transaction being {{ receipt.totalItems }}">Total items: {{ receipt.totalItems }}</p>
-    <p *ngIf="receipt.transportValue" i18n="Label with total price of transport being {{ receipt.transportValue }}">Transport: ${{ receipt.transportValue }}</p>
-    <p *ngIf="receipt.taxValue" i18n="Label with total price of taxes being {{ receipt.taxValue }}">Taxes: ${{ receipt.taxValue }}</p>
-    <p i18n="Label with total price of transaction being {{ receipt.totalValue}}">Total: ${{ receipt.totalValue }}</p>
+    <p *ngIf="receipt.transportValue" i18n="Label with total price of transport being {{ receipt.transportValue }}">Transport: {{ receipt.transportValue | currency }}</p>
+    <p *ngIf="receipt.taxValue" i18n="Label with total price of taxes being {{ receipt.taxValue }}">Taxes: {{ receipt.taxValue | currency }}</p>
+    <p i18n="Label with total price of transaction being {{ receipt.totalValue}}">Total: {{ receipt.totalValue | currency }}</p>
     <h3 i18n="Title of widget displaying products and details of transaction">Details</h3>
     <app-store-receipt-details-table [details]="receipt.details">
     </app-store-receipt-details-table>

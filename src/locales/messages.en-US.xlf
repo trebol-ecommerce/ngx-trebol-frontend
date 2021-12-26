@@ -904,7 +904,7 @@
         </context-group>
         <note priority="1" from="description">Message of error while renaming category</note>
       </trans-unit>
-      <trans-unit id="4416290763660062288" datatype="html">
+      <trans-unit id="3322592498375909885" datatype="html">
         <source>Are you sure to delete the category? This will include all its descendants. Related products will not be deleted, and instead will be marked as not having a category.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
@@ -916,7 +916,7 @@
         <source>Category was deleted</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">123</context>
         </context-group>
         <note priority="1" from="description">Message of success after deleting category</note>
       </trans-unit>
@@ -924,7 +924,7 @@
         <source>Category could not be deleted</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
-          <context context-type="linenumber">127</context>
+          <context context-type="linenumber">126</context>
         </context-group>
         <note priority="1" from="description">Message of error while deleting category</note>
       </trans-unit>
@@ -1047,20 +1047,20 @@
         <note priority="1" from="description">Label for action button to remove all units of a product in a sell</note>
         <note priority="1" from="meaning">remove all product units</note>
       </trans-unit>
-      <trans-unit id="9202090243653687566" datatype="html">
-        <source>Subtotal: $<x id="subtotalValue" equiv-text="netValue"/></source>
+      <trans-unit id="1322475951217738106" datatype="html">
+        <source>Subtotal: <x id="subtotalValue" equiv-text="this.currencyPipe.transform(netValue)"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/sell-form/sell-form.component.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">74</context>
         </context-group>
         <note priority="1" from="description">Label with sell subtotal value (products only) being {{ subtotalValue }}</note>
         <note priority="1" from="meaning">subtotal sell value</note>
       </trans-unit>
-      <trans-unit id="7346352865085469913" datatype="html">
-        <source>Total: $<x id="totalValue" equiv-text="totalValue"/></source>
+      <trans-unit id="4936825578398367349" datatype="html">
+        <source>Total: <x id="totalValue" equiv-text="this.currencyPipe.transform(totalValue)"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/sell-form/sell-form.component.ts</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">77</context>
         </context-group>
         <note priority="1" from="description">Label with sell total value (products, transport and taxes) being {{ totalValue }}</note>
         <note priority="1" from="meaning">total sell value</note>
@@ -1658,24 +1658,24 @@
         </context-group>
         <note priority="1" from="description">Label with total count of items in transaction being {{ receipt.totalItems }}</note>
       </trans-unit>
-      <trans-unit id="f940c1a36ccf42149351c9e573c4e9ba4579b883" datatype="html">
-        <source>Transport: $<x id="INTERPOLATION" equiv-text="{{ receipt.transportValue }}"/></source>
+      <trans-unit id="4c83ae535307975b8cbf8232fa3f5b169dc73af2" datatype="html">
+        <source>Transport: <x id="INTERPOLATION" equiv-text="{{ receipt.transportValue | currency }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/routes/receipt/store-receipt.component.html</context>
           <context context-type="linenumber">16</context>
         </context-group>
         <note priority="1" from="description">Label with total price of transport being {{ receipt.transportValue }}</note>
       </trans-unit>
-      <trans-unit id="136527faaeb0066889203e1be6929ddd1d01e82c" datatype="html">
-        <source>Taxes: $<x id="INTERPOLATION" equiv-text="{{ receipt.taxValue }}"/></source>
+      <trans-unit id="040460b6a45b34e7fe84d47d2c837037b54b18bd" datatype="html">
+        <source>Taxes: <x id="INTERPOLATION" equiv-text="{{ receipt.taxValue | currency }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/routes/receipt/store-receipt.component.html</context>
           <context context-type="linenumber">17</context>
         </context-group>
         <note priority="1" from="description">Label with total price of taxes being {{ receipt.taxValue }}</note>
       </trans-unit>
-      <trans-unit id="887220120db872f1c8e7607306b0d9fa11850f6b" datatype="html">
-        <source>Total: $<x id="INTERPOLATION" equiv-text="{{ receipt.totalValue }}"/></source>
+      <trans-unit id="a0b6dd53a175bd2e85e265f0cbe1c55596ca7161" datatype="html">
+        <source>Total: <x id="INTERPOLATION" equiv-text="{{ receipt.totalValue | currency }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/routes/receipt/store-receipt.component.html</context>
           <context context-type="linenumber">18</context>
