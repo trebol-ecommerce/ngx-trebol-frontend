@@ -39,7 +39,7 @@
       i18n-placeholder="Name of field for purchasing customer in sell ">
       <mat-option *ngFor="let c of (customers$ | async)"
         [value]="c.person.idNumber">{{
-          c.person.firstName + " " + c.person.lastName
+          c.person.firstName + ' ' + c.person.lastName
         }}</mat-option>
     </mat-select>
   </mat-form-field>
