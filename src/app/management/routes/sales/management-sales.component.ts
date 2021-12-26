@@ -29,7 +29,7 @@ export class ManagementSalesComponent
   extends TransactionalDataManagerComponentDirective<Sell>
   implements OnInit {
 
-  tableColumns = [ 'id', 'date', 'customerName', 'status', 'actions' ];
+  tableColumns = [ 'buyOrder', 'date', 'customer', 'status', 'actions' ];
 
   constructor(
     protected service: ManagementSalesService,
