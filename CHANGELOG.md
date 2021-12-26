@@ -4,15 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v1.1.2] - 2021-12-25
+## [v1.1.2] - 2021-12-26
 
 ### Added
 - Support for sort pagination parameters [API v1.1.2]
 - Support for sorting and pagination in datatables in the management page
 
+### Changed
+- Prices and currency values displayed with Angular currency pipe instead of adding '$' suffix
+
 ### Fixed
 - Creation and general use of categories within local-memory api (such as in, the demo link)
-- Fixed issue updating categories due to calling API with wrong query parameters
+- Issue updating categories due to calling API with wrong query parameters
+- Issue opening sales data for edition due to bad template binding
 
 ## [v1.1.1] - 2021-12-18
 
