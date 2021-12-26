@@ -44,11 +44,16 @@ describe('ManagementProductCategoriesComponent', () => {
       loading$: of(false),
       focusedItems$: of([]),
       items$: of([]),
+      totalCount$: of(0),
       canEdit$: of(true),
       canAdd$: of(true),
       canDelete$: of(true),
       focusedItems: [],
-      updateAccess() {}
+      updateAccess() {},
+      sortBy: undefined,
+      order: undefined,
+      pageIndex: undefined,
+      pageSize: undefined
     };
     mockDialogService = {
       open() { return void 0; }
