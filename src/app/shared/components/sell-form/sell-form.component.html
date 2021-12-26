@@ -8,7 +8,7 @@
 <form [formGroup]="formGroup">
 
   <mat-form-field style="grid-area: date">
-    <input matInput [ngModel]="sellDate" [ngModelOptions]="{ standalone: true }" disabled
+    <input matInput formControlName="date"
       placeholder="Date and time"
       i18n-placeholder="Name of field for date and time of sell" />
   </mat-form-field>
@@ -27,9 +27,7 @@
       placeholder="Salesperson"
       i18n-placeholder="Name of field for salesperson that earned/is in charge of sell">
       <mat-option *ngFor="let e of (salespeople$ | async)"
-        [value]="e.person.idNumber">{{
-          e.person.firstName + ' ' + e.person.lastName
-        }}</mat-option>
+        [value]="e">{{ e.person.firstName + ' ' + e.person.lastName }}</mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -38,9 +36,7 @@
       placeholder="Customer"
       i18n-placeholder="Name of field for purchasing customer in sell ">
       <mat-option *ngFor="let c of (customers$ | async)"
-        [value]="c.person.idNumber">{{
-          c.person.firstName + ' ' + c.person.lastName
-        }}</mat-option>
+        [value]="c">{{ c.person.firstName + ' ' + c.person.lastName }}</mat-option>
     </mat-select>
   </mat-form-field>
 
