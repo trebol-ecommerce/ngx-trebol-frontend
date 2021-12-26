@@ -93,7 +93,7 @@
           <context context-type="linenumber">69</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/routes/products/product-manager.component.html</context>
+          <context context-type="sourcefile">src/app/management/routes/products/management-products.component.html</context>
           <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
@@ -114,7 +114,7 @@
           <context context-type="linenumber">76</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/routes/products/product-manager.component.html</context>
+          <context context-type="sourcefile">src/app/management/routes/products/management-products.component.html</context>
           <context context-type="linenumber">30</context>
         </context-group>
         <context-group purpose="location">
@@ -388,8 +388,8 @@
         <note priority="1" from="description">Label for action button to delete an item</note>
         <note priority="1" from="meaning">delete</note>
       </trans-unit>
-      <trans-unit id="7271324698069692652" datatype="html">
-        <source>Imagen &apos;<x id="PH" equiv-text="img.filename"/>&apos;:fileName: eliminada</source>
+      <trans-unit id="3036128413119146323" datatype="html">
+        <source>Imagen &apos;<x id="fileName" equiv-text="img.filename"/>&apos; eliminada</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/images/management-images.component.ts</context>
           <context context-type="linenumber">70</context>
@@ -438,8 +438,8 @@
         <note priority="1" from="description">Label for action button to edit information of an item</note>
         <note priority="1" from="meaning">edit</note>
       </trans-unit>
-      <trans-unit id="8182583452793335860" datatype="html">
-        <source>Producto <x id="name" equiv-text="prod.name"/> eliminado</source>
+      <trans-unit id="4937323765727682410" datatype="html">
+        <source>Producto &apos;<x id="name" equiv-text="prod.name"/>&apos; eliminado</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/products/management-products.component.ts</context>
           <context context-type="linenumber">72</context>
@@ -840,40 +840,40 @@
         <note priority="1" from="description">Label to indicate that a product does not have a category associated</note>
         <note priority="1" from="meaning">no category chosen</note>
       </trans-unit>
-      <trans-unit id="5283126894280379202" datatype="html">
-        <source>Expandir/contraer &apos;<x id="PH" equiv-text="n.name"/>&apos;:parentName:</source>
+      <trans-unit id="8072039244659526287" datatype="html">
+        <source>Expandir/contraer &apos;<x id="parentName" equiv-text="n.name"/>&apos;</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
           <context context-type="linenumber">74</context>
         </context-group>
         <note priority="1" from="description">Label for action button to show or hide subcategories of parent of name {{ parentName }}</note>
       </trans-unit>
-      <trans-unit id="319986435970002142" datatype="html">
-        <source>Nueva subcategoría en &apos;<x id="PH" equiv-text="n.name"/>&apos;:parentName:</source>
+      <trans-unit id="4527207813746231263" datatype="html">
+        <source>Nueva subcategoría en &apos;<x id="parentName" equiv-text="n.name"/>&apos;</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
           <context context-type="linenumber">75</context>
         </context-group>
         <note priority="1" from="description">Label for action button to create a subcategory in parent of name {{ parentName }}</note>
       </trans-unit>
-      <trans-unit id="1761544725584708883" datatype="html">
-        <source>Editar categoría &apos;<x id="PH" equiv-text="n.name"/>&apos;:name:</source>
+      <trans-unit id="7523084622267699318" datatype="html">
+        <source>Editar categoría &apos;<x id="name" equiv-text="n.name"/>&apos;</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
           <context context-type="linenumber">76</context>
         </context-group>
         <note priority="1" from="description">Label for action button to edit category of name {{ name }}</note>
       </trans-unit>
-      <trans-unit id="8068295462437149311" datatype="html">
-        <source>Eliminar categoría &apos;<x id="PH" equiv-text="n.name"/>&apos;:name:</source>
+      <trans-unit id="2825865361612734982" datatype="html">
+        <source>Eliminar categoría &apos;<x id="name" equiv-text="n.name"/>&apos;</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
           <context context-type="linenumber">77</context>
         </context-group>
         <note priority="1" from="description">Label for action button to delete category of name {{ name }}</note>
       </trans-unit>
-      <trans-unit id="1888482894922730795" datatype="html">
-        <source>Subcategoría &apos;<x id="PH" equiv-text="next.name"/>&apos;:name: creada</source>
+      <trans-unit id="5722350312117707260" datatype="html">
+        <source>Subcategoría &apos;<x id="name" equiv-text="next.name"/>&apos; creada</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
           <context context-type="linenumber">92</context>
@@ -888,8 +888,8 @@
         </context-group>
         <note priority="1" from="description">Message of error during creation of subcategory</note>
       </trans-unit>
-      <trans-unit id="194523612096867569" datatype="html">
-        <source>Categoría renombrada a &apos;<x id="PH" equiv-text="next.name"/>&apos;</source>
+      <trans-unit id="6455479276885627876" datatype="html">
+        <source>Categoría renombrada a &apos;<x id="name" equiv-text="next.name"/>&apos;</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
           <context context-type="linenumber">106</context>
@@ -904,11 +904,19 @@
         </context-group>
         <note priority="1" from="description">Message of error while renaming category</note>
       </trans-unit>
+      <trans-unit id="4416290763660062288" datatype="html">
+        <source>¿Segur@ que desea eliminar la categoría? Esto incluirá todas las categorías descendientes. Los productos asociados no serán eliminados, pero quedarán sin categoría alguna.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
+          <context context-type="linenumber">117</context>
+        </context-group>
+        <note priority="1" from="description">Paragraph asking confirmation to delete a category, and explaining that deleting it cascades to its descendants, but not to related products which are detached from the relationship</note>
+      </trans-unit>
       <trans-unit id="6150650914166823291" datatype="html">
         <source>Categoría eliminada</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
-          <context context-type="linenumber">125</context>
+          <context context-type="linenumber">124</context>
         </context-group>
         <note priority="1" from="description">Message of success after deleting category</note>
       </trans-unit>
@@ -916,7 +924,7 @@
         <source>La categoría no pudo ser eliminada</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-tree/product-category-tree.component.ts</context>
-          <context context-type="linenumber">128</context>
+          <context context-type="linenumber">127</context>
         </context-group>
         <note priority="1" from="description">Message of error while deleting category</note>
       </trans-unit>
@@ -961,7 +969,7 @@
         <source>Descripción</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-form/product-form.component.html</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">52</context>
         </context-group>
         <note priority="1" from="description">Name of field for product description</note>
       </trans-unit>
