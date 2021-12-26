@@ -75,8 +75,6 @@ export class StoreCheckoutRequestFormComponent
   }
 
   onClickRequest(): void {
-    console.log(this.formGroup);
-
     this.cartService.checkoutButtonPress.emit();
     if (this.formGroup.invalid) {
       this.billingForm.onParentFormTouched();

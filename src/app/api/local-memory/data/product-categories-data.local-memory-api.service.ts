@@ -52,8 +52,6 @@ export class ProductCategoriesDataLocalMemoryApiService
   }
 
   protected filterItems(filter: any): ProductCategory[] {
-    console.log('fetching categories with filters: ' + JSON.stringify(filter));
-
     let matchingItems = this.items;
     for (const propName in filter) {
       if (filter.hasOwnProperty(propName)) {
