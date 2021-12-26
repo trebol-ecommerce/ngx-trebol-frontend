@@ -71,10 +71,10 @@ export class ProductCategoryTreeComponent
 
   hasChild = (_: number, node: ProductCategoryTreeFlatNode) => (node.expandable);
 
-  toggleNodeLabel = (n: ProductCategoryTreeFlatNode) => ($localize`:Label for action button to show or hide subcategories of parent of name {{ parentName }}:Expand/collapse '${n.name}':parentName:`);
-  addChildNodeLabel = (n: ProductCategoryTreeFlatNode) => ($localize`:Label for action button to create a subcategory in parent of name {{ parentName }}:New subcategory in '${n.name}':parentName:`);
-  editNodeLabel = (n: ProductCategoryTreeFlatNode) => ($localize`:Label for action button to edit category of name {{ name }}:Edit category '${n.name}':name:`);
-  deleteNodeLabel = (n: ProductCategoryTreeFlatNode) => ($localize`:Label for action button to delete category of name {{ name }}:Delete category '${n.name}':name:`);
+  toggleNodeLabel = (n: ProductCategoryTreeFlatNode) => ($localize`:Label for action button to show or hide subcategories of parent of name {{ parentName }}:Expand/collapse '${n.name}:parentName:'`);
+  addChildNodeLabel = (n: ProductCategoryTreeFlatNode) => ($localize`:Label for action button to create a subcategory in parent of name {{ parentName }}:New subcategory in '${n.name}:parentName:'`);
+  editNodeLabel = (n: ProductCategoryTreeFlatNode) => ($localize`:Label for action button to edit category of name {{ name }}:Edit category '${n.name}:name:'`);
+  deleteNodeLabel = (n: ProductCategoryTreeFlatNode) => ($localize`:Label for action button to delete category of name {{ name }}:Delete category '${n.name}:name:'`);
 
   onClickAddChildNodeTo(parentNode: ProductCategoryTreeFlatNode): void {
     const parent = this.flatNodeMap.get(parentNode);
@@ -89,7 +89,7 @@ export class ProductCategoryTreeComponent
       tap(() => this.treeControl.expand(parentNode))
     ).subscribe(
       next => {
-        this.snackbarService.open($localize`:Message of success after creating subcategory with name {{ name }}:Subcategory '${next.name}':name: was created`, COMMON_DISMISS_BUTTON_LABEL);
+        this.snackbarService.open($localize`:Message of success after creating subcategory with name {{ name }}:Subcategory '${next.name}:name:' was created`, COMMON_DISMISS_BUTTON_LABEL);
       },
       error => {
         this.snackbarService.open($localize`:Message of error during creation of subcategory:Subcategory could not be created`, COMMON_DISMISS_BUTTON_LABEL);
@@ -103,7 +103,7 @@ export class ProductCategoryTreeComponent
       switchMap(newNode => this.service.editNode(newNode, node))
     ).subscribe(
       (next: ProductCategory) => {
-        this.snackbarService.open($localize`:Message of success after renaming category to {{ name }}:Category was renamed to '${next.name}'`, COMMON_DISMISS_BUTTON_LABEL);
+        this.snackbarService.open($localize`:Message of success after renaming category to {{ name }}:Category was renamed to '${next.name}:name:'`, COMMON_DISMISS_BUTTON_LABEL);
       },
       error => {
         this.snackbarService.open($localize`:Message of error while renaming category:Category could not be renamed`, COMMON_DISMISS_BUTTON_LABEL);
@@ -114,9 +114,7 @@ export class ProductCategoryTreeComponent
   onClickDeleteNode(treeNode: ProductCategoryTreeFlatNode): void {
     const node = this.flatNodeMap.get(treeNode);
     this.requestConfirmation(
-      '¿Segur@ que desea eliminar la categoría? ' +
-      'Esto incluirá todas las categorías descendientes. ' +
-      'Los productos asociados no serán eliminados, pero quedarán sin categoría alguna.'
+      $localize`:Paragraph asking confirmation to delete a category, and explaining that deleting it cascades to its descendants, but not to related products which are detached from the relationship:Are you sure to delete the category? This will include all its descendants. Related products will not be deleted, and instead will be marked as not having a category.`
     ).pipe(
       switchMap(() => this.service.deleteNode(node)),
       tap(() => this.matTree.renderNodeChanges(this.dataSource.data)) // TODO optimize this?

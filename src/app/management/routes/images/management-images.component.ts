@@ -67,7 +67,7 @@ export class ManagementImagesComponent
     ).subscribe(
       success => {
         if (success) {
-          const deletionSucess = $localize`:Message of success after deleting an image with filename {{ fileName }}:Image '${img.filename}':fileName: deleted`;
+          const deletionSucess = $localize`:Message of success after deleting an image with filename {{ fileName }}:Image '${img.filename}:fileName:' deleted`;
           this.snackBarService.open(deletionSucess, COMMON_DISMISS_BUTTON_LABEL);
           this.service.reloadItems();
         } else {

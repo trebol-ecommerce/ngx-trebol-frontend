@@ -69,7 +69,7 @@ export class ManagementProductsComponent
     ).subscribe(
       success => {
         if (success) {
-          const message = $localize`:Message of success after deleting a product with name {{ name }}:Product ${prod.name}:name: deleted`;
+          const message = $localize`:Message of success after deleting a product with name {{ name }}:Product '${prod.name}:name:' deleted`;
           this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
           this.service.reloadItems();
         } else {
