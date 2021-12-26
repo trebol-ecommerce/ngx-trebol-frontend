@@ -5,7 +5,8 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Directive, OnInit } from '@angular/core';
+import { Directive, EventEmitter, OnInit, Output } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -19,9 +20,12 @@ import { DataManagerServiceDirective } from './data-manager.service-directive';
 export abstract class DataManagerComponentDirective<T>
   implements OnInit {
 
+  pageSizeOptions = [5, 10, 20, 50, 100];
+
   loading$: Observable<boolean>;
   busy$: Observable<boolean>;
   items$: Observable<T[]>;
+  totalCount$: Observable<number>;
   canEdit$: Observable<boolean>;
   canAdd$: Observable<boolean>;
   canDelete$: Observable<boolean>;
@@ -38,10 +42,17 @@ export abstract class DataManagerComponentDirective<T>
     this.service.reloadItems();
   }
 
+  onPage(event: PageEvent): void {
+    this.service.pageIndex = event.pageIndex;
+    this.service.pageSize = event.pageSize;
+    this.service.reloadItems();
+  }
+
   protected init(service: DataManagerServiceDirective<T>): void {
     this.loading$ = service.loading$.pipe();
     this.busy$ = service.focusedItems$.pipe(map(items => items?.length > 0));
     this.items$ = service.items$.pipe();
+    this.totalCount$ = service.totalCount$.pipe();
     this.canEdit$ = service.canEdit$.pipe();
     this.canAdd$ = service.canAdd$.pipe();
     this.canDelete$ = service.canDelete$.pipe();

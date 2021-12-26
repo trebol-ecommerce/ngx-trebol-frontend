@@ -11,6 +11,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
@@ -64,6 +65,7 @@ describe('ManagementProductsComponent', () => {
         RouterTestingModule,
         MatButtonModule,
         MatIconModule,
+        MatPaginatorModule,
         MatTableModule
       ],
       declarations: [

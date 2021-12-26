@@ -68,8 +68,18 @@
     </table>
 
   </div>
-  <app-management-data-actions
-    *ngIf="canAdd$ | async"
-    (add)="onClickAdd()">
-  </app-management-data-actions>
+  <div>
+
+    <app-management-data-actions
+      *ngIf="canAdd$ | async"
+      (add)="onClickAdd()">
+    </app-management-data-actions>
+    <mat-paginator
+      (page)="onPage($event)"
+      [showFirstLastButtons]="true"
+      [pageSizeOptions]="pageSizeOptions"
+      [length]="totalCount$ | async">
+    </mat-paginator>
+
+  </div>
 </div>

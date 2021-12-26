@@ -11,6 +11,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -60,7 +61,8 @@ describe('ManagementUsersComponent', () => {
         RouterTestingModule,
         MatButtonModule,
         MatIconModule,
-        MatTableModule,
+        MatPaginatorModule,
+        MatTableModule
       ],
       declarations: [
         ManagementUsersComponent,

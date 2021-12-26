@@ -31,4 +31,14 @@
     </table>
 
   </div>
+  <div>
+
+    <mat-paginator
+      (page)="onPage($event)"
+      [showFirstLastButtons]="true"
+      [pageSizeOptions]="pageSizeOptions"
+      [length]="totalCount$ | async">
+    </mat-paginator>
+
+  </div>
 </div>
