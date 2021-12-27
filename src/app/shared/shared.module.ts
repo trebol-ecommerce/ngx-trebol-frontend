@@ -25,6 +25,7 @@ import { ProductCategorySelectorFormFieldComponent } from './components/product-
 import { ProductCategoryTreeComponent } from './components/product-category-tree/product-category-tree.component';
 import { ProductFiltersPanelComponent } from './components/product-filters-panel/product-filters-panel.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
+import { ProductListFormComponent } from './components/product-list-form/product-list-form.component';
 import { SalespersonFormComponent } from './components/salesperson-form/salesperson-form.component';
 import { SellFormComponent } from './components/sell-form/sell-form.component';
 import { ShipperFormComponent } from './components/shipper-form/shipper-form.component';
@@ -57,6 +58,7 @@ const PUBLIC_COMPONENTS = [
   PersonFormComponent,
   ProductFormComponent,
   ProductCategoryFormComponent,
+  ProductListFormComponent,
   SalespersonFormComponent,
   SellFormComponent,
   ShipperFormComponent,
