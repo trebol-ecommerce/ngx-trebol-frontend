@@ -1,0 +1,139 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+:host {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.wrapper {
+  position: relative;
+  overflow: auto;
+}
+
+.shadow {
+  display: none;
+}
+.wrapper.scrollable > .shadow {
+  display: block;
+}
+
+.wrapper.scrollable > .shadow {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  box-shadow: inset 0px 0px 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contents {
+  flex: 1 0 auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+.wrapper.scrollable > .contents {
+  flex-flow: row nowrap;
+  overflow: scroll;
+  justify-content: initial;
+  padding: 1rem 0.5rem;
+}
+
+app-store-product-card {
+  flex: 0 0 auto;
+  margin: 0.25rem;
+}
+
+.paginator {
+  flex: 0 0 auto;
+  align-self: stretch;
+  padding: 0.5rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.paginator .hint {
+  color: grey;
+  text-align: center;
+}
+
+@media(max-width: 640px) {
+  .scroll-hint {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.15);
+    animation: fadeOut 1s ease-in-out 2s forwards;
+    pointer-events: none;
+  }
+  .scroll-hint mat-icon {
+    color: white;
+    width: 4rem;
+    height: 4rem;
+    font-size: 4rem;
+  }
+}
+
+@media(min-width: 641px) {
+  .scroll-hint {
+    display: none;
+  }
+
+  .wrapper.scrollable > .shadow {
+    box-shadow: inset 0px 0px 8px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .wrapper.scrollable > .contents {
+    padding: 1rem 0.5rem 0.5rem;
+  }
+
+  .paginator {
+    padding: 1rem;
+  }
+}
+
+@media(min-width: 1008px) {
+  .wrapper.scrollable {
+    padding: 1rem 0.5rem 0.5rem;
+  }
+
+  app-store-product-card {
+    margin: 0.5rem;
+  }
+  .wrapper.scrollable app-store-product-card {
+    margin: 0.5rem 1rem;
+  }
+
+  .paginator {
+    display: block;
+    align-self: flex-end;
+  }
+
+  .paginator .hint {
+    display: none;
+  }
+}
