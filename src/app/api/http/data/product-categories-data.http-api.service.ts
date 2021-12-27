@@ -8,15 +8,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { environment } from 'src/environments/environment';
-import { ITransactionalEntityDataApiService } from '../../transactional-entity.data-api.iservice';
+import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
 
 @Injectable()
 export class ProductCategoriesDataHttpApiService
-  extends TransactionalEntityDataHttpApiService<ProductCategory>
-  implements ITransactionalEntityDataApiService<ProductCategory> {
+  extends TransactionalEntityDataHttpApiService<ProductCategory> {
 
   baseUrl = `${environment.apiUrls.data}/product_categories`;
 
