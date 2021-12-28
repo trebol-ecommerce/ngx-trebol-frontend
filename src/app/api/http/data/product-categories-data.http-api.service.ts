@@ -16,10 +16,8 @@ import { TransactionalEntityDataHttpApiService } from '../transactional-entity-d
 export class ProductCategoriesDataHttpApiService
   extends TransactionalEntityDataHttpApiService<ProductCategory> {
 
-  baseUrl = `${environment.apiUrls.data}/product_categories`;
-
   constructor(http: HttpClient) {
-    super(http);
+    super(http, '/product_categories');
   }
 
   fetchExisting(category: Partial<ProductCategory>): Observable<ProductCategory> {
