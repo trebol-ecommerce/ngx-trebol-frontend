@@ -57,7 +57,10 @@ export class ProductListsDataLocalMemoryApiService
     } else {
       const fullListContents = this.itemContentsMap.get(list.code);
       return this.productsApiService.fetchExisting(productLike).pipe(
-        tap(p => fullListContents.push(p)),
+        tap(p => {
+          fullListContents.push(p);
+          list.totalCount = fullListContents.length;
+        }),
         mapTo(void 0)
       );
     }
@@ -70,6 +73,7 @@ export class ProductListsDataLocalMemoryApiService
       const fullListContents = this.itemContentsMap.get(list.code);
       const listItemIndex = fullListContents.findIndex(p => (p.barcode === productLike.barcode));
       fullListContents.splice(listItemIndex);
+      list.totalCount = fullListContents.length;
       return of(void 0);
     }
   }
@@ -81,7 +85,10 @@ export class ProductListsDataLocalMemoryApiService
       return from(products).pipe(
         switchMap(p => this.productsApiService.fetchExisting(p)),
         toArray(),
-        tap(products => this.itemContentsMap.set(list.code, products)),
+        tap(products => {
+          this.itemContentsMap.set(list.code, products);
+          list.totalCount = products.length;
+        }),
         mapTo(void 0)
       );
     }
