@@ -8,6 +8,7 @@
 import { of } from 'rxjs';
 import { compareObjectsForSort } from 'src/functions/compareObjectsForSort';
 import { DataPage } from 'src/models/DataPage';
+import { paginateItems } from '../../../functions/paginateItems';
 import { IEntityDataApiService } from '../entity.data-api.iservice';
 import {
   matchesDateProperty, matchesIdProperty, matchesNumberProperty, matchesStringProperty
@@ -32,9 +33,7 @@ export abstract class EntityDataLocalMemoryApiService<T>
       filteredItems.sort((a, b) => this.sortItems(a, b, sortBy, order)) :
       filteredItems;
 
-    const firstIndex = (pageIndex * pageSize);
-    const lastIndex = firstIndex + pageSize;
-    const items = sortedItems.slice(firstIndex, lastIndex);
+    const items = paginateItems<T>(sortedItems, pageIndex, pageSize);
 
     return of<DataPage<T>>({
       items,
