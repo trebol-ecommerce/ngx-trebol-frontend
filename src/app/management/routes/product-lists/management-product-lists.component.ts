@@ -11,8 +11,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { ProductListFormComponent } from 'src/app/shared/components/product-list-form/product-list-form.component';
+import { InformationDialogComponent } from 'src/app/shared/dialogs/information/information-dialog.component';
 import { ProductList } from 'src/models/entities/ProductList';
-import { COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
+import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE, COMMON_WARNING_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form/EntityFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { ManagementProductListsService } from './management-product-lists.service';
@@ -50,13 +51,18 @@ export class ManagementProductListsComponent
     );
   }
 
-  onClickDelete(shipper: ProductList) {
-    this.service.removeItems([shipper]).pipe(
+  onClickViewContents(list: ProductList) {
+    // TODO show dialog with contents by passing list ref
+    this.dialogService.open(InformationDialogComponent);
+  }
+
+  onClickDelete(list: ProductList) {
+    this.service.removeItems([list]).pipe(
       map(results => results[0])
     ).subscribe(
       success => {
         if (success) {
-          const successMessage = $localize`:Message of success after deleting a product list with name {{ name }}:Product list '${shipper.name}:name:' deleted`;
+          const successMessage = $localize`:Message of success after deleting a product list with name {{ name }}:Product list '${list.name}:name:' deleted`;
           this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
           this.service.reloadItems();
         } else {

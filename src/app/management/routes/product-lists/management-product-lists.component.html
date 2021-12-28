@@ -38,6 +38,15 @@
           <button mat-button mat-icon-button type="button"
             *ngIf="canEdit$ | async"
             color="primary"
+            aria-label="View contents"
+            i18n-aria-label="view contents of list|Label for action button to view contents of a list"
+            [disabled]="busy$ | async"
+            (click)="onClickViewContents(productList)">
+            <mat-icon>list</mat-icon>
+          </button>
+          <button mat-button mat-icon-button type="button"
+            *ngIf="canEdit$ | async"
+            color="primary"
             aria-label="Edit"
             i18n-aria-label="edit|Label for action button to edit information of an item"
             [disabled]="busy$ | async"
