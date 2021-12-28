@@ -7,7 +7,7 @@
 
 import { Inject, Injectable } from '@angular/core';
 import { from, Observable, of, throwError } from 'rxjs';
-import { map, mapTo, switchMap, tap, toArray } from 'rxjs/operators';
+import { mapTo, switchMap, tap, toArray } from 'rxjs/operators';
 import { paginateItems } from 'src/functions/paginateItems';
 import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
@@ -72,7 +72,7 @@ export class ProductListsDataLocalMemoryApiService
     } else {
       const fullListContents = this.itemContentsMap.get(list.code);
       const listItemIndex = fullListContents.findIndex(p => (p.barcode === productLike.barcode));
-      fullListContents.splice(listItemIndex);
+      fullListContents.splice(listItemIndex, 1);
       list.totalCount = fullListContents.length;
       return of(void 0);
     }
