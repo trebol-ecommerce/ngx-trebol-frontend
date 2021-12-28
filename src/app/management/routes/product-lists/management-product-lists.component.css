@@ -5,11 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-.mat-column-name {
-  max-width: 100%;
-}
-
-.mat-column-idNumber {
+.mat-column-totalCount {
   text-align: center;
   max-width: 8rem;
+}
+
+.mat-column-actions {
+  text-align: right;
+  width: 8rem;
 }
