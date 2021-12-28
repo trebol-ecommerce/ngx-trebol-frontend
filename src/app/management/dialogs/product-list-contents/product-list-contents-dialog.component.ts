@@ -10,7 +10,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
 import { ProductListContentsDialogService } from './product-list-contents-dialog.service';
 import { ProductListContentsDialogData } from './ProductListContentsDialogData';
@@ -66,6 +66,9 @@ export class ProductListContentsDialogComponent
   }
 
   onClickRemoveProduct(p: Product): void {
+    this.service.removeProduct(p).pipe(
+      tap(() => this.service.reloadItems())
+    ).subscribe();
   }
 
 }

@@ -51,4 +51,8 @@ export class ProductListContentsDialogService
       finalize(() => this.loadingSource.next(false))
     ).subscribe();
   }
+
+  removeProduct(product: Product) {
+    return this.listApiService.deleteFromContents(this.list, product);
+  }
 }
