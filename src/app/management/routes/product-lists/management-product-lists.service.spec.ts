@@ -32,7 +32,7 @@ describe('ManagementProductListsService', () => {
     TestBed.configureTestingModule({
       providers: [
         ManagementProductListsService,
-        { provide: API_SERVICE_INJECTION_TOKENS.dataShippers, useValue: mockApiService }
+        { provide: API_SERVICE_INJECTION_TOKENS.dataProductLists, useValue: mockApiService }
       ]
     });
     service = TestBed.inject(ManagementProductListsService);

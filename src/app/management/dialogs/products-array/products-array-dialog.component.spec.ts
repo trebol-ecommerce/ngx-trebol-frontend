@@ -16,7 +16,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 import { ProductsArrayDialogComponent } from './products-array-dialog.component';
 import { ProductsArrayService } from './products-array.service';
 
@@ -31,10 +30,10 @@ class MockProductFiltersPanelComponent {
 describe('ProductsArrayDialogComponent', () => {
   let component: ProductsArrayDialogComponent;
   let fixture: ComponentFixture<ProductsArrayDialogComponent>;
-  let productsArrayService: Partial<ProductsArrayService>;
+  let mockService: Partial<ProductsArrayService>;
 
   beforeEach(waitForAsync(() => {
-    productsArrayService = {
+    mockService = {
       filteredProductsArray$: of([]),
       productsArray$: of([]),
       loading$: of(false),
@@ -43,24 +42,30 @@ describe('ProductsArrayDialogComponent', () => {
       dropProductByIndex(i) {}
     };
 
+    TestBed.overrideComponent(
+      ProductsArrayDialogComponent,
+      {
+        set: {
+          providers: [{ provide: ProductsArrayService, useValue: mockService }]
+        }
+      }
+    )
+
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
         NoopAnimationsModule,
+        CommonModule,
         MatButtonModule,
         MatCardModule,
         MatExpansionModule,
         MatDialogModule,
         MatIconModule,
-        MatTableModule,
+        MatTableModule
       ],
       declarations: [
         ProductsArrayDialogComponent,
         MockCenteredMatSpinnerComponent,
         MockProductFiltersPanelComponent
-      ],
-      providers: [
-        { provide: ProductsArrayService, useValue: productsArrayService }
       ]
     })
     .compileComponents();

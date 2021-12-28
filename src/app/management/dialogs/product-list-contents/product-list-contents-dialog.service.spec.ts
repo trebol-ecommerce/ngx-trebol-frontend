@@ -30,7 +30,8 @@ describe('ProductListContentsDialogService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.dataProducts, useValue: mockApiService }
+        ProductListContentsDialogService,
+        { provide: API_SERVICE_INJECTION_TOKENS.dataProductLists, useValue: mockApiService }
       ]
     });
     service = TestBed.inject(ProductListContentsDialogService);

@@ -30,6 +30,7 @@ describe('ProductsArrayService', () => {
 
     TestBed.configureTestingModule({
       providers: [
+        ProductsArrayService,
         { provide: API_SERVICE_INJECTION_TOKENS.dataProducts, useValue: mockApiService }
       ]
     });
