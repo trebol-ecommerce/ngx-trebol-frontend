@@ -24,6 +24,8 @@ import { ManagementImagesComponent } from './routes/images/management-images.com
 import { ManagementImagesService } from './routes/images/management-images.service';
 import { ManagementProductCategoriesComponent } from './routes/product-categories/management-product-categories.component';
 import { ManagementProductCategoriesService } from './routes/product-categories/management-product-categories.service';
+import { ManagementProductListsComponent } from './routes/product-lists/management-product-lists.component';
+import { ManagementProductListsService } from './routes/product-lists/management-product-lists.service';
 import { ManagementProductsComponent } from './routes/products/management-products.component';
 import { ManagementProductsService } from './routes/products/management-products.service';
 import { ManagementSalesComponent } from './routes/sales/management-sales.component';
@@ -52,6 +54,7 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ManagementSalespeopleComponent,
     ManagementProductsComponent,
     ManagementProductCategoriesComponent,
+    ManagementProductListsComponent,
     ManagementSalesComponent,
     ManagementShippersComponent,
     ManagementUsersComponent,
@@ -70,6 +73,7 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ManagementSalespeopleService,
     ManagementProductsService,
     ManagementProductCategoriesService,
+    ManagementProductListsService,
     ManagementUsersService,
     ManagementSalesService,
     ManagementShippersService

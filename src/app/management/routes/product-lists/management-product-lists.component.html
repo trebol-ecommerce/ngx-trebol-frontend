@@ -1,0 +1,78 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<app-centered-mat-spinner *ngIf="loading$ | async">
+</app-centered-mat-spinner>
+<div class="data-manager" [hidden]="loading$ | async">
+  <div class="table-wrapper">
+
+    <table mat-table [dataSource]="items$" matSort (matSortChange)="onSortChange($event)">
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header
+          i18n="product list code|Name of table header for code of product list">Code</th>
+        <td mat-cell *matCellDef="let productList">
+          {{ productList.code }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header
+          i18n="product list name|Name of table header for name of product list">Name</th>
+        <td mat-cell *matCellDef="let productList">
+          {{ productList.name }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="totalCount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header
+          i18n="product list total count|Name of table header for total count of products in a list">Count</th>
+        <td mat-cell *matCellDef="let productList">
+          {{ productList.totalCount }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let productList">
+          <button mat-button mat-icon-button type="button"
+            *ngIf="canEdit$ | async"
+            color="primary"
+            aria-label="Edit"
+            i18n-aria-label="edit|Label for action button to edit information of an item"
+            [disabled]="busy$ | async"
+            (click)="onClickEdit(productList)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-button mat-icon-button type="button"
+            *ngIf="canDelete$ | async"
+            color="warn"
+            aria-label="Delete"
+            i18n-aria-label="delete|Label for action button to delete an item"
+            [disabled]="busy$ | async"
+            (click)="onClickDelete(productList)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+    </table>
+
+  </div>
+  <div>
+
+    <app-management-data-actions
+      *ngIf="canAdd$ | async"
+      (add)="onClickAdd()">
+    </app-management-data-actions>
+    <mat-paginator
+      (page)="onPage($event)"
+      [showFirstLastButtons]="true"
+      [pageSizeOptions]="pageSizeOptions"
+      [length]="totalCount$ | async">
+    </mat-paginator>
+
+  </div>
+</div>
