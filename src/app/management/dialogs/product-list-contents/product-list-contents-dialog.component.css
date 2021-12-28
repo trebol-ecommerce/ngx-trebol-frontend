@@ -1,0 +1,33 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+h2 {
+  margin-top: 0;
+}
+
+th, td {
+  padding-left: 0.5rem
+}
+
+.table-wrapper {
+  overflow-y: auto;
+  height: 14.5rem;
+  margin-top: rem;
+}
+
+.mat-column-name {
+  padding: 0;
+}
+
+.mat-column-code {
+  padding: 0;
+}
+
+div.actions {
+  display: flex;
+  justify-content: space-around;
+}

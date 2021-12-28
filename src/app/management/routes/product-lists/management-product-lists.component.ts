@@ -15,6 +15,8 @@ import { InformationDialogComponent } from 'src/app/shared/dialogs/information/i
 import { ProductList } from 'src/models/entities/ProductList';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE, COMMON_WARNING_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form/EntityFormDialogConfig';
+import { ProductListContentsDialogComponent } from '../../dialogs/product-list-contents/product-list-contents-dialog.component';
+import { ProductListContentsDialogData } from '../../dialogs/product-list-contents/ProductListContentsDialogData';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { ManagementProductListsService } from './management-product-lists.service';
 
@@ -52,8 +54,13 @@ export class ManagementProductListsComponent
   }
 
   onClickViewContents(list: ProductList) {
-    // TODO show dialog with contents by passing list ref
-    this.dialogService.open(InformationDialogComponent);
+    const data: ProductListContentsDialogData = {
+      list
+    };
+    this.dialogService.open(
+      ProductListContentsDialogComponent,
+      { data }
+    );
   }
 
   onClickDelete(list: ProductList) {

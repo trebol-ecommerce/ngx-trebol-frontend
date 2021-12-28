@@ -1,0 +1,71 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<h2 mat-dialog-title i18n="Title of dialog prompt to add products into details of a sell">Add Products</h2>
+<app-centered-mat-spinner *ngIf="loading$ | async">
+</app-centered-mat-spinner>
+
+<div [hidden]="loading$ | async">
+  <div class="table-wrapper">
+
+    <table mat-table [dataSource]="products$" matSort (matSortChange)="onSortChange($event)">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header=""
+          i18n="product name|Name of table header for name of product">Name</th>
+        <td mat-cell *matCellDef="let product">
+          {{ product.name }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header=""
+          i18n="Name of table header for price per product unit">Price</th>
+        <td mat-cell *matCellDef="let product">
+          {{ product.code }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let product">
+          <button mat-button mat-icon-button type="button"
+            color="primary"
+            aria-label="Remove this product"
+            i18n-aria-label="remove product from list|Label for action button to remove product from a list"
+            (click)="onClickRemoveProduct(product)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="productTableColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: productTableColumns;"></tr>
+    </table>
+
+  </div>
+  <div>
+    <mat-paginator
+      (page)="onPage($event)"
+      [showFirstLastButtons]="true"
+      [pageSizeOptions]="pageSizeOptions"
+      [length]="totalCount$ | async">
+    </mat-paginator>
+  </div>
+
+  <div class="actions">
+    <button mat-button mat-raised-button type="button"
+      color="primary"
+      (click)="onClickAddProducts()"
+      i18n="add more products to list|Label for action button to start selecting products to add to a list">Add more</button>
+    <button mat-button mat-raised-button type="button"
+      color="primary"
+      (click)="onClickChooseProducts()"
+      i18n="choose products for list|Label for action button to start selecting products to replace a list's contents with">Replace</button>
+    <button mat-button mat-raised-button type="button"
+      [disabled]="isArrayEmpty$ | async"
+      mat-dialog-close
+      i18n="close|Label for action button to close a window or dialog">Close</button>
+  </div>
+</div>
