@@ -6,12 +6,13 @@
  */
 
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { forkJoin, Observable, of } from 'rxjs';
+import { finalize, map, switchMap, tap } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
+import { ProductsArrayDialogComponent } from '../products-array/products-array-dialog.component';
 import { ProductListContentsDialogService } from './product-list-contents-dialog.service';
 import { ProductListContentsDialogData } from './ProductListContentsDialogData';
 
@@ -35,6 +36,7 @@ export class ProductListContentsDialogComponent
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ProductListContentsDialogData,
     private service: ProductListContentsDialogService,
+    private dialog: MatDialog
   ) {
     this.service.list = this.data.list;
     this.loading$ = this.service.loading$.pipe();
@@ -60,9 +62,27 @@ export class ProductListContentsDialogComponent
   }
 
   onClickAddProducts(): void {
+    this.dialog.open(
+      ProductsArrayDialogComponent
+    ).afterClosed().pipe(
+      switchMap((products?: Product[]) => (!!products && Array.isArray(products)) ?
+        forkJoin(products.map(p => this.service.addProduct(p))) :
+        of(void 0)
+      ),
+      finalize(() => this.service.reloadItems())
+    ).subscribe();
   }
 
   onClickChooseProducts(): void {
+    this.dialog.open(
+      ProductsArrayDialogComponent
+    ).afterClosed().pipe(
+      switchMap((products?: Product[]) => (!!products && Array.isArray(products)) ?
+        this.service.replaceProductsWith(products) :
+        of(void 0)
+      ),
+      finalize(() => this.service.reloadItems())
+    ).subscribe();
   }
 
   onClickRemoveProduct(p: Product): void {

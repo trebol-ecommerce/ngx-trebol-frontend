@@ -52,6 +52,14 @@ export class ProductListContentsDialogService
     ).subscribe();
   }
 
+  addProduct(product: Product) {
+    return this.listApiService.addToContents(this.list, product);
+  }
+
+  replaceProductsWith(products: Product[]) {
+    return this.listApiService.updateContents(this.list, products);
+  }
+
   removeProduct(product: Product) {
     return this.listApiService.deleteFromContents(this.list, product);
   }
