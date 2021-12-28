@@ -33,7 +33,7 @@ export class ProductListContentsDialogComponent
   totalCount$: Observable<number>;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: ProductListContentsDialogData,
+    @Inject(MAT_DIALOG_DATA) public data: ProductListContentsDialogData,
     private service: ProductListContentsDialogService,
   ) {
     this.service.list = this.data.list;
