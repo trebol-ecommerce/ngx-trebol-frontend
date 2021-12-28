@@ -13,10 +13,8 @@ import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { Product } from 'src/models/entities/Product';
 import { ProductFilters } from "src/app/shared/components/product-filters-panel/ProductFilters";
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class ProductsArrayService {
-
-  private productsArray: Product[] = [];
 
   private productsArraySource = new BehaviorSubject([]);
   private productFiltersSource = new BehaviorSubject({});
@@ -50,12 +48,12 @@ export class ProductsArrayService {
   }
 
   includeProduct(prod: Product): void {
-    this.productsArray.push(prod);
-    this.productsArraySource.next(this.productsArray);
+    this.productsArraySource.value.push(prod);
+    this.productsArraySource.next(this.productsArraySource.value);
   }
 
   dropProductByIndex(index: number): void {
-    this.productsArray.splice(index, 1);
-    this.productsArraySource.next(this.productsArray);
+    this.productsArraySource.value.splice(index, 1);
+    this.productsArraySource.next(this.productsArraySource.value);
   }
 }

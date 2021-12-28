@@ -15,7 +15,8 @@ import { ProductsArrayService } from './products-array.service';
 @Component({
   selector: 'app-products-array-dialog',
   templateUrl: './products-array-dialog.component.html',
-  styleUrls: [ './products-array-dialog.component.css' ]
+  styleUrls: ['./products-array-dialog.component.css'],
+  providers: [ ProductsArrayService ]
 })
 export class ProductsArrayDialogComponent
   implements OnInit {
