@@ -13,13 +13,13 @@ export const MOCK_PRODUCT_LISTS: ProductList[] = [
   { code: 'OFERTAS', name: 'Ofertas ejemplo', totalCount: 3 }
 ];
 
-export const MOCK_PRODUCT_LIST_CONTENTS_MAP = new Map<string, Product[]>([
+export const MOCK_PRODUCT_LIST_CONTENTS_MAP = new Map<string, Set<Product>>([
   [
     'OFERTAS',
-    [
+    new Set([
       MOCK_PRODUCTS[0],
       MOCK_PRODUCTS[1],
       MOCK_PRODUCTS[2]
-    ]
+    ])
   ]
 ]);

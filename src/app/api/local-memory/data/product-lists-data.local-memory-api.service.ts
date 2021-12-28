@@ -39,7 +39,7 @@ export class ProductListsDataLocalMemoryApiService
     if (!this.itemContentsMap.has(list.code)) {
       return throwError({ status: 404 });
     } else {
-      const fullListContents = this.itemContentsMap.get(list.code);
+      const fullListContents = [...this.itemContentsMap.get(list.code).values()];
       const totalCount = fullListContents.length;
       const items = paginateItems(fullListContents, pageIndex, pageSize);
       return of<DataPage<Product>>({
@@ -58,8 +58,8 @@ export class ProductListsDataLocalMemoryApiService
       const fullListContents = this.itemContentsMap.get(list.code);
       return this.productsApiService.fetchExisting(productLike).pipe(
         tap(p => {
-          fullListContents.push(p);
-          list.totalCount = fullListContents.length;
+          fullListContents.add(p);
+          list.totalCount = fullListContents.size;
         }),
         mapTo(void 0)
       );
@@ -70,9 +70,10 @@ export class ProductListsDataLocalMemoryApiService
     if (!this.itemContentsMap.has(list.code)) {
       return throwError({ status: 404 });
     } else {
-      const fullListContents = this.itemContentsMap.get(list.code);
+      const fullListContents = [...this.itemContentsMap.get(list.code)];
       const listItemIndex = fullListContents.findIndex(p => (p.barcode === productLike.barcode));
       fullListContents.splice(listItemIndex, 1);
+      this.itemContentsMap.set(list.code, new Set(fullListContents));
       list.totalCount = fullListContents.length;
       return of(void 0);
     }
@@ -86,7 +87,7 @@ export class ProductListsDataLocalMemoryApiService
         switchMap(p => this.productsApiService.fetchExisting(p)),
         toArray(),
         tap(products => {
-          this.itemContentsMap.set(list.code, products);
+          this.itemContentsMap.set(list.code, new Set(products));
           list.totalCount = products.length;
         }),
         mapTo(void 0)
