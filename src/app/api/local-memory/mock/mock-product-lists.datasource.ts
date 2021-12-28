@@ -10,7 +10,7 @@ import { ProductList } from 'src/models/entities/ProductList';
 import { MOCK_PRODUCTS } from './mock-products.datasource';
 
 export const MOCK_PRODUCT_LISTS: ProductList[] = [
-  { code: 'OFERTAS', name: 'Ofertas ejemplo' }
+  { code: 'OFERTAS', name: 'Ofertas ejemplo', totalCount: 3 }
 ];
 
 export const MOCK_PRODUCT_LIST_CONTENTS_MAP = new Map<string, Product[]>([
