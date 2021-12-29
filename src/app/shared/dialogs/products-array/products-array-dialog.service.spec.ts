@@ -10,10 +10,10 @@ import { of } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { Product } from 'src/models/entities/Product';
-import { ProductsArrayService } from './products-array.service';
+import { ProductsArrayDialogService } from './products-array-dialog.service';
 
-describe('ProductsArrayService', () => {
-  let service: ProductsArrayService;
+describe('ProductsArrayDialogService', () => {
+  let service: ProductsArrayDialogService;
   let mockApiService: Partial<IEntityDataApiService<Product>>;
 
   beforeEach(() => {
@@ -30,11 +30,11 @@ describe('ProductsArrayService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        ProductsArrayService,
+        ProductsArrayDialogService,
         { provide: API_SERVICE_INJECTION_TOKENS.dataProducts, useValue: mockApiService }
       ]
     });
-    service = TestBed.inject(ProductsArrayService);
+    service = TestBed.inject(ProductsArrayDialogService);
   });
 
   it('should be created', () => {

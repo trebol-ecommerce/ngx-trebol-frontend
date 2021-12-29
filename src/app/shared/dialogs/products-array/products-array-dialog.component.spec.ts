@@ -18,7 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { ProductsArrayDialogComponent } from './products-array-dialog.component';
-import { ProductsArrayService } from './products-array.service';
+import { ProductsArrayDialogService } from './products-array-dialog.service';
 
 @Component({ selector: 'app-centered-mat-spinner' })
 class MockCenteredMatSpinnerComponent { }
@@ -31,7 +31,7 @@ class MockProductFiltersPanelComponent {
 describe('ProductsArrayDialogComponent', () => {
   let component: ProductsArrayDialogComponent;
   let fixture: ComponentFixture<ProductsArrayDialogComponent>;
-  let mockService: Partial<ProductsArrayService>;
+  let mockService: Partial<ProductsArrayDialogService>;
 
   beforeEach(waitForAsync(() => {
     mockService = {
@@ -51,7 +51,7 @@ describe('ProductsArrayDialogComponent', () => {
       ProductsArrayDialogComponent,
       {
         set: {
-          providers: [{ provide: ProductsArrayService, useValue: mockService }]
+          providers: [{ provide: ProductsArrayDialogService, useValue: mockService }]
         }
       }
     )

@@ -13,7 +13,6 @@ import { ManagementFooterComponent } from './components/footer/management-footer
 import { ManagementHeaderComponent } from './components/header/management-header.component';
 import { ManagementSidenavComponent } from './components/sidenav/management-sidenav.component';
 import { ProductListContentsDialogComponent } from './dialogs/product-list-contents/product-list-contents-dialog.component';
-import { ProductsArrayDialogComponent } from './dialogs/products-array/products-array-dialog.component';
 import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementRoutingModule } from './management-routing.module';
 import { ManagementComponent } from './management.component';
@@ -44,23 +43,22 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
 
 @NgModule({
   declarations: [
-    ManagementComponent,
-    ManagementHeaderComponent,
-    ManagementFooterComponent,
-    ManagementSidenavComponent,
-    ProductsArrayDialogComponent,
-    ProductListContentsDialogComponent,
     ManagementDataActionsComponent,
-    ManagementDashboardComponent,
+    ManagementFooterComponent,
+    ManagementHeaderComponent,
+    ManagementSidenavComponent,
+    ProductListContentsDialogComponent,
+    ManagementComponent,
     ManagementCustomersComponent,
-    ManagementSalespeopleComponent,
-    ManagementProductsComponent,
+    ManagementDashboardComponent,
+    ManagementImagesComponent,
     ManagementProductCategoriesComponent,
     ManagementProductListsComponent,
+    ManagementProductsComponent,
     ManagementSalesComponent,
+    ManagementSalespeopleComponent,
     ManagementShippersComponent,
-    ManagementUsersComponent,
-    ManagementImagesComponent
+    ManagementUsersComponent
   ],
   imports: [
     SharedModule,
@@ -72,13 +70,13 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ManagementService,
     ManagementCustomersService,
     ManagementImagesService,
-    ManagementSalespeopleService,
-    ManagementProductsService,
     ManagementProductCategoriesService,
     ManagementProductListsService,
-    ManagementUsersService,
+    ManagementProductsService,
     ManagementSalesService,
-    ManagementShippersService
+    ManagementSalespeopleService,
+    ManagementShippersService,
+    ManagementUsersService
   ]
 })
 export class ManagementModule { }

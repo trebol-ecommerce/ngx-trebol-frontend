@@ -14,7 +14,7 @@ import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
 
 @Injectable()
-export class ProductsArrayService
+export class ProductsArrayDialogService
   implements OnDestroy {
 
   private loadingSubscription: Subscription;

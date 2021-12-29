@@ -11,13 +11,13 @@ import { Sort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
-import { ProductsArrayService } from './products-array.service';
+import { ProductsArrayDialogService } from './products-array-dialog.service';
 
 @Component({
   selector: 'app-products-array-dialog',
   templateUrl: './products-array-dialog.component.html',
   styleUrls: ['./products-array-dialog.component.css'],
-  providers: [ ProductsArrayService ]
+  providers: [ ProductsArrayDialogService ]
 })
 export class ProductsArrayDialogComponent
   implements OnInit {
@@ -31,7 +31,7 @@ export class ProductsArrayDialogComponent
   pageSizeOptions = [ 10, 20, 50 ];
 
   constructor(
-    private service: ProductsArrayService,
+    private service: ProductsArrayDialogService,
   ) {
     this.availableProducts$ = this.service.availableProducts$.pipe();
     this.totalCount$ = this.service.totalCount$.pipe();

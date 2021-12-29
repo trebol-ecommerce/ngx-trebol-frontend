@@ -39,47 +39,49 @@ import { ImagesArrayDialogComponent } from './dialogs/images-array/images-array-
 import { InformationDialogComponent } from './dialogs/information/information-dialog.component';
 import { InputDialogComponent } from './dialogs/input/input-dialog.component';
 import { ProductCategoryPickerDialogComponent } from './dialogs/product-category-picker/product-category-picker-dialog.component';
+import { ProductsArrayDialogComponent } from './dialogs/products-array/products-array-dialog.component';
 import { FormGroupOwnerOutletDirective } from './directives/form-group-owner-outlet/form-group-owner-outlet.directive';
 import { AddressPipe } from './pipes/address/address.pipe';
 
 
-const PUBLIC_COMPONENTS = [
-  CenteredMatProgressSpinnerComponent,
-  ConfirmationDialogComponent,
-  EntityFormDialogComponent,
-  InputDialogComponent,
+const SHARED_DECLARATIONS = [
   AddressFormComponent,
-  AddressFormDialogComponent,
   AddressesEditorFormComponent,
-  FileUploadComponent,
   CartProductUnitsControlComponent,
+  CenteredMatProgressSpinnerComponent,
   CompanyFormComponent,
+  DialogSwitcherButtonComponent,
+  FileUploadComponent,
   ImageFormComponent,
+  ImageUploadFormComponent,
   PersonFormComponent,
-  ProductFormComponent,
   ProductCategoryFormComponent,
+  ProductCategorySelectorFormFieldComponent,
+  ProductCategoryTreeComponent,
+  ProductFiltersPanelComponent,
+  ProductFormComponent,
   ProductListFormComponent,
   SalespersonFormComponent,
   SellFormComponent,
   ShipperFormComponent,
-  UserFormComponent,
-  ProductCategoryTreeComponent,
-  ProductCategorySelectorFormFieldComponent,
-  ProductFiltersPanelComponent,
-  EditProfileFormDialogComponent,
-  DialogSwitcherButtonComponent,
-  InformationDialogComponent,
   SlideshowComponent,
-  FormGroupOwnerOutletDirective,
-  ProductCategoryPickerDialogComponent,
-  AddressPipe,
+  UserFormComponent,
+  AddressFormDialogComponent,
+  ConfirmationDialogComponent,
+  EditProfileFormDialogComponent,
+  EntityFormDialogComponent,
   ImagesArrayDialogComponent,
-  ImageUploadFormComponent
+  InformationDialogComponent,
+  InputDialogComponent,
+  ProductCategoryPickerDialogComponent,
+  ProductsArrayDialogComponent,
+  FormGroupOwnerOutletDirective,
+  AddressPipe
 ];
 
 @NgModule({
   declarations: [
-    ...PUBLIC_COMPONENTS
+    ...SHARED_DECLARATIONS
   ],
   imports: [
     CommonModule,
@@ -95,7 +97,7 @@ const PUBLIC_COMPONENTS = [
     BrowserAnimationsModule,
     AngularMaterialModule,
 
-    ...PUBLIC_COMPONENTS
+    ...SHARED_DECLARATIONS
   ]
 })
 export class SharedModule { }
