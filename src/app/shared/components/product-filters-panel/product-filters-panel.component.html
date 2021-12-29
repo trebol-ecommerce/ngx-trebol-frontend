@@ -12,20 +12,11 @@
   </mat-expansion-panel-header>
   <form [formGroup]="formGroup">
 
-    <mat-form-field>
-      <mat-select formControlName="category"
-        placeholder="By Category"
-        i18n-placeholder="Name of field for filtering products by selected category">
-        <mat-option *ngFor="let category of (categories$ | async)"
-          [value]="category.code">{{ category.name }}</mat-option>
-      </mat-select>
-      <button matSuffix mat-button mat-icon-button *ngIf="category.value"
-        aria-label="Clean up"
-        i18n-aria-label="clean up|Label for action button to clear values in form"
-        (click)="onClickResetProductCategory($event)">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
+    <app-product-category-selector-form-field
+      formControlName="category"
+      placeholder="By Category"
+      i18n-placeholder="Name of field for filtering products by selected category">
+    </app-product-category-selector-form-field>
 
     <mat-form-field>
       <input matInput formControlName="name"
