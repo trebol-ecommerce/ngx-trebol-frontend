@@ -21,6 +21,8 @@ export class StoreProductDisplayComponent {
   @Input() showPaginator = true;
   @Input() scrollable = true;
   @Input() totalCount = 0;
+  @Input() pageIndex = 0;
+  @Input() pageSize = 10;
 
   @Output() page = new EventEmitter<PageEvent>();
 
