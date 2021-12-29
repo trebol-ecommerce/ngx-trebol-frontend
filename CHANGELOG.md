@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.2.0] - 2021-12-29
+
+### Added
+- Support for Product Lists [API v1.2]
+  - Include API model, API service, management page and UI form
+
+### Changed
+- Frontpage displays existing Product Lists and their contents - instead of fetching 'all' products in existence
+- Updated localization files
+
 ## [v1.1.2] - 2021-12-26
 
 ### Added
@@ -11,7 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for sorting and pagination in datatables in the management page
 
 ### Changed
-- Prices and currency values displayed with Angular currency pipe instead of adding '$' suffix
+- Prices and currency values displayed with Angular currency pipe instead of adding a prefix
+- Updated localization files
 
 ### Fixed
 - Creation and general use of categories within local-memory api (such as in, the demo link)
