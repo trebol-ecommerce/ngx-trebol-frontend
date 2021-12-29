@@ -14,17 +14,18 @@ th, td {
 }
 
 .table-wrapper {
-  overflow-y: auto;
+  overflow: scroll;
   height: 14.5rem;
-  margin-top: rem;
 }
 
-.mat-column-name {
-  padding: 0;
+.mat-column-name,
+.mat-column-barcode,
+.mat-column-price {
+  min-width: 6rem;
 }
-
-.mat-column-code {
-  padding: 0;
+.mat-column-actions {
+  min-width: 2rem;
+  max-width: 2rem;
 }
 
 div.actions {

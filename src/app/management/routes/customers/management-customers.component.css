@@ -4,3 +4,10 @@
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
+
+.mat-column-name {
+  min-width: 8rem;
+}
+.mat-column-idNumber {
+  min-width: 8rem;
+}

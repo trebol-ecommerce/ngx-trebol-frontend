@@ -5,12 +5,19 @@
  * https://opensource.org/licenses/MIT
  */
 
-.mat-column-id {
-  max-width: 100%;
+.mat-column-buyOrder {
+  min-width: 5rem;
 }
 .mat-column-date {
-  text-align: center;
+  min-width: 8rem;
+}
+.mat-column-customer {
+  min-width: 8rem;
 }
 .mat-column-status {
-  text-align: center;
+  min-width: 8rem;
+}
+.mat-column-actions {
+  min-width: 6rem;
+  width: 6rem;
 }

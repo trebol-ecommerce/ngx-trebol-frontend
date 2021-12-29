@@ -10,23 +10,24 @@ h2 {
 }
 
 .product-table-wrapper {
-  overflow-y: auto;
+  overflow: scroll;
   height: 14.5rem;
-  margin-top: rem;
-}
-
-th, td {
-  padding-left: 0.5rem
 }
 
 .mat-column-name {
-  padding: 0;
-  min-width: 1rem;
-  max-width: 2rem;
+  min-width: 6rem;
 }
-
+.mat-column-barcode {
+  min-width: 6rem;
+  max-width: 10rem;
+}
 .mat-column-price {
-  padding: 0;
+  min-width: 6rem;
+  max-width: 8rem;
+}
+.mat-column-actions {
+  min-width: 3rem;
+  width: 3rem;
 }
 
 mat-expansion-panel, mat-card {

@@ -6,10 +6,12 @@
  */
 
 .mat-column-name {
-  max-width: 100%;
+  min-width: 8rem;
 }
-
 .mat-column-idNumber {
-  text-align: center;
-  max-width: 8rem;
+  min-width: 8rem;
+}
+.mat-column-actions {
+  min-width: 6rem;
+  max-width: 6rem;
 }
