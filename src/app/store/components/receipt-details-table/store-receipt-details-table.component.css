@@ -9,34 +9,24 @@
   overflow: auto;
 }
 
-th, td {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .mat-column-product {
-  white-space: break-spaces;
+  min-width: 8rem;
+  max-width: 12rem;
 }
 
 .mat-column-price {
-  text-align: center;
-  padding: 0 1rem;
+  min-width: 6rem;
+  max-width: 8rem;
 }
 
 .mat-column-quantity {
-  text-align: center;
+  min-width: 9rem;
   max-width: 9rem;
 }
 
 .mat-column-total {
-  text-align: right;
-  padding: 0 1rem;
-}
-
-.mat-column-actions {
-  text-align: right;
-  width: 3rem;
-  padding: 0.5rem 0 0.5rem 0 !important;
+  min-width: 9rem;
+  max-width: 9rem;
 }
 
 .mat-column-product .name {

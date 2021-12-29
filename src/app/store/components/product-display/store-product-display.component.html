@@ -1,0 +1,31 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<div class="wrapper" [ngClass]="{ scrollable: scrollable }">
+  <div *ngIf="scrollable" class="scroll-hint">
+    <mat-icon>swipe</mat-icon>
+  </div>
+  <div class="shadow"></div>
+  <div class="contents">
+    <app-store-product-card
+      *ngFor="let product of products"
+      [product]="product">
+    </app-store-product-card>
+  </div>
+</div>
+<div class="paginator" *ngIf="showPaginator">
+  <span class="hint" *ngIf="scrollable"
+    i18n="Label to hint users to swipe to the sides">Swipe to the sides to view more</span>
+  <mat-paginator
+    (page)="onPage($event)"
+    [showFirstLastButtons]="true"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [length]="totalCount">
+  </mat-paginator>
+</div>

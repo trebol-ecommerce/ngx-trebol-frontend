@@ -7,7 +7,9 @@
 
 import { CurrencyPipe } from '@angular/common';
 import { Component, EventEmitter, Inject, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
+import {
+  AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators
+} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { merge, Observable, Subscription } from 'rxjs';
 import { debounceTime, map, tap } from 'rxjs/operators';
@@ -18,10 +20,9 @@ import { BillingType } from 'src/models/entities/BillingType';
 import { Customer } from 'src/models/entities/Customer';
 import { Product } from 'src/models/entities/Product';
 import { Salesperson } from 'src/models/entities/Salesperson';
-import { Sell } from 'src/models/entities/Sell';
 import { SellDetail } from 'src/models/entities/SellDetail';
 import { FormGroupOwner } from 'src/models/FormGroupOwner';
-import { ProductsArrayDialogComponent } from '../../../management/dialogs/products-array/products-array-dialog.component';
+import { ProductsArrayDialogComponent } from 'src/app/shared/dialogs/products-array/products-array-dialog.component';
 import { SellFormService } from './sell-manager-form.service';
 
 @Component({

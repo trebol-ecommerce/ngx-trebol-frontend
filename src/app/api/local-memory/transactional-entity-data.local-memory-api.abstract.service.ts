@@ -5,7 +5,8 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { ITransactionalEntityDataApiService } from '../transactional-entity.data-api.iservice';
 import { EntityDataLocalMemoryApiService } from './entity-data.local-memory-api.abstract.service';
 
@@ -38,46 +39,32 @@ export abstract class TransactionalEntityDataLocalMemoryApiService<T>
 
 
   fetchExisting(itemLike: Partial<T>) {
-    const index = this.getIndexOfItem(itemLike);
-    return of<T>(this.items[index]);
+    return of(this.getIndexOfItem(itemLike)).pipe(
+      switchMap(index => (index === -1) ?
+        throwError({ status: 404 }) :
+        of(this.items[index])
+      )
+    );
   }
 
   update(d: T, original?: T) {
-    return new Observable<void>(
-      observer => {
-        const index = original ? this.getIndexOfItem(original) : this.getIndexOfItem(d);
-        const existingItem = this.items[index];
-        if (existingItem === null) {
-          observer.error({ status: 404 });
-        } else {
-          Object.assign(this.items[index], d);
-          observer.next();
-          observer.complete();
-        }
-
-        return {
-          unsubscribe() { }
-        };
-      }
+    return of(!!original ?
+      this.getIndexOfItem(original) :
+      this.getIndexOfItem(d)
+    ).pipe(
+      switchMap(index => (index === -1) ?
+        throwError({ status: 404 }) :
+        of(void 0).pipe(tap(() => Object.assign(this.items[index], d)))
+      )
     );
   }
 
   delete(item: Partial<T>) {
-    return new Observable<void>(
-      observer => {
-        const index = this.getIndexOfItem(item);
-        if (index === -1) {
-          observer.error({ status: 404 });
-        } else {
-          this.items.splice(index, 1);
-          observer.next();
-          observer.complete();
-        }
-
-        return {
-          unsubscribe() { }
-        };
-      }
+    return of(this.getIndexOfItem(item)).pipe(
+      switchMap(index => (index === -1) ?
+        throwError({ status: 404 }) :
+        of(void 0).pipe(tap(() => this.items.splice(index, 1)))
+      )
     );
   }
 }

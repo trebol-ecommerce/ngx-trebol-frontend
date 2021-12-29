@@ -1,0 +1,35 @@
+/*
+ * Copyright (c) 2021 The Trébol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+h2 {
+  margin-top: 0;
+}
+
+.product-table-wrapper {
+  overflow: scroll;
+  height: 14.5rem;
+}
+
+.mat-column-name {
+  min-width: 6rem;
+}
+.mat-column-barcode {
+  min-width: 6rem;
+  max-width: 10rem;
+}
+.mat-column-price {
+  min-width: 6rem;
+  max-width: 8rem;
+}
+.mat-column-actions {
+  min-width: 3rem;
+  width: 3rem;
+}
+
+mat-expansion-panel, mat-card {
+  margin: 1rem 0;
+}

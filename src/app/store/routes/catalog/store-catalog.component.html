@@ -6,17 +6,13 @@
 -->
 
 <h2 i18n="Title of page for the storefront">Store Frontpage</h2>
-<app-product-filters-panel
-  (filtersChanges)="onFiltersChange($event)">
-</app-product-filters-panel>
 
 <app-centered-mat-spinner *ngIf="loading$ | async">
 </app-centered-mat-spinner>
 
 <div class="products" [hidden]="loading$ | async">
-  <app-store-product-card *ngFor="let product of (products$ | async)"
-    [product]="product"
-    (addToCart)="onAddProductToCart(product)"
-    (view)="onViewProduct(product)">
-  </app-store-product-card>
+  <app-store-product-list-contents-display
+    *ngFor="let list of (lists$ | async)"
+    [list]="list">
+  </app-store-product-list-contents-display>
 </div>

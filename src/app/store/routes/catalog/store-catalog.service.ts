@@ -8,13 +8,13 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { concatMap, delay, map, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, ReplaySubject, Subscription } from 'rxjs';
+import { concatMap, finalize, map, switchMap, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { IProductsPublicApiService } from 'src/app/api/products-public-api.iservice';
-import { DataPage } from 'src/models/DataPage';
+import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
+import { IProductListContentsDataApiService } from 'src/app/api/transactional-product-lists.data.api.iservice';
 import { Product } from 'src/models/entities/Product';
-import { ProductFilters } from "src/app/shared/components/product-filters-panel/ProductFilters";
+import { ProductList } from 'src/models/entities/ProductList';
 import { StoreProductDetailsDialogComponent } from '../../dialogs/product-details/store-product-details-dialog.component';
 import { StoreProductDetailsDialogData } from "../../dialogs/product-details/StoreProductDetailsDialogData";
 
@@ -22,43 +22,42 @@ import { StoreProductDetailsDialogData } from "../../dialogs/product-details/Sto
 export class StoreCatalogService
   implements OnDestroy {
 
-  private itemsSource = new BehaviorSubject(null);
+  private queryParamsSubscription: Subscription;
+  private loadingSubscription: Subscription;
+  private loadingSource = new BehaviorSubject(false);
+  private listsSource = new ReplaySubject<ProductList[]>(1);
 
-  items$ = this.itemsSource.asObservable();
-  loading$: Observable<boolean>;
+  lists$ = this.listsSource.asObservable();
+  loading$ = this.loadingSource.asObservable();
 
-  filters: ProductFilters = {};
+  listIndex = 0;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.products) private productsApiService: IProductsPublicApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductLists) private productListApiService: IProductListContentsDataApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) private productsApiService: ITransactionalEntityDataApiService<Product>,
     private dialogService: MatDialog,
     private route: ActivatedRoute,
     private router: Router,
   ) {
-    this.loading$ = this.items$.pipe(map(items => (items === null)));
     this.checkRouteForProductIdParam();
   }
 
+
   ngOnDestroy(): void {
-    this.itemsSource.complete();
+    this.queryParamsSubscription?.unsubscribe();
+    this.loadingSubscription?.unsubscribe();
+    this.loadingSource.complete();
+    this.listsSource.complete();
   }
 
   reloadItems(): void {
-    this.itemsSource.next(null);
+    this.loadingSubscription?.unsubscribe();
+    this.loadingSource.next(true);
 
-    let p: Observable<DataPage<Product>>;
-
-    if (JSON.stringify(this.filters) !== '{}') {
-      p = this.productsApiService.fetchFilteredProductCollection(this.filters);
-    } else {
-      p = this.productsApiService.fetchStoreFrontProductCollection();
-    }
-
-    p.pipe(
-      delay(0)
-    ).subscribe(
-      response => { this.itemsSource.next(response.items); }
-    );
+    this.loadingSubscription = this.productListApiService.fetchPage(this.listIndex).pipe(
+      tap(page => this.listsSource.next(page.items)),
+      finalize(() => this.loadingSource.next(false))
+    ).subscribe();
   }
 
   viewProduct(p: Product): void {
@@ -73,16 +72,16 @@ export class StoreCatalogService
   }
 
   private checkRouteForProductIdParam(): void {
-    this.route.queryParamMap.subscribe(
-      (params) => {
-        if (params.has('barcode')) {
-          const barcode = params.get('barcode');
-          this.productsApiService.fetchProductByBarcode(barcode).pipe(
-            concatMap(p => this.promptProductDetails(p))
-          ).subscribe();
-        }
-      }
-    );
+    this.queryParamsSubscription = this.route.queryParamMap.pipe(
+      switchMap((params) => (params.has('barcode')) ?
+        this.productsApiService.fetchExisting({
+          barcode: params.get('barcode')
+        }).pipe(
+          switchMap(p => this.promptProductDetails(p))
+        ) :
+        of(params)
+      )
+    ).subscribe();
   }
 
   private promptProductDetails(product: Product): Observable<any> {
@@ -94,15 +93,7 @@ export class StoreCatalogService
         data: dialogData
       }
     ).afterClosed().pipe(
-      tap(() => {
-        this.router.navigate(
-          [],
-          {
-            relativeTo: this.route,
-            queryParams: {}
-          }
-        );
-      })
+      tap(() => this.router.navigate([], { relativeTo: this.route, queryParams: {} }))
     );
   }
 

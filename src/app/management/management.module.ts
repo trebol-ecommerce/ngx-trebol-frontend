@@ -12,7 +12,7 @@ import { ManagementDataActionsComponent } from './components/data-actions/manage
 import { ManagementFooterComponent } from './components/footer/management-footer.component';
 import { ManagementHeaderComponent } from './components/header/management-header.component';
 import { ManagementSidenavComponent } from './components/sidenav/management-sidenav.component';
-import { ProductsArrayDialogComponent } from './dialogs/products-array/products-array-dialog.component';
+import { ProductListContentsDialogComponent } from './dialogs/product-list-contents/product-list-contents-dialog.component';
 import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementRoutingModule } from './management-routing.module';
 import { ManagementComponent } from './management.component';
@@ -24,6 +24,8 @@ import { ManagementImagesComponent } from './routes/images/management-images.com
 import { ManagementImagesService } from './routes/images/management-images.service';
 import { ManagementProductCategoriesComponent } from './routes/product-categories/management-product-categories.component';
 import { ManagementProductCategoriesService } from './routes/product-categories/management-product-categories.service';
+import { ManagementProductListsComponent } from './routes/product-lists/management-product-lists.component';
+import { ManagementProductListsService } from './routes/product-lists/management-product-lists.service';
 import { ManagementProductsComponent } from './routes/products/management-products.component';
 import { ManagementProductsService } from './routes/products/management-products.service';
 import { ManagementSalesComponent } from './routes/sales/management-sales.component';
@@ -41,21 +43,22 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
 
 @NgModule({
   declarations: [
-    ManagementComponent,
-    ManagementHeaderComponent,
-    ManagementFooterComponent,
-    ManagementSidenavComponent,
-    ProductsArrayDialogComponent,
     ManagementDataActionsComponent,
-    ManagementDashboardComponent,
+    ManagementFooterComponent,
+    ManagementHeaderComponent,
+    ManagementSidenavComponent,
+    ProductListContentsDialogComponent,
+    ManagementComponent,
     ManagementCustomersComponent,
-    ManagementSalespeopleComponent,
-    ManagementProductsComponent,
+    ManagementDashboardComponent,
+    ManagementImagesComponent,
     ManagementProductCategoriesComponent,
+    ManagementProductListsComponent,
+    ManagementProductsComponent,
     ManagementSalesComponent,
+    ManagementSalespeopleComponent,
     ManagementShippersComponent,
-    ManagementUsersComponent,
-    ManagementImagesComponent
+    ManagementUsersComponent
   ],
   imports: [
     SharedModule,
@@ -67,12 +70,13 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ManagementService,
     ManagementCustomersService,
     ManagementImagesService,
-    ManagementSalespeopleService,
-    ManagementProductsService,
     ManagementProductCategoriesService,
-    ManagementUsersService,
+    ManagementProductListsService,
+    ManagementProductsService,
     ManagementSalesService,
-    ManagementShippersService
+    ManagementSalespeopleService,
+    ManagementShippersService,
+    ManagementUsersService
   ]
 })
 export class ManagementModule { }

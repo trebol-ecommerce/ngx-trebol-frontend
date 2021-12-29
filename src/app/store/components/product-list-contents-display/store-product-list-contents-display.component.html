@@ -1,0 +1,15 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<h3>{{ list.name }}</h3>
+<app-store-product-display
+  [products]="products$ | async"
+  [totalCount]="totalCount$ | async"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  (page)="onPage($event)">
+</app-store-product-display>

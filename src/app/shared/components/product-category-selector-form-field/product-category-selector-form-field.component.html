@@ -13,16 +13,16 @@
   <button type="button" class="open-category-picker"
     *ngIf="productCategory"
     mat-icon-button matSuffix
-    i18n="clear category|Label for action button to clear selection of a category"
     aria-label="Clear category"
+    i18n-aria-label="clear category|Label for action button to clear selection of a category"
     [disabled]="isDisabled"
     (click)="onClickClearCategory()">
     <mat-icon>close</mat-icon>
   </button>
   <button type="button" class="open-category-picker"
     mat-icon-button matSuffix
-    i18n="open category picker|Label for action button to open a dialog to choose a category from"
     aria-label="Pick category"
+    i18n-aria-label="open category picker|Label for action button to open a dialog to choose a category from"
     [disabled]="isDisabled"
     (click)="onClickOpenCategoryPicker()">
     <mat-icon>open_in_new</mat-icon>

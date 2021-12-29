@@ -25,6 +25,7 @@ import { ProductCategorySelectorFormFieldComponent } from './components/product-
 import { ProductCategoryTreeComponent } from './components/product-category-tree/product-category-tree.component';
 import { ProductFiltersPanelComponent } from './components/product-filters-panel/product-filters-panel.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
+import { ProductListFormComponent } from './components/product-list-form/product-list-form.component';
 import { SalespersonFormComponent } from './components/salesperson-form/salesperson-form.component';
 import { SellFormComponent } from './components/sell-form/sell-form.component';
 import { ShipperFormComponent } from './components/shipper-form/shipper-form.component';
@@ -38,46 +39,49 @@ import { ImagesArrayDialogComponent } from './dialogs/images-array/images-array-
 import { InformationDialogComponent } from './dialogs/information/information-dialog.component';
 import { InputDialogComponent } from './dialogs/input/input-dialog.component';
 import { ProductCategoryPickerDialogComponent } from './dialogs/product-category-picker/product-category-picker-dialog.component';
+import { ProductsArrayDialogComponent } from './dialogs/products-array/products-array-dialog.component';
 import { FormGroupOwnerOutletDirective } from './directives/form-group-owner-outlet/form-group-owner-outlet.directive';
 import { AddressPipe } from './pipes/address/address.pipe';
 
 
-const PUBLIC_COMPONENTS = [
-  CenteredMatProgressSpinnerComponent,
-  ConfirmationDialogComponent,
-  EntityFormDialogComponent,
-  InputDialogComponent,
+const SHARED_DECLARATIONS = [
   AddressFormComponent,
-  AddressFormDialogComponent,
   AddressesEditorFormComponent,
-  FileUploadComponent,
   CartProductUnitsControlComponent,
+  CenteredMatProgressSpinnerComponent,
   CompanyFormComponent,
+  DialogSwitcherButtonComponent,
+  FileUploadComponent,
   ImageFormComponent,
+  ImageUploadFormComponent,
   PersonFormComponent,
-  ProductFormComponent,
   ProductCategoryFormComponent,
+  ProductCategorySelectorFormFieldComponent,
+  ProductCategoryTreeComponent,
+  ProductFiltersPanelComponent,
+  ProductFormComponent,
+  ProductListFormComponent,
   SalespersonFormComponent,
   SellFormComponent,
   ShipperFormComponent,
-  UserFormComponent,
-  ProductCategoryTreeComponent,
-  ProductCategorySelectorFormFieldComponent,
-  ProductFiltersPanelComponent,
-  EditProfileFormDialogComponent,
-  DialogSwitcherButtonComponent,
-  InformationDialogComponent,
   SlideshowComponent,
-  FormGroupOwnerOutletDirective,
-  ProductCategoryPickerDialogComponent,
-  AddressPipe,
+  UserFormComponent,
+  AddressFormDialogComponent,
+  ConfirmationDialogComponent,
+  EditProfileFormDialogComponent,
+  EntityFormDialogComponent,
   ImagesArrayDialogComponent,
-  ImageUploadFormComponent
+  InformationDialogComponent,
+  InputDialogComponent,
+  ProductCategoryPickerDialogComponent,
+  ProductsArrayDialogComponent,
+  FormGroupOwnerOutletDirective,
+  AddressPipe
 ];
 
 @NgModule({
   declarations: [
-    ...PUBLIC_COMPONENTS
+    ...SHARED_DECLARATIONS
   ],
   imports: [
     CommonModule,
@@ -93,7 +97,7 @@ const PUBLIC_COMPONENTS = [
     BrowserAnimationsModule,
     AngularMaterialModule,
 
-    ...PUBLIC_COMPONENTS
+    ...SHARED_DECLARATIONS
   ]
 })
 export class SharedModule { }

@@ -7,21 +7,19 @@
 
 .mat-column-thumb {
   padding: 4px 0.5rem 0;
+  min-width: 6rem;
+  max-width: 8rem;
 }
 
 .mat-column-thumb img {
-  max-width: 100%;
   max-height: 3rem;
 }
 
 .mat-column-filename {
-  max-width: 100%;
-}
-td.mat-column-filename {
-  padding-top: 1.75rem;
-  padding-bottom: 1.75rem;
+  min-width: 6rem;
 }
 
 .mat-column-actions {
-  width: 3rem;
+  min-width: 2rem;
+  max-width: 2rem;
 }

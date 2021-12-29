@@ -8,34 +8,33 @@
 import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
-import { EMPTY, of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { IProductsPublicApiService } from 'src/app/api/products-public-api.iservice';
+import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
+import { IProductListContentsDataApiService } from 'src/app/api/transactional-product-lists.data.api.iservice';
+import { Product } from 'src/models/entities/Product';
 import { StoreCatalogService } from './store-catalog.service';
 
 describe('StoreCatalogService', () => {
   let service: StoreCatalogService;
-  let mockProductsApiService: Partial<IProductsPublicApiService>;
+  let mockProductListsApiService: Partial<IProductListContentsDataApiService>;
+  let mockProductsApiService: Partial<ITransactionalEntityDataApiService<Product>>;
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(() => {
+    mockProductListsApiService = {
+      fetchPage() {
+        return of({
+          items: [],
+          totalCount: 0,
+          pageIndex: 0,
+          pageSize: 10
+        });
+      }
+    };
     mockProductsApiService = {
-      fetchProductByBarcode() { return EMPTY; },
-      fetchFilteredProductCollection() {
-        return of({
-          items: [],
-          totalCount: 0,
-          pageIndex: 0,
-          pageSize: 10
-        });
-      },
-      fetchStoreFrontProductCollection() {
-        return of({
-          items: [],
-          totalCount: 0,
-          pageIndex: 0,
-          pageSize: 10
-        });
+      fetchExisting() {
+        return throwError({ status: 404 });
       }
     };
     mockDialogService = {
@@ -48,7 +47,8 @@ describe('StoreCatalogService', () => {
       ],
       providers: [
         StoreCatalogService,
-        { provide: API_SERVICE_INJECTION_TOKENS.products, useValue: mockProductsApiService },
+        { provide: API_SERVICE_INJECTION_TOKENS.dataProductLists, useValue: mockProductListsApiService },
+        { provide: API_SERVICE_INJECTION_TOKENS.dataProducts, useValue: mockProductsApiService },
         { provide: MatDialog, useValue: mockDialogService }
       ]
     });

@@ -20,7 +20,7 @@ import { DataManagerServiceDirective } from './data-manager.service-directive';
 export abstract class DataManagerComponentDirective<T>
   implements OnInit {
 
-  pageSizeOptions = [5, 10, 20, 50, 100];
+  pageSizeOptions = [10, 20, 50, 100];
 
   loading$: Observable<boolean>;
   busy$: Observable<boolean>;
@@ -56,5 +56,6 @@ export abstract class DataManagerComponentDirective<T>
     this.canEdit$ = service.canEdit$.pipe();
     this.canAdd$ = service.canAdd$.pipe();
     this.canDelete$ = service.canDelete$.pipe();
+    service.pageSize = this.pageSizeOptions[0];
   }
 }
