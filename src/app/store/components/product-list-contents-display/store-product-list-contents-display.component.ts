@@ -26,7 +26,7 @@ export class StoreProductListContentsDisplayComponent
   private loadingSubscription: Subscription;
   private pageSource = new ReplaySubject<DataPage<Product>>(1);
 
-  @Input() list: ProductList;
+  @Input() list = new ProductList();
 
   pageIndex = 0;
   pageSize = 10;
