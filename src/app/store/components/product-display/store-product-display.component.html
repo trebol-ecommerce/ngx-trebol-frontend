@@ -18,9 +18,8 @@
   </div>
 </div>
 <div class="paginator" *ngIf="showPaginator">
-  <span class="hint" *ngIf="scrollable">
-    Deslice hacia los costados para ver más productos en la lista
-  </span>
+  <span class="hint" *ngIf="scrollable"
+    i18n="Label to hint users to swipe to the sides">Swipe to the sides to view more</span>
   <mat-paginator
     (page)="onPage($event)"
     [showFirstLastButtons]="true"
