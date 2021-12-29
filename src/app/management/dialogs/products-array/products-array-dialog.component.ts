@@ -7,6 +7,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
@@ -45,6 +46,12 @@ export class ProductsArrayDialogComponent
 
   onFiltersChange(f: any): void {
     this.service.filters = f;
+    this.service.reloadItems();
+  }
+
+  onSortChange(event: Sort) {
+    this.service.sortBy = event.active;
+    this.service.order = event.direction;
     this.service.reloadItems();
   }
 
