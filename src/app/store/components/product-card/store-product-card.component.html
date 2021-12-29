@@ -7,15 +7,18 @@
 
 <mat-card>
   <div class="content" (click)="onClickViewProduct()">
-    <mat-card-header>
-      <mat-card-title>{{ product.name }}</mat-card-title>
-      <mat-card-subtitle>{{ product.barcode }}</mat-card-subtitle>
-    </mat-card-header>
-    <img *ngIf="product.images?.length"
-      [src]="product.images[0].url"
-      [alt]="product.name" />
+    <mat-card-title>{{ product.name }}</mat-card-title>
+    <mat-card-subtitle>{{ product.barcode }}</mat-card-subtitle>
+    <ng-container *ngIf="product.images?.length; else noImageAvailable">
+      <img [src]="product.images[0].url" [alt]="product.name" />
+    </ng-container>
+    <ng-template #noImageAvailable>
+      <img src="assets/img/products/unavailable.png"
+        alt="Unavailable image"
+        i18n-alt="Label to describe a missing or unavailable image" />
+    </ng-template>
   </div>
-  <div class="actions">
+  <div class="footer">
     <span class="price">{{ product.price | currency }}</span>
     <button mat-button mat-raised-button type="button"
       class="add-to-cart"
