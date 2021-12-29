@@ -70,6 +70,8 @@ export class ProductCategoriesDataLocalMemoryApiService
             matchingItems = matchingItems.filter(it => matchesStringProperty(it, propName, propValue));
           } else if (typeof propValue === 'number') {
             matchingItems = matchingItems.filter(it => matchesNumberProperty(it, propName, propValue));
+          } else if (propValue === null) {
+            matchingItems = matchingItems.filter(it => (it[propName] === null));
           } else if (typeof propValue === 'object') {
             if (propValue instanceof Date) {
               matchingItems = matchingItems.filter(it => matchesDateProperty(it, propName, propValue));

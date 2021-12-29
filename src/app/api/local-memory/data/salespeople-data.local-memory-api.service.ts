@@ -35,6 +35,8 @@ export class SalespeopleDataLocalMemoryApiService
           matchingItems = matchingItems.filter(it => matchesStringProperty(it.person, propName, propValue));
         } else if (typeof propValue === 'number') {
           matchingItems = matchingItems.filter(it => matchesNumberProperty(it.person, propName, propValue));
+        } else if (propValue === null) {
+          matchingItems = matchingItems.filter(it => (it.person[propName] === null));
         }
       }
     }
