@@ -1643,7 +1643,7 @@
         <note priority="1" from="description">Title of widget displaying details of a succesful transaction</note>
       </trans-unit>
       <trans-unit id="805e54512b561c66b06291d7e5ecddb199c4643d" datatype="html">
-        <source>Confirmada el <x id="INTERPOLATION" equiv-text="{{ receipt.date | date }}"/></source>
+        <source>Confirmada el <x id="INTERPOLATION" equiv-text="{{ receipt.date | date:'short' }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/routes/receipt/store-receipt.component.html</context>
           <context context-type="linenumber">14</context>
