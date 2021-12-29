@@ -39,6 +39,7 @@ export class ProductListContentsDialogComponent
     private dialog: MatDialog
   ) {
     this.service.list = this.data.list;
+    this.service.pageSize = this.pageSizeOptions[0];
     this.loading$ = this.service.loading$.pipe();
     this.products$ = this.service.page$.pipe(map(page => page.items));
     this.totalCount$ = this.service.page$.pipe(map(page => page.totalCount));

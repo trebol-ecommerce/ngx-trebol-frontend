@@ -38,6 +38,7 @@ export class ProductsArrayDialogComponent
     this.loading$ = this.service.loading$.pipe();
     this.productsArray$ = this.service.productsArray$.pipe();
     this.isArrayEmpty$ = this.service.totalCount$.pipe(map(count => (count === 0)));
+    this.service.pageSize = this.pageSizeOptions[0];
   }
 
   ngOnInit(): void {
