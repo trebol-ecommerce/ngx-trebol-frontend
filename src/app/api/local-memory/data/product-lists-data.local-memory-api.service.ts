@@ -35,6 +35,41 @@ export class ProductListsDataLocalMemoryApiService
     super();
   }
 
+  create(item: ProductList) {
+    return new Observable<void>(
+      observer => {
+        if (this.itemExists(item)) {
+          observer.error({ status: 400 });
+        }
+        this.items.push(item);
+        this.itemContentsMap.set(item.code, new Set());
+        observer.next();
+        observer.complete();
+        return {
+          unsubscribe() { }
+        };
+      }
+    );
+  }
+
+  update(d: ProductList, original?: ProductList) {
+    return of(!!original ?
+      this.getIndexOfItem(original) :
+      this.getIndexOfItem(d)
+    ).pipe(
+      switchMap(index => (index === -1) ?
+        throwError({ status: 404 }) :
+        of(void 0).pipe(tap(() => {
+          const code = this.items[index].code;
+          const contentSet = this.itemContentsMap.get(code);
+          Object.assign(this.items[index], d);
+          this.itemContentsMap.delete(code);
+          this.itemContentsMap.set(this.items[index].code, contentSet);
+        }))
+      )
+    );
+  }
+
   fetchContents(list: ProductList, pageIndex?: number, pageSize?: number, sortBy?: string, order?: string): Observable<DataPage<Product>> {
     if (!this.itemContentsMap.has(list.code)) {
       return throwError({ status: 404 });
