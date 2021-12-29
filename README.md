@@ -9,9 +9,12 @@
 
 A single-page web application designed and developed over Angular v11, RxJS and Material Design.
 
+You can view the demo in action [in this link](https://trebol-ecommerce.github.io/ngx-trebol-frontend/). Served data is stored in JS arrays, that is, it is loaded into and from your browser's working memory. That also means said data is reset once you refresh the page.
+To access the management pages, proceed to the login dialog clicking on the button in the top right corner. Then type `admin` for both the username and password fields.
+
 ## Current status
 
-Support for [the latest API version (v1.1.2)](https://github.com/trebol-ecommerce/api/releases/tag/v1.1.2) is complete!
+Support for [the latest API version (v1.2.1)](https://github.com/trebol-ecommerce/api/releases/tag/v1.2.1) is complete!
 
 ## Infrastructure
 
