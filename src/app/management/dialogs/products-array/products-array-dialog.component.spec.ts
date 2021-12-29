@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
@@ -34,10 +35,14 @@ describe('ProductsArrayDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     mockService = {
-      filteredProductsArray$: of([]),
+      availableProducts$: of([]),
+      totalCount$: of(0),
       productsArray$: of([]),
       loading$: of(false),
-      changeFiltersTo(f) {},
+      pageIndex: 0,
+      pageSize: 10,
+      filters: undefined,
+      reloadItems() {},
       includeProduct(p) {},
       dropProductByIndex(i) {}
     };
@@ -60,6 +65,7 @@ describe('ProductsArrayDialogComponent', () => {
         MatExpansionModule,
         MatDialogModule,
         MatIconModule,
+        MatPaginatorModule,
         MatTableModule
       ],
       declarations: [
