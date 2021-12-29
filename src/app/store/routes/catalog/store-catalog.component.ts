@@ -8,9 +8,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from 'src/models/entities/Product';
-import { ProductFilters } from "src/app/shared/components/product-filters-panel/ProductFilters";
 import { StoreService } from '../../store.service';
 import { StoreCatalogService } from './store-catalog.service';
+import { ProductList } from 'src/models/entities/ProductList';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-store-catalog',
@@ -21,22 +22,17 @@ export class StoreCatalogComponent
   implements OnInit {
 
   loading$: Observable<boolean>;
-  products$: Observable<Product[]>;
+  lists$: Observable<ProductList[]>;
 
   constructor(
     private catalogService: StoreCatalogService,
     private storeService: StoreService
   ) {
     this.loading$ = this.catalogService.loading$.pipe();
-    this.products$ = this.catalogService.items$.pipe();
+    this.lists$ = this.catalogService.lists$.pipe();
   }
 
   ngOnInit(): void {
-    this.catalogService.reloadItems();
-  }
-
-  onFiltersChange(f: ProductFilters) {
-    this.catalogService.filters = f;
     this.catalogService.reloadItems();
   }
 

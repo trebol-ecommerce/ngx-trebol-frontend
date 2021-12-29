@@ -31,12 +31,11 @@ app-product-filters-panel {
 }
 
 .products {
+  margin: 0 auto;
+  max-width: 800px;
   flex: 1 1 auto;
   align-self: stretch;
   padding: 0.5rem;
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fill, 20rem);
   justify-content: center;
   overflow: hidden;
 }

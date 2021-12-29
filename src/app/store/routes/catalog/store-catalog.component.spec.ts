@@ -9,8 +9,10 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { of } from 'rxjs';
+import { merge, of, timer } from 'rxjs';
+import { take, tap } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
+import { ProductList } from 'src/models/entities/ProductList';
 import { StoreService } from '../../store.service';
 import { StoreCatalogComponent } from './store-catalog.component';
 import { StoreCatalogService } from './store-catalog.service';
@@ -39,9 +41,8 @@ describe('StoreCatalogComponent', () => {
   beforeEach(waitForAsync(() => {
     catalogService = {
       loading$: of(false),
-      items$: of([]),
+      lists$: of([]),
       reloadItems() {},
-      filters: {},
       viewProduct(p) {}
     };
     spyOn(catalogService, 'reloadItems');
@@ -79,13 +80,15 @@ describe('StoreCatalogComponent', () => {
   });
 
   it('should load items inmediately', () => {
-    let items: Product[];
-    component.products$.subscribe(p => { items = p; });
-    expect(items).toBeTruthy();
-  });
-
-  it('should reload items upon changing filtering conditions', () => {
-    component.onFiltersChange({});
-    expect(catalogService.reloadItems).toHaveBeenCalled();
+    let lists: ProductList[];
+    merge(
+      timer(100).pipe(
+        tap(() => expect(lists).toBeTruthy())
+      ),
+      component.lists$.pipe(
+        take(1),
+        tap(p => { lists = p; })
+      )
+    ).subscribe();
   });
 });
