@@ -25,7 +25,7 @@ import { ProductListContentsDialogData } from './ProductListContentsDialogData';
 export class ProductListContentsDialogComponent
   implements OnInit {
 
-  productTableColumns = ['name', 'code', 'actions'];
+  productTableColumns = ['name', 'barcode', 'price', 'actions'];
   pageSizeOptions = [5, 10, 20, 50, 100];
 
   loading$: Observable<boolean>;
