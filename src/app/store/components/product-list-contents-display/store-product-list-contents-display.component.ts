@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Observable, ReplaySubject, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -27,6 +27,8 @@ export class StoreProductListContentsDisplayComponent
   private pageSource = new ReplaySubject<DataPage<Product>>(1);
 
   @Input() list = new ProductList();
+
+  @Output() addProductToCart = new EventEmitter<Product>();
 
   pageIndex = 0;
   pageSize = 10;
@@ -54,6 +56,10 @@ export class StoreProductListContentsDisplayComponent
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
     this.reloadItems();
+  }
+
+  onAddProductToCart(product: Product): void {
+    this.addProductToCart.emit(product);
   }
 
   private reloadItems() {

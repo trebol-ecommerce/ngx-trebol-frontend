@@ -13,6 +13,7 @@
 <div class="products" [hidden]="loading$ | async">
   <app-store-product-list-contents-display
     *ngFor="let list of (lists$ | async)"
-    [list]="list">
+    [list]="list"
+    (addProductToCart)="onAddProductToCart($event)">
   </app-store-product-list-contents-display>
 </div>

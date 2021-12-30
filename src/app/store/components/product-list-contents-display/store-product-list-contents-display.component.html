@@ -6,10 +6,12 @@
 -->
 
 <h3>{{ list.name }}</h3>
-<app-store-product-display
+<app-products-display
   [products]="products$ | async"
   [totalCount]="totalCount$ | async"
   [pageIndex]="pageIndex"
   [pageSize]="pageSize"
-  (page)="onPage($event)">
-</app-store-product-display>
+  [showAddToCartButtons]="true"
+  (page)="onPage($event)"
+  (addProductToCart)="onAddProductToCart($event)">
+</app-products-display>
