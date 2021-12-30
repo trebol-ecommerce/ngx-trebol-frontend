@@ -9,13 +9,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from 'src/models/entities/Product';
 
 @Component({
-  selector: 'app-store-product-card',
-  templateUrl: './store-product-card.component.html',
-  styleUrls: ['./store-product-card.component.css']
+  selector: 'app-product-card',
+  templateUrl: './product-card.component.html',
+  styleUrls: ['./product-card.component.css']
 })
-export class StoreProductCardComponent {
+export class ProductCardComponent {
 
   @Input() product = new Product();
+  @Input() showAddToCartButton = false;
   @Output() addToCart = new EventEmitter<void>();
   @Output() view = new EventEmitter<void>();
 

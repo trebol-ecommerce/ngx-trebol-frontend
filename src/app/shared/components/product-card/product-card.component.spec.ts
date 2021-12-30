@@ -10,11 +10,11 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { StoreProductCardComponent } from './store-product-card.component';
+import { ProductCardComponent } from './product-card.component';
 
-describe('StoreProductCardComponent', () => {
-  let component: StoreProductCardComponent;
-  let fixture: ComponentFixture<StoreProductCardComponent>;
+describe('ProductCardComponent', () => {
+  let component: ProductCardComponent;
+  let fixture: ComponentFixture<ProductCardComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -24,13 +24,13 @@ describe('StoreProductCardComponent', () => {
         MatCardModule,
         MatIconModule
       ],
-      declarations: [ StoreProductCardComponent ],
+      declarations: [ ProductCardComponent ],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StoreProductCardComponent);
+    fixture = TestBed.createComponent(ProductCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -11,10 +11,12 @@
   </div>
   <div class="shadow"></div>
   <div class="contents">
-    <app-store-product-card
+    <app-product-card
       *ngFor="let product of products"
-      [product]="product">
-    </app-store-product-card>
+      [product]="product"
+      [showAddToCartButton]="showAddToCartButtons"
+      (addToCart)="onAddProductToCart(product)">
+    </app-product-card>
   </div>
 </div>
 <div class="paginator" *ngIf="showPaginator">

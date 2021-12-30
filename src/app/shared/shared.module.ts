@@ -20,9 +20,11 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
 import { ImageFormComponent } from './components/image-form/image-form.component';
 import { ImageUploadFormComponent } from './components/image-upload-form/image-upload-form.component';
 import { PersonFormComponent } from './components/person-form/person-form.component';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductCategoryFormComponent } from './components/product-category-form/product-category-form.component';
 import { ProductCategorySelectorFormFieldComponent } from './components/product-category-selector-form-field/product-category-selector-form-field.component';
 import { ProductCategoryTreeComponent } from './components/product-category-tree/product-category-tree.component';
+import { ProductsDisplayComponent } from './components/products-display/products-display.component';
 import { ProductFiltersPanelComponent } from './components/product-filters-panel/product-filters-panel.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ProductListFormComponent } from './components/product-list-form/product-list-form.component';
@@ -55,9 +57,11 @@ const SHARED_DECLARATIONS = [
   ImageFormComponent,
   ImageUploadFormComponent,
   PersonFormComponent,
+  ProductCardComponent,
   ProductCategoryFormComponent,
   ProductCategorySelectorFormFieldComponent,
   ProductCategoryTreeComponent,
+  ProductsDisplayComponent,
   ProductFiltersPanelComponent,
   ProductFormComponent,
   ProductListFormComponent,

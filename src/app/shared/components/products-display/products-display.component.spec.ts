@@ -12,17 +12,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Product } from 'src/models/entities/Product';
-import { StoreProductDisplayComponent } from './store-product-display.component';
+import { ProductsDisplayComponent } from './products-display.component';
 
-
-@Component({ selector: 'app-store-product-card' })
+@Component({ selector: 'app-product-card' })
 class MockStoreProductCardComponent {
   @Input() product: Product;
 }
 
-describe('StoreProductDisplayComponent', () => {
-  let component: StoreProductDisplayComponent;
-  let fixture: ComponentFixture<StoreProductDisplayComponent>;
+describe('ProductsDisplayComponent', () => {
+  let component: ProductsDisplayComponent;
+  let fixture: ComponentFixture<ProductsDisplayComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -33,7 +32,7 @@ describe('StoreProductDisplayComponent', () => {
         MatPaginatorModule
       ],
       declarations: [
-        StoreProductDisplayComponent,
+        ProductsDisplayComponent,
         MockStoreProductCardComponent
       ]
     })
@@ -41,7 +40,7 @@ describe('StoreProductDisplayComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StoreProductDisplayComponent);
+    fixture = TestBed.createComponent(ProductsDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
