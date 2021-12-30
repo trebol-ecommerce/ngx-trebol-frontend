@@ -13,7 +13,7 @@ import { merge, of, timer } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
 import { ProductList } from 'src/models/entities/ProductList';
-import { StoreService } from '../../store.service';
+import { StoreCartService } from '../../store-cart.service';
 import { StoreCatalogComponent } from './store-catalog.component';
 import { StoreCatalogService } from './store-catalog.service';
 
@@ -35,18 +35,18 @@ class MockStoreCatalogProductCardComponent {
 describe('StoreCatalogComponent', () => {
   let component: StoreCatalogComponent;
   let fixture: ComponentFixture<StoreCatalogComponent>;
-  let catalogService: Partial<StoreCatalogService>;
-  let storeService: Partial<StoreService>;
+  let mockCatalogService: Partial<StoreCatalogService>;
+  let mockCartService: Partial<StoreCartService>;
 
   beforeEach(waitForAsync(() => {
-    catalogService = {
+    mockCatalogService = {
       loading$: of(false),
       lists$: of([]),
       reloadItems() {},
       viewProduct(p) {}
     };
-    spyOn(catalogService, 'reloadItems');
-    storeService = {
+    spyOn(mockCatalogService, 'reloadItems');
+    mockCartService = {
       addProductToCart(p) {}
     };
 
@@ -62,8 +62,8 @@ describe('StoreCatalogComponent', () => {
         MockStoreCatalogProductCardComponent
       ],
       providers: [
-        { provide: StoreCatalogService, useValue: catalogService },
-        { provide: StoreService, useValue: storeService },
+        { provide: StoreCatalogService, useValue: mockCatalogService },
+        { provide: StoreCartService, useValue: mockCartService },
       ]
     })
     .compileComponents();

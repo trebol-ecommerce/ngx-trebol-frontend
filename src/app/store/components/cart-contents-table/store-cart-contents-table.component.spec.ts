@@ -11,13 +11,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { StoreService } from 'src/app/store/store.service';
+import { StoreCartService } from 'src/app/store/store-cart.service';
 import { StoreCartContentsTableComponent } from './store-cart-contents-table.component';
 
 describe('StoreStoreCartContentsTableComponent', () => {
   let component: StoreCartContentsTableComponent;
   let fixture: ComponentFixture<StoreCartContentsTableComponent>;
-  let mockStoreService: Partial<StoreService>;
+  let mockStoreService: Partial<StoreCartService>;
 
   beforeEach(waitForAsync(() => {
     mockStoreService = {
@@ -35,7 +35,7 @@ describe('StoreStoreCartContentsTableComponent', () => {
       ],
       declarations: [ StoreCartContentsTableComponent ],
       providers: [
-        { provide: StoreService, useValue: mockStoreService }
+        { provide: StoreCartService, useValue: mockStoreService }
       ]
     })
     .compileComponents();

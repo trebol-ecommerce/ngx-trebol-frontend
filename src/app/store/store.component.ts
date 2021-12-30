@@ -9,7 +9,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
-import { StoreService } from './store.service';
+import { StoreCartService } from './store-cart.service';
 
 @Component({
   selector: 'app-store',
@@ -21,14 +21,14 @@ export class StoreComponent
 
   private cartIsEmptySubscription: Subscription;
 
-  cartIsEmpty: boolean | undefined;
+  cartIsEmpty = true;
 
   constructor(
-    private storeService: StoreService,
+    private cartService: StoreCartService,
     private router: Router,
     private route: ActivatedRoute
   ) {
-    this.cartIsEmptySubscription = this.storeService.cartDetails$.pipe(
+    this.cartIsEmptySubscription = this.cartService.cartDetails$.pipe(
       map(details => (details.length === 0)),
       filter(isNowEmpty => (this.cartIsEmpty === undefined || isNowEmpty !== this.cartIsEmpty)),
       tap(isNowEmpty => { this.cartIsEmpty = isNowEmpty; }),

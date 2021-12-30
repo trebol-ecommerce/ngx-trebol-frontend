@@ -8,7 +8,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { StoreService } from 'src/app/store/store.service';
+import { StoreCartService } from 'src/app/store/store-cart.service';
 
 @Component({
   selector: 'app-store-header-navigation',
@@ -23,17 +23,17 @@ export class StoreHeaderNavigationComponent
   cartNetValue$: Observable<number>;
 
   constructor(
-    private storeService: StoreService
+    private cartService: StoreCartService
   ) { }
 
   ngOnInit(): void {
-    this.cartHasItems$ = this.storeService.cartDetails$.pipe(
+    this.cartHasItems$ = this.cartService.cartDetails$.pipe(
       map(array => array.length > 0)
     );
-    this.cartItemCountLabel$ = this.storeService.cartItemCount$.pipe(
-      map(total => total + ' item' + (total > 1 ? 's' : ''))
+    this.cartItemCountLabel$ = this.cartService.cartItemCount$.pipe(
+      map(total => `${total} item${(total > 1) ? 's' : ''}`)
     );
-    this.cartNetValue$ = this.storeService.cartNetValue$.pipe();
+    this.cartNetValue$ = this.cartService.cartNetValue$.pipe();
   }
 
 }

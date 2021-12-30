@@ -12,10 +12,10 @@ import {
 } from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
-import { Address } from 'src/models/entities/Address';
 import { AddressesEditorFormComponent } from 'src/app/shared/components/addresses-editor-form/addresses-editor-form.component';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { StoreService } from '../../store.service';
+import { Address } from 'src/models/entities/Address';
+import { StoreCartService } from '../../store-cart.service';
 
 @Component({
   selector: 'app-store-shipping-form',
@@ -51,7 +51,7 @@ export class StoreShippingFormComponent
 
   constructor(
     private formBuilder: FormBuilder,
-    private cartService: StoreService
+    private cartService: StoreCartService
   ) {
     this.formGroup = this.formBuilder.group({
       requestShipping: [null, Validators.required],

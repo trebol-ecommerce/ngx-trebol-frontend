@@ -10,7 +10,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { StoreComponent } from './store.component';
-import { StoreService } from './store.service';
+import { StoreCartService } from './store-cart.service';
 
 // eslint-disable-next-line @angular-eslint/component-selector
 @Component({ selector: 'router-outlet' })
@@ -25,10 +25,10 @@ class MockFooterComponent { }
 describe('StoreComponent', () => {
   let component: StoreComponent;
   let fixture: ComponentFixture<StoreComponent>;
-  let mockStoreService: Partial<StoreService>;
+  let mockCartService: Partial<StoreCartService>;
 
   beforeEach(waitForAsync(() => {
-    mockStoreService = {
+    mockCartService = {
       cartDetails$: of([])
     };
 
@@ -43,7 +43,7 @@ describe('StoreComponent', () => {
         MockFooterComponent
       ],
       providers: [
-        { provide: StoreService, useValue: mockStoreService }
+        { provide: StoreCartService, useValue: mockCartService }
       ]
     })
     .compileComponents();

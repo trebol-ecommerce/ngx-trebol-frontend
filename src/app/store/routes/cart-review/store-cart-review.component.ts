@@ -7,7 +7,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { StoreService } from 'src/app/store/store.service';
+import { StoreCartService } from '../../store-cart.service';
 
 @Component({
   selector: 'app-store-cart-review',
@@ -21,11 +21,11 @@ export class StoreCartReviewComponent
   inputEditable = true;
 
   constructor(
-    private storeService: StoreService
+    private cartService: StoreCartService
   ) { }
 
   ngOnInit(): void {
-    this.cartNetValue$ = this.storeService.cartNetValue$.pipe();
+    this.cartNetValue$ = this.cartService.cartNetValue$.pipe();
   }
 
   onConfirmation(): void {

@@ -8,10 +8,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from 'src/models/entities/Product';
-import { StoreService } from '../../store.service';
-import { StoreCatalogService } from './store-catalog.service';
 import { ProductList } from 'src/models/entities/ProductList';
-import { tap } from 'rxjs/operators';
+import { StoreCartService } from '../../store-cart.service';
+import { StoreCatalogService } from './store-catalog.service';
 
 @Component({
   selector: 'app-store-catalog',
@@ -26,7 +25,7 @@ export class StoreCatalogComponent
 
   constructor(
     private catalogService: StoreCatalogService,
-    private storeService: StoreService
+    private cartService: StoreCartService
   ) {
     this.loading$ = this.catalogService.loading$.pipe();
     this.lists$ = this.catalogService.lists$.pipe();
@@ -37,7 +36,7 @@ export class StoreCatalogComponent
   }
 
   onAddProductToCart(p: Product) {
-    this.storeService.addProductToCart(p);
+    this.cartService.addProductToCart(p);
   }
   onViewProduct(p: Product) {
     this.catalogService.viewProduct(p);

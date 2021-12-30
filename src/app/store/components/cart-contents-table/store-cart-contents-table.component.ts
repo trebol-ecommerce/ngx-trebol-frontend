@@ -8,7 +8,8 @@
 import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SellDetail } from 'src/models/entities/SellDetail';
-import { StoreService } from 'src/app/store/store.service';
+import { StoreCheckoutService } from 'src/app/store/store-checkout.service';
+import { StoreCartService } from '../../store-cart.service';
 
 @Component({
   selector: 'app-store-cart-contents-table',
@@ -21,21 +22,21 @@ export class StoreCartContentsTableComponent {
   @Input() tableColumns: string[] = [ 'product', 'price', 'quantity', 'total', 'actions' ];
 
   constructor(
-    private storeService: StoreService
+    private cartService: StoreCartService
   ) {
-    this.details$ = this.storeService.cartDetails$.pipe();
+    this.details$ = this.cartService.cartDetails$.pipe();
   }
 
   onClickIncreaseProductQuantity(index: number): void {
-    this.storeService.increaseProductUnits(index);
+    this.cartService.increaseProductUnits(index);
   }
 
   onClickDecreaseProductQuantity(index: number): void {
-    this.storeService.decreaseProductUnits(index);
+    this.cartService.decreaseProductUnits(index);
   }
 
   onClickRemoveProduct(index: number): void {
-    this.storeService.removeProductFromCart(index);
+    this.cartService.removeProductFromCart(index);
   }
 
 }

@@ -7,10 +7,11 @@
 
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, switchMap, take, tap } from 'rxjs/operators';
 import { CheckoutRequest } from 'src/models/CheckoutRequest';
 import { ExternalPaymentRedirectionData } from 'src/models/ExternalPaymentRedirectionData';
-import { StoreService } from '../../store.service';
+import { StoreCartService } from '../../store-cart.service';
+import { StoreCheckoutService } from '../../store-checkout.service';
 
 @Component({
   selector: 'app-store-checkout-confirmation',
@@ -26,10 +27,12 @@ export class StoreCheckoutConfirmationComponent
 
   loading = false;
   checkoutDetails = new ExternalPaymentRedirectionData();
-  checkoutRequest: Partial<CheckoutRequest> = new CheckoutRequest();
+
+  checkoutRequest: CheckoutRequest;
 
   constructor(
-    private cartService: StoreService
+    private cartService: StoreCartService,
+    private checkoutService: StoreCheckoutService
   ) {
   }
 
@@ -51,7 +54,9 @@ export class StoreCheckoutConfirmationComponent
 
   onClickRequest(): void {
     this.loading = true;
-    this.cartService.requestPayment().pipe(
+    this.cartService.cartDetails$.pipe(
+      take(1),
+      switchMap(details => this.checkoutService.requestPayment(this.checkoutRequest, details)),
       catchError(err => {
         this.loading = false;
         return throwError(err);

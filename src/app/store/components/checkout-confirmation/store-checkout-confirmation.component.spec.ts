@@ -15,7 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { AddressPipe } from 'src/app/shared/pipes/address/address.pipe';
-import { StoreService } from '../../store.service';
+import { StoreCartService } from '../../store-cart.service';
+import { StoreCheckoutService } from '../../store-checkout.service';
 import { StoreCheckoutConfirmationComponent } from './store-checkout-confirmation.component';
 
 @Component({ selector: 'app-store-checkout-button' })
@@ -26,12 +27,15 @@ class MockStoreCheckoutButtonComponent {
 describe('StoreCheckoutConfirmationComponent', () => {
   let component: StoreCheckoutConfirmationComponent;
   let fixture: ComponentFixture<StoreCheckoutConfirmationComponent>;
-  let mockStoreService: Partial<StoreService>;
+  let mockCartService: Partial<StoreCartService>;
+  let mockCheckoutService: Partial<StoreCheckoutService>;
 
   beforeEach(waitForAsync(() => {
-    mockStoreService = {
+    mockCartService = {
       checkoutRequestData: null,
-      checkoutButtonPress: new EventEmitter(),
+      checkoutButtonPress: new EventEmitter()
+    };
+    mockCheckoutService = {
       requestPayment() { return of(void 0); }
     };
 
@@ -50,7 +54,8 @@ describe('StoreCheckoutConfirmationComponent', () => {
         AddressPipe
       ],
       providers: [
-        { provide: StoreService, useValue: mockStoreService }
+        { provide: StoreCartService, useValue: mockCartService },
+        { provide: StoreCheckoutService, useValue: mockCheckoutService }
       ]
     })
     .compileComponents();

@@ -16,7 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { StoreService } from '../../store.service';
+import { StoreCartService } from '../../store-cart.service';
 import { StoreCartReviewComponent } from './store-cart-review.component';
 
 @Component({ selector: 'app-store-cart-contents-table' })
@@ -35,10 +35,10 @@ class MockStoreCheckoutConfirmationComponent {
 describe('StoreCartReviewComponent', () => {
   let component: StoreCartReviewComponent;
   let fixture: ComponentFixture<StoreCartReviewComponent>;
-  let mockStoreService: Partial<StoreService>;
+  let mockCartService: Partial<StoreCartService>;
 
   beforeEach(waitForAsync(() => {
-    mockStoreService = {
+    mockCartService = {
       cartDetails$: of([]),
       cartNetValue$: of(0),
       increaseProductUnits(i) {},
@@ -66,7 +66,7 @@ describe('StoreCartReviewComponent', () => {
         MockStoreCheckoutConfirmationComponent
       ],
       providers: [
-        { provide: StoreService, useValue: mockStoreService }
+        { provide: StoreCartService, useValue: mockCartService }
       ]
     })
     .compileComponents();

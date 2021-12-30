@@ -16,14 +16,14 @@ import { StoreGuestPromptDialogOptions } from '../../dialogs/guest-prompt/StoreG
 import { StoreGuestShippingFormDialogComponent } from '../../dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component';
 import { StoreLoginFormDialogComponent } from '../../dialogs/login-form/store-login-form-dialog.component';
 import { StoreRegistrationFormDialogComponent } from '../../dialogs/registration-form/store-registration-form-dialog.component';
-import { StoreService } from '../../store.service';
+import { StoreCartService } from '../../store-cart.service';
 
 @Injectable()
 export class StoreCartReviewGuard
   implements CanActivate {
 
   constructor(
-    private storeService: StoreService,
+    private cartService: StoreCartService,
     private appService: AppService,
     private dialogService: MatDialog,
     private router: Router
@@ -33,7 +33,7 @@ export class StoreCartReviewGuard
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.storeService.cartDetails$.pipe(
+    return this.cartService.cartDetails$.pipe(
       take(1),
       map(details => (details.length > 0)),
       switchMap(isCartNotEmpty => {

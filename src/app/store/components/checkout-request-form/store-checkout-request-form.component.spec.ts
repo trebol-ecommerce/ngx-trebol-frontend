@@ -11,7 +11,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@a
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { StoreService } from '../../store.service';
+import { StoreCartService } from '../../store-cart.service';
 import { StoreCheckoutRequestFormComponent } from './store-checkout-request-form.component';
 
 @Component({
@@ -54,13 +54,13 @@ describe('StoreCheckoutRequestFormComponent', () => {
   let component: StoreCheckoutRequestFormComponent;
   let fixture: ComponentFixture<StoreCheckoutRequestFormComponent>;
   let mockSnackBarService: Partial<MatSnackBar>;
-  let mockStoreService: Partial<StoreService>;
+  let mockCartService: Partial<StoreCartService>;
 
   beforeEach(waitForAsync(() => {
     mockSnackBarService = {
       open(m: string, a: string) { return void 0; }
     };
-    mockStoreService = {
+    mockCartService = {
       checkoutRequestData: null,
       checkoutButtonPress: new EventEmitter()
     };
@@ -79,7 +79,7 @@ describe('StoreCheckoutRequestFormComponent', () => {
       ],
       providers: [
         { provide: MatSnackBar, useValue: mockSnackBarService },
-        { provide: StoreService, useValue: mockStoreService }
+        { provide: StoreCartService, useValue: mockCartService }
       ]
     })
     .compileComponents();

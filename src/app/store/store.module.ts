@@ -40,7 +40,7 @@ import { StoreReceiptComponent } from './routes/receipt/store-receipt.component'
 // import { StoreReceiptService } from './routes/receipt/store-receipt.service';
 import { StoreRoutingModule } from './store-routing.module';
 import { StoreComponent } from './store.component';
-import { StoreService } from './store.service';
+import { StoreCheckoutService } from './store-checkout.service';
 
 
 const SNACKBAR_DEFAULTS = {
@@ -84,7 +84,7 @@ const SNACKBAR_DEFAULTS = {
   ],
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: SNACKBAR_DEFAULTS},
-    StoreService,
+    StoreCheckoutService,
     // StoreReceiptService,
     StoreCatalogService,
     StoreCartReviewGuard

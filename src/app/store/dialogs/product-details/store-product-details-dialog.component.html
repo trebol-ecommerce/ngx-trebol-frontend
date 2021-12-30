@@ -6,16 +6,16 @@
 -->
 
 <app-slideshow
-  [images]="product?.images"
+  [images]="data.product.images"
   [autocycle]="false">
 </app-slideshow>
 <div class="about">
-  <h2 mat-dialog-title class="name">{{ product?.name }}</h2>
-  <h4 class="barcode">{{ product?.barcode }}</h4>
-  <p class="description">{{ product?.description }}</p>
+  <h2 mat-dialog-title class="name">{{ data.product.name }}</h2>
+  <h4 class="barcode">{{ data.product.barcode }}</h4>
+  <p class="description">{{ data.product.description }}</p>
 </div>
 <div class="actions">
-  <span class="price">{{ product?.price | currency }}</span>
+  <span class="price">{{ data.product.price | currency }}</span>
   <div class="add-to-cart">
     <mat-icon>shopping_cart</mat-icon>
     <div class="quantity-wrapper">

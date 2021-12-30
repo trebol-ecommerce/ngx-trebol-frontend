@@ -9,7 +9,7 @@ import { Component, EventEmitter, Input } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
-import { StoreService } from '../../store.service';
+import { StoreCartService } from '../../store-cart.service';
 import { StoreShippingFormComponent } from './store-shipping-form.component';
 
 @Component({
@@ -30,10 +30,10 @@ class MockAddressesEditorFormComponent
 describe('StoreShippingFormComponent', () => {
   let component: StoreShippingFormComponent;
   let fixture: ComponentFixture<StoreShippingFormComponent>;
-  let mockStoreService: Partial<StoreService>;
+  let mockCartService: Partial<StoreCartService>;
 
   beforeEach(waitForAsync(() => {
-    mockStoreService = {
+    mockCartService = {
       checkoutButtonPress: new EventEmitter()
     };
 
@@ -47,7 +47,7 @@ describe('StoreShippingFormComponent', () => {
         MockAddressesEditorFormComponent
       ],
       providers: [
-        { provide: StoreService, useValue: mockStoreService }
+        { provide: StoreCartService, useValue: mockCartService }
       ]
     })
     .compileComponents();

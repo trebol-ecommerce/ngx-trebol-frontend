@@ -11,16 +11,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { StoreService } from 'src/app/store/store.service';
+import { StoreCartService } from 'src/app/store/store-cart.service';
 import { StoreHeaderNavigationComponent } from './store-header-navigation.component';
 
 describe('StoreHeaderNavigationComponent', () => {
   let component: StoreHeaderNavigationComponent;
   let fixture: ComponentFixture<StoreHeaderNavigationComponent>;
-  let mockStoreService: Partial<StoreService>;
+  let mockCartService: Partial<StoreCartService>;
 
   beforeEach(waitForAsync(() => {
-    mockStoreService = {
+    mockCartService = {
       cartDetails$: of([]),
       cartItemCount$: of(0),
       cartNetValue$: of(0)
@@ -35,7 +35,7 @@ describe('StoreHeaderNavigationComponent', () => {
       ],
       declarations: [ StoreHeaderNavigationComponent ],
       providers: [
-        { provide: StoreService, useValue: mockStoreService }
+        { provide: StoreCartService, useValue: mockCartService }
       ]
     })
     .compileComponents();

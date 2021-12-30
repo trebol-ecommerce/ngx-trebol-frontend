@@ -16,7 +16,7 @@ import { AddressesEditorFormComponent } from 'src/app/shared/components/addresse
 import { CompanyFormComponent } from 'src/app/shared/components/company-form/company-form.component';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { BILLING_TYPE_COMPANY, BILLING_TYPE_INDIVIDUAL, BILLING_TYPE_NAMES_MAP } from 'src/text/billing-type-names';
-import { StoreService } from '../../store.service';
+import { StoreCartService } from '../../store-cart.service';
 
 @Component({
   selector: 'app-store-billing-details-form',
@@ -55,7 +55,7 @@ export class StoreBillingDetailsFormComponent
 
   constructor(
     private formBuilder: FormBuilder,
-    private storeService: StoreService
+    private cartService: StoreCartService
   ) {
     this.formGroup = this.formBuilder.group({
       sellType: ['', Validators.required],
@@ -113,7 +113,7 @@ export class StoreBillingDetailsFormComponent
   registerOnTouched(fn: () => void): void {
     const sub = merge(
       this.touched,
-      this.storeService.checkoutButtonPress
+      this.cartService.checkoutButtonPress
     ).pipe(tap(fn)).subscribe();
     this.touchedSubscriptions.push(sub);
   }

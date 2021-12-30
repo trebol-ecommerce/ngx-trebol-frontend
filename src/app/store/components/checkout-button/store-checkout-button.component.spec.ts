@@ -11,13 +11,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { of, throwError } from 'rxjs';
-import { StoreService } from 'src/app/store/store.service';
+import { StoreCheckoutService } from 'src/app/store/store-checkout.service';
+import { StoreCartService } from '../../store-cart.service';
 import { StoreCheckoutButtonComponent } from './store-checkout-button.component';
 
 describe('StoreCheckoutButtonComponent', () => {
   let component: StoreCheckoutButtonComponent;
   let fixture: ComponentFixture<StoreCheckoutButtonComponent>;
-  let mockCartService: Partial<StoreService>;
+  let mockCartService: Partial<StoreCartService>;
+  let mockCheckoutService: Partial<StoreCheckoutService>;
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
@@ -25,6 +27,8 @@ describe('StoreCheckoutButtonComponent', () => {
       cartDetails$: of([
         { id: null, product: { barcode: 'test' }, units: 1 }
       ]),
+    };
+    mockCheckoutService = {
       requestPayment() { return throwError({}); }
     };
     mockDialogService = {
@@ -39,7 +43,8 @@ describe('StoreCheckoutButtonComponent', () => {
       ],
       declarations: [ StoreCheckoutButtonComponent ],
       providers: [
-        { provide: StoreService, useValue: mockCartService },
+        { provide: StoreCartService, useValue: mockCartService },
+        { provide: mockCheckoutService, useValue: mockCheckoutService },
         { provide: MatDialog, useValue: mockDialogService }
       ]
     })
