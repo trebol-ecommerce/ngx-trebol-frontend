@@ -14,7 +14,7 @@ To access the management pages, proceed to the login dialog clicking on the butt
 
 ## Current status
 
-Support for [the latest API version (v1.2.1)](https://github.com/trebol-ecommerce/api/releases/tag/v1.2.1) is complete!
+Supporting [the currently released API version (v1.2.2)](https://github.com/trebol-ecommerce/api/releases/tag/v1.2.2)
 
 ## Infrastructure
 
