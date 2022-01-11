@@ -11,7 +11,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { ProductListFormComponent } from 'src/app/shared/components/product-list-form/product-list-form.component';
-import { InformationDialogComponent } from 'src/app/shared/dialogs/information/information-dialog.component';
 import { ProductList } from 'src/models/entities/ProductList';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE, COMMON_WARNING_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form/EntityFormDialogConfig';

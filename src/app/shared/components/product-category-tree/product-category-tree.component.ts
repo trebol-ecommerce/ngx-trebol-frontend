@@ -14,10 +14,9 @@ import { Observable, Subscription } from 'rxjs';
 import { debounceTime, filter, switchMap, tap } from 'rxjs/operators';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
-import { ConfirmationDialogComponent } from '../../dialogs/confirmation/confirmation-dialog.component';
-import { ConfirmationDialogData } from '../../dialogs/confirmation/ConfirmationDialogData';
 import { EntityFormDialogComponent } from '../../dialogs/entity-form/entity-form-dialog.component';
 import { EntityFormDialogData } from '../../dialogs/entity-form/EntityFormDialogData';
+import { SharedDialogService } from '../../dialogs/shared-dialog.service';
 import { ProductCategoryFormComponent } from '../product-category-form/product-category-form.component';
 import { ProductCategoryTreeService } from './product-category-tree.service';
 import { ProductCategoryTreeFlatNode } from './ProductCategoryTreeFlatNode';
@@ -54,7 +53,8 @@ export class ProductCategoryTreeComponent
   constructor(
     private service: ProductCategoryTreeService,
     private snackbarService: MatSnackBar,
-    private dialogService: MatDialog
+    private dialogService: MatDialog,
+    private sharedDialogService: SharedDialogService
   ) {
     this.initialize();
   }
@@ -113,9 +113,11 @@ export class ProductCategoryTreeComponent
 
   onClickDeleteNode(treeNode: ProductCategoryTreeFlatNode): void {
     const node = this.flatNodeMap.get(treeNode);
-    this.requestConfirmation(
-      $localize`:Paragraph asking confirmation to delete a category, and explaining that deleting it cascades to its descendants, but not to related products which are detached from the relationship:Are you sure to delete the category? This will include all its descendants. Related products will not be deleted, and instead will be marked as not having a category.`
-    ).pipe(
+    this.sharedDialogService.requestConfirmation({
+      title: 'Confirme la acción',
+      message: $localize`:Paragraph asking confirmation to delete a category, and explaining that deleting it cascades to its descendants, but not to related products which are detached from the relationship:Are you sure to delete the category? This will include all its descendants. Related products will not be deleted, and instead will be marked as not having a category.`
+    }).pipe(
+      filter(didConfirm => didConfirm),
       switchMap(() => this.service.deleteNode(node)),
       tap(() => this.matTree.renderNodeChanges(this.dataSource.data)) // TODO optimize this?
     ).subscribe(
@@ -172,23 +174,6 @@ export class ProductCategoryTreeComponent
       }
     ).afterClosed().pipe(
       filter(category => (!!category))
-    );
-  }
-
-  private requestConfirmation(message: string): Observable<string> {
-    const data: ConfirmationDialogData = {
-      title: 'Confirme la acción',
-      message
-    };
-    return this.dialogService.open(
-      ConfirmationDialogComponent,
-      {
-        data,
-        disableClose: true,
-        maxWidth: '30rem'
-      }
-    ).afterClosed().pipe(
-      filter(confirmed => (confirmed === true))
     );
   }
 

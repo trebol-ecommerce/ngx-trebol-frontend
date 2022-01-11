@@ -6,17 +6,22 @@
  */
 
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { ImagesArrayDialogComponent } from './images-array-dialog.component';
 import { ImagesArrayService } from './images-array.service';
+
+@Component({ selector: 'app-centered-mat-spinner' })
+class MockCenteredMatSpinnerComponent { }
 
 describe('ImagesArrayDialogComponent', () => {
   let component: ImagesArrayDialogComponent;
@@ -40,6 +45,14 @@ describe('ImagesArrayDialogComponent', () => {
       reloadItems() { }
     };
 
+    TestBed.overrideComponent(
+      ImagesArrayDialogComponent,
+      {
+        set: {
+          providers: [{ provide: ImagesArrayService, useValue: mockService }]
+        }
+      }
+    );
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
@@ -47,15 +60,19 @@ describe('ImagesArrayDialogComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         MatButtonModule,
-        MatInputModule,
+        MatDialogModule,
         MatFormFieldModule,
-        MatListModule
+        MatInputModule,
+        MatListModule,
+        MatPaginatorModule
       ],
-      declarations: [ ImagesArrayDialogComponent ],
+      declarations: [
+        ImagesArrayDialogComponent,
+        MockCenteredMatSpinnerComponent
+      ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },
-        { provide: MatDialogRef, useValue: mockDialogRef },
-        { provide: ImagesArrayService, useValue: mockService },
+        { provide: MatDialogRef, useValue: mockDialogRef }
       ]
     })
     .compileComponents();
