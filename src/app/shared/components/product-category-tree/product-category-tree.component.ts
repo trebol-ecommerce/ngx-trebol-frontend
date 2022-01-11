@@ -114,7 +114,7 @@ export class ProductCategoryTreeComponent
   onClickDeleteNode(treeNode: ProductCategoryTreeFlatNode): void {
     const node = this.flatNodeMap.get(treeNode);
     this.sharedDialogService.requestConfirmation({
-      title: 'Confirme la acción',
+      title: $localize`:Title of dialog prompt to confirm deletion:Confirm deletion`,
       message: $localize`:Paragraph asking confirmation to delete a category, and explaining that deleting it cascades to its descendants, but not to related products which are detached from the relationship:Are you sure to delete the category? This will include all its descendants. Related products will not be deleted, and instead will be marked as not having a category.`
     }).pipe(
       filter(didConfirm => didConfirm),

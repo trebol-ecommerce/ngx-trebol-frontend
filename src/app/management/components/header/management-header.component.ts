@@ -57,8 +57,8 @@ export class ManagementHeaderComponent {
 
   onClickLogout(): void {
     this.sharedDialogService.requestConfirmation({
-      title: 'Terminar sesión',
-      message: '¿Está segur@?'
+      title: $localize`:Title of dialog prompt for logging out:Log out?`,
+      message: $localize`:Label to hint user that any undergoing process may be lost when logging out:Any unsaved data may be lost`
     }).pipe(
       filter(didConfirm => didConfirm),
       tap(() => {

@@ -9,13 +9,14 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Shipper } from 'src/models/entities/Shipper';
 import { ShipperFormComponent } from 'src/app/shared/components/shipper-form/shipper-form.component';
 import { COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form/EntityFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { ManagementShippersService } from './management-shippers.service';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-management-shippers',
@@ -52,21 +53,17 @@ export class ManagementShippersComponent
 
   onClickDelete(shipper: Shipper) {
     this.service.removeItems([shipper]).pipe(
-      map(results => results[0])
-    ).subscribe(
-      success => {
-        if (success) {
-          const successMessage = $localize`:Message of success after deleting a shipper with name {{ name }}:Shipper '${shipper.name}:name:' deleted`;
-          this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
-          this.service.reloadItems();
-        } else {
-          this.snackBarService.open(COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
-        }
-      },
-      error => {
+      map(results => results[0]),
+      catchError(error => {
         this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
-      }
-    );
+        return of(error);
+      }),
+      tap(() => {
+        const successMessage = $localize`:Message of success after deleting a shipper with name {{ name }}:Shipper '${shipper.name}:name:' deleted`;
+        this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
+        this.service.reloadItems();
+      })
+    ).subscribe();
   }
 
   protected createDialogProperties(item: Shipper): EntityFormDialogConfig<Shipper> {
