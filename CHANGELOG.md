@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Request confirmation before trying to delete any portion of data in the management section
+
 ### Fixed
 - Image selection dialog issues
   - Filter not working
