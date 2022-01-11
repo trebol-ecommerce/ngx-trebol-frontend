@@ -29,9 +29,15 @@ describe('ImagesArrayDialogComponent', () => {
       close() {}
     };
     mockService = {
-      imageOptions$: of([]),
+      loading$: of(false),
+      imagesPage$: of({
+        items: [ ],
+        pageIndex: 0,
+        pageSize: 10,
+        totalCount: 0
+      }),
       filter: '',
-      triggerOptionsFetch() {}
+      reloadItems() { }
     };
 
     TestBed.configureTestingModule({
@@ -63,11 +69,5 @@ describe('ImagesArrayDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should return an array when the "accept" button is pressed', () => {
-    const dialogCloseSpy = spyOn(mockDialogRef, 'close').and.callThrough();
-    component.onClickAccept();
-    expect(dialogCloseSpy.calls.mostRecent().args[0] instanceof Array).toBeTruthy();
   });
 });
