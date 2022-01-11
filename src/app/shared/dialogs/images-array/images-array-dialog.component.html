@@ -10,21 +10,32 @@
   <mat-label i18n="Name of field for filtering all stored images by keyword">Search by keyword</mat-label>
   <input matInput type="text" [formControl]="filterFormControl" />
 </mat-form-field>
-<div class="list-wrapper">
-  <mat-selection-list #imageSelectionList>
-    <mat-list-option *ngFor="let opt of (options$ | async)"
-      [value]="opt.image.url"
-      [selected]="opt.selected"
-      [disabled]="opt.disabled">
-      <img matListIcon [src]="opt.image.url" alt="">
-      <p matLine>{{ opt.image.filename }}</p>
-    </mat-list-option>
-  </mat-selection-list>
+<app-centered-mat-spinner *ngIf="loading$ | async; else loaded">
+</app-centered-mat-spinner>
+<ng-template #loaded>
+  <div class="list-wrapper">
+    <mat-selection-list (selectionChange)="onSelectionChange($event)">
+      <mat-list-option *ngFor="let opt of (options$ | async)"
+        [value]="opt.image"
+        [selected]="opt.selected"
+        [disabled]="opt.disabled">
+        <img matListIcon [src]="opt.image.url" alt="">
+        <p matLine>{{ opt.image.filename }}</p>
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
+</ng-template>
+<div>
+  <mat-paginator
+    (page)="onPage($event)"
+    [showFirstLastButtons]="true"
+    [pageSizeOptions]="pageSizeOptions"
+    [length]="totalCount$ | async">
+  </mat-paginator>
 </div>
 <div class="actions">
   <button mat-button mat-raised-button type="button"
-    (click)="onClickAccept()"
-    mat-dialog-close
+    [mat-dialog-close]="selectedImages"
     i18n="confirm|Label for action button to accept and proceed">Confirm</button>
   <button mat-button mat-raised-button type="button"
     color="warn"

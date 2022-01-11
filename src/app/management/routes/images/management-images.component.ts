@@ -9,13 +9,14 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Image } from 'src/models/entities/Image';
 import { ImageFormComponent } from 'src/app/shared/components/image-form/image-form.component';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE, COMMON_WARNING_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form/EntityFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
 import { ManagementImagesService } from './management-images.service';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-management-images',
@@ -63,21 +64,16 @@ export class ManagementImagesComponent
 
   onClickDelete(img: Image) {
     this.service.removeItems([img]).pipe(
-      map(results => results[0])
-    ).subscribe(
-      success => {
-        if (success) {
-          const deletionSucess = $localize`:Message of success after deleting an image with filename {{ fileName }}:Image '${img.filename}:fileName:' deleted`;
-          this.snackBarService.open(deletionSucess, COMMON_DISMISS_BUTTON_LABEL);
-          this.service.reloadItems();
-        } else {
-          this.snackBarService.open(COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
-        }
-      },
-      error => {
+      catchError(error => {
         this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
-      }
-    );
+        return of(error);
+      }),
+      tap(() => {
+        const deletionSucess = $localize`:Message of success after deleting an image with filename {{ fileName }}:Image '${img.filename}:fileName:' deleted`;
+        this.snackBarService.open(deletionSucess, COMMON_DISMISS_BUTTON_LABEL);
+        this.service.reloadItems();
+      })
+    ).subscribe();
   }
 
 }

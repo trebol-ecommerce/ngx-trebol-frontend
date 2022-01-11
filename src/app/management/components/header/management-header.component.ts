@@ -10,12 +10,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { pluck } from 'rxjs/operators';
+import { filter, pluck, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { ManagementService } from 'src/app/management/management.service';
-import { ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation/confirmation-dialog.component';
-import { ConfirmationDialogData } from 'src/app/shared/dialogs/confirmation/ConfirmationDialogData';
 import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component';
+import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { environment } from 'src/environments/environment';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 
@@ -35,6 +34,7 @@ export class ManagementHeaderComponent {
     protected service: ManagementService,
     protected appService: AppService,
     protected dialogService: MatDialog,
+    protected sharedDialogService: SharedDialogService,
     protected router: Router,
     protected snackBarService: MatSnackBar
   ) {
@@ -56,31 +56,18 @@ export class ManagementHeaderComponent {
   }
 
   onClickLogout(): void {
-    this.promptLogoutConfirmation().subscribe(
-      confirmed => {
-        if (confirmed) {
-          this.appService.closeCurrentSession();
-          this.router.navigateByUrl('/');
-          const message = $localize`:Message after logging out:You have logged out`;
-          this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
-        }
-      }
-    );
-  }
-
-  private promptLogoutConfirmation(): Observable<boolean> {
-    const dialogData: ConfirmationDialogData = {
-      title: 'Terminar sesión',
-      message: '¿Está segur@?'
-    };
-
-    return this.dialogService.open(
-      ConfirmationDialogComponent,
-      {
-        width: '24rem',
-        data: dialogData
-      }
-    ).afterClosed();
+    this.sharedDialogService.requestConfirmation({
+      title: $localize`:Title of dialog prompt for logging out:Log out?`,
+      message: $localize`:Label to hint user that any undergoing process may be lost when logging out:Any unsaved data may be lost`
+    }).pipe(
+      filter(didConfirm => didConfirm),
+      tap(() => {
+        this.appService.closeCurrentSession();
+        this.router.navigateByUrl('/');
+        const message = $localize`:Message after logging out:You have logged out`;
+        this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
+      })
+    ).subscribe();
   }
 
 }

@@ -6,9 +6,10 @@
  */
 
 import { Directive } from '@angular/core';
-import { from, Observable, of } from 'rxjs';
-import { catchError, mapTo, mergeMap, tap, toArray } from 'rxjs/operators';
+import { forkJoin, Observable, of } from 'rxjs';
+import { catchError, filter, finalize, mapTo, switchMap } from 'rxjs/operators';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
+import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { DataManagerServiceDirective } from './data-manager.service-directive';
 
 @Directive()
@@ -17,23 +18,27 @@ export abstract class TransactionalDataManagerServiceDirective<T>
 
   abstract dataService: ITransactionalEntityDataApiService<T>;
 
-  constructor() {
+  constructor(
+    private sharedDialogService: SharedDialogService
+  ) {
     super();
   }
 
   /** Delete items contained in the array one by one */
   removeItems(items: T[]): Observable<boolean[]> {
     this.focusedItems = items;
-    return from(items).pipe(
-      mergeMap<T, Observable<boolean>>(item => this.dataService.delete(item).pipe(mapTo(true), catchError(() => of(false)))),
-      toArray(),
-      tap(
-        (results) => {
-          if (results.every(r => r)) {
-            this.focusedItems = [];
-          }
-        }
-      )
+    return this.sharedDialogService.requestConfirmation({
+      title: $localize`:Title of dialog prompt to confirm deletion:Confirm deletion`,
+      message: $localize`:Paragraph asking confirmation to delete a portion of data, reminding that it cannot be undone:Are you sure you want to delete this item?`
+    }).pipe(
+      filter(didConfirm => didConfirm),
+      switchMap(() => forkJoin(items.map(item => (
+        this.dataService.delete(item).pipe(
+          mapTo(true),
+          catchError(() => of(false))
+        )
+      )))),
+      finalize(() => this.focusedItems = [])
     );
   }
 

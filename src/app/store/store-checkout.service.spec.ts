@@ -42,9 +42,22 @@ describe('StoreCheckoutService', () => {
   });
 
   it('should fail requesting a checkout page when data is not filled', () => {
-    const requestData = new CheckoutRequest();
+    const requestData: CheckoutRequest = {
+      billing: {
+        sellType: 'Bill'
+      },
+      customer: {
+        idNumber: '1',
+        firstName: 'first name',
+        lastName: 'last name',
+        email: 'test@example.com'
+      },
+      shipping: {
+        requestShipping: false
+      }
+    };
     const details: SellDetail[] = [];
-    const expectedResult = null;
+    const expectedResult = undefined;
     service.requestPayment(requestData, details).pipe(
       catchError(err => of(expectedResult))
     ).subscribe(result => {

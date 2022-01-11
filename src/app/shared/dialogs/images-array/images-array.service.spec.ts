@@ -8,24 +8,33 @@
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
+import { DataPage } from 'src/models/DataPage';
 import { Image } from 'src/models/entities/Image';
-import { ImagesService } from 'src/app/shared/services/images.service';
 import { ImagesArrayService } from './images-array.service';
 
 describe('ImagesArrayService', () => {
   let service: ImagesArrayService;
-  let mockImagesService: Partial<ImagesService>;
+  let mockApiService: Partial<IEntityDataApiService<Image>>;
 
   beforeEach(() => {
-    mockImagesService = {
-      images$: of([])
+    mockApiService = {
+      fetchPage() {
+        return of({
+          items: [ ],
+          pageIndex: 0,
+          pageSize: 10,
+          totalCount: 0
+        });
+      }
     };
 
     TestBed.configureTestingModule({
       imports: [],
       providers: [
         ImagesArrayService,
-        { provide: ImagesService, useValue: mockImagesService }
+        { provide: API_SERVICE_INJECTION_TOKENS.dataImages, useValue: null }
       ]
     });
   });
@@ -36,39 +45,25 @@ describe('ImagesArrayService', () => {
   });
 
   it('should expose an observable of images', () => {
-    const mockImagesArray: Image[] = [
-      {
-        filename: 'test.png',
-        url: 'test/test.png'
-      }
-    ];
-    const mockService = { images$: of(mockImagesArray) };
-    TestBed.overrideProvider(ImagesService, { useValue: mockService });
-    service = TestBed.inject(ImagesArrayService);
-
-    service.imageList$.pipe(
-      take(1)
-    ).subscribe(images => {
-      expect(images).toEqual(mockImagesArray);
-    });
-  });
-
-  it('should expose an observable of image options for a mat-list', () => {
-    const mockImage: Image = {
-      filename: 'test.png',
-      url: 'test/test.png'
+    const mockImagesArray: DataPage<Image> = {
+      items: [
+        {
+          filename: 'test.png',
+          url: 'test/test.png'
+        }
+      ],
+      pageIndex: 0,
+      pageSize: 10,
+      totalCount: 1
     };
-    const mockService = { images$: of([mockImage]) };
-    TestBed.overrideProvider(ImagesService, { useValue: mockService });
+    const mockService = { images$: of(mockImagesArray) };
+    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.dataImages, { useValue: mockService });
     service = TestBed.inject(ImagesArrayService);
-    service.triggerOptionsFetch();
 
-    service.imageOptions$.pipe(
-      take(1)
-    ).subscribe(options => {
-      expect(options).toEqual([
-        { image: mockImage, selected: false, disabled: false }
-      ]);
-    });
+    service.imagesPage$.pipe(take(1)).subscribe(
+      next => {
+        expect(next).toEqual(mockImagesArray);
+      }
+    );
   });
 });

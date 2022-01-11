@@ -5,96 +5,50 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, iif, Observable } from 'rxjs';
-import { concatMap as switchMap, map } from 'rxjs/operators';
+import { Inject, Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, ReplaySubject, Subscription } from 'rxjs';
+import { finalize, tap } from 'rxjs/operators';
+import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
+import { DataPage } from 'src/models/DataPage';
 import { Image } from 'src/models/entities/Image';
-import { ImagesService } from 'src/app/shared/services/images.service';
-import { ImageArrayOption } from './ImageArrayOption';
-import { ImagesArrayDialogData } from './ImagesArrayDialogData';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class ImagesArrayService
   implements OnDestroy {
 
-  private filterSource = new BehaviorSubject<string>('');
-  private dialogDataSource = new BehaviorSubject<ImagesArrayDialogData>(undefined);
+  private loadingSource = new BehaviorSubject(false);
+  private imagesPageSource = new ReplaySubject<DataPage<Image>>(1);
+  private fetchingSubscription: Subscription;
 
-  imageList$: Observable<Image[]>;
-  imageOptions$: Observable<ImageArrayOption[]>;
+  loading$ = this.loadingSource.asObservable();
+  imagesPage$ = this.imagesPageSource.asObservable();
 
-  set filter(value: string) {
-    this.filterSource.next(value);
-  }
+  pageIndex: number | undefined;
+  pageSize: number | undefined;
+  sortBy: string | undefined;
+  order: string | undefined;
+  filter: any | undefined;
 
   constructor(
-    private imageDataService: ImagesService
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataImages) private imageDataService: IEntityDataApiService<Image>
   ) {
-    this.imageList$ = this.filterCachedImages();
-    this.imageOptions$ = this.dialogDataSource.asObservable().pipe(
-      switchMap(data => this.imageOptionsObservable(data))
-    );
   }
 
   ngOnDestroy(): void {
-    this.filterSource.complete();
-    this.dialogDataSource.complete();
+    this.imagesPageSource.complete();
+    this.fetchingSubscription?.unsubscribe();
   }
 
-  triggerOptionsFetch(data?: ImagesArrayDialogData): void {
-    if (data) {
-      this.dialogDataSource.next(data);
-    } else {
-      this.dialogDataSource.next(null);
-    }
+  /** Empty item selections and fetch data from the external service again. */
+  reloadItems(): void {
+    this.fetchingSubscription?.unsubscribe();
+    this.loadingSource.next(true);
+    const filters = this.filter ? { filenameLike: this.filter } : undefined;
+    this.fetchingSubscription = this.imageDataService.fetchPage(this.pageIndex, this.pageSize, this.sortBy, this.order, filters).pipe(
+      tap(page => { this.imagesPageSource.next(page); }),
+      finalize(() => { this.loadingSource.next(false); })
+    ).subscribe();
   }
 
-  private imageOptionsObservable(data: ImagesArrayDialogData): Observable<ImageArrayOption[]> {
-    return iif(
-      () => (data?.existing?.length !== 0 &&
-        data?.existing?.length > 0),
-      this.fetchImageOptionsAndProcessExisting(data),
-      this.fetchImageOptions()
-    );
-  }
-
-  private filterCachedImages(): Observable<Image[]> {
-    return this.filterSource.asObservable().pipe(
-      switchMap(filter => {
-        if (filter) {
-          const filterRegex = new RegExp(filter);
-          return this.imageDataService.images$.pipe(
-            map(images => images.filter(
-              img => filterRegex.test(img.filename)
-            ))
-          );
-        }
-        return this.imageDataService.images$;
-      })
-    );
-  }
-
-  private fetchImageOptions(): Observable<ImageArrayOption[]> {
-    return this.imageList$.pipe(
-      map(imageList => imageList.map(
-            image => ({ image, selected: false, disabled: false })
-      ))
-    );
-  }
-
-  private fetchImageOptionsAndProcessExisting(data: ImagesArrayDialogData): Observable<ImageArrayOption[]> {
-    return this.imageList$.pipe(
-      map(imageList => imageList.map(
-            image => {
-              const option = { image, selected: false, disabled: false };
-              if (data.existing.some(image2 =>
-                                          (image2.filename === image.filename))) {
-                option.selected = true;
-                option.disabled = true;
-              }
-              return option;
-            }
-      ))
-    );
-  }
 }

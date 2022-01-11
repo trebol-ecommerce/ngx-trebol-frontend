@@ -8,6 +8,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
+import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { User } from 'src/models/entities/User';
 import { TransactionalDataManagerServiceDirective } from '../../directives/transactional-data-manager.service-directive';
 
@@ -16,8 +17,9 @@ export class ManagementUsersService
   extends TransactionalDataManagerServiceDirective<User> {
 
   constructor(
+    sharedDialogService: SharedDialogService,
     @Inject(API_SERVICE_INJECTION_TOKENS.dataUsers) public dataService: ITransactionalEntityDataApiService<User>
   ) {
-    super();
+    super(sharedDialogService);
   }
 }
