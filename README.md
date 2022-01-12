@@ -9,7 +9,7 @@
 
 A single-page web application designed and developed over Angular v11, RxJS and Material Design.
 
-You can view the demo in action [in this link](https://trebol-ecommerce.github.io/ngx-trebol-frontend/). Served data is stored in JS arrays, that is, it is loaded into and from your browser's working memory. That also means said data is reset once you refresh the page.
+You can [view the demo in action in this link](https://trebol-ecommerce.github.io/ngx-trebol-frontend/). Demo data is stored in JS arrays; it is loaded into and from your browser's working memory. That implies lack of a persistence layer; said data is reloaded all over again once you refresh or leave the page.
 To access the management pages, proceed to the login dialog clicking on the button in the top right corner. Then type `admin` for both the username and password fields.
 
 ## Current status
@@ -27,7 +27,7 @@ The application itself is divided into modules in the `/src/app/` directory, and
   - `local-memory/` serves a fake API basically running in the browser itself; it's the default option to build and serve with; and the demo uses it too
   - `http/` serves the API with HTTP calls; these require a real, running backend with an exposed REST API compliant to the aforementioned one
 
-Since implementation of the `api` module can vary, it is not directly imported by the `app` module, but must be imported through an environment file. See section "Configuring the build / serve process" for more details.
+The `api` module is [imported through an environment file](#configuring-the-build--serve-process) to easily switch implementations.
 
 ## Requirements
 
@@ -39,7 +39,8 @@ Since implementation of the `api` module can vary, it is not directly imported b
 
 ## Testing
 
-This project runs on top of Jasmine, try them out with `ng test` in the root directory.
+Unit test suites runs using Jasmine. Do `ng test` to start the Karma server, then connect to its listening address and press the `DEBUG` button to initiate the test suites.
+Or do `ng test --no-watch --browsers={browser}` to execute them once, inmediately.
 
 ## Internationalization
 
