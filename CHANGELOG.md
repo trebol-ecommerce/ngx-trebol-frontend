@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Filter not working
   - Data not being paginated
 
+### Changed
+- Updated localization files
+
 ## [v1.2.1] - 2021-12-30
 
 ### Fixed
