@@ -7,7 +7,7 @@
 
 # Trébol e-Commerce Angular Frontend
 
-A single-page web application designed and developed over Angular v11, RxJS and Material Design.
+A single-page web application designed and developed over Angular v13, RxJS and Material Design.
 
 You can [view the demo in action in this link](https://trebol-ecommerce.github.io/ngx-trebol-frontend/). Demo data is stored in JS arrays; it is loaded into and from your browser's working memory. That implies lack of a persistence layer; said data is reloaded all over again once you refresh or leave the page.
 To access the management pages, proceed to the login dialog clicking on the button in the top right corner. Then type `admin` for both the username and password fields.
@@ -31,7 +31,7 @@ The `api` module is [imported through an environment file](#configuring-the-buil
 
 ## Requirements
 
-- An [Angular CLI](https://cli.angular.io/) 11-compatible [Node.js/NPM](https://nodejs.org/) installation.
+- An [Angular CLI](https://cli.angular.io/) 13-compatible [Node.js/NPM](https://nodejs.org/) installation.
 
 ## Getting started
 
