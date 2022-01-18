@@ -2,8 +2,6 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { name, version } from '../../package.json';
-
 export const environment = {
   production: false,
   apiUrls: {
@@ -19,8 +17,8 @@ export const environment = {
   labels: {
     name: 'Trébol',
     footerParagraphs: [
-      `Trébol eCommerce demo site | ${name} v${version}`,
-      'Made with ❤ using Angular 11 | Source code licensed under MIT'
+      `Trébol eCommerce demo site`,
+      'Made with ❤ using Angular 12 | Source code licensed under MIT'
     ]
   },
   constraints: {
