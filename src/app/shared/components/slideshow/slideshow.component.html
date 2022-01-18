@@ -9,8 +9,8 @@
   <ng-container *ngIf="images?.length; else noImageAvailable">
     <div *ngFor="let image of images; index as i"
       class="slide-wrapper">
-      <img [hidden]="(currentIndex$ | async) != i"
-        [src]="image.url" alt="" [@fadeInOut]="((currentIndex$ | async) != i) ? 'transparent' : 'opaque'"
+      <img [hidden]="(currentIndex$ | async) !== i"
+        [src]="image.url" alt="" [@fadeInOut]="((currentIndex$ | async) !== i) ? 'transparent' : 'opaque'"
         (mouseenter)="stopAutoRotation()" (mouseleave)="startAutoRotation()" />
     </div>
     <ng-container *ngIf="editable">
