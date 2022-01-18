@@ -4,8 +4,9 @@
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
+@use '@angular/material' as mat;
 
-@import '~@angular/material/theming';
+@import '@angular/material/theming';
 
 @mixin sidenav-color($theme) {
   $config: mat-get-color-config($theme);
@@ -13,7 +14,7 @@
   $accent: map-get($config, accent);
 
   mat-sidenav {
-    background-color: mat-color($primary) !important;
+    background-color: mat.get-color-from-palette($primary) !important;
     color: white !important;
   }
 

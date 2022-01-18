@@ -2,7 +2,7 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="03eb6a321a36a901f6a116ff41b1543cc5c15dde" datatype="html">
+      <trans-unit id="5378516332819650849" datatype="html">
         <source>Crear</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/components/data-actions/management-data-actions.component.html</context>
@@ -11,7 +11,7 @@
         <note priority="1" from="description">Label for action button to create an item</note>
         <note priority="1" from="meaning">create new item</note>
       </trans-unit>
-      <trans-unit id="1b84cf7519640aaf2a1f706d33bfcb39d573e1c6" datatype="html">
+      <trans-unit id="5671958105700432671" datatype="html">
         <source>Alternar menú lateral</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/components/header/management-header.component.html</context>
@@ -20,7 +20,7 @@
         <note priority="1" from="description">Label for action button to show/hide sidebar</note>
         <note priority="1" from="meaning">toggle sidebar</note>
       </trans-unit>
-      <trans-unit id="c2106b6075c7c4fff2ba491f7934331fd7943e7a" datatype="html">
+      <trans-unit id="4887361204265431136" datatype="html">
         <source>Vitrina</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/components/header/management-header.component.html</context>
@@ -28,7 +28,7 @@
         </context-group>
         <note priority="1" from="description">Label for link button to navigate to storefront</note>
       </trans-unit>
-      <trans-unit id="844328ef613331bec25b8b39b58b2edfe4656730" datatype="html">
+      <trans-unit id="5700898465389015311" datatype="html">
         <source>Editar perfil</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/components/header/management-header.component.html</context>
@@ -41,7 +41,7 @@
         <note priority="1" from="description">Label for action button to prompt profile edit</note>
         <note priority="1" from="meaning">edit profile</note>
       </trans-unit>
-      <trans-unit id="749712fe1f6e393a092398d641226ae9c2fb0709" datatype="html">
+      <trans-unit id="1682786076078945970" datatype="html">
         <source>Salir</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/components/header/management-header.component.html</context>
@@ -90,7 +90,7 @@
         </context-group>
         <note priority="1" from="description">Message after logging out</note>
       </trans-unit>
-      <trans-unit id="8c6b6922f33111b8d4911c38de5b9835b0181221" datatype="html">
+      <trans-unit id="3634778216694624255" datatype="html">
         <source>Nombre</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/dialogs/product-list-contents/product-list-contents-dialog.component.html</context>
@@ -115,7 +115,7 @@
         <note priority="1" from="description">Name of table header for name of product</note>
         <note priority="1" from="meaning">product name</note>
       </trans-unit>
-      <trans-unit id="4bf25c51d8a9d5a21c92ce5327bb198ebd43e5fd" datatype="html">
+      <trans-unit id="6314140065617417547" datatype="html">
         <source>Código de barras</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/dialogs/product-list-contents/product-list-contents-dialog.component.html</context>
@@ -136,7 +136,7 @@
         <note priority="1" from="description">Name of table header for barcode of product</note>
         <note priority="1" from="meaning">product barcode</note>
       </trans-unit>
-      <trans-unit id="4d6ee53858628de558a18623894a03c8673bce9e" datatype="html">
+      <trans-unit id="8894377483833272091" datatype="html">
         <source>Precio</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/dialogs/product-list-contents/product-list-contents-dialog.component.html</context>
@@ -172,7 +172,7 @@
         </context-group>
         <note priority="1" from="description">Name of table header for price per product unit</note>
       </trans-unit>
-      <trans-unit id="89fd9a5ec8e3dd55b690d4d54827d90b41765db4" datatype="html">
+      <trans-unit id="1554562128900744565" datatype="html">
         <source>Quitar producto</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/dialogs/product-list-contents/product-list-contents-dialog.component.html</context>
@@ -181,7 +181,7 @@
         <note priority="1" from="description">Label for action button to remove product from a list</note>
         <note priority="1" from="meaning">remove product from list</note>
       </trans-unit>
-      <trans-unit id="145aaa8835aa1ebae644b56af0552712696923be" datatype="html">
+      <trans-unit id="7538993181943267154" datatype="html">
         <source>Agregar</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/dialogs/product-list-contents/product-list-contents-dialog.component.html</context>
@@ -190,7 +190,7 @@
         <note priority="1" from="description">Label for action button to start selecting products to add to a list</note>
         <note priority="1" from="meaning">add more products to list</note>
       </trans-unit>
-      <trans-unit id="4b629f3c399e370c145894bd20ebaa1a7d68e0c6" datatype="html">
+      <trans-unit id="982410678219767915" datatype="html">
         <source>Cambiar</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/dialogs/product-list-contents/product-list-contents-dialog.component.html</context>
@@ -199,7 +199,7 @@
         <note priority="1" from="description">Label for action button to start selecting products to replace a list&apos;s contents with</note>
         <note priority="1" from="meaning">choose products for list</note>
       </trans-unit>
-      <trans-unit id="6375a78209ace58d332d6265d92ddc9543487856" datatype="html">
+      <trans-unit id="6617698290919679055" datatype="html">
         <source>Cerrar</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/dialogs/product-list-contents/product-list-contents-dialog.component.html</context>
@@ -308,7 +308,7 @@
         </context-group>
         <note priority="1" from="description">Title of page for management of shippers</note>
       </trans-unit>
-      <trans-unit id="7dbd3a4775d3431e5acf27152835b33a66b812e6" datatype="html">
+      <trans-unit id="7243088382543181738" datatype="html">
         <source>Nombre completo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/customers/management-customers.component.html</context>
@@ -321,7 +321,7 @@
         <note priority="1" from="description">Name of table header for full name of person</note>
         <note priority="1" from="meaning">person full name</note>
       </trans-unit>
-      <trans-unit id="cd6a1150c1bbb84ee35e7a246e617931068819a6" datatype="html">
+      <trans-unit id="2382838201351817364" datatype="html">
         <source>Rut</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/customers/management-customers.component.html</context>
@@ -334,7 +334,7 @@
         <note priority="1" from="description">Name of table header for id number of person</note>
         <note priority="1" from="meaning">person id number</note>
       </trans-unit>
-      <trans-unit id="9d04505dba7b11eb98389bedd58243d8f1da7906" datatype="html">
+      <trans-unit id="328647586498683831" datatype="html">
         <source>Imagen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/images/management-images.component.html</context>
@@ -343,7 +343,7 @@
         <note priority="1" from="description">Name of table header for image preview</note>
         <note priority="1" from="meaning">image</note>
       </trans-unit>
-      <trans-unit id="cb49e7df945eaab39b41cbda4575fbedf5c10ff8" datatype="html">
+      <trans-unit id="1328112525917090630" datatype="html">
         <source>Archivo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/images/management-images.component.html</context>
@@ -352,7 +352,7 @@
         <note priority="1" from="description">Name of table header for image filename</note>
         <note priority="1" from="meaning">image filename</note>
       </trans-unit>
-      <trans-unit id="55c6b64cbfab1c2b0cbf0313c5bb1690d7fa7239" datatype="html">
+      <trans-unit id="7276812274673856773" datatype="html">
         <source>Eliminar</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/images/management-images.component.html</context>
@@ -393,7 +393,7 @@
         </context-group>
         <note priority="1" from="description">Message of success after deleting an image with filename {{ fileName }}</note>
       </trans-unit>
-      <trans-unit id="2b0bc41ce464af64620d0e96227182ec0052e7b2" datatype="html">
+      <trans-unit id="5029967139233697774" datatype="html">
         <source>Código</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/product-lists/management-product-lists.component.html</context>
@@ -402,7 +402,7 @@
         <note priority="1" from="description">Name of table header for code of product list</note>
         <note priority="1" from="meaning">product list code</note>
       </trans-unit>
-      <trans-unit id="f06b3bbd1a95099f79f3a27dc104282a3479d453" datatype="html">
+      <trans-unit id="8380099051544433684" datatype="html">
         <source>Nombre</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/product-lists/management-product-lists.component.html</context>
@@ -411,7 +411,7 @@
         <note priority="1" from="description">Name of table header for name of product list</note>
         <note priority="1" from="meaning">product list name</note>
       </trans-unit>
-      <trans-unit id="f38a308f48f984128b30df77f1fe1e8228ebd66d" datatype="html">
+      <trans-unit id="8553353901296365200" datatype="html">
         <source>Cantidad</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/product-lists/management-product-lists.component.html</context>
@@ -420,7 +420,7 @@
         <note priority="1" from="description">Name of table header for total count of products in a list</note>
         <note priority="1" from="meaning">product list total count</note>
       </trans-unit>
-      <trans-unit id="48281f9f87fddde628ec09de1a9834b27037ce34" datatype="html">
+      <trans-unit id="9032336094560668320" datatype="html">
         <source>Ver contenidos</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/product-lists/management-product-lists.component.html</context>
@@ -429,7 +429,7 @@
         <note priority="1" from="description">Label for action button to view contents of a list</note>
         <note priority="1" from="meaning">view contents of list</note>
       </trans-unit>
-      <trans-unit id="3fcf98faf26d73b64a5f7c1ccadd09a3bcd0837d" datatype="html">
+      <trans-unit id="5820044061942616950" datatype="html">
         <source>Editar</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/product-lists/management-product-lists.component.html</context>
@@ -466,7 +466,7 @@
         </context-group>
         <note priority="1" from="description">Message of success after deleting a product list with name {{ name }}</note>
       </trans-unit>
-      <trans-unit id="607de17c2a755f65775881c19e276e7c933bcf94" datatype="html">
+      <trans-unit id="1806667489382256324" datatype="html">
         <source>Categoría</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/products/management-products.component.html</context>
@@ -482,7 +482,7 @@
         </context-group>
         <note priority="1" from="description">Message of success after deleting a product with name {{ name }}</note>
       </trans-unit>
-      <trans-unit id="80a45018ea02ceea9b875ae7d7c693565c849b07" datatype="html">
+      <trans-unit id="6419204764693021375" datatype="html">
         <source>Número</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/sales/management-sales.component.html</context>
@@ -490,7 +490,7 @@
         </context-group>
         <note priority="1" from="description">Name of table header for buy order of sell</note>
       </trans-unit>
-      <trans-unit id="a9825560a2fe9ef081a405e69d0e318b1ae4e5a6" datatype="html">
+      <trans-unit id="3153802600204818440" datatype="html">
         <source>Fecha y Hora</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/sales/management-sales.component.html</context>
@@ -502,7 +502,7 @@
         </context-group>
         <note priority="1" from="description">Name of table header for date and time of sell</note>
       </trans-unit>
-      <trans-unit id="6ab01cdfa9407aaa281526cdc933d24e47ddd38c" datatype="html">
+      <trans-unit id="7289969845157591215" datatype="html">
         <source>Cliente</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/sales/management-sales.component.html</context>
@@ -511,7 +511,7 @@
         <note priority="1" from="description">Name of table header for name of customer</note>
         <note priority="1" from="meaning">customer</note>
       </trans-unit>
-      <trans-unit id="6a7067a6c969e72b0647432b8f2ba5c62b6e8b4c" datatype="html">
+      <trans-unit id="231552715226931061" datatype="html">
         <source>Estado</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/sales/management-sales.component.html</context>
@@ -536,7 +536,7 @@
         </context-group>
         <note priority="1" from="description">Message of success after deleting a salesperson with first name {{ firstName }} and last name {{ lastName }}</note>
       </trans-unit>
-      <trans-unit id="95487e6b5153b9aafb9753eba11d4ddde3ba30a5" datatype="html">
+      <trans-unit id="6640434553916554122" datatype="html">
         <source>Repartidor</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/shippers/management-shippers.component.html</context>
@@ -553,7 +553,7 @@
         </context-group>
         <note priority="1" from="description">Message of success after deleting a shipper with name {{ name }}</note>
       </trans-unit>
-      <trans-unit id="024886ca34a6f309e3e51c2ed849320592c3faaa" datatype="html">
+      <trans-unit id="5312727456282218392" datatype="html">
         <source>Nombre de Usuario</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/users/management-users.component.html</context>
@@ -565,7 +565,7 @@
         </context-group>
         <note priority="1" from="description">Name of table header for user name</note>
       </trans-unit>
-      <trans-unit id="c36a66f2107e8da5371ebc9d15c2008dff567f46" datatype="html">
+      <trans-unit id="4145496584631696119" datatype="html">
         <source>Rol de Usuario</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/users/management-users.component.html</context>
@@ -585,7 +585,7 @@
         </context-group>
         <note priority="1" from="description">Message of success after deleting an user with name {{ username }}</note>
       </trans-unit>
-      <trans-unit id="5c7012b5a926b32d9e45fefdcc8a1a3cb6f023d0" datatype="html">
+      <trans-unit id="2314075913167237221" datatype="html">
         <source>Ciudad</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/address-form/address-form.component.html</context>
@@ -593,7 +593,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for the city where a given address exists</note>
       </trans-unit>
-      <trans-unit id="cc5e5749864ee38c36ab3f7fdd347cebb88ac8b6" datatype="html">
+      <trans-unit id="6914740930132103623" datatype="html">
         <source>Comuna</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/address-form/address-form.component.html</context>
@@ -601,7 +601,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for the smallest political unit where a given address exists</note>
       </trans-unit>
-      <trans-unit id="729754dd19eb9ce0670b0aeb5a6ae60574c2c563" datatype="html">
+      <trans-unit id="6304432362546770951" datatype="html">
         <source>Dirección</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/address-form/address-form.component.html</context>
@@ -609,7 +609,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for address street name and number</note>
       </trans-unit>
-      <trans-unit id="5c89dd49b05b0894647624536e96d0117d19a1df" datatype="html">
+      <trans-unit id="622548746818016601" datatype="html">
         <source>Dirección, línea 2</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/address-form/address-form.component.html</context>
@@ -617,7 +617,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for the apartment or suite number, and/or any other specific details for a given address</note>
       </trans-unit>
-      <trans-unit id="fcde58253a4cfd52c228eebdae74e1be7a1ab714" datatype="html">
+      <trans-unit id="8104421162933956065" datatype="html">
         <source>Notas o indicaciones</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/address-form/address-form.component.html</context>
@@ -655,7 +655,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for a complete address</note>
       </trans-unit>
-      <trans-unit id="10189f467dde695ae140bebb0214e4b30f0b820b" datatype="html">
+      <trans-unit id="2141038813180645167" datatype="html">
         <source>Quitar unidad</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/cart-product-units-control/cart-product-units-control.component.html</context>
@@ -672,7 +672,7 @@
         <note priority="1" from="description">Label for action button to take one (1) unit of a product away from the shopping cart</note>
         <note priority="1" from="meaning">remove product unit</note>
       </trans-unit>
-      <trans-unit id="099bd0c940616b7a68cdb51eb38ed9155ebbdffe" datatype="html">
+      <trans-unit id="5715315175934018026" datatype="html">
         <source>Agregar unidad</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/cart-product-units-control/cart-product-units-control.component.html</context>
@@ -689,7 +689,7 @@
         <note priority="1" from="description">Label for action button to include one (1) more unit of a product in the shopping cart</note>
         <note priority="1" from="meaning">add product unit</note>
       </trans-unit>
-      <trans-unit id="5b39cb0e5a98201cb9f9ef6998da8161b6409598" datatype="html">
+      <trans-unit id="2127616033453210175" datatype="html">
         <source>Rut de empresa</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/company-form/company-form.component.html</context>
@@ -697,7 +697,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for company identification number</note>
       </trans-unit>
-      <trans-unit id="be95d1a51c39f5b4cee0e5420cc106aa8cace298" datatype="html">
+      <trans-unit id="2205613271653474408" datatype="html">
         <source>Razón social</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/company-form/company-form.component.html</context>
@@ -705,7 +705,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for official, complete company name</note>
       </trans-unit>
-      <trans-unit id="56b5044b468ec079b4881a470e9b00b35a24db54" datatype="html">
+      <trans-unit id="7003790776240394114" datatype="html">
         <source>Nombre de archivo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/image-form/image-form.component.html</context>
@@ -713,7 +713,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for image filename</note>
       </trans-unit>
-      <trans-unit id="484d369ab6d7e37d808403e2141c38c01f6f9911" datatype="html">
+      <trans-unit id="8308045076391224954" datatype="html">
         <source>Url</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/image-form/image-form.component.html</context>
@@ -721,7 +721,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for image url</note>
       </trans-unit>
-      <trans-unit id="68572de01b84c678be4bf8a27b990ecac2f41ce9" datatype="html">
+      <trans-unit id="8186013988289067040" datatype="html">
         <source>Código</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/image-form/image-form.component.html</context>
@@ -741,7 +741,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for image code</note>
       </trans-unit>
-      <trans-unit id="2a1292d399d6f79d61b817a3c668561ca8da424b" datatype="html">
+      <trans-unit id="6059669835870904232" datatype="html">
         <source>Subir imágenes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/image-upload-form/image-upload-form.component.html</context>
@@ -749,7 +749,7 @@
         </context-group>
         <note priority="1" from="description">Title of form to upload images</note>
       </trans-unit>
-      <trans-unit id="f2fbea80dffef4a7db435213905990653120122e" datatype="html">
+      <trans-unit id="7887382489793679072" datatype="html">
         <source>Aceptar</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/image-upload-form/image-upload-form.component.html</context>
@@ -790,7 +790,7 @@
         <note priority="1" from="description">Label for action button to accept and proceed</note>
         <note priority="1" from="meaning">confirm</note>
       </trans-unit>
-      <trans-unit id="3054e0afeeddfec20baf90b28904521b55957239" datatype="html">
+      <trans-unit id="4821707211387966435" datatype="html">
         <source>Cancelar</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/image-upload-form/image-upload-form.component.html</context>
@@ -855,7 +855,7 @@
         </context-group>
         <note priority="1" from="description">Message of success during (and after) uploading {{ imagesUploadedSoFar }} images out of a total of {{ totalImagesToUpload }}</note>
       </trans-unit>
-      <trans-unit id="62b6c66981335ca6eecc36b331103c60f09d1026" datatype="html">
+      <trans-unit id="5342432350421167093" datatype="html">
         <source>Nombres</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/person-form/person-form.component.html</context>
@@ -863,7 +863,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for the complete first name of a person</note>
       </trans-unit>
-      <trans-unit id="6ce3dadf53dda1a1ab0c3167a8ed8dced471b0dc" datatype="html">
+      <trans-unit id="3586674587150281199" datatype="html">
         <source>Apellidos</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/person-form/person-form.component.html</context>
@@ -871,7 +871,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for the complete last name of a person</note>
       </trans-unit>
-      <trans-unit id="63f157235ef5921415d0f11abdbc86e2fc5e511d" datatype="html">
+      <trans-unit id="7351922880485036260" datatype="html">
         <source>Rut</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/person-form/person-form.component.html</context>
@@ -879,7 +879,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for the identification number of a person</note>
       </trans-unit>
-      <trans-unit id="f85dc01e7aab1a5c282d14b74650255ae4042fe0" datatype="html">
+      <trans-unit id="1890300073702152532" datatype="html">
         <source>E-mail</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/person-form/person-form.component.html</context>
@@ -887,7 +887,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for the email address of a person</note>
       </trans-unit>
-      <trans-unit id="e5e43e44b01dde8e25f3f0bc248a3c3c9210f236" datatype="html">
+      <trans-unit id="7183070430614539866" datatype="html">
         <source>Teléfono 1</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/person-form/person-form.component.html</context>
@@ -895,7 +895,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for the main phone number of a person</note>
       </trans-unit>
-      <trans-unit id="e3ec4ab4a639818c994467dda14fd99aa6691581" datatype="html">
+      <trans-unit id="6330438923843229196" datatype="html">
         <source>Teléfono 2</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/person-form/person-form.component.html</context>
@@ -903,7 +903,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for the alternative phone number of a person</note>
       </trans-unit>
-      <trans-unit id="44ad6e8ded61058a394ed7b1486cbf0aca144198" datatype="html">
+      <trans-unit id="7164094838748295823" datatype="html">
         <source>Imagen no disponible</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-card/product-card.component.html</context>
@@ -915,7 +915,7 @@
         </context-group>
         <note priority="1" from="description">Label to describe a missing or unavailable image</note>
       </trans-unit>
-      <trans-unit id="cff1428d10d59d14e45edec3c735a27b5482db59" datatype="html">
+      <trans-unit id="8953033926734869941" datatype="html">
         <source>Nombre</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-form/product-category-form.component.html</context>
@@ -935,7 +935,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for the name of a category</note>
       </trans-unit>
-      <trans-unit id="3a4c2a9e76634ff14a60d52a718296f722d47c67" datatype="html">
+      <trans-unit id="8621797738551294959" datatype="html">
         <source>Anidada en</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-form/product-category-form.component.html</context>
@@ -943,7 +943,7 @@
         </context-group>
         <note priority="1" from="description">Name of field that references the containing parent of a category</note>
       </trans-unit>
-      <trans-unit id="dfd8eda0f82a652c3332c6fcb128612805cf049a" datatype="html">
+      <trans-unit id="7026379391392239034" datatype="html">
         <source>Limpiar categoría</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-selector-form-field/product-category-selector-form-field.component.html</context>
@@ -952,7 +952,7 @@
         <note priority="1" from="description">Label for action button to clear selection of a category</note>
         <note priority="1" from="meaning">clear category</note>
       </trans-unit>
-      <trans-unit id="47884cd874c2cb546765696e5f82dc3b0bf73a86" datatype="html">
+      <trans-unit id="5116062259712648785" datatype="html">
         <source>Seleccionar categoría</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-selector-form-field/product-category-selector-form-field.component.html</context>
@@ -961,7 +961,7 @@
         <note priority="1" from="description">Label for action button to open a dialog to choose a category from</note>
         <note priority="1" from="meaning">open category picker</note>
       </trans-unit>
-      <trans-unit id="0bf5c0b0dd971b9d6be59f2785c225675efa46c8" datatype="html">
+      <trans-unit id="6379089273323027535" datatype="html">
         <source>Clic en el botón de la izquierda para abrir el diálogo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-category-selector-form-field/product-category-selector-form-field.component.html</context>
@@ -1066,7 +1066,7 @@
         </context-group>
         <note priority="1" from="description">Message of error while deleting category</note>
       </trans-unit>
-      <trans-unit id="5a03e966f1a1e99c560cd1d5c81e52333f67497f" datatype="html">
+      <trans-unit id="1011401742632456105" datatype="html">
         <source>Filtrar productos...</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-filters-panel/product-filters-panel.component.html</context>
@@ -1074,7 +1074,7 @@
         </context-group>
         <note priority="1" from="description">Title of panel to select conditions to filter products by</note>
       </trans-unit>
-      <trans-unit id="16c83514de64edf7fd54304c8bdb021acfd3e35c" datatype="html">
+      <trans-unit id="594128012739993471" datatype="html">
         <source>Por Categoría</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-filters-panel/product-filters-panel.component.html</context>
@@ -1082,7 +1082,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for filtering products by selected category</note>
       </trans-unit>
-      <trans-unit id="ee7befee6ae84349c5fccd1c873b38565bb479b6" datatype="html">
+      <trans-unit id="8605572686681043825" datatype="html">
         <source>Limpiar</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-filters-panel/product-filters-panel.component.html</context>
@@ -1090,7 +1090,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for filtering products by partial name</note>
       </trans-unit>
-      <trans-unit id="eec715de352a6b114713b30b640d319fa78207a0" datatype="html">
+      <trans-unit id="4902817035128594900" datatype="html">
         <source>Descripción</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-form/product-form.component.html</context>
@@ -1098,7 +1098,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for product description</note>
       </trans-unit>
-      <trans-unit id="06412bce0f4fe4311193e9763666089bf9d980da" datatype="html">
+      <trans-unit id="8177873832400820695" datatype="html">
         <source>Cantidad</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/product-list-form/product-list-form.component.html</context>
@@ -1106,7 +1106,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for the amount of items in a list</note>
       </trans-unit>
-      <trans-unit id="27429c54374f931a224d3c9ae13e85187a63e2ea" datatype="html">
+      <trans-unit id="1282995908279650854" datatype="html">
         <source>Desliza para ver más</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/products-display/products-display.component.html</context>
@@ -1114,7 +1114,7 @@
         </context-group>
         <note priority="1" from="description">Label to hint users to swipe to the sides</note>
       </trans-unit>
-      <trans-unit id="12eb4d91dd99a7297983facb151b05b9136a9e76" datatype="html">
+      <trans-unit id="8497948700662908685" datatype="html">
         <source>Tipo de Comprobante</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/sell-form/sell-form.component.html</context>
@@ -1126,7 +1126,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for billing type of sell</note>
       </trans-unit>
-      <trans-unit id="506b10c56ec2b7811782ad770a86231cbc5b4355" datatype="html">
+      <trans-unit id="7139541812076995027" datatype="html">
         <source>Vendedor(a)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/sell-form/sell-form.component.html</context>
@@ -1134,7 +1134,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for salesperson that earned/is in charge of sell</note>
       </trans-unit>
-      <trans-unit id="dff8d13a770e6a5d4fa1923462c6a7b974409592" datatype="html">
+      <trans-unit id="1642972066115158058" datatype="html">
         <source>Cliente</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/sell-form/sell-form.component.html</context>
@@ -1142,7 +1142,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for purchasing customer in sell</note>
       </trans-unit>
-      <trans-unit id="7e65ea802c1c2fab361e4123533725613683e0e3" datatype="html">
+      <trans-unit id="5828622735792487423" datatype="html">
         <source>Detalles de Venta</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/sell-form/sell-form.component.html</context>
@@ -1150,7 +1150,7 @@
         </context-group>
         <note priority="1" from="description">Title of table displaying products and details of sell</note>
       </trans-unit>
-      <trans-unit id="26f268d51dd829bdc2b0f70fe55d88837091c331" datatype="html">
+      <trans-unit id="9123885087240876862" datatype="html">
         <source>Agregar</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/sell-form/sell-form.component.html</context>
@@ -1159,7 +1159,7 @@
         <note priority="1" from="description">Label for action button to include products into sell</note>
         <note priority="1" from="meaning">add products</note>
       </trans-unit>
-      <trans-unit id="be537f4ddb09e1a2856314f2cbe84063ab6b4170" datatype="html">
+      <trans-unit id="9074327260054432941" datatype="html">
         <source>Cantidad</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/sell-form/sell-form.component.html</context>
@@ -1175,7 +1175,7 @@
         </context-group>
         <note priority="1" from="description">Name of table header for quantity of products (in units)</note>
       </trans-unit>
-      <trans-unit id="4a720c3de93aedc234102396c8a9da45b731f7a6" datatype="html">
+      <trans-unit id="8364521452977083449" datatype="html">
         <source>Quitar producto</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/sell-form/sell-form.component.html</context>
@@ -1206,7 +1206,7 @@
         <note priority="1" from="description">Label with sell total value (products, transport and taxes) being {{ totalValue }}</note>
         <note priority="1" from="meaning">total sell value</note>
       </trans-unit>
-      <trans-unit id="1ea19e5f1666c9c42e43218f66b38986c1db74ec" datatype="html">
+      <trans-unit id="4036799606646668567" datatype="html">
         <source>Agregar imagen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/slideshow/slideshow.component.html</context>
@@ -1215,7 +1215,7 @@
         <note priority="1" from="description">Label for action button to add a slide/image</note>
         <note priority="1" from="meaning">add image</note>
       </trans-unit>
-      <trans-unit id="c32ef07f8803a223a83ed17024b38e8d82292407" datatype="html">
+      <trans-unit id="1431416938026210429" datatype="html">
         <source>Clave</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/user-form/user-form.component.html</context>
@@ -1223,7 +1223,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for user password</note>
       </trans-unit>
-      <trans-unit id="71c355c28431d7d6a5ab9bc97469bb60f459e7eb" datatype="html">
+      <trans-unit id="5593493560884751525" datatype="html">
         <source>Identidad</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/user-form/user-form.component.html</context>
@@ -1231,7 +1231,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for person profile to create user with</note>
       </trans-unit>
-      <trans-unit id="1a9ec5aa4cc2c3f69a4902593216f1dfb4616cd3" datatype="html">
+      <trans-unit id="2678266681370299911" datatype="html">
         <source>Sí</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/dialogs/confirmation/confirmation-dialog.component.html</context>
@@ -1240,7 +1240,7 @@
         <note priority="1" from="description">Label for action button to answer positively</note>
         <note priority="1" from="meaning">yes</note>
       </trans-unit>
-      <trans-unit id="d8475fb623579a96a0c66b718e6c64dbbb87977b" datatype="html">
+      <trans-unit id="281238869516666203" datatype="html">
         <source>No</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/dialogs/confirmation/confirmation-dialog.component.html</context>
@@ -1249,7 +1249,7 @@
         <note priority="1" from="description">Label for action button to answer negatively</note>
         <note priority="1" from="meaning">no</note>
       </trans-unit>
-      <trans-unit id="d3781ad331fdd0bc9055c45a41664ac467de63af" datatype="html">
+      <trans-unit id="2984628903434675339" datatype="html">
         <source>Editar Perfil</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component.html</context>
@@ -1282,7 +1282,7 @@
         </context-group>
         <note priority="1" from="description">Message of success after saving some data</note>
       </trans-unit>
-      <trans-unit id="a4a9ef99a4132cb569e59bf0db2de94e0f7af960" datatype="html">
+      <trans-unit id="5439283317858694670" datatype="html">
         <source>Asociar imágenes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/dialogs/images-array/images-array-dialog.component.html</context>
@@ -1290,7 +1290,7 @@
         </context-group>
         <note priority="1" from="description">Title of dialog to associate images to a product</note>
       </trans-unit>
-      <trans-unit id="d4161422f3ecebfc6f0732afaa276ac82757612a" datatype="html">
+      <trans-unit id="4966596169828085553" datatype="html">
         <source>Buscar imágenes por</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/dialogs/images-array/images-array-dialog.component.html</context>
@@ -1298,7 +1298,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for filtering all stored images by keyword</note>
       </trans-unit>
-      <trans-unit id="93db31b7c14623f7c88abf080b0a4f84bc2f3ee8" datatype="html">
+      <trans-unit id="591704584893241694" datatype="html">
         <source>Selección de Categoría</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/dialogs/product-category-picker/product-category-picker-dialog.component.html</context>
@@ -1306,7 +1306,7 @@
         </context-group>
         <note priority="1" from="description">Title of dialog prompt for users to pick a category from its tree</note>
       </trans-unit>
-      <trans-unit id="93c303ac081fc013a1c68edc4077dcd7a1dadf66" datatype="html">
+      <trans-unit id="6333233559461134790" datatype="html">
         <source>Seleccionar Productos</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/dialogs/products-array/products-array-dialog.component.html</context>
@@ -1314,7 +1314,7 @@
         </context-group>
         <note priority="1" from="description">Title of dialog prompt to add products into details of a sell</note>
       </trans-unit>
-      <trans-unit id="9066fb3885424107ddd11ac98ad1aa272c9aaba3" datatype="html">
+      <trans-unit id="1247144792047923763" datatype="html">
         <source>Productos disponibles</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/dialogs/products-array/products-array-dialog.component.html</context>
@@ -1322,7 +1322,7 @@
         </context-group>
         <note priority="1" from="description">Title of widget displaying available products for addition to details of a sell</note>
       </trans-unit>
-      <trans-unit id="32a0851af0954ed5dc343c45881c66fab9a73988" datatype="html">
+      <trans-unit id="2714724285313665688" datatype="html">
         <source>Agregar este producto</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/dialogs/products-array/products-array-dialog.component.html</context>
@@ -1331,7 +1331,7 @@
         <note priority="1" from="description">Label for action button to mark a product for addition to details of a sell</note>
         <note priority="1" from="meaning">add this product</note>
       </trans-unit>
-      <trans-unit id="46892e31b24842bcd3f75d0cc20b20a5ffe80b5e" datatype="html">
+      <trans-unit id="4186558932365555160" datatype="html">
         <source>Productos a Agregar</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/dialogs/products-array/products-array-dialog.component.html</context>
@@ -1339,7 +1339,7 @@
         </context-group>
         <note priority="1" from="description">Title of widget displaying products marked for addition to details of a sell</note>
       </trans-unit>
-      <trans-unit id="78b76c31edc4d10438c3776aa4530e870d3c9b6c" datatype="html">
+      <trans-unit id="8060934497736825751" datatype="html">
         <source>No agregar este producto</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/dialogs/products-array/products-array-dialog.component.html</context>
@@ -1357,7 +1357,7 @@
         <note priority="1" from="description">Label preceding comments made for an address</note>
         <note priority="1" from="meaning">address comments</note>
       </trans-unit>
-      <trans-unit id="5d467e9df9686dedb2072eb22ce048db2403dcf2" datatype="html">
+      <trans-unit id="6539741229179513116" datatype="html">
         <source>Dirección de facturación</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/billing-details-form/store-billing-details-form.component.html</context>
@@ -1365,7 +1365,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for address to bill to</note>
       </trans-unit>
-      <trans-unit id="42574a00c22c634fa7d7ccf27acf7a10dbbbc9d1" datatype="html">
+      <trans-unit id="6786954508842428290" datatype="html">
         <source>Producto</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/cart-contents-table/store-cart-contents-table.component.html</context>
@@ -1378,7 +1378,7 @@
         <note priority="1" from="description">Name of table header for name and code of product</note>
         <note priority="1" from="meaning">product</note>
       </trans-unit>
-      <trans-unit id="097dd3ef9257661558777a1523f9697b04518153" datatype="html">
+      <trans-unit id="870418232806327600" datatype="html">
         <source>Subtotal</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/cart-contents-table/store-cart-contents-table.component.html</context>
@@ -1390,7 +1390,7 @@
         </context-group>
         <note priority="1" from="description">Name of table header for the value of product price x units in cart</note>
       </trans-unit>
-      <trans-unit id="38216c3561ea017e63242e6306c1c92dd4863e9b" datatype="html">
+      <trans-unit id="4603370704362417597" datatype="html">
         <source>Ir al pago</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/checkout-button/store-checkout-button.component.html</context>
@@ -1399,7 +1399,7 @@
         <note priority="1" from="description">Label for action button to proceed towards payment page</note>
         <note priority="1" from="meaning">proceed to checkout</note>
       </trans-unit>
-      <trans-unit id="872064774f2af66a233b7beac526e93a296f8a68" datatype="html">
+      <trans-unit id="6378148052776746129" datatype="html">
         <source>¿Son estos datos correctos?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/checkout-confirmation/store-checkout-confirmation.component.html</context>
@@ -1407,7 +1407,7 @@
         </context-group>
         <note priority="1" from="description">Title of widget to request confirmation of billing/personal/shipping information being correct</note>
       </trans-unit>
-      <trans-unit id="054548f374a39b46d2c6b7226eb843124dc27d94" datatype="html">
+      <trans-unit id="358462242581945792" datatype="html">
         <source>Cliente anónimo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/checkout-confirmation/store-checkout-confirmation.component.html</context>
@@ -1415,7 +1415,7 @@
         </context-group>
         <note priority="1" from="description">Label to indicate that a customer chose not to give personal information</note>
       </trans-unit>
-      <trans-unit id="14ca20adf81ad7e5b441070acb7c688556fdb2f9" datatype="html">
+      <trans-unit id="1016979499660828728" datatype="html">
         <source>Retiro en tienda</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/checkout-confirmation/store-checkout-confirmation.component.html</context>
@@ -1424,7 +1424,7 @@
         <note priority="1" from="description">Label to indicate that a customer chose to pick up items in store</note>
         <note priority="1" from="meaning">in-store delivery</note>
       </trans-unit>
-      <trans-unit id="8fecaa5fc7ea80a042a0e64838c33494898c2865" datatype="html">
+      <trans-unit id="4621824780663510654" datatype="html">
         <source>Si está segur@ que la información ingresada es correcta, haga clic en el botón &apos;Solicitar transacción&apos;:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/checkout-confirmation/store-checkout-confirmation.component.html</context>
@@ -1432,7 +1432,7 @@
         </context-group>
         <note priority="1" from="description">Label to instruct user that, after having checked correctness of billing/personal/shipping information, they click the action button to request a new transaction</note>
       </trans-unit>
-      <trans-unit id="a511ba827f629f53fa034a16c57e744906d4818d" datatype="html">
+      <trans-unit id="1114886672932601206" datatype="html">
         <source>Solicitar transacción</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/checkout-confirmation/store-checkout-confirmation.component.html</context>
@@ -1441,7 +1441,7 @@
         <note priority="1" from="description">Label for action button to request a new transaction from payment service</note>
         <note priority="1" from="meaning">request transaction</note>
       </trans-unit>
-      <trans-unit id="0afc5ceb58c27bcc164027bc4bee091263e72d51" datatype="html">
+      <trans-unit id="7274371791483465278" datatype="html">
         <source>Una vez solicitada la transacción, puede proceder dando clic al botón &apos;Ir al pago&apos;:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/checkout-confirmation/store-checkout-confirmation.component.html</context>
@@ -1449,7 +1449,7 @@
         </context-group>
         <note priority="1" from="description">Label to instruct user that, after requesting and waiting for a new transaction, they click the action button to proceed towards payment page</note>
       </trans-unit>
-      <trans-unit id="7cf5587d03d95c3528161a79d7b9fe2bb867a7d0" datatype="html">
+      <trans-unit id="2066931854240364378" datatype="html">
         <source>Tipo de facturación</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/checkout-request-form/store-checkout-request-form.component.html</context>
@@ -1457,7 +1457,7 @@
         </context-group>
         <note priority="1" from="description">Title of form for billing information</note>
       </trans-unit>
-      <trans-unit id="2b16d754538c43298a40b3efa2b957beb1d29f27" datatype="html">
+      <trans-unit id="3465962430409924123" datatype="html">
         <source>Información de contacto</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/checkout-request-form/store-checkout-request-form.component.html</context>
@@ -1465,7 +1465,7 @@
         </context-group>
         <note priority="1" from="description">Title of form for personal information</note>
       </trans-unit>
-      <trans-unit id="2952b6ad4bbd1a7ab16676c940e421cf051a6d3a" datatype="html">
+      <trans-unit id="1578430815195440762" datatype="html">
         <source>Información de despacho</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/checkout-request-form/store-checkout-request-form.component.html</context>
@@ -1473,7 +1473,7 @@
         </context-group>
         <note priority="1" from="description">Title of form for shipping information</note>
       </trans-unit>
-      <trans-unit id="56e8f5b67e76931dd6b4e0f17fc437e1aee13855" datatype="html">
+      <trans-unit id="2611359931727691593" datatype="html">
         <source>Continuar</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/checkout-request-form/store-checkout-request-form.component.html</context>
@@ -1482,7 +1482,7 @@
         <note priority="1" from="description">Label for action button to proceed to next step in a form</note>
         <note priority="1" from="meaning">continue</note>
       </trans-unit>
-      <trans-unit id="57e90dd7ec8ac976d261b77096498f89f6cf5116" datatype="html">
+      <trans-unit id="2298582301596371402" datatype="html">
         <source>Iniciar sesión</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/header/login-button/store-header-login-button.component.html</context>
@@ -1495,7 +1495,7 @@
         <note priority="1" from="description">Label for action button to prompt a login</note>
         <note priority="1" from="meaning">log in</note>
       </trans-unit>
-      <trans-unit id="01bbcfc78a5595d74ff42d1a19f2fc0c88356edf" datatype="html">
+      <trans-unit id="7615147220727762615" datatype="html">
         <source>Administrar</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/header/menu/store-header-menu.component.html</context>
@@ -1503,7 +1503,7 @@
         </context-group>
         <note priority="1" from="description">Label for link button to navigate to management dashboard</note>
       </trans-unit>
-      <trans-unit id="dd5ee738d0dcf8fd4e114dcb9ae057501a910052" datatype="html">
+      <trans-unit id="7405053091344578361" datatype="html">
         <source>Abrir menú de usuario</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/header/menu/store-header-menu.component.html</context>
@@ -1520,7 +1520,7 @@
         </context-group>
         <note priority="1" from="description">Title of application</note>
       </trans-unit>
-      <trans-unit id="e5d474b1dced9b0804949528809cc6afa40563f7" datatype="html">
+      <trans-unit id="6293353166571285439" datatype="html">
         <source>Ir al inicio</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/header/navigation/store-header-navigation.component.html</context>
@@ -1528,7 +1528,7 @@
         </context-group>
         <note priority="1" from="description">Label for link to navigate to storefront</note>
       </trans-unit>
-      <trans-unit id="0016a51b6c7f35da6c40ecdbf08425f877dde7c2" datatype="html">
+      <trans-unit id="5480955842805605966" datatype="html">
         <source>Ir al carrito</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/header/navigation/store-header-navigation.component.html</context>
@@ -1536,7 +1536,7 @@
         </context-group>
         <note priority="1" from="description">Label for link to navigate to cart</note>
       </trans-unit>
-      <trans-unit id="5ab9618babd9d53ae62fdd702b46bd377ef37c63" datatype="html">
+      <trans-unit id="6888312857583832025" datatype="html">
         <source>Elige una opción de entrega</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/shipping-form/store-shipping-form.component.html</context>
@@ -1544,7 +1544,7 @@
         </context-group>
         <note priority="1" from="description">Label to hint user that they must choose a delivery option</note>
       </trans-unit>
-      <trans-unit id="45ea35f8b102e81e94468dba8b40f7a1f7deef9d" datatype="html">
+      <trans-unit id="4671077505767632260" datatype="html">
         <source>Despacho a domicilio</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/shipping-form/store-shipping-form.component.html</context>
@@ -1552,7 +1552,7 @@
         </context-group>
         <note priority="1" from="description">Label for option to choose delivery to a shipping address</note>
       </trans-unit>
-      <trans-unit id="9fec1925d2a28adae25af365c8c878ee442d89e6" datatype="html">
+      <trans-unit id="5361715195905029455" datatype="html">
         <source>Retiro en Tienda</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/shipping-form/store-shipping-form.component.html</context>
@@ -1560,7 +1560,7 @@
         </context-group>
         <note priority="1" from="description">Label for option to choose pick-up in store</note>
       </trans-unit>
-      <trans-unit id="0abfa35383c7b750656f1cb926fca97cd2637718" datatype="html">
+      <trans-unit id="7726552812551783077" datatype="html">
         <source>Dirección de despacho</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/shipping-form/store-shipping-form.component.html</context>
@@ -1568,7 +1568,7 @@
         </context-group>
         <note priority="1" from="description">Name of field for address to deliver items to</note>
       </trans-unit>
-      <trans-unit id="b533c483b3c24dcb7e70a2f1f5db5bc44cd11e78" datatype="html">
+      <trans-unit id="1046943192799427886" datatype="html">
         <source>Identificación requerida</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/guest-prompt/store-guest-prompt-dialog.component.html</context>
@@ -1576,7 +1576,7 @@
         </context-group>
         <note priority="1" from="description">Title of dialog prompt to indicate users that some sort of ID is required</note>
       </trans-unit>
-      <trans-unit id="a0b789153e18135470e19e44d517886422b2facf" datatype="html">
+      <trans-unit id="5897530023415165855" datatype="html">
         <source>Para proceder a su carrito, debe iniciar sesión, registrarse, o pedir un permiso de invitado ingresando sus datos de facturación</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/guest-prompt/store-guest-prompt-dialog.component.html</context>
@@ -1584,7 +1584,7 @@
         </context-group>
         <note priority="1" from="description">Label to hint user that they must log in, register or indicate some personal info to proceed</note>
       </trans-unit>
-      <trans-unit id="e8cf16333e119b73f09837097100d35818b9a71d" datatype="html">
+      <trans-unit id="9139272598370334607" datatype="html">
         <source>Por favor, elija una de las tres a continuación:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/guest-prompt/store-guest-prompt-dialog.component.html</context>
@@ -1592,7 +1592,7 @@
         </context-group>
         <note priority="1" from="description">Label to instruct user that they choose one option out of three</note>
       </trans-unit>
-      <trans-unit id="ff5402664ae16600c8dd0a06194f7da3dacd809c" datatype="html">
+      <trans-unit id="3294138825970630152" datatype="html">
         <source>Registrarme</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/guest-prompt/store-guest-prompt-dialog.component.html</context>
@@ -1601,7 +1601,7 @@
         <note priority="1" from="description">Label for action button to prompt registration</note>
         <note priority="1" from="meaning">register</note>
       </trans-unit>
-      <trans-unit id="38d4a6d9b52cb4234609b47cf011dde478f78d6b" datatype="html">
+      <trans-unit id="3482213966407579901" datatype="html">
         <source>Continuar como invitado</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/guest-prompt/store-guest-prompt-dialog.component.html</context>
@@ -1610,7 +1610,7 @@
         <note priority="1" from="description">Label for action button to prompt a guest, temporary login</note>
         <note priority="1" from="meaning">continue as guest</note>
       </trans-unit>
-      <trans-unit id="5325004ced330a6c9916c40970374b2e0e6879bd" datatype="html">
+      <trans-unit id="6261235471089708740" datatype="html">
         <source>Si desea cerrar este diálogo, haga clic fuera de él</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/guest-prompt/store-guest-prompt-dialog.component.html</context>
@@ -1618,7 +1618,7 @@
         </context-group>
         <note priority="1" from="description">Label to hint user that they can click away from current dialog to close it</note>
       </trans-unit>
-      <trans-unit id="abe0be5bf27db443c88348b35e87db4bff94a082" datatype="html">
+      <trans-unit id="8294168767949093372" datatype="html">
         <source>Continuar como invitado</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component.html</context>
@@ -1626,7 +1626,7 @@
         </context-group>
         <note priority="1" from="description">Title of dialog prompt to indicate personal info for a guest, temporary login</note>
       </trans-unit>
-      <trans-unit id="ac304d6774b7c75182c4ced24a043b207625cced" datatype="html">
+      <trans-unit id="6554168290997024947" datatype="html">
         <source>A continuación, por favor indique sus datos de facturación.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component.html</context>
@@ -1634,7 +1634,7 @@
         </context-group>
         <note priority="1" from="description">Label to instruct user to input billing information</note>
       </trans-unit>
-      <trans-unit id="f9ac183a52c77ad08b71f2de90e6b79f7ac6c254" datatype="html">
+      <trans-unit id="4610581913891883184" datatype="html">
         <source>Usaremos esta información exclusivamente para que su transacción sea más segura.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component.html</context>
@@ -1642,7 +1642,7 @@
         </context-group>
         <note priority="1" from="description">Label to hint user that their billing information is solely used to secure their transaction</note>
       </trans-unit>
-      <trans-unit id="dcd47f4d6b26b045a1b041b2fc73123bc0cfc118" datatype="html">
+      <trans-unit id="8520023152129279437" datatype="html">
         <source>Iniciar Sesión</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/login-form/store-login-form-dialog.component.html</context>
@@ -1650,7 +1650,7 @@
         </context-group>
         <note priority="1" from="description">Title of dialog prompt for logging in</note>
       </trans-unit>
-      <trans-unit id="0b426b3e94a7b215820d320d406f2f9a9f6723c8" datatype="html">
+      <trans-unit id="761792871197002345" datatype="html">
         <source>Nombre de usuario</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/login-form/store-login-form-dialog.component.html</context>
@@ -1659,7 +1659,7 @@
         <note priority="1" from="description">Name of field for username to log in with</note>
         <note priority="1" from="meaning">login username</note>
       </trans-unit>
-      <trans-unit id="a2cca283d4d1df4f236084fbaf56a98b247dc26a" datatype="html">
+      <trans-unit id="4020955460828022495" datatype="html">
         <source>Clave</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/login-form/store-login-form-dialog.component.html</context>
@@ -1668,7 +1668,7 @@
         <note priority="1" from="description">Name of field for password to log in with</note>
         <note priority="1" from="meaning">login password</note>
       </trans-unit>
-      <trans-unit id="0ca82f8afb9e46eb04458b460efc655a36c0bfb3" datatype="html">
+      <trans-unit id="6223091526123289516" datatype="html">
         <source>Mantenga presionado para ver...</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/login-form/store-login-form-dialog.component.html</context>
@@ -1677,7 +1677,7 @@
         <note priority="1" from="description">Label for action button to show password while held down</note>
         <note priority="1" from="meaning">hold to show password</note>
       </trans-unit>
-      <trans-unit id="d4daa0dc8996596c58b18dec0efe8b054b03958a" datatype="html">
+      <trans-unit id="2220256241156197824" datatype="html">
         <source>Limpiar</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/login-form/store-login-form-dialog.component.html</context>
@@ -1686,7 +1686,7 @@
         <note priority="1" from="description">Label for action button to clear values in form</note>
         <note priority="1" from="meaning">clean up</note>
       </trans-unit>
-      <trans-unit id="e31e71dc9b2e082b83de4bfd37c07589499f2c52" datatype="html">
+      <trans-unit id="262401696834994059" datatype="html">
         <source>¿No tienes una cuenta? Regístrate aquí</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/login-form/store-login-form-dialog.component.html</context>
@@ -1710,7 +1710,7 @@
         </context-group>
         <note priority="1" from="description">Message of error due to bad/erroneous credentials</note>
       </trans-unit>
-      <trans-unit id="dbaf11982e053b5cf55910d394f4ea46916b9205" datatype="html">
+      <trans-unit id="3383531826506991186" datatype="html">
         <source>Nueva cuenta de usuario</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/registration-form/store-registration-form-dialog.component.html</context>
@@ -1718,7 +1718,7 @@
         </context-group>
         <note priority="1" from="description">Title of dialog prompt for registering a new user account</note>
       </trans-unit>
-      <trans-unit id="fc83299d73705aa6a4e23ce67a9bc6c7cc7ae3e4" datatype="html">
+      <trans-unit id="1120366879041243503" datatype="html">
         <source>Nombre de usuario</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/registration-form/store-registration-form-dialog.component.html</context>
@@ -1727,7 +1727,7 @@
         <note priority="1" from="description">Name of field for username to register with</note>
         <note priority="1" from="meaning">new user name</note>
       </trans-unit>
-      <trans-unit id="d9e2a4cc5edcf0df1d33f77ba849973415a38e00" datatype="html">
+      <trans-unit id="6061555164856574501" datatype="html">
         <source>Clave</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/registration-form/store-registration-form-dialog.component.html</context>
@@ -1736,7 +1736,7 @@
         <note priority="1" from="description">Name of field for password to register with</note>
         <note priority="1" from="meaning">new user password</note>
       </trans-unit>
-      <trans-unit id="d78d6fc5e90c093605d4e4f166bf074cdef1acc8" datatype="html">
+      <trans-unit id="5373727393387841282" datatype="html">
         <source>Repetir clave</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/registration-form/store-registration-form-dialog.component.html</context>
@@ -1760,7 +1760,7 @@
         </context-group>
         <note priority="1" from="description">Message of error during registration, hint user to try again</note>
       </trans-unit>
-      <trans-unit id="611ad8451f8a9a7e219dd91c26bd4d9224bdad7a" datatype="html">
+      <trans-unit id="4554873044217294813" datatype="html">
         <source>Detalles de la compra</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/routes/cart-review/store-cart-review.component.html</context>
@@ -1769,7 +1769,7 @@
         <note priority="1" from="description">Title of widget displaying contents of cart</note>
         <note priority="1" from="meaning">cart contents review</note>
       </trans-unit>
-      <trans-unit id="43a86e2136a146bb60497dffda7dc3ac7927280f" datatype="html">
+      <trans-unit id="4534895043096944861" datatype="html">
         <source>Subtotal</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/routes/cart-review/store-cart-review.component.html</context>
@@ -1778,7 +1778,7 @@
         <note priority="1" from="description">Label with cart subtotal value (products only)</note>
         <note priority="1" from="meaning">subtotal sell value</note>
       </trans-unit>
-      <trans-unit id="871d89c6265058586ef1d3ccfbcc3b014582b2ab" datatype="html">
+      <trans-unit id="1185922478310890334" datatype="html">
         <source>Datos para el pedido</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/routes/cart-review/store-cart-review.component.html</context>
@@ -1786,7 +1786,7 @@
         </context-group>
         <note priority="1" from="description">Title of form step to input checkout details</note>
       </trans-unit>
-      <trans-unit id="0295e37c88ba1f28e569a35e3c6871b90529f8fa" datatype="html">
+      <trans-unit id="1234709746630139322" datatype="html">
         <source>Confirmación</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/routes/cart-review/store-cart-review.component.html</context>
@@ -1794,7 +1794,7 @@
         </context-group>
         <note priority="1" from="description">Title of form step to confirm checkout details</note>
       </trans-unit>
-      <trans-unit id="1525475b050c7d190cd989a00a08a7cfb3defd29" datatype="html">
+      <trans-unit id="1187687863866675964" datatype="html">
         <source>Catálogo de productos</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/routes/catalog/store-catalog.component.html</context>
@@ -1802,7 +1802,7 @@
         </context-group>
         <note priority="1" from="description">Title of page for the storefront</note>
       </trans-unit>
-      <trans-unit id="72a32bddac2e937d9fbb0842cbc6569ec7c058c9" datatype="html">
+      <trans-unit id="3323370899249017776" datatype="html">
         <source>Compra realizada con éxito</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/routes/receipt/store-receipt.component.html</context>
@@ -1810,7 +1810,7 @@
         </context-group>
         <note priority="1" from="description">Title of widget displaying details of a succesful transaction</note>
       </trans-unit>
-      <trans-unit id="bc054b3353fa122ceadd372112382daea4b595f6" datatype="html">
+      <trans-unit id="5919551057183525260" datatype="html">
         <source>Confirmada el <x id="INTERPOLATION" equiv-text="{{ receipt.date | date:&apos;short&apos; }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/routes/receipt/store-receipt.component.html</context>
@@ -1818,7 +1818,7 @@
         </context-group>
         <note priority="1" from="description">Label with transaction confirmation date</note>
       </trans-unit>
-      <trans-unit id="84ae9a7492a1f450227d7904c09ff017fcf6bef4" datatype="html">
+      <trans-unit id="1607946251296830734" datatype="html">
         <source>Items en total: <x id="INTERPOLATION" equiv-text="{{ receipt.totalItems }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/routes/receipt/store-receipt.component.html</context>
@@ -1826,7 +1826,7 @@
         </context-group>
         <note priority="1" from="description">Label with total count of items in transaction being {{ receipt.totalItems }}</note>
       </trans-unit>
-      <trans-unit id="4c83ae535307975b8cbf8232fa3f5b169dc73af2" datatype="html">
+      <trans-unit id="8890668247085010202" datatype="html">
         <source>Valor del transporte: <x id="INTERPOLATION" equiv-text="{{ receipt.transportValue | currency }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/routes/receipt/store-receipt.component.html</context>
@@ -1834,7 +1834,7 @@
         </context-group>
         <note priority="1" from="description">Label with total price of transport being {{ receipt.transportValue }}</note>
       </trans-unit>
-      <trans-unit id="040460b6a45b34e7fe84d47d2c837037b54b18bd" datatype="html">
+      <trans-unit id="3676907479362214835" datatype="html">
         <source>Impuestos: <x id="INTERPOLATION" equiv-text="{{ receipt.taxValue | currency }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/routes/receipt/store-receipt.component.html</context>
@@ -1842,7 +1842,7 @@
         </context-group>
         <note priority="1" from="description">Label with total price of taxes being {{ receipt.taxValue }}</note>
       </trans-unit>
-      <trans-unit id="a0b6dd53a175bd2e85e265f0cbe1c55596ca7161" datatype="html">
+      <trans-unit id="3489593325740504759" datatype="html">
         <source>Total pagado: <x id="INTERPOLATION" equiv-text="{{ receipt.totalValue | currency }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/routes/receipt/store-receipt.component.html</context>
@@ -1850,7 +1850,7 @@
         </context-group>
         <note priority="1" from="description">Label with total price of transaction being {{ receipt.totalValue}}</note>
       </trans-unit>
-      <trans-unit id="4f8b2bb476981727ab34ed40fde1218361f92c45" datatype="html">
+      <trans-unit id="5028777105388019087" datatype="html">
         <source>Detalles de la transacción</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/routes/receipt/store-receipt.component.html</context>

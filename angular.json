@@ -20,7 +20,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "aot": true,
             "outputPath": "dist/ngx-trebol-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -34,7 +33,13 @@
               "src/styles.css",
               "src/material-theme.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "demo": {
@@ -42,7 +47,6 @@
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -68,10 +72,7 @@
                   "replace": "src/environments/environment-modules.ts",
                   "with": "src/environments/environment-modules.localhost.ts"
                 }
-              ],
-              "sourceMap": true,
-              "namedChunks": true,
-              "aot": true
+              ]
             },
             "production": {
               "fileReplacements": [
@@ -88,7 +89,6 @@
               "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -110,7 +110,8 @@
             "es-CL": {
               "localize": ["es-CL"]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
