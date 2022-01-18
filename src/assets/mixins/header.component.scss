@@ -4,6 +4,7 @@
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
+@use '~@angular/material' as mat;
 
 @import '~@angular/material/theming';
 
@@ -13,12 +14,12 @@
   $accent: map-get($config, accent);
 
   app-store-header {
-    background-color: mat-color($primary);
+    background-color: mat.get-color-from-palette($primary);
     color: white;
   }
 
   app-management-header {
-    background-color: mat-color($primary);
+    background-color: mat.get-color-from-palette($primary);
     color: white;
   }
 

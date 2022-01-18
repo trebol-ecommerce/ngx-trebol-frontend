@@ -4,6 +4,7 @@
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
+@use '~@angular/material' as mat;
 
 @import '~@angular/material/theming';
 
@@ -14,7 +15,7 @@
 
   app-store-cart-review h2,
   app-store-cart-review h3 {
-    color: mat-color($primary);
+    color: mat.get-color-from-palette($primary);
   }
 }
 

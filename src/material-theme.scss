@@ -4,17 +4,18 @@
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
+@use '~@angular/material' as mat;
 
 // https://material.io/design/color/
 @import '~@angular/material/theming';
 
-@include mat-core();
+@include mat.core();
 
-$trebol-app-primary:   mat-palette($mat-purple, 800);
-$trebol-app-accent:    mat-palette($mat-blue, 600, 400, 800);
-$trebol-app-warn:      mat-palette($mat-red);
+$trebol-app-primary:   mat.define-palette(mat.$purple-palette, 800);
+$trebol-app-accent:    mat.define-palette(mat.$blue-palette, 600, 400, 800);
+$trebol-app-warn:      mat.define-palette(mat.$red-palette);
 
-$trebol-app-theme: mat-light-theme((
+$trebol-app-theme: mat.define-light-theme((
   color: (
     primary: $trebol-app-primary,
     accent: $trebol-app-accent,
@@ -22,7 +23,7 @@ $trebol-app-theme: mat-light-theme((
   )
 ));
 
-@include angular-material-theme($trebol-app-theme);
+@include mat.all-component-themes($trebol-app-theme);
 
 @import 'src/assets/mixins/header.component';
 @include header-theme($trebol-app-theme);
@@ -35,11 +36,11 @@ $trebol-app-theme: mat-light-theme((
 
 // Pages / Routes
 
-$trebol-page-app-primary:   mat-palette($mat-blue-grey, 800);
-$trebol-page-app-accent:    mat-palette($mat-indigo, 600, 400, 800);
-$trebol-page-app-warn:      mat-palette($mat-red);
+$trebol-page-app-primary:   mat.define-palette(mat.$blue-grey-palette, 800);
+$trebol-page-app-accent:    mat.define-palette(mat.$indigo-palette, 600, 400, 800);
+$trebol-page-app-warn:      mat.define-palette(mat.$red-palette);
 
-$trebol-page-app-theme: mat-light-theme((
+$trebol-page-app-theme: mat.define-light-theme((
   color: (
     primary: $trebol-page-app-primary,
     accent: $trebol-page-app-accent,
