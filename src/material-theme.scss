@@ -4,10 +4,10 @@
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 
 // https://material.io/design/color/
-@import '~@angular/material/theming';
+@import '@angular/material/theming';
 
 @include mat.core();
 
