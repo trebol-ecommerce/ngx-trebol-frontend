@@ -17,7 +17,8 @@
       <button type="button" class="remove-slide" *ngIf="editable"
         mat-mini-fab
         color="warn"
-        title="Quitar imagen"
+        i18n-aria-label="Label for action button to remove a slide"
+        aria-label="Remove"
         (click)="onClickRemove()">
         <mat-icon>delete</mat-icon>
       </button>
@@ -34,14 +35,16 @@
   <button type="button" class="previous-slide"
     mat-mini-fab
     color="primary"
-    title="Ver anterior"
+    i18n-aria-label="Label for action button to return to previous slide"
+    aria-label="See previous"
     (click)="slideBackwards()">
     <mat-icon>first_page</mat-icon>
   </button>
   <button type="button" class="next-slide"
     mat-mini-fab
     color="primary"
-    title="Ver siguiente"
+    i18n-aria-label="Label for action button to advance to next slide"
+    aria-label="See next"
     (click)="slideForwards()">
     <mat-icon>last_page</mat-icon>
   </button>
@@ -51,7 +54,6 @@
     <ng-container *ngIf="(currentIndex$ | async) === i; then selected; else notSelected"></ng-container>
     <ng-template #selected>
       <button type="button" class="selected-slide"
-        title="Viendo imagen {{ i+1 }}"
         mat-button mat-icon-button>
         <mat-icon>radio_button_checked</mat-icon>
       </button>
@@ -59,7 +61,6 @@
     <ng-template #notSelected>
       <button type="button" class="slide-selector"
         mat-button mat-icon-button
-        title="Ver imagen {{ i+1 }}"
         (click)="goToSlide(i)">
         <mat-icon>radio_button_unchecked</mat-icon>
       </button>
@@ -68,7 +69,8 @@
   <ng-container *ngIf="editable">
     <button type="button" class="slide-add"
       mat-button mat-icon-button
-      title="Agregar imagen"
+      i18n-aria-label="Label for action button to add a slide"
+      aria-label="Add"
       (click)="onClickAdd()">
       <mat-icon>add_circle_outline</mat-icon>
     </button>
