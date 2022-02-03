@@ -1,0 +1,51 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<table mat-table *ngIf="sell" [dataSource]="sell.details">
+  <ng-container matColumnDef="product">
+    <th mat-header-cell *matHeaderCellDef>
+      <span i18n="product|Name of table header for name and code of product">Product</span>
+    </th>
+    <td mat-cell *matCellDef="let detail">
+      <span>
+        <span class="image-wrapper">
+          <img *ngIf="detail.product.imagesURL"
+            [src]="detail.product.imagesURL[0]" alt="" />
+        </span>
+        <span class="identifier">
+          <span class="name">{{ detail.product.name }}</span><br/>
+          <span class="barcode">{{ detail.product.barcode }}</span>
+        </span>
+      </span>
+    </td>
+    <td mat-footer-cell *matFooterCellDef>
+      <span i18n="Label for total value worth of a sell">Total</span>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef class="center">
+      <span i18n="Name of table header for price per product unit">Price per Unit</span>
+    </th>
+    <td mat-cell *matCellDef="let detail" class="center">
+      <span>{{ detail.unitValue | currency }}</span>
+    </td>
+    <td mat-footer-cell *matFooterCellDef colspan="2">{{ sell.totalValue | currency }}</td>
+  </ng-container>
+  <ng-container matColumnDef="quantity">
+    <th mat-header-cell *matHeaderCellDef class="center">
+      <span i18n="Name of table header for product units in cart">Units</span>
+    </th>
+    <td mat-cell *matCellDef="let detail" class="center">
+      <span>{{ detail.units }}</span>
+    </td>
+    <td mat-footer-cell *matFooterCellDef hidden></td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+  <tr mat-footer-row *matFooterRowDef="tableColumns"></tr>
+</table>

@@ -24,12 +24,14 @@ import { ProductCardComponent } from './components/product-card/product-card.com
 import { ProductCategoryFormComponent } from './components/product-category-form/product-category-form.component';
 import { ProductCategorySelectorFormFieldComponent } from './components/product-category-selector-form-field/product-category-selector-form-field.component';
 import { ProductCategoryTreeComponent } from './components/product-category-tree/product-category-tree.component';
-import { ProductsDisplayComponent } from './components/products-display/products-display.component';
 import { ProductFiltersPanelComponent } from './components/product-filters-panel/product-filters-panel.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ProductListFormComponent } from './components/product-list-form/product-list-form.component';
+import { ProductsDisplayComponent } from './components/products-display/products-display.component';
 import { SalespersonFormComponent } from './components/salesperson-form/salesperson-form.component';
+import { SellDetailsTableComponent } from './components/sell-details-table/sell-details-table.component';
 import { SellFormComponent } from './components/sell-form/sell-form.component';
+import { SellInformationComponent } from './components/sell-information/sell-information.component';
 import { ShipperFormComponent } from './components/shipper-form/shipper-form.component';
 import { SlideshowComponent } from './components/slideshow/slideshow.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
@@ -66,6 +68,8 @@ const SHARED_DECLARATIONS = [
   ProductFormComponent,
   ProductListFormComponent,
   SalespersonFormComponent,
+  SellDetailsTableComponent,
+  SellInformationComponent,
   SellFormComponent,
   ShipperFormComponent,
   SlideshowComponent,
