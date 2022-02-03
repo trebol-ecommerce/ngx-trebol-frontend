@@ -27,7 +27,7 @@ export class Sell {
   shippingAddress?: Address;
   status?: string;
   taxValue?: number;
-  token?: number;
+  token?: string;
   totalItems?: number;
   totalValue?: number;
   transportValue?: number;
