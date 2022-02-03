@@ -6,10 +6,11 @@
  */
 
 mat-card {
-  width: 15rem;
-  height: 25rem;
-  display: flex;
-  flex-flow: column nowrap;
+  width: 13rem;
+  height: 20rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
   padding: 0;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -18,11 +19,8 @@ mat-card {
 .content {
   flex: 0 1 auto;
   cursor: pointer;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.5rem;
-  justify-items: center;
-  padding: 1rem 1rem 0;
+  padding: 1rem 0.5rem 0;
+  text-align: center;
 }
 .content:hover {
   background-color: rgba(0,0,0,0.2);
@@ -34,8 +32,8 @@ mat-card {
 
 .content mat-card-title,
 .content mat-card-subtitle {
-  width: 11rem;
-  margin: 0;
+  text-align: left;
+  margin: 0 1rem;
   white-space: pre-wrap;
 }
 .content mat-card-title {
@@ -47,21 +45,16 @@ mat-card {
   height: 3rem;
 }
 .content img {
-  height: 11rem;
+  height: 100px;
 }
 
 .footer {
-  flex: 0 0 4rem;
+  flex: 0 0 auto;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
   align-items: center;
-  padding: 0.5rem;
-}
-@media(min-width: 641px) {
-  .footer {
-    justify-content: space-between;
-  }
+  padding: 0 0.5rem 1rem;
 }
 
 .price {
@@ -75,11 +68,25 @@ mat-card {
 }
 
 .add-to-cart {
-  padding: 0.2rem 0.3rem;
-  width: auto;
+  box-shadow: none;
 }
-.add-to-cart mat-icon {
-  font-size: 2rem;
-  width: 2rem;
-  height: 2rem;
+
+@media(min-width: 641px) {
+  mat-card {
+    width: 13rem;
+    height: 24rem;
+  }
+
+  .content {
+    padding: 1rem 1rem 0;
+  }
+
+  .content img {
+    height: 11rem;
+  }
+
+  .footer {
+    justify-content: space-between;
+    padding: 0 1rem 1rem;
+  }
 }
