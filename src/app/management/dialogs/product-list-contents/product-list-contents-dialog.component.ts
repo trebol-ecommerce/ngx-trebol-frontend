@@ -64,7 +64,10 @@ export class ProductListContentsDialogComponent
 
   onClickAddProducts(): void {
     this.dialog.open(
-      ProductsArrayDialogComponent
+      ProductsArrayDialogComponent,
+      {
+        maxHeight: '90vh'
+      }
     ).afterClosed().pipe(
       switchMap((products?: Product[]) => (!!products && Array.isArray(products)) ?
         forkJoin(products.map(p => this.service.addProduct(p))) :
@@ -76,7 +79,10 @@ export class ProductListContentsDialogComponent
 
   onClickChooseProducts(): void {
     this.dialog.open(
-      ProductsArrayDialogComponent
+      ProductsArrayDialogComponent,
+      {
+        maxHeight: '90vh'
+      }
     ).afterClosed().pipe(
       switchMap((products?: Product[]) => (!!products && Array.isArray(products)) ?
         this.service.replaceProductsWith(products) :
