@@ -102,15 +102,13 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> </th>
           <td mat-cell *matCellDef="let i=index">
-            <div class="acciones">
-              <button mat-button mat-icon-button type="button"
-                color="warn"
-                aria-label="Don't add this product"
-                i18n-aria-label="dont add this product|Label for action button to unmark a product for addition details of a sell"
-                (click)="onClickDropProduct(i)">
-                <mat-icon>remove</mat-icon>
-              </button>
-            </div>
+            <button mat-button mat-icon-button type="button"
+              color="warn"
+              aria-label="Don't add this product"
+              i18n-aria-label="dont add this product|Label for action button to unmark a product for addition details of a sell"
+              (click)="onClickDropProduct(i)">
+              <mat-icon>remove</mat-icon>
+            </button>
           </td>
         </ng-container>
 
