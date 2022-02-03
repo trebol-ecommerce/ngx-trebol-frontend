@@ -59,6 +59,13 @@
   .previous-slide,
   .next-slide {
     position: absolute;
+    opacity: 0.4;
+    bottom: 50%;
+  }
+
+  .previous-slide:hover,
+  .next-slide:hover {
+    opacity: 1;
   }
 
   .previous-slide {
