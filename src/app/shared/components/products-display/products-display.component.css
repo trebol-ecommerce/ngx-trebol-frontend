@@ -53,12 +53,11 @@
   flex-flow: row nowrap;
   overflow: scroll;
   justify-content: initial;
-  padding: 1rem 0.5rem;
 }
 
-app-store-product-card {
+app-product-card {
   flex: 0 0 auto;
-  margin: 0.25rem;
+  margin: 0.75rem 0.5rem;
 }
 
 .paginator {
@@ -99,6 +98,10 @@ app-store-product-card {
 }
 
 @media(min-width: 641px) {
+  app-product-card {
+    margin: 1rem;
+  }
+
   .scroll-hint {
     display: none;
   }
@@ -107,25 +110,14 @@ app-store-product-card {
     box-shadow: inset 0px 0px 8px 4px rgba(0, 0, 0, 0.1);
   }
 
-  .wrapper.scrollable > .contents {
-    padding: 1rem 0.5rem 0.5rem;
-  }
-
   .paginator {
     padding: 1rem;
   }
 }
 
 @media(min-width: 1008px) {
-  .wrapper.scrollable {
-    padding: 1rem 0.5rem 0.5rem;
-  }
-
-  app-store-product-card {
-    margin: 0.5rem;
-  }
-  .wrapper.scrollable app-store-product-card {
-    margin: 0.5rem 1rem;
+  app-product-card {
+    margin: 1.5rem 1rem;
   }
 
   .paginator {

@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Sales data
   - Account profile
 - Logic for fetching receipt data
+- Several issues with responsive screens in frontpage
 
 ## [v2.0.0] - 2022-01-18
 

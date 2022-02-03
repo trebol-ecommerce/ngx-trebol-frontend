@@ -31,26 +31,28 @@ h2 {
 }
 
 .products {
-  margin: 0 auto;
-  max-width: 800px;
   flex: 1 1 auto;
   align-self: stretch;
-  padding: 0.5rem;
   justify-content: center;
   overflow: hidden;
+  max-width: 800px;
+  padding: 0 0.5rem;
+}
+
+.location {
+  width: 70%;
 }
 
 @media(min-width: 641px) {
   h2 {
     padding: 1rem;
   }
+}
 
-  app-product-filters-panel {
-    padding: 1rem;
-  }
-
+@media(min-width: 801px) {
   .products {
-    padding: 1rem;
+    padding: 0;
+    margin: 0 auto;
   }
 }
 
