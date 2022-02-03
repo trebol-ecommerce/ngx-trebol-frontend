@@ -6,9 +6,7 @@
  */
 
 :host {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-items: stretch;
+  text-align: center;
 }
 
 h2 {
@@ -16,7 +14,6 @@ h2 {
   color: black;
   vertical-align: middle;
   font-size: 24pt;
-  text-align: center;
 }
 
 form {
@@ -35,32 +32,27 @@ form > * {
   }
 }
 
-.password-form-group {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: space-around;
-  justify-items: stretch;
+.actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  justify-items: center;
 }
 
-.actions {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: space-around;
-  justify-items: stretch;
+.actions button {
+  width: 50%;
 }
+
 @media(min-width: 641px) {
   .actions {
+    display: flex;
     flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-around;
+    justify-items: stretch;
   }
-}
 
-.password-form-group>mat-form-field {
-  flex: 1 0 auto;
-}
-
-.password-form-group>button {
-  flex: 0 0 auto;
-  margin-left: 1rem;
+  .actions button {
+    width: auto;
+  }
 }
