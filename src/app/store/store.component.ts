@@ -9,6 +9,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { StoreCartService } from './store-cart.service';
 
 @Component({
@@ -20,6 +21,8 @@ export class StoreComponent
   implements OnDestroy {
 
   private cartIsEmptySubscription: Subscription;
+
+  readonly whatsapp = environment.whatsapp;
 
   cartIsEmpty = true;
 

@@ -36,6 +36,7 @@ import { SellInformationComponent } from './components/sell-information/sell-inf
 import { ShipperFormComponent } from './components/shipper-form/shipper-form.component';
 import { SlideshowComponent } from './components/slideshow/slideshow.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { WhatsappButtonComponent } from './components/whatsapp-button/whatsapp-button.component';
 import { AddressFormDialogComponent } from './dialogs/address-form/address-form-dialog.component';
 import { ConfirmationDialogComponent } from './dialogs/confirmation/confirmation-dialog.component';
 import { EditProfileFormDialogComponent } from './dialogs/edit-profile-form/edit-profile-form-dialog.component';
@@ -77,6 +78,7 @@ const SHARED_DECLARATIONS = [
   ShipperFormComponent,
   SlideshowComponent,
   UserFormComponent,
+  WhatsappButtonComponent,
   AddressFormDialogComponent,
   ConfirmationDialogComponent,
   EditProfileFormDialogComponent,

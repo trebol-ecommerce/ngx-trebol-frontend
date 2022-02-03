@@ -5,6 +5,12 @@
 export const environment = {
   production: false,
   googleMapsId: '',
+  whatsapp: {
+    enabled: false,
+    areaCode: '+56',
+    phone: '9 9999 9999',
+    urlSafePhone: '999999999'
+  },
   apiUrls: {
     access: '',
     account: '',

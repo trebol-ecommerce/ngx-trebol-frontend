@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Parameterizable content on the frontpage (settings can be configured using `environments`)
   - Location map (at the bottom; uses above mentioned Google Map iframe embed)
   - Banners (top and bottom of the page)
+  - Floating WhatsApp button
 
 ### Changed
 - `DataManagerComponentDirective<T>` now exposes `items$` as `Observable<any[]>` instead of `Observable<T[]>`

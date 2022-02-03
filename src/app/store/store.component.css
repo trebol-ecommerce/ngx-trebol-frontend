@@ -11,6 +11,13 @@
   flex-flow: column nowrap;
 }
 
+app-whatsapp-button {
+  position: fixed;
+  z-index: 4;
+  right: 1rem;
+  bottom: 1rem;
+}
+
 app-store-header {
   flex: 0 0 auto;
 }
@@ -22,4 +29,10 @@ app-store-header {
 
 app-store-footer {
   flex: 0 0 auto;
+}
+
+@media(min-width: 641px) {
+  app-whatsapp-button {
+    right: 2rem;
+  }
 }
