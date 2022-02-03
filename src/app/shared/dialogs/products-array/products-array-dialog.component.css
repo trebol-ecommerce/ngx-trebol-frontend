@@ -33,3 +33,8 @@ h2 {
 mat-expansion-panel, mat-card {
   margin: 1rem 0;
 }
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+}
