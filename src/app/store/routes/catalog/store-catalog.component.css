@@ -35,8 +35,8 @@ h2 {
   align-self: stretch;
   justify-content: center;
   overflow: hidden;
-  max-width: 800px;
-  padding: 0 0.5rem;
+  max-width: 90%;
+  margin: 0 auto;
 }
 
 .location {
@@ -51,8 +51,7 @@ h2 {
 
 @media(min-width: 801px) {
   .products {
-    padding: 0;
-    margin: 0 auto;
+    max-width: 70%;
   }
 }
 
