@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Account profile
 - Logic for fetching receipt data
 - Several issues with responsive screens in frontpage
+- Product form not loading images from upstream
 
 ## [v2.0.0] - 2022-01-18
 

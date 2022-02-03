@@ -89,8 +89,12 @@ export class ProductFormComponent
     // this.stock.reset('', { emitEvent: false });
     // this.criticalStock.reset('', { emitEvent: false });
     this.description.reset('', { emitEvent: false });
+    this.images = [];
     if (isJavaScriptObject(obj)) {
       this.formGroup.patchValue(obj);
+      if (Array.isArray(obj.images)) {
+        this.images = obj.images;
+      }
     }
   }
 
