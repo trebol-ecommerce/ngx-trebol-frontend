@@ -41,6 +41,6 @@ export class StoreComponent
   }
 
   ngOnDestroy(): void {
-    this.cartIsEmptySubscription.unsubscribe();
+    this.cartIsEmptySubscription?.unsubscribe();
   }
 }
