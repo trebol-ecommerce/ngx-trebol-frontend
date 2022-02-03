@@ -51,7 +51,8 @@
 }
 .wrapper.scrollable > .contents {
   flex-flow: row nowrap;
-  overflow: scroll;
+  overflow-x: scroll;
+  overflow-y: hidden;
   justify-content: initial;
 }
 
