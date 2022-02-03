@@ -24,7 +24,7 @@ export abstract class DataManagerComponentDirective<T>
 
   loading$: Observable<boolean>;
   busy$: Observable<boolean>;
-  items$: Observable<T[]>;
+  items$: Observable<any[]>;
   totalCount$: Observable<number>;
   canEdit$: Observable<boolean>;
   canAdd$: Observable<boolean>;
