@@ -29,6 +29,7 @@ export class StoreSearchService
   sortBy = 'name';
   order = 'asc';
 
+  readonly currentPage$ = this.currentPageSource.asObservable();
   readonly isLoadingSearch$ = this.isLoadingSearchSource.asObservable();
 
   constructor(

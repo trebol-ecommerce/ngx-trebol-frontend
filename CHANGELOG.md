@@ -21,6 +21,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Simple component for Google Maps iframe embeds
   - Includes pipe for trusting external resource urls (uses `DomSanitizer`)
 - Search bar component for the frontpage header
+- Search products page
+  - Can be accessed by clicking on the aforementioned search bar
+  - Allows filtering by category and/or product name
 - Parameterizable content on the frontpage (settings can be configured using `environments`)
   - Location map (at the bottom; uses above mentioned Google Map iframe embed)
   - Banners (top and bottom of the page)

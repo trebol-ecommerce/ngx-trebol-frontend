@@ -11,6 +11,7 @@ import { StoreCartReviewComponent } from './routes/cart-review/store-cart-review
 import { StoreCartReviewGuard } from './routes/cart-review/store-cart-review.guard';
 import { StoreCatalogComponent } from './routes/catalog/store-catalog.component';
 import { StoreReceiptComponent } from './routes/receipt/store-receipt.component';
+import { StoreSearchComponent } from './routes/search/store-search.component';
 import { StoreComponent } from './store.component';
 
 const storeRoutes: Routes = [
@@ -25,6 +26,10 @@ const storeRoutes: Routes = [
         path: 'cart',
         component: StoreCartReviewComponent,
         canActivate: [StoreCartReviewGuard]
+      },
+      {
+        path: 'search',
+        component: StoreSearchComponent
       },
       {
         path: 'receipt',

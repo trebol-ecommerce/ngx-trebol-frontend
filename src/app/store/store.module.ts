@@ -36,6 +36,7 @@ import { StoreCartReviewGuard } from './routes/cart-review/store-cart-review.gua
 import { StoreCatalogComponent } from './routes/catalog/store-catalog.component';
 import { StoreCatalogService } from './routes/catalog/store-catalog.service';
 import { StoreReceiptComponent } from './routes/receipt/store-receipt.component';
+import { StoreSearchComponent } from './routes/search/store-search.component';
 import { StoreCheckoutService } from './store-checkout.service';
 // import { StoreReceiptService } from './routes/receipt/store-receipt.service';
 import { StoreRoutingModule } from './store-routing.module';
@@ -74,7 +75,8 @@ const SNACKBAR_DEFAULTS = {
     StoreHeaderNavigationComponent,
     StoreHeaderMenuComponent,
     StoreHeaderLoginButtonComponent,
-    StoreHeaderSearchFormComponent
+    StoreHeaderSearchFormComponent,
+    StoreSearchComponent
   ],
   imports: [
     HttpClientModule,
