@@ -10,5 +10,5 @@ import { Product } from './Product';
 export class SellDetail {
   product: Partial<Product>;
   units: number;
-  unitValue: number;
+  unitValue?: number;
 }
