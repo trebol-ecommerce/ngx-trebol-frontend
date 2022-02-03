@@ -105,6 +105,10 @@
         <tr mat-row *matRowDef="let row; columns: productTableColumns;"></tr>
       </table>
     </div>
+    <div class="summary">
+      <b i18n="Label to hint users that they have selected a certain number of products">{{ totalProducts$ | async }} products selected</b>
+      <span i18n="Label to hint users that product lists do reject duplicates">Note: product lists omit duplicates</span>
+    </div>
     <div class="actions">
       <button mat-button mat-raised-button type="button"
         color="primary"

@@ -25,6 +25,7 @@ export class ProductsArrayDialogComponent
   availableProducts$: Observable<Product[]>;
   totalCount$: Observable<number>;
   productsArray$: Observable<Product[]>;
+  totalProducts$: Observable<number>;
   loading$: Observable<boolean>;
   isArrayEmpty$: Observable<boolean>;
   productTableColumns = ['name', 'barcode', 'price', 'actions'];
@@ -37,6 +38,7 @@ export class ProductsArrayDialogComponent
     this.totalCount$ = this.service.totalCount$.pipe();
     this.loading$ = this.service.loading$.pipe();
     this.productsArray$ = this.service.productsArray$.pipe();
+    this.totalProducts$ = this.service.productsArray$.pipe(map(arr => arr.length));
     this.isArrayEmpty$ = this.service.totalCount$.pipe(map(count => (count === 0)));
     this.service.pageSize = this.pageSizeOptions[0];
   }

@@ -40,6 +40,14 @@ app-product-filters-panel {
   width: 3rem;
 }
 
+.summary {
+  margin-top: 1rem;
+}
+.summary > * {
+  display: block;
+  text-align: center;
+}
+
 .actions {
   margin-top: 1rem;
   display: flex;
