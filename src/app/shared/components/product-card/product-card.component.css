@@ -19,7 +19,7 @@ mat-card {
 .content {
   flex: 0 1 auto;
   cursor: pointer;
-  padding: 1rem 0.5rem 0;
+  padding: 1rem 1rem 0;
   text-align: center;
 }
 .content:hover {
@@ -33,7 +33,7 @@ mat-card {
 .content mat-card-title,
 .content mat-card-subtitle {
   text-align: left;
-  margin: 0 1rem;
+  margin: 0;
   white-space: pre-wrap;
 }
 .content mat-card-title {
@@ -52,18 +52,18 @@ mat-card {
   flex: 0 0 auto;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  padding: 0 0.5rem 1rem;
+  padding: 0 0.75rem;
 }
 
 .price {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 900;
   background-color: #558b2f;
   color: white;
   padding: 0.25rem 1.5rem 0.25rem 1.5rem;
-  margin: 0 0.5rem;
+  margin-right: 0.5rem;
   border-radius: 4px;
 }
 
@@ -73,20 +73,18 @@ mat-card {
 
 @media(min-width: 641px) {
   mat-card {
-    width: 13rem;
     height: 24rem;
   }
 
-  .content {
+  /* .content {
     padding: 1rem 1rem 0;
-  }
+  } */
 
   .content img {
     height: 11rem;
   }
 
   .footer {
-    justify-content: space-between;
     padding: 0 1rem 1rem;
   }
 }
