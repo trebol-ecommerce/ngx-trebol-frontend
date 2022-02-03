@@ -7,6 +7,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Product } from 'src/models/entities/Product';
 import { ProductList } from 'src/models/entities/ProductList';
 import { StoreCartService } from '../../store-cart.service';
@@ -20,6 +21,8 @@ import { StoreCatalogService } from './store-catalog.service';
 export class StoreCatalogComponent
   implements OnInit {
 
+  readonly storeCatalogTopBannerImages = environment.staticImages.topBanners;
+  readonly storeCatalogBottomBannerImages = environment.staticImages.bottomBanners;
   loading$: Observable<boolean>;
   lists$: Observable<ProductList[]>;
 

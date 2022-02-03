@@ -24,6 +24,42 @@ export const environment = {
   },
   constraints: {
     maxIntegerValue: 2147483647
+  },
+  staticImages: {
+    topBanners: [
+      {
+        filename: 'banner-A.png',
+        url: 'https://fakeimg.pl/1200x450',
+        targetUrl: undefined
+      },
+      {
+        filename: 'banner-B.png',
+        url: 'https://fakeimg.pl/1200x450',
+        targetUrl: undefined
+      },
+      {
+        filename: 'banner-C.png',
+        url: 'https://fakeimg.pl/1200x450',
+        targetUrl: undefined
+      }
+    ],
+    bottomBanners: [
+      {
+        filename: 'BANNER-1.png',
+        url: 'https://fakeimg.pl/600x100',
+        targetUrl: undefined
+      },
+      {
+        filename: 'BANNER-2.png',
+        url: 'https://fakeimg.pl/600x100',
+        targetUrl: undefined
+      },
+      {
+        filename: 'BANNER-3.png',
+        url: 'https://fakeimg.pl/600x100',
+        targetUrl: undefined
+      },
+    ]
   }
 };
 
