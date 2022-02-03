@@ -19,7 +19,7 @@ export abstract class TransactionalDataManagerServiceDirective<T>
   abstract dataService: ITransactionalEntityDataApiService<T>;
 
   constructor(
-    private sharedDialogService: SharedDialogService
+    protected sharedDialogService: SharedDialogService
   ) {
     super();
   }
