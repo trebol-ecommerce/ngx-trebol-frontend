@@ -6,19 +6,14 @@
 -->
 
 <h2 mat-dialog-title i18n="Title of dialog prompt to add products into details of a sell">Add Products</h2>
-<app-centered-mat-spinner *ngIf="loading$ | async">
-</app-centered-mat-spinner>
-
-<div [hidden]="loading$ | async">
-  <mat-expansion-panel [expanded]="true">
-
-    <mat-expansion-panel-header
-      i18n="Title of widget displaying available products for addition to details of a sell">Available Products</mat-expansion-panel-header>
-
+<div class="main">
+  <div class="available">
+    <h3 i18n="Title of widget displaying available products for addition to details of a sell">Available Products</h3>
     <app-product-filters-panel (filtersChanges)="onFiltersChange($event)">
     </app-product-filters-panel>
-
-    <div class="product-table-wrapper">
+    <app-centered-mat-spinner *ngIf="loading$ | async">
+    </app-centered-mat-spinner>
+    <div *ngIf="(loading$ | async) === false" class="product-table-wrapper">
       <table mat-table [dataSource]="availableProducts$" matSort (matSortChange)="onSortChange($event)">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header
@@ -66,17 +61,11 @@
         [length]="totalCount$ | async">
       </mat-paginator>
     </div>
-
-  </mat-expansion-panel>
-
-  <mat-card>
-
-    <mat-card-header>
-      <mat-card-title
-        i18n="Title of widget displaying products marked for addition to details of a sell">Selected Products</mat-card-title>
-    </mat-card-header>
-
-    <mat-card-content class="product-table-wrapper">
+  </div>
+  <mat-divider vertical></mat-divider>
+  <div class="selected">
+    <h3 i18n="Title of widget displaying products marked for addition to details of a sell">Selected Products</h3>
+    <div class="product-table-wrapper">
       <table mat-table [dataSource]="productsArray$">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef
@@ -115,16 +104,16 @@
         <tr mat-header-row *matHeaderRowDef="productTableColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: productTableColumns;"></tr>
       </table>
-    </mat-card-content>
-  </mat-card>
-  <div class="actions">
-    <button mat-button mat-raised-button type="button"
-      color="primary"
-      [disabled]="isArrayEmpty$ | async"
-      [mat-dialog-close]="productsArray$ | async"
-      i18n="confirm|Label for action button to accept and proceed">Confirm</button>
-    <button mat-button mat-raised-button type="button"
-      mat-dialog-close
-      i18n="cancel|Label for action button to cancel and/or stop an operation">Cancel</button>
+    </div>
+    <div class="actions">
+      <button mat-button mat-raised-button type="button"
+        color="primary"
+        [disabled]="isArrayEmpty$ | async"
+        [mat-dialog-close]="productsArray$ | async"
+        i18n="confirm|Label for action button to accept and proceed">Confirm</button>
+      <button mat-button mat-raised-button type="button"
+        mat-dialog-close
+        i18n="cancel|Label for action button to cancel and/or stop an operation">Cancel</button>
+    </div>
   </div>
 </div>

@@ -5,9 +5,19 @@
  * https://opensource.org/licenses/MIT
  */
 
+:host {
+  position: relative;
+  overflow-y: auto;
+}
+
 h2 {
   margin-top: 0;
 }
+
+app-product-filters-panel {
+  margin-bottom: 1rem;
+}
+
 
 .product-table-wrapper {
   overflow: scroll;
@@ -30,11 +40,29 @@ h2 {
   width: 3rem;
 }
 
-mat-expansion-panel, mat-card {
-  margin: 1rem 0;
-}
-
 .actions {
+  margin-top: 1rem;
   display: flex;
   justify-content: space-around;
+}
+
+@media(min-width: 1008px) {
+  .main {
+    display: flex;
+  }
+
+  .main > mat-divider {
+    margin: 0 1rem;
+  }
+
+  .main > .available,
+  .main > .selected {
+    flex: 1 1 30rem;
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+  .product-table-wrapper {
+    flex: 1 0 auto;
+  }
 }
