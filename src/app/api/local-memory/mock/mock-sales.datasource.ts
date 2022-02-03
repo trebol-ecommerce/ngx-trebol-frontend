@@ -25,6 +25,11 @@ export const MOCK_SALES: Sell[] = [
     paymentType: 'WebPay Plus',
     billingType: BILLING_TYPE_INDIVIDUAL,
     status: MOCK_SELL_STATUSES.delivered,
+    totalItems: 5,
+    totalValue: ( 5000 + 12000 +
+      (MOCK_PRODUCTS[0].price * 4) +
+      MOCK_PRODUCTS[1].price
+    ),
     token: 'I6EqPVxQjqt0ZExl4vvnEYEq3q1Mnqi'
   },
   {
@@ -37,6 +42,10 @@ export const MOCK_SALES: Sell[] = [
     paymentType: 'WebPay Plus',
     billingType: BILLING_TYPE_INDIVIDUAL,
     status: MOCK_SELL_STATUSES.delivered,
+    totalItems: 2,
+    totalValue: ( 3000 + 8000 +
+      (MOCK_PRODUCTS[0].price * 2)
+    ),
     token: 'KuwfOAe5sayZHMOar5.5yb6RyahwdUW'
   },
   {
@@ -50,6 +59,10 @@ export const MOCK_SALES: Sell[] = [
     paymentType: 'WebPay Plus',
     billingType: BILLING_TYPE_INDIVIDUAL,
     status: MOCK_SELL_STATUSES.deliveryCancelled,
+    totalItems: 1,
+    totalValue: ( 3000 + 6000 +
+      MOCK_PRODUCTS[1].price
+    ),
     token: 'uDq8.SvZ4.cTbKLAkVFHJZy0cYiyKjW'
   },
   {
@@ -63,6 +76,10 @@ export const MOCK_SALES: Sell[] = [
     paymentType: 'WebPay Plus',
     billingType: BILLING_TYPE_INDIVIDUAL,
     status: MOCK_SELL_STATUSES.unpaid,
+    totalItems: 2,
+    totalValue: ( 3000 + 6000 +
+      (MOCK_PRODUCTS[0].price * 2)
+    ),
     token: 'lNeY5IlPL4dHC4XzdzjmK5I.4IvjnZC'
   },
   {
@@ -76,6 +93,11 @@ export const MOCK_SALES: Sell[] = [
     paymentType: 'WebPay Plus',
     billingType: BILLING_TYPE_INDIVIDUAL,
     status: MOCK_SELL_STATUSES.failed,
+    totalItems: 2,
+    totalValue: ( 3000 + 6000 +
+      MOCK_PRODUCTS[0].price +
+      MOCK_PRODUCTS[2].price
+    ),
     token: '3Db3oTVDoriYx8J//Ul52aDcGX1JxF.'
   }
 ];
