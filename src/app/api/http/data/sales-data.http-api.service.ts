@@ -7,16 +7,16 @@
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Sell } from 'src/models/entities/Sell';
-import { SellDetail } from 'src/models/entities/SellDetail';
-import { ICompositeEntityDataApiService } from '../../composite-entity.data-api.iservice';
+import { ISalesDataApiService } from '../../sales.data.api.iservice';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
 
 @Injectable()
 export class SalesDataHttpApiService
   extends TransactionalEntityDataHttpApiService<Sell>
-  implements ICompositeEntityDataApiService<Sell, SellDetail> {
+  implements ISalesDataApiService {
 
   constructor(http: HttpClient) {
     super(http, '/sales');
@@ -59,6 +59,27 @@ export class SalesDataHttpApiService
           buyOrder: String(sell.buyOrder)
         } })
       }
+    );
+  }
+
+  markAsConfirmed(sell: Sell): Observable<any> {
+    return this.http.post(
+      `${this.baseUrl}/confirmation`,
+      sell
+    );
+  }
+
+  markAsRejected(sell: Sell): Observable<any> {
+    return this.http.post(
+      `${this.baseUrl}/rejection`,
+      sell
+    );
+  }
+
+  markAsCompleted(sell: Sell): Observable<any> {
+    return this.http.post(
+      `${this.baseUrl}/completion`,
+      sell
     );
   }
 

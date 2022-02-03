@@ -6,17 +6,18 @@
  */
 
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { Sell } from 'src/models/entities/Sell';
-import { SellDetail } from 'src/models/entities/SellDetail';
-import { ICompositeEntityDataApiService } from '../../composite-entity.data-api.iservice';
+import { SELL_STATUS_NAMES_MAP } from 'src/text/sell-status-names';
+import { ISalesDataApiService } from '../../sales.data.api.iservice';
 import { MOCK_SALES } from '../mock/mock-sales.datasource';
 import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
 
 @Injectable()
 export class SalesDataLocalMemoryApiService
   extends TransactionalEntityDataLocalMemoryApiService<Sell>
-  implements ICompositeEntityDataApiService<Sell, SellDetail> {
+  implements ISalesDataApiService {
 
   protected items = MOCK_SALES.slice();
 
@@ -27,6 +28,24 @@ export class SalesDataLocalMemoryApiService
   fetchInnerDataFrom(sell: Sell) {
     return this.fetchExisting(sell).pipe(
       map(s => s.details)
+    );
+  }
+
+  markAsConfirmed(sell: Sell): Observable<any> {
+    return this.fetchExisting(sell).pipe(
+      tap(s => s.status = SELL_STATUS_NAMES_MAP.get(4))
+    );
+  }
+
+  markAsRejected(sell: Sell): Observable<any> {
+    return this.fetchExisting(sell).pipe(
+      tap(s => s.status = SELL_STATUS_NAMES_MAP.get(4))
+    );
+  }
+
+  markAsCompleted(sell: Sell): Observable<any> {
+    return this.fetchExisting(sell).pipe(
+      tap(s => s.status = SELL_STATUS_NAMES_MAP.get(4))
     );
   }
 
