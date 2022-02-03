@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Change property type of `token` in `Sell` model to `string`
 - Missing property `unitValue` in `SellDetail` model
+- Missing references in sales fake API
 
 ## [v2.0.0] - 2022-01-18
 
