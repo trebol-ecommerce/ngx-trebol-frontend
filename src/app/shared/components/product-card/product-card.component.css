@@ -28,6 +28,10 @@ mat-card {
   background-color: rgba(0,0,0,0.2);
 }
 
+.content mat-card-title {
+  font-size: 1rem;
+}
+
 .content mat-card-title,
 .content mat-card-subtitle {
   width: 11rem;
