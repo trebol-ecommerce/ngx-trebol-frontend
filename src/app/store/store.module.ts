@@ -18,7 +18,6 @@ import { StoreFooterComponent } from './components/footer/store-footer.component
 import { StoreHeaderBrandComponent } from './components/header/brand/store-header-brand.component';
 import { StoreHeaderLoginButtonComponent } from './components/header/login-button/store-header-login-button.component';
 import { StoreHeaderMenuComponent } from './components/header/menu/store-header-menu.component';
-import { StoreHeaderMiddleComponent } from './components/header/middle/store-header-middle.component';
 import { StoreHeaderNavigationComponent } from './components/header/navigation/store-header-navigation.component';
 import { StoreHeaderComponent } from './components/header/store-header.component';
 import { StoreLocationComponent } from './components/location/store-location.component';
@@ -71,7 +70,6 @@ const SNACKBAR_DEFAULTS = {
     StoreCompanyDetailsDialogComponent,
     StoreHeaderBrandComponent,
     StoreHeaderNavigationComponent,
-    StoreHeaderMiddleComponent,
     StoreHeaderMenuComponent,
     StoreHeaderLoginButtonComponent
   ],

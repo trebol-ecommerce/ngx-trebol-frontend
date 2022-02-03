@@ -18,6 +18,7 @@ import { AppService } from 'src/app/app.service';
 export class StoreHeaderComponent
   implements OnInit {
 
+  readonly middleLabel = $localize`:Title of application:Online store`;
   isLoggedIn$: Observable<boolean>;
 
   constructor(

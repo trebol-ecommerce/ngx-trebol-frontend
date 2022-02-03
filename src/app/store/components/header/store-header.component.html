@@ -7,7 +7,7 @@
 
 <app-store-header-brand></app-store-header-brand>
 <app-store-header-navigation></app-store-header-navigation>
-<app-store-header-middle></app-store-header-middle>
+<span class="middle">{{ middleLabel }}</span>
 <ng-container *ngIf="(isLoggedIn$ | async); else notLoggedIn">
   <app-store-header-menu></app-store-header-menu>
 </ng-container>
