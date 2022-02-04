@@ -16,7 +16,7 @@ export class GuestPublicLocalMemoryApiService
 
   constructor() { }
 
-  guestLogin(details: Person): Observable<boolean> {
-    return of(true);
+  guestLogin(details: Person): Observable<string> {
+    return of('test');
   }
 }
