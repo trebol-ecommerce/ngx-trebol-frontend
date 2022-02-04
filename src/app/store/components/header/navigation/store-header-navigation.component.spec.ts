@@ -7,6 +7,7 @@
 
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -30,6 +31,7 @@ describe('StoreHeaderNavigationComponent', () => {
       imports: [
         CommonModule,
         RouterTestingModule,
+        MatBadgeModule,
         MatButtonModule,
         MatIconModule
       ],

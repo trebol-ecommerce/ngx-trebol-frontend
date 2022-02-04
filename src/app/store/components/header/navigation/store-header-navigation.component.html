@@ -10,14 +10,17 @@
   i18n-aria-label="Label for link to navigate to storefront">
   <mat-icon>storefront</mat-icon>
 </a>
-<ng-container *ngIf="cartHasItems$ | async">
++<ng-container *ngIf="cartHasItems$ | async; else emptyCart">
   <a mat-button [routerLink]="['/store', 'cart']"
+    class="full cart"
     aria-label="Go to cart review"
     i18n-aria-label="Label for link to navigate to cart">
-    <mat-icon>shopping_cart</mat-icon>
-    <span class="cart-summary">
-      <span>{{ cartItemCountLabel$ | async }}</span>
-      <span>{{ (cartNetValue$ | async) | currency }}</span>
-    </span>
+    <mat-icon [matBadge]="cartItemCount$ | async">shopping_cart</mat-icon>
   </a>
 </ng-container>
+<ng-template #emptyCart>
+  <a mat-button disabled
+    class="empty cart">
+    <mat-icon  class="material-icons-outlined">shopping_cart</mat-icon>
+  </a>
+</ng-template>
