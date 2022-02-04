@@ -13,6 +13,7 @@ form {
 @media(min-width: 641px) {
   form {
     grid-gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
     grid-template-areas:
       'firstName firstName lastName lastName'
       'idNumber email email email'

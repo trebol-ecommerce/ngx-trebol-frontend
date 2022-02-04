@@ -50,6 +50,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Product form not loading images from upstream
 - Going backwards in a slideshow would omit the first index
 - Prematurely end guest sessions
+- Alignment of some components
+  - Acept/cancel buttons in dialog to select multiple products
+  - Fields in personal information form
 
 ## [v2.0.0] - 2022-01-18
 
