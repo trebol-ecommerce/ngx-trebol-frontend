@@ -7,7 +7,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
 import { StoreCartService } from '../../store-cart.service';
@@ -20,6 +20,8 @@ import { StoreSearchService } from '../../store-search.service';
 })
 export class StoreSearchComponent
   implements OnInit {
+
+  private reloadSub: Subscription;
 
   isLoadingSearch$: Observable<boolean>;
   searchResults$: Observable<Product[]>;
@@ -39,11 +41,16 @@ export class StoreSearchComponent
   }
 
   ngOnInit(): void {
-    this.searchService.reload();
+    this.reloadSub = this.searchService.reload().subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.reloadSub?.unsubscribe();
   }
 
   onPage(event: PageEvent): void {
-    this.searchService.paginate(event);
+    this.reloadSub?.unsubscribe();
+    this.reloadSub = this.searchService.paginate(event).subscribe();
   }
 
   onAddProductToCart(product: Product): void {
