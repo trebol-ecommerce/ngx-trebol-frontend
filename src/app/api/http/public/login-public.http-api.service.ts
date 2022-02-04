@@ -39,7 +39,7 @@ export class LoginPublicHttpApiService
         if (response.headers.has(this.authorizationHeader)) {
           return response.headers.get(this.authorizationHeader);
         } else if (response.body) {
-          const token = new RegExp('$Bearer .+^').test(response.body) ?
+          const token = new RegExp('^Bearer .+$').test(response.body) ?
                           response.body :
                           `Bearer ${response.body}`
           return token;
