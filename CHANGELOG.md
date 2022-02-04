@@ -46,6 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Several issues with responsive screens in frontpage
 - Product form not loading images from upstream
 - Going backwards in a slideshow would omit the first index
+- Prematurely end guest sessions
 
 ## [v2.0.0] - 2022-01-18
 

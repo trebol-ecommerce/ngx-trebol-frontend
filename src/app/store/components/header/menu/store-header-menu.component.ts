@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of } from 'rxjs';
-import { filter, mapTo, startWith, switchMap, tap } from 'rxjs/operators';
+import { filter, map, mapTo, startWith, switchMap, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
@@ -37,15 +37,15 @@ export class StoreHeaderMenuComponent
     this.userName$ = this.appService.userName$.pipe();
     this.canNavigateManagement$ = this.appService.isLoggedInChanges$.pipe(
       startWith(this.appService.isLoggedIn()),
-      switchMap(
-        (isLoggedIn: boolean) => {
-          if (!isLoggedIn) {
-            return of(false);
-          } else {
-            return this.appService.getAuthorizedAccess().pipe(mapTo(true));
-          }
+      switchMap(isLoggedIn => {
+        if (!isLoggedIn) {
+          return of(false);
+        } else {
+          return this.appService.getAuthorizedAccess().pipe(
+            map(access => (access?.routes?.length > 0))
+          );
         }
-      )
+      })
     );
   }
 
