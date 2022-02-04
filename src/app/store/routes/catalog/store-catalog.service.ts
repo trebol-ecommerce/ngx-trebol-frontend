@@ -65,7 +65,7 @@ export class StoreCatalogService
       [],
       {
         relativeTo: this.route,
-        queryParams: { barcode: p.barcode },
+        queryParams: { viewingProduct: p.barcode },
         queryParamsHandling: 'merge'
       }
     );
@@ -73,9 +73,9 @@ export class StoreCatalogService
 
   private checkRouteForProductIdParam(): void {
     this.queryParamsSubscription = this.route.queryParamMap.pipe(
-      switchMap((params) => (params.has('barcode')) ?
+      switchMap((params) => (params.has('viewingProduct')) ?
         this.productsApiService.fetchExisting({
-          barcode: params.get('barcode')
+          barcode: params.get('viewingProduct')
         }).pipe(
           switchMap(p => this.promptProductDetails(p))
         ) :
@@ -93,7 +93,16 @@ export class StoreCatalogService
         data: dialogData
       }
     ).afterClosed().pipe(
-      tap(() => this.router.navigate([], { relativeTo: this.route, queryParams: {} }))
+      tap(() => this.router.navigate(
+        [],
+        {
+          relativeTo: this.route,
+          queryParams: {
+            viewingProduct: undefined
+          },
+          queryParamsHandling: 'merge'
+        }
+      ))
     );
   }
 

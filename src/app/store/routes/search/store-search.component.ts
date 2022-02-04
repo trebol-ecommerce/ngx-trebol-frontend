@@ -12,6 +12,7 @@ import { map } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreSearchService } from '../../store-search.service';
+import { StoreCatalogService } from '../catalog/store-catalog.service';
 
 @Component({
   selector: 'app-store-search',
@@ -29,7 +30,8 @@ export class StoreSearchComponent
 
   constructor(
     private searchService: StoreSearchService,
-    private cartService: StoreCartService
+    private cartService: StoreCartService,
+    private catalogService: StoreCatalogService
   ) {
     this.isLoadingSearch$ = this.searchService.isLoadingSearch$.pipe();
     this.searchResults$ = this.searchService.currentPage$.pipe(
@@ -56,4 +58,9 @@ export class StoreSearchComponent
   onAddProductToCart(product: Product): void {
     this.cartService.addProductToCart(product);
   }
+
+  onViewProduct(product: Product): void {
+    this.catalogService.viewProduct(product);
+  }
+
 }

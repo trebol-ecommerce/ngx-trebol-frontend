@@ -27,9 +27,14 @@ export class ProductsDisplayComponent {
 
   @Output() page = new EventEmitter<PageEvent>();
   @Output() addProductToCart = new EventEmitter<Product>();
+  @Output() viewProduct = new EventEmitter<Product>();
 
   onAddProductToCart(product: Product): void {
     this.addProductToCart.emit(product);
+  }
+
+  onViewProduct(product: Product): void {
+    this.viewProduct.emit(product);
   }
 
   onPage(event: PageEvent): void {

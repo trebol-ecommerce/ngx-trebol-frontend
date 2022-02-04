@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Contact information in footer (email, phone number)
 - Two-way binding of state and query params in frontpage. Implemented states are:
   - Searching products by name and/or by category
+  - Viewing individual products
 
 ### Changed
 - `DataManagerComponentDirective<T>` now exposes `items$` as `Observable<any[]>` instead of `Observable<T[]>`

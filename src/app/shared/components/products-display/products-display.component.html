@@ -15,7 +15,8 @@
       *ngFor="let product of products"
       [product]="product"
       [showAddToCartButton]="showAddToCartButtons"
-      (addToCart)="onAddProductToCart(product)">
+      (addToCart)="onAddProductToCart(product)"
+      (view)="onViewProduct(product)">
     </app-product-card>
   </div>
 </div>

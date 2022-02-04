@@ -14,6 +14,7 @@ import { IProductListContentsDataApiService } from 'src/app/api/transactional-pr
 import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
 import { ProductList } from 'src/models/entities/ProductList';
+import { StoreCatalogService } from '../../routes/catalog/store-catalog.service';
 
 @Component({
   selector: 'app-store-product-list-contents-display',
@@ -38,7 +39,8 @@ export class StoreProductListContentsDisplayComponent
   totalCount$: Observable<number>;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductLists) private productListApiService: IProductListContentsDataApiService
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductLists) private productListApiService: IProductListContentsDataApiService,
+    private catalogService: StoreCatalogService
   ) {
     this.products$ = this.page$.pipe(map(page => page.items));
     this.totalCount$ = this.page$.pipe(map(page => page.totalCount));
@@ -60,6 +62,10 @@ export class StoreProductListContentsDisplayComponent
 
   onAddProductToCart(product: Product): void {
     this.addProductToCart.emit(product);
+  }
+
+  onViewProduct(product: Product): void {
+    this.catalogService.viewProduct(product);
   }
 
   private reloadItems() {
