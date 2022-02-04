@@ -12,7 +12,7 @@ import { BehaviorSubject, from, ReplaySubject } from "rxjs";
 import { switchMap, tap } from "rxjs/operators";
 import { DataPage } from "src/models/DataPage";
 import { Product } from "src/models/entities/Product";
-import { ProductSearchQuery } from "src/models/StoreSearchQuery";
+import { ProductSearchQuery } from "src/models/ProductSearchQuery";
 import { API_SERVICE_INJECTION_TOKENS } from "../api/api-service-injection-tokens";
 import { ITransactionalEntityDataApiService } from "../api/transactional-entity.data-api.iservice";
 

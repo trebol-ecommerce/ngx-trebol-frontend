@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { ProductCategoryPickerDialogComponent } from 'src/app/shared/dialogs/product-category-picker/product-category-picker-dialog.component';
-import { ProductSearchQuery } from 'src/models/StoreSearchQuery';
+import { ProductSearchQuery } from 'src/models/ProductSearchQuery';
 import { StoreSearchService } from '../../../store-search.service';
 
 @Component({
