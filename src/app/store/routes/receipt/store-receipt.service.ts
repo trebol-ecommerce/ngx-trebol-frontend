@@ -24,26 +24,14 @@ export class StoreReceiptService {
   date$ = this.receipt$.pipe(pluck('date'));
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.receipt) private receiptApiService: IReceiptPublicApiService,
-    private route: ActivatedRoute,
-    private router: Router
+    @Inject(API_SERVICE_INJECTION_TOKENS.receipt) private receiptApiService: IReceiptPublicApiService
   ) { }
 
   /**
    * Request receipt metadata reading the transaction token from query parameters.
    * If it fails or the token is falsy, redirects user away from receipt page.
    */
-  fetchReceipt() {
-    return this.route.queryParamMap.pipe(
-      take(1),
-      switchMap(queryParams => {
-        const token = queryParams.get('token');
-        return (!token) ?
-          throwError({ status: 500 }) :
-          this.receiptApiService.fetchTransactionReceiptByToken(token);
-      }),
-      tap(receipt => this.receiptSource.next(receipt)),
-      catchError(() => from(this.router.navigateByUrl('/')))
-    );
+  fetchReceipt(token: string) {
+    return this.receiptApiService.fetchTransactionReceiptByToken(token);
   }
 }

@@ -38,10 +38,11 @@ import { StoreCatalogService } from './routes/catalog/store-catalog.service';
 import { StoreReceiptComponent } from './routes/receipt/store-receipt.component';
 import { StoreSearchComponent } from './routes/search/store-search.component';
 import { StoreCheckoutService } from './store-checkout.service';
-// import { StoreReceiptService } from './routes/receipt/store-receipt.service';
+import { StoreReceiptService } from './routes/receipt/store-receipt.service';
 import { StoreRoutingModule } from './store-routing.module';
 import { StoreSearchService } from './store-search.service';
 import { StoreComponent } from './store.component';
+import { StoreReceiptCardComponent } from './routes/receipt/receipt-card/store-receipt-card.component';
 
 
 const SNACKBAR_DEFAULTS = {
@@ -62,6 +63,7 @@ const SNACKBAR_DEFAULTS = {
     StoreCheckoutRequestFormComponent,
     StoreLocationComponent,
     StoreReceiptComponent,
+    StoreReceiptCardComponent,
     StoreReceiptDetailsTableComponent,
     StoreLoginFormDialogComponent,
     StoreGuestPromptDialogComponent,
@@ -86,7 +88,7 @@ const SNACKBAR_DEFAULTS = {
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: SNACKBAR_DEFAULTS},
     StoreCheckoutService,
-    // StoreReceiptService,
+    StoreReceiptService,
     StoreCatalogService,
     StoreSearchService,
     StoreCartReviewGuard

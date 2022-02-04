@@ -109,6 +109,26 @@
             },
             "es-CL": {
               "localize": ["es-CL"]
+            },
+            "localhost-staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.localhost.ts"
+                },
+                {
+                  "replace": "src/environments/environment-modules.ts",
+                  "with": "src/environments/environment-modules.prod.ts"
+                }
+              ],
+              "localize": ["es-CL"],
+              "optimization": false,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": false,
+              "vendorChunk": false,
+              "buildOptimizer": false
             }
           },
           "defaultConfiguration": ""
@@ -130,6 +150,9 @@
             },
             "es-CL": {
               "browserTarget": "ngx-trebol-frontend:build:es-CL"
+            },
+            "localhost-staging": {
+              "browserTarget": "ngx-trebol-frontend:build:localhost-staging"
             }
           }
         },

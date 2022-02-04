@@ -5,7 +5,10 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription, ReplaySubject, BehaviorSubject, from } from 'rxjs';
+import { take, switchMap, tap, catchError } from 'rxjs/operators';
 import { Receipt } from 'src/models/Receipt';
 import { StoreReceiptService } from './store-receipt.service';
 
@@ -15,16 +18,48 @@ import { StoreReceiptService } from './store-receipt.service';
   styleUrls: ['./store-receipt.component.css']
 })
 export class StoreReceiptComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
 
-  loading = true;
-  receipt: Receipt | null;
+  private loadSubscription: Subscription;
+  private receiptSource = new ReplaySubject<Receipt>(1);
+  private loadingSource = new BehaviorSubject(true);
+  loading$ = this.loadingSource.asObservable();
+  receipt$ = this.receiptSource.asObservable();
 
   constructor(
-    private service: StoreReceiptService
+    private service: StoreReceiptService,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.service.fetchReceipt().subscribe();
+    this.loadReceipt();
   }
+
+  ngOnDestroy(): void {
+    this.loadSubscription?.unsubscribe();
+    this.receiptSource.complete();
+  }
+
+  private loadReceipt() {
+    this.loadSubscription = this.route.queryParamMap.pipe(
+      take(1),
+      switchMap(queryParams => {
+        const token = queryParams.get('token');
+        if (!token) {
+          return from(this.router.navigateByUrl('/'));
+        } else {
+          return this.service.fetchReceipt(token).pipe(
+            tap(receipt => {
+              this.receiptSource.next(receipt);
+              this.loadingSource.next(false);
+            })
+          );
+        }
+      }),
+      catchError(() => from(this.router.navigateByUrl('/')))
+    ).subscribe();
+  }
+
+
 }

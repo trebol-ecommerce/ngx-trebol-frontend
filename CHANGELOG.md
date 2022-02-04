@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Hide frontpage heading
 - Replace title in frontpage header with search bar
 - `AppService` now exposes an `userName$` observable
+- Refactored receipt page to have its card as a separate component
 
 ### Fixed
 - Change property type of `token` in `Sell` model to `string`
