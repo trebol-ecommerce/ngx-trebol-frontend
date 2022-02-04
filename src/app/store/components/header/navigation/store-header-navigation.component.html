@@ -10,7 +10,7 @@
   i18n-aria-label="Label for link to navigate to storefront">
   <mat-icon>storefront</mat-icon>
 </a>
-+<ng-container *ngIf="cartHasItems$ | async; else emptyCart">
+<ng-container *ngIf="cartHasItems$ | async; else emptyCart">
   <a mat-button [routerLink]="['/store', 'cart']"
     class="full cart"
     aria-label="Go to cart review"
