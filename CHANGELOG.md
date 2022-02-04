@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Logic for fetching receipt data
 - Several issues with responsive screens in frontpage
 - Product form not loading images from upstream
+- Going backwards in a slideshow would omit the first index
 
 ## [v2.0.0] - 2022-01-18
 

@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { BehaviorSubject, interval, Observable, Subscription } from 'rxjs';
 import { delay, mapTo, tap } from 'rxjs/operators';
 import { fadeInOut } from 'src/animations/fadeInOut';
@@ -61,7 +61,7 @@ export class SlideshowComponent
   }
 
   slideBackwards(): void {
-    if (this.currentIndex > 1) {
+    if (this.currentIndex > 0) {
       this.currentIndex--;
     } else {
       this.currentIndex = this.images.length - 1;
