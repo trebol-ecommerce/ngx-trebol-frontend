@@ -8,6 +8,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from 'src/models/entities/Product';
+import { ProductSearchQuery } from 'src/models/ProductSearchQuery';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
 
 @Injectable()
@@ -50,5 +51,18 @@ export class ProductsDataHttpApiService
         } })
       }
     );
+  }
+
+  protected makeHttpParams(pageIndex: number, pageSize: number, sortBy?: string, order?: string, filters?: Partial<ProductSearchQuery>) {
+    let params = super.makeHttpParams(pageIndex, pageSize, sortBy, order, filters);
+
+    if (params.has('nameLike') && !filters.nameLike) {
+      params = params.delete('nameLike');
+    }
+    if (params.has('categoryCode') && !filters.categoryCode) {
+      params = params.delete('categoryCode');
+    }
+
+    return params;
   }
 }
