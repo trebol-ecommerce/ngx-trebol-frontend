@@ -21,7 +21,6 @@ app-store-header-navigation {
 }
 
 app-store-header-search-form {
-  flex: 1 1 auto;
   margin: 0 0.5rem;
   align-self: center;
 }
@@ -45,21 +44,8 @@ app-store-header-login-button {
 }
 
 @media(min-width: 641px) {
-  .middle {
-    width: 100%;
-    display: inline;
-    position: absolute;
-    text-align: center;
-    align-self: center;
-  }
-
   app-store-header-search-form {
-    margin: 0 1rem;
-  }
-}
-
-@media(min-width: 1008px) {
-  .middle {
-    font-size: 1.75rem;
+    flex: 1 0 auto;
+    margin: 0.5rem 1rem;
   }
 }
