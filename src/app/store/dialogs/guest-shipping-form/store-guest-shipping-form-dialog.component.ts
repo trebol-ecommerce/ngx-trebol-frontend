@@ -8,7 +8,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Subject } from 'rxjs';
+import { Subject, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { Person } from 'src/models/entities/Person';
 
@@ -44,16 +45,13 @@ export class StoreGuestShippingFormDialogComponent
 
   onSubmit(): void {
     this.savingSource.next(true);
-    this.appService.guestLogin(this.person.value).subscribe(
-      success => {
-        if (success) {
-          this.dialog.close();
-        }
-      },
-      () => {
+    this.appService.guestLogin(this.person.value).pipe(
+      tap(() => this.dialog.close()),
+      catchError(err => {
         this.savingSource.next(false);
-      }
-    );
+        return throwError(err);
+      })
+    ).subscribe();
   }
 
   onCancel(): void {
