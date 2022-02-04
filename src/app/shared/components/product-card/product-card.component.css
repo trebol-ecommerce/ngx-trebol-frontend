@@ -23,7 +23,10 @@ mat-card {
   text-align: center;
 }
 .content:hover {
-  background-color: rgba(0,0,0,0.2);
+  background: linear-gradient(180deg,
+                              rgba(199,199,199,1) 0%,
+                              rgba(255,255,255,1) 80%,
+                              rgba(255,255,255,1) 100%);
 }
 
 .content mat-card-title {
