@@ -34,6 +34,12 @@ h3 {
   margin: 10rem 0;
 }
 
+.empty mat-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 3.5rem;
+}
+
 app-product-card {
   margin: 0.25rem;
 }
