@@ -53,7 +53,7 @@ export class StoreCheckoutService {
     }
 
     const shipping = checkoutRequestData.shipping;
-    if (shipping.requestShipping && shipping.shippingAddress) {
+    if (shipping?.requestShipping && shipping?.shippingAddress) {
       target.shippingAddress = shipping.shippingAddress;
     }
 
