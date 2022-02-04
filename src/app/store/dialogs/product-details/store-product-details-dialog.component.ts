@@ -7,9 +7,8 @@
 
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Observable, ReplaySubject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { SellDetail } from 'src/models/entities/SellDetail';
+import { Observable, Subject, Subscription } from 'rxjs';
+import { map, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreProductDetailsDialogData } from './StoreProductDetailsDialogData';
 
@@ -21,10 +20,9 @@ import { StoreProductDetailsDialogData } from './StoreProductDetailsDialogData';
 export class StoreProductDetailsDialogComponent
   implements OnInit, OnDestroy {
 
-  private matchingCartSellDetailSource = new ReplaySubject<SellDetail>(1);
+  private selfChangeTrigger = new Subject<void>();
   private matchingCartIndex: number;
-
-  matchingCartSellDetail$ = this.matchingCartSellDetailSource.asObservable();
+  private cartDetailsSub: Subscription;
 
   productNotInCart$: Observable<boolean>;
   productUnitsInCart$: Observable<number>;
@@ -35,25 +33,23 @@ export class StoreProductDetailsDialogComponent
   ) { }
 
   ngOnInit(): void {
-    this.productNotInCart$ = this.matchingCartSellDetail$.pipe(map(d => d === null));
-    this.productUnitsInCart$ = this.matchingCartSellDetail$.pipe(
-      map(d => d !== null ? d.units : 0)
+    this.productUnitsInCart$ = this.selfChangeTrigger.pipe(
+      startWith(void 0),
+      switchMap(() => this.cartService.cartDetails$.pipe(take(1))),
+      map(details => details[this.matchingCartIndex]),
+      map(d => (d ? d.units : 0))
     );
 
-    this.cartService.cartDetails$.pipe(
+    this.cartDetailsSub = this.cartService.cartDetails$.pipe(
       tap(details => {
-        const index = details.findIndex(d => (d.product?.barcode === this.data.product.barcode));
-        if (index !== -1) {
-          this.matchingCartSellDetailSource.next(details[index]);
-        } else {
-          this.matchingCartSellDetailSource.next(null);
-        }
+        this.matchingCartIndex = details.findIndex(d => (d.product?.barcode === this.data.product.barcode));
       })
     ).subscribe();
   }
 
   ngOnDestroy(): void {
-    this.matchingCartSellDetailSource.complete();
+    this.cartDetailsSub?.unsubscribe();
+    this.selfChangeTrigger.complete();
   }
 
   onClickIncreaseProductQuantity(): void {
@@ -62,9 +58,14 @@ export class StoreProductDetailsDialogComponent
     } else {
       this.cartService.addProductToCart(this.data.product);
     }
+    this.selfChangeTrigger.next();
   }
+
   onClickDecreaseProductQuantity(): void {
-    this.cartService.decreaseProductUnits(this.matchingCartIndex);
+    if (this.matchingCartIndex !== -1) {
+      this.cartService.decreaseProductUnits(this.matchingCartIndex);
+      this.selfChangeTrigger.next();
+    }
   }
 
 }
