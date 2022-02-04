@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Location map (at the bottom; uses above mentioned Google Map iframe embed)
   - Banners (top and bottom of the page)
   - Floating WhatsApp button
+  - Contact information in footer (email, phone number)
 
 ### Changed
 - `DataManagerComponentDirective<T>` now exposes `items$` as `Observable<any[]>` instead of `Observable<T[]>`

@@ -6,12 +6,93 @@
  */
 
 :host {
+  display: block;
+}
+
+.contact,
+.lower {
   display: grid;
-  gap: 0.5rem;
+  gap: 1rem;
   text-align: center;
+}
+
+.contact,
+.social,
+.lower {
   padding: 1rem 0;
 }
 
-p {
-  margin: 0;
+.lower p {
+  margin: 0 1rem;
+}
+
+.contact > div > *,
+.social > * {
+  margin: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.contact > .email > a {
+  align-items: flex-end;
+}
+
+.contact > div > * > .icon {
+  margin-right: 0.5rem;
+}
+
+.social > ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  margin: 0.5rem 1rem;
+  padding: 0;
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+  font-size: 1rem;
+}
+
+.social .icon {
+  width: 2rem;
+  height: 2rem;
+  font-size: 2rem;
+}
+
+@media(min-width: 641px) {
+  :host {
+    padding: 4rem 0 2rem;
+  }
+
+  .contact,
+  .social > ul {
+    grid-auto-flow: column;
+    justify-content: center;
+  }
+
+  .contact {
+    gap: 3rem;
+  }
+
+  .social > ul {
+    gap: 1rem;
+  }
+
+  .lower p {
+    margin: 0;
+  }
+}
+
+
+@media(min-width: 1008px) {
+  .contact {
+    gap: 5rem;
+  }
+
+  mat-divider {
+    width: 75%;
+    margin: auto;
+  }
 }

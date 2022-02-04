@@ -15,7 +15,10 @@ import { environment } from 'src/environments/environment';
 })
 export class StoreFooterComponent {
 
-  footerParagraphs = environment.labels.footerParagraphs;
+  readonly footerParagraphs = environment.labels.footerParagraphs;
+  readonly whatsappUrlSafeNumber = `${environment.whatsapp.areaCode}${environment.whatsapp.urlSafePhone}`;
+  readonly whatsappNumber = `${environment.whatsapp.areaCode} ${environment.whatsapp.phone}`;
+  readonly contactInfo = environment.contactInfo;
 
   constructor() { }
 }
