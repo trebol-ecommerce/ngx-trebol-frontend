@@ -12,6 +12,7 @@ import { Subject, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { Person } from 'src/models/entities/Person';
+import { StoreCartService } from '../../store-cart.service';
 
 @Component({
   selector: 'app-store-guest-shipping-form-dialog',
@@ -32,7 +33,8 @@ export class StoreGuestShippingFormDialogComponent
   constructor(
     private appService: AppService,
     private dialog: MatDialogRef<StoreGuestShippingFormDialogComponent>,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private cartService: StoreCartService
   ) {
     this.formGroup = this.formBuilder.group({
       person: [new Person()]
@@ -46,7 +48,10 @@ export class StoreGuestShippingFormDialogComponent
   onSubmit(): void {
     this.savingSource.next(true);
     this.appService.guestLogin(this.person.value).pipe(
-      tap(() => this.dialog.close()),
+      tap(() => {
+        this.cartService.checkoutRequestData.customer = this.person.value;
+        this.dialog.close();
+      }),
       catchError(err => {
         this.savingSource.next(false);
         return throwError(err);
