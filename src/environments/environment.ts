@@ -36,17 +36,17 @@ export const environment = {
       {
         filename: 'banner-A.png',
         url: 'https://fakeimg.pl/1200x450',
-        targetUrl: undefined
+        targetUrl: '/store/search?categoryCode=90f4-5d9395ed3c75'
       },
       {
         filename: 'banner-B.png',
         url: 'https://fakeimg.pl/1200x450',
-        targetUrl: undefined
+        targetUrl: '/store/search?categoryCode=8381-f3d0ea2535f5'
       },
       {
         filename: 'banner-C.png',
         url: 'https://fakeimg.pl/1200x450',
-        targetUrl: undefined
+        targetUrl: '/store/search?categoryCode=aa56-96c85823cd86'
       }
     ],
     bottomBanners: [

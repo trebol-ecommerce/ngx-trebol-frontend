@@ -13,7 +13,9 @@
       [ngStyle]="{ width: slideWidth, height: slideHeight }"
       [class.active]="(currentIndex$ | async) === i">
       <img [src]="image.url"
-        [@fadeInOut]="((currentIndex$ | async) !== i) ? 'transparent' : 'opaque'" />
+        [@fadeInOut]="((currentIndex$ | async) !== i) ? 'transparent' : 'opaque'"
+        [class.linkable]="!!image.targetUrl"
+        (click)="onClickImage(image)" />
       <button type="button" class="remove-slide" *ngIf="editable"
         mat-mini-fab
         color="warn"

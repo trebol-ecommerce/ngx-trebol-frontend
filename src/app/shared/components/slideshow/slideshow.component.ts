@@ -6,6 +6,7 @@
  */
 
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, interval, Observable, Subscription } from 'rxjs';
 import { delay, mapTo, tap } from 'rxjs/operators';
 import { fadeInOut } from 'src/animations/fadeInOut';
@@ -38,7 +39,9 @@ export class SlideshowComponent
   @Output() add = new EventEmitter<void>();
   currentIndex$ = this.currentIndexSource.asObservable();
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     if (this.autocycle) {
@@ -48,6 +51,12 @@ export class SlideshowComponent
 
   ngOnDestroy(): void {
     this.stopAutoRotation();
+  }
+
+  onClickImage(img: Image) {
+    if (img.targetUrl) {
+      this.router.navigateByUrl(img.targetUrl);
+    }
   }
 
   slideForwards(): void {

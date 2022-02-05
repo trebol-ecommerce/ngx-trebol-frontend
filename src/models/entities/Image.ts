@@ -10,4 +10,5 @@ export class Image{
   url: string;
   code?: string;
   file?: File; // TODO refactor this out
+  targetUrl?: string;
 }
