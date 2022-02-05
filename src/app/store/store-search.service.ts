@@ -37,6 +37,7 @@ export class StoreSearchService
     private route: ActivatedRoute,
     private router: Router
   ) {
+    this.readQueryParams();
   }
 
   ngOnDestroy(): void {

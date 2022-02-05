@@ -40,6 +40,7 @@ export class StoreSearchComponent
     this.totalCount$ = this.searchService.currentPage$.pipe(
       map(page => page.totalCount)
     );
+    this.searchService.readQueryParams();
   }
 
   ngOnInit(): void {
