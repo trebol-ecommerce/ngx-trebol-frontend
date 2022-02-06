@@ -9,6 +9,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { DataPage } from 'src/models/DataPage';
 import { Sell } from 'src/models/entities/Sell';
 import { ISalesDataApiService } from '../../sales.data.api.iservice';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
@@ -23,13 +24,15 @@ export class SalesDataHttpApiService
   }
 
   fetchExisting(sell: Partial<Sell>) {
-    return this.http.get<Sell>(
+    return this.http.get<DataPage<Sell>>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
           buyOrder: String(sell.buyOrder)
         } })
       }
+    ).pipe(
+      map(page => page.items[0])
     );
   }
 

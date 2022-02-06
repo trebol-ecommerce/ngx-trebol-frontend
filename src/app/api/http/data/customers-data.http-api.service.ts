@@ -7,6 +7,8 @@
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { DataPage } from 'src/models/DataPage';
 import { Customer } from 'src/models/entities/Customer';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
 
@@ -19,13 +21,15 @@ export class CustomersDataHttpApiService
   }
 
   fetchExisting(customer: Customer) {
-    return this.http.get<Customer>(
+    return this.http.get<DataPage<Customer>>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
           idNumber: String(customer.person.idNumber)
         } })
       }
+    ).pipe(
+      map(page => page.items[0])
     );
   }
 

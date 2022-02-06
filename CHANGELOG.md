@@ -47,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Product cards hovered in frontpage use vertical gradient as a background instead of a solid color
 
 ### Fixed
+- Individual item fetching in HTTP API (used when editing any data)
 - Change property type of `token` in `Sell` model to `string`
 - Missing (optional) property `unitValue` in `SellDetail` model
 - Missing references in fake APIs

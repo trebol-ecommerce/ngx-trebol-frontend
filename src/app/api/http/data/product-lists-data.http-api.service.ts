@@ -8,6 +8,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
@@ -27,13 +28,15 @@ export class ProductListsDataHttpApiService
   }
 
   fetchExisting(list: Partial<ProductList>): Observable<ProductList> {
-    return this.http.get<ProductList>(
+    return this.http.get<DataPage<ProductList>>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
           code: list.code
         } })
       }
+    ).pipe(
+      map(page => page.items[0])
     );
   }
 

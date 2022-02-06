@@ -8,7 +8,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { DataPage } from 'src/models/DataPage';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
 
@@ -21,13 +23,15 @@ export class ProductCategoriesDataHttpApiService
   }
 
   fetchExisting(category: Partial<ProductCategory>): Observable<ProductCategory> {
-    return this.http.get<ProductCategory>(
+    return this.http.get<DataPage<ProductCategory>>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
           code: String(category.code)
         } })
       }
+    ).pipe(
+      map(page => page.items[0])
     );
   }
 

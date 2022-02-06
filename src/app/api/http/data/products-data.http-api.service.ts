@@ -7,6 +7,8 @@
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
 import { ProductSearchQuery } from 'src/models/ProductSearchQuery';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
@@ -20,13 +22,15 @@ export class ProductsDataHttpApiService
   }
 
   fetchExisting(product: Partial<Product>) {
-    return this.http.get<Product>(
+    return this.http.get<DataPage<Product>>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
           barcode: String(product.barcode)
         } })
       }
+    ).pipe(
+      map(page => page.items[0])
     );
   }
 

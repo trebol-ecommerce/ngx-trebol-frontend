@@ -7,6 +7,8 @@
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { DataPage } from 'src/models/DataPage';
 import { Image } from 'src/models/entities/Image';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
 
@@ -19,13 +21,15 @@ export class ImagesDataHttpApiService
   }
 
   fetchExisting(image: Partial<Image>) {
-    return this.http.get<Image>(
+    return this.http.get<DataPage<Image>>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
           code: String(image.code)
         } })
       }
+    ).pipe(
+      map(page => page.items[0])
     );
   }
 
