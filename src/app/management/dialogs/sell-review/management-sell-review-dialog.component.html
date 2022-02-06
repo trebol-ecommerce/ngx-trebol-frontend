@@ -1,0 +1,36 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<h1>{{ dialogTitle }}</h1>
+<app-sell-information [sell]="data.sell"></app-sell-information>
+<mat-divider></mat-divider>
+<app-sell-details-table [sell]="data.sell"></app-sell-details-table>
+<div class="actions">
+  <button type="button" class="reject"
+    mat-button mat-raised-button
+    color="warn"
+    [disabled]="isNotPaid || (isBusy$ | async)"
+    (click)="onClickReject()">
+    <mat-icon>block</mat-icon>
+    <span i18n="Label for action button to trigger rejection of an order">Reject</span>
+  </button>
+  <button type="button" class="confirm"
+    mat-button mat-raised-button
+    [disabled]="isNotPaid || (isBusy$ | async)"
+    (click)="onClickConfirm()">
+    <mat-icon>done</mat-icon>
+    <span i18n="Label for action to trigger confirmation/marking an order as reviewed">Confirm</span>
+  </button>
+  <button type="button" class="complete"
+    mat-button mat-raised-button
+    color="accent"
+    [disabled]="isNotConfirmed || (isBusy$ | async)"
+    (click)="onClickComplete()">
+    <mat-icon>done_all</mat-icon>
+    <span i18n="Label for action to trigger marking an order as completed">Complete</span>
+  </button>
+</div>

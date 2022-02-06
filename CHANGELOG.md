@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `markAsConfirmed` - To acknowledge an order/sell and notify the customer - HTTP `/data/sales/confirmation`
   - `markAsRejected` - To prevent an order/sell to be delivered due to issues and/or refund the customer - HTTP  `/data/sales/rejection`
   - `markAsCompleted` - To mark an order/sell as delivered - HTTP  `/data/sales/completion`
+- Components to display sell data
+  - Simple block for general data
+  - Table to only display details (products/units/subtotal of each)
+  - Dialog component for reviewing all information. Can be accessed by clicking sales management page table rows
+    - Includes button to view the receipt of the transaction, only if, and once it has been, paid
+    - Three buttons are included in the dialog, each of them acts as interface for the above mentioned interface methods for the sales data API
 
 ### Changed
 - `DataManagerComponentDirective<T>` now exposes `items$` as `Observable<any[]>` instead of `Observable<T[]>`

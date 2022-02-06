@@ -14,41 +14,41 @@
       <ng-container matColumnDef="buyOrder">
         <th mat-header-cell *matHeaderCellDef mat-sort-header
           i18n="Name of table header for buy order of sell">Buy order no.</th>
-        <td mat-cell *matCellDef="let sell">
-          {{ sell.buyOrder }}
+        <td mat-cell *matCellDef="let row">
+          {{ row.item.buyOrder }}
         </td>
       </ng-container>
       <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header
           i18n="Name of table header for date and time of sell">Date and time</th>
-        <td mat-cell *matCellDef="let sell">
-          {{ sell.date | date:'short' }}
+        <td mat-cell *matCellDef="let row">
+          {{ row.item.date | date:'short' }}
         </td>
       </ng-container>
       <ng-container matColumnDef="customer">
         <th mat-header-cell *matHeaderCellDef mat-sort-header
           i18n="customer|Name of table header for name of customer">Customer</th>
-        <td mat-cell *matCellDef="let sell">
-          {{ sell.customer.person.firstName }} {{ sell.customer.person.lastName }}
+        <td mat-cell *matCellDef="let row">
+          {{ row.item.customer.person.firstName }} {{ row.item.customer.person.lastName }}
         </td>
       </ng-container>
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef mat-sort-header
           i18n="transaction status|Name of table header for status of sell">Status</th>
-        <td mat-cell *matCellDef="let sell">
-          {{ sell.status }}
+        <td mat-cell *matCellDef="let row">
+          {{ row.item.status }}
         </td>
       </ng-container>
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> </th>
-        <td mat-cell *matCellDef="let sell">
+        <td mat-cell *matCellDef="let row">
             <button mat-button mat-icon-button type="button"
               *ngIf="canEdit$ | async"
               color="primary"
               aria-label="Edit"
               i18n-aria-label="edit|Label for action button to edit information of an item"
               [disabled]="busy$ | async"
-              (click)="onClickEdit(sell)">
+              (click)="onClickEdit(row.item)">
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-button mat-icon-button type="button"
@@ -57,14 +57,17 @@
               aria-label="Delete"
               i18n-aria-label="delete|Label for action button to delete an item"
               [disabled]="busy$ | async"
-              (click)="onClickDelete(sell)">
+              (click)="onClickDelete(row.item)">
               <mat-icon>delete</mat-icon>
             </button>
         </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableColumns;"
+        [class.focused]="row.focused"
+        (click)="onClickView(row)">
+      </tr>
     </table>
 
   </div>

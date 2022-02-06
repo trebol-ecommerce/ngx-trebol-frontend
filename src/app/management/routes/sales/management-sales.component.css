@@ -21,3 +21,11 @@
   min-width: 6rem;
   width: 6rem;
 }
+
+.mat-row:not(.focused):hover {
+  cursor: pointer;
+}
+.mat-row:hover,
+.mat-row.focused {
+  background-color: whitesmoke;
+}

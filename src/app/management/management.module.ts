@@ -13,6 +13,7 @@ import { ManagementFooterComponent } from './components/footer/management-footer
 import { ManagementHeaderComponent } from './components/header/management-header.component';
 import { ManagementSidenavComponent } from './components/sidenav/management-sidenav.component';
 import { ProductListContentsDialogComponent } from './dialogs/product-list-contents/product-list-contents-dialog.component';
+import { ManagementSellReviewDialogComponent } from './dialogs/sell-review/management-sell-review-dialog.component';
 import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementRoutingModule } from './management-routing.module';
 import { ManagementComponent } from './management.component';
@@ -48,6 +49,7 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ManagementHeaderComponent,
     ManagementSidenavComponent,
     ProductListContentsDialogComponent,
+    ManagementSellReviewDialogComponent,
     ManagementComponent,
     ManagementCustomersComponent,
     ManagementDashboardComponent,
