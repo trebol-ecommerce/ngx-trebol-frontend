@@ -11,6 +11,13 @@ export const environment = {
     phone: '9 9999 9999',
     urlSafePhone: '999999999'
   },
+  contactInfo: {
+    phone: '2 2222 2222',
+    urlSafePhone: '222222222',
+    email: 'example@test.org',
+    instagram: 'any-instagram-page',
+    facebook: 'any-facebook-id'
+  },
   apiUrls: {
     access: '',
     account: '',
