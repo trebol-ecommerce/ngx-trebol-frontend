@@ -12,7 +12,7 @@ import { BehaviorSubject, Observable, of, ReplaySubject, Subscription } from 'rx
 import { concatMap, finalize, map, switchMap, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
-import { IProductListContentsDataApiService } from 'src/app/api/transactional-product-lists.data.api.iservice';
+import { ITransactionalProductListContentsDataApiService } from 'src/app/api/transactional-product-list-contents.data.api.iservice';
 import { Product } from 'src/models/entities/Product';
 import { ProductList } from 'src/models/entities/ProductList';
 import { StoreProductDetailsDialogComponent } from '../../dialogs/product-details/store-product-details-dialog.component';
@@ -33,7 +33,7 @@ export class StoreCatalogService
   listIndex = 0;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductLists) private productListApiService: IProductListContentsDataApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductLists) private productListApiService: ITransactionalProductListContentsDataApiService,
     @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) private productsApiService: ITransactionalEntityDataApiService<Product>,
     private dialogService: MatDialog,
     private route: ActivatedRoute,

@@ -13,13 +13,13 @@ import { environment } from 'src/environments/environment';
 import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
 import { ProductList } from 'src/models/entities/ProductList';
-import { IProductListContentsDataApiService } from '../../transactional-product-lists.data.api.iservice';
+import { ITransactionalProductListContentsDataApiService } from '../../transactional-product-list-contents.data.api.iservice';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
 
 @Injectable()
 export class ProductListsDataHttpApiService
   extends TransactionalEntityDataHttpApiService<ProductList>
-  implements IProductListContentsDataApiService {
+  implements ITransactionalProductListContentsDataApiService {
 
   contentsBaseUrl = `${environment.apiUrls.data}/product_list_contents`;
 

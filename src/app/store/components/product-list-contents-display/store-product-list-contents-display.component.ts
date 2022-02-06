@@ -10,7 +10,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { Observable, ReplaySubject, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { IProductListContentsDataApiService } from 'src/app/api/transactional-product-lists.data.api.iservice';
+import { ITransactionalProductListContentsDataApiService } from 'src/app/api/transactional-product-list-contents.data.api.iservice';
 import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
 import { ProductList } from 'src/models/entities/ProductList';
@@ -39,7 +39,7 @@ export class StoreProductListContentsDisplayComponent
   totalCount$: Observable<number>;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductLists) private productListApiService: IProductListContentsDataApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductLists) private productListApiService: ITransactionalProductListContentsDataApiService,
     private catalogService: StoreCatalogService
   ) {
     this.products$ = this.page$.pipe(map(page => page.items));

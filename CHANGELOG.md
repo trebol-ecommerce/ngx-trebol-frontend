@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactored receipt page to have its card as a separate component
 - Let all dialogs be closed by clicking out of their bounds, except for the `confirmation` dialog
 - Product cards hovered in frontpage use vertical gradient as a background instead of a solid color
+- Renamed `ITransactionalProductListContentsDataApiService`
 
 ### Fixed
 - Individual item fetching in HTTP API (used when editing any data)

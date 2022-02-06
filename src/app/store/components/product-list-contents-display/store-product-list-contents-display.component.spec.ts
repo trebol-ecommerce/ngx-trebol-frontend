@@ -9,7 +9,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { IProductListContentsDataApiService } from 'src/app/api/transactional-product-lists.data.api.iservice';
+import { ITransactionalProductListContentsDataApiService } from 'src/app/api/transactional-product-list-contents.data.api.iservice';
 import { Product } from 'src/models/entities/Product';
 import { StoreCatalogService } from '../../routes/catalog/store-catalog.service';
 import { StoreProductListContentsDisplayComponent } from './store-product-list-contents-display.component';
@@ -30,7 +30,7 @@ class MockProductsDisplayComponent {
 describe('StoreProductListContentsDisplayComponent', () => {
   let component: StoreProductListContentsDisplayComponent;
   let fixture: ComponentFixture<StoreProductListContentsDisplayComponent>;
-  let mockListApiService: Partial<IProductListContentsDataApiService>;
+  let mockListApiService: Partial<ITransactionalProductListContentsDataApiService>;
   let mockStoreCatalogService: Partial<StoreCatalogService>;
 
   beforeEach(waitForAsync(() => {

@@ -11,7 +11,7 @@ import { Product } from "src/models/entities/Product";
 import { ProductList } from "src/models/entities/ProductList";
 import { ITransactionalEntityDataApiService } from "./transactional-entity.data-api.iservice";
 
-export interface IProductListContentsDataApiService
+export interface ITransactionalProductListContentsDataApiService
   extends ITransactionalEntityDataApiService<ProductList> {
 
   /**
