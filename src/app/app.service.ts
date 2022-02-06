@@ -6,8 +6,8 @@
  */
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { catchError, finalize, map, mapTo, startWith, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, merge, Observable, of, Subject } from 'rxjs';
+import { catchError, debounceTime, finalize, map, mapTo, share, skip, startWith, switchMap, tap, throttleTime } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ILoginPublicApiService } from 'src/app/api/login-public-api.iservice';
 import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
@@ -30,6 +30,7 @@ export class AppService
   private isLoggedInChangesSource = new Subject<boolean>();
   private isValidatingSessionSource = new BehaviorSubject(false);
   private checkoutAuthCancelSource = new Subject<void>();
+  private userProfileSource = new BehaviorSubject<Person>(null);
 
   isLoggedInChanges$ = this.isLoggedInChangesSource.asObservable();
   isValidatingSession$ = this.isValidatingSessionSource.asObservable();
@@ -48,9 +49,13 @@ export class AppService
       startWith(this.isLoggedIn()),
       switchMap(isLoggedIn =>
         (isLoggedIn) ?
-          this.getUserProfile().pipe(map(p => p.firstName)) :
-          of('')
-      )
+          this.profileApiService.getProfile() :
+          of(null)
+      ),
+      tap(profile => this.userProfileSource.next(profile)),
+      debounceTime(250),
+      map(p => (p?.firstName ? p.firstName : '')),
+      share()
     );
   }
 
@@ -112,7 +117,12 @@ export class AppService
   }
 
   getUserProfile(): Observable<Person> {
-    return this.profileApiService.getProfile();
+    if (this.userProfileSource.value) {
+      return this.userProfileSource.asObservable();
+    }
+    return this.profileApiService.getProfile().pipe(
+      tap(profile => this.userProfileSource.next(profile))
+    );
   }
 
   updateUserProfile(details: Person): Observable<boolean> {
@@ -122,6 +132,7 @@ export class AppService
   closeCurrentSession(): void {
     this.innerIsLoggedIn = false;
     this.isLoggedInChangesSource.next(false);
+    this.userProfileSource.next(null);
     sessionStorage.removeItem(this.sessionStorageTokenItemName);
   }
 
