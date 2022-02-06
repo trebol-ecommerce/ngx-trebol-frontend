@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -20,7 +20,7 @@ import { StoreCatalogService } from '../catalog/store-catalog.service';
   styleUrls: ['./store-search.component.css']
 })
 export class StoreSearchComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
 
   private reloadSub: Subscription;
 
