@@ -15,13 +15,16 @@ import { StoreCatalogService } from '../../routes/catalog/store-catalog.service'
 import { StoreProductListContentsDisplayComponent } from './store-product-list-contents-display.component';
 
 
-@Component({ selector: 'app-store-product-display' })
-class MockStoreProductDisplayComponent {
+@Component({ selector: 'app-products-display' })
+class MockProductsDisplayComponent {
   @Input() products: Product[];
   @Input() totalCount: number;
   @Input() pageIndex: number;
   @Input() pageSize: number;
-  @Output() page = new EventEmitter();
+  @Input() showAddToCartButtons: boolean;
+  @Output() page = new EventEmitter<void>();
+  @Output() addProductToCart = new EventEmitter<void>();
+  @Output() viewProduct = new EventEmitter<void>();
 }
 
 describe('StoreProductListContentsDisplayComponent', () => {
@@ -48,7 +51,7 @@ describe('StoreProductListContentsDisplayComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         StoreProductListContentsDisplayComponent,
-        MockStoreProductDisplayComponent
+        MockProductsDisplayComponent
       ],
       providers: [
         { provide: API_SERVICE_INJECTION_TOKENS.dataProductLists, useValue: mockListApiService },

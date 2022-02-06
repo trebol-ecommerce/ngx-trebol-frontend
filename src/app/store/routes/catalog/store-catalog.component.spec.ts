@@ -8,6 +8,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { merge, of, timer } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
@@ -17,19 +18,25 @@ import { StoreCartService } from '../../store-cart.service';
 import { StoreCatalogComponent } from './store-catalog.component';
 import { StoreCatalogService } from './store-catalog.service';
 
-@Component({ selector: 'app-product-filters-panel' })
-class MockProductFiltersPanelComponent {
-  @Output() filtersChanges = new EventEmitter();
-}
-
 @Component({ selector: 'app-centered-mat-spinner' })
 class MockCenteredMatSpinnerComponent { }
 
-@Component({ selector: 'app-store-product-card' })
-class MockStoreCatalogProductCardComponent {
-  @Input() product: Product;
-  @Output() addToCart = new EventEmitter();
-  @Output() view = new EventEmitter();
+@Component({ selector: 'app-slideshow' })
+class MockSlideshowComponent {
+  @Input() images: any[];
+  @Input() showSlideSelectors: boolean;
+  @Input() showNextPreviousButtons: boolean;
+}
+
+@Component({ selector: 'app-store-product-list-contents-display' })
+class MockStoreProductListContentsDisplayComponent {
+  @Input() list: ProductList;
+  @Output() addProductToCart = new EventEmitter<void>();
+}
+
+@Component({ selector: 'app-store-location' })
+class MockStoreLocationComponent {
+  @Input() mapHeight: number;
 }
 
 describe('StoreCatalogComponent', () => {
@@ -53,13 +60,14 @@ describe('StoreCatalogComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        MatProgressSpinnerModule
+        MatDividerModule
       ],
       declarations: [
-        StoreCatalogComponent ,
-        MockProductFiltersPanelComponent,
+        StoreCatalogComponent,
         MockCenteredMatSpinnerComponent,
-        MockStoreCatalogProductCardComponent
+        MockSlideshowComponent,
+        MockStoreProductListContentsDisplayComponent,
+        MockStoreLocationComponent
       ],
       providers: [
         { provide: StoreCatalogService, useValue: mockCatalogService },

@@ -9,6 +9,7 @@ import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of } from 'rxjs';
@@ -51,6 +52,7 @@ describe('ManagementSellReviewDialogComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         MatButtonModule,
+        MatDividerModule,
         MatIconModule
       ],
       declarations: [

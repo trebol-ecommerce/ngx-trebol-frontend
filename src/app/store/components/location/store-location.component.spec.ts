@@ -5,19 +5,29 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, Input } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { StoreLocationComponent } from './store-location.component';
+
+@Component({ selector: 'app-gmap' })
+class MockGmapComponent {
+  @Input() width: number;
+  @Input() height: number;
+}
 
 describe('StoreLocationComponent', () => {
   let component: StoreLocationComponent;
   let fixture: ComponentFixture<StoreLocationComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ StoreLocationComponent ]
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        StoreLocationComponent,
+        MockGmapComponent
+      ]
     })
     .compileComponents();
-  });
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(StoreLocationComponent);
