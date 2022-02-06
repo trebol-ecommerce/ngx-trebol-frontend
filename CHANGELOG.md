@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Slideshows images now may be able to hold links to redirect users to
 
 ### Changed
+- Bump Angular to v13.2
 - `DataManagerComponentDirective<T>` now exposes `items$` as `Observable<any[]>` instead of `Observable<T[]>`
 - When adding images, `code` field is now optional
 - Hide frontpage heading
