@@ -7,7 +7,7 @@
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { catchError, finalize, map, mapTo, pluck, startWith, switchMap, tap } from 'rxjs/operators';
+import { catchError, finalize, map, mapTo, startWith, switchMap, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ILoginPublicApiService } from 'src/app/api/login-public-api.iservice';
 import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
@@ -67,12 +67,14 @@ export class AppService
     this.checkoutAuthCancelSource.next();
   }
 
-  guestLogin(personDetails: Person): Observable<boolean> {
-    return this.guestApiService.guestLogin(personDetails);
+  guestLogin(personDetails: Person) {
+    return this.guestApiService.guestLogin(personDetails).pipe(
+      tap(token => this.saveAuthToken(token))
+    );
   }
 
   /** Send an error-safe register request. */
-  register(userDetails: Registration): Observable<boolean> {
+  register(userDetails: Registration) {
     return this.registerApiService.register(userDetails).pipe(
       switchMap(() => this.login({
         name: userDetails.name,
@@ -83,15 +85,10 @@ export class AppService
     );
   }
 
-  login(credentials: Login): Observable<void> {
+  login(credentials: Login) {
     return !this.isLoggedIn() ?
       this.loginApiService.login(credentials).pipe(
-        tap(token => {
-          sessionStorage.setItem(this.sessionStorageTokenItemName, token);
-          this.innerIsLoggedIn = true;
-          this.isLoggedInChangesSource.next(true);
-        }),
-        mapTo(void 0)
+        tap(token => this.saveAuthToken(token))
       ) :
       of();
   }
@@ -126,6 +123,12 @@ export class AppService
     this.innerIsLoggedIn = false;
     this.isLoggedInChangesSource.next(false);
     sessionStorage.removeItem(this.sessionStorageTokenItemName);
+  }
+
+  private saveAuthToken(token: any) {
+    sessionStorage.setItem(this.sessionStorageTokenItemName, token);
+    this.innerIsLoggedIn = true;
+    this.isLoggedInChangesSource.next(true);
   }
 
 }
