@@ -8,7 +8,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, ReplaySubject, BehaviorSubject, from } from 'rxjs';
-import { take, switchMap, tap, catchError } from 'rxjs/operators';
+import { take, switchMap, tap, catchError, finalize } from 'rxjs/operators';
 import { Receipt } from 'src/models/Receipt';
 import { StoreReceiptService } from './store-receipt.service';
 
@@ -39,6 +39,7 @@ export class StoreReceiptComponent
   ngOnDestroy(): void {
     this.loadSubscription?.unsubscribe();
     this.receiptSource.complete();
+    this.loadingSource.complete();
   }
 
   private loadReceipt() {
@@ -50,10 +51,8 @@ export class StoreReceiptComponent
           return from(this.router.navigateByUrl('/'));
         } else {
           return this.service.fetchReceipt(token).pipe(
-            tap(receipt => {
-              this.receiptSource.next(receipt);
-              this.loadingSource.next(false);
-            })
+            tap(receipt => this.receiptSource.next(receipt)),
+            finalize(() => this.loadingSource.next(false))
           );
         }
       }),
