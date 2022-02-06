@@ -32,7 +32,7 @@ export const environment = {
     name: 'Trébol',
     footerParagraphs: [
       `Trébol eCommerce demo site`,
-      'Made with ❤ using Angular 12 | Source code licensed under MIT'
+      'Made with ❤ using Angular 13 | Source code licensed under MIT'
     ]
   },
   constraints: {
