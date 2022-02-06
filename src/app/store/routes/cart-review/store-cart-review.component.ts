@@ -5,8 +5,11 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { filter, tap } from 'rxjs/operators';
+import { AppService } from 'src/app/app.service';
 import { StoreCartService } from '../../store-cart.service';
 
 @Component({
@@ -15,17 +18,29 @@ import { StoreCartService } from '../../store-cart.service';
   styleUrls: ['./store-cart-review.component.css']
 })
 export class StoreCartReviewComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
+
+  private loginStateChangeSubscription: Subscription;
 
   cartNetValue$: Observable<number>;
   inputEditable = true;
 
   constructor(
-    private cartService: StoreCartService
+    private cartService: StoreCartService,
+    private appService: AppService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.cartNetValue$ = this.cartService.cartNetValue$.pipe();
+    this.loginStateChangeSubscription = this.appService.isLoggedInChanges$.pipe(
+      filter(isLoggedIn => !isLoggedIn),
+      tap(() => this.router.navigateByUrl('/'))
+    ).subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.loginStateChangeSubscription?.unsubscribe();
   }
 
   onConfirmation(): void {
