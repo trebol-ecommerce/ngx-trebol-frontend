@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Dialog component for reviewing all information. Can be accessed by clicking sales management page table rows
     - Includes button to view the receipt of the transaction, only if, and once it has been, paid
     - Three buttons are included in the dialog, each of them acts as interface for the above mentioned interface methods for the sales data API
+- Simple component for Google Maps iframe embeds
+  - Includes pipe for trusting external resource urls (uses `DomSanitizer`)
 
 ### Changed
 - `DataManagerComponentDirective<T>` now exposes `items$` as `Observable<any[]>` instead of `Observable<T[]>`

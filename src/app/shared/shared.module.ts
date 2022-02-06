@@ -17,6 +17,7 @@ import { CenteredMatProgressSpinnerComponent } from './components/centered-mat-s
 import { CompanyFormComponent } from './components/company-form/company-form.component';
 import { DialogSwitcherButtonComponent } from './components/dialog-switcher-button/dialog-switcher-button.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { GmapComponent } from './components/gmap/gmap.component';
 import { ImageFormComponent } from './components/image-form/image-form.component';
 import { ImageUploadFormComponent } from './components/image-upload-form/image-upload-form.component';
 import { PersonFormComponent } from './components/person-form/person-form.component';
@@ -46,6 +47,7 @@ import { ProductCategoryPickerDialogComponent } from './dialogs/product-category
 import { ProductsArrayDialogComponent } from './dialogs/products-array/products-array-dialog.component';
 import { FormGroupOwnerOutletDirective } from './directives/form-group-owner-outlet/form-group-owner-outlet.directive';
 import { AddressPipe } from './pipes/address/address.pipe';
+import { TrustedResourceUrlPipe } from './pipes/trusted-resource-url/trusted-resource-url.pipe';
 
 
 const SHARED_DECLARATIONS = [
@@ -56,6 +58,7 @@ const SHARED_DECLARATIONS = [
   CompanyFormComponent,
   DialogSwitcherButtonComponent,
   FileUploadComponent,
+  GmapComponent,
   ImageFormComponent,
   ImageUploadFormComponent,
   PersonFormComponent,
@@ -84,7 +87,8 @@ const SHARED_DECLARATIONS = [
   ProductCategoryPickerDialogComponent,
   ProductsArrayDialogComponent,
   FormGroupOwnerOutletDirective,
-  AddressPipe
+  AddressPipe,
+  TrustedResourceUrlPipe
 ];
 
 @NgModule({

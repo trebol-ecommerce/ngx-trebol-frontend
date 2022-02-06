@@ -30,11 +30,13 @@ export class SlideshowComponent
   @Input() @Output() images: Image[] = [];
   @Input() autocycle = true;
   @Input() editable = false;
+  @Input() showSlideSelectors = true;
+  @Input() showNextPreviousButtons = true;
+  @Input() slideWidth = 'auto';
+  @Input() slideHeight = 'auto';
   @Output() navigate = new EventEmitter<void>();
   @Output() add = new EventEmitter<void>();
   currentIndex$ = this.currentIndexSource.asObservable();
-
-  @ViewChildren('slideWrapper') slideWrappers: QueryList<ElementRef<HTMLImageElement>>;
 
   constructor() { }
 
