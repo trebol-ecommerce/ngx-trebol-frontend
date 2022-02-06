@@ -32,7 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Two-way binding of state and query params in frontpage. Implemented states are:
   - Searching products by name and/or by category
   - Viewing individual products
-- Slides in slideshows may serve as links when valid urls are present
+- Entity model `Image` now has a `targetUrl` property
+  - Slideshows images now may be able to hold links to redirect users to
 
 ### Changed
 - `DataManagerComponentDirective<T>` now exposes `items$` as `Observable<any[]>` instead of `Observable<T[]>`
