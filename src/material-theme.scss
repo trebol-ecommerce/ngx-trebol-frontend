@@ -34,6 +34,9 @@ $trebol-app-theme: mat.define-light-theme((
 @import 'src/assets/mixins/sidenav.component';
 @include sidenav-theme($trebol-app-theme);
 
+@import 'src/assets/mixins/store-header-search-form.component';
+@include store-header-search-form-theme();
+
 // Pages / Routes
 
 $trebol-page-app-primary:   mat.define-palette(mat.$blue-grey-palette, 800);

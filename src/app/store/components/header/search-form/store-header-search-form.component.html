@@ -1,0 +1,30 @@
+<!--
+  Copyright (c) 2021 The Trébol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<form [formGroup]="formGroup">
+  <mat-form-field appearance="fill" (click)="onTouched()">
+    <mat-label i18n="Label to hint users to type in a search term">What are you looking for?</mat-label>
+    <input matInput type="text" formControlName="nameLike" />
+    <mat-icon matPrefix>search</mat-icon>
+    <button type="reset" *ngIf="nameLike.value || categoryCode.value"
+      i18n-aria-label="Label for action button to clear search terms"
+      aria-label="Clear search terms"
+      matSuffix mat-icon-button
+      (click)="onClickResetForm()">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <button type="button" class="open-category-picker"
+      i18n-aria-label="Label for action button to pick a category from the tree"
+      aria-label="Select category"
+      matSuffix mat-icon-button
+      (click)="onClickOpenCategoryPicker()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-hint i18n="Label to hint users that search is triggered upon use of the search field or clicking a button to select a category">Just type something, or click on the right 'burger' button, and we will match your search terms</mat-hint>
+  </mat-form-field>
+  <input type="hidden" formControlName="categoryCode" />
+</form>

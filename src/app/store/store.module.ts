@@ -19,6 +19,7 @@ import { StoreHeaderBrandComponent } from './components/header/brand/store-heade
 import { StoreHeaderLoginButtonComponent } from './components/header/login-button/store-header-login-button.component';
 import { StoreHeaderMenuComponent } from './components/header/menu/store-header-menu.component';
 import { StoreHeaderNavigationComponent } from './components/header/navigation/store-header-navigation.component';
+import { StoreHeaderSearchFormComponent } from './components/header/search-form/store-header-search-form.component';
 import { StoreHeaderComponent } from './components/header/store-header.component';
 import { StoreLocationComponent } from './components/location/store-location.component';
 import { StoreProductListContentsDisplayComponent } from './components/product-list-contents-display/store-product-list-contents-display.component';
@@ -38,6 +39,7 @@ import { StoreReceiptComponent } from './routes/receipt/store-receipt.component'
 import { StoreCheckoutService } from './store-checkout.service';
 // import { StoreReceiptService } from './routes/receipt/store-receipt.service';
 import { StoreRoutingModule } from './store-routing.module';
+import { StoreSearchService } from './store-search.service';
 import { StoreComponent } from './store.component';
 
 
@@ -71,7 +73,8 @@ const SNACKBAR_DEFAULTS = {
     StoreHeaderBrandComponent,
     StoreHeaderNavigationComponent,
     StoreHeaderMenuComponent,
-    StoreHeaderLoginButtonComponent
+    StoreHeaderLoginButtonComponent,
+    StoreHeaderSearchFormComponent
   ],
   imports: [
     HttpClientModule,
@@ -83,6 +86,7 @@ const SNACKBAR_DEFAULTS = {
     StoreCheckoutService,
     // StoreReceiptService,
     StoreCatalogService,
+    StoreSearchService,
     StoreCartReviewGuard
   ]
 })

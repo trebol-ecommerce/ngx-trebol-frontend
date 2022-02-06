@@ -20,12 +20,10 @@ app-store-header-navigation {
   flex: 0 0 auto;
 }
 
-.middle {
-  display: none;
-}
-
-app-store-header-middle {
+app-store-header-search-form {
   flex: 1 1 auto;
+  margin: 0 1rem;
+  align-self: center;
 }
 
 app-store-header-menu,
