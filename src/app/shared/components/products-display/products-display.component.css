@@ -16,8 +16,8 @@
 }
 
 :host {
-  display: flex;
-  flex-flow: column nowrap;
+  display: inline-grid;
+  grid-template-columns: 1fr;
 }
 
 .wrapper {
@@ -44,26 +44,22 @@
 }
 
 .contents {
-  flex: 1 0 auto;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.5rem;
 }
 .wrapper.scrollable > .contents {
   flex-flow: row nowrap;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
   justify-content: initial;
 }
 
 app-product-card {
   flex: 0 0 auto;
-  margin: 0.75rem 0.5rem;
 }
 
 .paginator {
-  flex: 0 0 auto;
-  align-self: stretch;
   padding: 0.5rem;
   display: flex;
   flex-flow: row wrap;
@@ -99,8 +95,8 @@ app-product-card {
 }
 
 @media(min-width: 641px) {
-  app-product-card {
-    margin: 1rem;
+  .contents {
+    gap: 1rem;
   }
 
   .scroll-hint {
@@ -117,8 +113,9 @@ app-product-card {
 }
 
 @media(min-width: 1008px) {
-  app-product-card {
-    margin: 1.5rem 1rem;
+  .contents {
+    padding: 1.5rem;
+    gap: 1.5rem;
   }
 
   .paginator {
