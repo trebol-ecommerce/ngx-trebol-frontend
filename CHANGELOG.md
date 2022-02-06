@@ -63,6 +63,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Fields in personal information form
   - Size adjustment of frontpage product lists (use appropiate space when there are fewer products in a list)
 
+### Removed
+- All references to deprecated APIs `/public/products` and `/public/categories`
+
 ## [v2.0.0] - 2022-01-18
 
 ### Changed

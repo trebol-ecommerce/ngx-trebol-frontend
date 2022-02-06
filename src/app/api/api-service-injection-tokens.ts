@@ -24,11 +24,9 @@ export const API_SERVICE_INJECTION_TOKENS = {
   dataUserRoles: 'UserRolesDataApi',
   dataUsers: 'UsersDataApi',
   about: 'PublicAboutApi',
-  categories: 'PublicCategoriesApi',
   checkout: 'PublicCheckoutApi',
   guest: 'PublicGuestApi',
   login: 'PublicLoginApi',
-  products: 'PublicProductsApi',
   receipt: 'PublicReceiptApi',
   register: 'PublicRegisterApi',
 };
