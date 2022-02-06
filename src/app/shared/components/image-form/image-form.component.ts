@@ -54,7 +54,7 @@ export class ImageFormComponent
     this.formGroup = this.formBuilder.group({
       filename: ['', Validators.required],
       url: ['', Validators.required],
-      code: [null, Validators.required]
+      code: [null]
       // file: ['', Validators.required]
     });
   }
