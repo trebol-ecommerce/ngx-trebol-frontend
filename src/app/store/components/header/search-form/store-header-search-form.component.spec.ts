@@ -7,32 +7,49 @@
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
+import { StoreSearchService } from 'src/app/store/store-search.service';
+import { ProductSearchQuery } from 'src/models/ProductSearchQuery';
 import { StoreHeaderSearchFormComponent } from './store-header-search-form.component';
 
 describe('StoreHeaderSearchFormComponent', () => {
   let component: StoreHeaderSearchFormComponent;
   let fixture: ComponentFixture<StoreHeaderSearchFormComponent>;
-  // let mockStoreCatalogService: Partial<StoreService>;
+  let mockStoreSearchService: Partial<StoreSearchService>;
+  let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
-    // mockStoreCatalogService = {
-    //   reloadFrontpageLists() {}
-    // };
+    mockStoreSearchService = {
+      searchQuery: new ProductSearchQuery(),
+      pageIndex: 0,
+      reload() { return of(void 0); }
+    };
+    mockDialogService = {
+      open() {
+        return {
+          afterClosed() { return of(void 0); }
+        } as MatDialogRef<any>;
+      }
+    };
 
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
+        RouterTestingModule,
         MatInputModule,
         MatFormFieldModule
       ],
       declarations: [ StoreHeaderSearchFormComponent ],
       providers: [
-        // { provide: StoreFrontpageService, useValue: mockStoreCatalogService }
+        { provide: StoreSearchService, useValue: mockStoreSearchService },
+        { provide: MatDialog, useValue: mockDialogService }
       ]
     })
     .compileComponents();

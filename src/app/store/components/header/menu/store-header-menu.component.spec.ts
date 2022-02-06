@@ -26,6 +26,7 @@ describe('StoreHeaderMenuComponent', () => {
 
   beforeEach(waitForAsync( () => {
     mockAppService = {
+      userName$: of(''),
       isLoggedIn() { return false; },
       isLoggedInChanges$: of(false),
       closeCurrentSession() {},

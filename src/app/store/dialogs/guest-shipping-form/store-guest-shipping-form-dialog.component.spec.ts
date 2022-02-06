@@ -14,8 +14,9 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
+import { CheckoutRequest } from 'src/models/CheckoutRequest';
+import { StoreCartService } from '../../store-cart.service';
 import { StoreGuestShippingFormDialogComponent } from './store-guest-shipping-form-dialog.component';
-
 
 @Component({ selector: 'app-centered-mat-spinner' })
 class MockCenteredMatSpinnerComponent { }
@@ -36,11 +37,20 @@ class MockPersonFormComponent
 describe('StoreGuestShippingFormDialogComponent', () => {
   let component: StoreGuestShippingFormDialogComponent;
   let fixture: ComponentFixture<StoreGuestShippingFormDialogComponent>;
-  let appService: Partial<AppService>;
+  let mockAppService: Partial<AppService>;
+  let mockDialogRef: Partial<MatDialogRef<any>>;
+  let mockCartService: Partial<StoreCartService>;
 
   beforeEach(waitForAsync(() => {
-    appService = {
-      guestLogin() { return of(true); }
+    mockAppService = {
+      guestLogin() { return of(''); },
+      cancelAuthentication() { }
+    };
+    mockDialogRef = {
+      close() { return of(void 0); }
+    };
+    mockCartService = {
+      checkoutRequestData: new CheckoutRequest()
     };
 
     TestBed.configureTestingModule({
@@ -58,8 +68,9 @@ describe('StoreGuestShippingFormDialogComponent', () => {
         MockPersonFormComponent
       ],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
-        { provide: AppService, useValue: appService }
+        { provide: MatDialogRef, useValue: mockDialogRef },
+        { provide: AppService, useValue: mockAppService },
+        { provide: StoreCartService, useValue: mockCartService }
       ]
     })
     .compileComponents();

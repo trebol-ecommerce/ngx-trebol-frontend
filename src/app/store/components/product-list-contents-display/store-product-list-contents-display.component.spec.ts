@@ -11,6 +11,7 @@ import { of } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IProductListContentsDataApiService } from 'src/app/api/transactional-product-lists.data.api.iservice';
 import { Product } from 'src/models/entities/Product';
+import { StoreCatalogService } from '../../routes/catalog/store-catalog.service';
 import { StoreProductListContentsDisplayComponent } from './store-product-list-contents-display.component';
 
 
@@ -27,6 +28,7 @@ describe('StoreProductListContentsDisplayComponent', () => {
   let component: StoreProductListContentsDisplayComponent;
   let fixture: ComponentFixture<StoreProductListContentsDisplayComponent>;
   let mockListApiService: Partial<IProductListContentsDataApiService>;
+  let mockStoreCatalogService: Partial<StoreCatalogService>;
 
   beforeEach(waitForAsync(() => {
     mockListApiService = {
@@ -39,6 +41,9 @@ describe('StoreProductListContentsDisplayComponent', () => {
         });
       }
     };
+    mockStoreCatalogService = {
+      viewProduct() { }
+    };
 
     TestBed.configureTestingModule({
       declarations: [
@@ -46,7 +51,8 @@ describe('StoreProductListContentsDisplayComponent', () => {
         MockStoreProductDisplayComponent
       ],
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.dataProductLists, useValue: mockListApiService }
+        { provide: API_SERVICE_INJECTION_TOKENS.dataProductLists, useValue: mockListApiService },
+        { provide: StoreCatalogService, useValue: mockStoreCatalogService }
       ]
     })
     .compileComponents();
