@@ -21,6 +21,7 @@ import { StoreHeaderMenuComponent } from './components/header/menu/store-header-
 import { StoreHeaderMiddleComponent } from './components/header/middle/store-header-middle.component';
 import { StoreHeaderNavigationComponent } from './components/header/navigation/store-header-navigation.component';
 import { StoreHeaderComponent } from './components/header/store-header.component';
+import { StoreLocationComponent } from './components/location/store-location.component';
 import { StoreProductListContentsDisplayComponent } from './components/product-list-contents-display/store-product-list-contents-display.component';
 import { StoreReceiptDetailsTableComponent } from './components/receipt-details-table/store-receipt-details-table.component';
 import { StoreShippingFormComponent } from './components/shipping-form/store-shipping-form.component';
@@ -35,10 +36,10 @@ import { StoreCartReviewGuard } from './routes/cart-review/store-cart-review.gua
 import { StoreCatalogComponent } from './routes/catalog/store-catalog.component';
 import { StoreCatalogService } from './routes/catalog/store-catalog.service';
 import { StoreReceiptComponent } from './routes/receipt/store-receipt.component';
+import { StoreCheckoutService } from './store-checkout.service';
 // import { StoreReceiptService } from './routes/receipt/store-receipt.service';
 import { StoreRoutingModule } from './store-routing.module';
 import { StoreComponent } from './store.component';
-import { StoreCheckoutService } from './store-checkout.service';
 
 
 const SNACKBAR_DEFAULTS = {
@@ -57,6 +58,7 @@ const SNACKBAR_DEFAULTS = {
     StoreCheckoutButtonComponent,
     StoreCheckoutConfirmationComponent,
     StoreCheckoutRequestFormComponent,
+    StoreLocationComponent,
     StoreReceiptComponent,
     StoreReceiptDetailsTableComponent,
     StoreLoginFormDialogComponent,

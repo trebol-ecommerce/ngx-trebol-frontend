@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  googleMapsId: '',
   apiUrls: {
     access: '',
     account: '',
