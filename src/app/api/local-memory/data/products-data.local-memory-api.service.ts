@@ -26,26 +26,29 @@ export class ProductsDataLocalMemoryApiService
     for (const propName in filter) {
       if (filter.hasOwnProperty(propName)) {
         const propValue = filter[propName];
-        if (propName === 'productCategory') {
-          matchingItems = matchingItems.filter(p => (p.category?.name === propValue));
-        } else if (propName === 'nameLike') {
-          const nameRegexp = new RegExp(`^.+${propValue}.+$`);
-          matchingItems = matchingItems.filter(c => nameRegexp.test(c.name));
-        } else if (propName === 'productCategoryLike') {
-          const nameRegexp = new RegExp(`^.+${propValue}.+$`);
-          matchingItems = matchingItems.filter(c => (!!c.category?.name && nameRegexp.test(c.category?.name)));
-        } else if (propName !== 'id') {
-          if (typeof propValue === 'string') {
-            matchingItems = matchingItems.filter(it => matchesStringProperty(it, propName, propValue));
-          } else if (typeof propValue === 'number') {
-            matchingItems = matchingItems.filter(it => matchesNumberProperty(it, propName, propValue));
-          } else if (propValue === null) {
-            matchingItems = matchingItems.filter(it => (it[propName] === null));
-          } else if (typeof propValue === 'object') {
-            if (propValue instanceof Date) {
-              matchingItems = matchingItems.filter(it => matchesDateProperty(it, propName, propValue));
-            } else if ('id' in propValue) {
-              matchingItems = matchingItems.filter(it => matchesIdProperty(it, propName, propValue));
+        if (propName === 'categoryCode') {
+          if (!!propValue) {
+            matchingItems = matchingItems.filter(p => (p.category?.code === propValue));
+          } else {
+            matchingItems = matchingItems.filter(p => !p.category);
+          }
+        } else if (!!propValue) {
+          if (propName === 'nameLike') {
+            const nameRegexp = new RegExp(`^.*${propValue}.*$`);
+            matchingItems = matchingItems.filter(c => nameRegexp.test(c.name));
+          } else if (!!propValue && propName !== 'id') {
+            if (typeof propValue === 'string') {
+              matchingItems = matchingItems.filter(it => matchesStringProperty(it, propName, propValue));
+            } else if (typeof propValue === 'number') {
+              matchingItems = matchingItems.filter(it => matchesNumberProperty(it, propName, propValue));
+            } else if (propValue === null) {
+              matchingItems = matchingItems.filter(it => (it[propName] === null));
+            } else if (typeof propValue === 'object') {
+              if (propValue instanceof Date) {
+                matchingItems = matchingItems.filter(it => matchesDateProperty(it, propName, propValue));
+              } else if ('id' in propValue) {
+                matchingItems = matchingItems.filter(it => matchesIdProperty(it, propName, propValue));
+              }
             }
           }
         }
