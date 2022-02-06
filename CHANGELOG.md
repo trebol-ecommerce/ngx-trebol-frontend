@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `DataManagerComponentDirective<T>` now exposes `items$` as `Observable<any[]>` instead of `Observable<T[]>`
 - When adding images, `code` field is now optional
 - Hide frontpage heading, as the header already has a heading title
+- `AppService` now exposes an `userName$` observable
 
 ### Fixed
 - Change property type of `token` in `Sell` model to `string`

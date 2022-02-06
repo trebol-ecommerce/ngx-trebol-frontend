@@ -7,7 +7,7 @@
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { catchError, finalize, mapTo, switchMap, tap } from 'rxjs/operators';
+import { catchError, finalize, map, mapTo, pluck, startWith, switchMap, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ILoginPublicApiService } from 'src/app/api/login-public-api.iservice';
 import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
@@ -28,12 +28,13 @@ export class AppService
   private innerIsLoggedIn = false;
 
   private isLoggedInChangesSource = new Subject<boolean>();
-  private isValidatingSessionSource = new BehaviorSubject<boolean>(false);
+  private isValidatingSessionSource = new BehaviorSubject(false);
   private checkoutAuthCancelSource = new Subject<void>();
 
-  isLoggedInChanges$: Observable<boolean> = this.isLoggedInChangesSource.asObservable();
-  isValidatingSession$: Observable<boolean> = this.isValidatingSessionSource.asObservable();
+  isLoggedInChanges$ = this.isLoggedInChangesSource.asObservable();
+  isValidatingSession$ = this.isValidatingSessionSource.asObservable();
   checkoutAuthCancel$ = this.checkoutAuthCancelSource.asObservable();
+  userName$: Observable<string>;
 
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.login) private loginApiService: ILoginPublicApiService,
@@ -43,6 +44,14 @@ export class AppService
     @Inject(API_SERVICE_INJECTION_TOKENS.access) private accessApiService: IAccessApiService
   ) {
     this.validateSession().subscribe();
+    this.userName$ = this.isLoggedInChangesSource.asObservable().pipe(
+      startWith(this.isLoggedIn()),
+      switchMap(isLoggedIn =>
+        (isLoggedIn) ?
+          this.getUserProfile().pipe(map(p => p.firstName)) :
+          of('')
+      )
+    );
   }
 
   ngOnDestroy(): void {

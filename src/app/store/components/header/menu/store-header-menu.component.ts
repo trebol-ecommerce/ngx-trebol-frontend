@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of } from 'rxjs';
-import { filter, mapTo, pluck, startWith, switchMap, tap } from 'rxjs/operators';
+import { filter, mapTo, startWith, switchMap, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
@@ -34,20 +34,7 @@ export class StoreHeaderMenuComponent
   ) { }
 
   ngOnInit(): void {
-
-    this.userName$ = this.appService.isLoggedInChanges$.pipe(
-      startWith(this.appService.isLoggedIn()),
-      switchMap(
-        (isLoggedIn: boolean) => {
-          if (!isLoggedIn) {
-            return of('');
-          } else {
-            return this.appService.getUserProfile().pipe(pluck('firstName'));
-          }
-        }
-      )
-    );
-
+    this.userName$ = this.appService.userName$.pipe();
     this.canNavigateManagement$ = this.appService.isLoggedInChanges$.pipe(
       startWith(this.appService.isLoggedIn()),
       switchMap(
