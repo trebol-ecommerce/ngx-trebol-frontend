@@ -13,7 +13,7 @@ import { API_SERVICE_INJECTION_TOKENS } from './api/api-service-injection-tokens
 import { IGuestPublicApiService } from './api/guest-public-api.iservice';
 import { ILoginPublicApiService } from './api/login-public-api.iservice';
 import { IProfileAccountApiService } from './api/profile-account-api.iservice';
-import { IRegisterPublicApiService } from './api/register-public-api.iservice copy';
+import { IRegisterPublicApiService } from './api/register-public-api.iservice';
 import { AppService } from './app.service';
 import { Login } from '../models/Login';
 import { Registration } from '../models/Registration';

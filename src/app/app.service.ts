@@ -17,7 +17,7 @@ import { environment } from 'src/environments/environment';
 import { IAccessApiService } from './api/access-api.iservice';
 import { IGuestPublicApiService } from './api/guest-public-api.iservice';
 import { IProfileAccountApiService } from './api/profile-account-api.iservice';
-import { IRegisterPublicApiService } from './api/register-public-api.iservice copy';
+import { IRegisterPublicApiService } from './api/register-public-api.iservice';
 import { Registration } from '../models/Registration';
 
 @Injectable({ providedIn: 'root' })

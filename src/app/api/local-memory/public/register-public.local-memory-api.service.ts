@@ -8,7 +8,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Registration } from 'src/models/Registration';
-import { IRegisterPublicApiService } from '../../register-public-api.iservice copy';
+import { IRegisterPublicApiService } from '../../register-public-api.iservice';
 
 @Injectable()
 export class RegisterPublicLocalMemoryApiService
