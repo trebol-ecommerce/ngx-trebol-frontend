@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replace title in frontpage header with search bar
 - `AppService` now exposes an `userName$` observable
 - Refactored receipt page to have its card as a separate component
+- Let all dialogs be closed by clicking out of their bounds, except for the `confirmation` dialog
 
 ### Fixed
 - Change property type of `token` in `Sell` model to `string`
