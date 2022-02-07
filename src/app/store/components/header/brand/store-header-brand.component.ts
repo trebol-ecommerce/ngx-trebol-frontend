@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { StoreCompanyDetailsDialogComponent } from 'src/app/store/dialogs/company-details/store-company-details-dialog.component';
 import { environment } from 'src/environments/environment';
+import { Image } from 'src/models/entities/Image';
 
 @Component({
   selector: 'app-store-header-brand',
@@ -18,6 +19,7 @@ import { environment } from 'src/environments/environment';
 export class StoreHeaderBrandComponent {
 
   readonly appTitle: string = environment.labels.name;
+  readonly appLogo: Image = environment.staticImages.logo;
 
   constructor(
     private dialogService: MatDialog

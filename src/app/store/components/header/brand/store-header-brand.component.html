@@ -5,6 +5,10 @@
   https://opensource.org/licenses/MIT
 -->
 
-<div class="logo" (click)="onClickViewCompanyDetails()">
+<img *ngIf="appLogo?.url; else title"
+  [src]="appLogo.url"
+  [alt]="appTitle"
+  (click)="onClickViewCompanyDetails()" />
+<ng-template #title>
   <h1>{{ appTitle }}</h1>
-</div>
+</ng-template>

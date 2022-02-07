@@ -39,6 +39,11 @@ export const environment = {
     maxIntegerValue: 2147483647
   },
   staticImages: {
+    logo: {
+      // url: 'assets/img/logo.png',
+      url: 'https://fakeimg.pl/400x400',
+      filename: 'logo.png'
+    },
     topBanners: [
       {
         filename: 'banner-A.png',

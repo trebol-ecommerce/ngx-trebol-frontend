@@ -5,34 +5,27 @@
  * https://opensource.org/licenses/MIT
  */
 
-.logo {
-  padding: 0 0.5rem;
+:host {
+  padding: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
-.logo:hover {
+:host:hover {
   background-color: rgba(0,0,0,0.2);
 }
 
-.logo .mobile {
-  display: inline;
-}
-
-.logo .desktop {
-  display: none;
+img {
+  max-height: 4rem;
 }
 
 @media(min-width: 641px) {
-  .logo {
-    padding: 0 1.5rem 0 1rem;
+  :host {
+    padding: 0.5rem 1.5rem 0.5rem 1rem;
   }
 
-  .logo .desktop {
-    display: inline;
-  }
-  .logo .mobile {
-    display: none;
+  img {
+    max-height: 7rem;
   }
 }
