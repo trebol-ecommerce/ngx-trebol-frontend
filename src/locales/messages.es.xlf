@@ -2,6 +2,22 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="3675082934098694037" datatype="html">
+        <source>Su nombre de empresa o negocio aquí</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/local-memory/mock/mock-company-details.examples.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <note priority="1" from="description">Example of a company or business name</note>
+      </trans-unit>
+      <trans-unit id="6193889690878281109" datatype="html">
+        <source>Este párrafo debiese describir el perfil de tu empresa; motivación, objetivos, historias de éxito, todo aquello que ayude a construir una imagen.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/local-memory/mock/mock-company-details.examples.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <note priority="1" from="description">Example of a paragraph used to describe the business this application is meant for</note>
+      </trans-unit>
       <trans-unit id="5378516332819650849" datatype="html">
         <source>Crear</source>
         <context-group purpose="location">
@@ -580,7 +596,7 @@
         <source>Venta N°<x id="buyOrder" equiv-text="s.buyOrder"/> (<x id="date" equiv-text="s.date"/>) eliminada</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/management/routes/sales/management-sales.component.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">71</context>
         </context-group>
         <note priority="1" from="description">Message of success after deleting a sell with buy order {{ buyOrder }} on date {{ date }}</note>
       </trans-unit>
@@ -910,7 +926,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/dialogs/products-array/products-array-dialog.component.html</context>
-          <context context-type="linenumber">130</context>
+          <context context-type="linenumber">120</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component.html</context>
