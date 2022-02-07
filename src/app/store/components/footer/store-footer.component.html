@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="general phone"
-    *ngIf="contactInfo.phone">
+    *ngIf="contactInfo.phone && contactInfo.urlSafePhone">
     <strong i18n="Label for section referring to a contact phone number">Phone</strong>
     <div>
       <a href="tel:{{ contactInfo.urlSafePhone }}">
