@@ -66,6 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 - All references to deprecated APIs `/public/products` and `/public/categories`
+- Some placeholder images
 
 ## [v2.0.0] - 2022-01-18
 
