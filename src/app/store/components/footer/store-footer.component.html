@@ -22,7 +22,7 @@
     *ngIf="contactInfo.phone && contactInfo.urlSafePhone">
     <strong i18n="Label for section referring to a contact phone number">Phone</strong>
     <div>
-      <a href="tel:{{ contactInfo.urlSafePhone }}">
+      <a href="tel://{{ contactInfo.urlSafePhone }}">
         <img src="https://unpkg.com/@fortawesome/fontawesome-free/svgs/solid/phone-alt.svg" class="phone icon"
         i18n-alt="Label for phone number icon"
           alt="Contact phone number" aria-hidden="true" />
