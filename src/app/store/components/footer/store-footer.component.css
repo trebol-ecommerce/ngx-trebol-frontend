@@ -6,93 +6,89 @@
  */
 
 :host {
+  padding: 2rem 0;
   display: block;
-}
-
-.contact,
-.lower {
-  display: grid;
-  gap: 1rem;
   text-align: center;
 }
 
-.contact,
-.social,
-.lower {
-  padding: 1rem 0;
-}
-
-.lower p {
-  margin: 0 1rem;
-}
-
-.contact > div > *,
-.social > * {
+.contact a {
+  height: 1.5rem;
   margin: 0.5rem;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-}
-.contact > .email > a {
-  align-items: flex-end;
 }
 
-.contact > div > * > .icon {
+.contact a > .icon,
+.contact a > .icon,
+.contact a > .icon {
   margin-right: 0.5rem;
 }
 
-.social > ul {
+.social ul {
   list-style: none;
   display: flex;
   justify-content: space-around;
-  margin: 0.5rem 1rem;
+  align-items: center;
+  margin: 0.5rem 6rem;
   padding: 0;
 }
 
 .icon {
-  width: 1rem;
-  height: 1rem;
-  font-size: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
 }
 
 .social .icon {
-  width: 2rem;
-  height: 2rem;
-  font-size: 2rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 2.25rem;
+  margin: 0;
+}
+
+mat-divider {
+  margin: 1rem;
+}
+
+.upper,
+.middle {
+  padding: 1rem;
+}
+.upper > div {
+  margin: 1rem 2rem;
+}
+
+.middle > div {
+  margin: 1rem;
+}
+
+.lower > p {
+  margin: 0 2rem;
 }
 
 @media(min-width: 641px) {
   :host {
-    padding: 4rem 0 2rem;
+    padding: 4rem 0;
   }
 
-  .contact,
   .social > ul {
     grid-auto-flow: column;
     justify-content: center;
-  }
-
-  .contact {
-    gap: 3rem;
-  }
-
-  .social > ul {
     gap: 1rem;
   }
 
-  .lower p {
-    margin: 0;
-  }
-}
-
-
-@media(min-width: 1008px) {
-  .contact {
-    gap: 5rem;
-  }
-
   mat-divider {
-    width: 75%;
-    margin: auto;
+    margin: 2rem 0;
+  }
+
+  .upper {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+  }
+
+  .lower > p {
+    margin: 0;
   }
 }
