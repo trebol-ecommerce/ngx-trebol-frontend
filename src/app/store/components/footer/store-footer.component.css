@@ -83,12 +83,19 @@ mat-divider {
   }
 
   .upper {
+    padding: 1rem 10%;
     display: flex;
     flex-flow: row nowrap;
-    justify-content: center;
+    justify-content: space-evenly;
   }
 
   .lower > p {
     margin: 0;
+  }
+}
+
+@media(min-width: 1008px) {
+  .upper {
+    padding: 1rem 20%;
   }
 }
