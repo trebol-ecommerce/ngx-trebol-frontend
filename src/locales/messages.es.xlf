@@ -1816,7 +1816,7 @@
         <note priority="1" from="description">Title of application</note>
       </trans-unit>
       <trans-unit id="2753345209400948180" datatype="html">
-        <source>Síguenos en nuestras redes sociales:</source>
+        <source>Estamos ubicados en:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/location/store-location.component.html</context>
           <context context-type="linenumber">8</context>
