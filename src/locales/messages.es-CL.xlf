@@ -1706,7 +1706,7 @@
         <note priority="1" from="description">Label for envelope (email) icon</note>
       </trans-unit>
       <trans-unit id="653276360444432005" datatype="html">
-        <source>Follow us on social media</source>
+        <source>Síguenos en nuestras redes sociales</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/components/footer/store-footer.component.html</context>
           <context context-type="linenumber">46</context>
