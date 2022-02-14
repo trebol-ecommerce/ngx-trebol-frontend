@@ -66,23 +66,29 @@ export class SalesDataHttpApiService
   }
 
   markAsConfirmed(sell: Sell): Observable<any> {
+    const payload: Partial<Sell> = {};
+    payload.buyOrder = sell.buyOrder;
     return this.http.post(
       `${this.baseUrl}/confirmation`,
-      sell
+      payload
     );
   }
 
   markAsRejected(sell: Sell): Observable<any> {
+    const payload: Partial<Sell> = {};
+    payload.buyOrder = sell.buyOrder;
     return this.http.post(
       `${this.baseUrl}/rejection`,
-      sell
+      payload
     );
   }
 
   markAsCompleted(sell: Sell): Observable<any> {
+    const payload: Partial<Sell> = {};
+    payload.buyOrder = sell.buyOrder;
     return this.http.post(
       `${this.baseUrl}/completion`,
-      sell
+      payload
     );
   }
 
