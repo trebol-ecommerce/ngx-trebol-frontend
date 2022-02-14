@@ -1451,7 +1451,7 @@
         <note priority="1" from="description">Title of dialog used to view and edit some data</note>
       </trans-unit>
       <trans-unit id="2185228394767497497" datatype="html">
-        <source>Data saved successfully</source>
+        <source>Datos guardados correctamente</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/dialogs/entity-form/entity-form-dialog.component.ts</context>
           <context context-type="linenumber">90</context>
