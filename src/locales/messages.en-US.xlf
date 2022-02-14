@@ -2242,8 +2242,8 @@
         </context-group>
         <note priority="1" from="description">Description of status of a sell right before requesting payment; customers may never see this state</note>
       </trans-unit>
-      <trans-unit id="4739012010062717286" datatype="html">
-        <source>Payment Aborted</source>
+      <trans-unit id="371956944363479367" datatype="html">
+        <source>Payment Cancelled</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/text/sell-status-names.ts</context>
           <context context-type="linenumber">15</context>
