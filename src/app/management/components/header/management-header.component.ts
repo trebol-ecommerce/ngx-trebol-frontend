@@ -16,6 +16,7 @@ import { ManagementService } from 'src/app/management/management.service';
 import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { environment } from 'src/environments/environment';
+import { Image } from 'src/models/entities/Image';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 
 @Component({
@@ -25,10 +26,11 @@ import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 })
 export class ManagementHeaderComponent {
 
+  readonly appTitle: string = environment.labels.name;
+  readonly appLogo: Image = environment.staticImages.logo;
+
   moduleName$: Observable<string>;
   userName$: Observable<string>;
-
-  readonly appTitle = environment.labels.name;
 
   constructor(
     protected service: ManagementService,

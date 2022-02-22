@@ -16,17 +16,26 @@
   flex-flow: row nowrap;
 }
 
-.logo {
-  flex: 0 0 auto;
+a {
   padding: 0 0.5rem;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+a:hover {
+  background-color: rgba(0,0,0,0.2);
 }
 
-@media(min-width: 641px) {
-  .logo {
-    padding: 0 1.5rem 0 1rem;
-    justify-content: space-between;
-  }
+a > img {
+  max-height: 4rem;
+}
+
+.middle {
+  flex: 1 1 auto;
+  font-size: 1.25rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .action {
@@ -42,6 +51,14 @@
 }
 
 @media(min-width: 641px) {
+  a {
+    padding: 0 1rem;
+  }
+
+  a > img {
+    max-height: 7rem;
+  }
+
   .action {
     padding: 0
   }
@@ -50,11 +67,4 @@
     height: 3rem;
     font-size: 3rem;
   }
-}
-
-.middle {
-  flex: 1 1 auto;
-  font-size: 1.25rem;
-  justify-content: center;
-  align-items: center;
 }

@@ -5,14 +5,14 @@
  * https://opensource.org/licenses/MIT
  */
 
-:host {
+a {
   padding: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
-:host:hover {
+a:hover {
   background-color: rgba(0,0,0,0.2);
 }
 
@@ -21,7 +21,7 @@ img {
 }
 
 @media(min-width: 641px) {
-  :host {
+  a {
     padding: 0.5rem 1rem;
   }
 

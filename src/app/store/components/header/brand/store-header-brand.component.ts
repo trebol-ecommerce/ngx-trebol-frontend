@@ -6,8 +6,9 @@
  */
 
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { StoreCompanyDetailsDialogComponent } from 'src/app/store/dialogs/company-details/store-company-details-dialog.component';
+// import { MatDialog } from '@angular/material/dialog';
+// import { Router } from '@angular/router';
+// import { StoreCompanyDetailsDialogComponent } from 'src/app/store/dialogs/company-details/store-company-details-dialog.component';
 import { environment } from 'src/environments/environment';
 import { Image } from 'src/models/entities/Image';
 
@@ -22,13 +23,13 @@ export class StoreHeaderBrandComponent {
   readonly appLogo: Image = environment.staticImages.logo;
 
   constructor(
-    private dialogService: MatDialog
+    // private router: Router
   ) { }
 
   onClickViewCompanyDetails(): void {
-    this.dialogService.open(
-      StoreCompanyDetailsDialogComponent
-    );
+    // this.dialogService.open(
+    //   StoreCompanyDetailsDialogComponent
+    // );
   }
 
 }

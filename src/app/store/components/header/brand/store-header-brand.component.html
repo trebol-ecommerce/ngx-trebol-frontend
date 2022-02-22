@@ -5,10 +5,11 @@
   https://opensource.org/licenses/MIT
 -->
 
-<img *ngIf="appLogo?.url; else title"
-  [src]="appLogo.url"
-  [alt]="appTitle"
-  (click)="onClickViewCompanyDetails()" />
-<ng-template #title>
-  <h1>{{ appTitle }}</h1>
-</ng-template>
+<a routerLink="/">
+  <img *ngIf="appLogo?.url; else title"
+    [src]="appLogo.url"
+    [alt]="appTitle" />
+  <ng-template #title>
+    <h1>{{ appTitle }}</h1>
+  </ng-template>
+</a>

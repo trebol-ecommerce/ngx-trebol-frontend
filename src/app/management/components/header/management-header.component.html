@@ -13,9 +13,14 @@
   (click)="switchSidenavOpenState()">
   <mat-icon>menu</mat-icon>
 </button>
-<div class="logo">
-  <h1>{{ appTitle }}</h1>
-</div>
+<a routerLink="/">
+  <img *ngIf="appLogo?.url; else title"
+    [src]="appLogo.url"
+    [alt]="appTitle" />
+  <ng-template #title>
+    <h1>{{ appTitle }}</h1>
+  </ng-template>
+</a>
 <div class="middle">
   <span>{{ moduleName$ | async }}</span>
 </div>
