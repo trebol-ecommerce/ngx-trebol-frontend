@@ -29,8 +29,8 @@ export class ManagementSellReviewDialogComponent
   isBusy$ = this.busyStatusSource.asObservable().pipe();
 
   get dialogTitle() { return $localize`:Title of dialog used to view details of one sell:Details of sell #${ this.data.sell.buyOrder }:buyOrder:`; }
-  get isNotPaid() { return this.data.sell?.status < SELL_STATUS_NAMES_MAP.get(3); }
-  get isNotConfirmed() { return this.data.sell?.status < SELL_STATUS_NAMES_MAP.get(4); }
+  get isNotPaid() { return this.data.sell?.status != SELL_STATUS_NAMES_MAP.get(3); }
+  get isNotConfirmed() { return this.data.sell?.status != SELL_STATUS_NAMES_MAP.get(4); }
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ManagementSellReviewDialogData,
