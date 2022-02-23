@@ -67,10 +67,10 @@ export class StoreBillingDetailsFormComponent
   ngOnInit(): void {
     this.sellTypeChangesSubscription = this.sellType.valueChanges.pipe(
       tap(v => {
-        if (v === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
+        if (v === BILLING_TYPE_COMPANY) {
           this.company.enable();
           this.address.enable();
-        } else if (v === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_INDIVIDUAL)) {
+        } else if (v === BILLING_TYPE_INDIVIDUAL) {
           this.company.reset({ value: null, disabled: true });
           this.address.reset({ value: null, disabled: true });
         }
