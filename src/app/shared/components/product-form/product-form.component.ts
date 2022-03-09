@@ -44,6 +44,7 @@ export class ProductFormComponent
   private touched = new EventEmitter<void>();
 
   formGroup: FormGroup;
+  get images() { return this.formGroup.get('images') as FormControl; }
   get barcode() { return this.formGroup.get('barcode') as FormControl; }
   get name() { return this.formGroup.get('name') as FormControl; }
   get category() { return this.formGroup.get('category') as FormControl; }
@@ -52,13 +53,12 @@ export class ProductFormComponent
   // get criticalStock() { return this.formGroup.get('criticalStock') as FormControl; }
   get description() { return this.formGroup.get('description') as FormControl; }
 
-  images: Image[];
-
   constructor(
     private formBuilder: FormBuilder,
     private dialogService: MatDialog
   ) {
     this.formGroup = this.formBuilder.group({
+      images: [[]],
       barcode: ['', Validators.required],
       name: ['', Validators.required],
       category: [null],
@@ -82,6 +82,7 @@ export class ProductFormComponent
   }
 
   writeValue(obj: any): void {
+    this.images.reset([], { emitEvent: false });
     this.barcode.reset('', { emitEvent: false });
     this.name.reset('', { emitEvent: false });
     this.category.reset('', { emitEvent: false });
@@ -89,12 +90,12 @@ export class ProductFormComponent
     // this.stock.reset('', { emitEvent: false });
     // this.criticalStock.reset('', { emitEvent: false });
     this.description.reset('', { emitEvent: false });
-    this.images = [];
     if (isJavaScriptObject(obj)) {
       this.formGroup.patchValue(obj);
-      if (Array.isArray(obj.images)) {
-        this.images = obj.images;
-      }
+
+      // if (Array.isArray(obj.images)) {
+      //   this.images.setValue(obj.images);
+      // }
     }
   }
 
@@ -144,7 +145,7 @@ export class ProductFormComponent
 
   onClickAddImage(): void {
     const data: ImagesArrayDialogData = {
-      existing: this.images
+      existing: this.images.value
     };
     this.dialogService.open(
       ImagesArrayDialogComponent,
@@ -154,7 +155,7 @@ export class ProductFormComponent
     ).afterClosed().pipe(
       tap((images: Image[]) => {
         if (images && images.length) {
-          this.images = images;
+          this.images.setValue(images);
         }
       })
     ).subscribe();

@@ -46,6 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Let all dialogs be closed by clicking out of their bounds, except for the `confirmation` dialog
 - Product cards hovered in frontpage use vertical gradient as a background instead of a solid color
 - Renamed `ITransactionalProductListContentsDataApiService`
+- `SlideshowComponent` now integrates with Angular forms
 
 ### Fixed
 - Individual item fetching in HTTP API (used when editing any data)
@@ -60,6 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Going backwards in a slideshow would omit the first index
 - Prematurely end guest sessions
 - Fail to send products without category
+- Fail to add or remove images for products upon submission
 - Alignment of some components
   - Acept/cancel buttons in dialog to select multiple products
   - Fields in personal information form

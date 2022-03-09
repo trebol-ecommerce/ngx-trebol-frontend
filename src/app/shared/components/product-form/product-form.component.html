@@ -7,7 +7,7 @@
 
 <form [formGroup]="formGroup">
   <app-slideshow class="images"
-    [images]="images"
+    formControlName="images"
     [autocycle]="false"
     [editable]="true"
     (add)="onClickAddImage()">
