@@ -34,7 +34,20 @@ export class ProductsDataHttpApiService
     );
   }
 
+  create(product: Product) {
+    if (!product.category) {
+      product.category = null;
+    }
+    return this.http.post<any>(
+      this.baseUrl,
+      product
+    );
+  }
+
   update(product: Partial<Product>) {
+    if (!product.category) {
+      product.category = null;
+    }
     return this.http.put(
       this.baseUrl,
       product,
