@@ -63,6 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fail to send products without category
 - Fail to add or remove images for products upon submission
 - Products could not be filtered by partial name
+- Do not state a limit amount of items when fetching product categories; due to their tree-like nature these must not be 'paginated'
 - Alignment of some components
   - Acept/cancel buttons in dialog to select multiple products
   - Fields in personal information form

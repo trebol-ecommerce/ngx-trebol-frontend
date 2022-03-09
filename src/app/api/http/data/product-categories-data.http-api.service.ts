@@ -57,4 +57,18 @@ export class ProductCategoriesDataHttpApiService
       }
     );
   }
+
+  protected makeHttpParams(pageIndex?: number, pageSize?: number, sortBy?: string, order?: string, filters?: any) {
+    let params = (!!filters) ?
+      new HttpParams({ fromObject: filters }) :
+      new HttpParams();
+
+    if (!!sortBy) {
+      params = params.append('sortBy', sortBy);
+    }
+    if (!!order) {
+      params = params.append('order', order);
+    }
+    return params;
+  }
 }
