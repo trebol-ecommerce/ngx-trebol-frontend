@@ -26,14 +26,14 @@ export class ProductFiltersPanelComponent
   formGroup: FormGroup;
 
   get category() { return this.formGroup.get('category') as FormControl; }
-  get name() { return this.formGroup.get('name') as FormControl; }
+  get nameLike() { return this.formGroup.get('nameLike') as FormControl; }
 
   constructor(
     protected formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
       category: [null],
-      name: ['']
+      nameLike: ['']
     });
 
     this.valueChangesSubscription = this.formGroup.valueChanges.pipe(
@@ -41,8 +41,8 @@ export class ProductFiltersPanelComponent
       distinctUntilChanged(),
       tap(value => {
         const filters: Partial<ProductFilters> = {};
-        if (value.name) {
-          filters.name = value.name;
+        if (value.nameLike) {
+          filters.nameLike = value.nameLike;
         }
         if (value.category) {
           filters.categoryCode = value.category.code;

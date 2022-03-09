@@ -6,6 +6,6 @@
  */
 
 export class ProductFilters {
-  name?: string;
+  nameLike?: string;
   categoryCode?: string;
 }
