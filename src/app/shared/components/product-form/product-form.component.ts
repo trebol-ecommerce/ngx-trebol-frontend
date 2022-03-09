@@ -85,17 +85,13 @@ export class ProductFormComponent
     this.images.reset([], { emitEvent: false });
     this.barcode.reset('', { emitEvent: false });
     this.name.reset('', { emitEvent: false });
-    this.category.reset('', { emitEvent: false });
+    this.category.reset(null, { emitEvent: false });
     this.price.reset('', { emitEvent: false });
     // this.stock.reset('', { emitEvent: false });
     // this.criticalStock.reset('', { emitEvent: false });
     this.description.reset('', { emitEvent: false });
     if (isJavaScriptObject(obj)) {
       this.formGroup.patchValue(obj);
-
-      // if (Array.isArray(obj.images)) {
-      //   this.images.setValue(obj.images);
-      // }
     }
   }
 
@@ -123,6 +119,7 @@ export class ProductFormComponent
       return { required: value };
     } else {
       const errors = {} as any;
+
       if (!value.barcode) {
         errors.requiredProductBarcode = value.barcode;
       }

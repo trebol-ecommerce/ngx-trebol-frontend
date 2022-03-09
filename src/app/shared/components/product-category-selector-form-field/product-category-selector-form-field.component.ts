@@ -66,23 +66,18 @@ export class ProductCategorySelectorFormFieldComponent
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    if (!value) {
-      return { required: value };
-    } else {
+    const value: Partial<ProductCategory> = control.value;
+    if (value) {
       const errors = {} as any;
-      if (control.value) {
-        const val = control.value as ProductCategory;
-        if (!val.code) {
-          errors.requireeCode = val.code;
-        }
-        if (!val.name) {
-          errors.requiredName = val.name;
-        }
+      if (!value?.code) {
+        errors.requiredCode = value.code;
+      }
+      if (!value?.name) {
+        errors.requiredName = value.name;
+      }
 
-        if (JSON.stringify(errors) !== '{}') {
-          return errors;
-        }
+      if (JSON.stringify(errors) !== '{}') {
+        return errors;
       }
     }
   }

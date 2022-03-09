@@ -57,12 +57,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Account profile
 - Logic for fetching receipt data
 - Several issues with responsive screens in frontpage
-- Product form not loading images from upstream
 - Going backwards in a slideshow would omit the first index
 - Prematurely end guest sessions
-- Fail to send products without category
-- Fail to add or remove images for products upon submission
-- Products could not be filtered by partial name
+- Errors in products CRUD operations
+  - (UI) Image associations were not loaded into the form
+  - (Form validation) Categories were required at parent-form and child-form levels
+  - (HTTP API) Image associations were not included in request bodies
+  - (HTTP API) Filtering by partial name would send an incorrectly-named query parameter
 - Do not state a limit amount of items when fetching product categories; due to their tree-like nature these must not be 'paginated'
 - Alignment of some components
   - Acept/cancel buttons in dialog to select multiple products
