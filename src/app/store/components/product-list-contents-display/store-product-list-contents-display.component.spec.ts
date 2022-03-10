@@ -17,6 +17,7 @@ import { StoreProductListContentsDisplayComponent } from './store-product-list-c
 
 @Component({ selector: 'app-products-display' })
 class MockProductsDisplayComponent {
+  @Input() loading: boolean;
   @Input() products: Product[];
   @Input() totalCount: number;
   @Input() pageIndex: number;

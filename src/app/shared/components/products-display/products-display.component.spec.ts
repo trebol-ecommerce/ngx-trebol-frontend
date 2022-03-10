@@ -14,6 +14,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Product } from 'src/models/entities/Product';
 import { ProductsDisplayComponent } from './products-display.component';
 
+@Component({ selector: 'app-centered-mat-spinner' })
+class MockCenteredMatSpinnerComponent { }
+
 @Component({ selector: 'app-product-card' })
 class MockStoreProductCardComponent {
   @Input() product: Product;
@@ -33,6 +36,7 @@ describe('ProductsDisplayComponent', () => {
       ],
       declarations: [
         ProductsDisplayComponent,
+        MockCenteredMatSpinnerComponent,
         MockStoreProductCardComponent
       ]
     })
