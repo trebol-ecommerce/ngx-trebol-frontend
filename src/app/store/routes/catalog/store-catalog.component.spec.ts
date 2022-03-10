@@ -9,10 +9,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { merge, of, timer } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
-import { Product } from 'src/models/entities/Product';
+import { of } from 'rxjs';
 import { ProductList } from 'src/models/entities/ProductList';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreCatalogComponent } from './store-catalog.component';
@@ -48,11 +45,15 @@ describe('StoreCatalogComponent', () => {
   beforeEach(waitForAsync(() => {
     mockCatalogService = {
       loading$: of(false),
-      lists$: of([]),
+      listsPage$: of({
+        items: [],
+        pageIndex: 0,
+        pageSize: 10,
+        totalCount: 0
+      }),
       reloadItems() {},
       viewProduct(p) {}
     };
-    spyOn(mockCatalogService, 'reloadItems');
     mockCartService = {
       addProductToCart(p) {}
     };
@@ -85,18 +86,5 @@ describe('StoreCatalogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should load items inmediately', () => {
-    let lists: ProductList[];
-    merge(
-      timer(100).pipe(
-        tap(() => expect(lists).toBeTruthy())
-      ),
-      component.lists$.pipe(
-        take(1),
-        tap(p => { lists = p; })
-      )
-    ).subscribe();
   });
 });

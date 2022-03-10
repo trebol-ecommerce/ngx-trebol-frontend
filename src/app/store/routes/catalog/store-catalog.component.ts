@@ -7,6 +7,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Product } from 'src/models/entities/Product';
 import { ProductList } from 'src/models/entities/ProductList';
@@ -31,7 +32,7 @@ export class StoreCatalogComponent
     private cartService: StoreCartService
   ) {
     this.loading$ = this.catalogService.loading$.pipe();
-    this.lists$ = this.catalogService.lists$.pipe();
+    this.lists$ = this.catalogService.listsPage$.pipe(map(page => page.items));
   }
 
   ngOnInit(): void {

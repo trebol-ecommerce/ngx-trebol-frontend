@@ -13,6 +13,7 @@ import { concatMap, finalize, map, switchMap, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { ITransactionalProductListContentsDataApiService } from 'src/app/api/transactional-product-list-contents.data.api.iservice';
+import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
 import { ProductList } from 'src/models/entities/ProductList';
 import { StoreProductDetailsDialogComponent } from '../../dialogs/product-details/store-product-details-dialog.component';
@@ -25,9 +26,9 @@ export class StoreCatalogService
   private queryParamsSubscription: Subscription;
   private loadingSubscription: Subscription;
   private loadingSource = new BehaviorSubject(false);
-  private listsSource = new ReplaySubject<ProductList[]>(1);
+  private listsPageSource = new ReplaySubject<DataPage<ProductList>>(1);
 
-  lists$ = this.listsSource.asObservable();
+  listsPage$ = this.listsPageSource.asObservable();
   loading$ = this.loadingSource.asObservable();
 
   listIndex = 0;
@@ -47,7 +48,7 @@ export class StoreCatalogService
     this.queryParamsSubscription?.unsubscribe();
     this.loadingSubscription?.unsubscribe();
     this.loadingSource.complete();
-    this.listsSource.complete();
+    this.listsPageSource.complete();
   }
 
   reloadItems(): void {
@@ -55,7 +56,7 @@ export class StoreCatalogService
     this.loadingSource.next(true);
 
     this.loadingSubscription = this.productListApiService.fetchPage(this.listIndex).pipe(
-      tap(page => this.listsSource.next(page.items)),
+      tap(page => this.listsPageSource.next(page)),
       finalize(() => this.loadingSource.next(false))
     ).subscribe();
   }

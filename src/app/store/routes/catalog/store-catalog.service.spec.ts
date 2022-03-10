@@ -8,11 +8,14 @@
 import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of, throwError } from 'rxjs';
+import { merge, of, throwError, timer } from 'rxjs';
+import { tap, take } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { ITransactionalProductListContentsDataApiService } from 'src/app/api/transactional-product-list-contents.data.api.iservice';
+import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
+import { ProductList } from 'src/models/entities/ProductList';
 import { StoreCatalogService } from './store-catalog.service';
 
 describe('StoreCatalogService', () => {
@@ -57,5 +60,32 @@ describe('StoreCatalogService', () => {
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('should expose an observable with a loaded page after calling reloadItems()', () => {
+    const mockDataPage: DataPage<ProductList> = {
+      items: [
+        {
+          code: 'test',
+          name: 'example list',
+          totalCount: 0
+        }
+      ],
+      pageIndex: 0,
+      pageSize: 10,
+      totalCount: 1
+    };
+    mockProductListsApiService.fetchPage = () => of(mockDataPage);
+    TestBed.overrideProvider(
+      API_SERVICE_INJECTION_TOKENS.dataProductLists,
+      { useValue: mockProductListsApiService }
+    );
+    service = TestBed.inject(StoreCatalogService);
+
+    service.reloadItems();
+    service.listsPage$.pipe(
+      take(1),
+      tap(nextPage => expect(nextPage).toEqual(mockDataPage))
+    ).subscribe();
   });
 });
