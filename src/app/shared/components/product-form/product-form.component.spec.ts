@@ -15,12 +15,20 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductFormComponent } from './product-form.component';
 
-@Component({ selector: 'app-slideshow' })
-class MockSlideshowComponent {
+@Component({
+  selector: 'app-slideshow',
+  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockSlideshowComponent }]
+})
+class MockSlideshowComponent
+  implements ControlValueAccessor {
   @Input() images: any[];
   @Input() autocycle: boolean;
   @Input() editable: boolean;
   @Output() add = new EventEmitter();
+  writeValue(obj: any): void { this.images = obj; }
+  registerOnChange(fn: any): void { }
+  registerOnTouched(fn: any): void { }
+  setDisabledState?(isDisabled: boolean): void { }
 }
 
 @Component({
