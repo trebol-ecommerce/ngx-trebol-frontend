@@ -55,10 +55,10 @@ describe('StoreCatalogService', () => {
         { provide: MatDialog, useValue: mockDialogService }
       ]
     });
-    service = TestBed.inject(StoreCatalogService);
   });
 
   it('should be created', () => {
+    service = TestBed.inject(StoreCatalogService);
     expect(service).toBeTruthy();
   });
 
