@@ -30,11 +30,8 @@
 }
 .wrapper.scrollable > .shadow {
   display: block;
-}
-
-.wrapper.scrollable > .shadow {
-  pointer-events: none;
   position: absolute;
+  pointer-events: none;
   top: 0;
   left: 0;
   right: 0;
@@ -49,14 +46,22 @@
   gap: 0.5rem;
 }
 .wrapper.scrollable > .contents {
+  grid-auto-flow: unset;
+  gap: unset;
+  display: flex;
   flex-flow: row nowrap;
   overflow-x: auto;
   overflow-y: hidden;
-  justify-content: initial;
 }
 
-app-product-card {
+.contents > app-product-card {
   flex: 0 0 auto;
+}
+
+.hint {
+  padding: 0.5rem;
+  color: grey;
+  text-align: center;
 }
 
 .paginator {
@@ -64,11 +69,6 @@ app-product-card {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-}
-
-.paginator .hint {
-  color: grey;
-  text-align: center;
 }
 
 @media(max-width: 640px) {
