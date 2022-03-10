@@ -11,18 +11,21 @@
   </div>
   <div class="shadow"></div>
   <div class="contents">
-    <app-product-card
-      *ngFor="let product of products"
-      [product]="product"
-      [showAddToCartButton]="showAddToCartButtons"
-      (addToCart)="onAddProductToCart(product)"
-      (view)="onViewProduct(product)">
-    </app-product-card>
+    <app-centered-mat-spinner *ngIf="loading; else productCards">
+    </app-centered-mat-spinner>
+    <ng-template #productCards>
+      <app-product-card *ngFor="let product of products"
+        [product]="product"
+        [showAddToCartButton]="showAddToCartButtons"
+        (addToCart)="onAddProductToCart(product)"
+        (view)="onViewProduct(product)">
+      </app-product-card>
+    </ng-template>
   </div>
 </div>
-<div class="paginator" *ngIf="showPaginator">
-  <span class="hint" *ngIf="scrollable"
-    i18n="Label to hint users to swipe to the sides">Swipe to the sides to view more</span>
+<div class="hint" *ngIf="scrollable"
+    i18n="Label to hint users to swipe to the sides">Swipe to the sides to view more</div>
+<div class="paginator" *ngIf="showPaginator && (pageSize < products?.length)">
   <mat-paginator
     (page)="onPage($event)"
     [showFirstLastButtons]="true"

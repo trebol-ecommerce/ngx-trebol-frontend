@@ -24,6 +24,7 @@ export class ProductsDisplayComponent {
   @Input() totalCount = 0;
   @Input() pageIndex = 0;
   @Input() pageSize = 10;
+  @Input() loading = true;
 
   @Output() page = new EventEmitter<PageEvent>();
   @Output() addProductToCart = new EventEmitter<Product>();

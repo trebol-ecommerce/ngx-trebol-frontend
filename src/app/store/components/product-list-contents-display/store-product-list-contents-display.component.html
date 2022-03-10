@@ -7,6 +7,7 @@
 
 <h3>{{ list.name }}</h3>
 <app-products-display
+  [loading]="loadingProducts"
   [products]="products$ | async"
   [totalCount]="totalCount$ | async"
   [pageIndex]="pageIndex"

@@ -65,6 +65,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - (HTTP API) Image associations were not included in request bodies
   - (HTTP API) Filtering by partial name would send an incorrectly-named query parameter
 - Do not state a limit amount of items when fetching product categories; due to their tree-like nature these must not be 'paginated'
+- Add more loading indicators in the frontpage
+  - Product lists
 - Alignment of some components
   - Acept/cancel buttons in dialog to select multiple products
   - Fields in personal information form
