@@ -67,8 +67,7 @@ describe('StoreLoginFormDialogComponent', () => {
         { provide: MatSnackBar, useValue: mockSnackBarService },
         { provide: AppService, useValue: mockAppService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   it('should create', () => {
@@ -82,12 +81,19 @@ describe('StoreLoginFormDialogComponent', () => {
     fixture = TestBed.createComponent(StoreLoginFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
     const appServiceLoginSpy = spyOn(mockAppService, 'login').and.callThrough();
     component.onSubmit();
+    expect(appServiceLoginSpy).not.toHaveBeenCalled();
+
     component.username.setValue('test');
+    expect(component.formGroup.valid).toBeFalsy();
     component.onSubmit();
+    expect(appServiceLoginSpy).not.toHaveBeenCalled();
+
     component.formGroup.reset();
     component.password.setValue('test');
+    expect(component.formGroup.valid).toBeFalsy();
     component.onSubmit();
     expect(appServiceLoginSpy).not.toHaveBeenCalled();
   });
@@ -96,51 +102,49 @@ describe('StoreLoginFormDialogComponent', () => {
     fixture = TestBed.createComponent(StoreLoginFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
     const appServiceLoginSpy = spyOn(mockAppService, 'login').and.callThrough();
     component.username.setValue('test');
     component.password.setValue('pass');
+    expect(component.formGroup.valid).toBeTruthy();
     component.onSubmit();
     expect(appServiceLoginSpy).toHaveBeenCalled();
   });
 
   it('should not close after a failed login attempt', () => {
-    // TODO fix has no expectations
-    const mockAppService2 = {
-      login() { return throwError({ status: 403 }); },
-      cancelAuthentication() {}
-    };
-    TestBed.overrideProvider(AppService, { useValue: mockAppService2 })
-      .compileComponents();
+    mockAppService.login = () => throwError({ status: 403 });
+    TestBed.overrideProvider(
+      AppService,
+      { useValue: mockAppService }
+    ).compileComponents();
     fixture = TestBed.createComponent(StoreLoginFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
     const dialogCloseSpy = spyOn(mockDialog, 'close').and.callThrough();
     component.username.setValue('test');
     component.password.setValue('pass');
     component.onSubmit();
-    setTimeout(() => {
-      expect(dialogCloseSpy).not.toHaveBeenCalled();
-    }, 50);
+    expect(dialogCloseSpy).not.toHaveBeenCalled();
   });
 
   it('should close upon a successful login', () => {
-    // TODO fix has no expectations
     fixture = TestBed.createComponent(StoreLoginFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
     const dialogCloseSpy = spyOn(mockDialog, 'close').and.callThrough();
     component.username.setValue('test');
     component.password.setValue('pass');
     component.onSubmit();
-    setTimeout(() => {
-      expect(dialogCloseSpy).toHaveBeenCalled();
-    }, 50);
+    expect(dialogCloseSpy).toHaveBeenCalled();
   });
 
   it('should close upon cancellation', () => {
     fixture = TestBed.createComponent(StoreLoginFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
     const dialogCloseSpy = spyOn(mockDialog, 'close');
     component.onCancel();
     expect(dialogCloseSpy).toHaveBeenCalled();

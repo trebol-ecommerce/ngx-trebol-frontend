@@ -9,8 +9,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { Login } from 'src/models/Login';
 import { DialogSwitcherButtonComponent } from 'src/app/shared/components/dialog-switcher-button/dialog-switcher-button.component';
@@ -72,23 +72,23 @@ export class StoreLoginFormDialogComponent
         password: this.password.value
       };
 
-      this.appService.login(details).subscribe(
-        () => {
+      this.appService.login(details).pipe(
+        tap(() => {
           this.dialog.close();
           const successMessage = $localize`:Message of success after login:You have logged in`
           this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
-        },
-        error => {
-          if (error.status === 403) {
-            this.loggingInSource.next(false);
+        }),
+        catchError(err => {
+          if (err.status === 403) {
             const errorMessage = $localize`:Message of error due to bad/erroneous credentials:Your credentials were rejected`;
             this.snackBarService.open(errorMessage, COMMON_DISMISS_BUTTON_LABEL);
           } else {
-            this.loggingInSource.next(false);
             this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
           }
-        }
-      );
+          this.loggingInSource.next(false);
+          return throwError(err);
+        })
+      ).subscribe();
     }
   }
 
