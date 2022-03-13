@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { ComponentFactoryResolver, Directive, forwardRef, Injector, Input, OnInit, Type, ViewContainerRef } from '@angular/core';
+import { Directive, forwardRef, Injector, Input, OnInit, Type, ViewContainerRef } from '@angular/core';
 import { NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FormGroupOwner } from 'src/models/FormGroupOwner';
 
@@ -27,7 +27,6 @@ export class FormGroupOwnerOutletDirective
 
   constructor(
     private injector: Injector,
-    private componentFactoryResolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef
   ) { }
 
@@ -37,10 +36,8 @@ export class FormGroupOwnerOutletDirective
 
   private createInnerComponent(): void {
     if (this.componentType) {
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.componentType);
-      const componentRef = this.viewContainerRef.createComponent(componentFactory);
+      const componentRef = this.viewContainerRef.createComponent(this.componentType);
       this.innerComponent = componentRef.instance;
-
       this.injector.get(NgControl).valueAccessor = this.innerComponent as any;
     }
   }
