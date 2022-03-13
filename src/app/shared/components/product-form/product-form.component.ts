@@ -73,8 +73,9 @@ export class ProductFormComponent
     for (const sub of [
       ...this.valueChangesSubscriptions,
       ...this.touchedSubscriptions]) {
-      sub.unsubscribe();
+      sub?.unsubscribe();
     }
+    this.touched.complete();
   }
 
   onTouched(): void {
