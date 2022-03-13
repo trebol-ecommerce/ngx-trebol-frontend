@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Address } from 'src/models/entities/Address';
 import { AddressFormComponent } from './address-form.component';
 
 describe('AddressFormComponent', () => {
@@ -38,5 +39,36 @@ describe('AddressFormComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should not be valid at creation time', () => {
+    expect(component.formGroup.valid).toBeFalsy();
+  });
+
+  it('should accept instances of Address as input', () => {
+    const mockAddress: Address = {
+      firstLine: 'first line',
+      municipality: 'municipality name',
+      city: 'city name',
+      secondLine: '',
+      notes: ''
+    };
+    component.writeValue(mockAddress);
+    expect(component.formGroup.value).toEqual(mockAddress);
+    expect(component.formGroup.valid).toBeTruthy();
+  });
+
+  it('should fail to take non-Address instance objects', () => {
+    const notAnAddress = {
+      foo: 'example',
+      bar: 'test'
+    };
+    try {
+      component.writeValue(notAnAddress);
+    } catch (err) {
+      expect(err).toBeTruthy();
+    }
+    component.formGroup.updateValueAndValidity();
+    expect(component.formGroup.valid).toBeFalsy();
   });
 });

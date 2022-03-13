@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy } from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS,
@@ -13,7 +13,6 @@ import {
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
-import { Address } from 'src/models/entities/Address';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 
 @Component({
@@ -41,30 +40,6 @@ export class AddressFormComponent
   private touched = new EventEmitter<void>();
 
   formGroup: FormGroup;
-
-  @Input() @Output()
-  get address(): Address {
-    if (this.formGroup.invalid) {
-      return undefined;
-    } else {
-      const addressData: Partial<Address> = {
-        city: this.city.value,
-        municipality: this.municipality.value,
-        firstLine: this.firstLine.value,
-        secondLine: this.secondLine.value,
-        notes: this.notes.value
-      };
-      return Object.assign(new Address(), addressData);
-    }
-  }
-  set address(prs: Address) {
-    this.city.setValue(prs.city, { emitEvent: false, onlySelf: true });
-    this.municipality.setValue(prs.municipality, { emitEvent: false, onlySelf: true });
-    this.firstLine.setValue(prs.firstLine, { emitEvent: false, onlySelf: true });
-    this.secondLine.setValue(prs.secondLine, { emitEvent: false, onlySelf: true });
-    this.notes.setValue(prs.notes, { emitEvent: false, onlySelf: true });
-  }
-
   get city() { return this.formGroup.get('city') as FormControl; }
   get municipality() { return this.formGroup.get('municipality') as FormControl; }
   get firstLine() { return this.formGroup.get('firstLine') as FormControl; }
@@ -87,7 +62,7 @@ export class AddressFormComponent
     for (const sub of [
       ...this.touchedSubscriptions,
       ...this.valueChangesSubscriptions]) {
-      sub.unsubscribe();
+      sub?.unsubscribe();
     }
     this.touched.complete();
   }
