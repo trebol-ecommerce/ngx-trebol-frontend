@@ -17,8 +17,8 @@ import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/mess
 import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form/EntityFormDialogConfig';
 import { ManagementSellReviewDialogComponent } from '../../dialogs/sell-review/management-sell-review-dialog.component';
 import { ManagementSellReviewDialogData } from '../../dialogs/sell-review/ManagementSellReviewDialogData';
-import { DataManagerServiceDirective } from '../../directives/data-manager.service-directive';
-import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
+import { DataManagerServiceDirective } from '../../directives/data-manager/data-manager.service.directive';
+import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager/transactional-data-manager.component.directive';
 import { ManagementSalesService } from './management-sales.service';
 
 export interface SalesTableRow {

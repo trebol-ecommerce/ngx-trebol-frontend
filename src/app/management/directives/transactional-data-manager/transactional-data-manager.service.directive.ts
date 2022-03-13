@@ -10,7 +10,7 @@ import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, filter, finalize, mapTo, switchMap } from 'rxjs/operators';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
-import { DataManagerServiceDirective } from './data-manager.service-directive';
+import { DataManagerServiceDirective } from '../data-manager/data-manager.service.directive';
 
 @Directive()
 export abstract class TransactionalDataManagerServiceDirective<T>

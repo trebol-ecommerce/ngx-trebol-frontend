@@ -5,12 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Directive, EventEmitter, OnInit, Output } from '@angular/core';
+import { Directive, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DataManagerServiceDirective } from './data-manager.service-directive';
+import { DataManagerServiceDirective } from './data-manager.service.directive';
 
 /**
  * Base  for data manager template components.

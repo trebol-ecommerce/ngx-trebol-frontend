@@ -11,7 +11,7 @@ import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-
 import { ISalesDataApiService } from 'src/app/api/sales.data.api.iservice';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { Sell } from 'src/models/entities/Sell';
-import { TransactionalDataManagerServiceDirective } from '../../directives/transactional-data-manager.service-directive';
+import { TransactionalDataManagerServiceDirective } from '../../directives/transactional-data-manager/transactional-data-manager.service.directive';
 
 @Injectable()
 export class ManagementSalesService
