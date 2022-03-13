@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Image } from 'src/models/entities/Image';
 import { ImageFormComponent } from './image-form.component';
 
 describe('ImageFormComponent', () => {
@@ -38,5 +39,34 @@ describe('ImageFormComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should not be valid at creation time', () => {
+    expect(component.formGroup.valid).toBeFalsy();
+  });
+
+  it('should accept instances of Image as valid input', () => {
+    const mockImage: Image = {
+      filename: 'test.jpg',
+      url: '/path/to/test.jpg',
+      code: 'test-image'
+    };
+    component.writeValue(mockImage);
+    expect(component.formGroup.value).toEqual(mockImage);
+    expect(component.formGroup.valid).toBeTruthy();
+  });
+
+  it('should fail to take non-Product instance objects', () => {
+    const notAnImage = {
+      foo: 'example',
+      bar: 'test'
+    };
+    try {
+      component.writeValue(notAnImage);
+    } catch (err) {
+      expect(err).toBeTruthy();
+    }
+    component.formGroup.updateValueAndValidity();
+    expect(component.formGroup.valid).toBeFalsy();
   });
 });

@@ -12,9 +12,8 @@ import {
 } from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
-import { Image } from 'src/models/entities/Image';
-import { FormGroupOwner } from 'src/models/FormGroupOwner';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
+import { FormGroupOwner } from 'src/models/FormGroupOwner';
 
 @Component({
   selector: 'app-image-form',
@@ -46,8 +45,6 @@ export class ImageFormComponent
   get code() { return this.formGroup.get('code') as FormControl; }
   // get file() { return this.formGroup.get('file') as FormControl; }
 
-  images: Image[];
-
   constructor(
     private formBuilder: FormBuilder
   ) {
@@ -63,8 +60,9 @@ export class ImageFormComponent
     for (const sub of [
       ...this.valueChangesSubscriptions,
       ...this.touchedSubscriptions]) {
-      sub.unsubscribe();
+      sub?.unsubscribe();
     }
+    this.touched.complete();
   }
 
   onTouched(): void {
@@ -111,12 +109,6 @@ export class ImageFormComponent
       if (!value.url) {
         errors.requiredImageUrl = value.url;
       }
-      if (!value.code) {
-        errors.requiredImageCode = value.code;
-      }
-      // if (!value.file) {
-      //   errors.requiredProductPrice = value.file;
-      // }
 
       if (JSON.stringify(errors) !== '{}') {
         return errors;
