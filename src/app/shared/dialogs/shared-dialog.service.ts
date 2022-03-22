@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './confirmation/confirmation-dialog.component';
 import { ConfirmationDialogData } from './confirmation/ConfirmationDialogData';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class SharedDialogService {
 
   constructor(

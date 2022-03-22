@@ -8,8 +8,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { ProductCategoryFormComponent } from 'src/app/shared/components/product-category-form/product-category-form.component';
-import { EntityFormDialogConfig } from 'src/app/shared/dialogs/entity-form/EntityFormDialogConfig';
+import { EntityFormDialogConfig } from 'src/app/management/dialogs/entity-form/EntityFormDialogConfig';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager/transactional-data-manager.component.directive';
 import { ManagementProductCategoriesService } from './management-product-categories.service';

@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EntityTypeName } from 'src/models/EntityTypeNames';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class EntityFormGroupFactoryService {
 
   constructor(

@@ -5,7 +5,6 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
@@ -62,7 +61,6 @@ export const DATE_PROVIDER_IMPLEMENTATION = MatNativeDateModule ;
 
 @NgModule({
   imports: [
-    CommonModule,
     MATERIAL_MODULES,
     DATE_PROVIDER_IMPLEMENTATION
   ],

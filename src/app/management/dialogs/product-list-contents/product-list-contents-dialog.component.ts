@@ -12,7 +12,7 @@ import { Sort } from '@angular/material/sort';
 import { forkJoin, Observable, of } from 'rxjs';
 import { finalize, map, switchMap, tap } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
-import { ProductsArrayDialogComponent } from '../../../shared/dialogs/products-array/products-array-dialog.component';
+import { ProductsArrayDialogComponent } from '../products-array/products-array-dialog.component';
 import { ProductListContentsDialogService } from './product-list-contents-dialog.service';
 import { ProductListContentsDialogData } from './ProductListContentsDialogData';
 

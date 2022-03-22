@@ -15,7 +15,7 @@ import { Observable, Subscription } from 'rxjs';
 import { debounceTime, map, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { ProductsArrayDialogComponent } from 'src/app/shared/dialogs/products-array/products-array-dialog.component';
+import { ProductsArrayDialogComponent } from 'src/app/management/dialogs/products-array/products-array-dialog.component';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { BillingType } from 'src/models/entities/BillingType';
 import { Customer } from 'src/models/entities/Customer';
@@ -24,7 +24,7 @@ import { Salesperson } from 'src/models/entities/Salesperson';
 import { Sell } from 'src/models/entities/Sell';
 import { SellDetail } from 'src/models/entities/SellDetail';
 import { FormGroupOwner } from 'src/models/FormGroupOwner';
-import { EntityFormGroupFactoryService } from '../../entity-form-group-factory.service';
+import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { SellFormService } from './sell-manager-form.service';
 
 @Component({

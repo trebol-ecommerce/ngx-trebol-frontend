@@ -7,13 +7,12 @@
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { environmentModules } from 'src/environments/environment-modules';
 import { AppComponent } from './app.component';
-import { ManagementModule } from './management/management.module';
 import { SharedModule } from './shared/shared.module';
-import { StoreModule } from './store/store.module';
 
 const DEBUG_ROUTES = false;
 
@@ -23,9 +22,8 @@ const DEBUG_ROUTES = false;
   ],
   imports: [
     BrowserModule,
-    SharedModule,
-    StoreModule,
-    ManagementModule,
+    BrowserAnimationsModule,
+    // SharedModule,
     AppRoutingModule,
     environmentModules
   ],

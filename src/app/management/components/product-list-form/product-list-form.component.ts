@@ -5,41 +5,44 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, forwardRef, Input, OnDestroy } from '@angular/core';
+import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS,
-  NG_VALUE_ACCESSOR, ValidationErrors, Validator
+  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
+  ValidationErrors, Validator
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { Shipper } from 'src/models/entities/Shipper';
-import { EntityFormGroupFactoryService } from '../../entity-form-group-factory.service';
+import { ProductList } from 'src/models/entities/ProductList';
+import { FormGroupOwner } from 'src/models/FormGroupOwner';
+import { EntityFormGroupFactoryService } from '../../../shared/entity-form-group-factory.service';
 
 @Component({
-  selector: 'app-shipper-form',
-  templateUrl: './shipper-form.component.html',
-  styleUrls: ['./shipper-form.component.css'],
+  selector: 'app-product-list-form',
+  templateUrl: './product-list-form.component.html',
+  styleUrls: [ './product-list-form.component.css' ],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => ShipperFormComponent)
+      useExisting: forwardRef(() => ProductListFormComponent)
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: forwardRef(() => ShipperFormComponent)
+      useExisting: forwardRef(() => ProductListFormComponent)
     }
   ]
 })
-export class ShipperFormComponent
-  implements OnDestroy, ControlValueAccessor, Validator {
+export class ProductListFormComponent
+  implements OnInit, OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
 
   private valueChangesSub: Subscription;
 
   @Input() formGroup: FormGroup;
+  get code() { return this.formGroup.get('code') as FormControl; }
   get name() { return this.formGroup.get('name') as FormControl; }
+  get totalCount() { return this.formGroup.get('totalCount') as FormControl; }
 
   constructor(
     private formGroupService: EntityFormGroupFactoryService
@@ -47,7 +50,7 @@ export class ShipperFormComponent
 
   ngOnInit(): void {
     if (!this.formGroup) {
-      this.formGroup = this.formGroupService.createFormGroupFor('shipper');
+      this.formGroup = this.formGroupService.createFormGroupFor('productList');
     }
     this.valueChangesSub = this.formGroup.valueChanges.pipe(
       debounceTime(100),
@@ -63,9 +66,11 @@ export class ShipperFormComponent
   onTouched(): void { }
 
   writeValue(obj: any): void {
+    this.code.reset('', { emitEvent: false });
     this.name.reset('', { emitEvent: false });
+    this.totalCount.reset(0, { emitEvent: false });
     if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj, { emitEvent: false });
+      this.formGroup.patchValue(obj);
     }
   }
 
@@ -86,18 +91,25 @@ export class ShipperFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value: Partial<Shipper> = control.value;
+    const value: Partial<ProductList> = control.value;
     if (value) {
       const errors = {} as any;
 
+      if (!value.code) {
+        errors.requiredListCode = value.code;
+      }
       if (!value.name) {
-        errors.requiredShipperName = value.name;
+        errors.requiredListName = value.name;
       }
 
       if (JSON.stringify(errors) !== '{}') {
         return errors;
       }
     }
+  }
+
+  onParentFormTouched(): void {
+    this.formGroup.markAllAsTouched();
   }
 
 }

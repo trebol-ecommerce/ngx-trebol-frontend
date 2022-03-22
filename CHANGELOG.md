@@ -58,6 +58,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `SlideshowComponent` now integrates with Angular forms
 
 ### Fixed
+- Modules/chunks are now effectively lazy-loaded, decreasing app loading times enormously!
 - Individual item fetching in HTTP API (used when editing any data)
 - Change property type of `token` in `Sell` model to `string`
 - Missing (optional) property `unitValue` in `SellDetail` model

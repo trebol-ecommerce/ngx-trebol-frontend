@@ -14,10 +14,9 @@ import { Observable, Subscription } from 'rxjs';
 import { debounceTime, filter, switchMap, tap } from 'rxjs/operators';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
-import { EntityFormDialogComponent } from '../../dialogs/entity-form/entity-form-dialog.component';
-import { EntityFormDialogData } from '../../dialogs/entity-form/EntityFormDialogData';
+import { EntityFormDialogComponent } from '../../../management/dialogs/entity-form/entity-form-dialog.component';
+import { EntityFormDialogData } from '../../../management/dialogs/entity-form/EntityFormDialogData';
 import { SharedDialogService } from '../../dialogs/shared-dialog.service';
-import { ProductCategoryFormComponent } from '../product-category-form/product-category-form.component';
 import { ProductCategoryTreeService } from './product-category-tree.service';
 import { ProductCategoryTreeFlatNode } from './ProductCategoryTreeFlatNode';
 

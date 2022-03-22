@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { EntityFormDialogConfig } from 'src/app/shared/dialogs/entity-form/EntityFormDialogConfig';
+import { EntityFormDialogConfig } from 'src/app/management/dialogs/entity-form/EntityFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from './transactional-data-manager.component.directive';
 import { TransactionalDataManagerServiceDirective } from './transactional-data-manager.service.directive';
 

@@ -5,7 +5,6 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -81,7 +80,6 @@ const SNACKBAR_DEFAULTS = {
     StoreSearchComponent
   ],
   imports: [
-    HttpClientModule,
     SharedModule,
     StoreRoutingModule
   ],

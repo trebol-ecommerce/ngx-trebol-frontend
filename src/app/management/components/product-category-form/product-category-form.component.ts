@@ -13,37 +13,36 @@ import {
 import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { Image } from 'src/models/entities/Image';
+import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { FormGroupOwner } from 'src/models/FormGroupOwner';
-import { EntityFormGroupFactoryService } from '../../entity-form-group-factory.service';
+import { EntityFormGroupFactoryService } from '../../../shared/entity-form-group-factory.service';
 
 @Component({
-  selector: 'app-image-form',
-  templateUrl: './image-form.component.html',
-  styleUrls: [ './image-form.component.css' ],
+  selector: 'app-product-category-form',
+  templateUrl: './product-category-form.component.html',
+  styleUrls: [ './product-category-form.component.css' ],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => ImageFormComponent)
+      useExisting: forwardRef(() => ProductCategoryFormComponent)
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: forwardRef(() => ImageFormComponent)
+      useExisting: forwardRef(() => ProductCategoryFormComponent)
     }
   ]
 })
-export class ImageFormComponent
+export class ProductCategoryFormComponent
   implements OnInit, OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
 
   private valueChangesSub: Subscription;
 
   @Input() formGroup: FormGroup;
-  get filename() { return this.formGroup.get('filename') as FormControl; }
-  get url() { return this.formGroup.get('url') as FormControl; }
   get code() { return this.formGroup.get('code') as FormControl; }
-  // get file() { return this.formGroup.get('file') as FormControl; }
+  get name() { return this.formGroup.get('name') as FormControl; }
+  get parent() { return this.formGroup.get('parent') as FormControl; }
 
   constructor(
     private formGroupService: EntityFormGroupFactoryService
@@ -51,7 +50,7 @@ export class ImageFormComponent
 
   ngOnInit(): void {
     if (!this.formGroup) {
-      this.formGroup = this.formGroupService.createFormGroupFor('image');
+      this.formGroup = this.formGroupService.createFormGroupFor('productCategory');
     }
     this.valueChangesSub = this.formGroup.valueChanges.pipe(
       debounceTime(100),
@@ -67,10 +66,9 @@ export class ImageFormComponent
   onTouched(): void { }
 
   writeValue(obj: any): void {
-    this.filename.reset('', { emitEvent: false });
-    this.url.reset('', { emitEvent: false });
     this.code.reset('', { emitEvent: false });
-    // this.file.reset('', { emitEvent: false });
+    this.name.reset('', { emitEvent: false });
+    this.parent.reset({ value: null, disabled: true }, { emitEvent: false });
     if (isJavaScriptObject(obj)) {
       this.formGroup.patchValue(obj);
     }
@@ -89,19 +87,20 @@ export class ImageFormComponent
       this.formGroup.disable({ emitEvent: false });
     } else {
       this.formGroup.enable({ emitEvent: false });
+      this.parent.disable({ emitEvent: false });
     }
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value: Partial<Image> = control.value;
+    const value: Partial<ProductCategory> = control.value;
     if (value) {
       const errors = {} as any;
 
-      if (!value.filename) {
-        errors.requiredFilename = value.filename;
+      if (!value.code) {
+        errors.requiredCategoryCode = value.code;
       }
-      if (!value.url) {
-        errors.requiredImageUrl = value.url;
+      if (!value.name) {
+        errors.requiredCategoryName = value.name;
       }
 
       if (JSON.stringify(errors) !== '{}') {

@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE, COMMON_VALIDATION_ERROR_MESSAGE } from 'src/text/messages';
-import { EntityFormGroupFactoryService } from '../../entity-form-group-factory.service';
+import { EntityFormGroupFactoryService } from '../../../shared/entity-form-group-factory.service';
 import { EntityFormDialogData } from './EntityFormDialogData';
 
 /**

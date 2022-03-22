@@ -5,45 +5,41 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnDestroy } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
-  ValidationErrors, Validator
+  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS,
+  NG_VALUE_ACCESSOR, ValidationErrors, Validator
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { Product } from 'src/models/entities/Product';
-import { ProductCategory } from 'src/models/entities/ProductCategory';
-import { FormGroupOwner } from 'src/models/FormGroupOwner';
-import { EntityFormGroupFactoryService } from '../../entity-form-group-factory.service';
+import { Shipper } from 'src/models/entities/Shipper';
+import { EntityFormGroupFactoryService } from '../../../shared/entity-form-group-factory.service';
 
 @Component({
-  selector: 'app-product-category-form',
-  templateUrl: './product-category-form.component.html',
-  styleUrls: [ './product-category-form.component.css' ],
+  selector: 'app-shipper-form',
+  templateUrl: './shipper-form.component.html',
+  styleUrls: ['./shipper-form.component.css'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => ProductCategoryFormComponent)
+      useExisting: forwardRef(() => ShipperFormComponent)
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: forwardRef(() => ProductCategoryFormComponent)
+      useExisting: forwardRef(() => ShipperFormComponent)
     }
   ]
 })
-export class ProductCategoryFormComponent
-  implements OnInit, OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
+export class ShipperFormComponent
+  implements OnDestroy, ControlValueAccessor, Validator {
 
   private valueChangesSub: Subscription;
 
   @Input() formGroup: FormGroup;
-  get code() { return this.formGroup.get('code') as FormControl; }
   get name() { return this.formGroup.get('name') as FormControl; }
-  get parent() { return this.formGroup.get('parent') as FormControl; }
 
   constructor(
     private formGroupService: EntityFormGroupFactoryService
@@ -51,7 +47,7 @@ export class ProductCategoryFormComponent
 
   ngOnInit(): void {
     if (!this.formGroup) {
-      this.formGroup = this.formGroupService.createFormGroupFor('productCategory');
+      this.formGroup = this.formGroupService.createFormGroupFor('shipper');
     }
     this.valueChangesSub = this.formGroup.valueChanges.pipe(
       debounceTime(100),
@@ -67,11 +63,9 @@ export class ProductCategoryFormComponent
   onTouched(): void { }
 
   writeValue(obj: any): void {
-    this.code.reset('', { emitEvent: false });
     this.name.reset('', { emitEvent: false });
-    this.parent.reset({ value: null, disabled: true }, { emitEvent: false });
     if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj);
+      this.formGroup.patchValue(obj, { emitEvent: false });
     }
   }
 
@@ -88,30 +82,22 @@ export class ProductCategoryFormComponent
       this.formGroup.disable({ emitEvent: false });
     } else {
       this.formGroup.enable({ emitEvent: false });
-      this.parent.disable({ emitEvent: false });
     }
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value: Partial<ProductCategory> = control.value;
+    const value: Partial<Shipper> = control.value;
     if (value) {
       const errors = {} as any;
 
-      if (!value.code) {
-        errors.requiredCategoryCode = value.code;
-      }
       if (!value.name) {
-        errors.requiredCategoryName = value.name;
+        errors.requiredShipperName = value.name;
       }
 
       if (JSON.stringify(errors) !== '{}') {
         return errors;
       }
     }
-  }
-
-  onParentFormTouched(): void {
-    this.formGroup.markAllAsTouched();
   }
 
 }

@@ -14,39 +14,39 @@ import { StoreReceiptComponent } from './routes/receipt/store-receipt.component'
 import { StoreSearchComponent } from './routes/search/store-search.component';
 import { StoreComponent } from './store.component';
 
-const storeRoutes: Routes = [
+export const STORE_CHILD_ROUTES: Routes = [
   {
-    path: 'store', component: StoreComponent,
-    children: [
-      {
-        path: 'catalog',
-        component: StoreCatalogComponent
-      },
-      {
-        path: 'cart',
-        component: StoreCartReviewComponent,
-        canActivate: [StoreCartReviewGuard]
-      },
-      {
-        path: 'search',
-        component: StoreSearchComponent
-      },
-      {
-        path: 'receipt',
-        component: StoreReceiptComponent
-      },
-      {
-        path: '**',
-        pathMatch: 'prefix',
-        redirectTo: 'catalog'
-      }
-    ]
+    path: 'catalog',
+    component: StoreCatalogComponent
+  },
+  {
+    path: 'cart',
+    component: StoreCartReviewComponent,
+    canActivate: [StoreCartReviewGuard]
+  },
+  {
+    path: 'search',
+    component: StoreSearchComponent
+  },
+  {
+    path: 'receipt',
+    component: StoreReceiptComponent
   }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forChild(storeRoutes)
+    RouterModule.forChild([
+      {
+        path: '', component: StoreComponent,
+        children: [
+          ...STORE_CHILD_ROUTES,
+          {
+            path: '**', pathMatch: 'prefix', redirectTo: 'catalog'
+          }
+        ]
+      }
+    ])
   ],
   exports: [RouterModule]
 })

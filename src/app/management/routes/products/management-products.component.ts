@@ -10,11 +10,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { catchError, map, take, tap } from 'rxjs/operators';
-import { ProductFormComponent } from 'src/app/shared/components/product-form/product-form.component';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
-import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form/EntityFormDialogConfig';
+import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager/transactional-data-manager.component.directive';
 import { ManagementProductsService } from './management-products.service';
 

@@ -11,10 +11,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { SalespersonFormComponent } from 'src/app/shared/components/salesperson-form/salesperson-form.component';
 import { Salesperson } from 'src/models/entities/Salesperson';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
-import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form/EntityFormDialogConfig';
+import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager/transactional-data-manager.component.directive';
 import { ManagementSalespeopleService } from './management-salespeople.service';
 

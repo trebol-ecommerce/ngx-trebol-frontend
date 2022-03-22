@@ -17,9 +17,9 @@ import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { Image } from 'src/models/entities/Image';
 import { Product } from 'src/models/entities/Product';
 import { FormGroupOwner } from 'src/models/FormGroupOwner';
-import { ImagesArrayDialogComponent } from '../../dialogs/images-array/images-array-dialog.component';
-import { ImagesArrayDialogData } from '../../dialogs/images-array/ImagesArrayDialogData';
-import { EntityFormGroupFactoryService } from '../../entity-form-group-factory.service';
+import { ImagesArrayDialogComponent } from 'src/app/management/dialogs/images-array/images-array-dialog.component';
+import { ImagesArrayDialogData } from 'src/app/management/dialogs/images-array/ImagesArrayDialogData';
+import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 
 @Component({
   selector: 'app-product-form',
