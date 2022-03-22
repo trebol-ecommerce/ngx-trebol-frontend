@@ -37,20 +37,14 @@ export class ManagementProductListsComponent
   constructor(
     protected service: ManagementProductListsService,
     protected dialogService: MatDialog,
-    private snackBarService: MatSnackBar,
-    private route: ActivatedRoute
+    protected route: ActivatedRoute,
+    private snackBarService: MatSnackBar
   ) {
     super();
   }
 
   ngOnInit(): void {
     super.init(this.service);
-    this.route.data.subscribe(
-      d => {
-        this.service.updateAccess(d.access);
-        this.service.reloadItems();
-      }
-    );
   }
 
   onClickViewContents(list: ProductList) {
@@ -82,8 +76,8 @@ export class ManagementProductListsComponent
     return {
       data: {
         item,
-        formComponent: ProductListFormComponent,
-        service: this.service.dataService
+        entityType: 'productList',
+        apiService: this.service.dataService
       },
       width: '40rem'
     };

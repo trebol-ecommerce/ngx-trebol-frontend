@@ -5,15 +5,16 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl,
-  ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS,
-  NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators
+  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS,
+  NG_VALUE_ACCESSOR, ValidationErrors, Validator
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
+import { Address } from 'src/models/entities/Address';
+import { EntityFormGroupFactoryService } from '../../entity-form-group-factory.service';
 
 @Component({
   selector: 'app-address-form',
@@ -33,13 +34,11 @@ import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
   ]
 })
 export class AddressFormComponent
-  implements OnDestroy, ControlValueAccessor, Validator {
+  implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
-  private touchedSubscriptions: Subscription[] = [];
-  private valueChangesSubscriptions: Subscription[] = [];
-  private touched = new EventEmitter<void>();
+  private valueChangesSub: Subscription;
 
-  formGroup: FormGroup;
+  @Input() formGroup: FormGroup;
   get city() { return this.formGroup.get('city') as FormControl; }
   get municipality() { return this.formGroup.get('municipality') as FormControl; }
   get firstLine() { return this.formGroup.get('firstLine') as FormControl; }
@@ -47,25 +46,25 @@ export class AddressFormComponent
   get notes() { return this.formGroup.get('notes') as FormControl; }
 
   constructor(
-    private formBuilder: FormBuilder
-  ) {
-    this.formGroup = this.formBuilder.group({
-      city: ['', Validators.required],
-      municipality: ['', Validators.required],
-      firstLine: ['', Validators.required],
-      secondLine: [''],
-      notes: ['']
-    });
+    private formGroupService: EntityFormGroupFactoryService
+  ) { }
+
+  ngOnInit(): void {
+    if (!this.formGroup) {
+      this.formGroup = this.formGroupService.createFormGroupFor('address');
+    }
+    this.valueChangesSub = this.formGroup.valueChanges.pipe(
+      debounceTime(100),
+      tap(v => this.onChange(v))
+    ).subscribe();
   }
 
   ngOnDestroy(): void {
-    for (const sub of [
-      ...this.touchedSubscriptions,
-      ...this.valueChangesSubscriptions]) {
-      sub?.unsubscribe();
-    }
-    this.touched.complete();
+    this.valueChangesSub?.unsubscribe();
   }
+
+  onChange(value: any): void { }
+  onTouched(): void { }
 
   writeValue(obj: any): void {
     this.city.reset(null, { emitEvent: false });
@@ -79,13 +78,11 @@ export class AddressFormComponent
   }
 
   registerOnChange(fn: (value: any) => void): void {
-    const sub = this.formGroup.valueChanges.pipe(debounceTime(150), tap(fn)).subscribe();
-    this.valueChangesSubscriptions.push(sub);
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
-    const sub = this.touched.pipe(tap(fn)).subscribe();
-    this.touchedSubscriptions.push(sub);
+    this.onTouched = fn;
   }
 
   setDisabledState?(isDisabled: boolean): void {
@@ -97,9 +94,10 @@ export class AddressFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const errors = {} as any;
-    const value = control.value;
+    const value: Partial<Address> = control.value;
     if (value) {
+      const errors = {} as any;
+
       if (!value.city) {
         errors.requiredAddressCity = value.city;
       }

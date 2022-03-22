@@ -5,15 +5,17 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, forwardRef, OnDestroy } from '@angular/core';
+import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
-  ValidationErrors, Validator, Validators
+  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
+  ValidationErrors, Validator
 } from '@angular/forms';
-import { merge, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
+import { Image } from 'src/models/entities/Image';
 import { FormGroupOwner } from 'src/models/FormGroupOwner';
+import { EntityFormGroupFactoryService } from '../../entity-form-group-factory.service';
 
 @Component({
   selector: 'app-image-form',
@@ -23,51 +25,46 @@ import { FormGroupOwner } from 'src/models/FormGroupOwner';
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => (ImageFormComponent))
+      useExisting: forwardRef(() => ImageFormComponent)
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: forwardRef(() => (ImageFormComponent))
+      useExisting: forwardRef(() => ImageFormComponent)
     }
   ]
 })
 export class ImageFormComponent
-  implements OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
+  implements OnInit, OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
 
-  private touchedSubscriptions: Subscription[] = [];
-  private valueChangesSubscriptions: Subscription[] = [];
-  private touched = new EventEmitter<void>();
+  private valueChangesSub: Subscription;
 
-  formGroup: FormGroup;
+  @Input() formGroup: FormGroup;
   get filename() { return this.formGroup.get('filename') as FormControl; }
   get url() { return this.formGroup.get('url') as FormControl; }
   get code() { return this.formGroup.get('code') as FormControl; }
   // get file() { return this.formGroup.get('file') as FormControl; }
 
   constructor(
-    private formBuilder: FormBuilder
-  ) {
-    this.formGroup = this.formBuilder.group({
-      filename: ['', Validators.required],
-      url: ['', Validators.required],
-      code: [null]
-      // file: ['', Validators.required]
-    });
+    private formGroupService: EntityFormGroupFactoryService
+  ) { }
+
+  ngOnInit(): void {
+    if (!this.formGroup) {
+      this.formGroup = this.formGroupService.createFormGroupFor('image');
+    }
+    this.valueChangesSub = this.formGroup.valueChanges.pipe(
+      debounceTime(100),
+      tap(v => this.onChange(v))
+    ).subscribe();
   }
 
   ngOnDestroy(): void {
-    for (const sub of [
-      ...this.valueChangesSubscriptions,
-      ...this.touchedSubscriptions]) {
-      sub?.unsubscribe();
-    }
-    this.touched.complete();
+    this.valueChangesSub?.unsubscribe();
   }
 
-  onTouched(): void {
-    this.touched.emit();
-  }
+  onChange(value: any): void { }
+  onTouched(): void { }
 
   writeValue(obj: any): void {
     this.filename.reset('', { emitEvent: false });
@@ -80,13 +77,11 @@ export class ImageFormComponent
   }
 
   registerOnChange(fn: (value: any) => void): void {
-    const sub = this.formGroup.valueChanges.pipe(debounceTime(250), tap(fn)).subscribe();
-    this.valueChangesSubscriptions.push(sub);
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
-    const sub = merge(this.touched).pipe(tap(fn)).subscribe();
-    this.touchedSubscriptions.push(sub);
+    this.onTouched = fn;
   }
 
   setDisabledState?(isDisabled: boolean): void {
@@ -98,11 +93,10 @@ export class ImageFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    if (!value) {
-      return { required: value };
-    } else {
+    const value: Partial<Image> = control.value;
+    if (value) {
       const errors = {} as any;
+
       if (!value.filename) {
         errors.requiredFilename = value.filename;
       }

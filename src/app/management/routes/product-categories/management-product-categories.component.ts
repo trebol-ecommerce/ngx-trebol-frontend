@@ -30,28 +30,22 @@ export class ManagementProductCategoriesComponent
 
   constructor(
     protected service: ManagementProductCategoriesService,
-    private route: ActivatedRoute,
-    protected dialogService: MatDialog
+    protected dialogService: MatDialog,
+    protected route: ActivatedRoute
   ) {
     super();
   }
 
   ngOnInit(): void {
     super.init(this.service);
-    this.route.data.subscribe(
-      d => {
-        this.service.updateAccess(d.access);
-        this.service.reloadItems();
-      }
-    );
   }
 
   protected createDialogProperties(item: ProductCategory): EntityFormDialogConfig<ProductCategory> {
     return {
       data: {
         item,
-        formComponent: ProductCategoryFormComponent,
-        service: this.service.dataService
+        entityType: 'productCategory',
+        apiService: this.service.dataService
       },
       width: '40rem'
     };

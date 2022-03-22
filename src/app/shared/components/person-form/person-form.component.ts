@@ -5,15 +5,17 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
-  ValidationErrors, Validator, Validators
+  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
+  ValidationErrors, Validator
 } from '@angular/forms';
-import { merge, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
-import { FormGroupOwner } from 'src/models/FormGroupOwner';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
+import { Person } from 'src/models/entities/Person';
+import { FormGroupOwner } from 'src/models/FormGroupOwner';
+import { EntityFormGroupFactoryService } from '../../entity-form-group-factory.service';
 
 @Component({
   selector: 'app-person-form',
@@ -23,25 +25,21 @@ import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: PersonFormComponent
+      useExisting: forwardRef(() => PersonFormComponent)
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: PersonFormComponent
+      useExisting: forwardRef(() => PersonFormComponent)
     }
   ]
 })
 export class PersonFormComponent
   implements OnInit, OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
 
-  private touchedSubscriptions: Subscription[] = [];
-  private valueChangesSubscriptions: Subscription[] = [];
-  private touched = new EventEmitter<void>();
-  private personId: number;
+  private valueChangesSub: Subscription;
 
-  formGroup: FormGroup;
-
+  @Input() formGroup: FormGroup;
   get id() { return this.formGroup.get('id') as FormControl; }
   get firstName() { return this.formGroup.get('firstName') as FormControl; }
   get lastName() { return this.formGroup.get('lastName') as FormControl; }
@@ -51,37 +49,25 @@ export class PersonFormComponent
   get phone2() { return this.formGroup.get('phone2') as FormControl; }
 
   constructor(
-    private formBuilder: FormBuilder
-  ) {
-    this.formGroup = this.formBuilder.group({
-      id: [undefined],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      idNumber: ['', Validators.required],
-      email: ['', Validators.required],
-      phone1: [undefined],
-      phone2: [undefined]
-    });
-  }
+    private formGroupService: EntityFormGroupFactoryService
+  ) { }
 
   ngOnInit(): void {
-    this.valueChangesSubscriptions.push(
-      this.phone1.valueChanges.pipe(tap(v => { if (!v) { this.phone1.setValue(undefined, { emitEvent: false }); } })).subscribe(),
-      this.phone2.valueChanges.pipe(tap(v => { if (!v) { this.phone2.setValue(undefined, { emitEvent: false }); } })).subscribe()
-    );
+    if (!this.formGroup) {
+      this.formGroup = this.formGroupService.createFormGroupFor('person');
+    }
+    this.valueChangesSub = this.formGroup.valueChanges.pipe(
+      debounceTime(100),
+      tap(v => this.onChange(v))
+    ).subscribe();
   }
 
   ngOnDestroy(): void {
-    for (const sub of [
-      ...this.valueChangesSubscriptions,
-      ...this.touchedSubscriptions]) {
-      sub.unsubscribe();
-    }
+    this.valueChangesSub?.unsubscribe();
   }
 
-  onTouched(): void {
-    this.touched.emit();
-  }
+  onChange(value: any): void { }
+  onTouched(): void { }
 
   writeValue(obj: any): void {
     this.id.reset(undefined, { emitEvent: false });
@@ -97,13 +83,11 @@ export class PersonFormComponent
   }
 
   registerOnChange(fn: (value: any) => void): void {
-    const sub = this.formGroup.valueChanges.pipe(debounceTime(250), tap(fn)).subscribe();
-    this.valueChangesSubscriptions.push(sub);
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
-    const sub = merge(this.touched).pipe(tap(fn)).subscribe();
-    this.touchedSubscriptions.push(sub);
+    this.onTouched = fn;
   }
 
   setDisabledState?(isDisabled: boolean): void {
@@ -115,9 +99,10 @@ export class PersonFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const errors = {} as any;
-    const value = control.value;
+    const value: Partial<Person> = control.value;
     if (value) {
+      const errors = {} as any;
+
       if (!value.firstName) {
         errors.requiredPersonfirstName = value.firstName;
       }

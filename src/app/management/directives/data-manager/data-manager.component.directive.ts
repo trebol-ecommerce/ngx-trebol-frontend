@@ -8,8 +8,9 @@
 import { Directive, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { DataManagerServiceDirective } from './data-manager.service.directive';
 
 /**
@@ -31,6 +32,7 @@ export abstract class DataManagerComponentDirective<T>
   canDelete$: Observable<boolean>;
 
   protected abstract service: DataManagerServiceDirective<T>;
+  protected abstract route: ActivatedRoute;
 
   ngOnInit() {
     this.init(this.service);
@@ -57,5 +59,12 @@ export abstract class DataManagerComponentDirective<T>
     this.canAdd$ = service.canAdd$.pipe();
     this.canDelete$ = service.canDelete$.pipe();
     service.pageSize = this.pageSizeOptions[0];
+    this.route.data.pipe(
+      take(1),
+      tap(data => {
+        this.service.updateAccess(data.access);
+        this.service.reloadItems();
+      })
+    ).subscribe();
   }
 }

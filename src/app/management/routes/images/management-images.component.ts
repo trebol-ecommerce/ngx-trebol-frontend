@@ -34,29 +34,23 @@ export class ManagementImagesComponent
 
   constructor(
     protected service: ManagementImagesService,
-    private route: ActivatedRoute,
-    private snackBarService: MatSnackBar,
-    protected dialogService: MatDialog
+    protected dialogService: MatDialog,
+    protected route: ActivatedRoute,
+    private snackBarService: MatSnackBar
   ) {
     super();
   }
 
   ngOnInit(): void {
     super.init(this.service);
-    this.route.data.subscribe(
-      d => {
-        this.service.updateAccess(d.access);
-        this.service.reloadItems();
-      }
-    );
   }
 
   protected createDialogProperties(item: Image): EntityFormDialogConfig<Image> {
     return {
       data: {
         item,
-        formComponent: ImageFormComponent,
-        service: this.service.dataService
+        entityType: 'image',
+        apiService: this.service.dataService
       },
       width: '40rem'
     };

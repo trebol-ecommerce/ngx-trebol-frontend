@@ -5,19 +5,21 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, forwardRef, OnDestroy } from '@angular/core';
+import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
-  ValidationErrors, Validator, Validators
+  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS,
+  NG_VALUE_ACCESSOR, ValidationErrors, Validator
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { merge, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { Image } from 'src/models/entities/Image';
+import { Product } from 'src/models/entities/Product';
 import { FormGroupOwner } from 'src/models/FormGroupOwner';
 import { ImagesArrayDialogComponent } from '../../dialogs/images-array/images-array-dialog.component';
 import { ImagesArrayDialogData } from '../../dialogs/images-array/ImagesArrayDialogData';
+import { EntityFormGroupFactoryService } from '../../entity-form-group-factory.service';
 
 @Component({
   selector: 'app-product-form',
@@ -27,23 +29,21 @@ import { ImagesArrayDialogData } from '../../dialogs/images-array/ImagesArrayDia
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => (ProductFormComponent))
+      useExisting: forwardRef(() => ProductFormComponent)
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: forwardRef(() => (ProductFormComponent))
+      useExisting: forwardRef(() => ProductFormComponent)
     }
   ]
 })
 export class ProductFormComponent
-  implements OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
+  implements OnInit, OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
 
-  private touchedSubscriptions: Subscription[] = [];
-  private valueChangesSubscriptions: Subscription[] = [];
-  private touched = new EventEmitter<void>();
+  private valueChangesSub: Subscription;
 
-  formGroup: FormGroup;
+  @Input() formGroup: FormGroup;
   get images() { return this.formGroup.get('images') as FormControl; }
   get barcode() { return this.formGroup.get('barcode') as FormControl; }
   get name() { return this.formGroup.get('name') as FormControl; }
@@ -54,33 +54,26 @@ export class ProductFormComponent
   get description() { return this.formGroup.get('description') as FormControl; }
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formGroupService: EntityFormGroupFactoryService,
     private dialogService: MatDialog
-  ) {
-    this.formGroup = this.formBuilder.group({
-      images: [[]],
-      barcode: ['', Validators.required],
-      name: ['', Validators.required],
-      category: [null],
-      price: ['', Validators.required],
-      // stock: [''],
-      // criticalStock: [''],
-      description: ['']
-    });
+  ) { }
+
+  ngOnInit(): void {
+    if (!this.formGroup) {
+      this.formGroup = this.formGroupService.createFormGroupFor('product');
+    }
+    this.valueChangesSub = this.formGroup.valueChanges.pipe(
+      debounceTime(100),
+      tap(v => this.onChange(v))
+    ).subscribe();
   }
 
   ngOnDestroy(): void {
-    for (const sub of [
-      ...this.valueChangesSubscriptions,
-      ...this.touchedSubscriptions]) {
-      sub?.unsubscribe();
-    }
-    this.touched.complete();
+    this.valueChangesSub?.unsubscribe();
   }
 
-  onTouched(): void {
-    this.touched.emit();
-  }
+  onChange(value: any): void { }
+  onTouched(): void { }
 
   writeValue(obj: any): void {
     this.images.reset([], { emitEvent: false });
@@ -97,13 +90,11 @@ export class ProductFormComponent
   }
 
   registerOnChange(fn: (value: any) => void): void {
-    const sub = this.formGroup.valueChanges.pipe(debounceTime(250), tap(fn)).subscribe();
-    this.valueChangesSubscriptions.push(sub);
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
-    const sub = merge(this.touched).pipe(tap(fn)).subscribe();
-    this.touchedSubscriptions.push(sub);
+    this.onTouched = fn;
   }
 
   setDisabledState?(isDisabled: boolean): void {
@@ -115,10 +106,8 @@ export class ProductFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    if (!value) {
-      return { required: value };
-    } else {
+    const value: Partial<Product> = control.value;
+    if (value) {
       const errors = {} as any;
 
       if (!value.barcode) {

@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, forwardRef } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { filter } from 'rxjs/operators';
@@ -20,19 +20,17 @@ import { ProductCategoryPickerDialogComponent } from '../../dialogs/product-cate
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: ProductCategorySelectorFormFieldComponent
+      useExisting: forwardRef(() => ProductCategorySelectorFormFieldComponent)
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: ProductCategorySelectorFormFieldComponent
+      useExisting: forwardRef(() => ProductCategorySelectorFormFieldComponent)
     }
   ]
 })
 export class ProductCategorySelectorFormFieldComponent
-  implements OnDestroy, ControlValueAccessor, Validator {
-
-  private touched = new EventEmitter<void>();
+  implements ControlValueAccessor, Validator {
 
   noCategoryLabel = $localize`:no category chosen|Label to indicate that a product does not have a category associated:No category`;
   productCategory: ProductCategory = null;
@@ -41,13 +39,10 @@ export class ProductCategorySelectorFormFieldComponent
 
   constructor(
     private dialogService: MatDialog
-  ) {
+  ) { }
 
-  }
-
-  ngOnDestroy(): void {
-    this.touched.complete();
-  }
+  onChange(value: any): void { }
+  onTouched(): void { }
 
   writeValue(obj: any): void {
     this.productCategory = obj;
@@ -69,10 +64,11 @@ export class ProductCategorySelectorFormFieldComponent
     const value: Partial<ProductCategory> = control.value;
     if (value) {
       const errors = {} as any;
-      if (!value?.code) {
+
+      if (!value.code) {
         errors.requiredCode = value.code;
       }
-      if (!value?.name) {
+      if (!value.name) {
         errors.requiredName = value.name;
       }
 
@@ -81,9 +77,6 @@ export class ProductCategorySelectorFormFieldComponent
       }
     }
   }
-
-  onChange = (value: any) => { };
-  onTouched = () => { };
 
   onClickClearCategory(): void {
     this.productCategory = null;

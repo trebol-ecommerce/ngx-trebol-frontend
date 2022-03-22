@@ -22,7 +22,7 @@ export class ProductCategoryTreeService
   categories$ = this.categoriesSource.asObservable();
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductCategories) private apiService: ITransactionalEntityDataApiService<ProductCategory>
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductCategories) public apiService: ITransactionalEntityDataApiService<ProductCategory>
   ) { }
 
   ngOnDestroy(): void {

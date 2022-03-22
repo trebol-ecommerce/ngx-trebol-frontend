@@ -35,20 +35,14 @@ export class ManagementShippersComponent
   constructor(
     protected service: ManagementShippersService,
     protected dialogService: MatDialog,
-    private snackBarService: MatSnackBar,
-    private route: ActivatedRoute
+    protected route: ActivatedRoute,
+    private snackBarService: MatSnackBar
   ) {
     super();
   }
 
   ngOnInit(): void {
     super.init(this.service);
-    this.route.data.subscribe(
-      d => {
-        this.service.updateAccess(d.access);
-        this.service.reloadItems();
-      }
-    );
   }
 
   onClickDelete(shipper: Shipper) {
@@ -70,8 +64,8 @@ export class ManagementShippersComponent
     return {
       data: {
         item,
-        formComponent: ShipperFormComponent,
-        service: this.service.dataService
+        entityType: 'shipper',
+        apiService: this.service.dataService
       },
       width: '40rem'
     };

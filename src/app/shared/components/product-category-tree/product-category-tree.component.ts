@@ -163,8 +163,8 @@ export class ProductCategoryTreeComponent
   private requestCategoryData(item?: ProductCategory): Observable<ProductCategory> {
     const data: EntityFormDialogData<ProductCategory> = {
       item,
-      formComponent: ProductCategoryFormComponent,
-      service: null
+      entityType: 'productCategory',
+      apiService: this.service.apiService
     };
     return this.dialogService.open(
       EntityFormDialogComponent,

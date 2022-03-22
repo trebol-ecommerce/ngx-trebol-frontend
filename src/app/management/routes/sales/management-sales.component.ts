@@ -44,20 +44,14 @@ export class ManagementSalesComponent
   constructor(
     protected service: ManagementSalesService,
     protected dialogService: MatDialog,
-    private snackBarService: MatSnackBar,
-    private route: ActivatedRoute
+    protected route: ActivatedRoute,
+    private snackBarService: MatSnackBar
   ) {
     super();
   }
 
   ngOnInit(): void {
     this.init(this.service);
-    this.route.data.subscribe(
-      d => {
-        this.service.updateAccess(d.access);
-        this.service.reloadItems();
-      }
-    );
   }
 
   onClickDelete(s: Sell) {
@@ -117,8 +111,8 @@ export class ManagementSalesComponent
     return {
       data: {
         item,
-        formComponent: SellFormComponent,
-        service: this.service.dataService
+        entityType: 'sell',
+        apiService: this.service.dataService
       },
       width: '80rem'
     };

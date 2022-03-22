@@ -35,20 +35,14 @@ export class ManagementUsersComponent
   constructor(
     protected service: ManagementUsersService,
     protected dialogService: MatDialog,
-    private snackBarService: MatSnackBar,
-    private route: ActivatedRoute
+    protected route: ActivatedRoute,
+    private snackBarService: MatSnackBar
   ) {
     super();
   }
 
   ngOnInit(): void {
     super.init(this.service);
-    this.route.data.subscribe(
-      d => {
-        this.service.updateAccess(d.access);
-        this.service.reloadItems();
-      }
-    );
   }
 
   onClickDelete(usr: User) {
@@ -70,8 +64,8 @@ export class ManagementUsersComponent
     return {
       data: {
         item,
-        formComponent: UserFormComponent,
-        service: this.service.dataService
+        entityType: 'user',
+        apiService: this.service.dataService
       },
       width: '40rem'
     };

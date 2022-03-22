@@ -46,7 +46,6 @@ import { InformationDialogComponent } from './dialogs/information/information-di
 import { InputDialogComponent } from './dialogs/input/input-dialog.component';
 import { ProductCategoryPickerDialogComponent } from './dialogs/product-category-picker/product-category-picker-dialog.component';
 import { ProductsArrayDialogComponent } from './dialogs/products-array/products-array-dialog.component';
-import { FormGroupOwnerOutletDirective } from './directives/form-group-owner-outlet/form-group-owner-outlet.directive';
 import { AddressPipe } from './pipes/address/address.pipe';
 import { TrustedResourceUrlPipe } from './pipes/trusted-resource-url/trusted-resource-url.pipe';
 
@@ -88,7 +87,6 @@ const SHARED_DECLARATIONS = [
   InputDialogComponent,
   ProductCategoryPickerDialogComponent,
   ProductsArrayDialogComponent,
-  FormGroupOwnerOutletDirective,
   AddressPipe,
   TrustedResourceUrlPipe
 ];

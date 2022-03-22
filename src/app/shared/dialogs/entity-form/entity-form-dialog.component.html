@@ -10,18 +10,45 @@
 </app-centered-mat-spinner>
 
 <div [hidden]="busy$ | async">
-  <ng-template appFormGroupOwnerOutlet
-    [(ngModel)]="data.item"
-    [componentType]="data.formComponent">
-  </ng-template>
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <ng-container [ngSwitch]="data.entityType">
+      <app-address-form *ngSwitchCase="'address'"
+        formControlName="item" [formGroup]="innerFormGroup">
+      </app-address-form>
+      <app-image-form *ngSwitchCase="'image'"
+        formControlName="item" [formGroup]="innerFormGroup">
+      </app-image-form>
+      <app-person-form *ngSwitchCase="'person'"
+        formControlName="item" [formGroup]="innerFormGroup">
+      </app-person-form>
+      <app-product-form *ngSwitchCase="'product'"
+        formControlName="item" [formGroup]="innerFormGroup">
+      </app-product-form>
+      <app-product-category-form *ngSwitchCase="'productCategory'"
+        formControlName="item" [formGroup]="innerFormGroup">
+      </app-product-category-form>
+      <app-product-list-form *ngSwitchCase="'productList'"
+        formControlName="item" [formGroup]="innerFormGroup">
+      </app-product-list-form>
+      <app-sell-form *ngSwitchCase="'sell'"
+        formControlName="item" [formGroup]="innerFormGroup">
+      </app-sell-form>
+      <app-shipper-form *ngSwitchCase="'shipper'"
+        formControlName="item" [formGroup]="innerFormGroup">
+      </app-shipper-form>
+      <app-user-form *ngSwitchCase="'user'"
+        formControlName="item" [formGroup]="innerFormGroup">
+      </app-user-form>
+      <p *ngSwitchDefault>Invalid or unsupported element type!</p>
+    </ng-container>
 
-  <div class="actions">
-    <button mat-button mat-raised-button type="button"
-      color="primary"
-      i18n="confirm|Label for action button to accept and proceed"
-      (click)="onSubmit()">Confirm</button>
-    <button mat-button mat-raised-button type="button"
-      i18n="cancel|Label for action button to cancel and/or stop an operation"
-      (click)="onCancel()">Cancel</button>
-  </div>
+    <div class="actions">
+      <button mat-button mat-raised-button type="submit"
+        color="primary"
+        i18n="confirm|Label for action button to accept and proceed">Confirm</button>
+      <button mat-button mat-raised-button type="button"
+        i18n="cancel|Label for action button to cancel and/or stop an operation"
+        (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
 </div>

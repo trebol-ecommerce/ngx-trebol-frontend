@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, take, tap } from 'rxjs/operators';
 import { ProductFormComponent } from 'src/app/shared/components/product-form/product-form.component';
 import { Product } from 'src/models/entities/Product';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
@@ -36,28 +36,22 @@ export class ManagementProductsComponent
   constructor(
     protected service: ManagementProductsService,
     protected dialogService: MatDialog,
-    private snackBarService: MatSnackBar,
-    private route: ActivatedRoute
+    protected route: ActivatedRoute,
+    private snackBarService: MatSnackBar
   ) {
     super();
   }
 
   ngOnInit(): void {
     super.init(this.service);
-    this.route.data.subscribe(
-      d => {
-        this.service.updateAccess(d.access);
-        this.service.reloadItems();
-      }
-    );
   }
 
   protected createDialogProperties(item: Product): EntityFormDialogConfig<Product> {
     return {
       data: {
         item,
-        formComponent: ProductFormComponent,
-        service: this.service.dataService
+        entityType: 'product',
+        apiService: this.service.dataService
       },
       width: '40rem',
       maxHeight: '80vh'

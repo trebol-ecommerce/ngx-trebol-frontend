@@ -5,14 +5,16 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, forwardRef, Input, OnDestroy } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS,
-  NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators
+  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS,
+  NG_VALUE_ACCESSOR, ValidationErrors, Validator
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
+import { Shipper } from 'src/models/entities/Shipper';
+import { EntityFormGroupFactoryService } from '../../entity-form-group-factory.service';
 
 @Component({
   selector: 'app-shipper-form',
@@ -22,46 +24,43 @@ import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: ShipperFormComponent
+      useExisting: forwardRef(() => ShipperFormComponent)
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: ShipperFormComponent
+      useExisting: forwardRef(() => ShipperFormComponent)
     }
   ]
 })
 export class ShipperFormComponent
   implements OnDestroy, ControlValueAccessor, Validator {
 
-  private touchedSubscriptions: Subscription[] = [];
-  private valueChangesSubscriptions: Subscription[] = [];
-  private touched = new EventEmitter<void>();
+  private valueChangesSub: Subscription;
 
-  formGroup: FormGroup;
-
+  @Input() formGroup: FormGroup;
   get name() { return this.formGroup.get('name') as FormControl; }
 
   constructor(
-    private formBuilder: FormBuilder
-  ) {
-    this.formGroup = this.formBuilder.group({
-      name: ['', Validators.required]
-    });
+    private formGroupService: EntityFormGroupFactoryService
+  ) { }
+
+  ngOnInit(): void {
+    if (!this.formGroup) {
+      this.formGroup = this.formGroupService.createFormGroupFor('shipper');
+    }
+    this.valueChangesSub = this.formGroup.valueChanges.pipe(
+      debounceTime(100),
+      tap(v => this.onChange(v))
+    ).subscribe();
   }
 
   ngOnDestroy(): void {
-    for (const sub of [
-      ...this.touchedSubscriptions,
-      ...this.valueChangesSubscriptions]) {
-      sub.unsubscribe();
-    }
-    this.touched.complete();
+    this.valueChangesSub?.unsubscribe();
   }
 
-  onTouched(): void {
-    this.touched.emit();
-  }
+  onChange(value: any): void { }
+  onTouched(): void { }
 
   writeValue(obj: any): void {
     this.name.reset('', { emitEvent: false });
@@ -71,13 +70,11 @@ export class ShipperFormComponent
   }
 
   registerOnChange(fn: (value: any) => void): void {
-    const sub = this.formGroup.valueChanges.pipe(debounceTime(150), tap(fn)).subscribe();
-    this.valueChangesSubscriptions.push(sub);
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
-    const sub = this.touched.pipe(tap(fn)).subscribe();
-    this.touchedSubscriptions.push(sub);
+    this.onTouched = fn;
   }
 
   setDisabledState?(isDisabled: boolean): void {
@@ -89,9 +86,10 @@ export class ShipperFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const errors = {} as any;
-    const value = control.value;
+    const value: Partial<Shipper> = control.value;
     if (value) {
+      const errors = {} as any;
+
       if (!value.name) {
         errors.requiredShipperName = value.name;
       }

@@ -37,6 +37,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Bump Angular to v13.2
+- Refactored architecture for inserting and updating data within the management module
+  - Introduced `EntityTypeNames` type
+  - Introduced `EntityFormGroupFactoryService`; specializes in creating entity-specific `FormGroup`s
+    - Takes an instance of the aforementioned type
+  - All entity forms do not have `FormBuilder` injected to them; instead, any required `FormGroup`s can be passed through an `@Input` decorator
+    - When none is provided, these form components can fall-back to using the aforementioned service
+  - `EntityFormDialog` will invoke an entity form through its HTML template, not through an inner directive with `ViewContainerRef.createComponent`
+    - Updated signature for `EntityFormDialogData`
+    - KNOWN ISSUE: a `control.registerOnChange is not a function` error will be thrown to the console upon opening the dialog, but does not interfere with its functionality
 - `DataManagerComponentDirective<T>` now exposes `items$` as `Observable<any[]>` instead of `Observable<T[]>`
 - When adding images, `code` field is now optional
 - Hide frontpage heading

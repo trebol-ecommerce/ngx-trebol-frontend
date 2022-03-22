@@ -18,7 +18,7 @@ import { of } from 'rxjs';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { FormGroupOwner } from 'src/models/FormGroupOwner';
 import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
-import { FormGroupOwnerOutletDirective } from 'src/app/shared/directives/form-group-owner-outlet/form-group-owner-outlet.directive';
+import { FormGroupOutletDirective } from 'src/app/shared/directives/entity-form-outlet/entity-form-outlet.directive';
 import { EntityFormDialogComponent } from './entity-form-dialog.component';
 import { EntityFormDialogData } from './EntityFormDialogData';
 
@@ -78,7 +78,7 @@ describe('EntityFormDialogComponent', () => {
       declarations: [
         MockFormGroupOwnerComponent,
         CenteredMatProgressSpinnerComponent,
-        FormGroupOwnerOutletDirective,
+        FormGroupOutletDirective,
         EntityFormDialogComponent
       ],
       providers: [
@@ -98,6 +98,5 @@ describe('EntityFormDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-    expect(component.formGroupOutlet).toBeTruthy();
   });
 });

@@ -27,19 +27,13 @@ export class ManagementCustomersComponent
 
   constructor(
     protected service: ManagementCustomersService,
-    private route: ActivatedRoute
+    protected route: ActivatedRoute
   ) {
     super();
   }
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.route.data.subscribe(
-      d => {
-        this.service.updateAccess(d.access);
-        this.service.reloadItems();
-      }
-    );
   }
 
 }
