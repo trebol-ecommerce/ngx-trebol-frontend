@@ -12,10 +12,8 @@ import {
 } from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
-import { Person } from 'src/models/entities/Person';
-import { FormGroupOwner } from 'src/models/FormGroupOwner';
-import { collectValidationErrors } from 'src/functions/collectionValidationErrors';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
+import { Person } from 'src/models/entities/Person';
 
 @Component({
   selector: 'app-salesperson-form',
@@ -35,7 +33,7 @@ import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
   ]
 })
 export class SalespersonFormComponent
-  implements OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
+  implements OnDestroy, ControlValueAccessor, Validator {
 
   private touchedSubscriptions: Subscription[] = [];
   private valueChangesSubscriptions: Subscription[] = [];
@@ -103,7 +101,4 @@ export class SalespersonFormComponent
     }
   }
 
-  onParentFormTouched(): void {
-    this.formGroup.markAllAsTouched();
-  }
 }

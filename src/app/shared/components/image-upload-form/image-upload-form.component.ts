@@ -14,7 +14,6 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, concat, merge, Observable, Subscription } from 'rxjs';
 import { debounceTime, map, mapTo, startWith, tap } from 'rxjs/operators';
-import { FormGroupOwner } from 'src/models/FormGroupOwner';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 import { ImageManagerUploadService } from './image-upload-form.service';
@@ -37,7 +36,7 @@ import { ImageManagerUploadService } from './image-upload-form.service';
   ]
 })
 export class ImageUploadFormComponent
-  implements OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
+  implements OnDestroy, ControlValueAccessor, Validator {
 
   private uploadingSource = new BehaviorSubject<boolean>(false);
   private uploadSubscription: Subscription | undefined;
@@ -121,10 +120,6 @@ export class ImageUploadFormComponent
         return errors;
       }
     }
-  }
-
-  onParentFormTouched(): void {
-    this.formGroup.markAllAsTouched();
   }
 
   onSubmit(): void {

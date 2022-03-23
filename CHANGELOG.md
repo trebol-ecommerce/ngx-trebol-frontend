@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Bump Angular to v13.2
 - Refactored architecture for inserting and updating data within the management module
+  - Removed `FormGroupOwner` pseudo-interface
   - Introduced `EntityTypeNames` type
   - Introduced `EntityFormGroupFactoryService`; specializes in creating entity-specific `FormGroup`s
     - Takes an instance of the aforementioned type

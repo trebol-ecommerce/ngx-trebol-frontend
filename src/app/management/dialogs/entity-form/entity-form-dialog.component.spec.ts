@@ -16,9 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
-import { FormGroupOwner } from 'src/models/FormGroupOwner';
 import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
-import { FormGroupOutletDirective } from 'src/app/shared/directives/entity-form-outlet/entity-form-outlet.directive';
 import { EntityFormDialogComponent } from './entity-form-dialog.component';
 import { EntityFormDialogData } from './EntityFormDialogData';
 
@@ -28,7 +26,7 @@ import { EntityFormDialogData } from './EntityFormDialogData';
   providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockFormGroupOwnerComponent }]
 })
 class MockFormGroupOwnerComponent
-  implements ControlValueAccessor, FormGroupOwner {
+  implements ControlValueAccessor {
   formGroup = new FormGroup({ test: new FormControl('') });
   writeValue(v: any) { }
   registerOnChange() { }
@@ -55,8 +53,7 @@ describe('EntityFormDialogComponent', () => {
     };
     mockDialogData = {
       item: { test: 'a' },
-      service: mockDataApiService,
-      formComponent: MockFormGroupOwnerComponent
+      apiService: mockDataApiService
     };
     mockDialogRef = {
       close() { }
@@ -78,7 +75,6 @@ describe('EntityFormDialogComponent', () => {
       declarations: [
         MockFormGroupOwnerComponent,
         CenteredMatProgressSpinnerComponent,
-        FormGroupOutletDirective,
         EntityFormDialogComponent
       ],
       providers: [

@@ -14,7 +14,6 @@ import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { Image } from 'src/models/entities/Image';
-import { FormGroupOwner } from 'src/models/FormGroupOwner';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 
 @Component({
@@ -35,7 +34,7 @@ import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-
   ]
 })
 export class ImageFormComponent
-  implements OnInit, OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
+  implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
   private valueChangesSub: Subscription;
 
@@ -43,7 +42,6 @@ export class ImageFormComponent
   get filename() { return this.formGroup.get('filename') as FormControl; }
   get url() { return this.formGroup.get('url') as FormControl; }
   get code() { return this.formGroup.get('code') as FormControl; }
-  // get file() { return this.formGroup.get('file') as FormControl; }
 
   constructor(
     private formGroupService: EntityFormGroupFactoryService
@@ -70,7 +68,6 @@ export class ImageFormComponent
     this.filename.reset('', { emitEvent: false });
     this.url.reset('', { emitEvent: false });
     this.code.reset('', { emitEvent: false });
-    // this.file.reset('', { emitEvent: false });
     if (isJavaScriptObject(obj)) {
       this.formGroup.patchValue(obj);
     }
@@ -108,10 +105,6 @@ export class ImageFormComponent
         return errors;
       }
     }
-  }
-
-  onParentFormTouched(): void {
-    this.formGroup.markAllAsTouched();
   }
 
 }

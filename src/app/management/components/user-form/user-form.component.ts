@@ -18,7 +18,6 @@ import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { Person } from 'src/models/entities/Person';
 import { User } from 'src/models/entities/User';
 import { UserRole } from 'src/models/entities/UserRole';
-import { FormGroupOwner } from 'src/models/FormGroupOwner';
 import { EntityFormGroupFactoryService } from '../../../shared/entity-form-group-factory.service';
 
 @Component({
@@ -39,7 +38,7 @@ import { EntityFormGroupFactoryService } from '../../../shared/entity-form-group
   ]
 })
 export class UserFormComponent
-  implements OnInit, OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
+  implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
   private valueChangesSub: Subscription;
 
@@ -122,10 +121,6 @@ export class UserFormComponent
         return errors;
       }
     }
-  }
-
-  onParentFormTouched(): void {
-    this.formGroup.markAllAsTouched();
   }
 
 }

@@ -14,7 +14,6 @@ import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
-import { FormGroupOwner } from 'src/models/FormGroupOwner';
 import { EntityFormGroupFactoryService } from '../../../shared/entity-form-group-factory.service';
 
 @Component({
@@ -35,7 +34,7 @@ import { EntityFormGroupFactoryService } from '../../../shared/entity-form-group
   ]
 })
 export class ProductCategoryFormComponent
-  implements OnInit, OnDestroy, ControlValueAccessor, Validator, FormGroupOwner {
+  implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
   private valueChangesSub: Subscription;
 
@@ -107,10 +106,6 @@ export class ProductCategoryFormComponent
         return errors;
       }
     }
-  }
-
-  onParentFormTouched(): void {
-    this.formGroup.markAllAsTouched();
   }
 
 }
