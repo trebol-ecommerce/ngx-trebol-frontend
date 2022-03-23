@@ -17,7 +17,7 @@ export class ProductCategoryTreeService
   implements OnDestroy {
 
   private categoriesSource = new BehaviorSubject<ProductCategory[]>([]);
-  private loadingSubscription: Subscription | undefined;
+  private loadingSubscription: Subscription;
 
   categories$ = this.categoriesSource.asObservable();
 
@@ -26,9 +26,7 @@ export class ProductCategoryTreeService
   ) { }
 
   ngOnDestroy(): void {
-    if (this.loadingSubscription) {
-      this.loadingSubscription?.unsubscribe();
-    }
+    this.loadingSubscription?.unsubscribe();
   }
 
   setRootCategories(categories: ProductCategory[]) {
