@@ -8,6 +8,8 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { EntityFormDialogConfig } from 'src/app/management/dialogs/entity-form/EntityFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from './transactional-data-manager.component.directive';
@@ -21,7 +23,8 @@ class MockTransactionalDataManagerComponent
   extends TransactionalDataManagerComponentDirective<any> {
   constructor(
     protected service: TransactionalDataManagerServiceDirective<any>,
-    protected dialogService: MatDialog
+    protected dialogService: MatDialog,
+    protected route: ActivatedRoute
   ) {
     super();
   }
@@ -58,6 +61,9 @@ describe('TransactionalDataManagerComponentDirective', () => {
     }
 
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ],
       declarations: [
         MockTransactionalDataManagerComponent
       ],

@@ -7,6 +7,8 @@
 
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { DataManagerComponentDirective } from './data-manager.component.directive';
 import { DataManagerServiceDirective } from './data-manager.service.directive';
@@ -18,7 +20,8 @@ import { DataManagerServiceDirective } from './data-manager.service.directive';
 class MockDataManagerComponent
   extends DataManagerComponentDirective<any> {
   constructor(
-    protected service: DataManagerServiceDirective<any>
+    protected service: DataManagerServiceDirective<any>,
+    protected route: ActivatedRoute
   ) {
     super();
   }
@@ -41,6 +44,9 @@ describe('DataManagerComponentDirective', () => {
     };
 
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ],
       declarations: [
         MockDataManagerComponent
       ],
