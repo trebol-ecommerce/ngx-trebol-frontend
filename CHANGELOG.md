@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [v2.12.0-rc.1] - 2022-03-25
 
 ### Added
 - Service interface methods specific to sales data API
@@ -46,7 +46,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - When none is provided, these form components can fall-back to using the aforementioned service
   - `EntityFormDialog` will invoke an entity form through its HTML template, not through an inner directive with `ViewContainerRef.createComponent`
     - Updated signature for `EntityFormDialogData`
-    - KNOWN ISSUE: a `control.registerOnChange is not a function` error will be thrown to the console upon opening the dialog, but does not interfere with its functionality
 - `DataManagerComponentDirective<T>` now exposes `items$` as `Observable<any[]>` instead of `Observable<T[]>`
 - When adding images, `code` field is now optional
 - Hide frontpage heading
