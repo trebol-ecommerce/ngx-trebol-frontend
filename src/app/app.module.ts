@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { environmentModules } from 'src/environments/environment-modules';
 import { AppComponent } from './app.component';
-import { SharedModule } from './shared/shared.module';
 
 const DEBUG_ROUTES = false;
 
@@ -23,7 +22,6 @@ const DEBUG_ROUTES = false;
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    // SharedModule,
     AppRoutingModule,
     environmentModules
   ],
