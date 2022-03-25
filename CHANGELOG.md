@@ -82,6 +82,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Acept/cancel buttons in dialog to select multiple products
   - Fields in personal information form
   - Size adjustment of frontpage product lists (use appropiate space when there are fewer products in a list)
+- Updated localization files
 
 ### Removed
 - All references to deprecated APIs `/public/products` and `/public/categories`
