@@ -15,6 +15,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
+import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { Person } from 'src/models/entities/Person';
 import { UserRole } from 'src/models/entities/UserRole';
 import { UserFormComponent } from './user-form.component';
@@ -61,6 +62,7 @@ describe('UserFormComponent', () => {
       providers: [
         { provide: API_SERVICE_INJECTION_TOKENS.dataPeople, useValue: mockPeopleDataApiService },
         { provide: API_SERVICE_INJECTION_TOKENS.dataUserRoles, useValue: mockUserRolesDataApiService },
+        EntityFormGroupFactoryService
       ]
     })
     .compileComponents();

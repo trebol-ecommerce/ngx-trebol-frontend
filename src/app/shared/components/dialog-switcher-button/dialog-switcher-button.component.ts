@@ -5,8 +5,8 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, Input } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, Input, Type } from '@angular/core';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog-switcher-button',
@@ -15,10 +15,10 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 })
 export class DialogSwitcherButtonComponent {
 
-  @Input() public label: string | null;
+  @Input() public label: string;
   @Input() public sourceDialogRef: MatDialogRef<any>;
-  @Input() public targetDialogComponent: any;
-  @Input() public targetDialogConfig: any;
+  @Input() public targetDialogComponent: Type<any>;
+  @Input() public targetDialogConfig: MatDialogConfig<any>;
 
   constructor(
     protected dialogService: MatDialog

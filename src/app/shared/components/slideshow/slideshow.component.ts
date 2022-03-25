@@ -21,7 +21,7 @@ import { Image } from 'src/models/entities/Image';
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => (SlideshowComponent))
+      useExisting: SlideshowComponent
     }
   ],
   animations: [
@@ -31,8 +31,6 @@ import { Image } from 'src/models/entities/Image';
 export class SlideshowComponent
   implements OnInit, OnDestroy, ControlValueAccessor {
 
-  private touchedSubscriptions: Subscription[] = [];
-  private valueChangesSubscriptions: Subscription[] = [];
   private currentIndex = 0;
   private currentIndexSource = new BehaviorSubject(this.currentIndex);
   private autoRotateImagesSubscription: Subscription;
@@ -63,17 +61,11 @@ export class SlideshowComponent
   }
 
   ngOnDestroy(): void {
-    for (const sub of [
-      ...this.valueChangesSubscriptions,
-      ...this.touchedSubscriptions]) {
-      sub.unsubscribe();
-    }
     this.stopAutoRotation();
   }
 
-  onTouched(): void {
-    this.touched.emit();
-  }
+  onChange(value: any): void { }
+  onTouched(): void { }
 
   writeValue(obj: any): void {
     if (Array.isArray(obj)) {
@@ -83,20 +75,18 @@ export class SlideshowComponent
   }
 
   registerOnChange(fn: (value: any) => void): void {
-    const sub = this.formControl.valueChanges.pipe(debounceTime(250), tap(fn)).subscribe();
-    this.valueChangesSubscriptions.push(sub);
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
-    const sub = merge(this.touched).pipe(tap(fn)).subscribe();
-    this.touchedSubscriptions.push(sub);
+    this.onTouched = fn;
   }
 
   setDisabledState?(isDisabled: boolean): void {
     if (isDisabled) {
-      this.formControl.disable({ emitEvent: false });
+      this.formControl.disable();
     } else {
-      this.formControl.enable({ emitEvent: false });
+      this.formControl.enable();
     }
   }
 
@@ -160,6 +150,7 @@ export class SlideshowComponent
   onClickRemove(): void {
     this.images.splice(this.currentIndex, 1);
     this.slideBackwards();
+    this.onChange(this.images);
   }
 
   private autoImageRotationObservable(): Observable<void> {

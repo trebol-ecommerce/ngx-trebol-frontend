@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS,
   NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators
@@ -32,80 +32,82 @@ import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
   ]
 })
 export class CompanyFormComponent
-  implements OnDestroy, ControlValueAccessor, Validator {
+  implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
-  private touchedSubscriptions: Subscription[] = [];
-  private valueChangesSubscriptions: Subscription[] = [];
-  private touched = new EventEmitter<void>();
+  private valueChangesSub: Subscription;
 
-  formGroup: FormGroup;
-
+  @Input() formGroup: FormGroup;
   get idNumber() { return this.formGroup.get('idNumber') as FormControl; }
   get name() { return this.formGroup.get('name') as FormControl; }
 
   constructor(
     private formBuilder: FormBuilder
-  ) {
-    this.formGroup = this.formBuilder.group({
-      idNumber: ['', [Validators.required]],
-      name: ['', Validators.required]
-    });
+  ) { }
+
+  ngOnInit(): void {
+    if (!this.formGroup) {
+      this.formGroup = this.formBuilder.group({
+        idNumber: ['', Validators.required],
+        name: ['', Validators.required]
+      });
+    }
+    this.valueChangesSub = this.formGroup.valueChanges.pipe(
+      debounceTime(100),
+      tap(v => this.onChange(v))
+    ).subscribe();
   }
 
   ngOnDestroy(): void {
-    for (const sub of [
-      ...this.touchedSubscriptions,
-      ...this.valueChangesSubscriptions]) {
-      sub.unsubscribe();
-    }
-    this.touched.complete();
+    this.valueChangesSub?.unsubscribe();
   }
 
-  onTouched(): void {
-    this.touched.emit();
-  }
+  onChange(value: any): void { }
+  onTouched(): void { }
+  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
-    this.idNumber.reset(null, { emitEvent: false });
-    this.name.reset(null, { emitEvent: false });
+    this.idNumber.reset('', { emitEvent: false });
+    this.name.reset('', { emitEvent: false });
     if (isJavaScriptObject(obj)) {
       this.formGroup.patchValue(obj, { emitEvent: false });
     }
   }
 
   registerOnChange(fn: (value: any) => void): void {
-    const sub = this.formGroup.valueChanges.pipe(debounceTime(150), tap(fn)).subscribe();
-    this.valueChangesSubscriptions.push(sub);
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
-    const sub = this.touched.pipe(tap(fn)).subscribe();
-    this.touchedSubscriptions.push(sub);
+    this.onTouched = fn;
   }
 
   setDisabledState?(isDisabled: boolean): void {
     if (isDisabled) {
-      this.formGroup.disable({ emitEvent: false });
+      this.formGroup.disable();
     } else {
-      this.formGroup.enable({ emitEvent: false });
+      this.formGroup.enable();
     }
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const errors = {} as any;
-    const value = control.value;
-    if (value) {
-      if (!value.idNumber) {
-        errors.requiredCompanyIdNumber = value.idNumber;
-      }
-      if (!value.name) {
-        errors.requiredCompanyName = value.name;
-      }
-
-      if (JSON.stringify(errors) !== '{}') {
-        return errors;
-      }
+    if (this.formGroup.valid) {
+      return null;
     }
+
+    const errors = {} as ValidationErrors;
+
+    if (this.idNumber.errors) {
+      errors.companyIdNumber = this.idNumber.errors;
+    }
+    if (this.name.errors) {
+      errors.companyName = this.name.errors;
+    }
+
+    return errors;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this.onValidatorChange = fn;
   }
 
 }

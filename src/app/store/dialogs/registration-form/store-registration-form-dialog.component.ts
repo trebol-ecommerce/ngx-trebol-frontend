@@ -11,6 +11,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { AppService } from 'src/app/app.service';
+import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { passwordMatcher } from 'src/functions/passwordMatcher';
 import { Person } from 'src/models/entities/Person';
 import { Registration } from 'src/models/Registration';
@@ -37,20 +38,21 @@ export class StoreRegistrationFormDialogComponent
   get name() { return this.formGroup.get('name') as FormControl; }
   get pass1() { return this.formGroup.get('pass1') as FormControl; }
   get pass2() { return this.formGroup.get('pass2') as FormControl; }
-  get person() { return this.formGroup.get('person') as FormControl; }
+  get person() { return this.formGroup.get('person') as FormGroup; }
 
   constructor(
     private appService: AppService,
     private formBuilder: FormBuilder,
     private dialog: MatDialogRef<StoreRegistrationFormDialogComponent>,
-    private snackBarService: MatSnackBar
+    private snackBarService: MatSnackBar,
+    private entityFormGroupService: EntityFormGroupFactoryService
   ) {
     this.formGroup = this.formBuilder.group(
       {
         name: ['', Validators.required],
         pass1: ['', Validators.required],
         pass2: ['', Validators.required],
-        person: [new Person(), Validators.required]
+        person: this.entityFormGroupService.createFormGroupFor('person')
       },
       { validators: passwordMatcher }
     );

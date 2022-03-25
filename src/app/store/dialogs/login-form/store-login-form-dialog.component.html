@@ -10,7 +10,7 @@
 </app-centered-mat-spinner>
 
 <div [hidden]="loggingIn$ | async">
-  <form [formGroup]="formGroup" (submit)="onSubmit()">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <input matInput formControlName="username"
         placeholder="User name"

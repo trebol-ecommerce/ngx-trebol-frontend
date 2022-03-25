@@ -5,10 +5,10 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, forwardRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { ProductCategoryPickerDialogComponent } from '../../dialogs/product-category-picker/product-category-picker-dialog.component';
 
@@ -20,12 +20,12 @@ import { ProductCategoryPickerDialogComponent } from '../../dialogs/product-cate
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => ProductCategorySelectorFormFieldComponent)
+      useExisting: ProductCategorySelectorFormFieldComponent
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: forwardRef(() => ProductCategorySelectorFormFieldComponent)
+      useExisting: ProductCategorySelectorFormFieldComponent
     }
   ]
 })
@@ -33,7 +33,7 @@ export class ProductCategorySelectorFormFieldComponent
   implements ControlValueAccessor, Validator {
 
   noCategoryLabel = $localize`:no category chosen|Label to indicate that a product does not have a category associated:No category`;
-  productCategory: ProductCategory = null;
+  productCategory: ProductCategory;
   isDisabled = false;
   placeholder: string;
 
@@ -43,6 +43,7 @@ export class ProductCategorySelectorFormFieldComponent
 
   onChange(value: any): void { }
   onTouched(): void { }
+  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
     this.productCategory = obj;
@@ -61,21 +62,24 @@ export class ProductCategorySelectorFormFieldComponent
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value: Partial<ProductCategory> = control.value;
-    if (value) {
-      const errors = {} as any;
-
-      if (!value.code) {
-        errors.requiredCode = value.code;
-      }
-      if (!value.name) {
-        errors.requiredName = value.name;
-      }
-
-      if (JSON.stringify(errors) !== '{}') {
-        return errors;
-      }
+    if (!this.productCategory) {
+      return null;
     }
+
+    const errors = {} as ValidationErrors;
+
+    if (!this.productCategory.code) {
+      errors.productCategoryCode = { required: true };
+    }
+    if (this.productCategory.name) {
+      errors.productCategoryName = { required: true };
+    }
+
+    return errors;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this.onValidatorChange = fn;
   }
 
   onClickClearCategory(): void {
@@ -90,13 +94,12 @@ export class ProductCategorySelectorFormFieldComponent
         width: '24rem'
       }
     ).afterClosed().pipe(
-      filter(next => !!next)
-    ).subscribe(
-      next => {
+      filter(next => !!next),
+      tap(next => {
         this.productCategory = { code: next.code, name: next.name };
         this.onChange(next);
-      }
-    );
+      })
+    ).subscribe();
   }
 
 }

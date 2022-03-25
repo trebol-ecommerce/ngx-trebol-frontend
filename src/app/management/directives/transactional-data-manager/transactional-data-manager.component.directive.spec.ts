@@ -50,7 +50,8 @@ describe('TransactionalDataManagerComponentDirective', () => {
       canEdit$: of(false),
       canAdd$: of(false),
       canDelete$: of(false),
-      reloadItems() { }
+      reloadItems() { },
+      updateAccess() { }
     };
     mockDialogService = {
       open() {
@@ -62,7 +63,7 @@ describe('TransactionalDataManagerComponentDirective', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule.withRoutes([ { path: '', component: MockTransactionalDataManagerComponent } ])
       ],
       declarations: [
         MockTransactionalDataManagerComponent

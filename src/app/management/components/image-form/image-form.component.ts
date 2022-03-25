@@ -5,16 +5,15 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
   ValidationErrors, Validator
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
-import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { Image } from 'src/models/entities/Image';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
+import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 
 @Component({
   selector: 'app-image-form',
@@ -24,12 +23,12 @@ import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => ImageFormComponent)
+      useExisting: ImageFormComponent
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: forwardRef(() => ImageFormComponent)
+      useExisting: ImageFormComponent
     }
   ]
 })
@@ -63,6 +62,7 @@ export class ImageFormComponent
 
   onChange(value: any): void { }
   onTouched(): void { }
+  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
     this.filename.reset('', { emitEvent: false });
@@ -83,28 +83,31 @@ export class ImageFormComponent
 
   setDisabledState?(isDisabled: boolean): void {
     if (isDisabled) {
-      this.formGroup.disable({ emitEvent: false });
+      this.formGroup.disable();
     } else {
-      this.formGroup.enable({ emitEvent: false });
+      this.formGroup.enable();
     }
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value: Partial<Image> = control.value;
-    if (value) {
-      const errors = {} as any;
-
-      if (!value.filename) {
-        errors.requiredFilename = value.filename;
-      }
-      if (!value.url) {
-        errors.requiredImageUrl = value.url;
-      }
-
-      if (JSON.stringify(errors) !== '{}') {
-        return errors;
-      }
+    if (this.formGroup.valid) {
+      return null;
     }
+
+    const errors = {} as ValidationErrors;
+
+    if (this.filename.errors) {
+      errors.imageFilename = this.filename.errors;
+    }
+    if (this.url.errors) {
+      errors.imageUrl = this.url.errors;
+    }
+
+    return errors;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this.onValidatorChange = fn;
   }
 
 }

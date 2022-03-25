@@ -17,6 +17,7 @@ import { ProductFormComponent } from './components/product-form/product-form.com
 import { ProductListFormComponent } from './components/product-list-form/product-list-form.component';
 import { SalespersonFormComponent } from './components/salesperson-form/salesperson-form.component';
 import { SellFormComponent } from './components/sell-form/sell-form.component';
+import { ShipperFormComponent } from './components/shipper-form/shipper-form.component';
 import { ManagementSidenavComponent } from './components/sidenav/management-sidenav.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { EntityFormDialogComponent } from './dialogs/entity-form/entity-form-dialog.component';
@@ -60,6 +61,7 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ProductListFormComponent,
     SalespersonFormComponent,
     SellFormComponent,
+    ShipperFormComponent,
     UserFormComponent,
     EntityFormDialogComponent,
     ImagesArrayDialogComponent,

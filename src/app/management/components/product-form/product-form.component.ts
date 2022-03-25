@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS,
   NG_VALUE_ACCESSOR, ValidationErrors, Validator
@@ -13,12 +13,11 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
-import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { Image } from 'src/models/entities/Image';
-import { Product } from 'src/models/entities/Product';
 import { ImagesArrayDialogComponent } from 'src/app/management/dialogs/images-array/images-array-dialog.component';
 import { ImagesArrayDialogData } from 'src/app/management/dialogs/images-array/ImagesArrayDialogData';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
+import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
+import { Image } from 'src/models/entities/Image';
 
 @Component({
   selector: 'app-product-form',
@@ -28,12 +27,12 @@ import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => ProductFormComponent)
+      useExisting: ProductFormComponent
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: forwardRef(() => ProductFormComponent)
+      useExisting: ProductFormComponent
     }
   ]
 })
@@ -73,6 +72,7 @@ export class ProductFormComponent
 
   onChange(value: any): void { }
   onTouched(): void { }
+  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
     this.images.reset([], { emitEvent: false });
@@ -105,24 +105,33 @@ export class ProductFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value: Partial<Product> = control.value;
-    if (value) {
-      const errors = {} as any;
-
-      if (!value.barcode) {
-        errors.requiredProductBarcode = value.barcode;
-      }
-      if (!value.name) {
-        errors.requiredProductName = value.name;
-      }
-      if (!value.price) {
-        errors.requiredProductPrice = value.price;
-      }
-
-      if (JSON.stringify(errors) !== '{}') {
-        return errors;
-      }
+    if (this.formGroup.valid) {
+      return null;
     }
+
+    const errors = {} as ValidationErrors;
+
+    if (this.barcode.errors) {
+      errors.productBarcode = this.barcode.errors;
+    }
+    if (this.name.errors) {
+      errors.productName = this.name.errors;
+    }
+    if (this.price.errors) {
+      errors.productPrice = this.price.errors;
+    }
+    if (this.category.errors) {
+      errors.productCategory = this.category.errors;
+    }
+    if (this.description.errors) {
+      errors.productDescription = this.description.errors;
+    }
+
+    return errors;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this.onValidatorChange = fn;
   }
 
   onClickAddImage(): void {

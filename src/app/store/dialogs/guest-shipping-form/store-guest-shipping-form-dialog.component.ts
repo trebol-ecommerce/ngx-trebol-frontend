@@ -6,12 +6,12 @@
  */
 
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Subject, throwError } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
-import { Person } from 'src/models/entities/Person';
+import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { StoreCartService } from '../../store-cart.service';
 
 @Component({
@@ -33,11 +33,11 @@ export class StoreGuestShippingFormDialogComponent
   constructor(
     private appService: AppService,
     private dialog: MatDialogRef<StoreGuestShippingFormDialogComponent>,
-    private formBuilder: FormBuilder,
+    private entityFormGroupService: EntityFormGroupFactoryService,
     private cartService: StoreCartService
   ) {
-    this.formGroup = this.formBuilder.group({
-      person: [new Person()]
+    this.formGroup = new FormGroup({
+      person: this.entityFormGroupService.createFormGroupFor('person')
     });
   }
 

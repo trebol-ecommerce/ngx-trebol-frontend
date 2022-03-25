@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
   ValidationErrors, Validator
@@ -13,7 +13,6 @@ import {
 import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { ProductList } from 'src/models/entities/ProductList';
 import { EntityFormGroupFactoryService } from '../../../shared/entity-form-group-factory.service';
 
 @Component({
@@ -24,12 +23,12 @@ import { EntityFormGroupFactoryService } from '../../../shared/entity-form-group
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => ProductListFormComponent)
+      useExisting: ProductListFormComponent
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: forwardRef(() => ProductListFormComponent)
+      useExisting: ProductListFormComponent
     }
   ]
 })
@@ -63,6 +62,7 @@ export class ProductListFormComponent
 
   onChange(value: any): void { }
   onTouched(): void { }
+  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
     this.code.reset('', { emitEvent: false });
@@ -83,28 +83,27 @@ export class ProductListFormComponent
 
   setDisabledState?(isDisabled: boolean): void {
     if (isDisabled) {
-      this.formGroup.disable({ emitEvent: false });
+      this.formGroup.disable();
     } else {
-      this.formGroup.enable({ emitEvent: false });
+      this.formGroup.enable();
     }
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value: Partial<ProductList> = control.value;
-    if (value) {
-      const errors = {} as any;
-
-      if (!value.code) {
-        errors.requiredListCode = value.code;
-      }
-      if (!value.name) {
-        errors.requiredListName = value.name;
-      }
-
-      if (JSON.stringify(errors) !== '{}') {
-        return errors;
-      }
+    if (this.formGroup.valid) {
+      return null;
     }
+
+    const errors = {} as ValidationErrors;
+
+    if (this.code.errors) {
+      errors.productListCode = this.code.errors;
+    }
+    if (this.name.errors) {
+      errors.productListName = this.name.errors;
+    }
+
+    return errors;
   }
 
 }

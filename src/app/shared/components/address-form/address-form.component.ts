@@ -13,7 +13,6 @@ import {
 import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { Address } from 'src/models/entities/Address';
 import { EntityFormGroupFactoryService } from '../../entity-form-group-factory.service';
 
 @Component({
@@ -94,24 +93,29 @@ export class AddressFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value: Partial<Address> = control.value;
-    if (value) {
-      const errors = {} as any;
-
-      if (!value.city) {
-        errors.requiredAddressCity = value.city;
-      }
-      if (!value.municipality) {
-        errors.requiredAddressMunicipality = value.municipality;
-      }
-      if (!value.firstLine) {
-        errors.requiredAddressFirstLine = value.firstLine;
-      }
-
-      if (JSON.stringify(errors) !== '{}') {
-        return errors;
-      }
+    if (this.formGroup.valid) {
+      return null;
     }
+
+    const errors = {} as ValidationErrors;
+
+    if (this.city.errors) {
+      errors.addressCity = this.city.errors;
+    }
+    if (this.municipality.errors) {
+      errors.addressMunicipality = this.municipality.errors;
+    }
+    if (this.firstLine.errors) {
+      errors.addressFirstLine = this.firstLine.errors;
+    }
+    if (this.secondLine.errors) {
+      errors.addressSecondLine = this.secondLine.errors;
+    }
+    if (this.notes.errors) {
+      errors.addressNotes = this.notes.errors;
+    }
+
+    return errors;
   }
 
 }

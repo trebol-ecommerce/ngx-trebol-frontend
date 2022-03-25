@@ -5,12 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
   ValidationErrors, Validator
 } from '@angular/forms';
-import { merge, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { Person } from 'src/models/entities/Person';
@@ -33,30 +33,36 @@ import { Person } from 'src/models/entities/Person';
   ]
 })
 export class SalespersonFormComponent
-  implements OnDestroy, ControlValueAccessor, Validator {
+  implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
-  private touchedSubscriptions: Subscription[] = [];
-  private valueChangesSubscriptions: Subscription[] = [];
-  private touched = new EventEmitter<void>();
+  private valueChangesSub: Subscription;
 
-  formGroup: FormGroup;
+  @Input() formGroup: FormGroup;
   get person() { return this.formGroup.get('person') as FormControl; }
 
   constructor(
     private formBuilder: FormBuilder
-  ) {
-    this.formGroup = this.formBuilder.group({
-      person: [new Person()]
-    });
+  ) { }
+
+  ngOnInit(): void {
+    if (!this.formGroup) {
+      this.formGroup = this.formBuilder.group({
+        person: [null]
+      });
+    }
+    this.valueChangesSub = this.formGroup.valueChanges.pipe(
+      debounceTime(100),
+      tap(v => this.onChange(v))
+    ).subscribe();
   }
 
   ngOnDestroy(): void {
-    for (const sub of [
-      ...this.valueChangesSubscriptions,
-      ...this.touchedSubscriptions]) {
-      sub.unsubscribe();
-    }
+    this.valueChangesSub?.unsubscribe();
   }
+
+  onChange(value: any): void { }
+  onTouched(): void { }
+  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
     this.person.reset('', { emitEvent: false });
@@ -70,35 +76,33 @@ export class SalespersonFormComponent
   }
 
   registerOnChange(fn: (value: any) => void): void {
-    const sub = this.formGroup.valueChanges.pipe(debounceTime(250), tap(fn)).subscribe();
-    this.valueChangesSubscriptions.push(sub);
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
-    const sub = merge(this.touched).pipe(tap(fn)).subscribe();
-    this.touchedSubscriptions.push(sub);
+    this.onTouched = fn;
   }
 
   setDisabledState?(isDisabled: boolean): void {
     if (isDisabled) {
-      this.formGroup.disable({ emitEvent: false });
+      this.formGroup.disable();
     } else {
-      this.formGroup.enable({ emitEvent: false });
+      this.formGroup.enable();
     }
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const errors = {} as any;
-    const value = control.value;
-    if (value) {
-      if (!value.person) {
-        errors.requiredPerson = value.person;
-      }
-
-      if (JSON.stringify(errors) !== '{}') {
-        return errors;
-      }
+    if (this.formGroup.valid) {
+      return null;
     }
+
+    const errors = {} as ValidationErrors;
+
+    if (this.person.errors) {
+      errors.salesperson = this.person.errors;
+    }
+
+    return errors;
   }
 
 }

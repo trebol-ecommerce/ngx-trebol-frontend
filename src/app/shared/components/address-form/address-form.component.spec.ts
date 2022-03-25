@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Address } from 'src/models/entities/Address';
+import { EntityFormGroupFactoryService } from '../../entity-form-group-factory.service';
 import { AddressFormComponent } from './address-form.component';
 
 describe('AddressFormComponent', () => {
@@ -26,7 +27,10 @@ describe('AddressFormComponent', () => {
         MatFormFieldModule,
         MatInputModule
       ],
-      declarations: [ AddressFormComponent ]
+      declarations: [AddressFormComponent],
+      providers: [
+        EntityFormGroupFactoryService
+      ]
     })
     .compileComponents();
   }));

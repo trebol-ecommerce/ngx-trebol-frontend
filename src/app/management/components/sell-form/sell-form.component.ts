@@ -6,7 +6,7 @@
  */
 
 import { CurrencyPipe } from '@angular/common';
-import { Component, forwardRef, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator
 } from '@angular/forms';
@@ -22,7 +22,6 @@ import { BillingType } from 'src/models/entities/BillingType';
 import { Customer } from 'src/models/entities/Customer';
 import { Product } from 'src/models/entities/Product';
 import { Salesperson } from 'src/models/entities/Salesperson';
-import { Sell } from 'src/models/entities/Sell';
 import { SellDetail } from 'src/models/entities/SellDetail';
 import { SellFormService } from './sell-manager-form.service';
 
@@ -31,16 +30,15 @@ import { SellFormService } from './sell-manager-form.service';
   templateUrl: './sell-form.component.html',
   styleUrls: ['./sell-form.component.css'],
   providers: [
-    CurrencyPipe,
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => SellFormComponent)
+      useExisting: SellFormComponent
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: forwardRef(() => SellFormComponent)
+      useExisting: SellFormComponent
     }
   ]
 })
@@ -116,6 +114,7 @@ export class SellFormComponent
 
   onChange(value: any): void { }
   onTouched(): void { }
+  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
     this.billingType.reset('', { emitEvent: false });
@@ -143,21 +142,27 @@ export class SellFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors {
-    const value: Partial<Sell> = control.value;
-    if (value) {
-      const errors = {} as any;
-
-      if (!value.billingType) {
-        errors.requiredBillingType = value.billingType;
-      }
-      if (!value.customer) {
-        errors.requiredCustomer = value.customer;
-      }
-
-      if (JSON.stringify(errors) !== '{}') {
-        return errors;
-      }
+    if (this.formGroup.valid) {
+      return null;
     }
+
+    const errors = {} as ValidationErrors;
+
+    if (this.billingType.errors) {
+      errors.sellBillingType = this.billingType.errors;
+    }
+    if (this.salesperson.errors) {
+      errors.sellSalesperson = this.salesperson.errors;
+    }
+    if (this.customer.errors) {
+      errors.sellCustomer = this.customer.errors;
+    }
+
+    return errors;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this.onValidatorChange = fn;
   }
 
   onClickAddProducts(): void {

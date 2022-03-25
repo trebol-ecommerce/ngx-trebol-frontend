@@ -9,7 +9,7 @@
 <app-centered-mat-spinner *ngIf="registering$ | async">
 </app-centered-mat-spinner>
 <div [hidden]="registering$ | async">
-  <form [formGroup]="formGroup" (submit)="onSubmit()">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <mat-form-field class="name">
       <input matInput formControlName="name"
         placeholder="User name"
@@ -28,7 +28,7 @@
         i18n-placeholder="Name of field for password confirmation by repetition" />
     </mat-form-field>
 
-    <app-person-form formControlName="person">
+    <app-person-form formGroupName="person">
     </app-person-form>
 
     <div class="actions">

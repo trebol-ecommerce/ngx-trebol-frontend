@@ -5,17 +5,18 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component } from '@angular/core';
+import { Component, forwardRef } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { ProductCategoryFormComponent } from './product-category-form.component';
 
 @Component({
   selector: 'app-product-category-selector-form-field',
-  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockProductCategorySelectorFormFieldComponent }]
+  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: forwardRef(() => MockProductCategorySelectorFormFieldComponent) }]
 })
 class MockProductCategorySelectorFormFieldComponent
   implements ControlValueAccessor {
@@ -41,6 +42,9 @@ describe('ProductCategoryFormComponent', () => {
       declarations: [
         ProductCategoryFormComponent,
         MockProductCategorySelectorFormFieldComponent
+      ],
+      providers: [
+        EntityFormGroupFactoryService
       ]
     })
     .compileComponents();

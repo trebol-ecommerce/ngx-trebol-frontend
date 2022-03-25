@@ -14,6 +14,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
+import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { StoreHeaderMenuComponent } from './store-header-menu.component';
 
 describe('StoreHeaderMenuComponent', () => {
@@ -21,8 +22,8 @@ describe('StoreHeaderMenuComponent', () => {
   let fixture: ComponentFixture<StoreHeaderMenuComponent>;
   let mockAppService: Partial<AppService>;
   let mockDialogService: Partial<MatDialog>;
+  let mockSharedDialogService: Partial<SharedDialogService>;
   let mockSnackBarService: Partial<MatSnackBar>;
-  let dialogOpenSpy: jasmine.Spy;
 
   beforeEach(waitForAsync( () => {
     mockAppService = {
@@ -35,11 +36,12 @@ describe('StoreHeaderMenuComponent', () => {
     mockDialogService = {
       open() { return void 0; }
     };
+    mockSharedDialogService = {
+      requestConfirmation() { return of(false); }
+    };
     mockSnackBarService = {
       open() { return void 0; }
     };
-    dialogOpenSpy = spyOn(mockDialogService, 'open')
-                      .and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<any>);
 
     TestBed.configureTestingModule({
       imports: [
@@ -52,7 +54,8 @@ describe('StoreHeaderMenuComponent', () => {
       providers: [
         { provide: AppService, useValue: mockAppService },
         { provide: MatDialog, useValue: mockDialogService },
-        { provide: MatSnackBar, useValue: mockSnackBarService },
+        { provide: SharedDialogService, useValue: mockSharedDialogService },
+        { provide: MatSnackBar, useValue: mockSnackBarService }
       ]
     })
     .compileComponents();
@@ -68,13 +71,18 @@ describe('StoreHeaderMenuComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should prompt a logout confirmation, only when logged in', () => {
+  it('should do nothing when clicking in the logout option while not logged in', () => {
+    const confirmationSpy = spyOn(mockSharedDialogService, 'requestConfirmation').and.callThrough();
+    // isLoggedIn is false here
     component.onClickLogout();
-    expect(dialogOpenSpy).not.toHaveBeenCalled();
+    expect(confirmationSpy).not.toHaveBeenCalled();
+  });
 
+  it('should prompt a confirmation when clicking in the logout option while logged in', () => {
+    const confirmationSpy = spyOn(mockSharedDialogService, 'requestConfirmation').and.callThrough();
     mockAppService.isLoggedInChanges$ = of(true);
     mockAppService.isLoggedIn = (() => true);
     component.onClickLogout();
-    expect(dialogOpenSpy).toHaveBeenCalled();
+    expect(confirmationSpy).toHaveBeenCalled();
   });
 });

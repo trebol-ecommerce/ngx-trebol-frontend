@@ -5,15 +5,15 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
   ValidationErrors, Validator, Validators
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, concat, merge, Observable, Subscription } from 'rxjs';
-import { debounceTime, map, mapTo, startWith, tap } from 'rxjs/operators';
+import { BehaviorSubject, concat, Observable, Subscription, throwError } from 'rxjs';
+import { catchError, finalize, map, mapTo, startWith, tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 import { ImageManagerUploadService } from './image-upload-form.service';
@@ -38,12 +38,9 @@ import { ImageManagerUploadService } from './image-upload-form.service';
 export class ImageUploadFormComponent
   implements OnDestroy, ControlValueAccessor, Validator {
 
+  private uploadSubscription: Subscription;
   private uploadingSource = new BehaviorSubject<boolean>(false);
-  private uploadSubscription: Subscription | undefined;
   private uploadPercentageSource = new BehaviorSubject<number>(0);
-  private touchedSubscriptions: Subscription[] = [];
-  private valueChangesSubscriptions: Subscription[] = [];
-  private touched = new EventEmitter<void>();
 
   uploadQueueSize = 0;
   completedUploads = 0;
@@ -51,14 +48,14 @@ export class ImageUploadFormComponent
 
   uploading$ = this.uploadingSource.asObservable();
   uploadPercentage$ = this.uploadPercentageSource.asObservable();
-  formGroup: FormGroup;
 
+  formGroup: FormGroup;
   get files() { return this.formGroup.get('files') as FormControl; }
 
   constructor(
     private dialog: MatDialogRef<ImageUploadFormComponent>,
     private formBuilder: FormBuilder,
-    private storeService: ImageManagerUploadService,
+    private uploadService: ImageManagerUploadService,
     private snackBarService: MatSnackBar
   ) {
     this.formGroup = this.formBuilder.group({
@@ -69,14 +66,12 @@ export class ImageUploadFormComponent
   ngOnDestroy(): void {
     this.uploadingSource.complete();
     this.uploadPercentageSource.complete();
-    if (this.uploadSubscription) { this.uploadSubscription.unsubscribe(); }
-
-    for (const sub of [
-      ...this.valueChangesSubscriptions,
-      ...this.touchedSubscriptions]) {
-      sub.unsubscribe();
-    }
+    this.uploadSubscription?.unsubscribe();
   }
+
+  onChange(value: any): void { }
+  onTouched(): void { }
+  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
     this.files.reset('', { emitEvent: false });
@@ -86,40 +81,36 @@ export class ImageUploadFormComponent
   }
 
   registerOnChange(fn: (value: any) => void): void {
-    const sub = this.formGroup.valueChanges.pipe(debounceTime(250), tap(fn)).subscribe();
-    this.valueChangesSubscriptions.push(sub);
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
-    const sub = merge(this.touched).pipe(tap(fn)).subscribe();
-    this.touchedSubscriptions.push(sub);
+    this.onTouched = fn;
   }
 
   setDisabledState?(isDisabled: boolean): void {
     if (isDisabled) {
-      this.formGroup.disable({ emitEvent: false });
+      this.formGroup.disable();
     } else {
-      this.formGroup.enable({ emitEvent: false });
+      this.formGroup.enable();
     }
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    if (!value) {
-      return { required: value };
-    } else {
-      const errors = {} as any;
-      if (!value.files) {
-        errors.requiredImageUploadFiles = value.files;
-      }
-      if (!value.files.length) {
-        errors.imageUploadFilesAmountMustBePositive = value.files;
-      }
-
-      if (JSON.stringify(errors) !== '{}') {
-        return errors;
-      }
+    if (this.formGroup.valid) {
+      return null;
     }
+
+    const errors = {} as ValidationErrors;
+    if (this.files.errors) {
+      errors.imageUploadFiles = this.files.errors;
+    }
+
+    return errors;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this.onValidatorChange = fn;
   }
 
   onSubmit(): void {
@@ -140,15 +131,15 @@ export class ImageUploadFormComponent
         startWith(0)
       );
 
-      this.uploadSubscription = uploads$.subscribe(
-        percent => {
+      this.uploadSubscription = uploads$.pipe(
+        tap(percent => {
           if (percent === 0) {
             // TODO use plural expression
             const uploadStartMessage = $localize`:Label with total images to be uploaded being {{ totalImagesToUpload }}:Uploading ${ this.uploadQueueSize }:totalImagesToUpload: images`;
             this.snackBarService.open(uploadStartMessage);
           }
-        },
-        (error: { status?: number, error?: string }) => {
+        }),
+        catchError((error: { status?: number, error?: string }) => {
           if (error?.status && error.status === 400) {
             this.snackBarService.open(error.error, COMMON_DISMISS_BUTTON_LABEL);
           } else {
@@ -157,26 +148,27 @@ export class ImageUploadFormComponent
             this.snackBarService.open(uploadErrorMessage, COMMON_DISMISS_BUTTON_LABEL);
             this.formGroup.enable();
           }
-        },
-        () => {
+          return throwError(error);
+        }),
+        finalize(() => {
           setTimeout(() => { this.dialog.close(true); }, 1000);
           // TODO use plural expression
           const uploadFinalMessage = $localize`:Message of success during (and after) uploading {{ imagesUploadedSoFar }} images out of a total of {{ totalImagesToUpload }}:Succesfully uploaded ${this.completedUploads}:imagesUploadedSoFar: out of ${this.uploadQueueSize}:totalImagesToUpload: images`;
           this.snackBarService.open(uploadFinalMessage, COMMON_DISMISS_BUTTON_LABEL);
-        }
-      );
+        })
+      ).subscribe();
     }
   }
 
   private uploadOneByOne(fileList: FileList): Observable<void> {
     const fileCount = fileList.length;
-    let uploads$ = this.storeService.submit(fileList.item(0));
+    let uploads$ = this.uploadService.submit(fileList.item(0));
     if (fileCount > 1) {
       for (let fileIndex = 1; fileIndex < fileList.length; fileIndex++) {
         const file = fileList.item(fileIndex);
         uploads$ = concat(
           uploads$,
-          this.storeService.submit(file)
+          this.uploadService.submit(file)
         );
       }
     }

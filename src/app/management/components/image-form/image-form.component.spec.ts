@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { Image } from 'src/models/entities/Image';
 import { ImageFormComponent } from './image-form.component';
 
@@ -26,7 +27,10 @@ describe('ImageFormComponent', () => {
         MatFormFieldModule,
         MatInputModule
       ],
-      declarations: [ ImageFormComponent ]
+      declarations: [ ImageFormComponent ],
+      providers: [
+        EntityFormGroupFactoryService
+      ]
     })
     .compileComponents();
   }));

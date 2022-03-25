@@ -16,6 +16,9 @@ describe('SharedDialogService', () => {
     TestBed.configureTestingModule({
       imports: [
         MatDialogModule
+      ],
+      providers: [
+        SharedDialogService
       ]
     });
     service = TestBed.inject(SharedDialogService);

@@ -13,33 +13,36 @@
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <ng-container [ngSwitch]="data.entityType">
       <app-address-form *ngSwitchCase="'address'"
-        formControlName="item" [formGroup]="innerFormGroup">
+        formGroupName="item">
       </app-address-form>
       <app-image-form *ngSwitchCase="'image'"
-        formControlName="item" [formGroup]="innerFormGroup">
+        formGroupName="item">
       </app-image-form>
       <app-person-form *ngSwitchCase="'person'"
-        formControlName="item" [formGroup]="innerFormGroup">
+        formGroupName="item">
       </app-person-form>
       <app-product-form *ngSwitchCase="'product'"
-        formControlName="item" [formGroup]="innerFormGroup">
+        formGroupName="item">
       </app-product-form>
       <app-product-category-form *ngSwitchCase="'productCategory'"
-        formControlName="item" [formGroup]="innerFormGroup">
+        formGroupName="item">
       </app-product-category-form>
       <app-product-list-form *ngSwitchCase="'productList'"
-        formControlName="item" [formGroup]="innerFormGroup">
+        formGroupName="item">
       </app-product-list-form>
       <app-sell-form *ngSwitchCase="'sell'"
-        formControlName="item" [formGroup]="innerFormGroup">
+        formGroupName="item">
       </app-sell-form>
       <app-shipper-form *ngSwitchCase="'shipper'"
-        formControlName="item" [formGroup]="innerFormGroup">
+        formGroupName="item">
       </app-shipper-form>
       <app-user-form *ngSwitchCase="'user'"
-        formControlName="item" [formGroup]="innerFormGroup">
+        formGroupName="item">
       </app-user-form>
-      <p *ngSwitchDefault>Invalid or unsupported element type!</p>
+      <div *ngSwitchDefault>
+        <input type="hidden" formControlName="item" />
+        <p>Invalid or unsupported element type!</p>
+      </div>
     </ng-container>
 
     <div class="actions">

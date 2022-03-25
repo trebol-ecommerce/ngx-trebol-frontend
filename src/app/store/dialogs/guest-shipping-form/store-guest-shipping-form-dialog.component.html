@@ -11,8 +11,8 @@
 <div [hidden]="saving$ | async">
   <p i18n="Label to instruct user to input billing information">Please provide your billing information.</p>
   <p i18n="Label to hint user that their billing information is solely used to secure their transaction">We request this for security purposes, to keep your transaction safe and secure.</p>
-  <form [formGroup]="formGroup" (submit)="onSubmit()">
-    <app-person-form formControlName="person">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <app-person-form formGroupName="person">
     </app-person-form>
 
     <div class="actions">

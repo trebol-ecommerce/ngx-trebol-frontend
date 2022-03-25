@@ -40,12 +40,14 @@ describe('DataManagerComponentDirective', () => {
       totalCount$: of(0),
       canEdit$: of(false),
       canAdd$: of(false),
-      canDelete$: of(false)
+      canDelete$: of(false),
+      reloadItems() { },
+      updateAccess() { }
     };
 
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule.withRoutes([ { path: '', component: MockDataManagerComponent } ])
       ],
       declarations: [
         MockDataManagerComponent

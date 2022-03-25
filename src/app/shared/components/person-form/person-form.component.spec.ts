@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { EntityFormGroupFactoryService } from '../../entity-form-group-factory.service';
 import { PersonFormComponent } from './person-form.component';
 
 describe('PersonFormComponent', () => {
@@ -25,7 +26,10 @@ describe('PersonFormComponent', () => {
         MatFormFieldModule,
         MatInputModule
       ],
-      declarations: [ PersonFormComponent ]
+      declarations: [PersonFormComponent],
+      providers: [
+        EntityFormGroupFactoryService
+      ]
     })
     .compileComponents();
   }));

@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, forwardRef, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
   ValidationErrors, Validator
@@ -16,7 +16,6 @@ import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { Person } from 'src/models/entities/Person';
-import { User } from 'src/models/entities/User';
 import { UserRole } from 'src/models/entities/UserRole';
 import { EntityFormGroupFactoryService } from '../../../shared/entity-form-group-factory.service';
 
@@ -28,12 +27,12 @@ import { EntityFormGroupFactoryService } from '../../../shared/entity-form-group
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => UserFormComponent)
+      useExisting: UserFormComponent
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: forwardRef(() => UserFormComponent)
+      useExisting: UserFormComponent
     }
   ]
 })
@@ -75,12 +74,13 @@ export class UserFormComponent
 
   onChange(value: any): void { }
   onTouched(): void { }
+  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
     this.name.reset('', { emitEvent: false });
     this.password.reset('', { emitEvent: false });
-    this.person.reset('', { emitEvent: false });
-    this.role.reset('', { emitEvent: false });
+    this.person.reset(null, { emitEvent: false });
+    this.role.reset(null, { emitEvent: false });
     if (isJavaScriptObject(obj)) {
       this.formGroup.patchValue(obj);
     }
@@ -103,24 +103,27 @@ export class UserFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value: Partial<User> = control.value;
-    if (value) {
-      const errors = {} as any;
-
-      if (!value.name) {
-        errors.requiredUserName = value.name;
-      }
-      if (!value.person) {
-        errors.requiredUserPerson = value.person;
-      }
-      if (!value.role) {
-        errors.requiredUserRole = value.role;
-      }
-
-      if (JSON.stringify(errors) !== '{}') {
-        return errors;
-      }
+    if (this.formGroup.valid) {
+      return null;
     }
+
+    const errors = {} as ValidationErrors;
+
+    if (this.name.errors) {
+      errors.userName = this.name.errors;
+    }
+    if (this.person.errors) {
+      errors.userPerson = this.person.errors;
+    }
+    if (this.role.errors) {
+      errors.userRole = this.role.errors;
+    }
+
+    return errors;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this.onValidatorChange = fn;
   }
 
 }

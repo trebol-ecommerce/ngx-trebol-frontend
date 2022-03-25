@@ -5,17 +5,17 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { Address } from 'src/models/entities/Address';
+import { filter, tap } from 'rxjs/operators';
 import { AddressFormDialogComponent } from 'src/app/shared/dialogs/address-form/address-form-dialog.component';
 import { AddressFormDialogData } from "src/app/shared/dialogs/address-form/AddressFormDialogData";
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
+import { Address } from 'src/models/entities/Address';
 
 @Component({
   selector: 'app-addresses-editor-form',
@@ -35,54 +35,52 @@ import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
   ]
 })
 export class AddressesEditorFormComponent
-  implements OnDestroy, ControlValueAccessor, Validator {
+  implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
-  private touchedSubscriptions: Subscription[] = [];
-  private valueChangesSubscriptions: Subscription[] = [];
-  private touched = new EventEmitter<void>();
+  private valueChangesSub: Subscription;
 
   editLabel = $localize `:edit address|Label for action button to edit an address:Edit address`;
   addLabel = $localize `:add address|Label for action button to add a new address:Add address`;
 
   @Input() placeholder = $localize`:Name of field for a complete address:Full address`;
-  @Input() @Output() savedAddresses: Address[] = [];
+  @Input() savedAddresses: Address[] = [];
 
-  formControl = new FormControl('', Validators.required);
+  formControl = new FormControl(null, Validators.required);
 
   constructor(
     private dialogService: MatDialog
   ) { }
 
-  ngOnDestroy(): void {
-    for (const sub of [...this.valueChangesSubscriptions, ...this.touchedSubscriptions]) {
-      sub.unsubscribe();
-    }
+  ngOnInit(): void {
+    this.valueChangesSub = this.formControl.valueChanges.pipe(
+      tap(v => this.onChange(v))
+    ).subscribe();
   }
 
-  onTouched(): void {
-    this.touched.emit();
+  ngOnDestroy(): void {
+    this.valueChangesSub?.unsubscribe();
   }
+
+  onChange(value: any): void { }
+  onTouched(): void { }
+  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
     this.formControl.reset(null, { emitEvent: false });
     if (isJavaScriptObject(obj)) {
-      if (obj instanceof Address) {
-        if (this.savedAddresses.indexOf(obj) === -1) {
-          this.savedAddresses.push(obj);
-        }
-        this.formControl.setValue(obj, { emitEvent: false });
+      if (this.savedAddresses.indexOf(obj) === -1) {
+        this.savedAddresses.push(obj);
       }
+      this.formControl.setValue(obj, { emitEvent: false });
     }
   }
 
   registerOnChange(fn: (value: any) => void): void {
-    const sub = this.formControl.valueChanges.subscribe(fn);
-    this.valueChangesSubscriptions.push(sub);
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
-    const sub = this.touched.pipe(tap(fn)).subscribe();
-    this.touchedSubscriptions.push(sub);
+    this.onTouched = fn;
   }
 
   setDisabledState?(isDisabled: boolean): void {
@@ -107,11 +105,10 @@ export class AddressesEditorFormComponent
         width: '40rem'
       }
     ).afterClosed().pipe(
-      tap((address: Address) => {
-        if (address) {
-          this.savedAddresses[indexOfCurrentAddress] = address;
-          this.formControl.setValue(address);
-        }
+      filter((address: Address) => !!address),
+      tap(address => {
+        this.savedAddresses[indexOfCurrentAddress] = address;
+        this.formControl.setValue(address);
       })
     ).subscribe();
   }
@@ -127,35 +124,24 @@ export class AddressesEditorFormComponent
         width: '40rem'
       }
     ).afterClosed().pipe(
-      tap((address: Address) => {
-        if (address) {
-          this.savedAddresses.push(address);
-          this.formControl.setValue(address);
-        }
+      filter((address: Address) => !!address),
+      tap(address => {
+        this.savedAddresses.push(address);
+        this.formControl.setValue(address);
       })
     ).subscribe();
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    if (!value) {
-      return { required: value };
-    } else {
-      const errors = {} as any;
-      if (!value.city) {
-        errors.requiredAddressCity = value.city;
-      }
-      if (!value.municipality) {
-        errors.requiredAddressMunicipality = value.municipality;
-      }
-      if (!value.firstLine) {
-        errors.requiredAddressFirstLine = value.firstLine;
-      }
-
-      if (JSON.stringify(errors) !== '{}') {
-        return errors;
-      }
+    if (this.formControl.valid) {
+      return null;
     }
+
+    return this.formControl.errors;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this.onValidatorChange = fn;
   }
 
 }

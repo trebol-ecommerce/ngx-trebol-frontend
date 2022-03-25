@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, forwardRef, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS,
   NG_VALUE_ACCESSOR, ValidationErrors, Validator
@@ -13,7 +13,6 @@ import {
 import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { Shipper } from 'src/models/entities/Shipper';
 import { EntityFormGroupFactoryService } from '../../../shared/entity-form-group-factory.service';
 
 @Component({
@@ -24,12 +23,12 @@ import { EntityFormGroupFactoryService } from '../../../shared/entity-form-group
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: forwardRef(() => ShipperFormComponent)
+      useExisting: ShipperFormComponent
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: forwardRef(() => ShipperFormComponent)
+      useExisting: ShipperFormComponent
     }
   ]
 })
@@ -61,11 +60,12 @@ export class ShipperFormComponent
 
   onChange(value: any): void { }
   onTouched(): void { }
+  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
     this.name.reset('', { emitEvent: false });
     if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj, { emitEvent: false });
+      this.formGroup.patchValue(obj);
     }
   }
 
@@ -86,18 +86,21 @@ export class ShipperFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value: Partial<Shipper> = control.value;
-    if (value) {
-      const errors = {} as any;
-
-      if (!value.name) {
-        errors.requiredShipperName = value.name;
-      }
-
-      if (JSON.stringify(errors) !== '{}') {
-        return errors;
-      }
+    if (this.formGroup.valid) {
+      return null;
     }
+
+    const errors = {} as ValidationErrors;
+
+    if (this.name.errors) {
+      errors.shipperName = this.name.errors;
+    }
+
+    return errors;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this.onValidatorChange = fn;
   }
 
 }

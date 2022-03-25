@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTreeModule } from '@angular/material/tree';
 import { of } from 'rxjs';
+import { SharedDialogService } from '../../dialogs/shared-dialog.service';
 import { ProductCategoryTreeComponent } from './product-category-tree.component';
 import { ProductCategoryTreeService } from './product-category-tree.service';
 
@@ -22,7 +23,7 @@ describe('ProductCategoryTreeService', () => {
   let mockService: Partial<ProductCategoryTreeService>;
   let mockSnackbarService: Partial<MatSnackBar>;
   let mockDialogService: Partial<MatDialog>;
-  // let dialogOpenSpy: jasmine.Spy;
+  let mockSharedDialogService: Partial<SharedDialogService>;
 
   beforeEach(waitForAsync(() => {
     mockService = {
@@ -41,8 +42,9 @@ describe('ProductCategoryTreeService', () => {
         } as MatDialogRef<any>;
       }
     };
-    // dialogOpenSpy = spyOn(mockDialogService, 'open')
-    //                   .and.returnValue({ afterClosed: () => of(false) } as MatDialogRef<any>);
+    mockSharedDialogService = {
+      requestConfirmation() { return of(false); }
+    };
 
     TestBed.overrideComponent(
       ProductCategoryTreeComponent,
@@ -62,7 +64,8 @@ describe('ProductCategoryTreeService', () => {
       declarations: [ProductCategoryTreeComponent],
       providers: [
         { provide: MatSnackBar, useValue: mockSnackbarService },
-        { provide: MatDialog, useValue: mockDialogService }
+        { provide: MatDialog, useValue: mockDialogService },
+        { provide: SharedDialogService, useValue: mockSharedDialogService }
       ]
     })
     .compileComponents();

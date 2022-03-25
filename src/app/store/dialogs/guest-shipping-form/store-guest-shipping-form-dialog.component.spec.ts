@@ -14,6 +14,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
+import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { CheckoutRequest } from 'src/models/CheckoutRequest';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreGuestShippingFormDialogComponent } from './store-guest-shipping-form-dialog.component';
@@ -70,7 +71,8 @@ describe('StoreGuestShippingFormDialogComponent', () => {
       providers: [
         { provide: MatDialogRef, useValue: mockDialogRef },
         { provide: AppService, useValue: mockAppService },
-        { provide: StoreCartService, useValue: mockCartService }
+        { provide: StoreCartService, useValue: mockCartService },
+        EntityFormGroupFactoryService
       ]
     })
     .compileComponents();

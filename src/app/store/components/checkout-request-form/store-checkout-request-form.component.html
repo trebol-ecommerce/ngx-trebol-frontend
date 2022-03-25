@@ -5,27 +5,26 @@
   https://opensource.org/licenses/MIT
 -->
 
-<form [formGroup]="formGroup">
+<form [formGroup]="formGroup" (ngSubmit)="onRequest()">
   <div class="billing">
     <h3 i18n="Title of form for billing information">Billing Details</h3>
-    <app-store-billing-details-form #billingForm formControlName="billing">
+    <app-store-billing-details-form formControlName="billing">
     </app-store-billing-details-form>
   </div>
   <div class="customer">
     <h3 i18n="Title of form for personal information">Personal Information</h3>
-    <app-person-form #customerForm formControlName="customer">
+    <app-person-form formControlName="customer">
     </app-person-form>
   </div>
   <div class="shipping">
     <h3 i18n="Title of form for shipping information">Shipping Details</h3>
-    <app-store-shipping-form #shippingForm formControlName="shipping">
+    <app-store-shipping-form formControlName="shipping">
     </app-store-shipping-form>
   </div>
   <div class="actions">
-    <button type="button" class="request"
+    <button type="submit" class="request"
       mat-button mat-raised-button
-      color="accent"
-      (click)="onClickRequest()">
+      color="accent">
       <span i18n="continue|Label for action button to proceed to next step in a form">Continue</span>
       <mat-icon>arrow_forward</mat-icon>
     </button>

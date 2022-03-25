@@ -20,7 +20,7 @@ export class StoreCartService
 
   cartDetails$ = this.cartDetailsSource.asObservable();
   checkoutButtonPress = new EventEmitter<void>();
-  checkoutRequestData = new CheckoutRequest();
+  checkoutRequestData = null;
 
   cartItemCount$: Observable<number>;
   cartNetValue$: Observable<number>;

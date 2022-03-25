@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
+import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { Image } from 'src/models/entities/Image';
 import { Product } from 'src/models/entities/Product';
 import { ProductFormComponent } from './product-form.component';
@@ -80,7 +81,8 @@ describe('ProductFormComponent', () => {
       ],
       providers: [
         { provide: MatSnackBar, useValue: mockSnackBarService },
-        { provide: MatDialog, useValue: mockDialogService }
+        { provide: MatDialog, useValue: mockDialogService },
+        EntityFormGroupFactoryService
       ]
     })
     .compileComponents();

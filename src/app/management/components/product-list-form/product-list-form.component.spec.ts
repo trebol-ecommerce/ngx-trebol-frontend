@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { ProductListFormComponent } from './product-list-form.component';
 
 describe('ProductListFormComponent', () => {
@@ -17,6 +18,7 @@ describe('ProductListFormComponent', () => {
   let fixture: ComponentFixture<ProductListFormComponent>;
 
   beforeEach(waitForAsync(() => {
+
     TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
@@ -25,7 +27,10 @@ describe('ProductListFormComponent', () => {
         MatFormFieldModule,
         MatInputModule
       ],
-      declarations: [ ProductListFormComponent ]
+      declarations: [ ProductListFormComponent ],
+      providers: [
+        EntityFormGroupFactoryService
+      ]
     })
     .compileComponents();
   }));

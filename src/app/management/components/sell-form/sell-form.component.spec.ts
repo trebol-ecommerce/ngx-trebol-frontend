@@ -21,6 +21,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
+import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { SellFormComponent } from './sell-form.component';
 import { SellFormService } from './sell-manager-form.service';
 
@@ -81,7 +82,9 @@ describe('SellFormComponent', () => {
         { provide: API_SERVICE_INJECTION_TOKENS.dataBillingTypes, useValue: mockDataApiService },
         { provide: MatSnackBar, useValue: mockSnackBarService },
         { provide: MatDialog, useValue: mockDialogService },
-        { provide: MatDialogRef, useValue: {} }
+        { provide: MatDialogRef, useValue: {} },
+        EntityFormGroupFactoryService,
+        CurrencyPipe
       ]
     })
     .compileComponents();
