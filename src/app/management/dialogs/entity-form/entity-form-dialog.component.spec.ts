@@ -24,9 +24,9 @@ class MockCenteredMatSpinnerComponent { }
 
 @Component({
   selector: 'app-address-form',
-  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: forwardRef(() => MockAddressForm) }]
+  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: forwardRef(() => MockAddressFormComponent) }]
 })
-class MockAddressForm
+class MockAddressFormComponent
   implements ControlValueAccessor {
   @Input() formGroup: FormGroup;
   writeValue(v: any) { }
@@ -37,9 +37,9 @@ class MockAddressForm
 
 @Component({
   selector: 'app-image-form',
-  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockImageForm }]
+  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockImageFormComponent }]
 })
-class MockImageForm
+class MockImageFormComponent
   implements ControlValueAccessor {
   @Input() formGroup: FormGroup;
   writeValue(v: any) { }
@@ -50,9 +50,9 @@ class MockImageForm
 
 @Component({
   selector: 'app-person-form',
-  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockPersonForm }]
+  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockPersonFormComponent }]
 })
-class MockPersonForm
+class MockPersonFormComponent
   implements ControlValueAccessor {
   @Input() formGroup: FormGroup;
   writeValue(v: any) { }
@@ -63,9 +63,9 @@ class MockPersonForm
 
 @Component({
   selector: 'app-product-form',
-  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockProductForm }]
+  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockProductFormComponent }]
 })
-class MockProductForm
+class MockProductFormComponent
   implements ControlValueAccessor {
   @Input() formGroup: FormGroup;
   writeValue(v: any) { }
@@ -76,9 +76,9 @@ class MockProductForm
 
 @Component({
   selector: 'app-product-category-form',
-  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockProductCategoryForm }]
+  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockProductCategoryFormComponent }]
 })
-class MockProductCategoryForm
+class MockProductCategoryFormComponent
   implements ControlValueAccessor {
   @Input() formGroup: FormGroup;
   writeValue(v: any) { }
@@ -89,9 +89,9 @@ class MockProductCategoryForm
 
 @Component({
   selector: 'app-product-list-form',
-  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockProductListForm }]
+  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockProductListFormComponent }]
 })
-class MockProductListForm
+class MockProductListFormComponent
   implements ControlValueAccessor {
   @Input() formGroup: FormGroup;
   writeValue(v: any) { }
@@ -102,9 +102,9 @@ class MockProductListForm
 
 @Component({
   selector: 'app-sell-form',
-  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockSellForm }]
+  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockSellFormComponent }]
 })
-class MockSellForm
+class MockSellFormComponent
   implements ControlValueAccessor {
   @Input() formGroup: FormGroup;
   writeValue(v: any) { }
@@ -115,9 +115,9 @@ class MockSellForm
 
 @Component({
   selector: 'app-shipper-form',
-  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockShipperForm }]
+  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockShipperFormComponent }]
 })
-class MockShipperForm
+class MockShipperFormComponent
   implements ControlValueAccessor {
   @Input() formGroup: FormGroup;
   writeValue(v: any) { }
@@ -128,9 +128,9 @@ class MockShipperForm
 
 @Component({
   selector: 'app-user-form',
-  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockUserForm }]
+  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockUserFormComponent }]
 })
-class MockUserForm
+class MockUserFormComponent
   implements ControlValueAccessor {
   @Input() formGroup: FormGroup;
   writeValue(v: any) { }
@@ -176,15 +176,15 @@ describe('EntityFormDialogComponent', () => {
       ],
       declarations: [
         MockCenteredMatSpinnerComponent,
-        MockAddressForm,
-        MockImageForm,
-        MockPersonForm,
-        MockProductForm,
-        MockProductCategoryForm,
-        MockProductListForm,
-        MockSellForm,
-        MockShipperForm,
-        MockUserForm,
+        MockAddressFormComponent,
+        MockImageFormComponent,
+        MockPersonFormComponent,
+        MockProductFormComponent,
+        MockProductCategoryFormComponent,
+        MockProductListFormComponent,
+        MockSellFormComponent,
+        MockShipperFormComponent,
+        MockUserFormComponent,
         EntityFormDialogComponent
       ],
       providers: [

@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS,
   NG_VALUE_ACCESSOR, ValidationErrors, Validator
@@ -33,7 +33,7 @@ import { EntityFormGroupFactoryService } from '../../../shared/entity-form-group
   ]
 })
 export class ShipperFormComponent
-  implements OnDestroy, ControlValueAccessor, Validator {
+  implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
   private valueChangesSub: Subscription;
 
