@@ -36,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Slideshows images now may be able to hold links to redirect users to
 
 ### Changed
-- Bump Angular to v13.2
+- Bump Angular to v13.3
 - Refactored architecture for inserting and updating data within the management module
   - Removed `FormGroupOwner` pseudo-interface
   - Introduced `EntityTypeNames` type
