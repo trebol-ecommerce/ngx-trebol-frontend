@@ -31,7 +31,7 @@
         mat-button mat-icon-button
         aria-label="Remove one"
         i18n-aria-label="remove product unit|Label for action button to remove one unit of a product"
-        [disabled]="detail.units < 2"
+        [disabled]="!editable || detail.units < 2"
         (click)="onClickDecreaseProductQuantity(i)">
         <mat-icon>remove</mat-icon>
       </button>
@@ -40,6 +40,7 @@
         mat-button mat-icon-button
         aria-label="Add one"
         i18n-aria-label="add product unit|Label for action button to add one unit of a product"
+        [disabled]="!editable"
         (click)="onClickIncreaseProductQuantity(i)">
         <mat-icon>add</mat-icon>
       </button>
@@ -61,6 +62,7 @@
         aria-label="Remove"
         i18n-aria-label="remove all product units|Label for action button to remove all units of product in cart"
         color="warn"
+        [disabled]="!editable"
         (click)="onClickRemoveProduct(i)">
         <mat-icon>delete</mat-icon>
       </button>

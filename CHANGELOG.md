@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
-- User name and details would not always be correct or up-to-date; make better use of existing HTTP APIs
+- (UI) User name and details would not always be correct or up-to-date
+  - (Performance) Make better use of existing auth HTTP APIs
+- (UI) Contents of cart would be editable after confirmation
 
 ## [v2.12.0-rc.1] - 2022-03-25
 

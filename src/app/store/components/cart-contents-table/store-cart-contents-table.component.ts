@@ -18,6 +18,7 @@ import { StoreCartService } from '../../store-cart.service';
 })
 export class StoreCartContentsTableComponent {
 
+  @Input() editable: boolean;
   @Input() details$: Observable<SellDetail[]>;
   @Input() tableColumns: string[] = [ 'product', 'price', 'quantity', 'total', 'actions' ];
 
