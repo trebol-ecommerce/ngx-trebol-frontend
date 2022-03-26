@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2021 The Trébol eCommerce Project
+  Copyright (c) 2022 The Trebol eCommerce Project
 
   This software is released under the MIT License.
   https://opensource.org/licenses/MIT
@@ -8,14 +8,15 @@
 <form [formGroup]="formGroup">
   <mat-radio-group formControlName="sellType"
     aria-label="Billing type"
-    i18n-aria-label="Label for group of choices to select billing type from">
+    i18n-aria-label="Label for group of choices to select billing type from"
+    (change)="onSellTypeChange($event.value)">
     <mat-radio-button *ngFor="let option of typesOptions"
       [value]="option"
       (blur)="onTouched()">{{ option }}</mat-radio-button>
   </mat-radio-group>
-  <app-company-form #companyForm formControlName="company">
+  <app-company-form formControlName="company">
   </app-company-form>
-  <app-addresses-editor-form #addressForm formControlName="address"
+  <app-addresses-editor-form formControlName="address"
     placeholder="Billing address"
     i18n-placeholder="Name of field for address to bill to">
   </app-addresses-editor-form>

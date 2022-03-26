@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -28,7 +28,7 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
     data: {
       matIcon: 'home',
       title: $localize`:Title of page for management dashboard:Dashboard`
-     }
+    }
   },
   {
     path: 'sales', component: ManagementSalesComponent,
@@ -104,23 +104,21 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
   },
 ];
 
-const managementRoutes: Routes = [
-  {
-    path: 'management', component: ManagementComponent,
-    children: [
-      ...MANAGEMENT_CHILD_ROUTES,
-      {
-        path: '**', pathMatch: 'prefix', redirectTo: 'dashboard'
-      }
-    ],
-    canActivate: [ManagementRoutingGuard],
-    canActivateChild: [ManagementRoutingGuard]
-  }
-];
-
 @NgModule({
   imports: [
-    RouterModule.forChild(managementRoutes)
+    RouterModule.forChild([
+      {
+        path: '', component: ManagementComponent,
+        children: [
+          ...MANAGEMENT_CHILD_ROUTES,
+          {
+            path: '**', pathMatch: 'prefix', redirectTo: 'dashboard'
+          }
+        ],
+        canActivate: [ManagementRoutingGuard],
+        canActivateChild: [ManagementRoutingGuard]
+      }
+    ])
   ],
   exports: [RouterModule]
 })

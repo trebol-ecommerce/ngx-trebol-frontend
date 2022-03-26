@@ -1,13 +1,14 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
 import { CommonModule } from '@angular/common';
+import { Component, forwardRef } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -15,10 +16,21 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { iif, of, throwError } from 'rxjs';
 import { AppService } from 'src/app/app.service';
-import { Registration } from 'src/models/Registration';
 import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
-import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
+import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { StoreRegistrationFormDialogComponent } from './store-registration-form-dialog.component';
+
+@Component({
+  selector: 'app-person-form',
+  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: forwardRef(() => MockPersonFormComponent) }]
+})
+class MockPersonFormComponent
+  implements ControlValueAccessor {
+  writeValue(obj: any): void { }
+  registerOnChange(): void { }
+  registerOnTouched(): void { }
+  setDisabledState(): void { }
+}
 
 describe('StoreRegistrationFormDialogComponent', () => {
   let component: StoreRegistrationFormDialogComponent;
@@ -55,13 +67,14 @@ describe('StoreRegistrationFormDialogComponent', () => {
       ],
       declarations: [
         StoreRegistrationFormDialogComponent,
-        PersonFormComponent,
+        MockPersonFormComponent,
         CenteredMatProgressSpinnerComponent
       ],
       providers: [
         { provide: MatDialogRef, useValue: mockMatDialogRef },
         { provide: AppService, useValue: mockAppService },
-        { provide: MatSnackBar, useValue: mockSnackBarService }
+        { provide: MatSnackBar, useValue: mockSnackBarService },
+        EntityFormGroupFactoryService
       ]
     })
     .compileComponents();
@@ -88,19 +101,17 @@ describe('StoreRegistrationFormDialogComponent', () => {
   it('should submit a correct form', () => {
     const registerSpy = spyOn(mockAppService, 'register').and.callThrough();
 
-    component.formGroup.patchValue(
-      {
-        name: 'username',
-        pass1: 'password',
-        pass2: 'password',
-        person: {
-          firstName: 'test-name',
-          lastName: 'test-name',
-          email: 'test-email',
-          idNumber: 'test-idNumber'
-        }
+    component.formGroup.patchValue({
+      name: 'username',
+      pass1: 'password',
+      pass2: 'password',
+      person: {
+        firstName: 'test-name',
+        lastName: 'test-name',
+        email: 'test-email',
+        idNumber: 'test-idNumber'
       }
-    );
+    });
     expect(component.formGroup.valid).toBeTruthy();
 
     component.onSubmit();

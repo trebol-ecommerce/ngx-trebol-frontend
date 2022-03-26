@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -20,7 +20,7 @@ export class StoreCartService
 
   cartDetails$ = this.cartDetailsSource.asObservable();
   checkoutButtonPress = new EventEmitter<void>();
-  checkoutRequestData = new CheckoutRequest();
+  checkoutRequestData = null;
 
   cartItemCount$: Observable<number>;
   cartNetValue$: Observable<number>;

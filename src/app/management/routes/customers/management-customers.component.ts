@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -8,7 +8,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Customer } from 'src/models/entities/Customer';
-import { DataManagerComponentDirective } from '../../directives/data-manager.component-directive';
+import { DataManagerComponentDirective } from '../../directives/data-manager/data-manager.component.directive';
 import { ManagementCustomersService } from './management-customers.service';
 
 @Component({
@@ -27,19 +27,13 @@ export class ManagementCustomersComponent
 
   constructor(
     protected service: ManagementCustomersService,
-    private route: ActivatedRoute
+    protected route: ActivatedRoute
   ) {
     super();
   }
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.route.data.subscribe(
-      d => {
-        this.service.updateAccess(d.access);
-        this.service.reloadItems();
-      }
-    );
   }
 
 }

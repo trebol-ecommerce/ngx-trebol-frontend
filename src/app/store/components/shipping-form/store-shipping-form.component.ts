@@ -1,21 +1,18 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup,
   NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators
 } from '@angular/forms';
-import { merge, Subscription } from 'rxjs';
-import { debounceTime, tap } from 'rxjs/operators';
-import { AddressesEditorFormComponent } from 'src/app/shared/components/addresses-editor-form/addresses-editor-form.component';
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { Address } from 'src/models/entities/Address';
-import { StoreCartService } from '../../store-cart.service';
 
 @Component({
   selector: 'app-store-shipping-form',
@@ -37,80 +34,53 @@ import { StoreCartService } from '../../store-cart.service';
 export class StoreShippingFormComponent
   implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
-  private touchedSubscriptions: Subscription[] = [];
-  private statusChangesSubscriptions: Subscription[] = [];
-  private requestShippingChangesSubscription: Subscription;
-  private touched = new EventEmitter<void>();
+  private valueChangesSub: Subscription;
 
-  formGroup: FormGroup;
-
+  @Input() formGroup: FormGroup;
   get requestShipping() { return this.formGroup.get('requestShipping') as FormControl; }
   get shippingAddress() { return this.formGroup.get('shippingAddress') as FormControl; }
 
-  @ViewChild('addressForm', { static: false }) adressForm: AddressesEditorFormComponent;
-
   constructor(
-    private formBuilder: FormBuilder,
-    private cartService: StoreCartService
-  ) {
-    this.formGroup = this.formBuilder.group({
-      requestShipping: [null, Validators.required],
-      shippingAddress: [{ value: null, disabled: true }, Validators.required]
-    });
-  }
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
-    this.requestShippingChangesSubscription = this.requestShipping.valueChanges.pipe(
-      tap(isEnabled => {
-        if (isEnabled) {
-          this.shippingAddress.enable();
-        } else {
-          this.shippingAddress.reset({ value: null, disabled: true });
-        }
-      })
+    if (!this.formGroup) {
+      this.formGroup = this.formBuilder.group({
+        requestShipping: [null, Validators.required],
+        shippingAddress: [{ value: null, disabled: true }, Validators.required]
+      });
+    }
+    this.valueChangesSub = this.formGroup.valueChanges.pipe(
+      tap(v => this.onChange(v))
     ).subscribe();
   }
 
   ngOnDestroy(): void {
-    for (const sub of [...this.touchedSubscriptions, ...this.statusChangesSubscriptions]) {
-      sub.unsubscribe();
-    }
-    this.requestShippingChangesSubscription.unsubscribe();
-    this.touched.complete();
+    this.valueChangesSub?.unsubscribe();
   }
 
-  onTouched(): void {
-    this.touched.emit();
-  }
+  onChange(value: any): void { }
+  onTouched(): void { }
+  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
     this.requestShipping.reset(null, { emitEvent: false });
-    this.shippingAddress.disable({ emitEvent: false });
+    this.shippingAddress.reset({ value: null, disabled: true }, { emitEvent: false });
     if (isJavaScriptObject(obj)) {
-      if (obj instanceof Address) {
-        this.requestShipping.enable({ emitEvent: false });
-        this.requestShipping.setValue(true, { emitEvent: false });
-        this.shippingAddress.setValue(obj, { emitEvent: false });
-      } else {
-        if ('requestShipping' in obj && obj.requestShipping === true) {
-          this.shippingAddress.enable({ emitEvent: false });
-        }
-        this.formGroup.patchValue(obj, { emitEvent: false });
+      if ('requestShipping' in obj && obj.requestShipping === true) {
+        this.shippingAddress.enable({ emitEvent: false });
       }
+      this.formGroup.patchValue(obj, { emitEvent: false });
     }
   }
 
   registerOnChange(fn: (value: any) => void): void {
-    const sub = this.formGroup.valueChanges.pipe(debounceTime(150), tap(fn)).subscribe();
-    this.touchedSubscriptions.push(sub);
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
-    const sub = merge(
-      this.touched,
-      this.cartService.checkoutButtonPress
-    ).pipe(tap(fn)).subscribe();
-    this.touchedSubscriptions.push(sub);
+    this.onTouched = fn;
   }
 
   setDisabledState?(isDisabled: boolean): void {
@@ -122,26 +92,32 @@ export class StoreShippingFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    if (!value) {
-      return { required: value };
-    } else {
-      const errors = {} as any;
-      if (!value.requestShipping && value.requestShipping !== false) {
-        errors.shippingMustBeSelected = value.requestShipping;
-      } else if (value.requestShipping === true && !value.shippingAddress) {
-        errors.requiredShippingAddress = value.shippingAddress;
-      }
-
-      if (JSON.stringify(errors) !== '{}') {
-        return errors;
-      }
+    if (this.formGroup.valid) {
+      return null;
     }
+
+    const errors = {} as ValidationErrors;
+
+    if (this.requestShipping.errors) {
+      errors.requestShipping = this.requestShipping.errors;
+    }
+    if (this.shippingAddress.errors) {
+      errors.shippingAddress = this.shippingAddress.errors;
+    }
+
+    return errors;
   }
 
-  onParentFormTouched(): void {
-    this.formGroup.markAllAsTouched();
-    this.adressForm.formControl.markAsTouched();
+  registerOnValidatorChange(fn: () => void): void {
+    this.onValidatorChange = fn;
+  }
+
+  onShippingRequirementChange(v: boolean): void {
+    if (v) {
+      this.shippingAddress.enable();
+    } else {
+      this.shippingAddress.reset({ value: null, disabled: true });
+    }
   }
 
 }

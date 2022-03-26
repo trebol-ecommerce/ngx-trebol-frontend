@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -8,28 +8,32 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { merge, of, timer } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
-import { Product } from 'src/models/entities/Product';
+import { MatDividerModule } from '@angular/material/divider';
+import { of } from 'rxjs';
 import { ProductList } from 'src/models/entities/ProductList';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreCatalogComponent } from './store-catalog.component';
 import { StoreCatalogService } from './store-catalog.service';
 
-@Component({ selector: 'app-product-filters-panel' })
-class MockProductFiltersPanelComponent {
-  @Output() filtersChanges = new EventEmitter();
-}
-
 @Component({ selector: 'app-centered-mat-spinner' })
 class MockCenteredMatSpinnerComponent { }
 
-@Component({ selector: 'app-store-product-card' })
-class MockStoreCatalogProductCardComponent {
-  @Input() product: Product;
-  @Output() addToCart = new EventEmitter();
-  @Output() view = new EventEmitter();
+@Component({ selector: 'app-slideshow' })
+class MockSlideshowComponent {
+  @Input() images: any[];
+  @Input() showSlideSelectors: boolean;
+  @Input() showNextPreviousButtons: boolean;
+}
+
+@Component({ selector: 'app-store-product-list-contents-display' })
+class MockStoreProductListContentsDisplayComponent {
+  @Input() list: ProductList;
+  @Output() addProductToCart = new EventEmitter<void>();
+}
+
+@Component({ selector: 'app-store-location' })
+class MockStoreLocationComponent {
+  @Input() mapHeight: number;
 }
 
 describe('StoreCatalogComponent', () => {
@@ -41,11 +45,15 @@ describe('StoreCatalogComponent', () => {
   beforeEach(waitForAsync(() => {
     mockCatalogService = {
       loading$: of(false),
-      lists$: of([]),
+      listsPage$: of({
+        items: [],
+        pageIndex: 0,
+        pageSize: 10,
+        totalCount: 0
+      }),
       reloadItems() {},
       viewProduct(p) {}
     };
-    spyOn(mockCatalogService, 'reloadItems');
     mockCartService = {
       addProductToCart(p) {}
     };
@@ -53,13 +61,14 @@ describe('StoreCatalogComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CommonModule,
-        MatProgressSpinnerModule
+        MatDividerModule
       ],
       declarations: [
-        StoreCatalogComponent ,
-        MockProductFiltersPanelComponent,
+        StoreCatalogComponent,
         MockCenteredMatSpinnerComponent,
-        MockStoreCatalogProductCardComponent
+        MockSlideshowComponent,
+        MockStoreProductListContentsDisplayComponent,
+        MockStoreLocationComponent
       ],
       providers: [
         { provide: StoreCatalogService, useValue: mockCatalogService },
@@ -77,18 +86,5 @@ describe('StoreCatalogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should load items inmediately', () => {
-    let lists: ProductList[];
-    merge(
-      timer(100).pipe(
-        tap(() => expect(lists).toBeTruthy())
-      ),
-      component.lists$.pipe(
-        take(1),
-        tap(p => { lists = p; })
-      )
-    ).subscribe();
   });
 });

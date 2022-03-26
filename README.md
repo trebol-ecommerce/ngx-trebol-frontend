@@ -14,7 +14,11 @@ To access the management pages, proceed to the login dialog clicking on the butt
 
 ## Current status
 
-Supporting [the currently released API version (v1.2.2)](https://github.com/trebol-ecommerce/api/releases/tag/v1.2.2)
+Supporting the unreleased API versioned 1.3.0
+- `POST /data/sales/confirmation`
+- `POST /data/sales/rejection`
+- `POST /data/sales/completion`
+All of these simply accept references to `Sell` objects as input, allowing for a straightforward handling of these operations. Fake, local-memory implementation is included to preview this functionality.
 
 ## Infrastructure
 

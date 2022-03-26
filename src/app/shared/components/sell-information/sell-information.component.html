@@ -1,0 +1,56 @@
+<!--
+  Copyright (c) 2022 The Trebol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<div class="customer">
+  <ng-container *ngIf="sell.customer; else noCustomer">
+    <mat-icon>person</mat-icon>
+    <span class="details">
+      <span class="name">{{ sell.customer.person.firstName + " " + sell.customer.person.lastName }}</span>
+      <b class="idCard">RUT {{ sell.customer.person.idNumber }}</b>
+      <i class="email">{{ sell.customer.person.email }}</i>
+    </span>
+  </ng-container>
+  <ng-template #noCustomer>
+    <mat-icon>person_off</mat-icon>
+    <span class="details">
+      <span class="name">Cliente anónimo</span>
+    </span>
+  </ng-template>
+</div>
+<div class="type">
+  <ng-container *ngIf="sell.token; else justStateReceiptType">
+    <a href="/store/receipt?token={{ sell.token }}"
+      mat-button mat-raised-button
+      target="_blank">
+      <mat-icon>receipt</mat-icon>
+      <span i18n="Label for action to review the receipt details of a sell">View receipt</span>
+    </a>
+  </ng-container>
+  <ng-template #justStateReceiptType>
+    <mat-icon>receipt</mat-icon>
+    <span>{{ sell.billingType  }}</span>
+  </ng-template>
+</div>
+<div class="company" *ngIf="sell.billingCompany">
+  <mat-icon>business</mat-icon>
+  <span class="details">
+    <span class="name">{{ sell.billingCompany.name }}</span>
+    <b class="idNumber">RUT {{ sell.billingCompany.idNumber }}</b>
+  </span>
+</div>
+<div class="date">
+  <mat-icon>schedule</mat-icon>
+  <span>{{ sell.date | date:'dd/MM/y, hh:mm aa' }}</span>
+</div>
+<div class="status">
+  <mat-icon>pending_actions</mat-icon>
+  <span>{{ sell.status }}</span>
+</div>
+<div class="shipping" *ngIf="sell.shippingAddress">
+  <mat-icon>local_shipping</mat-icon>
+  <span>{{ sell.shippingAddress | address }}</span>
+</div>

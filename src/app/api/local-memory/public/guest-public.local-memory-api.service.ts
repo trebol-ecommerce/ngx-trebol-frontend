@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -16,7 +16,7 @@ export class GuestPublicLocalMemoryApiService
 
   constructor() { }
 
-  guestLogin(details: Person): Observable<boolean> {
-    return of(true);
+  guestLogin(details: Person): Observable<string> {
+    return of('test');
   }
 }

@@ -1,10 +1,15 @@
 <!--
-  Copyright (c) 2021 The Trébol eCommerce Project
+  Copyright (c) 2022 The Trebol eCommerce Project
 
   This software is released under the MIT License.
   https://opensource.org/licenses/MIT
 -->
 
+<app-whatsapp-button size="2.5rem" padding="0.75rem"
+  *ngIf="whatsapp.enabled"
+  [areaCode]="whatsapp.areaCode"
+  [phone]="whatsapp.urlSafePhone">
+</app-whatsapp-button>
 <app-store-header></app-store-header>
 <div class="content">
   <router-outlet></router-outlet>

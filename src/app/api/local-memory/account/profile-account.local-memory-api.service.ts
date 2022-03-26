@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { Person } from 'src/models/entities/Person';
 import { environment } from 'src/environments/environment';
 import { IProfileAccountApiService } from '../../profile-account-api.iservice';
+import { MOCK_PEOPLE } from '../mock/mock-people.datasource';
 
 @Injectable()
 export class ProfileAccountLocalMemoryApiService
@@ -37,13 +38,7 @@ export class ProfileAccountLocalMemoryApiService
   }
 
   public getProfile(): Observable<Person> {
-    return this.returnAsyncIfLoggedIn({
-      id: 1,
-      name: 'admin',
-      idNumber: '1111',
-      email: 'text@example.com',
-      address: 'example address',
-    });
+    return this.returnAsyncIfLoggedIn(MOCK_PEOPLE[0]);
   }
 
   public updateProfile(details: Person): Observable<boolean> {

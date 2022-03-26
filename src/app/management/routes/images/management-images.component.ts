@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -9,14 +9,13 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { catchError, map, tap } from 'rxjs/operators';
-import { Image } from 'src/models/entities/Image';
-import { ImageFormComponent } from 'src/app/shared/components/image-form/image-form.component';
-import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE, COMMON_WARNING_MESSAGE } from 'src/text/messages';
-import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form/EntityFormDialogConfig';
-import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
-import { ManagementImagesService } from './management-images.service';
 import { of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { Image } from 'src/models/entities/Image';
+import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
+import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';
+import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager/transactional-data-manager.component.directive';
+import { ManagementImagesService } from './management-images.service';
 
 @Component({
   selector: 'app-management-images',
@@ -34,29 +33,23 @@ export class ManagementImagesComponent
 
   constructor(
     protected service: ManagementImagesService,
-    private route: ActivatedRoute,
-    private snackBarService: MatSnackBar,
-    protected dialogService: MatDialog
+    protected dialogService: MatDialog,
+    protected route: ActivatedRoute,
+    private snackBarService: MatSnackBar
   ) {
     super();
   }
 
   ngOnInit(): void {
     super.init(this.service);
-    this.route.data.subscribe(
-      d => {
-        this.service.updateAccess(d.access);
-        this.service.reloadItems();
-      }
-    );
   }
 
   protected createDialogProperties(item: Image): EntityFormDialogConfig<Image> {
     return {
       data: {
         item,
-        formComponent: ImageFormComponent,
-        service: this.service.dataService
+        entityType: 'image',
+        apiService: this.service.dataService
       },
       width: '40rem'
     };

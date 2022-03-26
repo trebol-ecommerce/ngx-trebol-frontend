@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -21,6 +21,16 @@
   app-management-footer {
     background-color: mat.get-color-from-palette($primary);
     color: white;
+  }
+
+  app-store-footer a,
+  app-management-footer a {
+    color: white;
+  }
+
+  app-store-footer .icon,
+  app-management-footer .icon {
+    filter: invert(100%);
   }
 }
 

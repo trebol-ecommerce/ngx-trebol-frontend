@@ -1,36 +1,81 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
 :host {
-  display: block;
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .slides {
+  flex: 1 1 auto;
+}
+
+.slides > .slide {
+  display: none;
+}
+.slides > .slide.active {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 90vw;
 }
 
-.slides > .slide-remove {
+.slide > .remove-slide {
   position: absolute;
-  top: 6px;
-  right: 6px;
+  top: 1rem;
+  right: 1.5rem;
 }
 
-.selectors,
-.slide-wrapper {
+.slide > img {
+  object-fit: scale-down;
+  max-width: 100%;
+  max-height: 100%;
+}
+.slide > img.linkable {
+  cursor: pointer;
+}
+
+.slide-selectors {
+  flex: 0 0 auto;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-}
-
-.selectors {
   padding: 0.5rem;
 }
 
-.slide-wrapper img {
-  align-self: flex-start;
-  max-width: 100%;
+@media(max-width: 640px) {
+  .previous-slide,
+  .next-slide {
+    display: none;
+  }
+}
+
+@media(min-width: 641px) {
+  .previous-slide,
+  .next-slide {
+    position: absolute;
+    opacity: 0.4;
+    bottom: 50%;
+  }
+
+  .previous-slide:hover,
+  .next-slide:hover {
+    opacity: 1;
+  }
+
+  .previous-slide {
+    left: 1rem;
+  }
+
+  .next-slide {
+    right: 1rem;
+  }
 }

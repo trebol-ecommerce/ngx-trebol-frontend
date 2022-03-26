@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -20,11 +20,32 @@ app-store-header-navigation {
   flex: 0 0 auto;
 }
 
-app-store-header-middle {
-  flex: 1 1 auto;
+app-store-header-search-form {
+  margin: 0 0.5rem;
+  align-self: center;
 }
 
 app-store-header-menu,
 app-store-header-login-button {
+  margin-left: auto;
   flex: 0 0 auto;
+}
+
+@media(max-width: 640px) {
+  :host {
+    flex-flow: row wrap;
+  }
+
+  app-store-header-search-form {
+    flex: 1 1 100%;
+    order: 5;
+    height: 120px;
+  }
+}
+
+@media(min-width: 641px) {
+  app-store-header-search-form {
+    flex: 1 0 auto;
+    margin: 0.5rem 1rem;
+  }
 }

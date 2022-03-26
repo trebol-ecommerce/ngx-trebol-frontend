@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -12,7 +12,8 @@ import { BehaviorSubject, Observable, of, ReplaySubject, Subscription } from 'rx
 import { concatMap, finalize, map, switchMap, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
-import { IProductListContentsDataApiService } from 'src/app/api/transactional-product-lists.data.api.iservice';
+import { ITransactionalProductListContentsDataApiService } from 'src/app/api/transactional-product-list-contents.data.api.iservice';
+import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
 import { ProductList } from 'src/models/entities/ProductList';
 import { StoreProductDetailsDialogComponent } from '../../dialogs/product-details/store-product-details-dialog.component';
@@ -25,15 +26,15 @@ export class StoreCatalogService
   private queryParamsSubscription: Subscription;
   private loadingSubscription: Subscription;
   private loadingSource = new BehaviorSubject(false);
-  private listsSource = new ReplaySubject<ProductList[]>(1);
+  private listsPageSource = new ReplaySubject<DataPage<ProductList>>(1);
 
-  lists$ = this.listsSource.asObservable();
+  listsPage$ = this.listsPageSource.asObservable();
   loading$ = this.loadingSource.asObservable();
 
   listIndex = 0;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductLists) private productListApiService: IProductListContentsDataApiService,
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductLists) private productListApiService: ITransactionalProductListContentsDataApiService,
     @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) private productsApiService: ITransactionalEntityDataApiService<Product>,
     private dialogService: MatDialog,
     private route: ActivatedRoute,
@@ -47,7 +48,7 @@ export class StoreCatalogService
     this.queryParamsSubscription?.unsubscribe();
     this.loadingSubscription?.unsubscribe();
     this.loadingSource.complete();
-    this.listsSource.complete();
+    this.listsPageSource.complete();
   }
 
   reloadItems(): void {
@@ -55,7 +56,7 @@ export class StoreCatalogService
     this.loadingSource.next(true);
 
     this.loadingSubscription = this.productListApiService.fetchPage(this.listIndex).pipe(
-      tap(page => this.listsSource.next(page.items)),
+      tap(page => this.listsPageSource.next(page)),
       finalize(() => this.loadingSource.next(false))
     ).subscribe();
   }
@@ -65,7 +66,7 @@ export class StoreCatalogService
       [],
       {
         relativeTo: this.route,
-        queryParams: { barcode: p.barcode },
+        queryParams: { viewingProduct: p.barcode },
         queryParamsHandling: 'merge'
       }
     );
@@ -73,9 +74,9 @@ export class StoreCatalogService
 
   private checkRouteForProductIdParam(): void {
     this.queryParamsSubscription = this.route.queryParamMap.pipe(
-      switchMap((params) => (params.has('barcode')) ?
+      switchMap((params) => (params.has('viewingProduct')) ?
         this.productsApiService.fetchExisting({
-          barcode: params.get('barcode')
+          barcode: params.get('viewingProduct')
         }).pipe(
           switchMap(p => this.promptProductDetails(p))
         ) :
@@ -93,7 +94,16 @@ export class StoreCatalogService
         data: dialogData
       }
     ).afterClosed().pipe(
-      tap(() => this.router.navigate([], { relativeTo: this.route, queryParams: {} }))
+      tap(() => this.router.navigate(
+        [],
+        {
+          relativeTo: this.route,
+          queryParams: {
+            viewingProduct: undefined
+          },
+          queryParamsHandling: 'merge'
+        }
+      ))
     );
   }
 

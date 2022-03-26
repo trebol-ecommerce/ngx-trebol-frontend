@@ -1,19 +1,36 @@
 <!--
-  Copyright (c) 2021 The Trébol eCommerce Project
+  Copyright (c) 2022 The Trebol eCommerce Project
 
   This software is released under the MIT License.
   https://opensource.org/licenses/MIT
 -->
 
-<h2 i18n="Title of page for the storefront">Store Frontpage</h2>
-
+<!-- <h2 i18n="Title of page for the storefront">Store Frontpage</h2> -->
 <app-centered-mat-spinner *ngIf="loading$ | async">
 </app-centered-mat-spinner>
-
+<div class="top banners">
+  <app-slideshow
+    [images]="storeCatalogTopBannerImages">
+  </app-slideshow>
+</div>
 <div class="products" [hidden]="loading$ | async">
   <app-store-product-list-contents-display
     *ngFor="let list of (lists$ | async)"
     [list]="list"
     (addProductToCart)="onAddProductToCart($event)">
   </app-store-product-list-contents-display>
+</div>
+<mat-divider></mat-divider>
+<div class="bottom banners">
+  <app-slideshow
+    [showSlideSelectors]="false"
+    [showNextPreviousButtons]="false"
+    [images]="storeCatalogBottomBannerImages">
+  </app-slideshow>
+</div>
+<mat-divider></mat-divider>
+<div class="location">
+  <app-store-location
+    [mapHeight]="200">
+  </app-store-location>
 </div>

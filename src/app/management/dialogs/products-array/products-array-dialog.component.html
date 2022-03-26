@@ -1,0 +1,123 @@
+<!--
+  Copyright (c) 2022 The Trebol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<h2 mat-dialog-title i18n="Title of dialog prompt to add products into details of a sell">Add Products</h2>
+<div class="main">
+  <div class="available">
+    <h3 i18n="Title of widget displaying available products for addition to details of a sell">Available Products</h3>
+    <app-product-filters-panel (filtersChanges)="onFiltersChange($event)">
+    </app-product-filters-panel>
+    <app-centered-mat-spinner *ngIf="loading$ | async">
+    </app-centered-mat-spinner>
+    <div *ngIf="(loading$ | async) === false" class="product-table-wrapper">
+      <table mat-table [dataSource]="availableProducts$" matSort (matSortChange)="onSortChange($event)">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header
+            i18n="product name|Name of table header for name of product">Name</th>
+          <td mat-cell *matCellDef="let product">
+            {{ product.name }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="barcode">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header
+            i18n="product barcode|Name of table header for barcode of product">Barcode</th>
+          <td mat-cell *matCellDef="let product">
+            {{ product.barcode }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header
+            i18n="Name of table header for price per product unit">Price</th>
+          <td mat-cell *matCellDef="let product">
+            {{ product.price | currency }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let product">
+            <button mat-button mat-icon-button type="button"
+              color="primary"
+              aria-label="Add this product"
+              i18n-aria-label="add this product|Label for action button to mark a product for addition to details of a sell"
+              (click)="onClickIncludeProduct(product)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="productTableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: productTableColumns;"></tr>
+      </table>
+    </div>
+    <div>
+      <mat-paginator
+        (page)="onPage($event)"
+        [showFirstLastButtons]="true"
+        [pageSizeOptions]="pageSizeOptions"
+        [length]="totalCount$ | async">
+      </mat-paginator>
+    </div>
+  </div>
+  <mat-divider vertical></mat-divider>
+  <div class="selected">
+    <h3 i18n="Title of widget displaying products marked for addition to details of a sell">Selected Products</h3>
+    <div class="product-table-wrapper">
+      <table mat-table [dataSource]="productsArray$">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef
+            i18n="product name|Name of table header for name of product">Name</th>
+          <td mat-cell *matCellDef="let product">
+            {{ product.name }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="barcode">
+          <th mat-header-cell *matHeaderCellDef
+            i18n="product barcode|Name of table header for barcode of product">Barcode</th>
+          <td mat-cell *matCellDef="let product">
+            {{ product.barcode }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef
+            i18n="Name of table header for price per product unit">Price</th>
+          <td mat-cell *matCellDef="let product">
+            {{ product.price | currency }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> </th>
+          <td mat-cell *matCellDef="let i=index">
+            <button mat-button mat-icon-button type="button"
+              color="warn"
+              aria-label="Don't add this product"
+              i18n-aria-label="dont add this product|Label for action button to unmark a product for addition details of a sell"
+              (click)="onClickDropProduct(i)">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="productTableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: productTableColumns;"></tr>
+      </table>
+    </div>
+    <div class="summary">
+      <b i18n="Label to hint users that they have selected a certain number of products">{{ totalProducts$ | async }} products selected</b>
+      <span i18n="Label to hint users that product lists do reject duplicates">Note: product lists omit duplicates</span>
+    </div>
+    <div class="actions">
+      <button mat-button mat-raised-button type="button"
+        color="primary"
+        [disabled]="isArrayEmpty$ | async"
+        [mat-dialog-close]="productsArray$ | async"
+        i18n="confirm|Label for action button to accept and proceed">Confirm</button>
+      <button mat-button mat-raised-button type="button"
+        mat-dialog-close
+        i18n="cancel|Label for action button to cancel and/or stop an operation">Cancel</button>
+    </div>
+  </div>
+</div>

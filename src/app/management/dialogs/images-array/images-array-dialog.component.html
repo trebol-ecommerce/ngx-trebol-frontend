@@ -1,0 +1,44 @@
+<!--
+  Copyright (c) 2022 The Trebol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<h2 i18n="Title of dialog to associate images to a product">Associate Images</h2>
+<mat-form-field class="search" appearance="fill">
+  <mat-label i18n="Name of field for filtering all stored images by keyword">Search by keyword</mat-label>
+  <input matInput type="text" [formControl]="filterFormControl" />
+</mat-form-field>
+<app-centered-mat-spinner *ngIf="loading$ | async; else loaded">
+</app-centered-mat-spinner>
+<ng-template #loaded>
+  <div class="list-wrapper">
+    <mat-selection-list (selectionChange)="onSelectionChange($event)">
+      <mat-list-option *ngFor="let opt of (options$ | async)"
+        [value]="opt.image"
+        [selected]="opt.selected"
+        [disabled]="opt.disabled">
+        <img matListIcon [src]="opt.image.url" alt="">
+        <p matLine>{{ opt.image.filename }}</p>
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
+</ng-template>
+<div>
+  <mat-paginator
+    (page)="onPage($event)"
+    [showFirstLastButtons]="true"
+    [pageSizeOptions]="pageSizeOptions"
+    [length]="totalCount$ | async">
+  </mat-paginator>
+</div>
+<div class="actions">
+  <button mat-button mat-raised-button type="button"
+    [mat-dialog-close]="selectedImages"
+    i18n="confirm|Label for action button to accept and proceed">Confirm</button>
+  <button mat-button mat-raised-button type="button"
+    color="warn"
+    mat-dialog-close
+    i18n="cancel|Label for action button to cancel and/or stop an operation">Cancel</button>
+</div>

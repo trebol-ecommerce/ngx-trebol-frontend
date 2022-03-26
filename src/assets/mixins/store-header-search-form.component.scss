@@ -1,0 +1,31 @@
+/**
+ * Copyright (c) 2022 The Trebol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+@import '~@angular/material/theming';
+
+@mixin store-header-search-form-color() {
+  app-store-header-search-form .mat-form-field-flex {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+  }
+  app-store-header-search-form .mat-form-field-underline:before {
+    background-color: #ccc !important;
+  }
+  app-store-header-search-form .mat-form-field-ripple {
+    background-color: white !important;
+  }
+  app-store-header-search-form input {
+    caret-color: white !important;
+  }
+  app-store-header-search-form mat-label,
+  app-store-header-search-form mat-hint {
+    color: white !important;
+  }
+}
+
+@mixin store-header-search-form-theme() {
+  @include store-header-search-form-color();
+}

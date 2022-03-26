@@ -1,16 +1,18 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Subject } from 'rxjs';
+import { Subject, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
-import { Person } from 'src/models/entities/Person';
+import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
+import { StoreCartService } from '../../store-cart.service';
 
 @Component({
   selector: 'app-store-guest-shipping-form-dialog',
@@ -31,10 +33,11 @@ export class StoreGuestShippingFormDialogComponent
   constructor(
     private appService: AppService,
     private dialog: MatDialogRef<StoreGuestShippingFormDialogComponent>,
-    private formBuilder: FormBuilder
+    private entityFormGroupService: EntityFormGroupFactoryService,
+    private cartService: StoreCartService
   ) {
-    this.formGroup = this.formBuilder.group({
-      person: [new Person()]
+    this.formGroup = new FormGroup({
+      person: this.entityFormGroupService.createFormGroupFor('person')
     });
   }
 
@@ -44,16 +47,16 @@ export class StoreGuestShippingFormDialogComponent
 
   onSubmit(): void {
     this.savingSource.next(true);
-    this.appService.guestLogin(this.person.value).subscribe(
-      success => {
-        if (success) {
-          this.dialog.close();
-        }
-      },
-      () => {
+    this.appService.guestLogin(this.person.value).pipe(
+      tap(() => {
+        this.cartService.checkoutRequestData.customer = this.person.value;
+        this.dialog.close();
+      }),
+      catchError(err => {
         this.savingSource.next(false);
-      }
-    );
+        return throwError(err);
+      })
+    ).subscribe();
   }
 
   onCancel(): void {

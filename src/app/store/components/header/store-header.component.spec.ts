@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -20,8 +20,8 @@ class MockStoreHeaderBrandComponent { }
 @Component({ selector: 'app-store-header-navigation' })
 class MockStoreHeaderNavigationComponent { }
 
-@Component({ selector: 'app-store-header-middle' })
-class MockStoreHeaderMiddleComponent { }
+@Component({ selector: 'app-store-header-search-form' })
+class MockStoreHeaderSearchFormComponent { }
 
 @Component({ selector: 'app-store-header-menu' })
 class MockStoreHeaderMenuComponent { }
@@ -53,7 +53,7 @@ describe('StoreHeaderComponent', () => {
         StoreHeaderComponent,
         MockStoreHeaderBrandComponent,
         MockStoreHeaderNavigationComponent,
-        MockStoreHeaderMiddleComponent,
+        MockStoreHeaderSearchFormComponent,
         MockStoreHeaderMenuComponent,
         MockStoreHeaderLoginButtonComponent
       ],

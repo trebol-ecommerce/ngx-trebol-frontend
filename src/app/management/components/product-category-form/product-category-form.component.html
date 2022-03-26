@@ -1,0 +1,27 @@
+<!--
+  Copyright (c) 2022 The Trebol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<form [formGroup]="formGroup">
+
+  <mat-form-field class="code">
+    <input matInput formControlName="code"
+      placeholder="Code"
+      i18n-placeholder="Name of field for the identifying code of a category" />
+  </mat-form-field>
+
+  <mat-form-field class="name">
+    <input matInput formControlName="name"
+      placeholder="Name"
+      i18n-placeholder="Name of field for the name of a category" />
+  </mat-form-field>
+
+  <app-product-category-selector-form-field class="parent"
+    formControlName="parent"
+    placeholder="Parent"
+    i18n-placeholder="Name of field that references the containing parent of a category">
+  </app-product-category-selector-form-field>
+</form>

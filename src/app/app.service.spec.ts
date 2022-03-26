@@ -1,19 +1,19 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
 import { TestBed } from '@angular/core/testing';
-import { of, throwError } from 'rxjs';
-import { catchError, mapTo, take } from 'rxjs/operators';
+import { merge, of, throwError } from 'rxjs';
+import { catchError, mapTo, take, tap } from 'rxjs/operators';
 import { IAccessApiService } from './api/access-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from './api/api-service-injection-tokens';
 import { IGuestPublicApiService } from './api/guest-public-api.iservice';
 import { ILoginPublicApiService } from './api/login-public-api.iservice';
 import { IProfileAccountApiService } from './api/profile-account-api.iservice';
-import { IRegisterPublicApiService } from './api/register-public-api.iservice copy';
+import { IRegisterPublicApiService } from './api/register-public-api.iservice';
 import { AppService } from './app.service';
 import { Login } from '../models/Login';
 import { Registration } from '../models/Registration';
@@ -49,10 +49,10 @@ describe('AppService', () => {
       login() { return of('exampleTokenString'); }
     };
     mockGuestApiService = {
-      guestLogin() { return of(); }
+      guestLogin() { return of(void 0); }
     };
     mockRegisterApiService = {
-      register() { return of(); }
+      register() { return of(void 0); }
     };
     mockProfileApiService = {
       getProfile() { return of(null); },
@@ -79,99 +79,87 @@ describe('AppService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should emit after succesful login attempts', () => {
+  it('should emit a truthy value after succesful login attempts', () => {
     service = TestBed.inject(AppService);
 
     service.login(MOCK_LOGIN_DETAILS).pipe(
       mapTo(true),
-      catchError(() => of(false))
-    ).subscribe(next => {
-      expect(next).toBeTruthy();
-    });
+      catchError(() => of(false)),
+      tap(next => expect(next).toBeTruthy())
+    ).subscribe();
   });
 
   it('should rethrow any errors from failing login attempts', () => {
-    const mockAuthApiService2 = {
-      guestLogin() { return throwError({ status: 500 }); },
-      login() { return throwError({ status: 500 }); }
-    };
-    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.login, { useValue: mockAuthApiService2 });
+    mockLoginApiService.login = () => throwError({ status: 500 });
     service = TestBed.inject(AppService);
 
     expect(service).toBeTruthy();
     service.login(MOCK_LOGIN_DETAILS).pipe(
       mapTo(true),
-      catchError(() => of(false))
-    ).subscribe(next => {
-      expect(next).toBeFalsy();
-    });
+      catchError(() => of(false)),
+      tap(next => expect(next).toBeFalsy())
+    ).subscribe();
   });
 
   it('should emit login status through an observable', () => {
     service = TestBed.inject(AppService);
 
-    let loginState;
-    service.isLoggedInChanges$
-      .pipe(take(2))
-      .subscribe(isLoggedIn => { loginState = isLoggedIn; });
-
-    service.login(MOCK_LOGIN_DETAILS).subscribe(() => {
-      expect(loginState).toBeTruthy();
-    });
-    service.closeCurrentSession();
-    expect(loginState).toBeFalsy();
+    let loginState = service.isLoggedIn();
+    merge(
+      service.isLoggedInChanges$.pipe(
+        take(2),
+        tap(isLoggedIn => { loginState = isLoggedIn; })
+      ),
+      service.login(MOCK_LOGIN_DETAILS).pipe(
+        tap(() => {
+          expect(loginState).toBeTruthy();
+          service.closeCurrentSession();
+          expect(loginState).toBeFalsy();
+        })
+      )
+    ).subscribe();
   });
 
   it('should emit truthy state for a succesful registration', () => {
-    // TODO fix has no expectations
     service = TestBed.inject(AppService);
 
-    service.register(MOCK_REGISTRATION_DETAILS).subscribe(
-      next => {
+    service.register(MOCK_REGISTRATION_DETAILS).pipe(
+      tap(next => {
         expect(next).toBeTruthy();
-      }
-    );
+      })
+    ).subscribe();
   });
 
   it('should try to login after a succesful registration', () => {
-    // TODO fix has no expectations
     service = TestBed.inject(AppService);
 
     const loginSpy = spyOn(service, 'login').and.callThrough();
-    service.register(MOCK_REGISTRATION_DETAILS).subscribe(
-      next => {
-        expect(loginSpy).toHaveBeenCalled();
-      }
-    );
+    service.register(MOCK_REGISTRATION_DETAILS).pipe(
+      tap(() => expect(loginSpy).toHaveBeenCalled())
+    ).subscribe();
   });
 
-  it('should emit false when unable to register a user', () => {
-    const mockAuthApiService2 = {
-      register() { return throwError({ status: 500 }); }
-    };
-    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.login, { useValue: mockAuthApiService2 });
+  it('should emit falsy value when unable to register a user', () => {
+    mockRegisterApiService.register = () => throwError({ status: 500 });
     service = TestBed.inject(AppService);
 
     expect(service).toBeTruthy();
     const details = MOCK_REGISTRATION_DETAILS;
-    service.register(details).subscribe(next => {
-      expect(next).toBeFalsy();
-    });
+    service.register(details).pipe(
+      tap(next => expect(next).toBeFalsy())
+    ).subscribe();
   });
 
   it('should not try to login after a failed registration', () => {
-    const mockAuthApiService2 = {
-      register() { return throwError({ status: 500 }); }
-    };
-    TestBed.overrideProvider(API_SERVICE_INJECTION_TOKENS.login, { useValue: mockAuthApiService2 });
+    mockRegisterApiService.register = () => throwError({ status: 500 });
     service = TestBed.inject(AppService);
 
     expect(service).toBeTruthy();
     const loginSpy = spyOn(service, 'login').and.callThrough();
     const details = MOCK_REGISTRATION_DETAILS;
-    service.register(details).subscribe(() => {
-      expect(loginSpy).not.toHaveBeenCalled();
-    });
+    service.register(details).pipe(
+      tap(() => expect(loginSpy).not.toHaveBeenCalled())
+    ).subscribe();
   });
 
 });

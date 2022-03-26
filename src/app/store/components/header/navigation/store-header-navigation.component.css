@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -9,23 +9,31 @@
   display: flex;
   justify-content: space-evenly;
   align-items: stretch;
+  justify-items: center;
 }
 
-:host > * {
-  display: inline-flex;
-  flex-flow: row nowrap;
+a[mat-button] {
+  display: grid;
   align-items: center;
-}
-
-mat-icon {
-  font-size: 2rem;
-  width: 2rem;
-  height: 2rem;
-}
-
-.cart-summary {
-  display: inline-flex;
-  flex-flow: column nowrap;
   justify-content: center;
-  padding: 0 1rem;
+  border-radius: 0;
+  padding: 0;
+}
+
+.cart.full {
+  background-color: rgba(0,0,0,0.2);
+}
+
+@media(max-width: 640px) {
+  a[mat-button] {
+    min-width: 3.5rem;
+  }
+}
+
+@media(min-width: 641px) {
+  a[mat-button] mat-icon {
+    width: 2rem;
+    height: 2rem;
+    font-size: 2rem;
+  }
 }

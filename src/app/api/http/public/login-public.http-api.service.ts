@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -39,7 +39,7 @@ export class LoginPublicHttpApiService
         if (response.headers.has(this.authorizationHeader)) {
           return response.headers.get(this.authorizationHeader);
         } else if (response.body) {
-          const token = new RegExp('$Bearer .+^').test(response.body) ?
+          const token = new RegExp('^Bearer .+$').test(response.body) ?
                           response.body :
                           `Bearer ${response.body}`
           return token;

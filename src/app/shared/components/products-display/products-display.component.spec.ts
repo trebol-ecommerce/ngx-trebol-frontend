@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -13,6 +13,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Product } from 'src/models/entities/Product';
 import { ProductsDisplayComponent } from './products-display.component';
+
+@Component({ selector: 'app-centered-mat-spinner' })
+class MockCenteredMatSpinnerComponent { }
 
 @Component({ selector: 'app-product-card' })
 class MockStoreProductCardComponent {
@@ -33,6 +36,7 @@ describe('ProductsDisplayComponent', () => {
       ],
       declarations: [
         ProductsDisplayComponent,
+        MockCenteredMatSpinnerComponent,
         MockStoreProductCardComponent
       ]
     })

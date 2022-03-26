@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -26,25 +26,31 @@ export class ProductFiltersPanelComponent
   formGroup: FormGroup;
 
   get category() { return this.formGroup.get('category') as FormControl; }
-  get name() { return this.formGroup.get('name') as FormControl; }
+  get nameLike() { return this.formGroup.get('nameLike') as FormControl; }
 
   constructor(
     protected formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
       category: [null],
-      name: ['']
+      nameLike: ['']
     });
 
     this.valueChangesSubscription = this.formGroup.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      tap(value => this.filtersChanges.emit(
-        {
-          name: value.name || undefined,
-          categoryCode: value.category?.code || undefined
+      tap(value => {
+        const filters: Partial<ProductFilters> = {};
+        if (value.nameLike) {
+          filters.nameLike = value.nameLike;
         }
-      ))
+        if (value.category) {
+          filters.categoryCode = value.category.code;
+        } else if (value.category === null) {
+          filters.categoryCode = null;
+        }
+        this.filtersChanges.emit(filters as ProductFilters);
+      })
     ).subscribe();
   }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -14,10 +14,9 @@ import { Observable, Subscription } from 'rxjs';
 import { debounceTime, filter, switchMap, tap } from 'rxjs/operators';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
-import { EntityFormDialogComponent } from '../../dialogs/entity-form/entity-form-dialog.component';
-import { EntityFormDialogData } from '../../dialogs/entity-form/EntityFormDialogData';
+import { EntityFormDialogComponent } from '../../../management/dialogs/entity-form/entity-form-dialog.component';
+import { EntityFormDialogData } from '../../../management/dialogs/entity-form/EntityFormDialogData';
 import { SharedDialogService } from '../../dialogs/shared-dialog.service';
-import { ProductCategoryFormComponent } from '../product-category-form/product-category-form.component';
 import { ProductCategoryTreeService } from './product-category-tree.service';
 import { ProductCategoryTreeFlatNode } from './ProductCategoryTreeFlatNode';
 
@@ -163,8 +162,8 @@ export class ProductCategoryTreeComponent
   private requestCategoryData(item?: ProductCategory): Observable<ProductCategory> {
     const data: EntityFormDialogData<ProductCategory> = {
       item,
-      formComponent: ProductCategoryFormComponent,
-      service: null
+      entityType: 'productCategory',
+      apiService: this.service.apiService
     };
     return this.dialogService.open(
       EntityFormDialogComponent,

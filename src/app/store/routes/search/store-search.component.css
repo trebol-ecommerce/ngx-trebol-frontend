@@ -1,0 +1,58 @@
+/*
+ * Copyright (c) 2022 The Trebol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+:host {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.container {
+  flex: 1 1 auto;
+  display: grid;
+  justify-items: center;
+}
+
+h3 {
+  flex: 0 0 auto;
+  font-size: 1.5rem;
+}
+
+.contents {
+  flex: 1 1 auto;
+  max-width: 1280px;
+  margin: 0 0.5rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.empty {
+  margin: 10rem 0;
+}
+
+.empty mat-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: 3.5rem;
+}
+
+app-product-card {
+  margin: 0.25rem;
+}
+
+@media(min-width: 641px) {
+  app-product-card {
+    margin: 0.5rem;
+  }
+}
+
+@media(min-width: 1304px) {
+  .contents {
+    margin: 1rem 0 2rem;
+    align-self: center;
+  }
+}

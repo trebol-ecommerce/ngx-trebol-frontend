@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
 export class ProductFilters {
-  name?: string;
+  nameLike?: string;
   categoryCode?: string;
 }

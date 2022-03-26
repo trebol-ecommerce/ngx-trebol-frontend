@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -11,7 +11,7 @@ import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
 import { Person } from 'src/models/entities/Person';
 import { Registration } from 'src/models/Registration';
 import { environment } from 'src/environments/environment';
-import { IRegisterPublicApiService } from '../../register-public-api.iservice copy';
+import { IRegisterPublicApiService } from '../../register-public-api.iservice';
 
 @Injectable()
 export class RegisterPublicHttpApiService

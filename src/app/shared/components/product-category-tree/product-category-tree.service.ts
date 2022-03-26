@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -17,18 +17,16 @@ export class ProductCategoryTreeService
   implements OnDestroy {
 
   private categoriesSource = new BehaviorSubject<ProductCategory[]>([]);
-  private loadingSubscription: Subscription | undefined;
+  private loadingSubscription: Subscription;
 
   categories$ = this.categoriesSource.asObservable();
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductCategories) private apiService: ITransactionalEntityDataApiService<ProductCategory>
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductCategories) public apiService: ITransactionalEntityDataApiService<ProductCategory>
   ) { }
 
   ngOnDestroy(): void {
-    if (this.loadingSubscription) {
-      this.loadingSubscription?.unsubscribe();
-    }
+    this.loadingSubscription?.unsubscribe();
   }
 
   setRootCategories(categories: ProductCategory[]) {

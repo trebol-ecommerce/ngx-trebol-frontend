@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -22,11 +22,9 @@ import { ShippersDataLocalMemoryApiService } from './data/shippers-data.local-me
 import { UserRolesDataLocalMemoryApiService } from './data/user-roles-data.local-memory-api.service';
 import { UsersDataLocalMemoryApiService } from './data/users-data.local-memory-api.service';
 import { AboutPublicLocalMemoryApiService } from './public/about-public.local-memory-api.service';
-import { CategoriesPublicLocalMemoryApiService } from './public/categories-public.local-memory-api.service';
 import { CheckoutPublicLocalMemoryApiService } from './public/checkout-public.local-memory-api.service';
 import { GuestPublicLocalMemoryApiService } from './public/guest-public.local-memory-api.service';
 import { LoginPublicLocalMemoryApiService } from './public/login-public.local-memory-api.service';
-import { ProductsPublicLocalMemoryApiService } from './public/products-public.local-memory-api.service';
 import { ReceiptPublicLocalMemoryApiService } from './public/receipt-public.local-memory-api.service';
 import { RegisterPublicLocalMemoryApiService } from './public/register-public.local-memory-api.service';
 
@@ -96,10 +94,6 @@ import { RegisterPublicLocalMemoryApiService } from './public/register-public.lo
       useClass: AboutPublicLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.categories,
-      useClass: CategoriesPublicLocalMemoryApiService
-    },
-    {
       provide: API_SERVICE_INJECTION_TOKENS.checkout,
       useClass: CheckoutPublicLocalMemoryApiService
     },
@@ -110,10 +104,6 @@ import { RegisterPublicLocalMemoryApiService } from './public/register-public.lo
     {
       provide: API_SERVICE_INJECTION_TOKENS.login,
       useClass: LoginPublicLocalMemoryApiService
-    },
-    {
-      provide: API_SERVICE_INJECTION_TOKENS.products,
-      useClass: ProductsPublicLocalMemoryApiService
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.receipt,

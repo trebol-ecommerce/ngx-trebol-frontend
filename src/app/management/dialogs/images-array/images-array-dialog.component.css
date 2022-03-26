@@ -1,0 +1,20 @@
+/*
+ * Copyright (c) 2022 The Trebol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+.search {
+  width: 100%;
+  padding-bottom: 1rem;
+}
+.list-wrapper {
+  max-height: 50vh;
+  overflow-y: auto;
+}
+.actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem 0;
+}

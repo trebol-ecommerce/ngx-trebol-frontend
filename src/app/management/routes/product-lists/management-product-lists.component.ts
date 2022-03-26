@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -11,13 +11,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { ProductListFormComponent } from 'src/app/shared/components/product-list-form/product-list-form.component';
 import { ProductList } from 'src/models/entities/ProductList';
-import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE, COMMON_WARNING_MESSAGE } from 'src/text/messages';
-import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form/EntityFormDialogConfig';
+import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
+import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';
 import { ProductListContentsDialogComponent } from '../../dialogs/product-list-contents/product-list-contents-dialog.component';
 import { ProductListContentsDialogData } from '../../dialogs/product-list-contents/ProductListContentsDialogData';
-import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
+import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager/transactional-data-manager.component.directive';
 import { ManagementProductListsService } from './management-product-lists.service';
 
 @Component({
@@ -37,20 +36,14 @@ export class ManagementProductListsComponent
   constructor(
     protected service: ManagementProductListsService,
     protected dialogService: MatDialog,
-    private snackBarService: MatSnackBar,
-    private route: ActivatedRoute
+    protected route: ActivatedRoute,
+    private snackBarService: MatSnackBar
   ) {
     super();
   }
 
   ngOnInit(): void {
     super.init(this.service);
-    this.route.data.subscribe(
-      d => {
-        this.service.updateAccess(d.access);
-        this.service.reloadItems();
-      }
-    );
   }
 
   onClickViewContents(list: ProductList) {
@@ -82,8 +75,8 @@ export class ManagementProductListsComponent
     return {
       data: {
         item,
-        formComponent: ProductListFormComponent,
-        service: this.service.dataService
+        entityType: 'productList',
+        apiService: this.service.dataService
       },
       width: '40rem'
     };

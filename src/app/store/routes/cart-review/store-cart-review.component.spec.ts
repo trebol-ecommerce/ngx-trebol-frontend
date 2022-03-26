@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -16,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
+import { AppService } from 'src/app/app.service';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreCartReviewComponent } from './store-cart-review.component';
 
@@ -36,6 +37,7 @@ describe('StoreCartReviewComponent', () => {
   let component: StoreCartReviewComponent;
   let fixture: ComponentFixture<StoreCartReviewComponent>;
   let mockCartService: Partial<StoreCartService>;
+  let mockAppService: Partial<AppService>;
 
   beforeEach(waitForAsync(() => {
     mockCartService = {
@@ -44,6 +46,9 @@ describe('StoreCartReviewComponent', () => {
       increaseProductUnits(i) {},
       decreaseProductUnits(i) {},
       removeProductFromCart(i) {}
+    };
+    mockAppService = {
+      isLoggedInChanges$: of(true)
     };
 
     TestBed.configureTestingModule({
@@ -66,7 +71,8 @@ describe('StoreCartReviewComponent', () => {
         MockStoreCheckoutConfirmationComponent
       ],
       providers: [
-        { provide: StoreCartService, useValue: mockCartService }
+        { provide: StoreCartService, useValue: mockCartService },
+        { provide: AppService, useValue: mockAppService }
       ]
     })
     .compileComponents();

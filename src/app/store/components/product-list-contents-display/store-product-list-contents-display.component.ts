@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -8,12 +8,13 @@
 import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Observable, ReplaySubject, Subscription } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { finalize, map, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { IProductListContentsDataApiService } from 'src/app/api/transactional-product-lists.data.api.iservice';
+import { ITransactionalProductListContentsDataApiService } from 'src/app/api/transactional-product-list-contents.data.api.iservice';
 import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
 import { ProductList } from 'src/models/entities/ProductList';
+import { StoreCatalogService } from '../../routes/catalog/store-catalog.service';
 
 @Component({
   selector: 'app-store-product-list-contents-display',
@@ -23,7 +24,6 @@ import { ProductList } from 'src/models/entities/ProductList';
 export class StoreProductListContentsDisplayComponent
   implements OnInit, OnDestroy {
 
-  private loadingSubscription: Subscription;
   private pageSource = new ReplaySubject<DataPage<Product>>(1);
 
   @Input() list = new ProductList();
@@ -34,11 +34,14 @@ export class StoreProductListContentsDisplayComponent
   pageSize = 10;
   page$ = this.pageSource.asObservable();
 
+  loadingProducts = true;
   products$: Observable<Product[]>;
   totalCount$: Observable<number>;
+  loadingSubscription: Subscription;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductLists) private productListApiService: IProductListContentsDataApiService
+    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductLists) private productListApiService: ITransactionalProductListContentsDataApiService,
+    private catalogService: StoreCatalogService
   ) {
     this.products$ = this.page$.pipe(map(page => page.items));
     this.totalCount$ = this.page$.pipe(map(page => page.totalCount));
@@ -62,11 +65,17 @@ export class StoreProductListContentsDisplayComponent
     this.addProductToCart.emit(product);
   }
 
+  onViewProduct(product: Product): void {
+    this.catalogService.viewProduct(product);
+  }
+
   private reloadItems() {
+    this.loadingProducts = true;
     this.loadingSubscription?.unsubscribe();
 
     this.loadingSubscription = this.productListApiService.fetchContents(this.list, this.pageIndex, this.pageSize).pipe(
-      tap(page => this.pageSource.next(page))
+      tap(page => this.pageSource.next(page)),
+      finalize(() => (this.loadingProducts = false))
     ).subscribe();
   }
 

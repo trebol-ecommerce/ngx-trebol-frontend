@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2021 The Trébol eCommerce Project
+  Copyright (c) 2022 The Trebol eCommerce Project
 
   This software is released under the MIT License.
   https://opensource.org/licenses/MIT
@@ -10,20 +10,18 @@
 </app-centered-mat-spinner>
 
 <div [hidden]="loggingIn$ | async">
-  <form [formGroup]="formGroup" (submit)="onSubmit()">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <input matInput formControlName="username"
         placeholder="User name"
         i18n-placeholder="login username|Name of field for username to log in with" />
     </mat-form-field>
 
-    <div class="password-form-group">
-      <mat-form-field>
-        <input matInput [type]="passwordInputType$ | async" formControlName="password"
-          placeholder="Password"
-          i18n-placeholder="login password|Name of field for password to log in with" />
-      </mat-form-field>
-      <button mat-icon-button type="button"
+    <mat-form-field>
+      <input matInput [type]="passwordInputType$ | async" formControlName="password"
+        placeholder="Password"
+        i18n-placeholder="login password|Name of field for password to log in with" />
+      <button matSuffix mat-icon-button type="button"
         aria-label="Hold to peek..."
         i18n-aria-label="hold to show password|Label for action button to show password while held down"
         (mousedown)="showPassword()"
@@ -31,7 +29,7 @@
         (mouseleave)="hidePassword()">
         <mat-icon>{{ togglePasswordIcon$ | async }}</mat-icon>
       </button>
-    </div>
+    </mat-form-field>
 
     <div class="actions">
       <button mat-button mat-raised-button type="submit"

@@ -4,6 +4,89 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.12.0-rc.1] - 2022-03-25
+
+### Added
+- Service interface methods specific to sales data API
+  - `markAsConfirmed` - To acknowledge an order/sell and notify the customer - HTTP `/data/sales/confirmation`
+  - `markAsRejected` - To prevent an order/sell to be delivered due to issues and/or refund the customer - HTTP  `/data/sales/rejection`
+  - `markAsCompleted` - To mark an order/sell as delivered - HTTP  `/data/sales/completion`
+- Components to display sell data
+  - Simple block for general data
+  - Table to only display details (products/units/subtotal of each)
+  - Dialog component for reviewing all information. Can be accessed by clicking sales management page table rows
+    - Includes button to view the receipt of the transaction, only if, and once it has been, paid
+    - Three buttons are included in the dialog, each of them acts as interface for the above mentioned interface methods for the sales data API
+- Simple component for Google Maps iframe embeds
+  - Includes pipe for trusting external resource urls (uses `DomSanitizer`)
+- Search bar component for the frontpage header
+- Search products page
+  - Can be accessed by clicking on the aforementioned search bar
+  - Allows filtering by category and/or product name
+- Parameterizable content on the frontpage (settings can be configured using `environments`)
+  - Site logo
+  - Location map (at the bottom; uses above mentioned Google Map iframe embed)
+  - Banners (top and bottom of the page)
+  - Floating WhatsApp button
+  - Contact information in footer (email, phone number)
+- Two-way binding of state and query params in frontpage. Implemented states are:
+  - Searching products by name and/or by category
+  - Viewing individual products
+- Entity model `Image` now has a `targetUrl` property
+  - Slideshows images now may be able to hold links to redirect users to
+
+### Changed
+- Bump Angular to v13.3
+- Refactored architecture for inserting and updating data within the management module
+  - Removed `FormGroupOwner` pseudo-interface
+  - Introduced `EntityTypeNames` type
+  - Introduced `EntityFormGroupFactoryService`; specializes in creating entity-specific `FormGroup`s
+    - Takes an instance of the aforementioned type
+  - All entity forms do not have `FormBuilder` injected to them; instead, any required `FormGroup`s can be passed through an `@Input` decorator
+    - When none is provided, these form components can fall-back to using the aforementioned service
+  - `EntityFormDialog` will invoke an entity form through its HTML template, not through an inner directive with `ViewContainerRef.createComponent`
+    - Updated signature for `EntityFormDialogData`
+- `DataManagerComponentDirective<T>` now exposes `items$` as `Observable<any[]>` instead of `Observable<T[]>`
+- When adding images, `code` field is now optional
+- Hide frontpage heading
+- Replace title in frontpage header with search bar
+- `AppService` now exposes an `userName$` observable
+- Refactored receipt page to have its card as a separate component
+- Let all dialogs be closed by clicking out of their bounds, except for the `confirmation` dialog
+- Product cards hovered in frontpage use vertical gradient as a background instead of a solid color
+- Renamed `ITransactionalProductListContentsDataApiService`
+- `SlideshowComponent` now integrates with Angular forms
+
+### Fixed
+- Modules/chunks are now effectively lazy-loaded, decreasing app loading times enormously!
+- Individual item fetching in HTTP API (used when editing any data)
+- Change property type of `token` in `Sell` model to `string`
+- Missing (optional) property `unitValue` in `SellDetail` model
+- Missing references in fake APIs
+  - Sales data
+  - Account profile
+- Logic for fetching receipt data
+- Several issues with responsive screens in frontpage
+- Going backwards in a slideshow would omit the first index
+- Prematurely end guest sessions
+- Errors in products CRUD operations
+  - (UI) Image associations were not loaded into the form
+  - (Form validation) Categories were required at parent-form and child-form levels
+  - (HTTP API) Image associations were not included in request bodies
+  - (HTTP API) Filtering by partial name would send an incorrectly-named query parameter
+- Do not state a limit amount of items when fetching product categories; due to their tree-like nature these must not be 'paginated'
+- Add more loading indicators in the frontpage
+  - Product lists
+- Alignment of some components
+  - Acept/cancel buttons in dialog to select multiple products
+  - Fields in personal information form
+  - Size adjustment of frontpage product lists (use appropiate space when there are fewer products in a list)
+- Updated localization files
+
+### Removed
+- All references to deprecated APIs `/public/products` and `/public/categories`
+- Some placeholder images
+
 ## [v2.0.0] - 2022-01-18
 
 ### Changed

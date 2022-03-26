@@ -1,8 +1,64 @@
 <!--
-  Copyright (c) 2021 The Trébol eCommerce Project
+  Copyright (c) 2022 The Trebol eCommerce Project
 
   This software is released under the MIT License.
   https://opensource.org/licenses/MIT
 -->
 
-<p *ngFor="let text of footerParagraphs">{{ text }}</p>
+<div class="upper">
+  <div class="whatsapp sales contact"
+    *ngIf="whatsappNumber">
+    <strong i18n="Label for section referring to a contact WhatsApp number">WhatsApp</strong><br/>
+    <a href="https://wa.me/{{ whatsappUrlSafeNumber }}">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/whatsapp.svg" class="whatsapp icon"
+        i18n-alt="Label for WhatsApp icon"
+        alt="WhatsApp" aria-hidden="true" />
+      <span>{{ whatsappNumber }}</span>
+    </a>
+  </div>
+  <div class="phone general contact"
+    *ngIf="contactInfo.phone && contactInfo.urlSafePhone">
+    <strong i18n="Label for section referring to a contact phone number">Phone</strong><br/>
+    <a href="tel://{{ contactInfo.urlSafePhone }}">
+      <img src="https://unpkg.com/@fortawesome/fontawesome-free/svgs/solid/phone.svg" class="phone icon"
+        i18n-alt="Label for phone number icon"
+        alt="Contact phone number" aria-hidden="true" />
+      <span>{{ contactInfo.phone  }}</span>
+    </a>
+  </div>
+  <div class="email general contact"
+    *ngIf="contactInfo.email">
+    <strong i18n="Label for section referring to a contact e-mail address">E-Mail</strong><br/>
+    <a href="mailto:{{ contactInfo.email }}">
+      <img src="https://unpkg.com/@fortawesome/fontawesome-free/svgs/solid/envelope.svg" class="envelope icon"
+        i18n-alt="Label for envelope (email) icon"
+        alt="Contact e-mail" aria-hidden="true" />
+      <span>{{ contactInfo.email }}</span>
+    </a>
+  </div>
+</div>
+<div class="middle">
+  <div class="social">
+    <strong i18n="Label that invites users to check social media profiles">Follow us on social media</strong><br/>
+    <ul>
+      <li *ngIf="contactInfo.instagram">
+        <a href="https://www.instagram.com/{{ contactInfo.instagram }}">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/instagram.svg" class="instagram icon"
+            i18n-alt="Label for Instagram icon"
+            alt="Instagram" aria-hidden="false" />
+        </a>
+      </li>
+      <li *ngIf="contactInfo.facebook">
+        <a href="https://www.facebook.com/{{ contactInfo.facebook }}">
+          <img src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/facebook.svg" class="facebook icon"
+            i18n-alt="Label for Facebook icon"
+            alt="Facebook" aria-hidden="false" />
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<mat-divider></mat-divider>
+<div class="lower">
+  <p *ngFor="let text of footerParagraphs">{{ text }}</p>
+</div>

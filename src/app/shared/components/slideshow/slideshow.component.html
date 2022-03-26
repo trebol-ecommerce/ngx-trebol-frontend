@@ -1,52 +1,78 @@
 <!--
-  Copyright (c) 2021 The Trébol eCommerce Project
+  Copyright (c) 2022 The Trebol eCommerce Project
 
   This software is released under the MIT License.
   https://opensource.org/licenses/MIT
 -->
 
-<div class="slides">
+<div class="slides"
+  (mouseenter)="stopAutoRotation()"
+  (mouseleave)="startAutoRotation()">
   <ng-container *ngIf="images?.length; else noImageAvailable">
-    <div *ngFor="let image of images; index as i"
-      class="slide-wrapper">
-      <img [hidden]="(currentIndex$ | async) !== i"
-        [src]="image.url" alt="" [@fadeInOut]="((currentIndex$ | async) !== i) ? 'transparent' : 'opaque'"
-        (mouseenter)="stopAutoRotation()" (mouseleave)="startAutoRotation()" />
-    </div>
-    <ng-container *ngIf="editable">
-      <button type="button" class="slide-remove"
-        mat-button mat-mini-fab
+    <div class="slide" *ngFor="let image of images; index as i"
+      [ngStyle]="{ width: slideWidth, height: slideHeight }"
+      [class.active]="(currentIndex$ | async) === i">
+      <img [src]="image.url"
+        [@fadeInOut]="((currentIndex$ | async) !== i) ? 'transparent' : 'opaque'"
+        [class.linkable]="!!image.targetUrl"
+        (click)="onClickImage(image)" />
+      <button type="button" class="remove-slide" *ngIf="editable"
+        mat-mini-fab
         color="warn"
+        i18n-aria-label="Label for action button to remove a slide"
+        aria-label="Remove"
         (click)="onClickRemove()">
         <mat-icon>delete</mat-icon>
       </button>
-    </ng-container>
+    </div>
   </ng-container>
   <ng-template #noImageAvailable>
-    <div class="slide-wrapper">
-      <img src="assets/img/products/unavailable.png"
-        alt="Unavailable image"
-        i18n-alt="Label to describe a missing or unavailable image" />
+    <div class="active slide"
+      [ngStyle]="{ width: slideWidth, height: slideHeight }">
+      <img src="assets/img/unavailable.png" alt="Imagen no disponible" />
     </div>
   </ng-template>
 </div>
-<div class="selectors">
-  <ng-container *ngFor="let image of images; index as i">
-    <button type="button" class="slide-selector"
-      mat-button mat-icon-button
-      attr.aria-label="Navigate to slide {{i+1}}"
-      attr.i18n-aria-label="Label for action button to navigate to slide/image number {{i+1}}"
-      [class.selected]="(currentIndex$ | async) === i"
-      [disabled]="(currentIndex$ | async) === i"
-      (click)="goToSlide(i)">
-      <mat-icon>{{ (currentIndex$ | async) === i ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
-    </button>
+<ng-container *ngIf="showNextPreviousButtons">
+  <button type="button" class="previous-slide"
+    mat-mini-fab
+    color="primary"
+    i18n-aria-label="Label for action button to return to previous slide"
+    aria-label="See previous"
+    (click)="slideBackwards()">
+    <mat-icon>first_page</mat-icon>
+  </button>
+  <button type="button" class="next-slide"
+    mat-mini-fab
+    color="primary"
+    i18n-aria-label="Label for action button to advance to next slide"
+    aria-label="See next"
+    (click)="slideForwards()">
+    <mat-icon>last_page</mat-icon>
+  </button>
+</ng-container>
+<div class="slide-selectors" *ngIf="showSlideSelectors || editable">
+  <ng-container *ngFor="let url of images; index as i">
+    <ng-container *ngIf="(currentIndex$ | async) === i; then selected; else notSelected"></ng-container>
+    <ng-template #selected>
+      <button type="button" class="selected-slide"
+        mat-button mat-icon-button>
+        <mat-icon>radio_button_checked</mat-icon>
+      </button>
+    </ng-template>
+    <ng-template #notSelected>
+      <button type="button" class="slide-selector"
+        mat-button mat-icon-button
+        (click)="goToSlide(i)">
+        <mat-icon>radio_button_unchecked</mat-icon>
+      </button>
+    </ng-template>
   </ng-container>
   <ng-container *ngIf="editable">
     <button type="button" class="slide-add"
       mat-button mat-icon-button
-      aria-label="Add image"
-      i18n-aria-label="add image|Label for action button to add a slide/image"
+      i18n-aria-label="Label for action button to add a slide"
+      aria-label="Add"
       (click)="onClickAdd()">
       <mat-icon>add_circle_outline</mat-icon>
     </button>

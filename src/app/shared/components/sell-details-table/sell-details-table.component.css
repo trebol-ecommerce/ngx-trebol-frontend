@@ -1,0 +1,62 @@
+/**
+ * Copyright (c) 2022 The Trebol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+:host {
+  overflow: auto;
+}
+
+th, td {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mat-column-product {
+  min-width: 8rem;
+  white-space: break-spaces;
+}
+
+.mat-column-price {
+  text-align: center;
+  padding: 0 0.5rem;
+}
+.mat-column-price:not(tfoot .mat-column-price) {
+  width: 6rem;
+}
+
+
+.mat-column-quantity {
+  text-align: center;
+  padding: 0 0.5rem;
+}
+.mat-column-quantity:not(tfoot .mat-column-quantity) {
+  max-width: 6rem;
+}
+
+td.mat-column-product > span {
+  width: 100%;
+  display: inline-flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+td.mat-column-product > span > .image-wrapper {
+  margin-right: 0.5rem;
+  max-width: 2rem;
+}
+
+td.mat-column-product > span > .image-wrapper > img {
+  width: 100%;
+}
+
+td.mat-column-product > span > .identifier {
+  text-align: left;
+  white-space: break-spaces;
+}
+
+.mat-footer-row {
+  font-weight: bold;
+}

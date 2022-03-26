@@ -1,11 +1,12 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatDividerModule } from '@angular/material/divider';
 import { StoreFooterComponent } from './store-footer.component';
 
 describe('StoreFooterComponent', () => {
@@ -14,6 +15,9 @@ describe('StoreFooterComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      imports: [
+        MatDividerModule
+      ],
       declarations: [ StoreFooterComponent ]
     })
     .compileComponents();

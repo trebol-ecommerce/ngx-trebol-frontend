@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2021 The Trébol eCommerce Project
+  Copyright (c) 2022 The Trebol eCommerce Project
 
   This software is released under the MIT License.
   https://opensource.org/licenses/MIT
@@ -13,14 +13,14 @@
       <img [src]="product.images[0].url" [alt]="product.name" />
     </ng-container>
     <ng-template #noImageAvailable>
-      <img src="assets/img/products/unavailable.png"
+      <img src="assets/img/unavailable.png"
         alt="Unavailable image"
         i18n-alt="Label to describe a missing or unavailable image" />
     </ng-template>
   </div>
   <div class="footer">
     <span class="price">{{ product.price | currency }}</span>
-    <button mat-button mat-raised-button type="button"
+    <button mat-mini-fab type="button"
       *ngIf="showAddToCartButton"
       class="add-to-cart"
       color="primary"

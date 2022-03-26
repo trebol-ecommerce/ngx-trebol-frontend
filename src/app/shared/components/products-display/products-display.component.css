@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -16,8 +16,8 @@
 }
 
 :host {
-  display: flex;
-  flex-flow: column nowrap;
+  display: inline-grid;
+  grid-template-columns: 1fr;
 }
 
 .wrapper {
@@ -30,11 +30,8 @@
 }
 .wrapper.scrollable > .shadow {
   display: block;
-}
-
-.wrapper.scrollable > .shadow {
-  pointer-events: none;
   position: absolute;
+  pointer-events: none;
   top: 0;
   left: 0;
   right: 0;
@@ -44,35 +41,34 @@
 }
 
 .contents {
-  flex: 1 0 auto;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.5rem;
 }
 .wrapper.scrollable > .contents {
+  grid-auto-flow: unset;
+  gap: unset;
+  display: flex;
   flex-flow: row nowrap;
-  overflow: scroll;
-  justify-content: initial;
-  padding: 1rem 0.5rem;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
-app-store-product-card {
+.contents > app-product-card {
   flex: 0 0 auto;
-  margin: 0.25rem;
+}
+
+.hint {
+  padding: 0.5rem;
+  color: grey;
+  text-align: center;
 }
 
 .paginator {
-  flex: 0 0 auto;
-  align-self: stretch;
   padding: 0.5rem;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-}
-
-.paginator .hint {
-  color: grey;
-  text-align: center;
 }
 
 @media(max-width: 640px) {
@@ -99,6 +95,10 @@ app-store-product-card {
 }
 
 @media(min-width: 641px) {
+  .contents {
+    gap: 1rem;
+  }
+
   .scroll-hint {
     display: none;
   }
@@ -107,25 +107,15 @@ app-store-product-card {
     box-shadow: inset 0px 0px 8px 4px rgba(0, 0, 0, 0.1);
   }
 
-  .wrapper.scrollable > .contents {
-    padding: 1rem 0.5rem 0.5rem;
-  }
-
   .paginator {
     padding: 1rem;
   }
 }
 
 @media(min-width: 1008px) {
-  .wrapper.scrollable {
-    padding: 1rem 0.5rem 0.5rem;
-  }
-
-  app-store-product-card {
-    margin: 0.5rem;
-  }
-  .wrapper.scrollable app-store-product-card {
-    margin: 0.5rem 1rem;
+  .contents {
+    padding: 1.5rem;
+    gap: 1.5rem;
   }
 
   .paginator {

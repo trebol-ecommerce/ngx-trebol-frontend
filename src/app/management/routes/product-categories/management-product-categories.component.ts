@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -8,10 +8,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { ProductCategoryFormComponent } from 'src/app/shared/components/product-category-form/product-category-form.component';
-import { EntityFormDialogConfig } from 'src/app/shared/dialogs/entity-form/EntityFormDialogConfig';
+import { EntityFormDialogConfig } from 'src/app/management/dialogs/entity-form/EntityFormDialogConfig';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
-import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
+import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager/transactional-data-manager.component.directive';
 import { ManagementProductCategoriesService } from './management-product-categories.service';
 
 @Component({
@@ -30,28 +29,22 @@ export class ManagementProductCategoriesComponent
 
   constructor(
     protected service: ManagementProductCategoriesService,
-    private route: ActivatedRoute,
-    protected dialogService: MatDialog
+    protected dialogService: MatDialog,
+    protected route: ActivatedRoute
   ) {
     super();
   }
 
   ngOnInit(): void {
     super.init(this.service);
-    this.route.data.subscribe(
-      d => {
-        this.service.updateAccess(d.access);
-        this.service.reloadItems();
-      }
-    );
   }
 
   protected createDialogProperties(item: ProductCategory): EntityFormDialogConfig<ProductCategory> {
     return {
       data: {
         item,
-        formComponent: ProductCategoryFormComponent,
-        service: this.service.dataService
+        entityType: 'productCategory',
+        apiService: this.service.dataService
       },
       width: '40rem'
     };

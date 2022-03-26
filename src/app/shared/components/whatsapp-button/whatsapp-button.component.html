@@ -1,0 +1,19 @@
+<!--
+  Copyright (c) 2022 The Trebol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<a [href]="url" *ngIf="url" target="_blank"
+  class="whatsapp-button"
+  title="Comunicarse por WhatsApp"
+  [ngStyle]="{
+    width: size,
+    height: size,
+    'border-radius': size,
+    padding: padding
+  }"
+  rel="noopener">
+  <img src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/whatsapp.svg" alt="Whatsapp logo">
+</a>

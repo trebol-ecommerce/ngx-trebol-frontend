@@ -1,11 +1,10 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
-import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -18,9 +17,10 @@ import { StoreFooterComponent } from './components/footer/store-footer.component
 import { StoreHeaderBrandComponent } from './components/header/brand/store-header-brand.component';
 import { StoreHeaderLoginButtonComponent } from './components/header/login-button/store-header-login-button.component';
 import { StoreHeaderMenuComponent } from './components/header/menu/store-header-menu.component';
-import { StoreHeaderMiddleComponent } from './components/header/middle/store-header-middle.component';
 import { StoreHeaderNavigationComponent } from './components/header/navigation/store-header-navigation.component';
+import { StoreHeaderSearchFormComponent } from './components/header/search-form/store-header-search-form.component';
 import { StoreHeaderComponent } from './components/header/store-header.component';
+import { StoreLocationComponent } from './components/location/store-location.component';
 import { StoreProductListContentsDisplayComponent } from './components/product-list-contents-display/store-product-list-contents-display.component';
 import { StoreReceiptDetailsTableComponent } from './components/receipt-details-table/store-receipt-details-table.component';
 import { StoreShippingFormComponent } from './components/shipping-form/store-shipping-form.component';
@@ -35,10 +35,13 @@ import { StoreCartReviewGuard } from './routes/cart-review/store-cart-review.gua
 import { StoreCatalogComponent } from './routes/catalog/store-catalog.component';
 import { StoreCatalogService } from './routes/catalog/store-catalog.service';
 import { StoreReceiptComponent } from './routes/receipt/store-receipt.component';
-// import { StoreReceiptService } from './routes/receipt/store-receipt.service';
-import { StoreRoutingModule } from './store-routing.module';
-import { StoreComponent } from './store.component';
+import { StoreSearchComponent } from './routes/search/store-search.component';
 import { StoreCheckoutService } from './store-checkout.service';
+import { StoreReceiptService } from './routes/receipt/store-receipt.service';
+import { StoreRoutingModule } from './store-routing.module';
+import { StoreSearchService } from './store-search.service';
+import { StoreComponent } from './store.component';
+import { StoreReceiptCardComponent } from './routes/receipt/receipt-card/store-receipt-card.component';
 
 
 const SNACKBAR_DEFAULTS = {
@@ -57,7 +60,9 @@ const SNACKBAR_DEFAULTS = {
     StoreCheckoutButtonComponent,
     StoreCheckoutConfirmationComponent,
     StoreCheckoutRequestFormComponent,
+    StoreLocationComponent,
     StoreReceiptComponent,
+    StoreReceiptCardComponent,
     StoreReceiptDetailsTableComponent,
     StoreLoginFormDialogComponent,
     StoreGuestPromptDialogComponent,
@@ -69,20 +74,21 @@ const SNACKBAR_DEFAULTS = {
     StoreCompanyDetailsDialogComponent,
     StoreHeaderBrandComponent,
     StoreHeaderNavigationComponent,
-    StoreHeaderMiddleComponent,
     StoreHeaderMenuComponent,
-    StoreHeaderLoginButtonComponent
+    StoreHeaderLoginButtonComponent,
+    StoreHeaderSearchFormComponent,
+    StoreSearchComponent
   ],
   imports: [
-    HttpClientModule,
     SharedModule,
     StoreRoutingModule
   ],
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: SNACKBAR_DEFAULTS},
     StoreCheckoutService,
-    // StoreReceiptService,
+    StoreReceiptService,
     StoreCatalogService,
+    StoreSearchService,
     StoreCartReviewGuard
   ]
 })

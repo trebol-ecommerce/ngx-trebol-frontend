@@ -1,14 +1,14 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { ProductCategoryPickerDialogComponent } from '../../dialogs/product-category-picker/product-category-picker-dialog.component';
 
@@ -30,24 +30,20 @@ import { ProductCategoryPickerDialogComponent } from '../../dialogs/product-cate
   ]
 })
 export class ProductCategorySelectorFormFieldComponent
-  implements OnDestroy, ControlValueAccessor, Validator {
-
-  private touched = new EventEmitter<void>();
+  implements ControlValueAccessor, Validator {
 
   noCategoryLabel = $localize`:no category chosen|Label to indicate that a product does not have a category associated:No category`;
-  productCategory: ProductCategory = null;
+  productCategory: ProductCategory;
   isDisabled = false;
   placeholder: string;
 
   constructor(
     private dialogService: MatDialog
-  ) {
+  ) { }
 
-  }
-
-  ngOnDestroy(): void {
-    this.touched.complete();
-  }
+  onChange(value: any): void { }
+  onTouched(): void { }
+  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
     this.productCategory = obj;
@@ -66,29 +62,25 @@ export class ProductCategorySelectorFormFieldComponent
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    if (!value) {
-      return { required: value };
-    } else {
-      const errors = {} as any;
-      if (control.value) {
-        const val = control.value as ProductCategory;
-        if (!val.code) {
-          errors.requireeCode = val.code;
-        }
-        if (!val.name) {
-          errors.requiredName = val.name;
-        }
-
-        if (JSON.stringify(errors) !== '{}') {
-          return errors;
-        }
-      }
+    if (!this.productCategory) {
+      return null;
     }
+
+    const errors = {} as ValidationErrors;
+
+    if (!this.productCategory.code) {
+      errors.productCategoryCode = { required: true };
+    }
+    if (this.productCategory.name) {
+      errors.productCategoryName = { required: true };
+    }
+
+    return errors;
   }
 
-  onChange = (value: any) => { };
-  onTouched = () => { };
+  registerOnValidatorChange(fn: () => void): void {
+    this.onValidatorChange = fn;
+  }
 
   onClickClearCategory(): void {
     this.productCategory = null;
@@ -102,13 +94,12 @@ export class ProductCategorySelectorFormFieldComponent
         width: '24rem'
       }
     ).afterClosed().pipe(
-      filter(next => !!next)
-    ).subscribe(
-      next => {
+      filter(next => !!next),
+      tap(next => {
         this.productCategory = { code: next.code, name: next.name };
         this.onChange(next);
-      }
-    );
+      })
+    ).subscribe();
   }
 
 }

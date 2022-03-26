@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2021 The Trébol eCommerce Project
+  Copyright (c) 2022 The Trebol eCommerce Project
 
   This software is released under the MIT License.
   https://opensource.org/licenses/MIT
@@ -7,11 +7,13 @@
 
 <h3>{{ list.name }}</h3>
 <app-products-display
+  [loading]="loadingProducts"
   [products]="products$ | async"
   [totalCount]="totalCount$ | async"
   [pageIndex]="pageIndex"
   [pageSize]="pageSize"
   [showAddToCartButtons]="true"
   (page)="onPage($event)"
-  (addProductToCart)="onAddProductToCart($event)">
+  (addProductToCart)="onAddProductToCart($event)"
+  (viewProduct)="onViewProduct($event)">
 </app-products-display>

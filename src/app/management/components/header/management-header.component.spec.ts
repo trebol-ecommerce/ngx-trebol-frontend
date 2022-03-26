@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -13,10 +13,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { ManagementService } from 'src/app/management/management.service';
-import { Person } from 'src/models/entities/Person';
+import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { ManagementHeaderComponent } from './management-header.component';
 
 describe('ManagementHeaderComponent', () => {
@@ -26,6 +26,7 @@ describe('ManagementHeaderComponent', () => {
   let mockAppService: Partial<AppService>;
   let mockSnackBarService: Partial<MatSnackBar>;
   let mockDialogService: Partial<MatDialog>;
+  let mockSharedDialogService: Partial<SharedDialogService>;
 
   beforeEach(waitForAsync(() => {
     mockManagementService = {
@@ -33,7 +34,7 @@ describe('ManagementHeaderComponent', () => {
       currentPageName$: of('')
     };
     mockAppService = {
-      getUserProfile() { return of(new Person()); },
+      userName$: of(''),
       closeCurrentSession() {}
     };
     mockSnackBarService = {
@@ -41,6 +42,9 @@ describe('ManagementHeaderComponent', () => {
     };
     mockDialogService = {
       open() { return void 0; }
+    };
+    mockSharedDialogService = {
+      requestConfirmation() { return EMPTY; }
     };
 
     TestBed.configureTestingModule({
@@ -56,7 +60,8 @@ describe('ManagementHeaderComponent', () => {
         { provide: ManagementService, useValue: mockManagementService },
         { provide: AppService, useValue: mockAppService },
         { provide: MatSnackBar, useValue: mockSnackBarService },
-        { provide: MatDialog, useValue: mockDialogService }
+        { provide: MatDialog, useValue: mockDialogService },
+        { provide: SharedDialogService, useValue: mockSharedDialogService }
       ]
     })
     .compileComponents();

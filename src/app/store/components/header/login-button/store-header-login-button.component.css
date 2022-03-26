@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -19,8 +19,18 @@ button.active {
   border-bottom-style: solid;
 }
 
-button mat-icon {
-  width: 3rem;
-  height: 3rem;
-  font-size: 3rem;
+@media(max-width: 640px) {
+  button mat-icon {
+    width: 2rem;
+    height: 2rem;
+    font-size: 2rem;
+  }
+}
+
+@media(min-width: 641px) {
+  button mat-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 2.5rem;
+  }
 }

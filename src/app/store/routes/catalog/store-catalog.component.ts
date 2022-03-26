@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -7,6 +7,8 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Product } from 'src/models/entities/Product';
 import { ProductList } from 'src/models/entities/ProductList';
 import { StoreCartService } from '../../store-cart.service';
@@ -20,6 +22,8 @@ import { StoreCatalogService } from './store-catalog.service';
 export class StoreCatalogComponent
   implements OnInit {
 
+  readonly storeCatalogTopBannerImages = environment.staticImages.topBanners;
+  readonly storeCatalogBottomBannerImages = environment.staticImages.bottomBanners;
   loading$: Observable<boolean>;
   lists$: Observable<ProductList[]>;
 
@@ -28,7 +32,7 @@ export class StoreCatalogComponent
     private cartService: StoreCartService
   ) {
     this.loading$ = this.catalogService.loading$.pipe();
-    this.lists$ = this.catalogService.lists$.pipe();
+    this.lists$ = this.catalogService.listsPage$.pipe(map(page => page.items));
   }
 
   ngOnInit(): void {

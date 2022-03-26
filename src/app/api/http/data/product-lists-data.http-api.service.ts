@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -8,17 +8,18 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
 import { ProductList } from 'src/models/entities/ProductList';
-import { IProductListContentsDataApiService } from '../../transactional-product-lists.data.api.iservice';
+import { ITransactionalProductListContentsDataApiService } from '../../transactional-product-list-contents.data.api.iservice';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
 
 @Injectable()
 export class ProductListsDataHttpApiService
   extends TransactionalEntityDataHttpApiService<ProductList>
-  implements IProductListContentsDataApiService {
+  implements ITransactionalProductListContentsDataApiService {
 
   contentsBaseUrl = `${environment.apiUrls.data}/product_list_contents`;
 
@@ -27,13 +28,15 @@ export class ProductListsDataHttpApiService
   }
 
   fetchExisting(list: Partial<ProductList>): Observable<ProductList> {
-    return this.http.get<ProductList>(
+    return this.http.get<DataPage<ProductList>>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
           code: list.code
         } })
       }
+    ).pipe(
+      map(page => page.items[0])
     );
   }
 

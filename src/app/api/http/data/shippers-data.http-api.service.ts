@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -7,6 +7,8 @@
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { DataPage } from 'src/models/DataPage';
 import { Shipper } from 'src/models/entities/Shipper';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
 
@@ -19,13 +21,15 @@ export class ShippersDataHttpApiService
   }
 
   fetchExisting(shipper: Shipper) {
-    return this.http.get<Shipper>(
+    return this.http.get<DataPage<Shipper>>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
           name: String(shipper.name)
         } })
       }
+    ).pipe(
+      map(page => page.items[0])
     );
   }
 

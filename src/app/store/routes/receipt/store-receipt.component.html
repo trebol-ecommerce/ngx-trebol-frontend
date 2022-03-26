@@ -1,23 +1,12 @@
 <!--
-  Copyright (c) 2021 The Trébol eCommerce Project
+  Copyright (c) 2022 The Trebol eCommerce Project
 
   This software is released under the MIT License.
   https://opensource.org/licenses/MIT
 -->
 
-<app-centered-mat-spinner *ngIf="loading; else loadedReceipt">
+<app-centered-mat-spinner *ngIf="(loading$ | async); else loadedReceipt">
 </app-centered-mat-spinner>
 <ng-template #loadedReceipt>
-  <mat-card>
-    <div class="icon-wrapper" aria-hidden="true"><mat-icon>receipt_long</mat-icon></div>
-    <h2 mat-card-title i18n="Title of widget displaying details of a succesful transaction">Transaction Successful</h2>
-    <p i18n="Label with transaction confirmation date">Confirmed on {{ receipt.date | date:'short' }}</p>
-    <p i18n="Label with total count of items in transaction being {{ receipt.totalItems }}">Total items: {{ receipt.totalItems }}</p>
-    <p *ngIf="receipt.transportValue" i18n="Label with total price of transport being {{ receipt.transportValue }}">Transport: {{ receipt.transportValue | currency }}</p>
-    <p *ngIf="receipt.taxValue" i18n="Label with total price of taxes being {{ receipt.taxValue }}">Taxes: {{ receipt.taxValue | currency }}</p>
-    <p i18n="Label with total price of transaction being {{ receipt.totalValue}}">Total: {{ receipt.totalValue | currency }}</p>
-    <h3 i18n="Title of widget displaying products and details of transaction">Details</h3>
-    <app-store-receipt-details-table [details]="receipt.details">
-    </app-store-receipt-details-table>
-  </mat-card>
+  <app-store-receipt-card [receipt]="receipt$ | async"></app-store-receipt-card>
 </ng-template>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -19,8 +19,7 @@ export class StoreHeaderNavigationComponent
   implements OnInit {
 
   cartHasItems$: Observable<boolean>;
-  cartItemCountLabel$: Observable<string>;
-  cartNetValue$: Observable<number>;
+  cartItemCount$: Observable<number>;
 
   constructor(
     private cartService: StoreCartService
@@ -30,10 +29,7 @@ export class StoreHeaderNavigationComponent
     this.cartHasItems$ = this.cartService.cartDetails$.pipe(
       map(array => array.length > 0)
     );
-    this.cartItemCountLabel$ = this.cartService.cartItemCount$.pipe(
-      map(total => `${total} item${(total > 1) ? 's' : ''}`)
-    );
-    this.cartNetValue$ = this.cartService.cartNetValue$.pipe();
+    this.cartItemCount$ = this.cartService.cartItemCount$.pipe();
   }
 
 }

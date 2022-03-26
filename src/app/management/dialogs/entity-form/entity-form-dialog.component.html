@@ -1,0 +1,57 @@
+<!--
+  Copyright (c) 2022 The Trebol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<h2 mat-dialog-title>{{ dialogTitle }}</h2>
+<app-centered-mat-spinner *ngIf="busy$ | async">
+</app-centered-mat-spinner>
+
+<div [hidden]="busy$ | async">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <ng-container [ngSwitch]="data.entityType">
+      <app-address-form *ngSwitchCase="'address'"
+        formGroupName="item">
+      </app-address-form>
+      <app-image-form *ngSwitchCase="'image'"
+        formGroupName="item">
+      </app-image-form>
+      <app-person-form *ngSwitchCase="'person'"
+        formGroupName="item">
+      </app-person-form>
+      <app-product-form *ngSwitchCase="'product'"
+        formGroupName="item">
+      </app-product-form>
+      <app-product-category-form *ngSwitchCase="'productCategory'"
+        formGroupName="item">
+      </app-product-category-form>
+      <app-product-list-form *ngSwitchCase="'productList'"
+        formGroupName="item">
+      </app-product-list-form>
+      <app-sell-form *ngSwitchCase="'sell'"
+        formGroupName="item">
+      </app-sell-form>
+      <app-shipper-form *ngSwitchCase="'shipper'"
+        formGroupName="item">
+      </app-shipper-form>
+      <app-user-form *ngSwitchCase="'user'"
+        formGroupName="item">
+      </app-user-form>
+      <div *ngSwitchDefault>
+        <input type="hidden" formControlName="item" />
+        <p>Invalid or unsupported element type!</p>
+      </div>
+    </ng-container>
+
+    <div class="actions">
+      <button mat-button mat-raised-button type="submit"
+        color="primary"
+        i18n="confirm|Label for action button to accept and proceed">Confirm</button>
+      <button mat-button mat-raised-button type="button"
+        i18n="cancel|Label for action button to cancel and/or stop an operation"
+        (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -9,14 +9,13 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Salesperson } from 'src/models/entities/Salesperson';
-import { SalespersonFormComponent } from 'src/app/shared/components/salesperson-form/salesperson-form.component';
-import { COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
-import { EntityFormDialogConfig } from '../../../shared/dialogs/entity-form/EntityFormDialogConfig';
-import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager.component-directive';
+import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
+import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';
+import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager/transactional-data-manager.component.directive';
 import { ManagementSalespeopleService } from './management-salespeople.service';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-management-salespeople',
@@ -35,20 +34,14 @@ export class ManagementSalespeopleComponent
   constructor(
     protected service: ManagementSalespeopleService,
     protected dialogService: MatDialog,
-    private snackBarService: MatSnackBar,
-    private route: ActivatedRoute
+    protected route: ActivatedRoute,
+    private snackBarService: MatSnackBar
   ) {
     super();
   }
 
   ngOnInit(): void {
     super.init(this.service);
-    this.route.data.subscribe(
-      d => {
-        this.service.updateAccess(d.access);
-        this.service.reloadItems();
-      }
-    );
   }
 
   onClickDelete(e: Salesperson) {
@@ -70,8 +63,8 @@ export class ManagementSalespeopleComponent
     return {
       data: {
         item,
-        formComponent: SalespersonFormComponent,
-        service: this.service.dataService
+        entityType: 'person',
+        apiService: this.service.dataService
       },
       width: '40rem'
     };

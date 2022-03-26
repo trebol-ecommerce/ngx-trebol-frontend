@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -9,15 +9,38 @@
   min-height: 100%;
   display: flex;
   flex-flow: column nowrap;
-  align-items: stretch;
+  align-items: center;
   justify-items: stretch;
-  overflow-x: hidden;
-  overflow-y: auto;
+  /* overflow-x: hidden;
+  overflow-y: auto; */
 }
 
 h2 {
   margin: 0;
   padding: 1rem 1rem 0 1rem;
+  align-self: stretch;
+  text-align: center;
+}
+
+.banners {
+  margin: 1rem 0;
+  max-width: 1200px;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
+.products {
+  flex: 1 1 auto;
+  align-self: stretch;
+  justify-content: center;
+  overflow: hidden;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.location {
+  width: 70%;
 }
 
 @media(min-width: 641px) {
@@ -26,30 +49,12 @@ h2 {
   }
 }
 
-app-product-filters-panel {
-  flex: 0 1 auto;
-  padding: 0.5rem;
-}
-
-.products {
-  margin: 0 auto;
-  max-width: 800px;
-  flex: 1 1 auto;
-  align-self: stretch;
-  padding: 0.5rem;
-  justify-content: center;
-  overflow: hidden;
-}
-
-@media(min-width: 641px) {
-  app-product-filters-panel {
-    padding: 1rem;
-  }
-
+@media(min-width: 801px) {
   .products {
-    padding: 1rem;
+    max-width: 70%;
   }
 }
+
 @media(min-width: 1008px) {
   .products {
     grid-template-columns: repeat(4, 20rem);

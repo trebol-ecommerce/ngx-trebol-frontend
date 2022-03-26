@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -90,8 +90,7 @@ export class StoreCartReviewGuard
     return this.dialogService.open(
       StoreLoginFormDialogComponent,
       {
-        width: '24rem',
-        disableClose: true
+        width: '24rem'
       }
     );
   }
@@ -100,8 +99,7 @@ export class StoreCartReviewGuard
     return this.dialogService.open(
       StoreRegistrationFormDialogComponent,
       {
-        width: '40rem',
-        disableClose: true
+        width: '40rem'
       }
     );
   }
@@ -110,8 +108,7 @@ export class StoreCartReviewGuard
     return this.dialogService.open(
       StoreGuestShippingFormDialogComponent,
       {
-        width: '40rem',
-        disableClose: true
+        width: '40rem'
       }
     );
   }

@@ -1,0 +1,94 @@
+/*
+ * Copyright (c) 2022 The Trebol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+h2 {
+  margin-top: 0;
+}
+
+form {
+  display: grid;
+  grid-gap: 0.5rem 1rem;
+  grid-template-areas:
+    'date'
+    'billingType'
+    'salesperson'
+    'salesperson'
+    'customer'
+    'details'
+    'summary';
+}
+
+@media(min-width: 640px) {
+  form {
+    grid-template-areas:
+      'date billingType'
+      'salesperson salesperson'
+      'customer customer'
+      'details details'
+      'summary summary';
+  }
+}
+
+@media(min-width: 641px) {
+  form {
+    grid-template-areas:
+      'date date billingType billingType none none'
+      'salesperson salesperson salesperson customer customer customer'
+      'details details details details details details'
+      'summary summary summary summary summary summary';
+  }
+}
+
+.details-header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.details-table-wrapper {
+  overflow-y: auto;
+}
+
+.mat-column-product {
+  max-width: 100%;
+}
+.mat-column-price {
+  text-align: center;
+}
+.mat-column-quantity {
+  text-align: center;
+}
+.mat-column-actions {
+  padding: 0px !important;
+  max-width: 5rem;
+  text-align: right;
+}
+
+.summary-data {
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: stretch;
+  text-align: center;
+  align-items: center;
+  margin: 1rem 0;
+  padding: 0.5rem;
+}
+
+@media(min-width: 641px) {
+  .summary-data {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -23,11 +23,9 @@ import { ShippersDataHttpApiService } from './data/shippers-data.http-api.servic
 import { UserRolesDataHttpApiService } from './data/user-roles-data.http-api.service';
 import { UsersDataHttpApiService } from './data/users-data.http-api.service';
 import { AboutPublicHttpApiService } from './public/about-public.http-api.service';
-import { CategoriesPublicHttpApiService } from './public/categories-public.http-api.service';
 import { CheckoutPublicHttpApiService } from './public/checkout-public.http-api.service ';
 import { GuestPublicHttpApiService } from './public/guest-public.http-api.service';
 import { LoginPublicHttpApiService } from './public/login-public.http-api.service';
-import { ProductsPublicHttpApiService } from './public/products-public.http-api.service';
 import { ReceiptPublicHttpApiService } from './public/receipt-public.http-api.service';
 import { RegisterPublicHttpApiService } from './public/register-public.http-api.service';
 import { SessionHttpApiInterceptor } from './session.http-api.interceptor';
@@ -104,10 +102,6 @@ import { SessionHttpApiInterceptor } from './session.http-api.interceptor';
       useClass: AboutPublicHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.categories,
-      useClass: CategoriesPublicHttpApiService
-    },
-    {
       provide: API_SERVICE_INJECTION_TOKENS.checkout,
       useClass: CheckoutPublicHttpApiService
     },
@@ -118,10 +112,6 @@ import { SessionHttpApiInterceptor } from './session.http-api.interceptor';
     {
       provide: API_SERVICE_INJECTION_TOKENS.login,
       useClass: LoginPublicHttpApiService
-    },
-    {
-      provide: API_SERVICE_INJECTION_TOKENS.products,
-      useClass: ProductsPublicHttpApiService
     },
     {
       provide: API_SERVICE_INJECTION_TOKENS.receipt,

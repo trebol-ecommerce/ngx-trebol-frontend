@@ -1,49 +1,64 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, Inject } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
-import { IReceiptPublicApiService } from 'src/app/api/receipt-public-api.iservice';
+import { Subscription, ReplaySubject, BehaviorSubject, from } from 'rxjs';
+import { take, switchMap, tap, catchError, finalize } from 'rxjs/operators';
 import { Receipt } from 'src/models/Receipt';
+import { StoreReceiptService } from './store-receipt.service';
 
 @Component({
   selector: 'app-store-receipt',
   templateUrl: './store-receipt.component.html',
   styleUrls: ['./store-receipt.component.css']
 })
-export class StoreReceiptComponent {
+export class StoreReceiptComponent
+  implements OnInit, OnDestroy {
 
-  loading = true;
-  receipt: Receipt | null;
+  private loadSubscription: Subscription;
+  private receiptSource = new ReplaySubject<Receipt>(1);
+  private loadingSource = new BehaviorSubject(true);
+  loading$ = this.loadingSource.asObservable();
+  receipt$ = this.receiptSource.asObservable();
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.receipt) private receiptApiService: IReceiptPublicApiService,
+    private service: StoreReceiptService,
     private route: ActivatedRoute,
     private router: Router
-  ) {
+  ) { }
+
+  ngOnInit(): void {
     this.loadReceipt();
   }
 
-  private loadReceipt() {
-    const token = this.route.snapshot.paramMap.get('token');
-    if (!token) {
-      this.router.navigateByUrl('/');
-    } else {
-      this.receiptApiService.fetchTransactionReceiptByToken(token).pipe(
-        tap(receipt => {
-          this.receipt = receipt;
-          this.loading = false;
-        }),
-        catchError(() => {
-          return this.router.navigateByUrl('/');
-        })
-      ).subscribe();
-    }
+  ngOnDestroy(): void {
+    this.loadSubscription?.unsubscribe();
+    this.receiptSource.complete();
+    this.loadingSource.complete();
   }
+
+  private loadReceipt() {
+    this.loadSubscription = this.route.queryParamMap.pipe(
+      take(1),
+      switchMap(queryParams => {
+        const token = queryParams.get('token');
+        if (!token) {
+          return from(this.router.navigateByUrl('/'));
+        } else {
+          return this.service.fetchReceipt(token).pipe(
+            tap(receipt => this.receiptSource.next(receipt)),
+            finalize(() => this.loadingSource.next(false))
+          );
+        }
+      }),
+      catchError(() => from(this.router.navigateByUrl('/')))
+    ).subscribe();
+  }
+
+
 }

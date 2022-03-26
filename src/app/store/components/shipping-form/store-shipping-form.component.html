@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2021 The Trébol eCommerce Project
+  Copyright (c) 2022 The Trebol eCommerce Project
 
   This software is released under the MIT License.
   https://opensource.org/licenses/MIT
@@ -8,15 +8,18 @@
 <form [formGroup]="formGroup">
   <mat-radio-group formControlName="requestShipping"
     aria-label="Choose a delivery option"
-    i18n-aria-label="Label to hint user that they must choose a delivery option">
-    <mat-radio-button [value]="true" (blur)="onTouched()">
+    i18n-aria-label="Label to hint user that they must choose a delivery option"
+    (change)="onShippingRequirementChange($event.value)">
+    <mat-radio-button [value]="true"
+      (blur)="onTouched()">
       <span i18n="Label for option to choose delivery to a shipping address">Deliver to address</span>
     </mat-radio-button>
-    <mat-radio-button [value]="false" (blur)="onTouched()" >
+    <mat-radio-button [value]="false"
+      (blur)="onTouched()" >
       <span i18n="Label for option to choose pick-up in store">Pickup in store</span>
     </mat-radio-button>
   </mat-radio-group>
-  <app-addresses-editor-form #addressForm formControlName="shippingAddress"
+  <app-addresses-editor-form formControlName="shippingAddress"
     placeholder="Shipping address"
     i18n-placeholder="Name of field for address to deliver items to">
   </app-addresses-editor-form>

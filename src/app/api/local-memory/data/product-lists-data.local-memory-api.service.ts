@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -14,7 +14,7 @@ import { Product } from 'src/models/entities/Product';
 import { ProductList } from 'src/models/entities/ProductList';
 import { API_SERVICE_INJECTION_TOKENS } from '../../api-service-injection-tokens';
 import { ITransactionalEntityDataApiService } from '../../transactional-entity.data-api.iservice';
-import { IProductListContentsDataApiService } from '../../transactional-product-lists.data.api.iservice';
+import { ITransactionalProductListContentsDataApiService } from '../../transactional-product-list-contents.data.api.iservice';
 import {
   matchesDateProperty, matchesIdProperty, matchesNumberProperty, matchesStringProperty
 } from '../entity-data.local-memory-api.functions';
@@ -24,7 +24,7 @@ import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-e
 @Injectable()
 export class ProductListsDataLocalMemoryApiService
   extends TransactionalEntityDataLocalMemoryApiService<ProductList>
-  implements IProductListContentsDataApiService {
+  implements ITransactionalProductListContentsDataApiService {
 
   protected items = MOCK_PRODUCT_LISTS.slice();
   protected itemContentsMap = new Map([...MOCK_PRODUCT_LIST_CONTENTS_MAP.entries()]);

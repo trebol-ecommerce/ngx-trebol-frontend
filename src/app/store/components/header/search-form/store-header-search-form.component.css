@@ -1,0 +1,25 @@
+/*
+ * Copyright (c) 2022 The Trebol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+form {
+  display: flex;
+  align-items: stretch;
+}
+
+.searchFilter {
+  margin: 0.5rem;
+}
+
+.mat-form-field-flex {
+  padding: 1.25rem 0.75rem 0 0.75rem;
+}
+
+.open-category-picker mat-icon {
+  width: 2rem;
+  height: 2rem;
+  font-size: 2rem;
+}

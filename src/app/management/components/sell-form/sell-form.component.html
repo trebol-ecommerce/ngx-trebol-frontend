@@ -1,0 +1,112 @@
+<!--
+  Copyright (c) 2022 The Trebol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<form [formGroup]="formGroup">
+
+  <mat-form-field style="grid-area: date">
+    <input matInput formControlName="date"
+      placeholder="Date and time"
+      i18n-placeholder="Name of field for date and time of sell" />
+  </mat-form-field>
+
+  <mat-form-field style="grid-area: billingType">
+    <mat-select formControlName="billingType"
+      placeholder="Billing type"
+      i18n-placeholder="Name of field for billing type of sell">
+      <mat-option *ngFor="let b of (billingTypes$ | async)"
+        [value]="b.name">{{ b.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field style="grid-area: salesperson">
+    <mat-select formControlName="salesperson"
+      placeholder="Salesperson"
+      i18n-placeholder="Name of field for salesperson that earned/is in charge of sell">
+      <mat-option *ngFor="let e of (salespeople$ | async)"
+        [value]="e">{{ e.person.firstName + ' ' + e.person.lastName }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field style="grid-area: customer">
+    <mat-select formControlName="customer"
+      placeholder="Customer"
+      i18n-placeholder="Name of field for purchasing customer in sell ">
+      <mat-option *ngFor="let c of (customers$ | async)"
+        [value]="c">{{ c.person.firstName + ' ' + c.person.lastName }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-card style="grid-area: details">
+    <div class="details-header">
+      <h3 i18n="Title of table displaying products and details of sell">Checkout Details</h3>
+      <button mat-button mat-raised-button type="button"
+        color="primary"
+        (click)="onClickAddProducts()"
+        i18n="add products|Label for action button to include products into sell">Add</button>
+    </div>
+    <div class="details-table-wrapper">
+      <table mat-table [dataSource]="sellDetails$">
+        <ng-container matColumnDef="product">
+          <th mat-header-cell *matHeaderCellDef
+            i18n="product name|Name of table header for name of product">Name</th>
+          <td mat-cell *matCellDef="let detail">
+            {{ detail.product.name }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef
+            i18n="Name of table header for price per product unit">Price</th>
+          <td mat-cell *matCellDef="let detail">
+            {{ detail.product.price | currency }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef
+            i18n="Name of table header for quantity of products (in units)">Units</th>
+          <td mat-cell *matCellDef="let detail; let i=index">
+            <button mat-button mat-icon-button type="button"
+              aria-label="Add one"
+              i18n-aria-label="add product unit|Label for action button to add one unit of a product in a sell"
+              (click)="onClickIncreaseDetailProductQuantity(i)">
+              <mat-icon>add</mat-icon>
+            </button>
+            {{ detail.units }}
+            <button mat-button mat-icon-button type="button"
+              [disabled]="detail.units < 2"
+              aria-label="Remove one"
+              i18n-aria-label="remove product unit|Label for action button to remove one unit of a product in a sell"
+              (click)="onClickDecreaseDetailProductQuantity(i)">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let i=index">
+            <button mat-button mat-icon-button type="button"
+              color="warn"
+              aria-label="Remove"
+              i18n-aria-label="remove all product units|Label for action button to remove all units of a product in a sell"
+              (click)="onClickRemoveDetail(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+      </table>
+    </div>
+  </mat-card>
+
+  <div style="grid-area: summary">
+    <div class="summary-data">
+      <div>{{ sellNetValueLabel$ | async }}</div>
+      <div>{{ sellTotalValueLabel$ | async }}</div>
+    </div>
+  </div>
+</form>

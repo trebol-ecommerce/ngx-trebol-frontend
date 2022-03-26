@@ -1,0 +1,36 @@
+<!--
+  Copyright (c) 2022 The Trebol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<app-centered-mat-spinner *ngIf="isLoadingSearch$ | async">
+</app-centered-mat-spinner>
+
+<div class="container" [hidden]="isLoadingSearch$ | async">
+  <h3 i18n="Title for page on search results">Search results</h3>
+  <ng-container *ngIf="(totalCount$ | async) === 0; else results">
+    <div class="empty">
+      <p i18n="Label to hint users that there are zero results present">No products matched your search</p>
+      <mat-icon>sentiment_very_dissatisfied</mat-icon>
+    </div>
+  </ng-container>
+  <ng-template #results>
+    <mat-paginator
+      (page)="onPage($event)"
+      [showFirstLastButtons]="true"
+      [pageSizeOptions]="[8, 20, 40, 80]"
+      [length]="totalCount$ | async">
+    </mat-paginator>
+    <div class="contents">
+      <app-product-card
+        *ngFor="let product of (searchResults$ | async)"
+        [showAddToCartButton]="true"
+        [product]="product"
+        (addToCart)="onAddProductToCart(product)"
+        (view)="onViewProduct(product)">
+      </app-product-card>
+    </div>
+  </ng-template>
+</div>

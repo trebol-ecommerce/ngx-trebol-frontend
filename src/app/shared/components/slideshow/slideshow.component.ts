@@ -1,13 +1,15 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
-import { BehaviorSubject, interval, Observable, Subscription } from 'rxjs';
-import { delay, mapTo, tap } from 'rxjs/operators';
+import { Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Router } from '@angular/router';
+import { BehaviorSubject, interval, merge, Observable, Subscription } from 'rxjs';
+import { debounceTime, delay, mapTo, tap } from 'rxjs/operators';
 import { fadeInOut } from 'src/animations/fadeInOut';
 import { Image } from 'src/models/entities/Image';
 
@@ -15,28 +17,42 @@ import { Image } from 'src/models/entities/Image';
   selector: 'app-slideshow',
   templateUrl: './slideshow.component.html',
   styleUrls: ['./slideshow.component.css'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: SlideshowComponent
+    }
+  ],
   animations: [
     fadeInOut(500)
   ]
 })
 export class SlideshowComponent
-  implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy, ControlValueAccessor {
 
   private currentIndex = 0;
   private currentIndexSource = new BehaviorSubject(this.currentIndex);
   private autoRotateImagesSubscription: Subscription;
   private autoRotationInterval = 5000;
 
-  @Input() @Output() images: Image[] = [];
+  @Input() images: Image[] = [];
   @Input() autocycle = true;
   @Input() editable = false;
+  @Input() showSlideSelectors = true;
+  @Input() showNextPreviousButtons = true;
+  @Input() slideWidth = 'auto';
+  @Input() slideHeight = 'auto';
   @Output() navigate = new EventEmitter<void>();
   @Output() add = new EventEmitter<void>();
+  @Output() touched = new EventEmitter<void>();
   currentIndex$ = this.currentIndexSource.asObservable();
 
-  @ViewChildren('slideWrapper') slideWrappers: QueryList<ElementRef<HTMLImageElement>>;
+  formControl = new FormControl();
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     if (this.autocycle) {
@@ -46,6 +62,38 @@ export class SlideshowComponent
 
   ngOnDestroy(): void {
     this.stopAutoRotation();
+  }
+
+  onChange(value: any): void { }
+  onTouched(): void { }
+
+  writeValue(obj: any): void {
+    if (Array.isArray(obj)) {
+      this.formControl.setValue(obj);
+      this.images = obj;
+    }
+  }
+
+  registerOnChange(fn: (value: any) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    if (isDisabled) {
+      this.formControl.disable();
+    } else {
+      this.formControl.enable();
+    }
+  }
+
+  onClickImage(img: Image) {
+    if (img.targetUrl) {
+      this.router.navigateByUrl(img.targetUrl);
+    }
   }
 
   slideForwards(): void {
@@ -59,7 +107,7 @@ export class SlideshowComponent
   }
 
   slideBackwards(): void {
-    if (this.currentIndex > 1) {
+    if (this.currentIndex > 0) {
       this.currentIndex--;
     } else {
       this.currentIndex = this.images.length - 1;
@@ -102,6 +150,7 @@ export class SlideshowComponent
   onClickRemove(): void {
     this.images.splice(this.currentIndex, 1);
     this.slideBackwards();
+    this.onChange(this.images);
   }
 
   private autoImageRotationObservable(): Observable<void> {

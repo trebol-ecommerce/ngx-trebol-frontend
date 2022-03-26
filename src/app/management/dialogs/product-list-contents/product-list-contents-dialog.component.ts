@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
@@ -12,7 +12,7 @@ import { Sort } from '@angular/material/sort';
 import { forkJoin, Observable, of } from 'rxjs';
 import { finalize, map, switchMap, tap } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
-import { ProductsArrayDialogComponent } from '../../../shared/dialogs/products-array/products-array-dialog.component';
+import { ProductsArrayDialogComponent } from '../products-array/products-array-dialog.component';
 import { ProductListContentsDialogService } from './product-list-contents-dialog.service';
 import { ProductListContentsDialogData } from './ProductListContentsDialogData';
 
@@ -64,7 +64,10 @@ export class ProductListContentsDialogComponent
 
   onClickAddProducts(): void {
     this.dialog.open(
-      ProductsArrayDialogComponent
+      ProductsArrayDialogComponent,
+      {
+        maxHeight: '90vh'
+      }
     ).afterClosed().pipe(
       switchMap((products?: Product[]) => (!!products && Array.isArray(products)) ?
         forkJoin(products.map(p => this.service.addProduct(p))) :
@@ -76,7 +79,10 @@ export class ProductListContentsDialogComponent
 
   onClickChooseProducts(): void {
     this.dialog.open(
-      ProductsArrayDialogComponent
+      ProductsArrayDialogComponent,
+      {
+        maxHeight: '90vh'
+      }
     ).afterClosed().pipe(
       switchMap((products?: Product[]) => (!!products && Array.isArray(products)) ?
         this.service.replaceProductsWith(products) :

@@ -1,22 +1,19 @@
 /*
- * Copyright (c) 2021 The Trébol eCommerce Project
+ * Copyright (c) 2022 The Trebol eCommerce Project
  *
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS,
   NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators
 } from '@angular/forms';
-import { merge, Subscription } from 'rxjs';
-import { debounceTime, tap } from 'rxjs/operators';
-import { AddressesEditorFormComponent } from 'src/app/shared/components/addresses-editor-form/addresses-editor-form.component';
-import { CompanyFormComponent } from 'src/app/shared/components/company-form/company-form.component';
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
-import { BILLING_TYPE_COMPANY, BILLING_TYPE_INDIVIDUAL, BILLING_TYPE_NAMES_MAP } from 'src/text/billing-type-names';
-import { StoreCartService } from '../../store-cart.service';
+import { BILLING_TYPE_COMPANY, BILLING_TYPE_NAMES_MAP } from 'src/text/billing-type-names';
 
 @Component({
   selector: 'app-store-billing-details-form',
@@ -38,64 +35,44 @@ import { StoreCartService } from '../../store-cart.service';
 export class StoreBillingDetailsFormComponent
   implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
-  private touchedSubscriptions: Subscription[] = [];
-  private valueChangesSubscriptions: Subscription[] = [];
-  private sellTypeChangesSubscription: Subscription;
-  private touched = new EventEmitter<void>();
+  private valueChangesSub: Subscription;
 
-  formGroup: FormGroup;
-  typesOptions = [ ...BILLING_TYPE_NAMES_MAP.values() ];
+  readonly typesOptions = [ ...BILLING_TYPE_NAMES_MAP.values() ];
 
+  @Input() formGroup: FormGroup;
   get sellType() { return this.formGroup.get('sellType') as FormControl; }
   get company() { return this.formGroup.get('company') as FormControl; }
   get address() { return this.formGroup.get('address') as FormControl; }
 
-  @ViewChild('companyForm', { static: false }) companyForm: CompanyFormComponent;
-  @ViewChild('addressForm', { static: false }) adressForm: AddressesEditorFormComponent;
-
   constructor(
-    private formBuilder: FormBuilder,
-    private cartService: StoreCartService
-  ) {
-    this.formGroup = this.formBuilder.group({
-      sellType: ['', Validators.required],
-      company: [{ value: '', disabled: true }, Validators.required],
-      address: [{ value: null, disabled: true }, Validators.required]
-    });
-  }
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
-    this.sellTypeChangesSubscription = this.sellType.valueChanges.pipe(
-      tap(v => {
-        if (v === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
-          this.company.enable();
-          this.address.enable();
-        } else if (v === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_INDIVIDUAL)) {
-          this.company.reset({ value: null, disabled: true });
-          this.address.reset({ value: null, disabled: true });
-        }
-      })
+    if (!this.formGroup) {
+      this.formGroup = this.formBuilder.group({
+        sellType: [null, Validators.required],
+        company: [{ value: null, disabled: true }],
+        address: [{ value: null, disabled: true }]
+      });
+    }
+    this.valueChangesSub = this.formGroup.valueChanges.pipe(
+      tap(v => this.onChange(v))
     ).subscribe();
   }
 
   ngOnDestroy(): void {
-    for (const sub of [
-      ...this.touchedSubscriptions,
-      ...this.valueChangesSubscriptions]) {
-      sub.unsubscribe();
-    }
-    this.sellTypeChangesSubscription.unsubscribe();
-    this.touched.complete();
+    this.valueChangesSub?.unsubscribe();
   }
 
-  onTouched(): void {
-    this.touched.emit();
-  }
+  onChange(value: any): void { }
+  onTouched(): void { }
+  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
     this.sellType.reset(null, { emitEvent: false });
-    this.company.disable({ emitEvent: false });
-    this.address.disable({ emitEvent: false });
+    this.company.reset({ value: null, disabled: true }, { emitEvent: false });
+    this.address.reset({ value: null, disabled: true }, { emitEvent: false });
     if (isJavaScriptObject(obj)) {
       if ('sellType' in obj && obj.sellType === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
         this.company.enable({ emitEvent: false });
@@ -106,53 +83,54 @@ export class StoreBillingDetailsFormComponent
   }
 
   registerOnChange(fn: (value: any) => void): void {
-    const sub = this.formGroup.valueChanges.pipe(debounceTime(150), tap(fn)).subscribe();
-    this.valueChangesSubscriptions.push(sub);
+    this.onChange = fn;
   }
 
   registerOnTouched(fn: () => void): void {
-    const sub = merge(
-      this.touched,
-      this.cartService.checkoutButtonPress
-    ).pipe(tap(fn)).subscribe();
-    this.touchedSubscriptions.push(sub);
+    this.onTouched = fn;
   }
 
   setDisabledState?(isDisabled: boolean): void {
     if (isDisabled) {
-      this.formGroup.disable({ emitEvent: false });
+      this.formGroup.disable();
     } else {
-      this.formGroup.enable({ emitEvent: false });
+      this.formGroup.enable();
     }
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    if (!value) {
-      return { required: value };
-    } else {
-      const errors = {} as any;
-      if (!value.sellType) {
-        errors.billingTypeMustBeSelected = value.sellType;
-      } else if (value.sellType === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
-        if (!value.company) {
-          errors.billingCompanyMustBeTruthy = value.company;
-        }
-        if (!value.address) {
-          errors.billingAddressMustBeTruthy = value.address;
-        }
-      }
+    if (this.formGroup.valid) {
+      return null;
+    }
 
-      if (JSON.stringify(errors) !== '{}') {
-        return errors;
+    const errors = {} as ValidationErrors;
+
+    if (this.sellType.errors) {
+      errors.billingType = this.sellType.errors;
+    } else if (this.sellType.value === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
+      if (this.company.errors) {
+        errors.billingCompany = this.company.errors;
+      }
+      if (this.address.errors) {
+        errors.billingAddress = this.address.errors;
       }
     }
+
+    return errors;
   }
 
-  onParentFormTouched(): void {
-    this.formGroup.markAllAsTouched();
-    this.companyForm.formGroup.markAllAsTouched();
-    this.adressForm.formControl.markAsTouched();
+  registerOnValidatorChange(fn: () => void): void {
+    this.onValidatorChange = fn;
+  }
+
+  onSellTypeChange(v: string): void {
+    if (v === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
+      this.company.enable();
+      this.address.enable();
+    } else {
+      this.company.reset({ value: null, disabled: true });
+      this.address.reset({ value: null, disabled: true });
+    }
   }
 
 }
