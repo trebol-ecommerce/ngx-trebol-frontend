@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of } from 'rxjs';
-import { filter, map, mapTo, startWith, switchMap, tap } from 'rxjs/operators';
+import { filter, map, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
@@ -36,16 +36,12 @@ export class StoreHeaderMenuComponent
   ngOnInit(): void {
     this.userName$ = this.appService.userName$.pipe();
     this.canNavigateManagement$ = this.appService.isLoggedInChanges$.pipe(
-      startWith(this.appService.isLoggedIn()),
-      switchMap(isLoggedIn => {
-        if (!isLoggedIn) {
-          return of(false);
-        } else {
-          return this.appService.getAuthorizedAccess().pipe(
-            map(access => (access?.routes?.length > 0))
-          );
-        }
-      })
+      switchMap(isLoggedIn => (!isLoggedIn ?
+        of(false) :
+        this.appService.getAuthorizedAccess().pipe(
+          map(access => (access?.routes?.length > 0))
+        )
+      ))
     );
   }
 
@@ -59,19 +55,20 @@ export class StoreHeaderMenuComponent
   }
 
   onClickLogout(): void {
-    if (this.appService.isLoggedIn()) {
-      this.sharedDialogService.requestConfirmation({
+    this.appService.isLoggedInChanges$.pipe(
+      take(1),
+      filter(isLoggedIn => isLoggedIn),
+      switchMap(() => this.sharedDialogService.requestConfirmation({
         title: $localize`:Title of dialog prompt for logging out:Log out?`,
         message: $localize`:Label to hint user that any undergoing process may be lost when logging out:Any unsaved data may be lost`
-      }).pipe(
-        filter(didConfirm => didConfirm),
-        tap(() => {
-          this.appService.closeCurrentSession();
-          const message = $localize`:Message after logging out:You have logged out`;
-          this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
-        })
-      ).subscribe();
-    }
+      })),
+      filter(didConfirm => didConfirm),
+      tap(() => {
+        this.appService.closeCurrentSession();
+        const message = $localize`:Message after logging out:You have logged out`;
+        this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
+      })
+    ).subscribe();
   }
 
 }

@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { EMPTY, Observable, of } from 'rxjs';
-import { map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { filter, map, skip, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { StoreGuestPromptDialogComponent } from '../../dialogs/guest-prompt/store-guest-prompt-dialog.component';
 import { StoreGuestPromptDialogOptions } from '../../dialogs/guest-prompt/StoreGuestPromptDialogOptions';
@@ -46,21 +46,21 @@ export class StoreCartReviewGuard
   }
 
   private requireAuthentication(): Observable<boolean> {
-    return this.appService.isLoggedIn() ?
-      of(true) :
-      this.promptGuestUserChoices().pipe(
-        switchMap(choice => {
-          if (!choice || !(choice in StoreGuestPromptDialogOptions)) {
-            return EMPTY;
-          } else {
-            this.followGuestUserChoice(choice);
-            return this.appService.isLoggedInChanges$.pipe(
-              take(1),
-              takeUntil(this.appService.checkoutAuthCancel$)
-            );
-          }
-        })
-      );
+    return this.appService.isLoggedInChanges$.pipe(
+      take(1),
+      switchMap(isLoggedIn => (isLoggedIn ?
+        of(true) :
+        this.promptGuestUserChoices().pipe(
+          filter(choice => (!!choice && choice in StoreGuestPromptDialogOptions)),
+          tap(choice => this.followGuestUserChoice(choice)),
+          switchMap(choice => this.appService.isLoggedInChanges$.pipe(
+            skip(1),
+            take(1),
+            takeUntil(this.appService.checkoutAuthCancel$)
+          ))
+        )
+      ))
+    );
   }
 
   /**

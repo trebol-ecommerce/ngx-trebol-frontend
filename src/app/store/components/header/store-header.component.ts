@@ -7,7 +7,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { startWith } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 
 @Component({
@@ -27,7 +27,7 @@ export class StoreHeaderComponent
 
   ngOnInit(): void {
     this.isLoggedIn$ = this.appService.isLoggedInChanges$.pipe(
-      startWith(this.appService.isLoggedIn())
+      tap(st => alert(st))
     );
   }
 

@@ -43,8 +43,9 @@ describe('StoreLoginFormDialogComponent', () => {
       close() {}
     };
     mockAppService = {
-      login(l: any) { return of(true); },
-      cancelAuthentication() {}
+      login(l: any) { return of('test'); },
+      cancelAuthentication() { },
+      getUserProfile() { return of(null); }
     };
     mockSnackBarService = {
       open() { return void 0; }
@@ -111,7 +112,9 @@ describe('StoreLoginFormDialogComponent', () => {
   // TODO please uncomment and fix this unit test ASAP
   // it('should not close after a failed login attempt', () => {
   //   mockAppService.login = (l: any) => throwError({ status: 403 });
+  //   fixture.detectChanges();
 
+  //   expect(component).toBeTruthy();
   //   const dialogCloseSpy = spyOn(mockDialog, 'close').and.callThrough();
   //   component.username.setValue('test');
   //   component.password.setValue('pass');

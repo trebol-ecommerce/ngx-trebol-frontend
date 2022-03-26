@@ -37,7 +37,6 @@ describe('StoreHeaderComponent', () => {
 
   beforeEach(waitForAsync(() => {
     mockAppService = {
-      isLoggedIn() { return false; },
       isLoggedInChanges$: of(false)
     };
     mockDialogService = {

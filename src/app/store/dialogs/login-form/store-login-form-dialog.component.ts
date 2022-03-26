@@ -10,7 +10,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { Login } from 'src/models/Login';
 import { DialogSwitcherButtonComponent } from 'src/app/shared/components/dialog-switcher-button/dialog-switcher-button.component';
@@ -87,7 +87,8 @@ export class StoreLoginFormDialogComponent
           }
           this.loggingInSource.next(false);
           return throwError(err);
-        })
+        }),
+        switchMap(() => this.appService.getUserProfile())
       ).subscribe();
     }
   }

@@ -7,7 +7,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { merge, of, throwError } from 'rxjs';
-import { catchError, mapTo, take, tap } from 'rxjs/operators';
+import { catchError, mapTo, skip, take, tap } from 'rxjs/operators';
 import { IAccessApiService } from './api/access-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from './api/api-service-injection-tokens';
 import { IGuestPublicApiService } from './api/guest-public-api.iservice';
@@ -104,10 +104,11 @@ describe('AppService', () => {
   it('should emit login status through an observable', () => {
     service = TestBed.inject(AppService);
 
-    let loginState = service.isLoggedIn();
+    let loginState: boolean;
     merge(
       service.isLoggedInChanges$.pipe(
-        take(2),
+        skip(1), // discards the instant emission
+        take(2), // one after login, another after logout
         tap(isLoggedIn => { loginState = isLoggedIn; })
       ),
       service.login(MOCK_LOGIN_DETAILS).pipe(

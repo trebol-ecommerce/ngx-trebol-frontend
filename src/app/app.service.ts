@@ -6,28 +6,27 @@
  */
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, merge, Observable, of, Subject } from 'rxjs';
-import { catchError, debounceTime, finalize, map, mapTo, share, skip, startWith, switchMap, tap, throttleTime } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, ReplaySubject, Subject } from 'rxjs';
+import { catchError, finalize, map, mapTo, share, switchMap, take, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ILoginPublicApiService } from 'src/app/api/login-public-api.iservice';
+import { environment } from 'src/environments/environment';
 import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
 import { Person } from 'src/models/entities/Person';
 import { Login } from 'src/models/Login';
-import { environment } from 'src/environments/environment';
+import { Registration } from '../models/Registration';
 import { IAccessApiService } from './api/access-api.iservice';
 import { IGuestPublicApiService } from './api/guest-public-api.iservice';
 import { IProfileAccountApiService } from './api/profile-account-api.iservice';
 import { IRegisterPublicApiService } from './api/register-public-api.iservice';
-import { Registration } from '../models/Registration';
 
 @Injectable({ providedIn: 'root' })
 export class AppService
   implements OnDestroy {
 
   private readonly sessionStorageTokenItemName = environment.secrets.sessionStorageTokenItem;
-  private innerIsLoggedIn = false;
 
-  private isLoggedInChangesSource = new Subject<boolean>();
+  private isLoggedInChangesSource = new ReplaySubject<boolean>(1);
   private isValidatingSessionSource = new BehaviorSubject(false);
   private checkoutAuthCancelSource = new Subject<void>();
   private userProfileSource = new BehaviorSubject<Person>(null);
@@ -35,7 +34,7 @@ export class AppService
   isLoggedInChanges$ = this.isLoggedInChangesSource.asObservable();
   isValidatingSession$ = this.isValidatingSessionSource.asObservable();
   checkoutAuthCancel$ = this.checkoutAuthCancelSource.asObservable();
-  userName$: Observable<string>;
+  userName$ = this.getUserNameObservable();
 
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.login) private loginApiService: ILoginPublicApiService,
@@ -45,27 +44,13 @@ export class AppService
     @Inject(API_SERVICE_INJECTION_TOKENS.access) private accessApiService: IAccessApiService
   ) {
     this.validateSession().subscribe();
-    this.userName$ = this.isLoggedInChangesSource.asObservable().pipe(
-      startWith(this.isLoggedIn()),
-      switchMap(isLoggedIn =>
-        (isLoggedIn) ?
-          this.profileApiService.getProfile() :
-          of(null)
-      ),
-      tap(profile => this.userProfileSource.next(profile)),
-      debounceTime(250),
-      map(p => (p?.firstName ? p.firstName : '')),
-      share()
-    );
   }
 
   ngOnDestroy(): void {
     this.isLoggedInChangesSource.complete();
     this.isValidatingSessionSource.complete();
-  }
-
-  isLoggedIn(): boolean {
-    return this.innerIsLoggedIn;
+    this.checkoutAuthCancelSource.complete();
+    this.userProfileSource.complete();
   }
 
   cancelAuthentication(): void {
@@ -86,34 +71,42 @@ export class AppService
         password: userDetails.password
       })),
       mapTo(true),
-      catchError(() => of(false)),
+      catchError(() => of(false))
     );
   }
 
   login(credentials: Login) {
-    return !this.isLoggedIn() ?
-      this.loginApiService.login(credentials).pipe(
-        tap(token => this.saveAuthToken(token))
-      ) :
-      of();
+    return this.isLoggedInChanges$.pipe(
+      take(1),
+      switchMap(isLoggedIn => (!isLoggedIn ?
+        this.loginApiService.login(credentials).pipe(
+          tap(token => this.saveAuthToken(token))
+        ) :
+        of('')
+      ))
+    );
   }
 
   validateSession(): Observable<boolean> {
     this.isValidatingSessionSource.next(true);
 
     return this.accessApiService.getAuthorizedAccess().pipe(
+      switchMap(() => this.getUserProfile()),
       mapTo(true),
       catchError(() => of(false)),
-      tap(isValid => {
-        this.innerIsLoggedIn = isValid;
-        this.isLoggedInChangesSource.next(isValid);
-      }),
-      finalize(() => { this.isValidatingSessionSource.next(false); })
+      tap(isValid => this.isLoggedInChangesSource.next(isValid)),
+      finalize(() => this.isValidatingSessionSource.next(false))
     );
   }
 
   getAuthorizedAccess(): Observable<AuthorizedAccess> {
-    return this.isLoggedIn() ? this.accessApiService.getAuthorizedAccess() : of(null);
+    return this.isLoggedInChanges$.pipe(
+      take(1),
+      switchMap(isLoggedIn => (isLoggedIn ?
+        this.accessApiService.getAuthorizedAccess() :
+        of(null)
+      ))
+    );
   }
 
   getUserProfile(): Observable<Person> {
@@ -130,7 +123,6 @@ export class AppService
   }
 
   closeCurrentSession(): void {
-    this.innerIsLoggedIn = false;
     this.isLoggedInChangesSource.next(false);
     this.userProfileSource.next(null);
     sessionStorage.removeItem(this.sessionStorageTokenItemName);
@@ -138,8 +130,14 @@ export class AppService
 
   private saveAuthToken(token: any) {
     sessionStorage.setItem(this.sessionStorageTokenItemName, token);
-    this.innerIsLoggedIn = true;
     this.isLoggedInChangesSource.next(true);
+  }
+
+  private getUserNameObservable() {
+    return this.userProfileSource.asObservable().pipe(
+      map(p => (p?.firstName || '')),
+      share()
+    );
   }
 
 }
