@@ -5,10 +5,10 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { EMPTY, Observable, of } from 'rxjs';
+import { merge, Observable, of, Subscription } from 'rxjs';
 import { filter, map, skip, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { AppService } from 'src/app/app.service';
 import { StoreGuestPromptDialogComponent } from '../../dialogs/guest-prompt/store-guest-prompt-dialog.component';
@@ -20,14 +20,24 @@ import { StoreCartService } from '../../store-cart.service';
 
 @Injectable()
 export class StoreCartReviewGuard
-  implements CanActivate {
+  implements OnDestroy, CanActivate {
+
+  private readonly restrictedUrl = '/store/cart';
+  private readonly exitUrl = '/store';
+  private restrictingConditionsSub: Subscription;
 
   constructor(
     private cartService: StoreCartService,
     private appService: AppService,
     private dialogService: MatDialog,
     private router: Router
-  ) { }
+  ) {
+    this.restrictingConditionsSub = this.watchRestrictingConditions().subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.restrictingConditionsSub?.unsubscribe();
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -36,12 +46,15 @@ export class StoreCartReviewGuard
     return this.cartService.cartDetails$.pipe(
       take(1),
       map(details => (details.length > 0)),
-      switchMap(isCartNotEmpty => {
-        return isCartNotEmpty ?
-                this.requireAuthentication() :
-                of(false);
-      }),
-      tap(v => { if (!v) { this.router.navigateByUrl('/'); } }),
+      switchMap(isCartNotEmpty => (isCartNotEmpty ?
+        this.requireAuthentication() :
+        of(false)
+      )),
+      tap(isAllowed => {
+        if (!isAllowed) {
+          this.router.navigateByUrl(this.exitUrl);
+        }
+      })
     );
   }
 
@@ -51,13 +64,18 @@ export class StoreCartReviewGuard
       switchMap(isLoggedIn => (isLoggedIn ?
         of(true) :
         this.promptGuestUserChoices().pipe(
-          filter(choice => (!!choice && choice in StoreGuestPromptDialogOptions)),
-          tap(choice => this.followGuestUserChoice(choice)),
-          switchMap(choice => this.appService.isLoggedInChanges$.pipe(
-            skip(1),
-            take(1),
-            takeUntil(this.appService.checkoutAuthCancel$)
-          ))
+          switchMap((choice: StoreGuestPromptDialogOptions | undefined) => {
+            if (!choice) {
+              return of(false);
+            } else {
+              this.followGuestUserChoice(choice);
+              return this.appService.isLoggedInChanges$.pipe(
+                skip(1),
+                take(1),
+                takeUntil(this.appService.checkoutAuthCancel$)
+              );
+            }
+          })
         )
       ))
     );
@@ -68,7 +86,7 @@ export class StoreCartReviewGuard
    * Returns an Observable that emits the user's option choice to continue
    * the checkout process, or completes without emitting.
    */
-  private promptGuestUserChoices(): Observable<StoreGuestPromptDialogOptions> {
+  private promptGuestUserChoices() {
     return this.dialogService.open(
       StoreGuestPromptDialogComponent
     ).afterClosed();
@@ -86,7 +104,7 @@ export class StoreCartReviewGuard
   }
 
 
-  private promptLoginForm(): MatDialogRef<StoreLoginFormDialogComponent> {
+  private promptLoginForm() {
     return this.dialogService.open(
       StoreLoginFormDialogComponent,
       {
@@ -95,7 +113,7 @@ export class StoreCartReviewGuard
     );
   }
 
-  private promptRegistrationForm(): MatDialogRef<StoreRegistrationFormDialogComponent> {
+  private promptRegistrationForm() {
     return this.dialogService.open(
       StoreRegistrationFormDialogComponent,
       {
@@ -104,12 +122,26 @@ export class StoreCartReviewGuard
     );
   }
 
-  private promptGuestShippingForm(): MatDialogRef<StoreGuestShippingFormDialogComponent> {
+  private promptGuestShippingForm() {
     return this.dialogService.open(
       StoreGuestShippingFormDialogComponent,
       {
         width: '40rem'
       }
+    );
+  }
+
+  private watchRestrictingConditions() {
+    return merge(
+      this.cartService.cartDetails$.pipe(
+        map(details => (details.length === 0))
+      ),
+      this.appService.isLoggedInChanges$.pipe(
+        map(isLoggedIn => !isLoggedIn)
+      )
+    ).pipe(
+      filter(restrictingCondition => restrictingCondition && this.router.routerState?.snapshot?.url === this.restrictedUrl),
+      tap(() => this.router.navigateByUrl(this.exitUrl))
     );
   }
 }
