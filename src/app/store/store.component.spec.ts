@@ -22,6 +22,9 @@ class MockHeaderComponent { }
 @Component({ selector: 'app-store-footer' })
 class MockFooterComponent { }
 
+@Component({ selector: 'app-whatsapp-button' })
+class MockWhatsappButtonComponent { }
+
 describe('StoreComponent', () => {
   let component: StoreComponent;
   let fixture: ComponentFixture<StoreComponent>;
@@ -40,7 +43,8 @@ describe('StoreComponent', () => {
         StoreComponent,
         MockRouterOutletComponent,
         MockHeaderComponent,
-        MockFooterComponent
+        MockFooterComponent,
+        MockWhatsappButtonComponent
       ],
       providers: [
         { provide: StoreCartService, useValue: mockCartService }
