@@ -10,7 +10,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
 import { SellDetail } from 'src/models/entities/SellDetail';
-import { CheckoutRequest } from '../../models/CheckoutRequest';
 
 @Injectable({ providedIn: 'root' })
 export class StoreCartService
