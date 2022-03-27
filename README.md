@@ -7,18 +7,30 @@
 
 # Trébol e-Commerce Angular Frontend
 
-A single-page web application designed and developed over Angular v13, RxJS and Material Design.
-
-You can [view the demo in action in this link](https://trebol-ecommerce.github.io/ngx-trebol-frontend/). Demo data is stored in JS arrays; it is loaded into and from your browser's working memory. That implies lack of a persistence layer; said data is reloaded all over again once you refresh or leave the page.
-To access the management pages, proceed to the login dialog clicking on the button in the top right corner. Then type `admin` for both the username and password fields.
+A single-page web application designed and developed over Angular v13.3, RxJS and Material Design.
 
 ## Current status
 
-Supporting the unreleased API versioned 1.3.0
+Supporting the unreleased Trébol API versioned 1.3.0
 - `POST /data/sales/confirmation`
 - `POST /data/sales/rejection`
 - `POST /data/sales/completion`
-All of these simply accept references to `Sell` objects as input, allowing for a straightforward handling of these operations. Fake, local-memory implementation is included to preview this functionality.
+
+All of these accept `Sell` objects as input, allowing for a straightforward handling of these operations. Fake API implementation is included to preview this functionality as well.
+
+## Live Demo
+
+[Visit the application live demo in this link](https://trebol-ecommerce.github.io/ngx-trebol-frontend/).
+
+To access all the features, click on the button with an user icon in the top right corner of the screen. Then type `admin` for both the username and password fields. This will trigger a session state change, affecting the aforementioned button, and allowing you to see an user menu where you can navigate to the management module.
+
+### Mock data
+
+This demo is powered by a feature module that provides data stored in hard-coded JS arrays; this means that your browser's working memory acts as a fake and volatile persistence layer. You can try all CRUD-related functionalities as you'd expect, but if you force a reload or leave the application, all changes in data will be lost.
+
+At scale, I interchangeably call this the "fake API" and the "local-memory module". In both cases I mean the same thing.
+
+All this mock data was created using [Mockaroo](https://mockaroo.com/).
 
 ## Infrastructure
 
@@ -29,9 +41,9 @@ The application itself is divided into modules in the `/src/app/` directory, and
 - `shared/` exports components, directives, and other stuff that is used by other modules, and the application as a whole
 - `api/` contains interfaces, modules, and dependency injection tokens to interact with [the backend REST API](https://github.com/trebol-ecommerce/api)
   - `local-memory/` serves a fake API basically running in the browser itself; it's the default option to build and serve with; and the demo uses it too
-  - `http/` serves the API with HTTP calls; these require a real, running backend with an exposed REST API compliant to the aforementioned one
+  - `http/` serves the API with HTTP calls; these require a real, running backend with an exposed REST API compliant to the specification linked above
 
-The `api` module is [imported through an environment file](#configuring-the-build--serve-process) to easily switch implementations.
+The `api` module is [imported through an environment file](#configuring-the-build--serve-process) to easily switch between implementations.
 
 ## Requirements
 
@@ -63,12 +75,14 @@ If you wish to translate this frontend to another language, check out [this Angu
   - `environment-modules.ts` defines module dependencies
 - The `/src/angular.json` file contains two base configuration definitions that you can use: `production` and `localhost`. There's also configurations for each bundled locale mentioned above. Create configuration files as you see fit.
 - Make yourself comfortable with the [official guide on Building and Serving Angular Apps](https://angular.io/guide/build). Basically, you need to create a copy of the environment files, rename them following the pattern for your desired configuration, and call the `serve` or `build` Angular CLI command with the `-c` option in order to target said configuration.
-- Remember you can use multiple build configurations in the same command, separating them by commas (e.g. `ng build -c production,es`).
-- You can also use the [angular-cli-ghpages plugin](https://github.com/angular-schule/angular-cli-ghpages#options) to automate your deployment.
+- Remember you can use define your own build configurations in the `/src/angular.json` file.
+- This project also uses the [angular-cli-ghpages plugin](https://github.com/angular-schule/angular-cli-ghpages#options), you can help yourself automating your deployment with it (make sure to read its documentation!).
 
 ## Contributing to this repository
 
-Please review the [contributing guidelines](https://github.com/trebol-ecommerce/ngx-trebol-frontend/blob/main/CONTRIBUTING.md) before proceeding.
+I accept all kinds of contributions! However, please review the [contribution guidelines](https://github.com/trebol-ecommerce/ngx-trebol-frontend/blob/main/CONTRIBUTING.md) before proceeding.
+
+*I also accept help writing better contribution guidelines.*
 
 ## Contributors ✨
 
