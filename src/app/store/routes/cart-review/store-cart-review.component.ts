@@ -33,7 +33,7 @@ export class StoreCartReviewComponent
 
   ngOnInit(): void {
     this.cartNetValue$ = this.cartService.cartNetValue$.pipe();
-    this.loginStateChangeSubscription = this.appService.isLoggedInChanges$.pipe(
+    this.loginStateChangeSubscription = this.appService.isLoggedIn$.pipe(
       filter(isLoggedIn => !isLoggedIn),
       tap(() => this.router.navigateByUrl('/'))
     ).subscribe();

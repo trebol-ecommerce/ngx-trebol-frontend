@@ -48,7 +48,7 @@ describe('StoreCartReviewComponent', () => {
       removeProductFromCart(i) {}
     };
     mockAppService = {
-      isLoggedInChanges$: of(true)
+      isLoggedIn$: of(true)
     };
 
     TestBed.configureTestingModule({

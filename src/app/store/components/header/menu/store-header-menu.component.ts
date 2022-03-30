@@ -35,7 +35,7 @@ export class StoreHeaderMenuComponent
 
   ngOnInit(): void {
     this.userName$ = this.appService.userName$.pipe();
-    this.canNavigateManagement$ = this.appService.isLoggedInChanges$.pipe(
+    this.canNavigateManagement$ = this.appService.isLoggedIn$.pipe(
       switchMap(isLoggedIn => (!isLoggedIn ?
         of(false) :
         this.appService.getAuthorizedAccess().pipe(
@@ -55,7 +55,7 @@ export class StoreHeaderMenuComponent
   }
 
   onClickLogout(): void {
-    this.appService.isLoggedInChanges$.pipe(
+    this.appService.isLoggedIn$.pipe(
       take(1),
       filter(isLoggedIn => isLoggedIn),
       switchMap(() => this.sharedDialogService.requestConfirmation({

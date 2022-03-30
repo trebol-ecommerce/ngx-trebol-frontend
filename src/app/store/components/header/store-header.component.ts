@@ -25,7 +25,7 @@ export class StoreHeaderComponent
   ) { }
 
   ngOnInit(): void {
-    this.isLoggedIn$ = this.appService.isLoggedInChanges$.pipe();
+    this.isLoggedIn$ = this.appService.isLoggedIn$.pipe();
   }
 
 }

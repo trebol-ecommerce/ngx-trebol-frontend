@@ -26,14 +26,14 @@ export class AppService
 
   private readonly sessionStorageTokenItemName = environment.secrets.sessionStorageTokenItem;
 
-  private isLoggedInChangesSource = new ReplaySubject<boolean>(1);
+  private isLoggedInSource = new ReplaySubject<boolean>(1);
   private isValidatingSessionSource = new BehaviorSubject(false);
-  private checkoutAuthCancelSource = new Subject<void>();
+  private authCancelationSource = new Subject<void>();
   private userProfileSource = new BehaviorSubject<Person>(null);
 
-  isLoggedInChanges$ = this.isLoggedInChangesSource.asObservable();
+  isLoggedIn$ = this.isLoggedInSource.asObservable();
   isValidatingSession$ = this.isValidatingSessionSource.asObservable();
-  checkoutAuthCancel$ = this.checkoutAuthCancelSource.asObservable();
+  authCancelation$ = this.authCancelationSource.asObservable();
   userName$ = this.getUserNameObservable();
 
   constructor(
@@ -47,14 +47,14 @@ export class AppService
   }
 
   ngOnDestroy(): void {
-    this.isLoggedInChangesSource.complete();
+    this.isLoggedInSource.complete();
     this.isValidatingSessionSource.complete();
-    this.checkoutAuthCancelSource.complete();
+    this.authCancelationSource.complete();
     this.userProfileSource.complete();
   }
 
   cancelAuthentication(): void {
-    this.checkoutAuthCancelSource.next();
+    this.authCancelationSource.next();
   }
 
   guestLogin(personDetails: Person) {
@@ -76,7 +76,7 @@ export class AppService
   }
 
   login(credentials: Login) {
-    return this.isLoggedInChanges$.pipe(
+    return this.isLoggedIn$.pipe(
       take(1),
       switchMap(isLoggedIn => (!isLoggedIn ?
         this.loginApiService.login(credentials).pipe(
@@ -94,13 +94,13 @@ export class AppService
       switchMap(() => this.getUserProfile()),
       mapTo(true),
       catchError(() => of(false)),
-      tap(isValid => this.isLoggedInChangesSource.next(isValid)),
+      tap(isValid => this.isLoggedInSource.next(isValid)),
       finalize(() => this.isValidatingSessionSource.next(false))
     );
   }
 
   getAuthorizedAccess(): Observable<AuthorizedAccess> {
-    return this.isLoggedInChanges$.pipe(
+    return this.isLoggedIn$.pipe(
       take(1),
       switchMap(isLoggedIn => (isLoggedIn ?
         this.accessApiService.getAuthorizedAccess() :
@@ -123,14 +123,14 @@ export class AppService
   }
 
   closeCurrentSession(): void {
-    this.isLoggedInChangesSource.next(false);
+    this.isLoggedInSource.next(false);
     this.userProfileSource.next(null);
     sessionStorage.removeItem(this.sessionStorageTokenItemName);
   }
 
   private saveAuthToken(token: any) {
     sessionStorage.setItem(this.sessionStorageTokenItemName, token);
-    this.isLoggedInChangesSource.next(true);
+    this.isLoggedInSource.next(true);
   }
 
   private getUserNameObservable() {

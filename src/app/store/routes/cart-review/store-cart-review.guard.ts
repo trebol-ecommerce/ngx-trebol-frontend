@@ -59,7 +59,7 @@ export class StoreCartReviewGuard
   }
 
   private requireAuthentication(): Observable<boolean> {
-    return this.appService.isLoggedInChanges$.pipe(
+    return this.appService.isLoggedIn$.pipe(
       take(1),
       switchMap(isLoggedIn => (isLoggedIn ?
         of(true) :
@@ -69,10 +69,10 @@ export class StoreCartReviewGuard
               return of(false);
             } else {
               this.followGuestUserChoice(choice);
-              return this.appService.isLoggedInChanges$.pipe(
+              return this.appService.isLoggedIn$.pipe(
                 skip(1),
                 take(1),
-                takeUntil(this.appService.checkoutAuthCancel$)
+                takeUntil(this.appService.authCancelation$)
               );
             }
           })
@@ -136,7 +136,7 @@ export class StoreCartReviewGuard
       this.cartService.cartDetails$.pipe(
         map(details => (details.length === 0))
       ),
-      this.appService.isLoggedInChanges$.pipe(
+      this.appService.isLoggedIn$.pipe(
         map(isLoggedIn => !isLoggedIn)
       )
     ).pipe(

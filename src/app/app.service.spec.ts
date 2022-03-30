@@ -106,7 +106,7 @@ describe('AppService', () => {
 
     let loginState: boolean;
     merge(
-      service.isLoggedInChanges$.pipe(
+      service.isLoggedIn$.pipe(
         skip(1), // discards the instant emission
         take(2), // one after login, another after logout
         tap(isLoggedIn => { loginState = isLoggedIn; })

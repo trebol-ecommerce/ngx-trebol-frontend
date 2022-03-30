@@ -28,7 +28,7 @@ describe('StoreHeaderMenuComponent', () => {
   beforeEach(waitForAsync( () => {
     mockAppService = {
       userName$: of(''),
-      isLoggedInChanges$: of(false),
+      isLoggedIn$: of(false),
       closeCurrentSession() {},
       getUserProfile() { return of(null); }
     };
@@ -79,7 +79,7 @@ describe('StoreHeaderMenuComponent', () => {
 
   it('should prompt a confirmation when clicking in the logout option while logged in', () => {
     const confirmationSpy = spyOn(mockSharedDialogService, 'requestConfirmation').and.callThrough();
-    mockAppService.isLoggedInChanges$ = of(true);
+    mockAppService.isLoggedIn$ = of(true);
     component.onClickLogout();
     expect(confirmationSpy).toHaveBeenCalled();
   });
