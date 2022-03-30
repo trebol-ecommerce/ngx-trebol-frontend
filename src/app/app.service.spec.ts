@@ -49,7 +49,7 @@ describe('AppService', () => {
       login() { return of('exampleTokenString'); }
     };
     mockGuestApiService = {
-      guestLogin() { return of(void 0); }
+      guestLogin() { return of('exampleTokenString'); }
     };
     mockRegisterApiService = {
       register() { return of(void 0); }
@@ -108,7 +108,7 @@ describe('AppService', () => {
     merge(
       service.isLoggedIn$.pipe(
         skip(1), // discards the instant emission
-        take(2), // one after login, another after logout
+        take(2), // update state after login & after logout
         tap(isLoggedIn => { loginState = isLoggedIn; })
       ),
       service.login(MOCK_LOGIN_DETAILS).pipe(
