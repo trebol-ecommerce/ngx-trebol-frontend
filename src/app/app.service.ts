@@ -20,6 +20,9 @@ import { IGuestPublicApiService } from './api/guest-public-api.iservice';
 import { IProfileAccountApiService } from './api/profile-account-api.iservice';
 import { IRegisterPublicApiService } from './api/register-public-api.iservice';
 
+/**
+ * Handles authentication, authorization, current session & user data
+ */
 @Injectable({ providedIn: 'root' })
 export class AppService
   implements OnDestroy {
