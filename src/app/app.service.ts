@@ -119,7 +119,7 @@ export class AppService
 
   getUserProfile(): Observable<Person> {
     if (this.userProfileSource.value) {
-      return this.userProfileSource.asObservable();
+      return this.userProfileSource.asObservable().pipe(take(1));
     }
     return this.profileApiService.getProfile().pipe(
       tap(profile => this.userProfileSource.next(profile))
