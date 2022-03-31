@@ -6,8 +6,8 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { merge, of, throwError } from 'rxjs';
-import { catchError, mapTo, skip, take, tap } from 'rxjs/operators';
+import { concat, merge, of, throwError, timer } from 'rxjs';
+import { catchError, mapTo, skip, take, takeUntil, tap } from 'rxjs/operators';
 import { IAccessApiService } from './api/access-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from './api/api-service-injection-tokens';
 import { IGuestPublicApiService } from './api/guest-public-api.iservice';
@@ -79,12 +79,26 @@ describe('AppService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should emit a truthy value after succesful login attempts', () => {
+  it('should inmediately validate session data & authorization', () => {
+    const validationCallSpy = spyOn(mockAccessApiService, 'getAuthorizedAccess').and.callThrough();
+    service = TestBed.inject(AppService);
+
+    expect(validationCallSpy).toHaveBeenCalled();
+  });
+
+  it('should emit boolean session status inmediately after subscribing', () => {
+    service = TestBed.inject(AppService);
+
+    service.isLoggedIn$.pipe(
+      takeUntil(timer(50)),
+      tap(next => expect(typeof next).toBe('boolean'))
+    ).subscribe();
+  });
+
+  it('should emit a truthy value after successful login attempts', () => {
     service = TestBed.inject(AppService);
 
     service.login(MOCK_LOGIN_DETAILS).pipe(
-      mapTo(true),
-      catchError(() => of(false)),
       tap(next => expect(next).toBeTruthy())
     ).subscribe();
   });
@@ -93,7 +107,6 @@ describe('AppService', () => {
     mockLoginApiService.login = () => throwError({ status: 500 });
     service = TestBed.inject(AppService);
 
-    expect(service).toBeTruthy();
     service.login(MOCK_LOGIN_DETAILS).pipe(
       mapTo(true),
       catchError(() => of(false)),
@@ -121,7 +134,26 @@ describe('AppService', () => {
     ).subscribe();
   });
 
-  it('should emit truthy state for a succesful registration', () => {
+  it('should do nothing on inmediate subsequent login attempts, but succeed after logging out first', () => {
+    service = TestBed.inject(AppService);
+
+    concat(
+      service.login(MOCK_LOGIN_DETAILS).pipe(
+        tap(token => expect(token).toBeTruthy())
+      ),
+      service.login(MOCK_LOGIN_DETAILS).pipe(
+        tap(token => {
+          expect(token).toBeFalsy();
+          service.closeCurrentSession();
+        })
+      ),
+      service.login(MOCK_LOGIN_DETAILS).pipe(
+        tap(token => expect(token).toBeTruthy())
+      )
+    ).subscribe();
+  });
+
+  it('should emit truthy state for a successful registration', () => {
     service = TestBed.inject(AppService);
 
     service.register(MOCK_REGISTRATION_DETAILS).pipe(
@@ -131,22 +163,20 @@ describe('AppService', () => {
     ).subscribe();
   });
 
-  it('should try to login after a succesful registration', () => {
+  it('should try to login after a successful registration', () => {
     service = TestBed.inject(AppService);
 
-    const loginSpy = spyOn(service, 'login').and.callThrough();
+    const loginSpy = spyOn(mockLoginApiService, 'login').and.callThrough();
     service.register(MOCK_REGISTRATION_DETAILS).pipe(
       tap(() => expect(loginSpy).toHaveBeenCalled())
     ).subscribe();
   });
 
-  it('should emit falsy value when unable to register a user', () => {
+  it('should emit falsy value from failing registration attempts', () => {
     mockRegisterApiService.register = () => throwError({ status: 500 });
     service = TestBed.inject(AppService);
 
-    expect(service).toBeTruthy();
-    const details = MOCK_REGISTRATION_DETAILS;
-    service.register(details).pipe(
+    service.register(MOCK_REGISTRATION_DETAILS).pipe(
       tap(next => expect(next).toBeFalsy())
     ).subscribe();
   });
@@ -155,12 +185,46 @@ describe('AppService', () => {
     mockRegisterApiService.register = () => throwError({ status: 500 });
     service = TestBed.inject(AppService);
 
-    expect(service).toBeTruthy();
     const loginSpy = spyOn(service, 'login').and.callThrough();
-    const details = MOCK_REGISTRATION_DETAILS;
-    service.register(details).pipe(
+    service.register(MOCK_REGISTRATION_DETAILS).pipe(
       tap(() => expect(loginSpy).not.toHaveBeenCalled())
     ).subscribe();
   });
+
+  it('should expose the current user\'s name', () => {
+    const mockProfile = MOCK_REGISTRATION_DETAILS.profile;
+    mockProfileApiService.getProfile = () => {
+      return of(mockProfile);
+    };
+    service = TestBed.inject(AppService);
+
+    concat(
+      service.login(MOCK_LOGIN_DETAILS),
+      service.getUserProfile(),
+      service.userName$.pipe(
+        take(1),
+        tap(userName => expect(userName).toBe(mockProfile.firstName))
+      )
+    ).subscribe();
+  });
+
+  it('should try to update the user profile when requested', () => {
+    service = TestBed.inject(AppService);
+
+    const mockProfile = MOCK_REGISTRATION_DETAILS.profile;
+    const apiUpdateSpy = spyOn(mockProfileApiService, 'updateProfile').and.callThrough();
+    service.updateUserProfile(mockProfile).pipe(
+      tap(() => expect(apiUpdateSpy).toHaveBeenCalled())
+    ).subscribe();
+  });
+
+  it('should emit truthy value after guest login attempts', () => {
+    service = TestBed.inject(AppService);
+
+    service.guestLogin(MOCK_REGISTRATION_DETAILS.profile).pipe(
+      tap(next => expect(next).toBeTruthy())
+    ).subscribe();
+  });
+
 
 });

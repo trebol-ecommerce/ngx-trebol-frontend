@@ -78,6 +78,11 @@ export class AppService
     );
   }
 
+  /**
+   *
+   * @param credentials Object with valid user credentials
+   * @returns A session token, or empty if one is already stored
+   */
   login(credentials: Login) {
     return this.isLoggedIn$.pipe(
       take(1),
@@ -122,7 +127,9 @@ export class AppService
   }
 
   updateUserProfile(details: Person): Observable<boolean> {
-    return this.profileApiService.updateProfile(details);
+    return this.profileApiService.updateProfile(details).pipe(
+      tap(() => { this.userProfileSource.next(details); })
+    );
   }
 
   closeCurrentSession(): void {
