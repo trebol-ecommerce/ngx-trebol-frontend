@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -21,7 +21,9 @@ import { StoreCartService } from '../../store-cart.service';
 import { StoreCartReviewComponent } from './store-cart-review.component';
 
 @Component({ selector: 'app-store-cart-contents-table' })
-class MockStoreCartContenstTableComponent { }
+class MockStoreCartContenstTableComponent {
+  @Input() editable: boolean;
+}
 
 @Component({ selector: 'app-store-checkout-request-form' })
 class MockStoreCheckoutRequestFormComponent {
