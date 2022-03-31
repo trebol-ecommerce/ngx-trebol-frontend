@@ -33,6 +33,7 @@ export class AppService
   private isValidatingSessionSource = new BehaviorSubject(false);
   private authCancelationSource = new Subject<void>();
   private userProfileSource = new BehaviorSubject<Person>(null);
+  private authorizedAccessSource = new BehaviorSubject<AuthorizedAccess>(null);
 
   isLoggedIn$ = this.isLoggedInSource.asObservable();
   isValidatingSession$ = this.isValidatingSessionSource.asObservable();
@@ -99,6 +100,7 @@ export class AppService
     this.isValidatingSessionSource.next(true);
 
     return this.accessApiService.getAuthorizedAccess().pipe(
+      tap(access => { this.authorizedAccessSource.next(access); }),
       switchMap(() => this.getUserProfile()),
       mapTo(true),
       catchError(() => of(false)),
@@ -108,12 +110,11 @@ export class AppService
   }
 
   getAuthorizedAccess(): Observable<AuthorizedAccess> {
-    return this.isLoggedIn$.pipe(
-      take(1),
-      switchMap(isLoggedIn => (isLoggedIn ?
-        this.accessApiService.getAuthorizedAccess() :
-        of(null)
-      ))
+    if (this.authorizedAccessSource.value) {
+      return this.authorizedAccessSource.asObservable().pipe(take(1));
+    }
+    return this.accessApiService.getAuthorizedAccess().pipe(
+      tap(access => { this.authorizedAccessSource.next(access); })
     );
   }
 
@@ -122,7 +123,7 @@ export class AppService
       return this.userProfileSource.asObservable().pipe(take(1));
     }
     return this.profileApiService.getProfile().pipe(
-      tap(profile => this.userProfileSource.next(profile))
+      tap(profile => { this.userProfileSource.next(profile); })
     );
   }
 
