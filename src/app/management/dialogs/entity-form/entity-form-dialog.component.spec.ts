@@ -6,9 +6,9 @@
  */
 
 import { CommonModule } from '@angular/common';
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, forwardRef } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ControlValueAccessor, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -28,7 +28,6 @@ class MockCenteredMatSpinnerComponent { }
 })
 class MockAddressFormComponent
   implements ControlValueAccessor {
-  @Input() formGroup: FormGroup;
   writeValue(v: any) { }
   registerOnChange() { }
   registerOnTouched() { }
@@ -41,7 +40,6 @@ class MockAddressFormComponent
 })
 class MockImageFormComponent
   implements ControlValueAccessor {
-  @Input() formGroup: FormGroup;
   writeValue(v: any) { }
   registerOnChange() { }
   registerOnTouched() { }
@@ -54,7 +52,6 @@ class MockImageFormComponent
 })
 class MockPersonFormComponent
   implements ControlValueAccessor {
-  @Input() formGroup: FormGroup;
   writeValue(v: any) { }
   registerOnChange() { }
   registerOnTouched() { }
@@ -67,7 +64,6 @@ class MockPersonFormComponent
 })
 class MockProductFormComponent
   implements ControlValueAccessor {
-  @Input() formGroup: FormGroup;
   writeValue(v: any) { }
   registerOnChange() { }
   registerOnTouched() { }
@@ -80,7 +76,6 @@ class MockProductFormComponent
 })
 class MockProductCategoryFormComponent
   implements ControlValueAccessor {
-  @Input() formGroup: FormGroup;
   writeValue(v: any) { }
   registerOnChange() { }
   registerOnTouched() { }
@@ -93,7 +88,6 @@ class MockProductCategoryFormComponent
 })
 class MockProductListFormComponent
   implements ControlValueAccessor {
-  @Input() formGroup: FormGroup;
   writeValue(v: any) { }
   registerOnChange() { }
   registerOnTouched() { }
@@ -106,7 +100,6 @@ class MockProductListFormComponent
 })
 class MockSellFormComponent
   implements ControlValueAccessor {
-  @Input() formGroup: FormGroup;
   writeValue(v: any) { }
   registerOnChange() { }
   registerOnTouched() { }
@@ -119,7 +112,6 @@ class MockSellFormComponent
 })
 class MockShipperFormComponent
   implements ControlValueAccessor {
-  @Input() formGroup: FormGroup;
   writeValue(v: any) { }
   registerOnChange() { }
   registerOnTouched() { }
@@ -132,7 +124,6 @@ class MockShipperFormComponent
 })
 class MockUserFormComponent
   implements ControlValueAccessor {
-  @Input() formGroup: FormGroup;
   writeValue(v: any) { }
   registerOnChange() { }
   registerOnTouched() { }
