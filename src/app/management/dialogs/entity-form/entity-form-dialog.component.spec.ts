@@ -198,7 +198,6 @@ describe('EntityFormDialogComponent', () => {
   });
 
   it('should create a correct Address form', () => {
-    TestBed.inject(MAT_DIALOG_DATA).entityType = 'address'
     mockDialogData.entityType = 'address';
     fixture.detectChanges();
     const nativeElem: HTMLElement = fixture.nativeElement;
