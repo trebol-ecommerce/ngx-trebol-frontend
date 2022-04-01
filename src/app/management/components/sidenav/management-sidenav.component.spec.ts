@@ -11,24 +11,28 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { AppService } from 'src/app/app.service';
+import { AuthorizationService } from 'src/app/authorization.service';
 import { ManagementService } from 'src/app/management/management.service';
 import { ManagementSidenavComponent } from './management-sidenav.component';
 
 describe('ManagementSidenavComponent', () => {
   let component: ManagementSidenavComponent;
   let fixture: ComponentFixture<ManagementSidenavComponent>;
-  let managementService: Partial<ManagementService>;
-  let appService: Partial<AppService>;
+  let mockManagementService: Partial<ManagementService>;
+  let mockAuthorizationService: Partial<AuthorizationService>;
 
   beforeEach(waitForAsync(() => {
-    managementService = {
-      activeRouteSnapshot$: of(null)
+    mockManagementService = {
+      getActiveRouteSnapshotObservable() {
+        return of(null);
+      }
     };
-    appService = {
-      getAuthorizedAccess() { return of({
-        routes: []
-      }); }
+    mockAuthorizationService = {
+      getAuthorizedAccess() {
+        return of({
+          routes: []
+        });
+      }
     };
 
     TestBed.configureTestingModule({
@@ -40,8 +44,8 @@ describe('ManagementSidenavComponent', () => {
       ],
       declarations: [ ManagementSidenavComponent ],
       providers: [
-        { provide: ManagementService, useValue: managementService },
-        { provide: AppService, useValue: appService }
+        { provide: ManagementService, useValue: mockManagementService },
+        { provide: AuthorizationService, useValue: mockAuthorizationService }
       ]
     })
     .compileComponents();

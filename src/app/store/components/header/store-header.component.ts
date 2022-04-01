@@ -7,7 +7,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AppService } from 'src/app/app.service';
+import { SessionService } from 'src/app/session.service';
 
 @Component({
   selector: 'app-store-header',
@@ -21,11 +21,11 @@ export class StoreHeaderComponent
   isLoggedIn$: Observable<boolean>;
 
   constructor(
-    private appService: AppService
+    private sessionService: SessionService
   ) { }
 
   ngOnInit(): void {
-    this.isLoggedIn$ = this.appService.isLoggedIn$.pipe();
+    this.isLoggedIn$ = this.sessionService.userHasActiveSession$.pipe();
   }
 
 }

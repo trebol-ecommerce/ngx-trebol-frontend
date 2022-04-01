@@ -14,16 +14,18 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EMPTY, of } from 'rxjs';
-import { AppService } from 'src/app/app.service';
+import { SessionService } from 'src/app/session.service';
 import { ManagementService } from 'src/app/management/management.service';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { ManagementHeaderComponent } from './management-header.component';
+import { ProfileService } from 'src/app/profile.service';
 
 describe('ManagementHeaderComponent', () => {
   let component: ManagementHeaderComponent;
   let fixture: ComponentFixture<ManagementHeaderComponent>;
   let mockManagementService: Partial<ManagementService>;
-  let mockAppService: Partial<AppService>;
+  let mockSessionService: Partial<SessionService>;
+  let mockProfileService: Partial<ProfileService>;
   let mockSnackBarService: Partial<MatSnackBar>;
   let mockDialogService: Partial<MatDialog>;
   let mockSharedDialogService: Partial<SharedDialogService>;
@@ -33,9 +35,11 @@ describe('ManagementHeaderComponent', () => {
       switchSidenav() {},
       currentPageName$: of('')
     };
-    mockAppService = {
-      userName$: of(''),
+    mockSessionService = {
       closeCurrentSession() {}
+    };
+    mockProfileService = {
+      userName$: of('')
     };
     mockSnackBarService = {
       open(m: string, a: string) { return void 0; }
@@ -55,10 +59,13 @@ describe('ManagementHeaderComponent', () => {
         MatIconModule,
         MatMenuModule
       ],
-      declarations: [ ManagementHeaderComponent ],
+      declarations: [
+        ManagementHeaderComponent
+      ],
       providers: [
         { provide: ManagementService, useValue: mockManagementService },
-        { provide: AppService, useValue: mockAppService },
+        { provide: SessionService, useValue: mockSessionService },
+        { provide: ProfileService, useValue: mockProfileService },
         { provide: MatSnackBar, useValue: mockSnackBarService },
         { provide: MatDialog, useValue: mockDialogService },
         { provide: SharedDialogService, useValue: mockSharedDialogService }

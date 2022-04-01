@@ -11,9 +11,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
-import { AppService } from 'src/app/app.service';
-import { Login } from 'src/models/Login';
+import { AuthenticationService } from 'src/app/authentication.service';
+import { ProfileService } from 'src/app/profile.service';
 import { DialogSwitcherButtonComponent } from 'src/app/shared/components/dialog-switcher-button/dialog-switcher-button.component';
+import { Login } from 'src/models/Login';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { StoreRegistrationFormDialogComponent } from '../registration-form/store-registration-form-dialog.component';
 
@@ -43,7 +44,8 @@ export class StoreLoginFormDialogComponent
     private dialog: MatDialogRef<StoreLoginFormDialogComponent>,
     private formBuilder: FormBuilder,
     private snackBarService: MatSnackBar,
-    private appService: AppService
+    private authenticationService: AuthenticationService,
+    private profileService: ProfileService
   ) {
     this.formGroup = this.formBuilder.group({
       username: ['', Validators.required],
@@ -72,7 +74,7 @@ export class StoreLoginFormDialogComponent
         password: this.password.value
       };
 
-      this.appService.login(details).pipe(
+      this.authenticationService.login(details).pipe(
         tap(() => {
           this.dialog.close();
           const successMessage = $localize`:Message of success after login:You have logged in`
@@ -88,13 +90,13 @@ export class StoreLoginFormDialogComponent
           this.loggingInSource.next(false);
           return throwError(err);
         }),
-        switchMap(() => this.appService.getUserProfile())
+        switchMap(() => this.profileService.getUserProfile())
       ).subscribe();
     }
   }
 
   onCancel(): void {
-    this.appService.cancelAuthentication();
+    this.authenticationService.cancelAuthentication();
     this.dialog.close();
   }
 

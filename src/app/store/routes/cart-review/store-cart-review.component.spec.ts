@@ -16,7 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { AppService } from 'src/app/app.service';
+import { SessionService } from 'src/app/session.service';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreCartReviewComponent } from './store-cart-review.component';
 
@@ -39,7 +39,7 @@ describe('StoreCartReviewComponent', () => {
   let component: StoreCartReviewComponent;
   let fixture: ComponentFixture<StoreCartReviewComponent>;
   let mockCartService: Partial<StoreCartService>;
-  let mockAppService: Partial<AppService>;
+  let mockSessionService: Partial<SessionService>;
 
   beforeEach(waitForAsync(() => {
     mockCartService = {
@@ -49,8 +49,8 @@ describe('StoreCartReviewComponent', () => {
       decreaseProductUnits(i) {},
       removeProductFromCart(i) {}
     };
-    mockAppService = {
-      isLoggedIn$: of(true)
+    mockSessionService = {
+      userHasActiveSession$: of(true)
     };
 
     TestBed.configureTestingModule({
@@ -74,7 +74,7 @@ describe('StoreCartReviewComponent', () => {
       ],
       providers: [
         { provide: StoreCartService, useValue: mockCartService },
-        { provide: AppService, useValue: mockAppService }
+        { provide: SessionService, useValue: mockSessionService }
       ]
     })
     .compileComponents();

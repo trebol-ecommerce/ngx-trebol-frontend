@@ -16,8 +16,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of, throwError } from 'rxjs';
-import { AppService } from 'src/app/app.service';
+import { of } from 'rxjs';
+import { AuthenticationService } from 'src/app/authentication.service';
+import { ProfileService } from 'src/app/profile.service';
 import { StoreLoginFormDialogComponent } from './store-login-form-dialog.component';
 
 @Component({ selector: 'app-centered-mat-spinner' })
@@ -35,16 +36,19 @@ describe('StoreLoginFormDialogComponent', () => {
   let component: StoreLoginFormDialogComponent;
   let fixture: ComponentFixture<StoreLoginFormDialogComponent>;
   let mockDialog: Partial<MatDialogRef<StoreLoginFormDialogComponent>>;
-  let mockAppService: Partial<AppService>;
+  let mockAuthenticationService: Partial<AuthenticationService>;
+  let mockProfileService: Partial<ProfileService>;
   let mockSnackBarService: Partial<MatSnackBar>;
 
   beforeEach(waitForAsync(() => {
     mockDialog = {
       close() {}
     };
-    mockAppService = {
-      login(l: any) { return of('test'); },
-      cancelAuthentication() { },
+    mockAuthenticationService = {
+      login() { return of('test'); },
+      cancelAuthentication() { }
+    };
+    mockProfileService = {
       getUserProfile() { return of(null); }
     };
     mockSnackBarService = {
@@ -71,7 +75,8 @@ describe('StoreLoginFormDialogComponent', () => {
       providers: [
         { provide: MatDialogRef, useValue: mockDialog },
         { provide: MatSnackBar, useValue: mockSnackBarService },
-        { provide: AppService, useValue: mockAppService }
+        { provide: AuthenticationService, useValue: mockAuthenticationService },
+        { provide: ProfileService, useValue: mockProfileService },
       ]
     }).compileComponents();
     fixture = TestBed.createComponent(StoreLoginFormDialogComponent);
@@ -84,7 +89,7 @@ describe('StoreLoginFormDialogComponent', () => {
   });
 
   it('should not submit incomplete form', () => {
-    const appServiceLoginSpy = spyOn(mockAppService, 'login').and.callThrough();
+    const appServiceLoginSpy = spyOn(mockAuthenticationService, 'login').and.callThrough();
     component.onSubmit();
     expect(appServiceLoginSpy).not.toHaveBeenCalled();
 
@@ -101,7 +106,7 @@ describe('StoreLoginFormDialogComponent', () => {
   });
 
   it('should submit correct form', () => {
-    const appServiceLoginSpy = spyOn(mockAppService, 'login').and.callThrough();
+    const appServiceLoginSpy = spyOn(mockAuthenticationService, 'login').and.callThrough();
     component.username.setValue('test');
     component.password.setValue('pass');
     expect(component.formGroup.valid).toBeTruthy();

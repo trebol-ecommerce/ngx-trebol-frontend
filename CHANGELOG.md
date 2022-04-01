@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Environment variable to define the interval in miliseconds to check for current token validity
+
+### Changed
+- `AppService` is replaced by four smaller, more specialized services
+  - `SessionService` - knows (but does not tell) where to save session tokens, and knows whether the user has an active one
+  - `AuthenticationService` - allows to login as user (or guest) and register, and to cancel any ongoing instance of these processes
+  - `AuthorizationService` - allows to fetch (and cache) authorized access to APIs. Also, routinely checks validity of session token once an authentication is made
+  - `ProfileService` - allows to fetch (and cache) the current user's profile data, and to update it as well
+
 ### Fixed
 - (UI) User name and details would not always be correct or up-to-date
   - (Performance) Make better use of existing auth HTTP APIs

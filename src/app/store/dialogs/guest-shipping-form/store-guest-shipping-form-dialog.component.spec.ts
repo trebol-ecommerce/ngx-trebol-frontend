@@ -13,7 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { AppService } from 'src/app/app.service';
+import { AuthenticationService } from 'src/app/authentication.service';
+import { AuthorizationService } from 'src/app/authorization.service';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { CheckoutRequest } from 'src/models/CheckoutRequest';
 import { StoreCartService } from '../../store-cart.service';
@@ -38,12 +39,12 @@ class MockPersonFormComponent
 describe('StoreGuestShippingFormDialogComponent', () => {
   let component: StoreGuestShippingFormDialogComponent;
   let fixture: ComponentFixture<StoreGuestShippingFormDialogComponent>;
-  let mockAppService: Partial<AppService>;
+  let mockAuthenticationService: Partial<AuthenticationService>;
   let mockDialogRef: Partial<MatDialogRef<any>>;
   let mockCartService: Partial<StoreCartService>;
 
   beforeEach(waitForAsync(() => {
-    mockAppService = {
+    mockAuthenticationService = {
       guestLogin() { return of(''); },
       cancelAuthentication() { }
     };
@@ -70,7 +71,7 @@ describe('StoreGuestShippingFormDialogComponent', () => {
       ],
       providers: [
         { provide: MatDialogRef, useValue: mockDialogRef },
-        { provide: AppService, useValue: mockAppService },
+        { provide: AuthenticationService, useValue: mockAuthenticationService },
         { provide: StoreCartService, useValue: mockCartService },
         EntityFormGroupFactoryService
       ]

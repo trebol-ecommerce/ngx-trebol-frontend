@@ -9,8 +9,9 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject } from 'rxjs';
-import { AppService } from 'src/app/app.service';
+import { BehaviorSubject, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { AuthenticationService } from 'src/app/authentication.service';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { passwordMatcher } from 'src/functions/passwordMatcher';
 import { Person } from 'src/models/entities/Person';
@@ -41,7 +42,7 @@ export class StoreRegistrationFormDialogComponent
   get person() { return this.formGroup.get('person') as FormGroup; }
 
   constructor(
-    private appService: AppService,
+    private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
     private dialog: MatDialogRef<StoreRegistrationFormDialogComponent>,
     private snackBarService: MatSnackBar,
@@ -70,25 +71,25 @@ export class StoreRegistrationFormDialogComponent
         password: this.pass1.value,
         profile: this.person.value as Person
       };
-      this.appService.register(details).subscribe(
-        s => {
-          if (s) {
-            const successMessage = $localize`:Message of success after registration:Registration was succesful. Please remember to keep your password safe, and enjoy shopping!`;
-            this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
-            this.registeringSource.complete();
-            this.dialog.close(true);
-          } else {
-            const errorMessage = $localize`:Message of error during registration, hint user to try again:There was an error during registration. Please try again.`;
-            this.snackBarService.open(errorMessage, COMMON_DISMISS_BUTTON_LABEL);
-            this.registeringSource.next(false);
-          }
-        }
-      );
+      this.authenticationService.register(details).pipe(
+        tap(() => {
+          const successMessage = $localize`:Message of success after registration:Registration was succesful. Please remember to keep your password safe, and enjoy shopping!`;
+          this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
+          this.registeringSource.complete();
+          this.dialog.close(true);
+        }),
+        catchError(err => {
+          const errorMessage = $localize`:Message of error during registration, hint user to try again:There was an error during registration. Please try again.`;
+          this.snackBarService.open(errorMessage, COMMON_DISMISS_BUTTON_LABEL);
+          this.registeringSource.next(false);
+          return throwError(err);
+        })
+      ).subscribe();
     }
   }
 
   onCancel(): void {
-    this.appService.cancelAuthentication();
+    this.authenticationService.cancelAuthentication();
     this.dialog.close();
   }
 }

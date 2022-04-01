@@ -11,7 +11,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { AppService } from 'src/app/app.service';
+import { SessionService } from 'src/app/session.service';
 import { StoreHeaderComponent } from './store-header.component';
 
 @Component({ selector: 'app-store-header-brand' })
@@ -32,12 +32,12 @@ class MockStoreHeaderLoginButtonComponent { }
 describe('StoreHeaderComponent', () => {
   let component: StoreHeaderComponent;
   let fixture: ComponentFixture<StoreHeaderComponent>;
-  let mockAppService: Partial<AppService>;
+  let mockSessionService: Partial<SessionService>;
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
-    mockAppService = {
-      isLoggedIn$: of(false)
+    mockSessionService = {
+      userHasActiveSession$: of(false)
     };
     mockDialogService = {
       open() { return void 0; }
@@ -57,7 +57,7 @@ describe('StoreHeaderComponent', () => {
         MockStoreHeaderLoginButtonComponent
       ],
       providers: [
-        { provide: AppService, useValue: mockAppService },
+        { provide: SessionService, useValue: mockSessionService },
         { provide: MatDialog, useValue: mockDialogService }
       ]
     })

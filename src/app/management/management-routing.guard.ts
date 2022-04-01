@@ -10,7 +10,7 @@ import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
-import { AppService } from 'src/app/app.service';
+import { SessionService } from 'src/app/session.service';
 import { IAccessApiService } from '../api/access-api.iservice';
 import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
 
@@ -24,7 +24,7 @@ export class ManagementRoutingGuard
   constructor(
     @Inject(API_SERVICE_INJECTION_TOKENS.access) private apiAccessService: IAccessApiService,
     private router: Router,
-    private appService: AppService
+    private appService: SessionService
   ) {
   }
 

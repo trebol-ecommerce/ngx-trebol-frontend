@@ -6,11 +6,12 @@
  */
 
 import { Injectable, OnDestroy } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { merge, Observable, of, Subscription } from 'rxjs';
 import { filter, map, skip, switchMap, take, takeUntil, tap } from 'rxjs/operators';
-import { AppService } from 'src/app/app.service';
+import { AuthenticationService } from 'src/app/authentication.service';
+import { SessionService } from 'src/app/session.service';
 import { StoreGuestPromptDialogComponent } from '../../dialogs/guest-prompt/store-guest-prompt-dialog.component';
 import { StoreGuestPromptDialogOptions } from '../../dialogs/guest-prompt/StoreGuestPromptDialogOptions';
 import { StoreGuestShippingFormDialogComponent } from '../../dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component';
@@ -28,7 +29,8 @@ export class StoreCartReviewGuard
 
   constructor(
     private cartService: StoreCartService,
-    private appService: AppService,
+    private appService: SessionService,
+    private authenticationService: AuthenticationService,
     private dialogService: MatDialog,
     private router: Router
   ) {
@@ -59,7 +61,7 @@ export class StoreCartReviewGuard
   }
 
   private requireAuthentication(): Observable<boolean> {
-    return this.appService.isLoggedIn$.pipe(
+    return this.appService.userHasActiveSession$.pipe(
       take(1),
       switchMap(isLoggedIn => (isLoggedIn ?
         of(true) :
@@ -69,10 +71,10 @@ export class StoreCartReviewGuard
               return of(false);
             } else {
               this.followGuestUserChoice(choice);
-              return this.appService.isLoggedIn$.pipe(
+              return this.appService.userHasActiveSession$.pipe(
                 skip(1),
                 take(1),
-                takeUntil(this.appService.authCancelation$)
+                takeUntil(this.authenticationService.authCancelation$)
               );
             }
           })
@@ -136,8 +138,8 @@ export class StoreCartReviewGuard
       this.cartService.cartDetails$.pipe(
         map(details => (details.length === 0))
       ),
-      this.appService.isLoggedIn$.pipe(
-        map(isLoggedIn => !isLoggedIn)
+      this.appService.userHasActiveSession$.pipe(
+        map(hasActiveSession => !hasActiveSession)
       )
     ).pipe(
       filter(restrictingCondition => restrictingCondition && this.router.routerState?.snapshot?.url === this.restrictedUrl),

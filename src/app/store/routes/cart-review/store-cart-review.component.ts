@@ -6,10 +6,7 @@
  */
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
-import { AppService } from 'src/app/app.service';
 import { StoreCartService } from '../../store-cart.service';
 
 @Component({
@@ -26,17 +23,11 @@ export class StoreCartReviewComponent
   inputEditable = true;
 
   constructor(
-    private cartService: StoreCartService,
-    private appService: AppService,
-    private router: Router
+    private cartService: StoreCartService
   ) { }
 
   ngOnInit(): void {
     this.cartNetValue$ = this.cartService.cartNetValue$.pipe();
-    this.loginStateChangeSubscription = this.appService.isLoggedIn$.pipe(
-      filter(isLoggedIn => !isLoggedIn),
-      tap(() => this.router.navigateByUrl('/'))
-    ).subscribe();
   }
 
   ngOnDestroy(): void {

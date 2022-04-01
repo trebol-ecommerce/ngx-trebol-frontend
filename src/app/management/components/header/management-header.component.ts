@@ -11,13 +11,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
-import { AppService } from 'src/app/app.service';
+import { SessionService } from 'src/app/session.service';
 import { ManagementService } from 'src/app/management/management.service';
 import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { environment } from 'src/environments/environment';
 import { Image } from 'src/models/entities/Image';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
+import { ProfileService } from 'src/app/profile.service';
 
 @Component({
   selector: 'app-management-header',
@@ -32,16 +33,18 @@ export class ManagementHeaderComponent {
   moduleName$: Observable<string>;
   userName$: Observable<string>;
 
+  // TODO refactor down this component like it was done with the store-header
   constructor(
     protected service: ManagementService,
-    protected appService: AppService,
+    protected sessionService: SessionService,
+    protected profileService: ProfileService,
     protected dialogService: MatDialog,
     protected sharedDialogService: SharedDialogService,
     protected router: Router,
     protected snackBarService: MatSnackBar
   ) {
     this.moduleName$ = this.service.currentPageName$.pipe();
-    this.userName$ = this.appService.userName$.pipe();
+    this.userName$ = this.profileService.userName$.pipe();
   }
 
   switchSidenavOpenState(): void {
@@ -64,7 +67,7 @@ export class ManagementHeaderComponent {
     }).pipe(
       filter(didConfirm => didConfirm),
       tap(() => {
-        this.appService.closeCurrentSession();
+        this.sessionService.closeCurrentSession();
         this.router.navigateByUrl('/');
         const message = $localize`:Message after logging out:You have logged out`;
         this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);

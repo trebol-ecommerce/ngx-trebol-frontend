@@ -9,8 +9,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of } from 'rxjs';
-import { filter, map, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { AppService } from 'src/app/app.service';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { AuthorizationService } from 'src/app/authorization.service';
+import { ProfileService } from 'src/app/profile.service';
+import { SessionService } from 'src/app/session.service';
 import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
@@ -27,18 +29,20 @@ export class StoreHeaderMenuComponent
   canNavigateManagement$: Observable<boolean>;
 
   constructor(
-    private appService: AppService,
+    private authorizationService: AuthorizationService,
+    private sessionService: SessionService,
+    private profileService: ProfileService,
     private snackBarService: MatSnackBar,
     private dialogService: MatDialog,
     private sharedDialogService: SharedDialogService
   ) { }
 
   ngOnInit(): void {
-    this.userName$ = this.appService.userName$.pipe();
-    this.canNavigateManagement$ = this.appService.isLoggedIn$.pipe(
-      switchMap(isLoggedIn => (!isLoggedIn ?
+    this.userName$ = this.profileService.userName$.pipe();
+    this.canNavigateManagement$ = this.sessionService.userHasActiveSession$.pipe(
+      switchMap(hasActiveSession => (!hasActiveSession ?
         of(false) :
-        this.appService.getAuthorizedAccess().pipe(
+        this.authorizationService.getAuthorizedAccess().pipe(
           map(access => (access?.routes?.length > 0))
         )
       ))
@@ -55,16 +59,16 @@ export class StoreHeaderMenuComponent
   }
 
   onClickLogout(): void {
-    this.appService.isLoggedIn$.pipe(
+    this.sessionService.userHasActiveSession$.pipe(
       take(1),
-      filter(isLoggedIn => isLoggedIn),
+      filter(hasActiveSession => hasActiveSession),
       switchMap(() => this.sharedDialogService.requestConfirmation({
         title: $localize`:Title of dialog prompt for logging out:Log out?`,
         message: $localize`:Label to hint user that any undergoing process may be lost when logging out:Any unsaved data may be lost`
       })),
       filter(didConfirm => didConfirm),
       tap(() => {
-        this.appService.closeCurrentSession();
+        this.sessionService.closeCurrentSession();
         const message = $localize`:Message after logging out:You have logged out`;
         this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
       })

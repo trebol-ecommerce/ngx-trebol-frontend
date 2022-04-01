@@ -15,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { iif, of, throwError } from 'rxjs';
-import { AppService } from 'src/app/app.service';
+import { AuthenticationService } from 'src/app/authentication.service';
 import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { StoreRegistrationFormDialogComponent } from './store-registration-form-dialog.component';
@@ -36,17 +36,17 @@ describe('StoreRegistrationFormDialogComponent', () => {
   let component: StoreRegistrationFormDialogComponent;
   let fixture: ComponentFixture<StoreRegistrationFormDialogComponent>;
   let mockMatDialogRef: Partial<MatDialogRef<StoreRegistrationFormDialogComponent>>;
-  let mockAppService: Partial<AppService>;
+  let mockAuthenticationService: Partial<AuthenticationService>;
   let mockSnackBarService: Partial<MatSnackBar>;
 
   beforeEach(waitForAsync(() => {
     mockMatDialogRef = {
       close() {}
     };
-    mockAppService = {
+    mockAuthenticationService = {
       register(u) { return iif(
           () => (!!u.name && !!u.password && !!u.profile),
-          of(true),
+          of('sometoken'),
           throwError(new Error('Not an User')) );
       },
       cancelAuthentication() {}
@@ -72,7 +72,7 @@ describe('StoreRegistrationFormDialogComponent', () => {
       ],
       providers: [
         { provide: MatDialogRef, useValue: mockMatDialogRef },
-        { provide: AppService, useValue: mockAppService },
+        { provide: AuthenticationService, useValue: mockAuthenticationService },
         { provide: MatSnackBar, useValue: mockSnackBarService },
         EntityFormGroupFactoryService
       ]
@@ -99,7 +99,7 @@ describe('StoreRegistrationFormDialogComponent', () => {
   });
 
   it('should submit a correct form', () => {
-    const registerSpy = spyOn(mockAppService, 'register').and.callThrough();
+    const registerSpy = spyOn(mockAuthenticationService, 'register').and.callThrough();
 
     component.formGroup.patchValue({
       name: 'username',

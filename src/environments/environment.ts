@@ -36,7 +36,8 @@ export const environment = {
     ]
   },
   constraints: {
-    maxIntegerValue: 2147483647
+    maxIntegerValue: 2147483647,
+    authorizedAccessUpdateInterval: 300000 // ms
   },
   staticImages: {
     logo: {

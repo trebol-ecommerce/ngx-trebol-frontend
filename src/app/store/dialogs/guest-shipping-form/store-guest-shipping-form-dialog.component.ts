@@ -10,7 +10,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Subject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { AppService } from 'src/app/app.service';
+import { AuthenticationService } from 'src/app/authentication.service';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { StoreCartService } from '../../store-cart.service';
 
@@ -31,7 +31,7 @@ export class StoreGuestShippingFormDialogComponent
   get person() { return this.formGroup.get('person') as FormControl; }
 
   constructor(
-    private appService: AppService,
+    private authenticationService: AuthenticationService,
     private dialog: MatDialogRef<StoreGuestShippingFormDialogComponent>,
     private entityFormGroupService: EntityFormGroupFactoryService,
     private cartService: StoreCartService
@@ -47,7 +47,7 @@ export class StoreGuestShippingFormDialogComponent
 
   onSubmit(): void {
     this.savingSource.next(true);
-    this.appService.guestLogin(this.person.value).pipe(
+    this.authenticationService.guestLogin(this.person.value).pipe(
       tap(() => {
         this.cartService.checkoutRequestData.customer = this.person.value;
         this.dialog.close();
@@ -60,7 +60,7 @@ export class StoreGuestShippingFormDialogComponent
   }
 
   onCancel(): void {
-    this.appService.cancelAuthentication();
+    this.authenticationService.cancelAuthentication();
     this.dialog.close();
   }
 

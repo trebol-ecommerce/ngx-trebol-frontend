@@ -7,16 +7,16 @@
 
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { AppService } from 'src/app/app.service';
+import { ProfileService } from 'src/app/profile.service';
 import { Person } from 'src/models/entities/Person';
 import { EditProfileFormService } from './edit-profile-form.service';
 
 describe('EditProfileFormService', () => {
   let service: EditProfileFormService;
-  let appService: Partial<AppService>;
+  let mockProfileService: Partial<ProfileService>;
 
   beforeEach(() => {
-    appService = {
+    mockProfileService = {
       getUserProfile() { return of(new Person()); },
       updateUserProfile(p) { return of(true); }
     };
@@ -24,7 +24,7 @@ describe('EditProfileFormService', () => {
     TestBed.configureTestingModule({
       providers: [
         EditProfileFormService,
-        { provide: AppService, useValue: appService }
+        { provide: ProfileService, useValue: mockProfileService }
       ]
     });
     service = TestBed.inject(EditProfileFormService);

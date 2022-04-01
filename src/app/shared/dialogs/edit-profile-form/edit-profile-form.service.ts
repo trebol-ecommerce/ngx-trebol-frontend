@@ -8,13 +8,14 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, concat, iif, Observable, of, Subject } from 'rxjs';
 import { delay, switchMap, tap } from 'rxjs/operators';
-import { AppService } from 'src/app/app.service';
+import { ProfileService } from 'src/app/profile.service';
 import { Person } from 'src/models/entities/Person';
 
 @Injectable({ providedIn: 'root' })
 export class EditProfileFormService
   implements OnDestroy {
 
+  // TODO
   private savingSource: Subject<boolean> = new BehaviorSubject(false);
   private confirmCancelSource: Subject<boolean> = new BehaviorSubject(false);
 
@@ -22,8 +23,9 @@ export class EditProfileFormService
   confirmCancel$: Observable<boolean>;
 
   constructor(
-    private appService: AppService
+    private profileService: ProfileService
   ) {
+    // TODO simplify this observable
     this.confirmCancel$ = this.confirmCancelSource.asObservable().pipe(
       switchMap(
         (v) => iif(
@@ -44,12 +46,12 @@ export class EditProfileFormService
   }
 
   loadProfile(): Observable<Person> {
-    return this.appService.getUserProfile();
+    return this.profileService.getUserProfile();
   }
 
   saveProfile(p: Person): Observable<boolean> {
     this.savingSource.next(true);
-    return this.appService.updateUserProfile(p).pipe(
+    return this.profileService.updateUserProfile(p).pipe(
       tap(() => { this.savingSource.next(false); }),
     );
   }

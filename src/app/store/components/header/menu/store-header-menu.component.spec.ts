@@ -13,23 +13,32 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of } from 'rxjs';
-import { AppService } from 'src/app/app.service';
+import { AuthorizationService } from 'src/app/authorization.service';
+import { ProfileService } from 'src/app/profile.service';
+import { SessionService } from 'src/app/session.service';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { StoreHeaderMenuComponent } from './store-header-menu.component';
 
 describe('StoreHeaderMenuComponent', () => {
   let component: StoreHeaderMenuComponent;
   let fixture: ComponentFixture<StoreHeaderMenuComponent>;
-  let mockAppService: Partial<AppService>;
+  let mockAuthorizationService: Partial<AuthorizationService>;
+  let mockSessionService: Partial<SessionService>;
+  let mockProfileService: Partial<ProfileService>;
   let mockDialogService: Partial<MatDialog>;
   let mockSharedDialogService: Partial<SharedDialogService>;
   let mockSnackBarService: Partial<MatSnackBar>;
 
   beforeEach(waitForAsync( () => {
-    mockAppService = {
+    mockAuthorizationService = {
+      getAuthorizedAccess() { return of(void 0); }
+    };
+    mockSessionService = {
+      userHasActiveSession$: of(false),
+      closeCurrentSession() {}
+    };
+    mockProfileService = {
       userName$: of(''),
-      isLoggedIn$: of(false),
-      closeCurrentSession() {},
       getUserProfile() { return of(null); }
     };
     mockDialogService = {
@@ -51,7 +60,9 @@ describe('StoreHeaderMenuComponent', () => {
       ],
       declarations: [ StoreHeaderMenuComponent ],
       providers: [
-        { provide: AppService, useValue: mockAppService },
+        { provide: AuthorizationService, useValue: mockAuthorizationService },
+        { provide: SessionService, useValue: mockSessionService },
+        { provide: ProfileService, useValue: mockProfileService },
         { provide: MatDialog, useValue: mockDialogService },
         { provide: SharedDialogService, useValue: mockSharedDialogService },
         { provide: MatSnackBar, useValue: mockSnackBarService }
@@ -79,7 +90,7 @@ describe('StoreHeaderMenuComponent', () => {
 
   it('should prompt a confirmation when clicking in the logout option while logged in', () => {
     const confirmationSpy = spyOn(mockSharedDialogService, 'requestConfirmation').and.callThrough();
-    mockAppService.isLoggedIn$ = of(true);
+    mockSessionService.userHasActiveSession$ = of(true);
     component.onClickLogout();
     expect(confirmationSpy).toHaveBeenCalled();
   });
