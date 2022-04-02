@@ -7,7 +7,7 @@
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { of, Subject } from 'rxjs';
-import { switchMap, take, tap } from 'rxjs/operators';
+import { switchMap, switchMapTo, take, tap } from 'rxjs/operators';
 import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
 import { ILoginPublicApiService } from 'src/app/api/login-public-api.iservice';
 import { Person } from 'src/models/entities/Person';
@@ -51,7 +51,7 @@ export class AuthenticationService
 
   register(userDetails: Registration) {
     return this.registerApiService.register(userDetails).pipe(
-      switchMap(() => this.login({
+      switchMapTo(this.login({
         name: userDetails.name,
         password: userDetails.password
       }))

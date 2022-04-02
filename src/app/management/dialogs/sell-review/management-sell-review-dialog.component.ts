@@ -9,7 +9,7 @@ import { Component, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, Observable, Subscription, throwError } from 'rxjs';
-import { catchError, finalize, switchMap, tap } from 'rxjs/operators';
+import { catchError, finalize, switchMapTo, tap } from 'rxjs/operators';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { SELL_STATUS_NAMES_MAP } from 'src/text/sell-status-names';
 import { ManagementSalesService } from '../../routes/sales/management-sales.service';
@@ -74,7 +74,7 @@ export class ManagementSellReviewDialogComponent
         this.salesService.reloadItems();
         this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
       }),
-      switchMap(() => this.salesService.fetch(this.data.sell)),
+      switchMapTo(this.salesService.fetch(this.data.sell)),
       tap(next => this.data.sell = next),
       catchError(err => {
         this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);

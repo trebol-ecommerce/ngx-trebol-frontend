@@ -10,7 +10,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { debounceTime, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, switchMapTo, tap } from 'rxjs/operators';
 import { ProductCategoryPickerDialogComponent } from 'src/app/shared/dialogs/product-category-picker/product-category-picker-dialog.component';
 import { ProductSearchQuery } from 'src/models/ProductSearchQuery';
 import { StoreSearchService } from '../../../store-search.service';
@@ -51,7 +51,7 @@ export class StoreHeaderSearchFormComponent
         this.searchService.searchQuery = (value as ProductSearchQuery);
         this.searchService.pageIndex = 0;
       }),
-      switchMap(() => this.searchService.reload())
+      switchMapTo(this.searchService.reload())
     ).subscribe();
   }
 

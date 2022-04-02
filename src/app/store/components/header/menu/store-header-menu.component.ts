@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of } from 'rxjs';
-import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { filter, map, switchMap, switchMapTo, take, tap } from 'rxjs/operators';
 import { AuthorizationService } from 'src/app/authorization.service';
 import { ProfileService } from 'src/app/profile.service';
 import { SessionService } from 'src/app/session.service';
@@ -62,7 +62,7 @@ export class StoreHeaderMenuComponent
     this.sessionService.userHasActiveSession$.pipe(
       take(1),
       filter(hasActiveSession => hasActiveSession),
-      switchMap(() => this.sharedDialogService.requestConfirmation({
+      switchMapTo(this.sharedDialogService.requestConfirmation({
         title: $localize`:Title of dialog prompt for logging out:Log out?`,
         message: $localize`:Label to hint user that any undergoing process may be lost when logging out:Any unsaved data may be lost`
       })),
