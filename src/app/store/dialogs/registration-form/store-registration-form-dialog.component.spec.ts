@@ -14,8 +14,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { iif, of, throwError } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { AuthenticationService } from 'src/app/authentication.service';
+import { ProfileService } from 'src/app/profile.service';
 import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { StoreRegistrationFormDialogComponent } from './store-registration-form-dialog.component';
@@ -37,6 +38,7 @@ describe('StoreRegistrationFormDialogComponent', () => {
   let fixture: ComponentFixture<StoreRegistrationFormDialogComponent>;
   let mockMatDialogRef: Partial<MatDialogRef<StoreRegistrationFormDialogComponent>>;
   let mockAuthenticationService: Partial<AuthenticationService>;
+  let mockProfileService: Partial<ProfileService>;
   let mockSnackBarService: Partial<MatSnackBar>;
 
   beforeEach(waitForAsync(() => {
@@ -44,12 +46,12 @@ describe('StoreRegistrationFormDialogComponent', () => {
       close() {}
     };
     mockAuthenticationService = {
-      register(u) { return iif(
-          () => (!!u.name && !!u.password && !!u.profile),
-          of('sometoken'),
-          throwError(new Error('Not an User')) );
-      },
-      cancelAuthentication() {}
+      register(u) { return of('sometoken'); },
+      cancelAuthentication() { },
+      authCancelation$: EMPTY // do not emit
+    };
+    mockProfileService = {
+      getUserProfile() { return of(null); }
     };
     mockSnackBarService = {
       open(m: string, a: string) { return void 0; }
@@ -73,6 +75,7 @@ describe('StoreRegistrationFormDialogComponent', () => {
       providers: [
         { provide: MatDialogRef, useValue: mockMatDialogRef },
         { provide: AuthenticationService, useValue: mockAuthenticationService },
+        { provide: ProfileService, useValue: mockProfileService },
         { provide: MatSnackBar, useValue: mockSnackBarService },
         EntityFormGroupFactoryService
       ]
@@ -91,11 +94,11 @@ describe('StoreRegistrationFormDialogComponent', () => {
   });
 
   it('should not submit an incomplete form', () => {
-    let success: boolean;
-    component.registering$.subscribe(s => { success = s; });
+    const registerSpy = spyOn(mockAuthenticationService, 'register').and.callThrough();
 
+    expect(component.formGroup.invalid).toBeTrue();
     component.onSubmit();
-    expect(success).toBe(false);
+    expect(registerSpy).not.toHaveBeenCalled();
   });
 
   it('should submit a correct form', () => {
@@ -112,7 +115,7 @@ describe('StoreRegistrationFormDialogComponent', () => {
         idNumber: 'test-idNumber'
       }
     });
-    expect(component.formGroup.valid).toBeTruthy();
+    expect(component.formGroup.valid).toBeTrue();
 
     component.onSubmit();
     expect(registerSpy).toHaveBeenCalled();

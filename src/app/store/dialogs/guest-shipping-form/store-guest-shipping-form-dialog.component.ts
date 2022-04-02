@@ -9,7 +9,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Subject, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, takeUntil, tap } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/authentication.service';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { StoreCartService } from '../../store-cart.service';
@@ -48,6 +48,7 @@ export class StoreGuestShippingFormDialogComponent
   onSubmit(): void {
     this.savingSource.next(true);
     this.authenticationService.guestLogin(this.person.value).pipe(
+      takeUntil(this.authenticationService.authCancelation$),
       tap(() => {
         this.cartService.checkoutRequestData.customer = this.person.value;
         this.dialog.close();

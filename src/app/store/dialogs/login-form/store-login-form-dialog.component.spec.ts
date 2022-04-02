@@ -16,7 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { AuthenticationService } from 'src/app/authentication.service';
 import { ProfileService } from 'src/app/profile.service';
 import { StoreLoginFormDialogComponent } from './store-login-form-dialog.component';
@@ -46,7 +46,8 @@ describe('StoreLoginFormDialogComponent', () => {
     };
     mockAuthenticationService = {
       login() { return of('test'); },
-      cancelAuthentication() { }
+      cancelAuthentication() { },
+      authCancelation$: EMPTY // do not emit
     };
     mockProfileService = {
       getUserProfile() { return of(null); }

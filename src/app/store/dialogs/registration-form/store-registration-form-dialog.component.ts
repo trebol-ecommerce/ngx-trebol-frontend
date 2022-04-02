@@ -10,8 +10,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/authentication.service';
+import { ProfileService } from 'src/app/profile.service';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { passwordMatcher } from 'src/functions/passwordMatcher';
 import { Person } from 'src/models/entities/Person';
@@ -43,6 +44,7 @@ export class StoreRegistrationFormDialogComponent
 
   constructor(
     private authenticationService: AuthenticationService,
+    private profileService: ProfileService,
     private formBuilder: FormBuilder,
     private dialog: MatDialogRef<StoreRegistrationFormDialogComponent>,
     private snackBarService: MatSnackBar,
@@ -72,10 +74,10 @@ export class StoreRegistrationFormDialogComponent
         profile: this.person.value as Person
       };
       this.authenticationService.register(details).pipe(
+        takeUntil(this.authenticationService.authCancelation$),
         tap(() => {
           const successMessage = $localize`:Message of success after registration:Registration was succesful. Please remember to keep your password safe, and enjoy shopping!`;
           this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
-          this.registeringSource.complete();
           this.dialog.close(true);
         }),
         catchError(err => {
@@ -83,7 +85,8 @@ export class StoreRegistrationFormDialogComponent
           this.snackBarService.open(errorMessage, COMMON_DISMISS_BUTTON_LABEL);
           this.registeringSource.next(false);
           return throwError(err);
-        })
+        }),
+        switchMap(() => this.profileService.getUserProfile())
       ).subscribe();
     }
   }
