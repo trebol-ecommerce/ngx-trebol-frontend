@@ -18,7 +18,7 @@ import { IRegisterPublicApiService } from './api/register-public-api.iservice';
 import { SessionService } from './session.service';
 
 /**
- * Exposes method to authenticate the user against the external API
+ * Exposes methods to authenticate the user against the external API, and a simple call to stop any ongoing authentication
  */
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService
