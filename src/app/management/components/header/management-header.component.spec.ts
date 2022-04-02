@@ -32,7 +32,7 @@ describe('ManagementHeaderComponent', () => {
 
   beforeEach(waitForAsync(() => {
     mockManagementService = {
-      switchSidenav() {},
+      toggleSidenav() {},
       currentPageName$: of('')
     };
     mockSessionService = {

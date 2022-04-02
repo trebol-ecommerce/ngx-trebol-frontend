@@ -48,7 +48,7 @@ export class ManagementHeaderComponent {
   }
 
   switchSidenavOpenState(): void {
-    this.service.switchSidenav();
+    this.service.toggleSidenav();
   }
 
   onClickEditProfile(): void {

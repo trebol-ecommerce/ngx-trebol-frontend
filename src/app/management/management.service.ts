@@ -39,7 +39,7 @@ export class ManagementService
     this.activeRouteSub?.unsubscribe();
   }
 
-  switchSidenav(): void {
+  toggleSidenav(): void {
     this.isSidenavOpenSource.next(!this.isSidenavOpenSource.value);
   }
 

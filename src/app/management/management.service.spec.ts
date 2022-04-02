@@ -62,7 +62,7 @@ describe('ManagementService', () => {
         tap(state => expect(state).toBeTrue())
       )
     ).pipe(
-      tap(() => service.switchSidenav())
+      tap(() => service.toggleSidenav())
     ).subscribe();
   });
 
