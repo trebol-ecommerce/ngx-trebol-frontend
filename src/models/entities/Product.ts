@@ -8,7 +8,6 @@
 import { Image } from './Image';
 import { ProductCategory } from './ProductCategory';
 
-// TODO include shipper API
 export class Product {
   name: string;
   barcode: string;
