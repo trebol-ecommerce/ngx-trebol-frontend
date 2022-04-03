@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { AuthorizationService } from 'src/app/authorization.service';
 import { ProfileService } from 'src/app/profile.service';
 import { SessionService } from 'src/app/session.service';
@@ -33,7 +33,7 @@ describe('StoreHeaderMenuComponent', () => {
       getAuthorizedAccess() { return of(void 0); }
     };
     mockSessionService = {
-      userHasActiveSession$: of(false),
+      userHasActiveSession$: EMPTY,
       closeCurrentSession() {}
     };
     mockProfileService = {
@@ -44,7 +44,7 @@ describe('StoreHeaderMenuComponent', () => {
       open() { return void 0; }
     };
     mockSharedDialogService = {
-      requestConfirmation() { return of(false); }
+      requestConfirmation() { return of(true); }
     };
     mockSnackBarService = {
       open() { return void 0; }
@@ -79,19 +79,42 @@ describe('StoreHeaderMenuComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // TODO please uncomment and fix this unit test ASAP
-  // it('should do nothing when clicking in the logout option while not logged in', () => {
-  //   const confirmationSpy = spyOn(mockSharedDialogService, 'requestConfirmation').and.callThrough();
-  //   // isLoggedIn is false here
-  //   component.onClickLogout();
-  //   expect(confirmationSpy).not.toHaveBeenCalled();
-  // });
+  describe('when logged in', () => {
+    beforeEach(() => {
+      mockSessionService.userHasActiveSession$ = of(true);
+    });
 
-  it('should prompt a confirmation when clicking in the logout option while logged in', () => {
-    const confirmationSpy = spyOn(mockSharedDialogService, 'requestConfirmation').and.callThrough();
-    mockSessionService.userHasActiveSession$ = of(true);
-    component.onClickLogout();
-    expect(confirmationSpy).toHaveBeenCalled();
-    mockSessionService.userHasActiveSession$ = of(false);
+    it('should prompt a confirmation before trying to logout', () => {
+      const confirmationSpy = spyOn(mockSharedDialogService, 'requestConfirmation').and.returnValue(EMPTY);
+      component.onClickLogout();
+      expect(confirmationSpy).toHaveBeenCalled();
+    });
+
+    it('should not logout if not confirmed', () => {
+      spyOn(mockSharedDialogService, 'requestConfirmation').and.returnValue(of(false));
+      const logoutSpy = spyOn(mockSessionService, 'closeCurrentSession');
+      component.onClickLogout();
+      expect(logoutSpy).not.toHaveBeenCalled();
+    });
+
+    it('should logout only if confirmed', () => {
+      spyOn(mockSharedDialogService, 'requestConfirmation').and.returnValue(of(true));
+      const logoutSpy = spyOn(mockSessionService, 'closeCurrentSession');
+      component.onClickLogout();
+      expect(logoutSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('when not logged in', () => {
+    beforeEach(() => {
+      mockSessionService.userHasActiveSession$ = of(false);
+    });
+
+    it('should never logout', () => {
+      spyOn(mockSharedDialogService, 'requestConfirmation').and.returnValue(of(true));
+      const logoutSpy = spyOn(mockSessionService, 'closeCurrentSession');
+      component.onClickLogout();
+      expect(logoutSpy).not.toHaveBeenCalled();
+    });
   });
 });

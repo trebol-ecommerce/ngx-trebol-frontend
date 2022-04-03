@@ -62,10 +62,7 @@ export class StoreHeaderMenuComponent
     this.sessionService.userHasActiveSession$.pipe(
       take(1),
       filter(hasActiveSession => hasActiveSession),
-      switchMapTo(this.sharedDialogService.requestConfirmation({
-        title: $localize`:Title of dialog prompt for logging out:Log out?`,
-        message: $localize`:Label to hint user that any undergoing process may be lost when logging out:Any unsaved data may be lost`
-      })),
+      switchMapTo(this.confirmLogout()),
       filter(didConfirm => didConfirm),
       tap(() => {
         this.sessionService.closeCurrentSession();
@@ -73,6 +70,13 @@ export class StoreHeaderMenuComponent
         this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
       })
     ).subscribe();
+  }
+
+  private confirmLogout(): Observable<boolean> {
+    return this.sharedDialogService.requestConfirmation({
+      title: $localize`:Title of dialog prompt for logging out:Log out?`,
+      message: $localize`:Label to hint user that any undergoing process may be lost when logging out:Any unsaved data may be lost`
+    });
   }
 
 }

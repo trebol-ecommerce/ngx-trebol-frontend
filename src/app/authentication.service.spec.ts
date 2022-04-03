@@ -6,8 +6,8 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { of, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { EMPTY, of, throwError } from 'rxjs';
+import { catchError, finalize, tap } from 'rxjs/operators';
 import { Login } from '../models/Login';
 import { Registration } from '../models/Registration';
 import { API_SERVICE_INJECTION_TOKENS } from './api/api-service-injection-tokens';
@@ -126,17 +126,16 @@ describe('AuthenticationService', () => {
     ).subscribe();
   });
 
-  // TODO please uncomment and fix this unit test ASAP
-  // it('should not try to login after a failed registration', () => {
-  //   spyOn(mockRegisterApiService, 'register').and.returnValue(throwError({ status: 500 }));
+  it('should not try to login after a failed registration', () => {
+    spyOn(mockRegisterApiService, 'register').and.returnValue(throwError({ status: 500 }));
 
-  //   const loginSpy = spyOn(service, 'login');
-  //   service.register(MOCK_REGISTRATION_DETAILS).pipe(
-  //     catchError(err => {
-  //       expect(err.status).toEqual(500);
-  //       expect(loginSpy).not.toHaveBeenCalled();
-  //       return of(void 0);
-  //     })
-  //   ).subscribe();
-  // });
+    const loginSpy = spyOn(service, 'login');
+    service.register(MOCK_REGISTRATION_DETAILS).pipe(
+      catchError(err => {
+        expect(err.status).toEqual(500);
+        return EMPTY;
+      }),
+      finalize(() => expect(loginSpy).not.toHaveBeenCalled())
+    ).subscribe();
+  });
 });

@@ -50,11 +50,14 @@ export class AuthenticationService
   }
 
   register(userDetails: Registration) {
-    return this.registerApiService.register(userDetails).pipe(
-      switchMapTo(this.login({
+    return this.sessionService.userHasActiveSession$.pipe(
+      take(1),
+      switchMapTo(this.registerApiService.register(userDetails)),
+      switchMapTo(this.loginApiService.login({
         name: userDetails.name,
         password: userDetails.password
-      }))
+      })),
+      tap(token => this.sessionService.saveToken(token))
     );
   }
 

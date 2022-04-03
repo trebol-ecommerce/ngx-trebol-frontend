@@ -35,8 +35,8 @@ export class StoreLoginFormDialogComponent
   passwordInputType$: Observable<string>;
 
   formGroup: FormGroup;
-  get username(): FormControl { return this.formGroup.get('username') as FormControl; }
-  get password(): FormControl { return this.formGroup.get('password') as FormControl; }
+  get username() { return this.formGroup.get('username') as FormControl; }
+  get password() { return this.formGroup.get('password') as FormControl; }
 
   @ViewChild('registerButton', { static: true }) registerButton: DialogSwitcherButtonComponent;
 
