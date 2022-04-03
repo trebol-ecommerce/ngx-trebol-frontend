@@ -75,15 +75,18 @@ describe('StoreLoginFormDialogComponent', () => {
       ],
       providers: [
         { provide: MatDialogRef, useValue: mockDialog },
-        { provide: MatSnackBar, useValue: mockSnackBarService },
         { provide: AuthenticationService, useValue: mockAuthenticationService },
         { provide: ProfileService, useValue: mockProfileService },
+        { provide: MatSnackBar, useValue: mockSnackBarService }
       ]
     }).compileComponents();
+  }));
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(StoreLoginFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
