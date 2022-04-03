@@ -7,7 +7,7 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { AddressesEditorFormComponent } from './components/addresses-editor-form/addresses-editor-form.component';
@@ -77,13 +77,11 @@ const SHARED_DECLARATIONS = [
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormsModule,
     AngularMaterialModule
   ],
   exports: [
     CommonModule,
     ReactiveFormsModule,
-    FormsModule,
     AngularMaterialModule,
 
     ...SHARED_DECLARATIONS
