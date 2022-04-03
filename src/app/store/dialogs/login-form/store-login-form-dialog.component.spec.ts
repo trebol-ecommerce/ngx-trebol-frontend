@@ -5,10 +5,9 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { Component, Input, Type } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogConfig, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -59,8 +58,6 @@ describe('StoreLoginFormDialogComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
-        CommonModule,
-        FormsModule,
         ReactiveFormsModule,
         MatButtonModule,
         MatDialogModule,

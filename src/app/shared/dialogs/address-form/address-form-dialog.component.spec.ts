@@ -5,10 +5,9 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { AbstractControl, ControlValueAccessor, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ReactiveFormsModule, ValidationErrors, Validator } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddressFormDialogComponent } from './address-form-dialog.component';
@@ -47,8 +46,6 @@ describe('AddressFormDialogComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
-        FormsModule,
         ReactiveFormsModule,
         MatButtonModule,
         MatDialogModule

@@ -5,7 +5,6 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDividerModule } from '@angular/material/divider';
@@ -60,7 +59,6 @@ describe('StoreCatalogComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
         MatDividerModule
       ],
       declarations: [

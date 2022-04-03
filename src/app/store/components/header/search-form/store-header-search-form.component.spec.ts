@@ -6,7 +6,7 @@
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -41,7 +41,6 @@ describe('StoreHeaderSearchFormComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
-        FormsModule,
         ReactiveFormsModule,
         RouterTestingModule,
         MatIconModule,

@@ -5,7 +5,6 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -44,7 +43,6 @@ describe('ManagementCustomersComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
         NoopAnimationsModule,
         RouterTestingModule,
         MatPaginatorModule,

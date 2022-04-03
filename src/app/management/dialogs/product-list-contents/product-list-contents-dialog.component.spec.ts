@@ -5,7 +5,6 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
@@ -56,7 +55,6 @@ describe('ProductListContentsDialogComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
-        CommonModule,
         MatButtonModule,
         MatDialogModule,
         MatIconModule,

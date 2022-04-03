@@ -5,7 +5,6 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,7 +20,6 @@ describe('SlideshowComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
-        CommonModule,
         MatButtonModule,
         MatIconModule,
         RouterTestingModule

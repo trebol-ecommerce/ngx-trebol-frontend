@@ -5,7 +5,6 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -33,7 +32,6 @@ describe('ProductCategorySelectorFormFieldComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
-        CommonModule,
         MatButtonModule,
         MatFormFieldModule,
         MatIconModule,

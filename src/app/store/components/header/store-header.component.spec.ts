@@ -5,7 +5,6 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
@@ -45,7 +44,6 @@ describe('StoreHeaderComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
         RouterTestingModule,
       ],
       declarations: [

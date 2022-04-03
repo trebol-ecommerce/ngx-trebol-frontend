@@ -6,7 +6,7 @@
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
@@ -24,7 +24,6 @@ describe('SalespersonFormComponent', () => {
       imports: [
         NoopAnimationsModule,
         ReactiveFormsModule,
-        FormsModule,
         AngularMaterialModule
       ],
       declarations: [

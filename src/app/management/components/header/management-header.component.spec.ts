@@ -5,7 +5,6 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -53,7 +52,6 @@ describe('ManagementHeaderComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
         RouterTestingModule,
         MatButtonModule,
         MatIconModule,

@@ -6,7 +6,6 @@
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -37,7 +36,6 @@ describe('StoreCheckoutButtonComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
         MatButtonModule,
         MatIconModule
       ],

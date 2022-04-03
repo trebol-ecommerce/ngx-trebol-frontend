@@ -5,7 +5,6 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,7 +28,6 @@ describe('StoreHeaderNavigationComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
         RouterTestingModule,
         MatBadgeModule,
         MatButtonModule,
