@@ -38,7 +38,7 @@ export abstract class TransactionalDataManagerServiceDirective<T>
           catchError(() => of(false))
         )
       )))),
-      finalize(() => this.focusedItems = [])
+      finalize(() => { this.focusedItems = []; })
     );
   }
 

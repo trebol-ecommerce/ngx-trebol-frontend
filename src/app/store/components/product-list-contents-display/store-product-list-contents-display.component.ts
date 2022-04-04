@@ -75,7 +75,7 @@ export class StoreProductListContentsDisplayComponent
 
     this.loadingSubscription = this.productListApiService.fetchContents(this.list, this.pageIndex, this.pageSize).pipe(
       tap(page => this.pageSource.next(page)),
-      finalize(() => (this.loadingProducts = false))
+      finalize(() => { this.loadingProducts = false; })
     ).subscribe();
   }
 

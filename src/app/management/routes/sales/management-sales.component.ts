@@ -84,7 +84,7 @@ export class ManagementSalesComponent
             }
           ).afterClosed();
         }),
-        finalize(() => (row.focused = false))
+        finalize(() => { row.focused = false; })
       ).subscribe();
     }
   }
