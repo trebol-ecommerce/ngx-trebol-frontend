@@ -6,47 +6,138 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { throwError, timer } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { concat, merge, of, throwError } from 'rxjs';
+import { count, filter, skip, take, tap } from 'rxjs/operators';
 import { IAccessApiService } from './api/access-api.iservice';
 import { API_INJECTION_TOKENS } from './api/api-injection-tokens';
 import { SessionService } from './session.service';
 
 describe('SessionService', () => {
   let service: SessionService;
-  let mockAccessApiService: Partial<IAccessApiService>;
+  let accessApiServiceSpy: jasmine.SpyObj<IAccessApiService>;
 
   beforeEach(() => {
-    mockAccessApiService = {
-      getAuthorizedAccess() { return throwError({ status: 403 }); }
-    };
+    const mockAccessApiService = jasmine.createSpyObj('IAccessApiService', ['getAuthorizedAccess']);
 
     TestBed.configureTestingModule({
       providers: [
         { provide: API_INJECTION_TOKENS.access, useValue: mockAccessApiService }
       ]
     });
+    accessApiServiceSpy = TestBed.inject(API_INJECTION_TOKENS.access) as jasmine.SpyObj<IAccessApiService>;
   });
 
-  it('should be created', () => {
-    service = TestBed.inject(SessionService);
+  describe('always', () => {
+    beforeEach(() => {
+      accessApiServiceSpy.getAuthorizedAccess.and.returnValue(of(void 0));
+      service = TestBed.inject(SessionService);
+    });
 
-    expect(service).toBeTruthy();
+    it('should be created', () => {
+      expect(service).toBeTruthy();
+    });
+
+    it('should validate session data & authorization right away', () => {
+      expect(accessApiServiceSpy.getAuthorizedAccess).toHaveBeenCalled();
+      expect(accessApiServiceSpy.getAuthorizedAccess).toHaveBeenCalledTimes(1);
+    });
+
+    it('should have `userHasActiveSession$` emit right away', () => {
+      service.userHasActiveSession$.pipe(
+        take(1),
+        tap(next => expect(next).toBeDefined())
+      ).subscribe();
+    });
+
+    it('should call `saveToken()` without errors', () => {
+      expect(() => {
+        service.saveToken('sometoken');
+      }).not.toThrow();
+    });
+
+    it('should call `closeCurrentSession()` without errors', () => {
+      expect(() => {
+        service.closeCurrentSession();
+      }).not.toThrow();
+    });
+
+    it('should call `saveToken()` without errors', () => {
+      expect(() => {
+        service.saveToken('sometoken');
+      }).not.toThrow();
+    });
+
+    it('should have `userHasActiveSession$` emit `true` when a new token comes in', () => {
+      service.userHasActiveSession$.pipe(
+        skip(1),
+        take(1),
+        tap(next => expect(next).toBeTrue())
+      ).subscribe();
+      service.saveToken('sometoken');
+    });
+
+    it('should have `userHasActiveSession$` emit `false` when logging out', () => {
+      service.userHasActiveSession$.pipe(
+        skip(1),
+        take(1),
+        tap(next => expect(next).toBeFalse())
+      ).subscribe();
+      service.closeCurrentSession();
+    });
+
+    it('should have `userHasActiveSession$` emit an update when `validateSession()` is called', () => {
+      const totalChanges = 3; // initial value and two validations
+      merge(
+        service.userHasActiveSession$.pipe(
+          take(totalChanges),
+          count()
+        ),
+        concat(
+          service.validateSession(),
+          service.validateSession()
+        ).pipe(
+          filter(() => false)
+        )
+      ).pipe(
+        tap(c => { // count
+          expect(accessApiServiceSpy.getAuthorizedAccess).toHaveBeenCalledTimes(totalChanges);
+          expect(c).toBe(totalChanges);
+        })
+      ).subscribe();
+    });
+
+    it('should call `ngOnDestroy()` without errors', () => {
+      expect(() => {
+        service.ngOnDestroy();
+      }).not.toThrow();
+    });
   });
 
-  it('should inmediately validate session data & authorization', () => {
-    const validationCallSpy = spyOn(mockAccessApiService, 'getAuthorizedAccess').and.callThrough();
-    service = TestBed.inject(SessionService);
+  describe('when the user is unauthenticated', () => {
+    beforeEach(() => {
+      accessApiServiceSpy.getAuthorizedAccess.and.returnValue(throwError({ status: 403 }));
+      service = TestBed.inject(SessionService);
+    });
 
-    expect(validationCallSpy).toHaveBeenCalled();
+    it('should have `userHasActiveSession$` emit false', () => {
+      service.userHasActiveSession$.pipe(
+        take(1),
+        tap(next => expect(next).toBeFalse())
+      ).subscribe();
+    });
   });
 
-  it('should emit boolean session status inmediately after subscribing', () => {
-    service = TestBed.inject(SessionService);
+  describe('when the user is authenticated', () => {
+    beforeEach(() => {
+      accessApiServiceSpy.getAuthorizedAccess.and.returnValue(of({ routes: [] }));
+      service = TestBed.inject(SessionService);
+    });
 
-    service.userHasActiveSession$.pipe(
-      takeUntil(timer(50)),
-      tap(next => expect(typeof next).toBe('boolean'))
-    ).subscribe();
+    it('should have `userHasActiveSession$` emit true', () => {
+      service.userHasActiveSession$.pipe(
+        take(1),
+        tap(next => expect(next).toBeTrue())
+      ).subscribe();
+    });
   });
 });

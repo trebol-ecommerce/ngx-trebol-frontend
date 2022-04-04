@@ -42,7 +42,6 @@ export class SessionService
     this.isValidatingSessionSource.next(true);
 
     return this.accessApiService.getAuthorizedAccess().pipe(
-      // tap(access => { this.authorizedAccessSource.next(access); }),
       mapTo(true),
       catchError(() => of(false)),
       tap(isValid => { this.userHasActiveSessionSource.next(isValid); }),
