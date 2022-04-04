@@ -97,7 +97,7 @@ export class ProductCategoryTreeService
   private loadChildrenOf(parent: ProductCategory): Observable<ProductCategory[]> {
     return this.apiService.fetchPage(0, Number.MAX_SAFE_INTEGER, null, null, { parentCode: parent.code }).pipe(
       map(page => page.items as ProductCategory[]),
-      tap(items => (parent.children = items))
+      tap(items => { parent.children = items; })
     );
   }
 

@@ -34,7 +34,7 @@ export class ProductCategoriesDataLocalMemoryApiService
       (
         (item.parent?.code) ?
         this.fetchExisting({ code: item.parent.code }).pipe(
-          tap(parent => (item.parent = parent))
+          tap(parent => { item.parent = parent; })
         ) :
         of()
       ).pipe(

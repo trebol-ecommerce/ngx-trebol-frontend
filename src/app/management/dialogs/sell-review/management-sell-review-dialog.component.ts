@@ -75,7 +75,7 @@ export class ManagementSellReviewDialogComponent
         this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
       }),
       switchMap(() => this.salesService.fetch(this.data.sell)),
-      tap(next => this.data.sell = next),
+      tap(next => { this.data.sell = next; }),
       catchError(err => {
         this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
         return throwError(err);
