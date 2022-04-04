@@ -13,8 +13,8 @@ import { of } from 'rxjs';
 import { SessionService } from 'src/app/session.service';
 import { StoreHeaderComponent } from './store-header.component';
 
-@Component({ selector: 'app-store-header-brand' })
-class MockStoreHeaderBrandComponent { }
+@Component({ selector: 'app-header-brand' })
+class MockHeaderBrandComponent { }
 
 @Component({ selector: 'app-store-header-navigation' })
 class MockStoreHeaderNavigationComponent { }
@@ -48,7 +48,7 @@ describe('StoreHeaderComponent', () => {
       ],
       declarations: [
         StoreHeaderComponent,
-        MockStoreHeaderBrandComponent,
+        MockHeaderBrandComponent,
         MockStoreHeaderNavigationComponent,
         MockStoreHeaderSearchFormComponent,
         MockStoreHeaderMenuComponent,

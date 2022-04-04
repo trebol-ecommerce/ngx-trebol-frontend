@@ -10,11 +10,11 @@ import { environment } from 'src/environments/environment';
 import { Image } from 'src/models/entities/Image';
 
 @Component({
-  selector: 'app-store-header-brand',
-  templateUrl: './store-header-brand.component.html',
-  styleUrls: ['./store-header-brand.component.css']
+  selector: 'app-header-brand',
+  templateUrl: './header-brand.component.html',
+  styleUrls: ['./header-brand.component.css']
 })
-export class StoreHeaderBrandComponent {
+export class HeaderBrandComponent {
 
   readonly appTitle: string = environment.labels.name;
   readonly appLogo: Image = environment.staticImages.logo;

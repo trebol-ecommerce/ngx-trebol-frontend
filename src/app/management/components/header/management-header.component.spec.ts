@@ -18,6 +18,9 @@ import { ManagementHeaderComponent } from './management-header.component';
 @Component({ selector: 'app-management-header-sidenav-button' })
 class MockManagementHeaderSidenavButtonComponent { }
 
+@Component({ selector: 'app-header-brand' })
+class MockHeaderBrandComponent { }
+
 @Component({ selector: 'app-management-header-menu' })
 class MockManagementHeaderMenuComponent { }
 
@@ -41,6 +44,7 @@ describe('ManagementHeaderComponent', () => {
       ],
       declarations: [
         MockManagementHeaderSidenavButtonComponent,
+        MockHeaderBrandComponent,
         MockManagementHeaderMenuComponent,
         ManagementHeaderComponent
       ],

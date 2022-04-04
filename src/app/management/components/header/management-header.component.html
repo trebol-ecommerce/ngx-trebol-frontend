@@ -6,14 +6,7 @@
 -->
 
 <app-management-header-sidenav-button></app-management-header-sidenav-button>
-<a routerLink="/">
-  <img *ngIf="appLogo?.url; else title"
-    [src]="appLogo.url"
-    [alt]="appTitle" />
-  <ng-template #title>
-    <h1>{{ appTitle }}</h1>
-  </ng-template>
-</a>
+<app-header-brand></app-header-brand>
 <div class="middle">
   <span>{{ moduleName$ | async }}</span>
 </div>

@@ -14,7 +14,6 @@ import { StoreCheckoutButtonComponent } from './components/checkout-button/store
 import { StoreCheckoutConfirmationComponent } from './components/checkout-confirmation/store-checkout-confirmation.component';
 import { StoreCheckoutRequestFormComponent } from './components/checkout-request-form/store-checkout-request-form.component';
 import { StoreFooterComponent } from './components/footer/store-footer.component';
-import { StoreHeaderBrandComponent } from './components/header/brand/store-header-brand.component';
 import { StoreHeaderLoginButtonComponent } from './components/header/login-button/store-header-login-button.component';
 import { StoreHeaderMenuComponent } from './components/header/menu/store-header-menu.component';
 import { StoreHeaderNavigationComponent } from './components/header/navigation/store-header-navigation.component';
@@ -34,14 +33,14 @@ import { StoreCartReviewComponent } from './routes/cart-review/store-cart-review
 import { StoreCartReviewGuard } from './routes/cart-review/store-cart-review.guard';
 import { StoreCatalogComponent } from './routes/catalog/store-catalog.component';
 import { StoreCatalogService } from './routes/catalog/store-catalog.service';
+import { StoreReceiptCardComponent } from './routes/receipt/receipt-card/store-receipt-card.component';
 import { StoreReceiptComponent } from './routes/receipt/store-receipt.component';
+import { StoreReceiptService } from './routes/receipt/store-receipt.service';
 import { StoreSearchComponent } from './routes/search/store-search.component';
 import { StoreCheckoutService } from './store-checkout.service';
-import { StoreReceiptService } from './routes/receipt/store-receipt.service';
 import { StoreRoutingModule } from './store-routing.module';
 import { StoreSearchService } from './store-search.service';
 import { StoreComponent } from './store.component';
-import { StoreReceiptCardComponent } from './routes/receipt/receipt-card/store-receipt-card.component';
 
 
 const SNACKBAR_DEFAULTS = {
@@ -72,7 +71,6 @@ const SNACKBAR_DEFAULTS = {
     StoreProductListContentsDisplayComponent,
     StoreShippingFormComponent,
     StoreCompanyDetailsDialogComponent,
-    StoreHeaderBrandComponent,
     StoreHeaderNavigationComponent,
     StoreHeaderMenuComponent,
     StoreHeaderLoginButtonComponent,

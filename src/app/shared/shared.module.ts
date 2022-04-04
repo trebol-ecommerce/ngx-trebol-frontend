@@ -8,6 +8,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { AddressesEditorFormComponent } from './components/addresses-editor-form/addresses-editor-form.component';
 import { CartProductUnitsControlComponent } from './components/cart-product-units-control/cart-product-units-control.component';
@@ -16,6 +17,7 @@ import { CompanyFormComponent } from './components/company-form/company-form.com
 import { DialogSwitcherButtonComponent } from './components/dialog-switcher-button/dialog-switcher-button.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { GmapComponent } from './components/gmap/gmap.component';
+import { HeaderBrandComponent } from './components/header-brand/header-brand.component';
 import { ImageUploadFormComponent } from './components/image-upload-form/image-upload-form.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductCategorySelectorFormFieldComponent } from './components/product-category-selector-form-field/product-category-selector-form-field.component';
@@ -49,6 +51,7 @@ const SHARED_DECLARATIONS = [
   DialogSwitcherButtonComponent,
   FileUploadComponent,
   GmapComponent,
+  HeaderBrandComponent,
   ImageUploadFormComponent,
   PersonFormComponent,
   ProductCardComponent,
@@ -76,11 +79,13 @@ const SHARED_DECLARATIONS = [
   ],
   imports: [
     CommonModule,
+    RouterModule,
     ReactiveFormsModule,
     AngularMaterialModule
   ],
   exports: [
     CommonModule,
+    RouterModule,
     ReactiveFormsModule,
     AngularMaterialModule,
 
