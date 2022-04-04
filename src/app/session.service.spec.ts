@@ -61,12 +61,6 @@ describe('SessionService', () => {
       }).not.toThrow();
     });
 
-    it('should call `saveToken()` without errors', () => {
-      expect(() => {
-        service.saveToken('sometoken');
-      }).not.toThrow();
-    });
-
     it('should have `userHasActiveSession$` emit `true` when a new token comes in', () => {
       service.userHasActiveSession$.pipe(
         skip(1),
