@@ -6,8 +6,8 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { concat, of } from 'rxjs';
-import { take, tap } from 'rxjs/operators';
+import { concat, of, throwError } from 'rxjs';
+import { finalize, take, tap } from 'rxjs/operators';
 import { Registration } from '../models/Registration';
 import { API_INJECTION_TOKENS } from './api/api-injection-tokens';
 import { IProfileAccountApiService } from './api/profile-account-api.iservice';
@@ -29,17 +29,12 @@ const MOCK_REGISTRATION_DETAILS: Registration = {
 
 describe('ProfileService', () => {
   let service: ProfileService;
-  let mockProfileApiService: Partial<IProfileAccountApiService>;
-  let mockSessionService: Partial<SessionService>;
+  let profileApiServiceSpy: jasmine.SpyObj<IProfileAccountApiService>;
+  let sessionServiceSpy: jasmine.SpyObj<SessionService>;
 
   beforeEach(() => {
-    mockProfileApiService = {
-      getProfile() { return of(MOCK_REGISTRATION_DETAILS.profile); },
-      updateProfile() { return of(void 0); },
-    };
-    mockSessionService = {
-      userHasActiveSession$: of(true)
-    };
+    const mockProfileApiService = jasmine.createSpyObj('IProfileAccountApiService', [ 'getProfile', 'updateProfile' ]);
+    const mockSessionService = jasmine.createSpyObj('SessionService', [ 'userHasActiveSession$' ]);
 
     TestBed.configureTestingModule({
       providers: [
@@ -47,6 +42,8 @@ describe('ProfileService', () => {
         { provide: SessionService, useValue: mockSessionService }
       ]
     });
+    profileApiServiceSpy = TestBed.inject(API_INJECTION_TOKENS.accountProfile) as jasmine.SpyObj<IProfileAccountApiService>;
+    sessionServiceSpy = TestBed.inject(SessionService) as jasmine.SpyObj<SessionService>;
     service = TestBed.inject(ProfileService);
   });
 
@@ -54,31 +51,68 @@ describe('ProfileService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should expose the current user\'s name', () => {
-    concat(
-      service.getUserProfile(),
-      service.userName$.pipe(
-        take(1),
-        tap(userName => expect(userName).toBe(MOCK_REGISTRATION_DETAILS.profile.firstName))
-      )
-    ).subscribe();
+  it('should call `ngOnDestroy()` without errors', () => {
+    expect(() => {
+      service.ngOnDestroy();
+    }).not.toThrow();
   });
 
-  it('should expose an empty string as username when there is no active session', () => {
-    mockSessionService.userHasActiveSession$ = of(false);
-    concat(
-      service.getUserProfile(),
-      service.userName$.pipe(
-        take(1),
-        tap(userName => expect(userName).toBe(''))
-      )
-    ).subscribe();
+  describe('when the user is unauthenticated', () => {
+    beforeEach(() => {
+      sessionServiceSpy.userHasActiveSession$ = of(false);
+      profileApiServiceSpy.getProfile.and.returnValue(throwError({ status: 403 }));
+      profileApiServiceSpy.updateProfile.and.returnValue(throwError({ status: 403 }));
+    });
+
+    it('should expose an empty string as username', () => {
+      concat(
+        service.getUserProfile(),
+        service.userName$.pipe(
+          take(1),
+          tap(userName => expect(userName).toBe(''))
+        )
+      ).subscribe();
+    });
+
+    it('should not allow to update the user profile', () => {
+      service.updateUserProfile(MOCK_REGISTRATION_DETAILS.profile).pipe(
+        finalize(() => expect(profileApiServiceSpy.updateProfile).not.toHaveBeenCalled())
+      ).subscribe();
+    });
   });
 
-  it('should try to update the user profile when requested', () => {
-    const apiUpdateSpy = spyOn(mockProfileApiService, 'updateProfile').and.callThrough();
-    service.updateUserProfile(MOCK_REGISTRATION_DETAILS.profile).pipe(
-      tap(() => expect(apiUpdateSpy).toHaveBeenCalled())
-    ).subscribe();
+  describe('when the user is authenticated', () => {
+    beforeEach(() => {
+      sessionServiceSpy.userHasActiveSession$ = of(true);
+      profileApiServiceSpy.getProfile.and.returnValue(of(MOCK_REGISTRATION_DETAILS.profile));
+      profileApiServiceSpy.updateProfile.and.returnValue(of(void 0));
+    });
+
+    it('should expose the current user\'s name', () => {
+      concat(
+        service.getUserProfile(),
+        service.userName$.pipe(
+          take(1),
+          tap(userName => expect(userName).toBe(MOCK_REGISTRATION_DETAILS.profile.firstName))
+        )
+      ).subscribe();
+    });
+
+    it('subsequent calls to getUserProfile() should serve a cached result', () => {
+      concat(
+        service.getUserProfile(),
+        service.getUserProfile(),
+        service.getUserProfile()
+      ).pipe(
+        finalize(() => expect(profileApiServiceSpy.getProfile).toHaveBeenCalledTimes(1))
+      ).subscribe();
+    });
+
+    it('should update the user profile upon request', () => {
+      service.updateUserProfile(MOCK_REGISTRATION_DETAILS.profile).pipe(
+        finalize(() => expect(profileApiServiceSpy.updateProfile).toHaveBeenCalled())
+      ).subscribe();
+    });
   });
+
 });

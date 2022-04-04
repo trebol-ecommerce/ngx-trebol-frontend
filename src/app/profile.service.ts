@@ -7,7 +7,7 @@
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map, share, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, filter, map, share, switchMap, take, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { Person } from 'src/models/entities/Person';
 import { IProfileAccountApiService } from './api/profile-account-api.iservice';
@@ -50,8 +50,11 @@ export class ProfileService
     );
   }
 
-  updateUserProfile(details: Person): Observable<boolean> {
-    return this.profileApiService.updateProfile(details).pipe(
+  updateUserProfile(details: Person) {
+    return this.sessionService.userHasActiveSession$.pipe(
+      take(1),
+      filter(hasActiveSession => !!hasActiveSession),
+      switchMap(() => this.profileApiService.updateProfile(details)),
       tap(() => { this.userProfileSource.next(details); })
     );
   }
