@@ -98,7 +98,7 @@ describe('ProfileService', () => {
       ).subscribe();
     });
 
-    it('subsequent calls to getUserProfile() should serve a cached result', () => {
+    it('should serve a cached result in subsequent calls to `getUserProfile()`', () => {
       concat(
         service.getUserProfile(),
         service.getUserProfile(),
