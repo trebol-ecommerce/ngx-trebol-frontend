@@ -44,8 +44,14 @@ export class AuthenticationService
   }
 
   guestLogin(personDetails: Person) {
-    return this.guestApiService.guestLogin(personDetails).pipe(
-      tap(token => this.sessionService.saveToken(token))
+    return this.sessionService.userHasActiveSession$.pipe(
+      take(1),
+      switchMap(hasActiveSession => (hasActiveSession ?
+        of('') :
+        this.guestApiService.guestLogin(personDetails).pipe(
+          tap(token => this.sessionService.saveToken(token))
+        )
+      ))
     );
   }
 
@@ -69,11 +75,11 @@ export class AuthenticationService
   login(credentials: Login) {
     return this.sessionService.userHasActiveSession$.pipe(
       take(1),
-      switchMap(hasActiveSession => (hasActiveSession ?
-        of('') :
+      switchMap(hasActiveSession => (!hasActiveSession ?
         this.loginApiService.login(credentials).pipe(
           tap(token => this.sessionService.saveToken(token))
-        )
+        ) :
+        of('')
       ))
     );
   }

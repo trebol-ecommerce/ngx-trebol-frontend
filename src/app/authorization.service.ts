@@ -6,8 +6,8 @@
  */
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, interval, merge, Observable, of, Subscription } from 'rxjs';
-import { catchError, filter, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { BehaviorSubject, EMPTY, interval, merge, Observable, of, Subscription } from 'rxjs';
+import { catchError, filter, map, skip, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { environment } from 'src/environments/environment';
 import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
@@ -38,42 +38,39 @@ export class AuthorizationService
   }
 
   getAuthorizedAccess(): Observable<AuthorizedAccess> {
-    return this.sessionService.userHasActiveSession$.pipe(
-      switchMap(hasActiveSession => (hasActiveSession ?
-        ( this.authorizedAccessSource.value !== null ?
-          this.authorizedAccessSource.asObservable().pipe(take(1)) :
-          this.accessApiService.getAuthorizedAccess().pipe(
-            tap(access => { this.authorizedAccessSource.next(access); })
-          )
-        ) :
-        of(null).pipe(tap(() => { this.authorizedAccessSource.next(null) }))
-      ))
+    return this.authorizedAccessSource.asObservable().pipe(
+      take(1)
     );
   }
 
   private watchSessionActivityAndUpdateAuthorizedAccess() {
     return this.sessionService.userHasActiveSession$.pipe(
       switchMap(hasActiveSession => (hasActiveSession ?
-        this.periodicallyUpdateAuthorizedAccess() :
-        of(false)
+        this.periodicallyQueryAuthorizedAccess().pipe(
+          takeUntil(this.sessionService.userHasActiveSession$.pipe(
+            filter(hasActiveSession => !hasActiveSession))
+          )
+        ) :
+        of(null)
       )),
-      catchError(() => {
-        this.sessionService.closeCurrentSession();
-        this.authorizedAccessSource.next(null);
-        return of(false);
+      tap(access => {
+        if (JSON.stringify(this.authorizedAccessSource.value) !== JSON.stringify(access)) {
+          this.authorizedAccessSource.next(access);
+        }
       })
     );
   }
 
-  private periodicallyUpdateAuthorizedAccess() {
+  private periodicallyQueryAuthorizedAccess() {
     return merge(
       of(void 0),
       interval(this.authorizationUpdateInterval)
     ).pipe(
-      takeUntil(this.sessionService.userHasActiveSession$.pipe(filter(isActive => !isActive))),
       switchMap(() => this.accessApiService.getAuthorizedAccess()),
-      tap(access => { this.authorizedAccessSource.next(access); }),
-      map(() => true)
+      catchError(() => {
+        this.sessionService.closeCurrentSession();
+        return EMPTY;
+      })
     );
   }
 }

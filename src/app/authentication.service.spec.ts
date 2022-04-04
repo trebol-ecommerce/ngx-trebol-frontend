@@ -6,8 +6,8 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { EMPTY, of, throwError } from 'rxjs';
-import { catchError, finalize, tap } from 'rxjs/operators';
+import { concat, EMPTY, merge, of, throwError, timer } from 'rxjs';
+import { catchError, count, finalize, ignoreElements, take, takeUntil, tap } from 'rxjs/operators';
 import { Login } from '../models/Login';
 import { Registration } from '../models/Registration';
 import { API_INJECTION_TOKENS } from './api/api-injection-tokens';
@@ -37,25 +37,16 @@ const MOCK_REGISTRATION_DETAILS: Registration = {
 
 describe('AuthenticationService', () => {
   let service: AuthenticationService;
-  let mockLoginApiService: Partial<ILoginPublicApiService>;
-  let mockGuestApiService: Partial<IGuestPublicApiService>;
-  let mockRegisterApiService: Partial<IRegisterPublicApiService>;
-  let mockSessionService: Partial<SessionService>;
+  let loginApiServiceSpy: jasmine.SpyObj<ILoginPublicApiService>;
+  let guestApiServiceSpy: jasmine.SpyObj<IGuestPublicApiService>;
+  let registerApiServiceSpy: jasmine.SpyObj<IRegisterPublicApiService>;
+  let sessionServiceSpy: jasmine.SpyObj<SessionService>;
 
   beforeEach(() => {
-    mockLoginApiService = {
-      login() { return of('exampleTokenString'); }
-    };
-    mockGuestApiService = {
-      guestLogin() { return of('exampleTokenString'); }
-    };
-    mockRegisterApiService = {
-      register() { return of(void 0); }
-    };
-    mockSessionService = {
-      saveToken() { },
-      userHasActiveSession$: of(false)
-    };
+    const mockLoginApiService = jasmine.createSpyObj('ILoginPublicApiService', ['login']);
+    const mockGuestApiService = jasmine.createSpyObj('IGuestPublicApiService', ['guestLogin']);
+    const mockRegisterApiService = jasmine.createSpyObj('IRegisterPublicApiService', ['register']);
+    const mockSessionService = jasmine.createSpyObj('SessionService', ['saveToken', 'userHasActiveSession$']);
 
     TestBed.configureTestingModule({
       providers: [
@@ -65,6 +56,10 @@ describe('AuthenticationService', () => {
         { provide: SessionService, useValue: mockSessionService }
       ]
     });
+    loginApiServiceSpy = TestBed.inject(API_INJECTION_TOKENS.login) as jasmine.SpyObj<ILoginPublicApiService>;
+    guestApiServiceSpy = TestBed.inject(API_INJECTION_TOKENS.guest) as jasmine.SpyObj<IGuestPublicApiService>;
+    registerApiServiceSpy = TestBed.inject(API_INJECTION_TOKENS.register) as jasmine.SpyObj<IRegisterPublicApiService>;
+    sessionServiceSpy = TestBed.inject(SessionService) as jasmine.SpyObj<SessionService>;
     service = TestBed.inject(AuthenticationService);
   });
 
@@ -72,70 +67,130 @@ describe('AuthenticationService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should emit a truthy value after a successful login attempt', () => {
-    service.login(MOCK_LOGIN_DETAILS).pipe(
-      tap(next => expect(next).toBeTruthy())
+  it('should call `ngOnDestroy()` without errors', () => {
+    expect(() => {
+      service.ngOnDestroy();
+    }).not.toThrow();
+  });
+
+  it('should emit an event when `cancelAuthentication()` is called', () => {
+    merge(
+      service.authCancelation$.pipe(
+        take(1),
+        count()
+      ),
+      of().pipe(
+        finalize(() => service.cancelAuthentication())
+      )
+    ).pipe(
+      tap(c => expect(c).toBe(1))
     ).subscribe();
   });
 
-  it('should emit a truthy value after a successful registration attempt', () => {
-    service.register(MOCK_REGISTRATION_DETAILS).pipe(
-      tap(next => expect(next).toBeTruthy())
-    ).subscribe();
+  describe('when the user is unauthenticated', () => {
+    beforeEach(() => {
+      sessionServiceSpy.userHasActiveSession$ = of(false);
+    });
+
+    describe('and any login attempt succeeds', () => {
+      beforeEach(() => {
+        loginApiServiceSpy.login.and.returnValue(of('sometoken'));
+        guestApiServiceSpy.guestLogin.and.returnValue(of('sometoken'));
+      });
+
+      it('should emit the token', () => {
+        concat(
+          service.login(MOCK_LOGIN_DETAILS),
+          service.guestLogin(MOCK_REGISTRATION_DETAILS.profile)
+        ).pipe(
+          tap(token => expect(token).toBe('sometoken'))
+        ).subscribe();
+      });
+
+      it('should save the returned session token', () => {
+        concat(
+          service.login(MOCK_LOGIN_DETAILS),
+          service.guestLogin(MOCK_REGISTRATION_DETAILS.profile)
+        ).pipe(
+          tap(token => {
+            expect(sessionServiceSpy.saveToken).toHaveBeenCalled();
+            expect(sessionServiceSpy.saveToken).toHaveBeenCalledWith(token);
+          })
+        ).subscribe();
+      });
+    });
+
+    describe('and a registration attempt succeeds', () => {
+      beforeEach(() => {
+        registerApiServiceSpy.register.and.returnValue(of('sometoken'));
+      });
+
+      it('should invoke an inmediate login with the same ', () => {
+        loginApiServiceSpy.login.and.returnValue(of('sometoken'));
+        service.register(MOCK_REGISTRATION_DETAILS).pipe(
+          tap(() => {
+            expect(loginApiServiceSpy.login).toHaveBeenCalled();
+            expect(loginApiServiceSpy.login).toHaveBeenCalledWith({
+              name: MOCK_REGISTRATION_DETAILS.name,
+              password: MOCK_REGISTRATION_DETAILS.password
+            });
+          })
+        ).subscribe();
+      });
+    });
+
+    describe('and any login attempt fails', () => {
+      beforeEach(() => {
+        loginApiServiceSpy.login.and.returnValue(throwError({ status: 500 }));
+        guestApiServiceSpy.guestLogin.and.returnValue(throwError({ status: 500 }));
+      });
+
+      it('should rethrow errors from the API', () => {
+        concat(
+          service.login(MOCK_LOGIN_DETAILS),
+          service.guestLogin(MOCK_REGISTRATION_DETAILS.profile)
+        ).pipe(
+          catchError(err => {
+            expect(err.status).toBe(500);
+            return of('');
+          })
+        ).subscribe();
+      });
+    });
+
+    describe('and a registration attempt fails', () => {
+      beforeEach(() => {
+        registerApiServiceSpy.register.and.returnValue(throwError({ status: 500 }));
+      });
+
+      it('should not try to login afterwards', () => {
+        service.register(MOCK_REGISTRATION_DETAILS).pipe(
+          catchError(err => {
+            expect(err.status).toBe(500);
+            return EMPTY;
+          }),
+          finalize(() => expect(loginApiServiceSpy.login).not.toHaveBeenCalled())
+        ).subscribe();
+      });
+    });
   });
 
-  it('should emit a truthy value after a successful login-as-guest attempt', () => {
-    service.guestLogin(MOCK_REGISTRATION_DETAILS.profile).pipe(
-      tap(next => expect(next).toBeTruthy())
-    ).subscribe();
-  });
+  describe('when the user is authenticated', () => {
+    beforeEach(() => {
+      sessionServiceSpy.userHasActiveSession$ = of(true);
+    });
 
-  it('should rethrow any errors from the API when a login attempt fails', () => {
-    spyOn(mockLoginApiService, 'login').and.returnValue(throwError({ status: 500 }));
-
-    service.login(MOCK_LOGIN_DETAILS).pipe(
-      catchError(() => of(false)),
-      tap(next => expect(next).toBeFalsy())
-    ).subscribe();
-  });
-
-  it('should request to save the session token after a successful login attempt', () => {
-    const saveTokenSpy = spyOn(mockSessionService, 'saveToken').and.callThrough();
-    service.login(MOCK_LOGIN_DETAILS).pipe(
-      tap(token => {
-        expect(saveTokenSpy).toHaveBeenCalled();
-        expect(saveTokenSpy).toHaveBeenCalledWith(token);
-      })
-    ).subscribe();
-  });
-
-  it('should do nothing if trying to login while already logged-in', () => {
-    mockSessionService.userHasActiveSession$ = of(true);
-
-    const saveTokenSpy = spyOn(mockSessionService, 'saveToken');
-    service.login(MOCK_LOGIN_DETAILS).pipe(
-      tap(token => expect(saveTokenSpy).not.toHaveBeenCalled())
-    ).subscribe();
-    mockSessionService.userHasActiveSession$ = of(false);
-  });
-
-  it('should try to login after a successful registration', () => {
-    const loginSpy = spyOn(mockLoginApiService, 'login').and.callThrough();
-    service.register(MOCK_REGISTRATION_DETAILS).pipe(
-      tap(() => expect(loginSpy).toHaveBeenCalled())
-    ).subscribe();
-  });
-
-  it('should not try to login after a failed registration', () => {
-    spyOn(mockRegisterApiService, 'register').and.returnValue(throwError({ status: 500 }));
-
-    const loginSpy = spyOn(service, 'login');
-    service.register(MOCK_REGISTRATION_DETAILS).pipe(
-      catchError(err => {
-        expect(err.status).toEqual(500);
-        return EMPTY;
-      }),
-      finalize(() => expect(loginSpy).not.toHaveBeenCalled())
-    ).subscribe();
+    it('should not try to login', () => {
+      concat(
+        service.login(MOCK_LOGIN_DETAILS),
+        service.guestLogin(MOCK_REGISTRATION_DETAILS.profile)
+      ).pipe(
+        finalize(() => {
+          expect(loginApiServiceSpy.login).not.toHaveBeenCalled();
+          expect(guestApiServiceSpy.guestLogin).not.toHaveBeenCalled();
+          expect(sessionServiceSpy.saveToken).not.toHaveBeenCalled();
+        })
+      ).subscribe();
+    });
   });
 });
