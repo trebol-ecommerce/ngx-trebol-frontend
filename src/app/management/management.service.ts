@@ -8,7 +8,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
 import { BehaviorSubject, ReplaySubject, Subscription } from 'rxjs';
-import { filter, map, mapTo, tap, throttleTime } from 'rxjs/operators';
+import { filter, map, tap, throttleTime } from 'rxjs/operators';
 
 /**
  * Keeps track of general shared data in the management module, such as the sidenav state and the name of the active path
@@ -47,7 +47,7 @@ export class ManagementService
     return this.router.events.pipe(
       filter(ev => ev instanceof ActivationEnd),
       throttleTime(50),
-      mapTo(this.route.snapshot)
+      map(() => this.route.snapshot)
     );
   }
 }

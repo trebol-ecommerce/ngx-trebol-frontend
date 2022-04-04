@@ -9,7 +9,7 @@ import { Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, 
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject, interval, merge, Observable, Subscription } from 'rxjs';
-import { debounceTime, delay, mapTo, tap } from 'rxjs/operators';
+import { debounceTime, delay, map, tap } from 'rxjs/operators';
 import { fadeInOut } from 'src/animations/fadeInOut';
 import { Image } from 'src/models/entities/Image';
 
@@ -156,7 +156,7 @@ export class SlideshowComponent
   private autoImageRotationObservable(): Observable<void> {
     return interval(this.autoRotationInterval).pipe(
       tap(() => { this.slideForwards(); }),
-      mapTo(void 0)
+      map(() => void 0)
     );
   }
 

@@ -7,7 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { mapTo, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { matchesDateProperty, matchesIdProperty, matchesNumberProperty, matchesStringProperty } from '../entity-data.local-memory-api.functions';
 import { MOCK_PRODUCT_CATEGORIES } from '../mock/mock-product-categories.datasource';
@@ -38,7 +38,7 @@ export class ProductCategoriesDataLocalMemoryApiService
         ) :
         of()
       ).pipe(
-        mapTo(void 0),
+        map(() => void 0),
         tap(() => this.items.push(item))
       );
   }

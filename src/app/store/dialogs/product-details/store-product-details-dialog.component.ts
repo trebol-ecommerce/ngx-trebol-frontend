@@ -8,7 +8,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { map, startWith, take, tap } from 'rxjs/operators';
+import { map, startWith, switchMap, take, tap } from 'rxjs/operators';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreProductDetailsDialogData } from './StoreProductDetailsDialogData';
 

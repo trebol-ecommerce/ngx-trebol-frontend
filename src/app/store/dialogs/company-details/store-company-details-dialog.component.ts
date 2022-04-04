@@ -7,7 +7,7 @@
 
 import { Component, Inject, OnInit } from '@angular/core';
 import { ReplaySubject, Subject } from 'rxjs';
-import { mapTo, pluck, startWith } from 'rxjs/operators';
+import { map, pluck, startWith } from 'rxjs/operators';
 import { IAboutPublicApiService } from 'src/app/api/about-public-api.iservice';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { CompanyDetails } from 'src/models/CompanyDetails';
@@ -22,8 +22,9 @@ export class StoreCompanyDetailsDialogComponent
 
   private dataSource: Subject<CompanyDetails> = new ReplaySubject();
 
+  // TODO move these observables
   data$ = this.dataSource.asObservable();
-  loading$ = this.data$.pipe(mapTo(false), startWith(true));
+  loading$ = this.data$.pipe(map(() => false), startWith(true));
   name$ = this.data$.pipe(pluck('name'));
   description$ = this.data$.pipe(pluck('description'));
   // bannerURL$ = this.data$.pipe(pluck('bannerImageURL'));

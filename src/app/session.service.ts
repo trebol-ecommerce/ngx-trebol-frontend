@@ -7,7 +7,7 @@
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
-import { catchError, finalize, mapTo, tap } from 'rxjs/operators';
+import { catchError, finalize, map, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { environment } from 'src/environments/environment';
 import { IAccessApiService } from './api/access-api.iservice';
@@ -42,7 +42,7 @@ export class SessionService
     this.isValidatingSessionSource.next(true);
 
     return this.accessApiService.getAuthorizedAccess().pipe(
-      mapTo(true),
+      map(() => true),
       catchError(() => of(false)),
       tap(isValid => { this.userHasActiveSessionSource.next(isValid); }),
       finalize(() => { this.isValidatingSessionSource.next(false); })

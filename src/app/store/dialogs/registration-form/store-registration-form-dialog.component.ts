@@ -10,7 +10,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, throwError } from 'rxjs';
-import { catchError, takeUntil, tap } from 'rxjs/operators';
+import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/authentication.service';
 import { ProfileService } from 'src/app/profile.service';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';

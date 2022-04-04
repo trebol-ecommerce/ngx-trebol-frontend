@@ -6,7 +6,7 @@
  */
 
 import { Inject, Injectable } from '@angular/core';
-import { filter } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ISalesDataApiService } from 'src/app/api/sales.data.api.iservice';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';

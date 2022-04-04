@@ -11,7 +11,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectionListChange } from '@angular/material/list';
 import { PageEvent } from '@angular/material/paginator';
 import { from, merge, Observable, Subject, Subscription } from 'rxjs';
-import { debounceTime, map, mapTo, tap, throttleTime } from 'rxjs/operators';
+import { debounceTime, map, tap, throttleTime } from 'rxjs/operators';
 import { Image } from 'src/models/entities/Image';
 import { ImageArrayOption } from './ImageArrayOption';
 import { ImagesArrayService } from './images-array.service';
@@ -47,7 +47,7 @@ export class ImagesArrayDialogComponent
 
   ngOnInit(): void {
     this.loading$ = merge(
-      this.filterChangeNotifier.pipe(mapTo(true)),
+      this.filterChangeNotifier.pipe(map(() => true)),
       this.service.loading$.pipe()
     );
     this.options$ = this.service.imagesPage$.pipe(

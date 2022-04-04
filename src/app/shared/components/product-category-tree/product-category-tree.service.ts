@@ -7,7 +7,7 @@
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, forkJoin, Observable, of, Subscription } from 'rxjs';
-import { map, mapTo, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
@@ -55,7 +55,7 @@ export class ProductCategoryTreeService
         }
         this.categoriesSource.next(this.categoriesSource.value);
       }),
-      mapTo(target)
+      map(() => target)
     );
   }
 

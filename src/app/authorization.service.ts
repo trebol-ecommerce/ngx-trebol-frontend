@@ -7,7 +7,7 @@
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, interval, merge, Observable, of, Subscription } from 'rxjs';
-import { catchError, filter, mapTo, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { environment } from 'src/environments/environment';
 import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
@@ -73,7 +73,7 @@ export class AuthorizationService
       takeUntil(this.sessionService.userHasActiveSession$.pipe(filter(isActive => !isActive))),
       switchMap(() => this.accessApiService.getAuthorizedAccess()),
       tap(access => { this.authorizedAccessSource.next(access); }),
-      mapTo(true)
+      map(() => true)
     );
   }
 }

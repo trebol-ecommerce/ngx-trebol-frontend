@@ -7,7 +7,7 @@
 
 import { Directive } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
-import { catchError, filter, finalize, mapTo } from 'rxjs/operators';
+import { catchError, filter, finalize, map, switchMap } from 'rxjs/operators';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { DataManagerServiceDirective } from '../data-manager/data-manager.service.directive';
@@ -34,7 +34,7 @@ export abstract class TransactionalDataManagerServiceDirective<T>
       filter(didConfirm => didConfirm),
       switchMap(() => forkJoin(items.map(item => (
         this.dataService.delete(item).pipe(
-          mapTo(true),
+          map(() => true),
           catchError(() => of(false))
         )
       )))),

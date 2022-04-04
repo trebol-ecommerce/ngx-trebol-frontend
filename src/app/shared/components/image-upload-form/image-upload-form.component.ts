@@ -13,7 +13,7 @@ import {
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, concat, Observable, Subscription, throwError } from 'rxjs';
-import { catchError, finalize, map, mapTo, startWith, tap } from 'rxjs/operators';
+import { catchError, finalize, map, startWith, tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 import { ImageManagerUploadService } from './image-upload-form.service';
@@ -172,6 +172,6 @@ export class ImageUploadFormComponent
         );
       }
     }
-    return uploads$.pipe(mapTo(void 0));
+    return uploads$.pipe(map(() => void 0));
   }
 }
