@@ -5,14 +5,7 @@
   https://opensource.org/licenses/MIT
 -->
 
-<button mat-button type="button"
-  class="toggle-sidenav action"
-  color="warn"
-  aria-label="Toggle sidebar"
-  i18n-aria-label="toggle sidebar|Label for action button to show/hide sidebar"
-  (click)="switchSidenavOpenState()">
-  <mat-icon>menu</mat-icon>
-</button>
+<app-management-header-sidenav-button></app-management-header-sidenav-button>
 <a routerLink="/">
   <img *ngIf="appLogo?.url; else title"
     [src]="appLogo.url"
@@ -24,27 +17,4 @@
 <div class="middle">
   <span>{{ moduleName$ | async }}</span>
 </div>
-<mat-menu #headerMenu>
-  <span mat-menu-item disabled>{{ userName$ | async }}</span>
-  <button mat-menu-item type="button"
-    class="navigate-store"
-    [routerLink]="['/store']">
-    <mat-icon>storefront</mat-icon>
-    <span i18n="Label for link button to navigate to storefront">Storefront</span>
-  </button>
-  <button mat-menu-item type="button"
-    (click)="onClickEditProfile()">
-    <mat-icon>edit</mat-icon>
-    <span i18n="edit profile|Label for action button to prompt profile edit">Edit profile</span>
-  </button>
-  <button mat-menu-item type="button"
-    (click)="onClickLogout()">
-    <mat-icon>exit_to_app</mat-icon>
-    <span i18n="log out|Label for action button to log out">Log out</span>
-  </button>
-</mat-menu>
-<button mat-button type="button"
-  class="open-menu action"
-  [matMenuTriggerFor]="headerMenu">
-  <mat-icon>person</mat-icon>
-</button>
+<app-management-header-menu></app-management-header-menu>

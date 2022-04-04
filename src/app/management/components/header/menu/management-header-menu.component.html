@@ -1,0 +1,31 @@
+<!--
+  Copyright (c) 2022 The Trebol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<mat-menu #headerMenu>
+  <span mat-menu-item disabled>{{ userName$ | async }}</span>
+  <button mat-menu-item type="button"
+    class="navigate-store"
+    [routerLink]="['/store']">
+    <mat-icon>storefront</mat-icon>
+    <span i18n="Label for link button to navigate to storefront">Storefront</span>
+  </button>
+  <button mat-menu-item type="button"
+    (click)="onClickEditProfile()">
+    <mat-icon>edit</mat-icon>
+    <span i18n="edit profile|Label for action button to prompt profile edit">Edit profile</span>
+  </button>
+  <button mat-menu-item type="button"
+    (click)="onClickLogout()">
+    <mat-icon>exit_to_app</mat-icon>
+    <span i18n="log out|Label for action button to log out">Log out</span>
+  </button>
+</mat-menu>
+<button mat-button type="button"
+  class="open-menu action"
+  [matMenuTriggerFor]="headerMenu">
+  <mat-icon>person</mat-icon>
+</button>

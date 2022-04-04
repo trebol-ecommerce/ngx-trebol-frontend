@@ -11,6 +11,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ManagementDataActionsComponent } from './components/data-actions/management-data-actions.component';
 import { ManagementFooterComponent } from './components/footer/management-footer.component';
 import { ManagementHeaderComponent } from './components/header/management-header.component';
+import { ManagementHeaderMenuComponent } from './components/header/menu/management-header-menu.component';
+import { ManagementHeaderSidenavButtonComponent } from './components/header/sidenav-button/management-header-sidenav-button.component';
 import { ManagementSidenavComponent } from './components/sidenav/management-sidenav.component';
 import { EntityFormDialogComponent } from './dialogs/entity-form/entity-form-dialog.component';
 import { ImagesArrayDialogComponent } from './dialogs/images-array/images-array-dialog.component';
@@ -69,6 +71,8 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ManagementDataActionsComponent,
     ManagementFooterComponent,
     ManagementHeaderComponent,
+    ManagementHeaderSidenavButtonComponent,
+    ManagementHeaderMenuComponent,
     ManagementSidenavComponent,
     ProductListContentsDialogComponent,
     ManagementSellReviewDialogComponent,
