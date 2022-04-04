@@ -6,7 +6,7 @@
  */
 
 import { Inject, Injectable } from '@angular/core';
-import { filter, switchMapTo } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ISalesDataApiService } from 'src/app/api/sales.data.api.iservice';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
@@ -30,7 +30,7 @@ export class ManagementSalesService
       message: $localize`:Label to hint user that rejections cannot be undone, and they do not trigger automatic refunds:The sell will remain read-only. Any refunds will have to be issued manually. This operation cannot be undone. Are you sure you want to reject this order?`
     }).pipe(
       filter(didConfirm => !!didConfirm),
-      switchMapTo(this.dataService.markAsRejected(sell as Sell))
+      switchMap(() => this.dataService.markAsRejected(sell as Sell))
     );
   }
 
@@ -40,7 +40,7 @@ export class ManagementSalesService
       message: $localize`:Label to hint user that confirmations cannot be undone, and they trigger an automatic mail to the customer:The customer will be notified and sent a receipt by e-mail. This operation cannot be undone. Are you sure you want to confirm this order?`
     }).pipe(
       filter(didConfirm => !!didConfirm),
-      switchMapTo(this.dataService.markAsConfirmed(sell as Sell))
+      switchMap(() => this.dataService.markAsConfirmed(sell as Sell))
     );
   }
 
@@ -50,7 +50,7 @@ export class ManagementSalesService
       message: $localize`:Label to hint user that completions cannot be undone:The sell will remain read-only. This operation cannot be undone. Are you sure you want to mark this order as completed?`
     }).pipe(
       filter(didConfirm => !!didConfirm),
-      switchMapTo(this.dataService.markAsCompleted(sell as Sell))
+      switchMap(() => this.dataService.markAsCompleted(sell as Sell))
     );
   }
 

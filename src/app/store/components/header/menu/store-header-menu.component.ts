@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of } from 'rxjs';
-import { filter, map, switchMap, switchMapTo, take, tap } from 'rxjs/operators';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { AuthorizationService } from 'src/app/authorization.service';
 import { ProfileService } from 'src/app/profile.service';
 import { SessionService } from 'src/app/session.service';
@@ -62,7 +62,7 @@ export class StoreHeaderMenuComponent
     this.sessionService.userHasActiveSession$.pipe(
       take(1),
       filter(hasActiveSession => hasActiveSession),
-      switchMapTo(this.confirmLogout()),
+      switchMap(() => this.confirmLogout()),
       filter(didConfirm => didConfirm),
       tap(() => {
         this.sessionService.closeCurrentSession();

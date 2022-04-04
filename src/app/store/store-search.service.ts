@@ -9,7 +9,7 @@ import { Inject, Injectable, OnDestroy } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
 import { ActivatedRoute, Router } from "@angular/router";
 import { BehaviorSubject, from, ReplaySubject } from "rxjs";
-import { switchMapTo, tap } from "rxjs/operators";
+import { tap } from "rxjs/operators";
 import { DataPage } from "src/models/DataPage";
 import { Product } from "src/models/entities/Product";
 import { ProductSearchQuery } from "src/models/ProductSearchQuery";
@@ -80,7 +80,7 @@ export class StoreSearchService
       }
     )).pipe(
       tap(() => this.isLoadingSearchSource.next(true)),
-      switchMapTo(this.productsApiService.fetchPage(this.pageIndex, this.pageSize, this.sortBy, this.order, finalFilterObject)),
+      switchMap(() => this.productsApiService.fetchPage(this.pageIndex, this.pageSize, this.sortBy, this.order, finalFilterObject)),
       tap(page => {
         this.currentPageSource.next(page);
         this.isLoadingSearchSource.next(false);

@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTree, MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { Observable, Subscription } from 'rxjs';
-import { debounceTime, filter, switchMap, switchMapTo, tap } from 'rxjs/operators';
+import { debounceTime, filter, switchMap, tap } from 'rxjs/operators';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 import { EntityFormDialogComponent } from '../../../management/dialogs/entity-form/entity-form-dialog.component';
@@ -117,7 +117,7 @@ export class ProductCategoryTreeComponent
       message: $localize`:Paragraph asking confirmation to delete a category, and explaining that deleting it cascades to its descendants, but not to related products which are detached from the relationship:Are you sure to delete the category? This will include all its descendants. Related products will not be deleted, and instead will be marked as not having a category.`
     }).pipe(
       filter(didConfirm => didConfirm),
-      switchMapTo(this.service.deleteNode(node)),
+      switchMap(() => this.service.deleteNode(node)),
       tap(() => this.matTree.renderNodeChanges(this.dataSource.data)) // TODO optimize this?
     ).subscribe(
       next => {
