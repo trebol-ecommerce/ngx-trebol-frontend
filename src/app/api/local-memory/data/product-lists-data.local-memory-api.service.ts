@@ -7,7 +7,7 @@
 
 import { Inject, Injectable } from '@angular/core';
 import { from, Observable, of, throwError } from 'rxjs';
-import { switchMap, tap, toArray } from 'rxjs/operators';
+import { map, switchMap, tap, toArray } from 'rxjs/operators';
 import { paginateItems } from 'src/functions/paginateItems';
 import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
