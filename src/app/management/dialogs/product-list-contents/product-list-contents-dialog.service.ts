@@ -8,7 +8,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, ReplaySubject, Subscription } from 'rxjs';
 import { finalize, map, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalProductListContentsDataApiService } from 'src/app/api/transactional-product-list-contents.data.api.iservice';
 import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
@@ -33,7 +33,7 @@ export class ProductListContentsDialogService
   list: ProductList | null;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductLists) private listApiService: ITransactionalProductListContentsDataApiService,
+    @Inject(API_INJECTION_TOKENS.dataProductLists) private listApiService: ITransactionalProductListContentsDataApiService,
   ) {
   }
 

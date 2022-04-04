@@ -7,7 +7,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { Customer } from 'src/models/entities/Customer';
 import { ManagementCustomersService } from './management-customers.service';
@@ -31,7 +31,7 @@ describe('ManagementCustomersService', () => {
     TestBed.configureTestingModule({
       providers: [
         ManagementCustomersService,
-        { provide: API_SERVICE_INJECTION_TOKENS.dataCustomers, useValue: mockApiService }
+        { provide: API_INJECTION_TOKENS.dataCustomers, useValue: mockApiService }
       ]
     });
     service = TestBed.inject(ManagementCustomersService);

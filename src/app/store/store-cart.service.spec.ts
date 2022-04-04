@@ -9,7 +9,7 @@ import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { SellDetail } from 'src/models/entities/SellDetail';
-import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from '../api/api-injection-tokens';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
 import { MOCK_PRODUCTS } from '../api/local-memory/mock/mock-products.datasource';
 import { StoreCartService } from './store-cart.service';
@@ -28,7 +28,7 @@ describe('StoreCartService', () => {
     TestBed.configureTestingModule({
       providers: [
         StoreCartService,
-        { provide: API_SERVICE_INJECTION_TOKENS.checkout, useValue: mockCheckoutApiService }
+        { provide: API_INJECTION_TOKENS.checkout, useValue: mockCheckoutApiService }
       ]
     });
     service = TestBed.inject(StoreCartService);

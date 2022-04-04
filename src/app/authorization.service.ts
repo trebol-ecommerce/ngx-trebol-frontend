@@ -8,7 +8,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, interval, merge, Observable, of, Subscription } from 'rxjs';
 import { catchError, filter, mapTo, switchMap, switchMapTo, take, takeUntil, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { environment } from 'src/environments/environment';
 import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
 import { IAccessApiService } from './api/access-api.iservice';
@@ -26,7 +26,7 @@ export class AuthorizationService
   private sessionStateSub: Subscription;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.access) private accessApiService: IAccessApiService,
+    @Inject(API_INJECTION_TOKENS.access) private accessApiService: IAccessApiService,
     private sessionService: SessionService
   ) {
     this.sessionStateSub = this.watchSessionActivityAndUpdateAuthorizedAccess().subscribe();

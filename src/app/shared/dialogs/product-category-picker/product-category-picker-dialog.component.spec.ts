@@ -9,7 +9,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { ProductCategoryPickerDialogComponent } from './product-category-picker-dialog.component';
@@ -49,7 +49,7 @@ describe('ProductCategoryPickerDialogComponent', () => {
         ProductCategoryPickerDialogComponent
       ],
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.dataProductCategories, useValue: mockApiService },
+        { provide: API_INJECTION_TOKENS.dataProductCategories, useValue: mockApiService },
         { provide: MatDialogRef, useValue: mockDialog }
       ]
     })

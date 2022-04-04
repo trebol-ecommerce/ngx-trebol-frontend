@@ -8,7 +8,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, ReplaySubject, Subscription } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { DataPage } from 'src/models/DataPage';
 import { Image } from 'src/models/entities/Image';
@@ -31,7 +31,7 @@ export class ImagesArrayService
   filter: any | undefined;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataImages) private imageDataService: IEntityDataApiService<Image>
+    @Inject(API_INJECTION_TOKENS.dataImages) private imageDataService: IEntityDataApiService<Image>
   ) {
   }
 

@@ -6,7 +6,7 @@
  */
 
 import { NgModule } from '@angular/core';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { AccessLocalMemoryApiService } from './access/access.local-memory-api.service';
 import { ProfileAccountLocalMemoryApiService } from './account/profile-account.local-memory-api.service';
 import { BillingTypesDataLocalMemoryApiService } from './data/billing-types-data.local-memory-api.service';
@@ -34,83 +34,83 @@ import { RegisterPublicLocalMemoryApiService } from './public/register-public.lo
 @NgModule({
   providers: [
     {
-      provide: API_SERVICE_INJECTION_TOKENS.access,
+      provide: API_INJECTION_TOKENS.access,
       useClass: AccessLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.accountProfile,
+      provide: API_INJECTION_TOKENS.accountProfile,
       useClass: ProfileAccountLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataBillingTypes,
+      provide: API_INJECTION_TOKENS.dataBillingTypes,
       useClass: BillingTypesDataLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataCustomers,
+      provide: API_INJECTION_TOKENS.dataCustomers,
       useClass: CustomersDataLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataImages,
+      provide: API_INJECTION_TOKENS.dataImages,
       useClass: ImagesDataLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataPeople,
+      provide: API_INJECTION_TOKENS.dataPeople,
       useClass: PeopleDataLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataProductCategories,
+      provide: API_INJECTION_TOKENS.dataProductCategories,
       useClass: ProductCategoriesDataLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataProductLists,
+      provide: API_INJECTION_TOKENS.dataProductLists,
       useClass: ProductListsDataLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataProducts,
+      provide: API_INJECTION_TOKENS.dataProducts,
       useClass: ProductsDataLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataSales,
+      provide: API_INJECTION_TOKENS.dataSales,
       useClass: SalesDataLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataSalespeople,
+      provide: API_INJECTION_TOKENS.dataSalespeople,
       useClass: SalespeopleDataLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataShippers,
+      provide: API_INJECTION_TOKENS.dataShippers,
       useClass: ShippersDataLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataUserRoles,
+      provide: API_INJECTION_TOKENS.dataUserRoles,
       useClass: UserRolesDataLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataUsers,
+      provide: API_INJECTION_TOKENS.dataUsers,
       useClass: UsersDataLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.about,
+      provide: API_INJECTION_TOKENS.about,
       useClass: AboutPublicLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.checkout,
+      provide: API_INJECTION_TOKENS.checkout,
       useClass: CheckoutPublicLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.guest,
+      provide: API_INJECTION_TOKENS.guest,
       useClass: GuestPublicLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.login,
+      provide: API_INJECTION_TOKENS.login,
       useClass: LoginPublicLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.receipt,
+      provide: API_INJECTION_TOKENS.receipt,
       useClass: ReceiptPublicLocalMemoryApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.register,
+      provide: API_INJECTION_TOKENS.register,
       useClass: RegisterPublicLocalMemoryApiService
     }
   ]

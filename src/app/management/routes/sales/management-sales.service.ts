@@ -7,7 +7,7 @@
 
 import { Inject, Injectable } from '@angular/core';
 import { filter, switchMapTo } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ISalesDataApiService } from 'src/app/api/sales.data.api.iservice';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { Sell } from 'src/models/entities/Sell';
@@ -19,7 +19,7 @@ export class ManagementSalesService
 
   constructor(
     protected sharedDialogService: SharedDialogService,
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataSales) public dataService: ISalesDataApiService
+    @Inject(API_INJECTION_TOKENS.dataSales) public dataService: ISalesDataApiService
   ) {
     super(sharedDialogService);
   }

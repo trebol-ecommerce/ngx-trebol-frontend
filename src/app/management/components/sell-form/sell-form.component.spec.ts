@@ -19,7 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { SellFormComponent } from './sell-form.component';
@@ -75,9 +75,9 @@ describe('SellFormComponent', () => {
       ],
       declarations: [ SellFormComponent ],
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.dataCustomers, useValue: mockDataApiService },
-        { provide: API_SERVICE_INJECTION_TOKENS.dataSalespeople, useValue: mockDataApiService },
-        { provide: API_SERVICE_INJECTION_TOKENS.dataBillingTypes, useValue: mockDataApiService },
+        { provide: API_INJECTION_TOKENS.dataCustomers, useValue: mockDataApiService },
+        { provide: API_INJECTION_TOKENS.dataSalespeople, useValue: mockDataApiService },
+        { provide: API_INJECTION_TOKENS.dataBillingTypes, useValue: mockDataApiService },
         { provide: MatSnackBar, useValue: mockSnackBarService },
         { provide: MatDialog, useValue: mockDialogService },
         { provide: MatDialogRef, useValue: {} },

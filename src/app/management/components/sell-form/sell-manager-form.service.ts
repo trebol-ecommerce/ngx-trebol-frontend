@@ -8,7 +8,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 import { concatMap, map, switchMap, toArray } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ICompositeEntityDataApiService } from 'src/app/api/composite-entity.data-api.iservice';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { Product } from 'src/models/entities/Product';
@@ -27,8 +27,8 @@ export class SellFormService
   sellTotalValue$: Observable<number>;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataSales) private dataService: ICompositeEntityDataApiService<Sell, SellDetail>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) private productDataService: ITransactionalEntityDataApiService<Product>,
+    @Inject(API_INJECTION_TOKENS.dataSales) private dataService: ICompositeEntityDataApiService<Sell, SellDetail>,
+    @Inject(API_INJECTION_TOKENS.dataProducts) private productDataService: ITransactionalEntityDataApiService<Product>,
   ) {
     this.sellNetValue$ = this.sellDetails$.pipe(
       map(

@@ -8,7 +8,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject, Subscription } from 'rxjs';
 import { finalize, map, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
@@ -35,7 +35,7 @@ export class ProductsArrayDialogService
   totalCount$: Observable<number>;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) private productDataService: IEntityDataApiService<Product>,
+    @Inject(API_INJECTION_TOKENS.dataProducts) private productDataService: IEntityDataApiService<Product>,
   ) {
     this.availableProducts$ = this.pageSource.asObservable().pipe(map(page => page.items));
     this.totalCount$ = this.pageSource.asObservable().pipe(map(page => page.totalCount));

@@ -8,7 +8,7 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EMPTY } from 'rxjs';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IReceiptPublicApiService } from 'src/app/api/receipt-public-api.iservice';
 import { StoreReceiptService } from './store-receipt.service';
 
@@ -27,7 +27,7 @@ describe('StoreReceiptService', () => {
       ],
       providers: [
         StoreReceiptService,
-        { provide: API_SERVICE_INJECTION_TOKENS.receipt, useValue: mockReceiptApiService }
+        { provide: API_INJECTION_TOKENS.receipt, useValue: mockReceiptApiService }
       ]
     });
     service = TestBed.inject(StoreReceiptService);

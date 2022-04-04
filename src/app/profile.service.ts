@@ -8,7 +8,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map, share, switchMap, take, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { Person } from 'src/models/entities/Person';
 import { IProfileAccountApiService } from './api/profile-account-api.iservice';
 import { SessionService } from './session.service';
@@ -25,7 +25,7 @@ export class ProfileService
   userName$ = this.getUserNameObservable();
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.accountProfile) private profileApiService: IProfileAccountApiService,
+    @Inject(API_INJECTION_TOKENS.accountProfile) private profileApiService: IProfileAccountApiService,
     private sessionService: SessionService
   ) { }
 

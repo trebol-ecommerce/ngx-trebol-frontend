@@ -12,7 +12,7 @@ import { Person } from 'src/models/entities/Person';
 import { SellDetail } from 'src/models/entities/SellDetail';
 import { BILLING_TYPE_INDIVIDUAL, BILLING_TYPE_NAMES_MAP } from 'src/text/billing-type-names';
 import { CheckoutRequest } from '../../models/CheckoutRequest';
-import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from '../api/api-injection-tokens';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
 import { MOCK_PRODUCTS } from '../api/local-memory/mock/mock-products.datasource';
 import { StoreCheckoutService } from './store-checkout.service';
@@ -31,7 +31,7 @@ describe('StoreCheckoutService', () => {
     TestBed.configureTestingModule({
       providers: [
         StoreCheckoutService,
-        { provide: API_SERVICE_INJECTION_TOKENS.checkout, useValue: mockCheckoutApiService }
+        { provide: API_INJECTION_TOKENS.checkout, useValue: mockCheckoutApiService }
       ]
     });
     service = TestBed.inject(StoreCheckoutService);

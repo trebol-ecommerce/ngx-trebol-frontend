@@ -9,7 +9,7 @@ import { TestBed } from '@angular/core/testing';
 import { concat, of } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { Registration } from '../models/Registration';
-import { API_SERVICE_INJECTION_TOKENS } from './api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from './api/api-injection-tokens';
 import { IProfileAccountApiService } from './api/profile-account-api.iservice';
 import { ProfileService } from './profile.service';
 import { SessionService } from './session.service';
@@ -43,7 +43,7 @@ describe('ProfileService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.accountProfile, useValue: mockProfileApiService },
+        { provide: API_INJECTION_TOKENS.accountProfile, useValue: mockProfileApiService },
         { provide: SessionService, useValue: mockSessionService }
       ]
     });

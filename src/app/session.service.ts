@@ -8,7 +8,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
 import { catchError, finalize, mapTo, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { environment } from 'src/environments/environment';
 import { IAccessApiService } from './api/access-api.iservice';
 
@@ -28,7 +28,7 @@ export class SessionService
   isValidatingSession$ = this.isValidatingSessionSource.asObservable();
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.access) private accessApiService: IAccessApiService
+    @Inject(API_INJECTION_TOKENS.access) private accessApiService: IAccessApiService
   ) {
     this.validateSession().subscribe();
   }

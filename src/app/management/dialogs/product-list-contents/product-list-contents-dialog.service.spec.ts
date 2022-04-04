@@ -7,7 +7,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { Product } from 'src/models/entities/Product';
 import { ProductListContentsDialogService } from './product-list-contents-dialog.service';
@@ -31,7 +31,7 @@ describe('ProductListContentsDialogService', () => {
     TestBed.configureTestingModule({
       providers: [
         ProductListContentsDialogService,
-        { provide: API_SERVICE_INJECTION_TOKENS.dataProductLists, useValue: mockApiService }
+        { provide: API_INJECTION_TOKENS.dataProductLists, useValue: mockApiService }
       ]
     });
     service = TestBed.inject(ProductListContentsDialogService);

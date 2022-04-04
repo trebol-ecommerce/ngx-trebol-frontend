@@ -8,7 +8,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalProductListContentsDataApiService } from 'src/app/api/transactional-product-list-contents.data.api.iservice';
 import { Product } from 'src/models/entities/Product';
 import { StoreCatalogService } from '../../routes/catalog/store-catalog.service';
@@ -55,7 +55,7 @@ describe('StoreProductListContentsDisplayComponent', () => {
         MockProductsDisplayComponent
       ],
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.dataProductLists, useValue: mockListApiService },
+        { provide: API_INJECTION_TOKENS.dataProductLists, useValue: mockListApiService },
         { provide: StoreCatalogService, useValue: mockStoreCatalogService }
       ]
     })

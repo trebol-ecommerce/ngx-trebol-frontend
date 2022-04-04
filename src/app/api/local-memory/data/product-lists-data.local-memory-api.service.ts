@@ -12,7 +12,7 @@ import { paginateItems } from 'src/functions/paginateItems';
 import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
 import { ProductList } from 'src/models/entities/ProductList';
-import { API_SERVICE_INJECTION_TOKENS } from '../../api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from '../../api-injection-tokens';
 import { ITransactionalEntityDataApiService } from '../../transactional-entity.data-api.iservice';
 import { ITransactionalProductListContentsDataApiService } from '../../transactional-product-list-contents.data.api.iservice';
 import {
@@ -30,7 +30,7 @@ export class ProductListsDataLocalMemoryApiService
   protected itemContentsMap = new Map([...MOCK_PRODUCT_LIST_CONTENTS_MAP.entries()]);
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) private productsApiService: ITransactionalEntityDataApiService<Product>
+    @Inject(API_INJECTION_TOKENS.dataProducts) private productsApiService: ITransactionalEntityDataApiService<Product>
   ) {
     super();
   }

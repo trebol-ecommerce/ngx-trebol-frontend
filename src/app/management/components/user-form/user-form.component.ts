@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { debounceTime, map, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { Person } from 'src/models/entities/Person';
@@ -51,8 +51,8 @@ export class UserFormComponent
   get role() { return this.formGroup.get('role') as FormControl; }
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataPeople) protected peopleDataApiService: IEntityDataApiService<Person>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataUserRoles) protected userRolesDataApiService: IEntityDataApiService<UserRole>,
+    @Inject(API_INJECTION_TOKENS.dataPeople) protected peopleDataApiService: IEntityDataApiService<Person>,
+    @Inject(API_INJECTION_TOKENS.dataUserRoles) protected userRolesDataApiService: IEntityDataApiService<UserRole>,
     private formGroupService: EntityFormGroupFactoryService
   ) { }
 

@@ -10,7 +10,7 @@ import { EMPTY, of, throwError } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { Login } from '../models/Login';
 import { Registration } from '../models/Registration';
-import { API_SERVICE_INJECTION_TOKENS } from './api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from './api/api-injection-tokens';
 import { IGuestPublicApiService } from './api/guest-public-api.iservice';
 import { ILoginPublicApiService } from './api/login-public-api.iservice';
 import { IRegisterPublicApiService } from './api/register-public-api.iservice';
@@ -59,9 +59,9 @@ describe('AuthenticationService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.login, useValue: mockLoginApiService },
-        { provide: API_SERVICE_INJECTION_TOKENS.guest, useValue: mockGuestApiService },
-        { provide: API_SERVICE_INJECTION_TOKENS.register, useValue: mockRegisterApiService },
+        { provide: API_INJECTION_TOKENS.login, useValue: mockLoginApiService },
+        { provide: API_INJECTION_TOKENS.guest, useValue: mockGuestApiService },
+        { provide: API_INJECTION_TOKENS.register, useValue: mockRegisterApiService },
         { provide: SessionService, useValue: mockSessionService }
       ]
     });

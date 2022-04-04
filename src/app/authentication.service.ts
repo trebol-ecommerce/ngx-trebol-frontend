@@ -8,7 +8,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { of, Subject } from 'rxjs';
 import { switchMap, switchMapTo, take, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ILoginPublicApiService } from 'src/app/api/login-public-api.iservice';
 import { Person } from 'src/models/entities/Person';
 import { Login } from 'src/models/Login';
@@ -29,9 +29,9 @@ export class AuthenticationService
   authCancelation$ = this.authCancelationSource.asObservable();
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.login) private loginApiService: ILoginPublicApiService,
-    @Inject(API_SERVICE_INJECTION_TOKENS.guest) private guestApiService: IGuestPublicApiService,
-    @Inject(API_SERVICE_INJECTION_TOKENS.register) private registerApiService: IRegisterPublicApiService,
+    @Inject(API_INJECTION_TOKENS.login) private loginApiService: ILoginPublicApiService,
+    @Inject(API_INJECTION_TOKENS.guest) private guestApiService: IGuestPublicApiService,
+    @Inject(API_INJECTION_TOKENS.register) private registerApiService: IRegisterPublicApiService,
     private sessionService: SessionService
   ) { }
 

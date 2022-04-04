@@ -13,7 +13,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
 import { debounceTime, map, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { ProductsArrayDialogComponent } from 'src/app/management/dialogs/products-array/products-array-dialog.component';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
@@ -67,9 +67,9 @@ export class SellFormComponent
 
   constructor(
     private formGroupService: EntityFormGroupFactoryService,
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataCustomers) private customersDataService: IEntityDataApiService<Customer>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataSalespeople) private salespeopleDataService: IEntityDataApiService<Salesperson>,
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataBillingTypes) private billingTypesDataApiService: IEntityDataApiService<BillingType>,
+    @Inject(API_INJECTION_TOKENS.dataCustomers) private customersDataService: IEntityDataApiService<Customer>,
+    @Inject(API_INJECTION_TOKENS.dataSalespeople) private salespeopleDataService: IEntityDataApiService<Salesperson>,
+    @Inject(API_INJECTION_TOKENS.dataBillingTypes) private billingTypesDataApiService: IEntityDataApiService<BillingType>,
     private service: SellFormService,
     private dialogService: MatDialog,
     private currencyPipe: CurrencyPipe

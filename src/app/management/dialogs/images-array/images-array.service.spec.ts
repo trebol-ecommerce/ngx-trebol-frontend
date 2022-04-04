@@ -8,7 +8,7 @@
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { DataPage } from 'src/models/DataPage';
 import { Image } from 'src/models/entities/Image';
@@ -34,7 +34,7 @@ describe('ImagesArrayService', () => {
       imports: [],
       providers: [
         ImagesArrayService,
-        { provide: API_SERVICE_INJECTION_TOKENS.dataImages, useValue: null }
+        { provide: API_INJECTION_TOKENS.dataImages, useValue: null }
       ]
     });
   });
@@ -58,7 +58,7 @@ describe('ImagesArrayService', () => {
     };
     mockApiService.fetchPage = () => of(mockDataPage);
     TestBed.overrideProvider(
-      API_SERVICE_INJECTION_TOKENS.dataImages,
+      API_INJECTION_TOKENS.dataImages,
       { useValue: mockApiService }
     );
     service = TestBed.inject(ImagesArrayService);

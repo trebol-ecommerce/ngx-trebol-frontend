@@ -13,7 +13,7 @@ import { switchMapTo, tap } from "rxjs/operators";
 import { DataPage } from "src/models/DataPage";
 import { Product } from "src/models/entities/Product";
 import { ProductSearchQuery } from "src/models/ProductSearchQuery";
-import { API_SERVICE_INJECTION_TOKENS } from "../api/api-service-injection-tokens";
+import { API_INJECTION_TOKENS } from "../api/api-injection-tokens";
 import { ITransactionalEntityDataApiService } from "../api/transactional-entity.data-api.iservice";
 
 @Injectable({ providedIn: 'root' })
@@ -33,7 +33,7 @@ export class StoreSearchService
   readonly isLoadingSearch$ = this.isLoadingSearchSource.asObservable();
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) private productsApiService: ITransactionalEntityDataApiService<Product>,
+    @Inject(API_INJECTION_TOKENS.dataProducts) private productsApiService: ITransactionalEntityDataApiService<Product>,
     private route: ActivatedRoute,
     private router: Router
   ) {

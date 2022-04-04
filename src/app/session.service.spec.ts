@@ -9,7 +9,7 @@ import { TestBed } from '@angular/core/testing';
 import { throwError, timer } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { IAccessApiService } from './api/access-api.iservice';
-import { API_SERVICE_INJECTION_TOKENS } from './api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from './api/api-injection-tokens';
 import { SessionService } from './session.service';
 
 describe('SessionService', () => {
@@ -23,7 +23,7 @@ describe('SessionService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.access, useValue: mockAccessApiService }
+        { provide: API_INJECTION_TOKENS.access, useValue: mockAccessApiService }
       ]
     });
   });

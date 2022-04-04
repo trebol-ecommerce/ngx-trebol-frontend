@@ -7,7 +7,7 @@
 
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { CheckoutRequest } from 'src/models/CheckoutRequest';
 import { SellDetail } from 'src/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/models/ExternalPaymentRedirectionData';
@@ -19,7 +19,7 @@ import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
 export class StoreCheckoutService {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.checkout) private checkoutApiService: ICheckoutPublicApiService
+    @Inject(API_INJECTION_TOKENS.checkout) private checkoutApiService: ICheckoutPublicApiService
   ) { }
 
   /**

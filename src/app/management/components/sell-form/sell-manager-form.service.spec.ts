@@ -7,7 +7,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { EMPTY, of } from 'rxjs';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ICompositeEntityDataApiService } from 'src/app/api/composite-entity.data-api.iservice';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { Product } from 'src/models/entities/Product';
@@ -30,8 +30,8 @@ describe('SellManagerFormService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.dataSales, useValue: mockSalesApiService },
-        { provide: API_SERVICE_INJECTION_TOKENS.dataProducts, useValue: mockProductsApiService }
+        { provide: API_INJECTION_TOKENS.dataSales, useValue: mockSalesApiService },
+        { provide: API_INJECTION_TOKENS.dataProducts, useValue: mockProductsApiService }
       ]
     });
     service = TestBed.inject(SellFormService);

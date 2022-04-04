@@ -7,7 +7,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { EMPTY } from 'rxjs';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { Image } from 'src/models/entities/Image';
 import { ImageManagerUploadService } from './image-upload-form.service';
@@ -24,7 +24,7 @@ describe('ImageManagerUploadService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.dataImages, useValue: mockApiService }
+        { provide: API_INJECTION_TOKENS.dataImages, useValue: mockApiService }
       ]
     });
     service = TestBed.inject(ImageManagerUploadService);

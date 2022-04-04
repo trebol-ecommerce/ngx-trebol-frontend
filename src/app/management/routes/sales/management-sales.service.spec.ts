@@ -7,7 +7,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { Sell } from 'src/models/entities/Sell';
@@ -37,7 +37,7 @@ describe('ManagementSalesService', () => {
     TestBed.configureTestingModule({
       providers: [
         ManagementSalesService,
-        { provide: API_SERVICE_INJECTION_TOKENS.dataSales, useValue: mockApiService },
+        { provide: API_INJECTION_TOKENS.dataSales, useValue: mockApiService },
         { provide: SharedDialogService, useValue: mockSharedDialogService }
       ]
     });

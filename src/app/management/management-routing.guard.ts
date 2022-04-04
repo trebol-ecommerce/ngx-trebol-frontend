@@ -12,7 +12,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, switchMap, tap } from 'rxjs/operators';
 import { SessionService } from 'src/app/session.service';
 import { IAccessApiService } from '../api/access-api.iservice';
-import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from '../api/api-injection-tokens';
 
 @Injectable()
 export class ManagementRoutingGuard
@@ -22,7 +22,7 @@ export class ManagementRoutingGuard
   route: ActivatedRouteSnapshot;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.access) private apiAccessService: IAccessApiService,
+    @Inject(API_INJECTION_TOKENS.access) private apiAccessService: IAccessApiService,
     private router: Router,
     private appService: SessionService
   ) {

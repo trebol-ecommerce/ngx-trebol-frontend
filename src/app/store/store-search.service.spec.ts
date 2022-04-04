@@ -9,7 +9,7 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { Product } from 'src/models/entities/Product';
-import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from '../api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from '../api/transactional-entity.data-api.iservice';
 import { StoreSearchService } from './store-search.service';
 
@@ -35,7 +35,7 @@ describe('StoreSearchService', () => {
       ],
       providers: [
         StoreSearchService,
-        { provide: API_SERVICE_INJECTION_TOKENS.dataProducts, useValue: mockCheckoutApiService }
+        { provide: API_INJECTION_TOKENS.dataProducts, useValue: mockCheckoutApiService }
       ]
     });
     service = TestBed.inject(StoreSearchService);

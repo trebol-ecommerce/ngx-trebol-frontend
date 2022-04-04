@@ -8,7 +8,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { Image } from 'src/models/entities/Image';
 
@@ -21,7 +21,7 @@ export class ImageManagerUploadService
   isNewItem: boolean;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataImages) private dataService: ITransactionalEntityDataApiService<Image>
+    @Inject(API_INJECTION_TOKENS.dataImages) private dataService: ITransactionalEntityDataApiService<Image>
   ) { }
 
   ngOnDestroy(): void {

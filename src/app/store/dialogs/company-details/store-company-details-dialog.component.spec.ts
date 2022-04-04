@@ -8,7 +8,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { IAboutPublicApiService } from 'src/app/api/about-public-api.iservice';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { StoreCompanyDetailsDialogComponent } from './store-company-details-dialog.component';
 
 describe('StoreCompanyDetailsDialogComponent', () => {
@@ -31,7 +31,7 @@ describe('StoreCompanyDetailsDialogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ StoreCompanyDetailsDialogComponent ],
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.about, useValue: mockService }
+        { provide: API_INJECTION_TOKENS.about, useValue: mockService }
       ]
     })
     .compileComponents();
