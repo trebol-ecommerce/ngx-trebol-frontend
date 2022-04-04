@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
-import { AddressFormComponent } from './components/address-form/address-form.component';
 import { AddressesEditorFormComponent } from './components/addresses-editor-form/addresses-editor-form.component';
 import { CartProductUnitsControlComponent } from './components/cart-product-units-control/cart-product-units-control.component';
 import { CenteredMatProgressSpinnerComponent } from './components/centered-mat-spinner/centered-mat-spinner.component';
@@ -18,7 +17,6 @@ import { DialogSwitcherButtonComponent } from './components/dialog-switcher-butt
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { GmapComponent } from './components/gmap/gmap.component';
 import { ImageUploadFormComponent } from './components/image-upload-form/image-upload-form.component';
-import { PersonFormComponent } from './components/person-form/person-form.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductCategorySelectorFormFieldComponent } from './components/product-category-selector-form-field/product-category-selector-form-field.component';
 import { ProductCategoryTreeComponent } from './components/product-category-tree/product-category-tree.component';
@@ -36,6 +34,8 @@ import { InputDialogComponent } from './dialogs/input/input-dialog.component';
 import { ProductCategoryPickerDialogComponent } from './dialogs/product-category-picker/product-category-picker-dialog.component';
 import { SharedDialogService } from './dialogs/shared-dialog.service';
 import { EntityFormGroupFactoryService } from './entity-form-group-factory.service';
+import { AddressFormComponent } from './forms/address/address-form.component';
+import { PersonFormComponent } from './forms/person/person-form.component';
 import { AddressPipe } from './pipes/address/address.pipe';
 import { TrustedResourceUrlPipe } from './pipes/trusted-resource-url/trusted-resource-url.pipe';
 

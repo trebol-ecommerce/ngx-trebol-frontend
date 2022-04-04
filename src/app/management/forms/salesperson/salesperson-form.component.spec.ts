@@ -10,7 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
-import { PersonFormComponent } from 'src/app/shared/components/person-form/person-form.component';
+import { PersonFormComponent } from 'src/app/shared/forms/person/person-form.component';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { SalespersonFormComponent } from './salesperson-form.component';
 
