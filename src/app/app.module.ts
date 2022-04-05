@@ -12,20 +12,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { environmentModules } from 'src/environments/environment-modules';
+import { AppMaterialModule } from './app-material.module';
 import { AppComponent } from './app.component';
-import { SharedMaterialModule } from './shared/shared-material.module';
+import { CenteredMatProgressSpinnerComponent } from './components/centered-mat-spinner/centered-mat-spinner.component';
 
 const DEBUG_ROUTES = false;
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CenteredMatProgressSpinnerComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    SharedMaterialModule,
+    AppMaterialModule,
     AppRoutingModule,
     environmentModules
   ],

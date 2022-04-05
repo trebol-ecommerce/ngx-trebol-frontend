@@ -12,7 +12,6 @@ import { RouterModule } from '@angular/router';
 import { SharedMaterialModule } from './shared-material.module';
 import { AddressesEditorFormComponent } from './components/addresses-editor-form/addresses-editor-form.component';
 import { CartProductUnitsControlComponent } from './components/cart-product-units-control/cart-product-units-control.component';
-import { CenteredMatProgressSpinnerComponent } from './components/centered-mat-spinner/centered-mat-spinner.component';
 import { CompanyFormComponent } from './components/company-form/company-form.component';
 import { DialogSwitcherButtonComponent } from './components/dialog-switcher-button/dialog-switcher-button.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
@@ -45,7 +44,6 @@ const SHARED_DECLARATIONS = [
   AddressFormComponent,
   AddressesEditorFormComponent,
   CartProductUnitsControlComponent,
-  CenteredMatProgressSpinnerComponent,
   CompanyFormComponent,
   DialogSwitcherButtonComponent,
   FileUploadComponent,
