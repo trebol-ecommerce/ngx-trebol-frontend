@@ -30,12 +30,11 @@ export class StoreCatalogComponent
   constructor(
     private catalogService: StoreCatalogService,
     private cartService: StoreCartService
-  ) {
-    this.loading$ = this.catalogService.loading$.pipe();
-    this.lists$ = this.catalogService.listsPage$.pipe(map(page => page.items));
-  }
+  ) { }
 
   ngOnInit(): void {
+    this.loading$ = this.catalogService.loading$.pipe();
+    this.lists$ = this.catalogService.listsPage$.pipe(map(page => page.items));
     this.catalogService.reloadItems();
   }
 
