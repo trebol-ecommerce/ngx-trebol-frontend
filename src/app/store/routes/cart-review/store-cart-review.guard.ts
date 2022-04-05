@@ -119,7 +119,8 @@ export class StoreCartReviewGuard
     return this.dialogService.open(
       StoreRegistrationFormDialogComponent,
       {
-        width: '40rem'
+        width: '40rem',
+        height: '25rem'
       }
     );
   }
@@ -128,7 +129,8 @@ export class StoreCartReviewGuard
     return this.dialogService.open(
       StoreGuestShippingFormDialogComponent,
       {
-        width: '40rem'
+        width: '40rem',
+        height: '25rem'
       }
     );
   }

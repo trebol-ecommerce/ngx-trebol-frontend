@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - (UI) Contents of cart would be editable after confirmation
 - (UX) After registration (and automatic login), the user would not retain profile info (namely their username)
 - (UI) Readjusted spacing of product cards in frontpage catalog
+- (UI) Set defined height for registration and guest login dialogs (for better use in mobile devices)
 - Logic to keep users away from the cart page is now entirely up to the corresponding guard service
 - Using actual instances of `InjectionToken<T>` to provide external API services
 
