@@ -5,8 +5,7 @@
   https://opensource.org/licenses/MIT
 -->
 
-<form [formGroup]="formGroup">
-
+<fieldset [formGroup]="formGroup">
   <mat-form-field class="code">
     <input matInput formControlName="code"
       placeholder="Code"
@@ -22,5 +21,4 @@
   <input formControlName="totalCount" type="hidden"
     placeholder="Count"
     i18n-placeholder="Name of field for the amount of items in a list" />
-
-</form>
+</fieldset>

@@ -5,7 +5,7 @@
   https://opensource.org/licenses/MIT
 -->
 
-<form [formGroup]="formGroup">
+<fieldset [formGroup]="formGroup">
   <mat-radio-group formControlName="sellType"
     aria-label="Billing type"
     i18n-aria-label="Label for group of choices to select billing type from"
@@ -20,4 +20,4 @@
     placeholder="Billing address"
     i18n-placeholder="Name of field for address to bill to">
   </app-addresses-editor-form>
-</form>
+</fieldset>

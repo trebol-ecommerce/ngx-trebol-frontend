@@ -10,8 +10,7 @@
     <mat-panel-title
       i18n="Title of panel to select conditions to filter products by">Filter Products...</mat-panel-title>
   </mat-expansion-panel-header>
-  <form [formGroup]="formGroup">
-
+  <fieldset [formGroup]="formGroup">
     <app-product-category-selector-form-field
       formControlName="category"
       placeholder="By Category"
@@ -23,5 +22,5 @@
         placeholder="By Product name"
         i18n-placeholder="Name of field for filtering products by partial name" />
     </mat-form-field>
-  </form>
+  </fieldset>
 </mat-expansion-panel>

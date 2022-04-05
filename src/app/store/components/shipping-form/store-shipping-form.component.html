@@ -5,7 +5,7 @@
   https://opensource.org/licenses/MIT
 -->
 
-<form [formGroup]="formGroup">
+<fieldset [formGroup]="formGroup">
   <mat-radio-group formControlName="requestShipping"
     aria-label="Choose a delivery option"
     i18n-aria-label="Label to hint user that they must choose a delivery option"
@@ -23,4 +23,4 @@
     placeholder="Shipping address"
     i18n-placeholder="Name of field for address to deliver items to">
   </app-addresses-editor-form>
-</form>
+</fieldset>

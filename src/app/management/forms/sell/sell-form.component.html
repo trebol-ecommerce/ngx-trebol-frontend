@@ -5,15 +5,14 @@
   https://opensource.org/licenses/MIT
 -->
 
-<form [formGroup]="formGroup">
-
-  <mat-form-field style="grid-area: date">
+<fieldset [formGroup]="formGroup">
+  <mat-form-field class="date">
     <input matInput formControlName="date"
       placeholder="Date and time"
       i18n-placeholder="Name of field for date and time of sell" />
   </mat-form-field>
 
-  <mat-form-field style="grid-area: billingType">
+  <mat-form-field class="billingType">
     <mat-select formControlName="billingType"
       placeholder="Billing type"
       i18n-placeholder="Name of field for billing type of sell">
@@ -22,7 +21,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field style="grid-area: salesperson">
+  <mat-form-field class="salesperson">
     <mat-select formControlName="salesperson"
       placeholder="Salesperson"
       i18n-placeholder="Name of field for salesperson that earned/is in charge of sell">
@@ -31,7 +30,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field style="grid-area: customer">
+  <mat-form-field class="customer">
     <mat-select formControlName="customer"
       placeholder="Customer"
       i18n-placeholder="Name of field for purchasing customer in sell ">
@@ -40,15 +39,15 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-card style="grid-area: details">
-    <div class="details-header">
+  <mat-card class="details">
+    <div class="header">
       <h3 i18n="Title of table displaying products and details of sell">Checkout Details</h3>
       <button mat-button mat-raised-button type="button"
         color="primary"
         (click)="onClickAddProducts()"
         i18n="add products|Label for action button to include products into sell">Add</button>
     </div>
-    <div class="details-table-wrapper">
+    <div class="table-wrapper">
       <table mat-table [dataSource]="sellDetails$">
         <ng-container matColumnDef="product">
           <th mat-header-cell *matHeaderCellDef
@@ -103,10 +102,8 @@
     </div>
   </mat-card>
 
-  <div style="grid-area: summary">
-    <div class="summary-data">
-      <div>{{ sellNetValueLabel$ | async }}</div>
-      <div>{{ sellTotalValueLabel$ | async }}</div>
-    </div>
+  <div class="summary">
+    <div>{{ sellNetValueLabel$ | async }}</div>
+    <div>{{ sellTotalValueLabel$ | async }}</div>
   </div>
-</form>
+</fieldset>

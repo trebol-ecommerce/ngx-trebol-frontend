@@ -17,3 +17,15 @@ form>mat-select,
 input {
   width: 100%;
 }
+
+form,
+fieldset {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+}

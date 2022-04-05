@@ -4,15 +4,3 @@
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
-
-form {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 1em;
-}
-
-.actions {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-}

@@ -9,38 +9,34 @@ h2 {
   margin-top: 0;
 }
 
-form {
-  display: grid;
-  grid-gap: 0.5rem 1rem;
+fieldset {
+  gap: 0.5rem 1rem;
+  grid-template-columns: 1fr 1fr;
   grid-template-areas:
-    'date'
-    'billingType'
-    'salesperson'
-    'salesperson'
-    'customer'
-    'details'
-    'summary';
+    'date billingType'
+    'salesperson salesperson'
+    'customer customer'
+    'details details'
+    'summary summary';
 }
 
-@media(min-width: 640px) {
-  form {
-    grid-template-areas:
-      'date billingType'
-      'salesperson salesperson'
-      'customer customer'
-      'details details'
-      'summary summary';
-  }
+.date {
+  grid-area: date;
 }
-
-@media(min-width: 641px) {
-  form {
-    grid-template-areas:
-      'date date billingType billingType none none'
-      'salesperson salesperson salesperson customer customer customer'
-      'details details details details details details'
-      'summary summary summary summary summary summary';
-  }
+.billingType {
+  grid-area: billingType;
+}
+.salesperson {
+  grid-area: salesperson;
+}
+.customer {
+  grid-area: customer;
+}
+.details {
+  grid-area: details;
+}
+.summary {
+  grid-area: summary;
 }
 
 .details-header {
@@ -69,7 +65,7 @@ form {
   text-align: right;
 }
 
-.summary-data {
+.summary {
   border: 1px solid #ddd;
   border-radius: 0.5rem;
   display: grid;
@@ -82,7 +78,16 @@ form {
 }
 
 @media(min-width: 641px) {
-  .summary-data {
+  fieldset {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas:
+      'date date billingType billingType none none'
+      'salesperson salesperson salesperson customer customer customer'
+      'details details details details details details'
+      'summary summary summary summary summary summary';
+  }
+
+  .summary {
     grid-template-columns: 1fr 1fr;
   }
 }

@@ -5,17 +5,18 @@
   https://opensource.org/licenses/MIT
 -->
 
-<form [formGroup]="formGroup">
+<fieldset [formGroup]="formGroup">
   <mat-form-field class="idNumber">
     <input matInput formControlName="idNumber"
       placeholder="Company ID number"
       i18n-placeholder="Name of field for company identification number"
       (blur)="onTouched()" />
   </mat-form-field>
+
   <mat-form-field class="name">
     <input matInput formControlName="name"
       placeholder="Company legal name"
       i18n-placeholder="Name of field for official, complete company name"
       (blur)="onTouched()" />
   </mat-form-field>
-</form>
+</fieldset>

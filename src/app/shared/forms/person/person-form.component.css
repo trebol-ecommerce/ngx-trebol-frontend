@@ -5,14 +5,8 @@
  * https://opensource.org/licenses/MIT
  */
 
-form {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
 @media(min-width: 641px) {
-  form {
-    grid-gap: 1rem;
+  fieldset {
     grid-template-columns: repeat(4, 1fr);
     grid-template-areas:
       'firstName firstName lastName lastName'
