@@ -16,13 +16,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `AuthenticationService` - allows to login as user (or guest) and register, and to cancel any ongoing instance of these processes
   - `AuthorizationService` - allows to fetch (and cache) authorized access to APIs. Also, routinely checks validity of session token once an authentication is made
   - `ProfileService` - allows to fetch (and cache) the current user's profile data, and to update it as well
+- `ManagementHeaderComponent` refactored down to simpler components
+  - Introduced a common `HeaderBrandComponent` used in both store and management pages
+- Reorganized most form components into accordingly named `forms/` directories
+- Frontpage lists show a paginator only when they have more than one page
 
 ### Fixed
 - (UI) User name and details would not always be correct or up-to-date
   - (Performance) Make better use of existing auth HTTP APIs
 - (UI) Contents of cart would be editable after confirmation
 - (UX) After registration (and automatic login), the user would not retain profile info (namely their username)
+- (UI) Readjusted spacing of product cards in frontpage catalog
 - Logic to keep users away from the cart page is now entirely up to the corresponding guard service
+- Using actual instances of `InjectionToken<T>` to provide external API services
 
 ## [v2.12.0-rc.1] - 2022-03-25
 
