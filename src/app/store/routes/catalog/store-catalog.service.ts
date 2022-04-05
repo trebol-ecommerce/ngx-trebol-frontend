@@ -7,9 +7,9 @@
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Observable, of, ReplaySubject, Subscription } from 'rxjs';
-import { concatMap, finalize, map, switchMap, tap } from 'rxjs/operators';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { BehaviorSubject, Observable, ReplaySubject, Subscription } from 'rxjs';
+import { finalize, switchMap, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { ITransactionalProductListContentsDataApiService } from 'src/app/api/transactional-product-list-contents.data.api.iservice';
@@ -38,7 +38,7 @@ export class StoreCatalogService
     @Inject(API_INJECTION_TOKENS.dataProducts) private productsApiService: ITransactionalEntityDataApiService<Product>,
     private dialogService: MatDialog,
     private route: ActivatedRoute,
-    private router: Router,
+    private router: Router
   ) {
     this.checkRouteForProductIdParam();
   }
@@ -74,15 +74,18 @@ export class StoreCatalogService
 
   private checkRouteForProductIdParam(): void {
     this.queryParamsSubscription = this.route.queryParamMap.pipe(
-      switchMap((params) => (params.has('viewingProduct')) ?
-        this.productsApiService.fetchExisting({
-          barcode: params.get('viewingProduct')
-        }).pipe(
-          switchMap(p => this.promptProductDetails(p))
-        ) :
-        of(params)
-      )
+      tap(params => this.checkViewingProductParam(params))
     ).subscribe();
+  }
+
+  private checkViewingProductParam(params: ParamMap) {
+    if (params.has('viewingProduct')) {
+      this.productsApiService.fetchExisting({
+        barcode: params.get('viewingProduct')
+      }).pipe(
+        switchMap(p => this.promptProductDetails(p))
+      ).subscribe();
+    };
   }
 
   private promptProductDetails(product: Product): Observable<any> {
