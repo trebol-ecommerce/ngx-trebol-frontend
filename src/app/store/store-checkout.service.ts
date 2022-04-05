@@ -15,7 +15,7 @@ import { BILLING_TYPE_COMPANY, BILLING_TYPE_NAMES_MAP } from 'src/text/billing-t
 import { Sell } from '../../models/entities/Sell';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class StoreCheckoutService {
 
   constructor(

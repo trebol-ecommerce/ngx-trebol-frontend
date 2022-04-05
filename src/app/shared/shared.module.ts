@@ -35,7 +35,6 @@ import { InformationDialogComponent } from './dialogs/information/information-di
 import { InputDialogComponent } from './dialogs/input/input-dialog.component';
 import { ProductCategoryPickerDialogComponent } from './dialogs/product-category-picker/product-category-picker-dialog.component';
 import { SharedDialogService } from './dialogs/shared-dialog.service';
-import { EntityFormGroupFactoryService } from './entity-form-group-factory.service';
 import { AddressFormComponent } from './forms/address/address-form.component';
 import { PersonFormComponent } from './forms/person/person-form.component';
 import { AddressPipe } from './pipes/address/address.pipe';
@@ -92,8 +91,7 @@ const SHARED_DECLARATIONS = [
     ...SHARED_DECLARATIONS
   ],
   providers: [
-    SharedDialogService,
-    EntityFormGroupFactoryService
+    SharedDialogService
   ]
 })
 export class SharedModule { }
