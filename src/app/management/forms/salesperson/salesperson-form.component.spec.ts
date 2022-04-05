@@ -7,12 +7,12 @@
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularMaterialModule } from 'src/app/shared/angular-material/angular-material.module';
 import { PersonFormComponent } from 'src/app/shared/forms/person/person-form.component';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { SalespersonFormComponent } from './salesperson-form.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 describe('SalespersonFormComponent', () => {
   let component: SalespersonFormComponent;
@@ -22,16 +22,16 @@ describe('SalespersonFormComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        NoopAnimationsModule,
         ReactiveFormsModule,
-        AngularMaterialModule
+        NoopAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule
       ],
       declarations: [
         SalespersonFormComponent,
         PersonFormComponent
       ],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: null },
         EntityFormGroupFactoryService
       ]
     })
