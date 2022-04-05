@@ -16,53 +16,23 @@
   flex-flow: row nowrap;
 }
 
-a {
-  padding: 0 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-a:hover {
-  background-color: rgba(0,0,0,0.2);
-}
-
-a > img {
-  max-height: 4rem;
-}
-
-.middle {
-  flex: 1 1 auto;
-  font-size: 1.25rem;
-  justify-content: center;
-  align-items: center;
-}
-
-.action {
+.open-menu {
   flex: 0 0 auto;
   justify-content: center;
   align-items: center;
   padding: 0 1rem;
 }
-.action mat-icon {
+.open-menu mat-icon {
   width: 4rem;
   height: 4rem;
   font-size: 4rem;
 }
 
 @media(min-width: 641px) {
-  a {
-    padding: 0 1rem;
-  }
-
-  a > img {
-    max-height: 7rem;
-  }
-
-  .action {
+  .open-menu {
     padding: 0
   }
-  .action mat-icon {
+  .open-menu mat-icon {
     width: 3rem;
     height: 3rem;
     font-size: 3rem;

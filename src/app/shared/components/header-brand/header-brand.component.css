@@ -5,27 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-a {
-  padding: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-a:hover {
-  background-color: rgba(0,0,0,0.2);
+:host {
+  display: block;
+  padding: 1rem;
 }
 
-img {
-  max-height: 4rem;
-}
-
-@media(min-width: 641px) {
-  a {
-    padding: 0.5rem 1rem;
-  }
-
-  img {
-    max-height: 7rem;
-  }
+a,
+a > img {
+  height: 100%;
 }

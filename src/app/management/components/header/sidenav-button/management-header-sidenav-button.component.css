@@ -4,3 +4,13 @@
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
+
+button {
+  height: 100%;
+}
+
+mat-icon {
+  width: 3rem;
+  height: 3rem;
+  font-size: 3rem;
+}
