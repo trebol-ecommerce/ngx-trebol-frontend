@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AngularMaterialModule } from './angular-material/angular-material.module';
+import { SharedMaterialModule } from './shared-material.module';
 import { AddressesEditorFormComponent } from './components/addresses-editor-form/addresses-editor-form.component';
 import { CartProductUnitsControlComponent } from './components/cart-product-units-control/cart-product-units-control.component';
 import { CenteredMatProgressSpinnerComponent } from './components/centered-mat-spinner/centered-mat-spinner.component';
@@ -80,13 +80,13 @@ const SHARED_DECLARATIONS = [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    AngularMaterialModule
+    SharedMaterialModule
   ],
   exports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    AngularMaterialModule,
+    SharedMaterialModule,
 
     ...SHARED_DECLARATIONS
   ],

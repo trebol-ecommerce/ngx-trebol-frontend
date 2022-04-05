@@ -69,4 +69,4 @@ export const DATE_PROVIDER_IMPLEMENTATION = MatNativeDateModule ;
     DATE_PROVIDER_IMPLEMENTATION
   ]
 })
-export class AngularMaterialModule { }
+export class SharedMaterialModule { }

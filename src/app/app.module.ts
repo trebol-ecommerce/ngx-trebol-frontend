@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { environmentModules } from 'src/environments/environment-modules';
 import { AppComponent } from './app.component';
-import { AngularMaterialModule } from './shared/angular-material/angular-material.module';
+import { SharedMaterialModule } from './shared/shared-material.module';
 
 const DEBUG_ROUTES = false;
 
@@ -25,7 +25,7 @@ const DEBUG_ROUTES = false;
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    AngularMaterialModule,
+    SharedMaterialModule,
     AppRoutingModule,
     environmentModules
   ],
