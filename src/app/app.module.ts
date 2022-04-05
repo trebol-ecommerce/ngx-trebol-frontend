@@ -14,14 +14,12 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { environmentModules } from 'src/environments/environment-modules';
 import { AppMaterialModule } from './app-material.module';
 import { AppComponent } from './app.component';
-import { CenteredMatProgressSpinnerComponent } from './components/centered-mat-spinner/centered-mat-spinner.component';
 
 const DEBUG_ROUTES = false;
 
 @NgModule({
   declarations: [
-    AppComponent,
-    CenteredMatProgressSpinnerComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

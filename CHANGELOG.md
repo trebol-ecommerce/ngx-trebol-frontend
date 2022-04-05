@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Environment variable to define the interval in miliseconds to check for current token validity
+- Experimental startup loading spinner
 
 ### Changed
 - `AppService` is replaced by four smaller, more specialized services

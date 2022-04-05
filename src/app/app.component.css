@@ -4,3 +4,8 @@
  * This software is released under the MIT License.
  * https://opensource.org/licenses/MIT
  */
+
+:host {
+  display: block;
+  height: 100vh;
+}

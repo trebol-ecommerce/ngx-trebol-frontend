@@ -38,6 +38,7 @@ import { AddressFormComponent } from './forms/address/address-form.component';
 import { PersonFormComponent } from './forms/person/person-form.component';
 import { AddressPipe } from './pipes/address/address.pipe';
 import { TrustedResourceUrlPipe } from './pipes/trusted-resource-url/trusted-resource-url.pipe';
+import { AppMaterialModule } from '../app-material.module';
 
 
 const SHARED_DECLARATIONS = [
@@ -78,12 +79,14 @@ const SHARED_DECLARATIONS = [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
+    AppMaterialModule,
     SharedMaterialModule
   ],
   exports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
+    AppMaterialModule,
     SharedMaterialModule,
 
     ...SHARED_DECLARATIONS
