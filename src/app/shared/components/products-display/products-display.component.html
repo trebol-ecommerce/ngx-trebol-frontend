@@ -6,7 +6,7 @@
 -->
 
 <div class="wrapper" [ngClass]="{ scrollable: scrollable }">
-  <div *ngIf="scrollable" class="scroll-hint">
+  <div *ngIf="scrollable" class="animated-scroll-hint">
     <mat-icon>swipe</mat-icon>
   </div>
   <div class="shadow"></div>
@@ -23,9 +23,9 @@
     </ng-template>
   </div>
 </div>
-<div class="hint" *ngIf="scrollable"
+<div class="scroll hint" *ngIf="scrollable"
     i18n="Label to hint users to swipe to the sides">Swipe to the sides to view more</div>
-<div class="paginator" *ngIf="showPaginator && (pageSize < products?.length)">
+<div class="paginator" *ngIf="showPaginator && (totalCount > pageSize)">
   <mat-paginator
     (page)="onPage($event)"
     [showFirstLastButtons]="true"

@@ -57,22 +57,25 @@
 .contents > app-product-card {
   flex: 0 0 auto;
 }
+.wrapper.scrollable > .contents > app-product-card {
+  margin: 1rem;
+}
 
-.hint {
+.hint.scroll {
   padding: 0.5rem;
   color: grey;
   text-align: center;
 }
 
 .paginator {
-  padding: 0.5rem;
+  padding: 1rem;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
 }
 
 @media(max-width: 640px) {
-  .scroll-hint {
+  .animated-scroll-hint {
     position: absolute;
     top: 0;
     left: 0;
@@ -86,7 +89,7 @@
     animation: fadeOut 1s ease-in-out 2s forwards;
     pointer-events: none;
   }
-  .scroll-hint mat-icon {
+  .animated-scroll-hint mat-icon {
     color: white;
     width: 4rem;
     height: 4rem;
@@ -99,7 +102,7 @@
     gap: 1rem;
   }
 
-  .scroll-hint {
+  .animated-scroll-hint {
     display: none;
   }
 
