@@ -16,9 +16,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { EMPTY, of } from 'rxjs';
 import { AuthenticationService } from 'src/app/authentication.service';
 import { ProfileService } from 'src/app/profile.service';
-import { CenteredMatProgressSpinnerComponent } from 'src/app/shared/components/centered-mat-spinner/centered-mat-spinner.component';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { StoreRegistrationFormDialogComponent } from './store-registration-form-dialog.component';
+
+@Component({ selector: 'app-centered-mat-spinner' })
+class MockCenteredMatSpinnerComponent { }
 
 @Component({
   selector: 'app-person-form',
@@ -67,7 +69,7 @@ describe('StoreRegistrationFormDialogComponent', () => {
       declarations: [
         StoreRegistrationFormDialogComponent,
         MockPersonFormComponent,
-        CenteredMatProgressSpinnerComponent
+        MockCenteredMatSpinnerComponent
       ],
       providers: [
         { provide: MatDialogRef, useValue: mockMatDialogRef },
