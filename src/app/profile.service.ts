@@ -20,6 +20,7 @@ import { SessionService } from './session.service';
 export class ProfileService
   implements OnDestroy {
 
+  // TODO fetch this automatically based on session state change
   private userProfileSource = new BehaviorSubject<Person>(null);
 
   userName$ = this.getUserNameObservable();
