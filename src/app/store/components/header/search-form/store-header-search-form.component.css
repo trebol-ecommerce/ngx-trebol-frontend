@@ -12,8 +12,8 @@ fieldset {
   grid-template-columns: none;
 }
 
-.searchFilter {
-  margin: 0.5rem;
+fieldset > mat-form-field {
+  width: 100%;
 }
 
 .mat-form-field-flex {
