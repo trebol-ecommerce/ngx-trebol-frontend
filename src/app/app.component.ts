@@ -7,8 +7,8 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivationEnd, Router } from '@angular/router';
-import { merge, Observable, of } from 'rxjs';
-import { delay, filter, mapTo, startWith, take } from 'rxjs/operators';
+import { concat, Observable, of } from 'rxjs';
+import { delay, filter, mapTo, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -25,12 +25,11 @@ export class AppComponent
   ) { }
 
   ngOnInit(): void {
-    this.isLoading$ = merge(
+    this.isLoading$ = concat(
       of(true),
       this.router.events.pipe(
         filter(ev => ev instanceof ActivationEnd),
         take(1),
-        delay(50),
         mapTo(false)
       )
     );
