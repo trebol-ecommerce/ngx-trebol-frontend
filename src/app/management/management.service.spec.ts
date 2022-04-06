@@ -6,9 +6,9 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { ActivatedRoute, ActivatedRouteSnapshot, ActivationEnd, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, ActivationEnd, Router } from '@angular/router';
 import { concat, of } from 'rxjs';
-import { catchError, take, tap } from 'rxjs/operators';
+import { catchError, delay, take, tap } from 'rxjs/operators';
 import { ManagementService } from './management.service';
 
 describe('ManagementService', () => {
@@ -16,7 +16,6 @@ describe('ManagementService', () => {
   let fakeRouteData: any;
   let fakeActivatedRouteSnapshot: ActivatedRouteSnapshot;
   let mockRouter: Partial<Router>;
-  let mockActivatedRoute: Partial<ActivatedRoute>;
 
   beforeEach(() => {
     fakeRouteData = {
@@ -26,17 +25,13 @@ describe('ManagementService', () => {
       data: fakeRouteData
     } as ActivatedRouteSnapshot;
     mockRouter = {
-      events: of(new ActivationEnd(fakeActivatedRouteSnapshot))
-    };
-    mockActivatedRoute = {
-      snapshot: fakeActivatedRouteSnapshot
+      events: of(new ActivationEnd(fakeActivatedRouteSnapshot)).pipe(delay(5))
     };
 
     TestBed.configureTestingModule({
       // RouterTestingModule is not fit for providing fake route data
       providers: [
         { provide: Router, useValue: mockRouter },
-        { provide: ActivatedRoute, useValue: mockActivatedRoute },
         ManagementService
       ]
     });

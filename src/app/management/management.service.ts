@@ -6,7 +6,7 @@
  */
 
 import { Injectable, OnDestroy } from '@angular/core';
-import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
+import { ActivationEnd, Router } from '@angular/router';
 import { BehaviorSubject, ReplaySubject, Subscription } from 'rxjs';
 import { filter, map, tap, throttleTime } from 'rxjs/operators';
 
@@ -25,8 +25,7 @@ export class ManagementService
   currentPageName$ = this.currentPageNameSource.asObservable();
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router
   ) {
     this.activeRouteSub = this.getActiveRouteSnapshotObservable().pipe(
       map(routeSnapshot => routeSnapshot.data?.title as string),
@@ -47,7 +46,7 @@ export class ManagementService
     return this.router.events.pipe(
       filter(ev => ev instanceof ActivationEnd),
       throttleTime(50),
-      map(() => this.route.snapshot)
+      map((event: ActivationEnd) => event.snapshot)
     );
   }
 }
