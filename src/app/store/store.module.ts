@@ -21,6 +21,7 @@ import { StoreHeaderSearchFormComponent } from './components/header/search-form/
 import { StoreHeaderComponent } from './components/header/store-header.component';
 import { StoreLocationComponent } from './components/location/store-location.component';
 import { StoreProductListContentsDisplayComponent } from './components/product-list-contents-display/store-product-list-contents-display.component';
+import { StoreReceiptCardComponent } from './components/receipt-card/store-receipt-card.component';
 import { StoreReceiptDetailsTableComponent } from './components/receipt-details-table/store-receipt-details-table.component';
 import { StoreShippingFormComponent } from './components/shipping-form/store-shipping-form.component';
 import { StoreCompanyDetailsDialogComponent } from './dialogs/company-details/store-company-details-dialog.component';
@@ -33,7 +34,6 @@ import { StoreCartReviewComponent } from './routes/cart-review/store-cart-review
 import { StoreCartReviewGuard } from './routes/cart-review/store-cart-review.guard';
 import { StoreCatalogComponent } from './routes/catalog/store-catalog.component';
 import { StoreCatalogService } from './routes/catalog/store-catalog.service';
-import { StoreReceiptCardComponent } from './routes/receipt/receipt-card/store-receipt-card.component';
 import { StoreReceiptComponent } from './routes/receipt/store-receipt.component';
 import { StoreSearchComponent } from './routes/search/store-search.component';
 import { StoreRoutingModule } from './store-routing.module';
