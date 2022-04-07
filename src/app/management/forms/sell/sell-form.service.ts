@@ -6,8 +6,8 @@
  */
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
-import { concatMap, map, switchMap, toArray } from 'rxjs/operators';
+import { BehaviorSubject, from, Observable } from 'rxjs';
+import { concatMap, map, switchMap, tap, toArray } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ICompositeEntityDataApiService } from 'src/app/api/composite-entity.data-api.iservice';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
@@ -20,9 +20,9 @@ export class SellFormService
   implements OnDestroy {
 
   private sellDetails: SellDetail[] = [];
-  private sellDetailsSource: Subject<SellDetail[]> = new BehaviorSubject([]);
+  private sellDetailsSource = new BehaviorSubject<SellDetail[]>([]);
 
-  sellDetails$: Observable<SellDetail[]> = this.sellDetailsSource.asObservable();
+  sellDetails$ = this.sellDetailsSource.asObservable();
   sellNetValue$: Observable<number>;
   sellTotalValue$: Observable<number>;
 
@@ -31,14 +31,15 @@ export class SellFormService
     @Inject(API_INJECTION_TOKENS.dataProducts) private productDataService: ITransactionalEntityDataApiService<Product>,
   ) {
     this.sellNetValue$ = this.sellDetails$.pipe(
-      map(
-        array => {
-          if (array.length === 0) { return 0; }
-          return array.map(detail => detail.product.price * detail.units).reduce((a, b) => a + b);
-        }
+      map(detailsArray => (detailsArray.length > 0) ?
+        detailsArray.map(d => (d.product.price * d.units))
+          .reduce((value1, value2) => (value1 + value2)) :
+        0
       )
     );
-    this.sellTotalValue$ = this.sellNetValue$.pipe(map(subtotal => Math.ceil(subtotal * 1.19)));
+    this.sellTotalValue$ = this.sellNetValue$.pipe(
+      map(subtotal => Math.ceil(subtotal * 1.19))
+    );
   }
 
   ngOnDestroy(): void {
@@ -48,39 +49,26 @@ export class SellFormService
   refreshSellDetailsFrom(sell: Partial<Sell>): void {
     this.dataService.fetchInnerDataFrom(sell).pipe(
       switchMap(sellDetails => from(sellDetails)),
-      concatMap(
-        detail => this.productDataService.fetchExisting(detail.product).pipe(
-          map((product) => {
-            detail.product = product;
-            return detail;
-          })
-        )
-      ),
-      toArray()
-    ).subscribe(
-      sellDetails => {
+      concatMap(detail => this.productDataService.fetchExisting(detail.product).pipe(
+        tap(product => { detail.product = product; }),
+        map(() => detail)
+      )),
+      toArray(),
+      tap(sellDetails => {
         this.sellDetails = sellDetails;
         this.sellDetailsSource.next(sellDetails);
-      }
-    );
+      })
+    ).subscribe();
   }
 
   addProducts(newProducts: Product[]): void {
-    const newSellDetails: SellDetail[] = newProducts.map(
-      product => Object.assign<SellDetail, Partial<SellDetail>>(
-        new SellDetail(),
-        {
-          product,
-          units: 1
-        }
-      )
-    );
+    const newSellDetails: SellDetail[] = newProducts.map(product => ({ product, units: 1 }));
     this.sellDetails.push(...newSellDetails);
     this.sellDetailsSource.next(this.sellDetails);
   }
 
   increaseDetailProductQuantityAtIndex(i: number): void {
-    const detail: SellDetail = this.sellDetails[i];
+    const detail = this.sellDetails[i];
     if (detail) {
       detail.units++;
       this.sellDetailsSource.next(this.sellDetails);
@@ -88,7 +76,7 @@ export class SellFormService
   }
 
   decreaseDetailProductQuantityAtIndex(i: number): void {
-    const detail: SellDetail = this.sellDetails[i];
+    const detail = this.sellDetails[i];
     if (detail) {
       detail.units--;
       this.sellDetailsSource.next(this.sellDetails);
