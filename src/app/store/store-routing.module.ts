@@ -47,7 +47,6 @@ export const STORE_CHILD_ROUTES: Routes = [
         ]
       }
     ])
-  ],
-  exports: [RouterModule]
+  ]
 })
 export class StoreRoutingModule { }
