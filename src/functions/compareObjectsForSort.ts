@@ -1,3 +1,15 @@
+/*
+ * Copyright (c) 2022 The Trebol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+/**
+ * Simple function that compares two objects based on a property they should have in common.
+ *
+ * Intended for use in the local-memory-api module.
+ */
 export function compareObjectsForSort(a: any, b: any, sortBy: string, order = 'asc'): number {
   if ((sortBy in a) &&
     (sortBy in b) &&
