@@ -11,7 +11,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
-import { ManagementService } from 'src/app/management/management.service';
 import { ProfileService } from 'src/app/profile.service';
 import { SessionService } from 'src/app/session.service';
 import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component';
@@ -29,7 +28,6 @@ export class ManagementHeaderMenuComponent
   userName$: Observable<string>;
 
   constructor(
-    protected service: ManagementService,
     protected sessionService: SessionService,
     protected profileService: ProfileService,
     protected dialogService: MatDialog,
