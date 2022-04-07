@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { ManagementService } from 'src/app/management/management.service';
+import { ManagementRoutingService } from '../../management-routing.service';
 import { ManagementHeaderComponent } from './management-header.component';
 
 @Component({ selector: 'app-management-header-sidenav-button' })
@@ -27,13 +27,10 @@ class MockManagementHeaderMenuComponent { }
 describe('ManagementHeaderComponent', () => {
   let component: ManagementHeaderComponent;
   let fixture: ComponentFixture<ManagementHeaderComponent>;
-  let mockManagementService: Partial<ManagementService>;
+  let routingServiceSpy: jasmine.SpyObj<ManagementRoutingService>;
 
   beforeEach(waitForAsync(() => {
-    mockManagementService = {
-      toggleSidenav() {},
-      currentPageName$: of('')
-    };
+    const mockRoutingService = jasmine.createSpyObj('ManagementRoutingService', ['currentPageName$']);
 
     TestBed.configureTestingModule({
       imports: [
@@ -49,19 +46,20 @@ describe('ManagementHeaderComponent', () => {
         ManagementHeaderComponent
       ],
       providers: [
-        { provide: ManagementService, useValue: mockManagementService }
+        { provide: ManagementRoutingService, useValue: mockRoutingService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    routingServiceSpy = TestBed.inject(ManagementRoutingService) as jasmine.SpyObj<ManagementRoutingService>;
     fixture = TestBed.createComponent(ManagementHeaderComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
+    routingServiceSpy.currentPageName$ = of('');
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 });

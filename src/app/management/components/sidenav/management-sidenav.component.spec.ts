@@ -8,21 +8,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { ActivatedRouteSnapshot } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EMPTY, of } from 'rxjs';
 import { AuthorizationService } from 'src/app/authorization.service';
-import { ManagementService } from 'src/app/management/management.service';
+import { ManagementRoutingService } from '../../management-routing.service';
 import { ManagementSidenavComponent } from './management-sidenav.component';
 
 describe('ManagementSidenavComponent', () => {
   let component: ManagementSidenavComponent;
   let fixture: ComponentFixture<ManagementSidenavComponent>;
-  let managementServiceSpy: jasmine.SpyObj<ManagementService>;
+  let routingServiceSpy: jasmine.SpyObj<ManagementRoutingService>;
   let authorizationServiceSpy: jasmine.SpyObj<AuthorizationService>;
 
   beforeEach(waitForAsync(() => {
-    const mockManagementService = jasmine.createSpyObj('ManagementService', ['getActiveRouteSnapshotObservable']);
+    const mockRoutingService = jasmine.createSpyObj('ManagementRoutingService', ['currentRouteSnapshot$']);
     const mockAuthorizationService = jasmine.createSpyObj('AuthorizationService', ['getAuthorizedAccess'])
 
     TestBed.configureTestingModule({
@@ -33,15 +32,14 @@ describe('ManagementSidenavComponent', () => {
       ],
       declarations: [ ManagementSidenavComponent ],
       providers: [
-        { provide: ManagementService, useValue: mockManagementService },
+        { provide: ManagementRoutingService, useValue: mockRoutingService },
         { provide: AuthorizationService, useValue: mockAuthorizationService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    managementServiceSpy = TestBed.inject(ManagementService) as jasmine.SpyObj<ManagementService>;
+    routingServiceSpy = TestBed.inject(ManagementRoutingService) as jasmine.SpyObj<ManagementRoutingService>;
     authorizationServiceSpy = TestBed.inject(AuthorizationService) as jasmine.SpyObj<AuthorizationService>;
 
     fixture = TestBed.createComponent(ManagementSidenavComponent);
@@ -50,7 +48,7 @@ describe('ManagementSidenavComponent', () => {
 
   describe('always', () => {
     beforeEach(() => {
-      managementServiceSpy.getActiveRouteSnapshotObservable.and.returnValue(EMPTY);
+      routingServiceSpy.currentRouteSnapshot$ = EMPTY;
       authorizationServiceSpy.getAuthorizedAccess.and.returnValue(of({ routes: [] }));
       fixture.detectChanges();
     });
@@ -63,13 +61,10 @@ describe('ManagementSidenavComponent', () => {
 
   // TODO finish writing this sub-suite
   xdescribe('normally', () => {
-    let mockRouteSnapshot: Partial<ActivatedRouteSnapshot>;
     let mockRoutes: string[]
 
     beforeEach(() => {
-      mockRouteSnapshot = { url: [] };
       mockRoutes = ['sales', 'products'];
-      managementServiceSpy.getActiveRouteSnapshotObservable.and.returnValue(of(mockRouteSnapshot as ActivatedRouteSnapshot));
       authorizationServiceSpy.getAuthorizedAccess.and.returnValue(of({ routes: mockRoutes }));
       fixture.detectChanges();
     });

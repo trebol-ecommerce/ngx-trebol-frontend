@@ -8,16 +8,16 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ManagementService } from 'src/app/management/management.service';
+import { ManagementSidenavService } from 'src/app/management/components/sidenav/management-sidenav.service';
 import { ManagementHeaderSidenavButtonComponent } from './management-header-sidenav-button.component';
 
 describe('ManagementHeaderSidenavButtonComponent', () => {
   let component: ManagementHeaderSidenavButtonComponent;
   let fixture: ComponentFixture<ManagementHeaderSidenavButtonComponent>;
-  let managementServiceSpy: jasmine.SpyObj<ManagementService>;
+  let managementServiceSpy: jasmine.SpyObj<ManagementSidenavService>;
 
   beforeEach(waitForAsync(() => {
-    const mockManagementService = jasmine.createSpyObj('ManagementService', [ 'toggleSidenav', 'currentPageName$' ]);
+    const mockSidenavService = jasmine.createSpyObj('ManagementSidenavService', [ 'toggleSidenav' ]);
 
     TestBed.configureTestingModule({
       imports: [
@@ -28,14 +28,14 @@ describe('ManagementHeaderSidenavButtonComponent', () => {
         ManagementHeaderSidenavButtonComponent
       ],
       providers: [
-        { provide: ManagementService, useValue: mockManagementService }
+        { provide: ManagementSidenavService, useValue: mockSidenavService }
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    managementServiceSpy = TestBed.inject(ManagementService) as jasmine.SpyObj<ManagementService>;
+    managementServiceSpy = TestBed.inject(ManagementSidenavService) as jasmine.SpyObj<ManagementSidenavService>;
 
     fixture = TestBed.createComponent(ManagementHeaderSidenavButtonComponent);
     component = fixture.componentInstance;

@@ -7,12 +7,12 @@
 
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot, ActivationEnd, Router } from '@angular/router';
-import { concat, of } from 'rxjs';
+import { of } from 'rxjs';
 import { catchError, delay, take, tap } from 'rxjs/operators';
-import { ManagementService } from './management.service';
+import { ManagementRoutingService } from './management-routing.service';
 
-describe('ManagementService', () => {
-  let service: ManagementService;
+describe('ManagementRoutingService', () => {
+  let service: ManagementRoutingService;
   let fakeRouteData: any;
   let fakeActivatedRouteSnapshot: ActivatedRouteSnapshot;
   let mockRouter: Partial<Router>;
@@ -32,33 +32,14 @@ describe('ManagementService', () => {
       // RouterTestingModule is not fit for providing fake route data
       providers: [
         { provide: Router, useValue: mockRouter },
-        ManagementService
+        ManagementRoutingService
       ]
     });
-    service = TestBed.inject(ManagementService);
+    service = TestBed.inject(ManagementRoutingService);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
-  });
-
-  it('should toggle the sidenav state', () => {
-    concat(
-      service.isSidenavOpen$.pipe(
-        take(1),
-        tap(state => expect(state).toBeTrue())
-      ),
-      service.isSidenavOpen$.pipe(
-        take(1),
-        tap(state => expect(state).toBeFalse())
-      ),
-      service.isSidenavOpen$.pipe(
-        take(1),
-        tap(state => expect(state).toBeTrue())
-      )
-    ).pipe(
-      tap(() => service.toggleSidenav())
-    ).subscribe();
   });
 
   it('should expose the current route name', () => {

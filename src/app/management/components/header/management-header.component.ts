@@ -5,18 +5,19 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ManagementService } from 'src/app/management/management.service';
 import { environment } from 'src/environments/environment';
 import { Image } from 'src/models/entities/Image';
+import { ManagementRoutingService } from '../../management-routing.service';
 
 @Component({
   selector: 'app-management-header',
   templateUrl: './management-header.component.html',
   styleUrls: ['./management-header.component.css']
 })
-export class ManagementHeaderComponent {
+export class ManagementHeaderComponent
+  implements OnInit {
 
   readonly appTitle: string = environment.labels.name;
   readonly appLogo: Image = environment.staticImages.logo;
@@ -24,9 +25,11 @@ export class ManagementHeaderComponent {
   moduleName$: Observable<string>;
 
   constructor(
-    protected service: ManagementService
-  ) {
-    this.moduleName$ = this.service.currentPageName$.pipe();
+    private routingService: ManagementRoutingService
+  ) { }
+
+  ngOnInit(): void {
+    this.moduleName$ = this.routingService.currentPageName$.pipe();
   }
 
 }

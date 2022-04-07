@@ -6,7 +6,7 @@
  */
 
 import { Component } from '@angular/core';
-import { ManagementService } from 'src/app/management/management.service';
+import { ManagementSidenavService } from 'src/app/management/components/sidenav/management-sidenav.service';
 
 @Component({
   selector: 'app-management-header-sidenav-button',
@@ -16,7 +16,7 @@ import { ManagementService } from 'src/app/management/management.service';
 export class ManagementHeaderSidenavButtonComponent {
 
   constructor(
-    protected service: ManagementService
+    private service: ManagementSidenavService
   ) { }
 
   toggle(): void {

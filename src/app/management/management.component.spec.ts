@@ -11,7 +11,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { ManagementComponent } from './management.component';
-import { ManagementService } from './management.service';
+import { ManagementSidenavService } from './components/sidenav/management-sidenav.service';
 
 // eslint-disable-next-line @angular-eslint/component-selector
 @Component({ selector: 'router-outlet' })
@@ -29,10 +29,10 @@ class MockFooterComponent { }
 describe('ManagementComponent', () => {
   let component: ManagementComponent;
   let fixture: ComponentFixture<ManagementComponent>;
-  let mockService: Partial<ManagementService>;
+  let mockSidenavService: Partial<ManagementSidenavService>;
 
   beforeEach(waitForAsync(() => {
-    mockService = {
+    mockSidenavService = {
       isSidenavOpen$: of(true)
     };
 
@@ -49,7 +49,7 @@ describe('ManagementComponent', () => {
         MockFooterComponent
       ],
       providers: [
-        { provide: ManagementService, useValue: mockService }
+        { provide: ManagementSidenavService, useValue: mockSidenavService }
       ]
     })
     .compileComponents();

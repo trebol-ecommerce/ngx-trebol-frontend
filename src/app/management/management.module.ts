@@ -29,8 +29,8 @@ import { ShipperFormComponent } from './forms/shipper/shipper-form.component';
 import { UserFormComponent } from './forms/user/user-form.component';
 import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementRoutingModule } from './management-routing.module';
+import { ManagementSidenavService } from './components/sidenav/management-sidenav.service';
 import { ManagementComponent } from './management.component';
-import { ManagementService } from './management.service';
 import { ManagementCustomersComponent } from './routes/customers/management-customers.component';
 import { ManagementCustomersService } from './routes/customers/management-customers.service';
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
@@ -50,6 +50,7 @@ import { ManagementShippersComponent } from './routes/shippers/management-shippe
 import { ManagementShippersService } from './routes/shippers/management-shippers.service';
 import { ManagementUsersComponent } from './routes/users/management-users.component';
 import { ManagementUsersService } from './routes/users/management-users.service';
+import { ManagementRoutingService } from './management-routing.service';
 
 const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
   duration: 5000
@@ -95,7 +96,8 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: SNACKBAR_DEFAULTS },
     ManagementRoutingGuard,
-    ManagementService,
+    ManagementRoutingService,
+    ManagementSidenavService,
     ManagementCustomersService,
     ManagementImagesService,
     ManagementProductCategoriesService,

@@ -6,11 +6,11 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { merge, Observable } from 'rxjs';
+import { concat, merge, Observable } from 'rxjs';
 import { filter, map, share, switchMap, take, tap } from 'rxjs/operators';
 import { AuthorizationService } from 'src/app/authorization.service';
-import { ManagementService } from 'src/app/management/management.service';
 import { MANAGEMENT_CHILD_ROUTES } from '../../management-routing.module';
+import { ManagementRoutingService } from '../../management-routing.service';
 import { SidenavModuleItem } from './SidenavModuleItem';
 
 @Component({
@@ -24,15 +24,13 @@ export class ManagementSidenavComponent
   modules$: Observable<SidenavModuleItem[]>;
 
   constructor(
-    private service: ManagementService,
+    private routingService: ManagementRoutingService,
     private authorizationService: AuthorizationService
   ) { }
 
   ngOnInit(): void {
-    this.modules$ = merge(
-      this.fetchAuthorizedModules().pipe(
-        share()
-      ),
+    this.modules$ = concat(
+      this.fetchAuthorizedModules(),
       this.reflectChangesOnActiveRoute()
     );
   }
@@ -52,7 +50,7 @@ export class ManagementSidenavComponent
   }
 
   private reflectChangesOnActiveRoute() {
-    return this.watchLatestNavigatedRoute().pipe(
+    return this.watchNavigatedRoutePath().pipe(
       switchMap(latestRoutePath => this.modules$.pipe(
         take(1),
         tap(arr => {
@@ -63,8 +61,8 @@ export class ManagementSidenavComponent
     );
   }
 
-  private watchLatestNavigatedRoute() {
-    return this.service.getActiveRouteSnapshotObservable().pipe(
+  private watchNavigatedRoutePath() {
+    return this.routingService.currentRouteSnapshot$.pipe(
       map(routeSnapshot => routeSnapshot?.url[0]?.path),
       filter(routePath => !!routePath)
     );

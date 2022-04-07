@@ -7,7 +7,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ManagementService } from './management.service';
+import { ManagementSidenavService } from './components/sidenav/management-sidenav.service';
 
 @Component({
   selector: 'app-management',
@@ -20,10 +20,10 @@ export class ManagementComponent
   isSidenavOpen$: Observable<boolean>;
 
   constructor(
-    private service: ManagementService
+    private sidenavService: ManagementSidenavService
   ) { }
 
   ngOnInit(): void {
-    this.isSidenavOpen$ = this.service.isSidenavOpen$.pipe();
+    this.isSidenavOpen$ = this.sidenavService.isSidenavOpen$.pipe();
   }
 }
