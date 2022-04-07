@@ -23,7 +23,7 @@ import { Customer } from 'src/models/entities/Customer';
 import { Product } from 'src/models/entities/Product';
 import { Salesperson } from 'src/models/entities/Salesperson';
 import { SellDetail } from 'src/models/entities/SellDetail';
-import { SellFormService } from './sell-manager-form.service';
+import { SellFormService } from './sell-form.service';
 
 @Component({
   selector: 'app-sell-form',

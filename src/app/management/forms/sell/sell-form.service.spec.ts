@@ -13,7 +13,7 @@ import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-en
 import { Product } from 'src/models/entities/Product';
 import { Sell } from 'src/models/entities/Sell';
 import { SellDetail } from 'src/models/entities/SellDetail';
-import { SellFormService } from './sell-manager-form.service';
+import { SellFormService } from './sell-form.service';
 
 describe('SellManagerFormService', () => {
   let service: SellFormService;

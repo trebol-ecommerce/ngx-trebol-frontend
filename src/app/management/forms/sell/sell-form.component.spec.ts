@@ -23,7 +23,7 @@ import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { SellFormComponent } from './sell-form.component';
-import { SellFormService } from './sell-manager-form.service';
+import { SellFormService } from './sell-form.service';
 
 describe('SellFormComponent', () => {
   let component: SellFormComponent;
