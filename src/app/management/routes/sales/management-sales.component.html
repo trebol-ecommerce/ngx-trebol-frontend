@@ -42,31 +42,37 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> </th>
         <td mat-cell *matCellDef="let row">
-            <button mat-button mat-icon-button type="button"
-              *ngIf="canEdit$ | async"
-              color="primary"
-              aria-label="Edit"
-              i18n-aria-label="edit|Label for action button to edit information of an item"
-              [disabled]="busy$ | async"
-              (click)="onClickEdit(row.item)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-button mat-icon-button type="button"
-              *ngIf="canDelete$ | async"
-              color="warn"
-              aria-label="Delete"
-              i18n-aria-label="delete|Label for action button to delete an item"
-              [disabled]="busy$ | async"
-              (click)="onClickDelete(row.item)">
-              <mat-icon>delete</mat-icon>
-            </button>
+          <button mat-button mat-icon-button type="button"
+            *ngIf="canEdit$ | async"
+            aria-label="View details"
+            i18n-aria-label="view details|Label for action button to view and manage details of a complex item"
+            [disabled]="busy$ | async"
+            (click)="onClickView(row)">
+            <mat-icon class="material-icons-outlined">info</mat-icon>
+          </button>
+          <button mat-button mat-icon-button type="button"
+            *ngIf="canEdit$ | async"
+            color="primary"
+            aria-label="Edit"
+            i18n-aria-label="edit|Label for action button to edit information of an item"
+            [disabled]="busy$ | async"
+            (click)="onClickEdit(row.item)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-button mat-icon-button type="button"
+            *ngIf="canDelete$ | async"
+            color="warn"
+            aria-label="Delete"
+            i18n-aria-label="delete|Label for action button to delete an item"
+            [disabled]="busy$ | async"
+            (click)="onClickDelete(row.item)">
+            <mat-icon>delete</mat-icon>
+          </button>
         </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: tableColumns;"
-        [class.focused]="row.focused"
-        (click)="onClickView(row)">
+      <tr mat-row *matRowDef="let row; columns: tableColumns;">
       </tr>
     </table>
 
