@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { EMPTY, Observable, of } from 'rxjs';
-import { catchError, finalize, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, finalize, map, switchMap, take, tap } from 'rxjs/operators';
 import { Sell } from 'src/models/entities/Sell';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';
@@ -104,6 +104,13 @@ export class ManagementSalesComponent
     this.canAdd$ = service.canAdd$.pipe();
     this.canDelete$ = service.canDelete$.pipe();
     service.pageSize = this.pageSizeOptions[0];
+    this.route.data.pipe(
+      take(1),
+      tap(data => {
+        this.service.updateAccess(data.access);
+        this.service.reloadItems();
+      })
+    ).subscribe();
   }
 
   protected createDialogProperties(item: Sell): EntityFormDialogConfig<Sell> {

@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - (UI) Readjusted spacing of product cards in frontpage catalog
 - (UI) Set defined height for registration and guest login dialogs (for better use in mobile devices)
 - (UI) Allow mobile devices to "tab" correctly in nested forms
+- (UX) Fetching initial sales data into the management page
 - Logic to keep users away from the cart page is now entirely up to the corresponding guard service
 - Using actual instances of `InjectionToken<T>` to provide external API services
 
