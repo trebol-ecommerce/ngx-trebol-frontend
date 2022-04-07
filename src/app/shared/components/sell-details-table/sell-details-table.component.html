@@ -33,11 +33,11 @@
     <th mat-header-cell *matHeaderCellDef
       i18n="Name of table header for product units in cart">Units</th>
     <td mat-cell *matCellDef="let detail; let i = index">
-      <app-cart-product-units-control *ngIf="editable; else showUnits"
+      <app-sell-detail-units-control *ngIf="editable; else showUnits"
         [units]="detail.units"
         (increase)="onClickIncreaseProductQuantity(i)"
         (decrease)="onClickDecreaseProductQuantity(i)">
-      </app-cart-product-units-control>
+      </app-sell-detail-units-control>
       <ng-template #showUnits>{{ detail.units }}</ng-template>
     </td>
   </ng-container>

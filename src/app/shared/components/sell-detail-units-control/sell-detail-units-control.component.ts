@@ -8,11 +8,11 @@
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-cart-product-units-control',
-  templateUrl: './cart-product-units-control.component.html',
-  styleUrls: ['./cart-product-units-control.component.css']
+  selector: 'app-sell-detail-units-control',
+  templateUrl: './sell-detail-units-control.component.html',
+  styleUrls: ['./sell-detail-units-control.component.css']
 })
-export class CartProductUnitsControlComponent
+export class SellDetailUnitsControlComponent
   implements OnDestroy {
 
   @Input() units = 0;

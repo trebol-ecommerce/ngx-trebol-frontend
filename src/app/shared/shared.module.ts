@@ -9,9 +9,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SharedMaterialModule } from './shared-material.module';
+import { AppMaterialModule } from '../app-material.module';
 import { AddressesEditorFormComponent } from './components/addresses-editor-form/addresses-editor-form.component';
-import { CartProductUnitsControlComponent } from './components/cart-product-units-control/cart-product-units-control.component';
 import { CompanyFormComponent } from './components/company-form/company-form.component';
 import { DialogSwitcherButtonComponent } from './components/dialog-switcher-button/dialog-switcher-button.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
@@ -23,6 +22,7 @@ import { ProductCategorySelectorFormFieldComponent } from './components/product-
 import { ProductCategoryTreeComponent } from './components/product-category-tree/product-category-tree.component';
 import { ProductFiltersPanelComponent } from './components/product-filters-panel/product-filters-panel.component';
 import { ProductsDisplayComponent } from './components/products-display/products-display.component';
+import { SellDetailUnitsControlComponent } from './components/sell-detail-units-control/sell-detail-units-control.component';
 import { SellDetailsTableComponent } from './components/sell-details-table/sell-details-table.component';
 import { SellInformationComponent } from './components/sell-information/sell-information.component';
 import { SlideshowComponent } from './components/slideshow/slideshow.component';
@@ -38,13 +38,12 @@ import { AddressFormComponent } from './forms/address/address-form.component';
 import { PersonFormComponent } from './forms/person/person-form.component';
 import { AddressPipe } from './pipes/address/address.pipe';
 import { TrustedResourceUrlPipe } from './pipes/trusted-resource-url/trusted-resource-url.pipe';
-import { AppMaterialModule } from '../app-material.module';
+import { SharedMaterialModule } from './shared-material.module';
 
 
 const SHARED_DECLARATIONS = [
   AddressFormComponent,
   AddressesEditorFormComponent,
-  CartProductUnitsControlComponent,
   CompanyFormComponent,
   DialogSwitcherButtonComponent,
   FileUploadComponent,
@@ -57,6 +56,7 @@ const SHARED_DECLARATIONS = [
   ProductCategoryTreeComponent,
   ProductsDisplayComponent,
   ProductFiltersPanelComponent,
+  SellDetailUnitsControlComponent,
   SellDetailsTableComponent,
   SellInformationComponent,
   SlideshowComponent,
