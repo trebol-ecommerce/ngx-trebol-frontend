@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of } from 'rxjs';
 import { Sell } from 'src/models/entities/Sell';
+import { SellDetail } from 'src/models/entities/SellDetail';
 import { ManagementSalesService } from '../../routes/sales/management-sales.service';
 import { ManagementSellReviewDialogComponent } from './management-sell-review-dialog.component';
 import { ManagementSellReviewDialogData } from './ManagementSellReviewDialogData';
@@ -25,7 +26,9 @@ class MockSellInformationComponent {
 
 @Component({ selector: 'app-sell-details-table' })
 class MockSellDetailsTableComponent {
-  @Input() sell: Sell;
+  @Input() sellDetails: SellDetail[];
+  @Input() editable: boolean;
+  @Input() tableColumns: string[];
 }
 
 describe('ManagementSellReviewDialogComponent', () => {
