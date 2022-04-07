@@ -20,6 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Introduced a common `HeaderBrandComponent` used in both store and management pages
 - Reorganized most form components into accordingly named `forms/` directories
 - Frontpage lists show a paginator only when they have more than one page
+- Make better use of some shared components to display details of carts/sales
+  - `StoreCartContentsTable` superseded by `SellDetailsTable`
 
 ### Fixed
 - (UI) User name and details would not always be correct or up-to-date

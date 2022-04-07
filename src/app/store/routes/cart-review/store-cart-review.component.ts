@@ -7,6 +7,7 @@
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+import { SellDetail } from 'src/models/entities/SellDetail';
 import { StoreCartService } from '../../store-cart.service';
 
 @Component({
@@ -20,6 +21,7 @@ export class StoreCartReviewComponent
   private loginStateChangeSubscription: Subscription;
 
   cartNetValue$: Observable<number>;
+  cartContents$: Observable<SellDetail[]>;
   inputEditable = true;
 
   constructor(
@@ -28,10 +30,23 @@ export class StoreCartReviewComponent
 
   ngOnInit(): void {
     this.cartNetValue$ = this.cartService.cartNetValue$.pipe();
+    this.cartContents$ = this.cartService.cartDetails$.pipe();
   }
 
   ngOnDestroy(): void {
     this.loginStateChangeSubscription?.unsubscribe();
+  }
+
+  onIncreaseProductQuantityAtIndex(index: number): void {
+    this.cartService.increaseProductUnits(index);
+  }
+
+  onDecreaseProductQuantityAtIndex(index: number): void {
+    this.cartService.decreaseProductUnits(index);
+  }
+
+  onRemoveProductAtIndex(index: number): void {
+    this.cartService.removeProductFromCart(index);
   }
 
   onConfirmation(): void {

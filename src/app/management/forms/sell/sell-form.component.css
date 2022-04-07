@@ -5,64 +5,11 @@
  * https://opensource.org/licenses/MIT
  */
 
-h2 {
-  margin-top: 0;
-}
-
-fieldset {
-  gap: 0.5rem 1rem;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    'date billingType'
-    'salesperson salesperson'
-    'customer customer'
-    'details details'
-    'summary summary';
-}
-
-.date {
-  grid-area: date;
-}
-.billingType {
-  grid-area: billingType;
-}
-.salesperson {
-  grid-area: salesperson;
-}
-.customer {
-  grid-area: customer;
-}
-.details {
-  grid-area: details;
-}
-.summary {
-  grid-area: summary;
-}
-
-.details-header {
+.details .header {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: baseline;
-}
-
-.details-table-wrapper {
-  overflow-y: auto;
-}
-
-.mat-column-product {
-  max-width: 100%;
-}
-.mat-column-price {
-  text-align: center;
-}
-.mat-column-quantity {
-  text-align: center;
-}
-.mat-column-actions {
-  padding: 0px !important;
-  max-width: 5rem;
-  text-align: right;
 }
 
 .summary {
@@ -79,6 +26,38 @@ fieldset {
 
 @media(min-width: 641px) {
   fieldset {
+    gap: 0.5rem 1rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'date billingType'
+      'salesperson salesperson'
+      'customer customer'
+      'details details'
+      'summary summary';
+  }
+
+  .date {
+    grid-area: date;
+  }
+  .billingType {
+    grid-area: billingType;
+  }
+  .salesperson {
+    grid-area: salesperson;
+  }
+  .customer {
+    grid-area: customer;
+  }
+  .details {
+    grid-area: details;
+  }
+  .summary {
+    grid-area: summary;
+  }
+}
+
+@media(min-width: 1008px) {
+  fieldset {
     grid-template-columns: repeat(6, 1fr);
     grid-template-areas:
       'date date billingType billingType none none'
@@ -90,10 +69,4 @@ fieldset {
   .summary {
     grid-template-columns: 1fr 1fr;
   }
-}
-
-.actions {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
 }

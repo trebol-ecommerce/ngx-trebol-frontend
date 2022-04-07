@@ -27,6 +27,7 @@ export class ManagementSellReviewDialogComponent
   private operationSub: Subscription;
 
   isBusy$ = this.busyStatusSource.asObservable().pipe();
+  detailsTableColumns = ['product', 'price', 'quantity'];
 
   get dialogTitle() { return $localize`:Title of dialog used to view details of one sell:Details of sell #${ this.data.sell.buyOrder }:buyOrder:`; }
   get isNotPaid() { return this.data.sell?.status !== SELL_STATUS_NAMES_MAP.get(3); }

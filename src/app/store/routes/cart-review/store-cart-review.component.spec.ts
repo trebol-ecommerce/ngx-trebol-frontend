@@ -20,9 +20,12 @@ import { SessionService } from 'src/app/session.service';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreCartReviewComponent } from './store-cart-review.component';
 
-@Component({ selector: 'app-store-cart-contents-table' })
+@Component({ selector: 'app-sell-details-table' })
 class MockStoreCartContenstTableComponent {
   @Input() editable: boolean;
+  @Output() increaseUnitsAtIndex = new EventEmitter<number>();
+  @Output() decreaseUnitsAtIndex = new EventEmitter<number>();
+  @Output() removeAtIndex = new EventEmitter<number>();
 }
 
 @Component({ selector: 'app-store-checkout-request-form' })

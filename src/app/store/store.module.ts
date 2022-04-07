@@ -9,7 +9,6 @@ import { NgModule } from '@angular/core';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { StoreBillingDetailsFormComponent } from './components/billing-details-form/store-billing-details-form.component';
-import { StoreCartContentsTableComponent } from './components/cart-contents-table/store-cart-contents-table.component';
 import { StoreCheckoutButtonComponent } from './components/checkout-button/store-checkout-button.component';
 import { StoreCheckoutConfirmationComponent } from './components/checkout-confirmation/store-checkout-confirmation.component';
 import { StoreCheckoutRequestFormComponent } from './components/checkout-request-form/store-checkout-request-form.component';
@@ -47,7 +46,6 @@ const SNACKBAR_DEFAULTS = {
 @NgModule({
   declarations: [
     StoreComponent,
-    StoreCartContentsTableComponent,
     StoreHeaderComponent,
     StoreFooterComponent,
     StoreBillingDetailsFormComponent,

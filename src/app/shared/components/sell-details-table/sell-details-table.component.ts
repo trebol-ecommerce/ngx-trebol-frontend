@@ -5,8 +5,9 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, Input } from '@angular/core';
-import { Sell } from 'src/models/entities/Sell';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { SellDetail } from 'src/models/entities/SellDetail';
 
 @Component({
   selector: 'app-sell-details-table',
@@ -15,9 +16,29 @@ import { Sell } from 'src/models/entities/Sell';
 })
 export class SellDetailsTableComponent {
 
-  @Input() sell: Sell;
-  @Input() tableColumns = [ 'product', 'price', 'quantity' ];
+  private sellDetailsSource = new BehaviorSubject<SellDetail[]>([]);
+
+  @Input() editable!: boolean;
+  @Input() tableColumns = ['product', 'price', 'quantity', 'total', 'actions'];
+  @Input() set sellDetails(v: SellDetail[]) { this.sellDetailsSource.next(v); }
+  @Output() increaseUnitsAtIndex = new EventEmitter<number>();
+  @Output() decreaseUnitsAtIndex = new EventEmitter<number>();
+  @Output() removeAtIndex = new EventEmitter<number>();
+
+  sellDetails$ = this.sellDetailsSource.asObservable();
 
   constructor() { }
+
+  onClickIncreaseProductQuantity(index: number): void {
+    this.increaseUnitsAtIndex.emit(index);
+  }
+
+  onClickDecreaseProductQuantity(index: number): void {
+    this.decreaseUnitsAtIndex.emit(index);
+  }
+
+  onClickRemoveProduct(index: number): void {
+    this.removeAtIndex.emit(index);
+  }
 
 }

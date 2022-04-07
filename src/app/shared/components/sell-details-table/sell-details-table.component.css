@@ -6,6 +6,7 @@
  */
 
 :host {
+  display: block;
   overflow: auto;
 }
 
@@ -16,47 +17,61 @@ th, td {
 
 .mat-column-product {
   min-width: 8rem;
-  white-space: break-spaces;
 }
-
-.mat-column-price {
-  text-align: center;
-  padding: 0 0.5rem;
-}
-.mat-column-price:not(tfoot .mat-column-price) {
-  width: 6rem;
-}
-
-
-.mat-column-quantity {
-  text-align: center;
-  padding: 0 0.5rem;
-}
-.mat-column-quantity:not(tfoot .mat-column-quantity) {
-  max-width: 6rem;
-}
-
 td.mat-column-product > span {
-  width: 100%;
-  display: inline-flex;
-  flex-flow: row nowrap;
-  align-items: center;
+  display: inline-block;
 }
-
-td.mat-column-product > span > .image-wrapper {
+td.mat-column-product > .image-wrapper {
   margin-right: 0.5rem;
   max-width: 2rem;
 }
-
-td.mat-column-product > span > .image-wrapper > img {
+td.mat-column-product > .image-wrapper > img {
   width: 100%;
 }
-
-td.mat-column-product > span > .identifier {
+td.mat-column-product > .identifier {
+  padding: 0.5rem 0;
   text-align: left;
   white-space: break-spaces;
+}
+td.mat-column-product > .identifier .name {
+  font-size: 1rem;
+}
+td.mat-column-product > .identifier .barcode {
+  font-size: 0.9rem;
+  color: grey;
+}
+
+.mat-column-price {
+  padding: 0 0.5rem;
+}
+.mat-column-price:not(tfoot .mat-column-price) {
+  max-width: 8rem;
+}
+
+.mat-column-quantity {
+  min-width: 9rem;
+  max-width: 9rem;
+  text-align: center;
+  padding: 0 0.5rem;
+}
+
+.mat-column-total {
+  max-width: 9rem;
+  padding: 0 0.5rem;
+}
+
+.mat-column-actions {
+  text-align: right;
+  min-width: 3rem;
+  max-width: 3rem;
 }
 
 .mat-footer-row {
   font-weight: bold;
+}
+
+@media(max-width: 640px) {
+  .mat-column-product {
+    max-width: 12rem;
+  }
 }
