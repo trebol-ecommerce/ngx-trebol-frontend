@@ -8,7 +8,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivationEnd, Router } from '@angular/router';
 import { concat, Observable, of } from 'rxjs';
-import { delay, filter, mapTo, take } from 'rxjs/operators';
+import { filter, mapTo, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
