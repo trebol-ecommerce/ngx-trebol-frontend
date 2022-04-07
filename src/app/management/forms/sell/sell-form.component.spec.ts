@@ -6,31 +6,36 @@
  */
 
 import { CurrencyPipe } from '@angular/common';
+import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
+import { SellDetail } from 'src/models/entities/SellDetail';
 import { SellFormComponent } from './sell-form.component';
 import { SellFormService } from './sell-form.service';
+
+@Component({ selector: 'app-sell-details-table' })
+class MockSellDetailsTableComponent {
+  @Input() sellDetails: SellDetail[];
+  @Input() editable: boolean;
+  @Input() tableColumns: string[];
+}
 
 describe('SellFormComponent', () => {
   let component: SellFormComponent;
   let fixture: ComponentFixture<SellFormComponent>;
   let mockService: Partial<SellFormService>;
   let mockDataApiService: Partial<IEntityDataApiService<any>>;
-  let mockSnackBarService: Partial<MatSnackBar>;
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
@@ -54,9 +59,6 @@ describe('SellFormComponent', () => {
         });
       }
     };
-    mockSnackBarService = {
-      open(m: string, a: string) { return void 0; }
-    };
     mockDialogService = {
       open() { return void 0; }
     };
@@ -68,17 +70,17 @@ describe('SellFormComponent', () => {
         MatButtonModule,
         MatCardModule,
         MatFormFieldModule,
-        MatIconModule,
         MatInputModule,
-        MatSelectModule,
-        MatTableModule
+        MatSelectModule
       ],
-      declarations: [ SellFormComponent ],
+      declarations: [
+        SellFormComponent,
+        MockSellDetailsTableComponent
+      ],
       providers: [
         { provide: API_INJECTION_TOKENS.dataCustomers, useValue: mockDataApiService },
         { provide: API_INJECTION_TOKENS.dataSalespeople, useValue: mockDataApiService },
         { provide: API_INJECTION_TOKENS.dataBillingTypes, useValue: mockDataApiService },
-        { provide: MatSnackBar, useValue: mockSnackBarService },
         { provide: MatDialog, useValue: mockDialogService },
         { provide: MatDialogRef, useValue: {} },
         EntityFormGroupFactoryService,

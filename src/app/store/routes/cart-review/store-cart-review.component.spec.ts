@@ -17,11 +17,13 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { SessionService } from 'src/app/session.service';
+import { SellDetail } from 'src/models/entities/SellDetail';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreCartReviewComponent } from './store-cart-review.component';
 
 @Component({ selector: 'app-sell-details-table' })
 class MockStoreCartContenstTableComponent {
+  @Input() sellDetails: SellDetail[];
   @Input() editable: boolean;
   @Output() increaseUnitsAtIndex = new EventEmitter<number>();
   @Output() decreaseUnitsAtIndex = new EventEmitter<number>();
