@@ -106,4 +106,8 @@ export class ProductListFormComponent
     return errors;
   }
 
+  registerOnValidatorChange(fn: () => void): void {
+    this.onValidatorChange = fn;
+  }
+
 }
