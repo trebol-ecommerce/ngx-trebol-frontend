@@ -35,22 +35,13 @@ describe('ManagementSellReviewDialogComponent', () => {
   let component: ManagementSellReviewDialogComponent;
   let fixture: ComponentFixture<ManagementSellReviewDialogComponent>;
   let mockDialogData: Partial<ManagementSellReviewDialogData>;
-  let mockService: Partial<ManagementSalesService>;
-  let mockSnackBarService: Partial<MatSnackBar>;
+  let salesServiceSpy: jasmine.SpyObj<ManagementSalesService>;
+  let snackBarServiceSpy: jasmine.SpyObj<MatSnackBar>;
 
   beforeEach(waitForAsync(() => {
-    mockDialogData = {
-      sell: new Sell()
-    };
-    mockService = {
-      markRejected() { return of(void 0); },
-      markConfirmed() { return of(void 0); },
-      markComplete() { return of(void 0); },
-      fetch() { return of(new Sell()); }
-    };
-    mockSnackBarService = {
-      open() { return void 0; }
-    };
+    mockDialogData = { sell: { } as Sell };
+    const mockSalesService = jasmine.createSpyObj('ManagementSalesService', ['markRejected', 'markConfirmed', 'markComplete', 'fetch', 'reloadItems']);
+    const mockSnackBarService = jasmine.createSpyObj('MatSnackBar', ['open']);
 
     TestBed.configureTestingModule({
       imports: [
@@ -65,14 +56,17 @@ describe('ManagementSellReviewDialogComponent', () => {
       ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: mockDialogData },
-        { provide: ManagementSalesService, useValue: mockService },
+        { provide: ManagementSalesService, useValue: mockSalesService },
         { provide: MatSnackBar, useValue: mockSnackBarService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    salesServiceSpy = TestBed.inject(ManagementSalesService) as jasmine.SpyObj<ManagementSalesService>;
+    snackBarServiceSpy = TestBed.inject(MatSnackBar) as jasmine.SpyObj<MatSnackBar>;
+    salesServiceSpy.fetch.and.returnValue(of(mockDialogData.sell));
+
     fixture = TestBed.createComponent(ManagementSellReviewDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -80,5 +74,23 @@ describe('ManagementSellReviewDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should forward a request to reject the sell', () => {
+    salesServiceSpy.markRejected.and.returnValue(of(void 0));
+    component.onClickReject();
+    expect(salesServiceSpy.markRejected).toHaveBeenCalled();
+  });
+
+  it('should forward a request to confirm the sell', () => {
+    salesServiceSpy.markConfirmed.and.returnValue(of(void 0));
+    component.onClickConfirm();
+    expect(salesServiceSpy.markConfirmed).toHaveBeenCalled();
+  });
+
+  it('should forward a request to complete the sell', () => {
+    salesServiceSpy.markComplete.and.returnValue(of(void 0));
+    component.onClickComplete();
+    expect(salesServiceSpy.markComplete).toHaveBeenCalled();
   });
 });
