@@ -18,13 +18,8 @@ app-management-header {
 mat-sidenav-container {
   flex: 1 1 auto;
 }
-
 mat-sidenav {
   width: 15rem;
-}
-
-.content {
-  overflow: hidden;
 }
 
 app-management-footer {
