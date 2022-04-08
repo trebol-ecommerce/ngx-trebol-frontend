@@ -19,8 +19,16 @@
       <span i18n="Label for option to choose pick-up in store">Pickup in store</span>
     </mat-radio-button>
   </mat-radio-group>
-  <app-addresses-editor-form formControlName="shippingAddress"
-    placeholder="Shipping address"
-    i18n-placeholder="Name of field for address to deliver items to">
-  </app-addresses-editor-form>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title
+        i18n="Shipping address|Label for group of fields related to an address to ship items to">Shipping address</mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <app-address-form formControlName="shippingAddress"
+        placeholder="Shipping address"
+        i18n-placeholder="Name of field for address to deliver items to">
+      </app-address-form>
+    </ng-template>
+  </mat-expansion-panel>
 </fieldset>

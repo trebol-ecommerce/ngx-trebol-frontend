@@ -16,8 +16,15 @@
   </mat-radio-group>
   <app-company-form formControlName="company">
   </app-company-form>
-  <app-addresses-editor-form formControlName="address"
-    placeholder="Billing address"
-    i18n-placeholder="Name of field for address to bill to">
-  </app-addresses-editor-form>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title i18n="Company address|Label for group of fields related to a company address">Company address</mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <app-address-form formControlName="address"
+        placeholder="Billing address"
+        i18n-placeholder="Name of field for address to bill to">
+      </app-address-form>
+    </ng-template>
+  </mat-expansion-panel>
 </fieldset>

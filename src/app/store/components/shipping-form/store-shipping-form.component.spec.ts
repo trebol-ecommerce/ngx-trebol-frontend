@@ -13,14 +13,11 @@ import { StoreCartService } from '../../store-cart.service';
 import { StoreShippingFormComponent } from './store-shipping-form.component';
 
 @Component({
-  selector: 'app-addresses-editor-form',
+  selector: 'app-address-form',
   providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockAddressesEditorFormComponent }]
 })
 class MockAddressesEditorFormComponent
   implements ControlValueAccessor {
-  @Input() placeholder: string;
-  @Input() editLabel: string;
-  @Input() addLabel: string;
   writeValue(obj: any): void { }
   registerOnChange(fn: any): void { }
   registerOnTouched(fn: any): void { }

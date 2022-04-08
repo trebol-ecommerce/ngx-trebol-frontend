@@ -10,7 +10,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppMaterialModule } from '../app-material.module';
-import { AddressesEditorFormComponent } from './components/addresses-editor-form/addresses-editor-form.component';
 import { DialogSwitcherButtonComponent } from './components/dialog-switcher-button/dialog-switcher-button.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import { GmapComponent } from './components/gmap/gmap.component';
@@ -26,7 +25,6 @@ import { SellDetailsTableComponent } from './components/sell-details-table/sell-
 import { SellInformationComponent } from './components/sell-information/sell-information.component';
 import { SlideshowComponent } from './components/slideshow/slideshow.component';
 import { WhatsappButtonComponent } from './components/whatsapp-button/whatsapp-button.component';
-import { AddressFormDialogComponent } from './dialogs/address-form/address-form-dialog.component';
 import { ConfirmationDialogComponent } from './dialogs/confirmation/confirmation-dialog.component';
 import { EditProfileFormDialogComponent } from './dialogs/edit-profile-form/edit-profile-form-dialog.component';
 import { InformationDialogComponent } from './dialogs/information/information-dialog.component';
@@ -43,7 +41,6 @@ import { SharedMaterialModule } from './shared-material.module';
 
 const SHARED_DECLARATIONS = [
   AddressFormComponent,
-  AddressesEditorFormComponent,
   CompanyFormComponent,
   DialogSwitcherButtonComponent,
   FileUploadComponent,
@@ -61,7 +58,6 @@ const SHARED_DECLARATIONS = [
   SellInformationComponent,
   SlideshowComponent,
   WhatsappButtonComponent,
-  AddressFormDialogComponent,
   ConfirmationDialogComponent,
   EditProfileFormDialogComponent,
   InformationDialogComponent,
