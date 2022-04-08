@@ -64,6 +64,7 @@ export class AddressFormComponent
 
   onChange(value: any): void { }
   onTouched(): void { }
+  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
     this.city.reset(null, { emitEvent: false });
@@ -116,6 +117,10 @@ export class AddressFormComponent
     }
 
     return errors;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this.onValidatorChange = fn;
   }
 
 }
