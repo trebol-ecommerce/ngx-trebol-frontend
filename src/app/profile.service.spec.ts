@@ -22,8 +22,8 @@ const MOCK_REGISTRATION_DETAILS: Registration = {
     lastName: 'mengano',
     idNumber: '123456789',
     email: 'test@test.org',
-    phone1: 11111111,
-    phone2: 11111111,
+    phone1: '11111111',
+    phone2: '11111111',
   }
 };
 

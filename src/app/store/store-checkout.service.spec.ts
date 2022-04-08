@@ -50,7 +50,9 @@ describe('StoreCheckoutService', () => {
         idNumber: '1',
         firstName: 'first name',
         lastName: 'last name',
-        email: 'test@example.com'
+        email: 'test@example.com',
+        phone1: '',
+        phone2: ''
       },
       shipping: {
         requestShipping: false

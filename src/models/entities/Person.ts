@@ -10,6 +10,6 @@ export class Person {
   lastName: string;
   idNumber: string;
   email: string;
-  phone1?: number;
-  phone2?: number;
+  phone1: string;
+  phone2: string;
 }

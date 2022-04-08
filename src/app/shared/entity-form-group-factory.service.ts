@@ -53,13 +53,12 @@ export class EntityFormGroupFactoryService {
 
   private createPersonFormGroup() {
     return this.formBuilder.group({
-      id: [undefined],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       idNumber: ['', Validators.required],
       email: ['', Validators.required],
-      phone1: [undefined],
-      phone2: [undefined]
+      phone1: [''],
+      phone2: ['']
     });
   }
 

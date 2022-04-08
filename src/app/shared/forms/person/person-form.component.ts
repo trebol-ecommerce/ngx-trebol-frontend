@@ -38,7 +38,6 @@ export class PersonFormComponent
   private valueChangesSub: Subscription;
 
   @Input() formGroup: FormGroup;
-  get id() { return this.formGroup.get('id') as FormControl; }
   get firstName() { return this.formGroup.get('firstName') as FormControl; }
   get lastName() { return this.formGroup.get('lastName') as FormControl; }
   get idNumber() { return this.formGroup.get('idNumber') as FormControl; }
@@ -66,15 +65,15 @@ export class PersonFormComponent
 
   onChange(value: any): void { }
   onTouched(): void { }
+  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
-    this.id.reset(null, { emitEvent: false });
     this.firstName.reset('', { emitEvent: false });
     this.lastName.reset('', { emitEvent: false });
     this.idNumber.reset('', { emitEvent: false });
     this.email.reset('', { emitEvent: false });
-    this.phone1.reset(null, { emitEvent: false });
-    this.phone2.reset(null, { emitEvent: false });
+    this.phone1.reset('', { emitEvent: false });
+    this.phone2.reset('', { emitEvent: false });
     if (isJavaScriptObject(obj)) {
       this.formGroup.patchValue(obj);
     }
@@ -123,6 +122,10 @@ export class PersonFormComponent
     }
 
     return errors;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this.onValidatorChange = fn;
   }
 
 }
