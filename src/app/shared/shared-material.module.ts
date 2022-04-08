@@ -55,11 +55,11 @@ export const DATE_PROVIDER_IMPLEMENTATION = MatNativeDateModule ;
 
 @NgModule({
   imports: [
-    MATERIAL_MODULES,
+    ...MATERIAL_MODULES,
     DATE_PROVIDER_IMPLEMENTATION
   ],
   exports: [
-    MATERIAL_MODULES,
+    ...MATERIAL_MODULES,
     DATE_PROVIDER_IMPLEMENTATION
   ]
 })
