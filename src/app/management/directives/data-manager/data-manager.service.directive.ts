@@ -63,7 +63,6 @@ export abstract class DataManagerServiceDirective<T>
     this.focusedItemsSource.next([]);
     this.loadingSource.next(true);
     this.fetchingSubscription = this.dataService.fetchPage(this.pageIndex, this.pageSize, this.sortBy, this.order, this.filters).pipe(
-      delay(1000),
       tap(page => { this.pageSource.next(page); }),
       finalize(() => { this.loadingSource.next(false); })
     ).subscribe();
