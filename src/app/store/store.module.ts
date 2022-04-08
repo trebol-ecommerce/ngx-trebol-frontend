@@ -35,6 +35,7 @@ import { StoreCatalogComponent } from './routes/catalog/store-catalog.component'
 import { StoreCatalogService } from './routes/catalog/store-catalog.service';
 import { StoreReceiptComponent } from './routes/receipt/store-receipt.component';
 import { StoreSearchComponent } from './routes/search/store-search.component';
+import { StoreMaterialModule } from './store-material.module';
 import { StoreRoutingModule } from './store-routing.module';
 import { StoreComponent } from './store.component';
 
@@ -74,6 +75,7 @@ const SNACKBAR_DEFAULTS = {
   ],
   imports: [
     SharedModule,
+    StoreMaterialModule,
     StoreRoutingModule
   ],
   providers: [

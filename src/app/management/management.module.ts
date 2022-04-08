@@ -51,6 +51,7 @@ import { ManagementShippersService } from './routes/shippers/management-shippers
 import { ManagementUsersComponent } from './routes/users/management-users.component';
 import { ManagementUsersService } from './routes/users/management-users.service';
 import { ManagementRoutingService } from './management-routing.service';
+import { ManagementMaterialModule } from './management-material.module';
 
 const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
   duration: 5000
@@ -91,6 +92,7 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
   ],
   imports: [
     SharedModule,
+    ManagementMaterialModule,
     ManagementRoutingModule
   ],
   providers: [

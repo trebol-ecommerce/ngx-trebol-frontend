@@ -22,10 +22,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
-import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatTreeModule } from '@angular/material/tree';
 
@@ -47,9 +45,7 @@ const MATERIAL_MODULES = [
   MatRadioModule,
   MatSelectModule,
   MatSnackBarModule,
-  MatSidenavModule,
   MatSortModule,
-  MatStepperModule,
   MatTableModule,
   MatTreeModule
 ];
