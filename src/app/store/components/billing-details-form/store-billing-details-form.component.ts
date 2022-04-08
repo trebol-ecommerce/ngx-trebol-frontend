@@ -52,8 +52,8 @@ export class StoreBillingDetailsFormComponent
     if (!this.formGroup) {
       this.formGroup = this.formBuilder.group({
         sellType: [null, Validators.required],
-        company: [{ value: null, disabled: true }],
-        address: [{ value: null, disabled: true }]
+        company: [{ value: null, disabled: true }, Validators.required],
+        address: [{ value: null, disabled: true }, Validators.required]
       });
     }
     this.valueChangesSub = this.formGroup.valueChanges.pipe(
@@ -107,13 +107,12 @@ export class StoreBillingDetailsFormComponent
 
     if (this.sellType.errors) {
       errors.billingType = this.sellType.errors;
-    } else if (this.sellType.value === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
-      if (this.company.errors) {
-        errors.billingCompany = this.company.errors;
-      }
-      if (this.address.errors) {
-        errors.billingAddress = this.address.errors;
-      }
+    }
+    if (this.company.errors) {
+      errors.billingCompany = this.company.errors;
+    }
+    if (this.address.errors) {
+      errors.billingAddress = this.address.errors;
     }
 
     return errors;
