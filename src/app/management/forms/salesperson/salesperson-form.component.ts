@@ -7,8 +7,8 @@
 
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
-  ValidationErrors, Validator
+  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
+  ValidationErrors, Validator, Validators
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime, tap } from 'rxjs/operators';
@@ -40,14 +40,12 @@ export class SalespersonFormComponent
   @Input() formGroup: FormGroup;
   get person() { return this.formGroup.get('person') as FormControl; }
 
-  constructor(
-    private formBuilder: FormBuilder
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
     if (!this.formGroup) {
-      this.formGroup = this.formBuilder.group({
-        person: [null]
+      this.formGroup = new FormGroup({
+        person: new FormControl('', Validators.required)
       });
     }
     this.valueChangesSub = this.formGroup.valueChanges.pipe(
@@ -103,6 +101,10 @@ export class SalespersonFormComponent
     }
 
     return errors;
+  }
+
+  registerOnValidatorChange(fn: () => void): void {
+    this.onValidatorChange = fn;
   }
 
 }

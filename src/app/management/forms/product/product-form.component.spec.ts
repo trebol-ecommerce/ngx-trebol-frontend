@@ -5,9 +5,9 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -18,6 +18,17 @@ import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-
 import { Image } from 'src/models/entities/Image';
 import { Product } from 'src/models/entities/Product';
 import { ProductFormComponent } from './product-form.component';
+
+@Component({
+  selector: 'app-higher-order-form',
+  template: '<form [formGroup]="formGroup"><app-product-form formControlName="product"></app-product-form></form>'
+})
+class MockHigherOrderFormComponent {
+  @ViewChild(ProductFormComponent, { static: true }) productFormComponent: ProductFormComponent;
+
+  formGroup = new FormGroup({ product: new FormControl(null) });
+  get product() { return this.formGroup.get('product') as FormControl; }
+}
 
 @Component({
   selector: 'app-slideshow',
@@ -49,22 +60,15 @@ class MockCategorySelectorFormFieldComponent
 }
 
 describe('ProductFormComponent', () => {
+  let containerForm: MockHigherOrderFormComponent;
+  let fixture: ComponentFixture<MockHigherOrderFormComponent>;
   let component: ProductFormComponent;
-  let fixture: ComponentFixture<ProductFormComponent>;
-  let mockSnackBarService: Partial<MatSnackBar>;
-  let mockDialogService: Partial<MatDialog>;
+  let snackBarServiceSpy: jasmine.SpyObj<MatSnackBar>;
+  let dialogServiceSpy: jasmine.SpyObj<MatDialog>;
 
   beforeEach(waitForAsync(() => {
-    mockSnackBarService = {
-      open(m: string, a: string) { return void 0; }
-    };
-    mockDialogService = {
-      open() {
-        return {
-          afterClosed() { return of(void 0); }
-        } as MatDialogRef<any>;
-      }
-    };
+    const mockSnackBarService = jasmine.createSpyObj('MatSnackBar', ['open']);
+    const mockDialogService = jasmine.createSpyObj('MatDialog', ['open']);
 
     TestBed.configureTestingModule({
       imports: [
@@ -74,9 +78,10 @@ describe('ProductFormComponent', () => {
         MatInputModule
       ],
       declarations: [
-        ProductFormComponent,
         MockSlideshowComponent,
-        MockCategorySelectorFormFieldComponent
+        MockCategorySelectorFormFieldComponent,
+        ProductFormComponent,
+        MockHigherOrderFormComponent
       ],
       providers: [
         { provide: MatSnackBar, useValue: mockSnackBarService },
@@ -88,8 +93,10 @@ describe('ProductFormComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProductFormComponent);
-    component = fixture.componentInstance;
+    dialogServiceSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
+    fixture = TestBed.createComponent(MockHigherOrderFormComponent);
+    containerForm = fixture.componentInstance;
+    component = containerForm.productFormComponent;
     fixture.detectChanges();
   });
 
@@ -110,38 +117,42 @@ describe('ProductFormComponent', () => {
       images: [],
       description: ''
     };
-    component.writeValue(mockProduct);
+    containerForm.product.setValue(mockProduct);
     expect(component.formGroup.value).toEqual(mockProduct);
-    expect(component.formGroup.valid).toBeTruthy();
+    expect(component.formGroup.valid).toBeTrue();
   });
 
-  it('should fail to take non-Product instance objects', () => {
+  it('should treat non-Product-instances as invalid input', () => {
     const notAProduct = {
       foo: 'example',
       bar: 'test'
     };
-    try {
-      component.writeValue(notAProduct);
-    } catch (err) {
-      expect(err).toBeTruthy();
-    }
-    expect(component.formGroup.valid).toBeFalsy();
+    containerForm.product.setValue(notAProduct);
+    expect(component.formGroup.invalid).toBeTrue();
+  });
+
+  it('should respond to changes in disabled state', () => {
+    containerForm.formGroup.disable();
+    expect(component.formGroup.disabled).toBeTrue();
+    containerForm.formGroup.enable();
+    expect(component.formGroup.enabled).toBeTrue();
   });
 
   it('should open a dialog to select images to add', () => {
-    const dialogOpenSpy = spyOn(mockDialogService, 'open').and.callThrough();
+    dialogServiceSpy.open.and.returnValue({
+      afterClosed: () => of(void 0)
+    } as MatDialogRef<any>);
     component.onClickAddImage();
-    expect(dialogOpenSpy).toHaveBeenCalled();
+    expect(dialogServiceSpy.open).toHaveBeenCalled();
   });
 
   it('should push images from the image selection dialog into the form', () => {
-    expect(component.images.value).toEqual([]);
     const mockImagesArray: Image[] = [{ filename: 'test.jpg', url: '/path/to/test.jpg' }];
-    mockDialogService.open = () => ({
-      afterClosed() {
-        return of(mockImagesArray);
-      }
+    dialogServiceSpy.open.and.returnValue({
+      afterClosed: () => of(mockImagesArray)
     } as MatDialogRef<any>);
+
+    expect(component.images.value).toEqual([]);
     component.onClickAddImage();
     expect(component.images.value).toEqual(mockImagesArray);
   });
