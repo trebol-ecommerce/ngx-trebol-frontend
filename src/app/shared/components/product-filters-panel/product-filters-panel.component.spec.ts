@@ -8,12 +8,9 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductFiltersPanelComponent } from './product-filters-panel.component';
 
@@ -39,16 +36,13 @@ describe('ProductFiltersPanelComponent', () => {
       imports: [
         NoopAnimationsModule,
         ReactiveFormsModule,
-        MatButtonModule,
         MatExpansionModule,
         MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        MatSelectModule
+        MatInputModule
       ],
       declarations: [
-        ProductFiltersPanelComponent,
-        MockCategorySelectorFormFieldComponent
+        MockCategorySelectorFormFieldComponent,
+        ProductFiltersPanelComponent
       ]
     })
     .compileComponents();
