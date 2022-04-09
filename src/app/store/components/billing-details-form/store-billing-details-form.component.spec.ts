@@ -8,7 +8,9 @@
 import { Component, EventEmitter, Input } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreBillingDetailsFormComponent } from './store-billing-details-form.component';
 
@@ -48,8 +50,10 @@ describe('StoreBillingDetailsFormComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
+        NoopAnimationsModule,
         ReactiveFormsModule,
-        MatRadioModule,
+        MatExpansionModule,
+        MatRadioModule
       ],
       declarations: [
         StoreBillingDetailsFormComponent,
