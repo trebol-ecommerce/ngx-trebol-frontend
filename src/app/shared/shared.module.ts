@@ -14,7 +14,7 @@ import { DialogSwitcherButtonComponent } from './components/dialog-switcher-butt
 import { GmapComponent } from './components/gmap/gmap.component';
 import { HeaderBrandComponent } from './components/header-brand/header-brand.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
-import { ProductCategorySelectorFormFieldComponent } from './components/product-category-selector-form-field/product-category-selector-form-field.component';
+import { ProductCategorySelectorFieldComponent } from './forms/product-category-selector-field/product-category-selector-field.component';
 import { ProductCategoryTreeComponent } from './components/product-category-tree/product-category-tree.component';
 import { ProductFiltersPanelComponent } from './components/product-filters-panel/product-filters-panel.component';
 import { ProductsDisplayComponent } from './components/products-display/products-display.component';
@@ -45,7 +45,7 @@ const SHARED_DECLARATIONS = [
   HeaderBrandComponent,
   PersonFormComponent,
   ProductCardComponent,
-  ProductCategorySelectorFormFieldComponent,
+  ProductCategorySelectorFieldComponent,
   ProductCategoryTreeComponent,
   ProductsDisplayComponent,
   ProductFiltersPanelComponent,

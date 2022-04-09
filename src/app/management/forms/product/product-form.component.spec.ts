@@ -47,7 +47,7 @@ class MockSlideshowComponent
 }
 
 @Component({
-  selector: 'app-product-category-selector-form-field',
+  selector: 'app-product-category-selector-field',
   providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockCategorySelectorFormFieldComponent }]
 })
 class MockCategorySelectorFormFieldComponent

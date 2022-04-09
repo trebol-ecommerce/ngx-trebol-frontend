@@ -13,11 +13,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { ProductCategorySelectorFormFieldComponent } from './product-category-selector-form-field.component';
+import { ProductCategorySelectorFieldComponent } from './product-category-selector-field.component';
 
 describe('ProductCategorySelectorFormFieldComponent', () => {
-  let component: ProductCategorySelectorFormFieldComponent;
-  let fixture: ComponentFixture<ProductCategorySelectorFormFieldComponent>;
+  let component: ProductCategorySelectorFieldComponent;
+  let fixture: ComponentFixture<ProductCategorySelectorFieldComponent>;
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
@@ -37,7 +37,7 @@ describe('ProductCategorySelectorFormFieldComponent', () => {
         MatIconModule,
         MatInputModule,
       ],
-      declarations: [ProductCategorySelectorFormFieldComponent],
+      declarations: [ProductCategorySelectorFieldComponent],
       providers: [
         { provide: MatDialog, useValue: mockDialogService }
       ]
@@ -46,7 +46,7 @@ describe('ProductCategorySelectorFormFieldComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProductCategorySelectorFormFieldComponent);
+    fixture = TestBed.createComponent(ProductCategorySelectorFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

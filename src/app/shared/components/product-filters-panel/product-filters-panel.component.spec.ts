@@ -18,7 +18,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductFiltersPanelComponent } from './product-filters-panel.component';
 
 @Component({
-  selector: 'app-product-category-selector-form-field',
+  selector: 'app-product-category-selector-field',
   providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockCategorySelectorFormFieldComponent }]
 })
 class MockCategorySelectorFormFieldComponent

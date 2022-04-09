@@ -13,23 +13,23 @@ import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { ProductCategoryPickerDialogComponent } from '../../dialogs/product-category-picker/product-category-picker-dialog.component';
 
 @Component({
-  selector: 'app-product-category-selector-form-field',
-  templateUrl: './product-category-selector-form-field.component.html',
-  styleUrls: ['./product-category-selector-form-field.component.css'],
+  selector: 'app-product-category-selector-field',
+  templateUrl: './product-category-selector-field.component.html',
+  styleUrls: ['./product-category-selector-field.component.css'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: ProductCategorySelectorFormFieldComponent
+      useExisting: ProductCategorySelectorFieldComponent
     },
     {
       provide: NG_VALIDATORS,
       multi: true,
-      useExisting: ProductCategorySelectorFormFieldComponent
+      useExisting: ProductCategorySelectorFieldComponent
     }
   ]
 })
-export class ProductCategorySelectorFormFieldComponent
+export class ProductCategorySelectorFieldComponent
   implements ControlValueAccessor, Validator {
 
   noCategoryLabel = $localize`:no category chosen|Label to indicate that a product does not have a category associated:No category`;
