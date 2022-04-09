@@ -54,10 +54,4 @@ describe('DataManagerServiceDirective', () => {
     service.reloadItems();
     expect(dataServiceSpy.fetchPage).toHaveBeenCalled();
   });
-
-  it('should call ngOnDestroy() without errors', () => {
-    expect(() => {
-      service.ngOnDestroy();
-    }).not.toThrow();
-  })
 });

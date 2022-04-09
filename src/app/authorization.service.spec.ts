@@ -41,12 +41,6 @@ describe('AuthorizationService', () => {
     it('should be created', () => {
       expect(service).toBeTruthy();
     });
-
-    it('should call `ngOnDestroy()` without errors', () => {
-      expect(() => {
-        service.ngOnDestroy();
-      }).not.toThrow();
-    });
   });
 
   describe('normally', () => {

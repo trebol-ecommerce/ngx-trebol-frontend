@@ -33,6 +33,7 @@ export class SessionService
     this.validateSession().subscribe();
   }
 
+  // TODO services do not support lifecycle hooks such as this...
   ngOnDestroy(): void {
     this.userHasActiveSessionSource.complete();
     this.isValidatingSessionSource.complete();

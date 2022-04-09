@@ -67,12 +67,6 @@ describe('AuthenticationService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should call `ngOnDestroy()` without errors', () => {
-    expect(() => {
-      service.ngOnDestroy();
-    }).not.toThrow();
-  });
-
   it('should emit an event when `cancelAuthentication()` is called', () => {
     merge(
       service.authCancelation$.pipe(

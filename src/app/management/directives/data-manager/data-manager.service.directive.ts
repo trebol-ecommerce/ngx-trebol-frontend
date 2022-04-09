@@ -50,6 +50,7 @@ export abstract class DataManagerServiceDirective<T>
     this.canDelete$ = this.authorizedAccessSource.asObservable().pipe(map(a => a?.permissions?.includes('delete')));
   }
 
+  // TODO services do not support lifecycle hooks such as this...
   ngOnDestroy(): void {
     this.focusedItemsSource.complete();
     this.pageSource.complete();

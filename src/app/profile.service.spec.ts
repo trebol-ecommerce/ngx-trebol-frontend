@@ -51,12 +51,6 @@ describe('ProfileService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should call `ngOnDestroy()` without errors', () => {
-    expect(() => {
-      service.ngOnDestroy();
-    }).not.toThrow();
-  });
-
   describe('when the user is unauthenticated', () => {
     beforeEach(() => {
       sessionServiceSpy.userHasActiveSession$ = of(false);

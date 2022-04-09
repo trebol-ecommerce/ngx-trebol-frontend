@@ -35,6 +35,7 @@ export class AuthenticationService
     private sessionService: SessionService
   ) { }
 
+  // TODO services do not support lifecycle hooks such as this...
   ngOnDestroy(): void {
     this.authCancelationSource.complete();
   }

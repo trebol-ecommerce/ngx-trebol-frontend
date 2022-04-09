@@ -32,6 +32,7 @@ export class AuthorizationService
     this.sessionStateSub = this.watchSessionActivityAndUpdateAuthorizedAccess().subscribe();
   }
 
+  // TODO services do not support lifecycle hooks such as this...
   ngOnDestroy(): void {
     this.authorizedAccessSource.complete();
     this.sessionStateSub?.unsubscribe();

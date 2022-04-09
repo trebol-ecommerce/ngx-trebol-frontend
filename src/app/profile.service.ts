@@ -30,6 +30,7 @@ export class ProfileService
     private sessionService: SessionService
   ) { }
 
+  // TODO services do not support lifecycle hooks such as this...
   ngOnDestroy(): void {
     this.userProfileSource.complete();
   }
