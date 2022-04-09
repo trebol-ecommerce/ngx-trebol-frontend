@@ -15,7 +15,7 @@ import { StoreCatalogService } from '../../routes/catalog/store-catalog.service'
 import { StoreProductListContentsDisplayComponent } from './store-product-list-contents-display.component';
 
 
-@Component({ selector: 'app-products-display' })
+@Component({ selector: 'store-products-lot-display' })
 class MockProductsDisplayComponent {
   @Input() loading: boolean;
   @Input() products: Product[];

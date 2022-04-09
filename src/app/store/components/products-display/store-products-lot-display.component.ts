@@ -10,11 +10,11 @@ import { PageEvent } from '@angular/material/paginator';
 import { Product } from 'src/models/entities/Product';
 
 @Component({
-  selector: 'app-products-display',
-  templateUrl: './products-display.component.html',
-  styleUrls: ['./products-display.component.css']
+  selector: 'store-products-lot-display',
+  templateUrl: './store-products-lot-display.component.html',
+  styleUrls: ['./store-products-lot-display.component.css']
 })
-export class ProductsDisplayComponent {
+export class ProductsLotDisplayComponent {
 
   @Input() products: Product[];
   @Input() pageSizeOptions = [ 8, 20, 40, 80 ];

@@ -14,10 +14,8 @@ import { DialogSwitcherButtonComponent } from './components/dialog-switcher-butt
 import { GmapComponent } from './components/gmap/gmap.component';
 import { HeaderBrandComponent } from './components/header-brand/header-brand.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
-import { ProductCategorySelectorFieldComponent } from './forms/product-category-selector-field/product-category-selector-field.component';
 import { ProductCategoryTreeComponent } from './components/product-category-tree/product-category-tree.component';
 import { ProductFiltersPanelComponent } from './components/product-filters-panel/product-filters-panel.component';
-import { ProductsDisplayComponent } from './components/products-display/products-display.component';
 import { SellDetailUnitsControlComponent } from './components/sell-detail-units-control/sell-detail-units-control.component';
 import { SellDetailsTableComponent } from './components/sell-details-table/sell-details-table.component';
 import { SellInformationComponent } from './components/sell-information/sell-information.component';
@@ -32,6 +30,7 @@ import { SharedDialogService } from './dialogs/shared-dialog.service';
 import { AddressFormComponent } from './forms/address/address-form.component';
 import { CompanyFormComponent } from './forms/company/company-form.component';
 import { PersonFormComponent } from './forms/person/person-form.component';
+import { ProductCategorySelectorFieldComponent } from './forms/product-category-selector-field/product-category-selector-field.component';
 import { AddressPipe } from './pipes/address/address.pipe';
 import { TrustedResourceUrlPipe } from './pipes/trusted-resource-url/trusted-resource-url.pipe';
 import { SharedMaterialModule } from './shared-material.module';
@@ -47,7 +46,6 @@ const SHARED_DECLARATIONS = [
   ProductCardComponent,
   ProductCategorySelectorFieldComponent,
   ProductCategoryTreeComponent,
-  ProductsDisplayComponent,
   ProductFiltersPanelComponent,
   SellDetailUnitsControlComponent,
   SellDetailsTableComponent,

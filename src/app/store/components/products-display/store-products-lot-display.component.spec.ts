@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Product } from 'src/models/entities/Product';
-import { ProductsDisplayComponent } from './products-display.component';
+import { ProductsLotDisplayComponent } from './store-products-lot-display.component';
 
 @Component({ selector: 'app-centered-mat-spinner' })
 class MockCenteredMatSpinnerComponent { }
@@ -21,9 +21,9 @@ class MockStoreProductCardComponent {
   @Input() product: Product;
 }
 
-describe('ProductsDisplayComponent', () => {
-  let component: ProductsDisplayComponent;
-  let fixture: ComponentFixture<ProductsDisplayComponent>;
+describe('ProductsLotDisplayComponent', () => {
+  let component: ProductsLotDisplayComponent;
+  let fixture: ComponentFixture<ProductsLotDisplayComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -33,7 +33,7 @@ describe('ProductsDisplayComponent', () => {
         MatPaginatorModule
       ],
       declarations: [
-        ProductsDisplayComponent,
+        ProductsLotDisplayComponent,
         MockCenteredMatSpinnerComponent,
         MockStoreProductCardComponent
       ]
@@ -42,7 +42,7 @@ describe('ProductsDisplayComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProductsDisplayComponent);
+    fixture = TestBed.createComponent(ProductsLotDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

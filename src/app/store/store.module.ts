@@ -20,6 +20,7 @@ import { StoreHeaderSearchFormComponent } from './components/header/search-form/
 import { StoreHeaderComponent } from './components/header/store-header.component';
 import { StoreLocationComponent } from './components/location/store-location.component';
 import { StoreProductListContentsDisplayComponent } from './components/product-list-contents-display/store-product-list-contents-display.component';
+import { ProductsLotDisplayComponent } from './components/products-display/store-products-lot-display.component';
 import { StoreReceiptCardComponent } from './components/receipt-card/store-receipt-card.component';
 import { StoreReceiptDetailsTableComponent } from './components/receipt-details-table/store-receipt-details-table.component';
 import { StoreShippingFormComponent } from './components/shipping-form/store-shipping-form.component';
@@ -64,6 +65,7 @@ const SNACKBAR_DEFAULTS = {
     StoreGuestShippingFormDialogComponent,
     StoreRegistrationFormDialogComponent,
     StoreProductDetailsDialogComponent,
+    ProductsLotDisplayComponent,
     StoreProductListContentsDisplayComponent,
     StoreShippingFormComponent,
     StoreCompanyDetailsDialogComponent,
