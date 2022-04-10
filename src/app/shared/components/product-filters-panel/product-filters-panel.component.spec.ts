@@ -12,7 +12,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { count, take, tap } from 'rxjs/operators';
+import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { ProductFiltersPanelComponent } from './product-filters-panel.component';
+import { ProductFilters } from './ProductFilters';
 
 @Component({
   selector: 'app-product-category-selector-field',
@@ -44,8 +47,7 @@ describe('ProductFiltersPanelComponent', () => {
         MockCategorySelectorFormFieldComponent,
         ProductFiltersPanelComponent
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -56,5 +58,59 @@ describe('ProductFiltersPanelComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should fire the `filtersChanges` event when any input value changes', () => {
+    jasmine.clock().install();
+    let cooldownInterval = component.formChangesDebouncingTimeMs;
+    let expectedEmissions = 3;
+    component.filtersChanges.pipe(
+      take(expectedEmissions),
+      count(),
+      tap(c => expect(c).toBe(expectedEmissions))
+    ).subscribe();
+    component.categoryCode.setValue('some-code');
+    jasmine.clock().tick(cooldownInterval);
+    component.nameLike.setValue('some-name');
+    jasmine.clock().tick(cooldownInterval);
+    component.categoryCode.setValue(null);
+    jasmine.clock().tick(cooldownInterval);
+    jasmine.clock().uninstall();
+  });
+
+  it('should accept instances of ProductFilters as valid input', () => {
+    const filters: ProductFilters = {
+      nameLike: 'some-na',
+      categoryCode: 'some-code'
+    };
+    component.formGroup.setValue(filters);
+    expect(component.formGroup.value).toEqual(filters);
+  });
+
+
+  describe('when a category is selected', () => {
+    let fakeCategory: ProductCategory;
+    beforeEach(() => {
+      fakeCategory = {
+        code: 'some-code',
+        name: 'some-name'
+      };
+    });
+
+    it('should change the value of the corresponding form control', () => {
+      component.onSelectCategory(fakeCategory);
+      expect(component.categoryCode.value).toEqual(fakeCategory.code);
+    });
+
+    it('should fire the `filtersChanges` event', () => {
+      jasmine.clock().install();
+      component.filtersChanges.pipe(
+        take(1),
+        tap(f => expect(f.categoryCode).toBe(fakeCategory.code))
+      ).subscribe();
+      component.onSelectCategory(fakeCategory);
+      jasmine.clock().tick(component.formChangesDebouncingTimeMs);
+      jasmine.clock().uninstall();
+    });
   });
 });
