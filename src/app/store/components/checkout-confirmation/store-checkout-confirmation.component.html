@@ -5,48 +5,8 @@
   https://opensource.org/licenses/MIT
 -->
 
-<mat-card *ngIf="checkoutRequest">
-  <mat-card-header>
-    <h3 mat-card-title i18n="Title of widget to request confirmation of billing/personal/shipping information being correct">Is This Information Correct?</h3>
-  </mat-card-header>
-  <div class="customer">
-    <ng-container *ngIf="checkoutRequest.customer; else noCustomer">
-      <mat-icon>person</mat-icon>&nbsp;
-      <span class="details">
-        <span class="name">{{ checkoutRequest.customer.firstName }} {{ checkoutRequest.customer.lastName }}</span>
-        <b class="idCard">ID number {{ checkoutRequest.customer.idNumber }}</b>
-        <i class="email">{{ checkoutRequest.customer.email }}</i>
-      </span>
-    </ng-container>
-    <ng-template #noCustomer>
-      <mat-icon>person_off</mat-icon>&nbsp;
-      <span class="details">
-        <span class="name" i18n="Label to indicate that a customer chose not to give personal information">Anonymous</span>
-      </span>
-    </ng-template>
-  </div>
-  <div class="type" *ngIf="checkoutRequest.billing?.sellType">
-    <mat-icon>receipt</mat-icon>&nbsp;
-    <span>{{ checkoutRequest.billing.sellType }}</span>
-  </div>
-  <div class="company" *ngIf="checkoutRequest.billing?.company">
-    <mat-icon>business</mat-icon>&nbsp;
-    <span class="details">
-      <span class="name">{{ checkoutRequest.billing.company.name }}</span>
-      <b class="idNumber">Company ID number {{ checkoutRequest.billing.company.idNumber }}</b>
-    </span>
-  </div>
-  <div class="shipping">
-    <ng-container *ngIf="checkoutRequest.shipping?.shippingAddress; else noShipping">
-      <mat-icon>local_shipping</mat-icon>&nbsp;
-      <span>{{ checkoutRequest.shipping.shippingAddress | address }}</span>
-    </ng-container>
-    <ng-template #noShipping>
-      <mat-icon>local_shipping</mat-icon>&nbsp;
-      <span i18n="in-store delivery|Label to indicate that a customer chose to pick up items in store">Pickup in store</span>
-    </ng-template>
-  </div>
-</mat-card>
+<app-store-checkout-request-information-card
+  [checkoutRequest]="checkoutRequest$ | async"></app-store-checkout-request-information-card>
 <p i18n="Label to instruct user that, after having checked correctness of billing/personal/shipping information, they click the action button to request a new transaction">After you've checked your details,
   you may click on the 'Request transaction' button below:</p>
 <button type="button" class="request"

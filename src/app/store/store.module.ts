@@ -10,6 +10,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { StoreCheckoutButtonComponent } from './components/checkout-button/store-checkout-button.component';
 import { StoreCheckoutConfirmationComponent } from './components/checkout-confirmation/store-checkout-confirmation.component';
+import { StoreCheckoutRequestInformationCardComponent } from './components/checkout-request-information-card/store-checkout-request-information-card.component';
 import { StoreFooterComponent } from './components/footer/store-footer.component';
 import { StoreHeaderLoginButtonComponent } from './components/header/login-button/store-header-login-button.component';
 import { StoreHeaderMenuComponent } from './components/header/menu/store-header-menu.component';
@@ -55,6 +56,7 @@ const SNACKBAR_DEFAULTS = {
     StoreCartReviewComponent,
     StoreCheckoutButtonComponent,
     StoreCheckoutConfirmationComponent,
+    StoreCheckoutRequestInformationCardComponent,
     StoreCheckoutRequestFormComponent,
     StoreLocationComponent,
     StoreReceiptComponent,

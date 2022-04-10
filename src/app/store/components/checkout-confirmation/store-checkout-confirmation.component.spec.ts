@@ -8,15 +8,19 @@
 import { Component, EventEmitter, Input } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { AddressPipe } from 'src/app/shared/pipes/address/address.pipe';
+import { CheckoutRequest } from 'src/models/CheckoutRequest';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreCheckoutService } from '../../store-checkout.service';
 import { StoreCheckoutConfirmationComponent } from './store-checkout-confirmation.component';
+
+@Component({ selector: 'app-store-checkout-request-information-card' })
+class MockStoreCheckoutRequestInformationCardComponent {
+  @Input() checkoutRequest: CheckoutRequest;
+}
 
 @Component({ selector: 'app-store-checkout-button' })
 class MockStoreCheckoutButtonComponent {
@@ -42,21 +46,19 @@ describe('StoreCheckoutConfirmationComponent', () => {
       imports: [
         NoopAnimationsModule,
         MatButtonModule,
-        MatCardModule,
         MatDividerModule,
         MatIconModule
       ],
       declarations: [
-        StoreCheckoutConfirmationComponent,
+        MockStoreCheckoutRequestInformationCardComponent,
         MockStoreCheckoutButtonComponent,
-        AddressPipe
+        StoreCheckoutConfirmationComponent,
       ],
       providers: [
         { provide: StoreCartService, useValue: mockCartService },
         { provide: StoreCheckoutService, useValue: mockCheckoutService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
