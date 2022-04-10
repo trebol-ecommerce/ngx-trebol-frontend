@@ -22,7 +22,7 @@ import { StoreProductListContentsDisplayComponent } from './components/product-l
 import { ProductsLotDisplayComponent } from './components/products-display/store-products-lot-display.component';
 import { StoreReceiptCardComponent } from './components/receipt-card/store-receipt-card.component';
 import { StoreReceiptDetailsTableComponent } from './components/receipt-details-table/store-receipt-details-table.component';
-import { StoreCompanyDetailsDialogComponent } from './dialogs/company-details/store-company-details-dialog.component';
+import { StoreCompanyDetailsDialogComponent } from './dialogs/about-commerce-details/store-about-commerce-details-dialog.component';
 import { StoreGuestPromptDialogComponent } from './dialogs/guest-prompt/store-guest-prompt-dialog.component';
 import { StoreGuestShippingFormDialogComponent } from './dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component';
 import { StoreLoginFormDialogComponent } from './dialogs/login-form/store-login-form-dialog.component';

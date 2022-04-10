@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-export interface CompanyDetails {
+export interface AboutCommerceDetails {
   name: string;
   description: string;
   bannerImageURL: string;

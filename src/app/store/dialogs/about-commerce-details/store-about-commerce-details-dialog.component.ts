@@ -10,17 +10,17 @@ import { ReplaySubject, Subject } from 'rxjs';
 import { map, pluck, startWith } from 'rxjs/operators';
 import { IAboutPublicApiService } from 'src/app/api/about-public-api.iservice';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
-import { CompanyDetails } from 'src/models/CompanyDetails';
+import { AboutCommerceDetails } from 'src/models/AboutCommerceDetails';
 
 @Component({
-  selector: 'app-store-company-details-dialog',
-  templateUrl: './store-company-details-dialog.component.html',
-  styleUrls: ['./store-company-details-dialog.component.css']
+  selector: 'app-store-about-commerce-details-dialog',
+  templateUrl: './store-about-commerce-details-dialog.component.html',
+  styleUrls: ['./store-about-commerce-details-dialog.component.css']
 })
 export class StoreCompanyDetailsDialogComponent
   implements OnInit {
 
-  private dataSource: Subject<CompanyDetails> = new ReplaySubject();
+  private dataSource: Subject<AboutCommerceDetails> = new ReplaySubject();
 
   // TODO move these observables
   data$ = this.dataSource.asObservable();
