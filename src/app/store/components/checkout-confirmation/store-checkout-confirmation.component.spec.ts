@@ -5,14 +5,15 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
+import { count, take, tap } from 'rxjs/operators';
 import { CheckoutRequest } from 'src/models/CheckoutRequest';
+import { ExternalPaymentRedirectionData } from 'src/models/ExternalPaymentRedirectionData';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreCheckoutService } from '../../store-checkout.service';
 import { StoreCheckoutConfirmationComponent } from './store-checkout-confirmation.component';
@@ -22,35 +23,35 @@ class MockStoreCheckoutRequestInformationCardComponent {
   @Input() checkoutRequest: CheckoutRequest;
 }
 
+@Component({ selector: 'app-store-checkout-confirmation-button' })
+class MockStoreCheckoutRequestButtonComponent {
+  @Input() disabled: boolean;
+}
+
 @Component({ selector: 'app-store-checkout-button' })
 class MockStoreCheckoutButtonComponent {
-  @Input() checkoutDetails: any[];
+  @Input() checkoutDetails: ExternalPaymentRedirectionData;
 }
 
 describe('StoreCheckoutConfirmationComponent', () => {
   let component: StoreCheckoutConfirmationComponent;
   let fixture: ComponentFixture<StoreCheckoutConfirmationComponent>;
-  let mockCartService: Partial<StoreCartService>;
-  let mockCheckoutService: Partial<StoreCheckoutService>;
+  let cartServiceSpy: jasmine.SpyObj<StoreCartService>;
+  let checkoutServiceSpy: jasmine.SpyObj<StoreCheckoutService>;
 
   beforeEach(waitForAsync(() => {
-    mockCartService = {
-      checkoutRequestData: null,
-      checkoutButtonPress: new EventEmitter()
-    };
-    mockCheckoutService = {
-      requestPayment() { return of(void 0); }
-    };
+    const mockCartService = jasmine.createSpyObj('StoreCartService', ['checkoutRequest$', 'cartDetails$']);
+    const mockCheckoutService = jasmine.createSpyObj('StoreCheckoutService', ['requestTransaction']);
 
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
-        MatButtonModule,
         MatDividerModule,
         MatIconModule
       ],
       declarations: [
         MockStoreCheckoutRequestInformationCardComponent,
+        MockStoreCheckoutRequestButtonComponent,
         MockStoreCheckoutButtonComponent,
         StoreCheckoutConfirmationComponent,
       ],
@@ -62,6 +63,11 @@ describe('StoreCheckoutConfirmationComponent', () => {
   }));
 
   beforeEach(() => {
+    cartServiceSpy = TestBed.inject(StoreCartService) as jasmine.SpyObj<StoreCartService>;
+    checkoutServiceSpy = TestBed.inject(StoreCheckoutService) as jasmine.SpyObj<StoreCheckoutService>;
+    cartServiceSpy.checkoutRequest$ = of(new CheckoutRequest());
+    cartServiceSpy.cartDetails$ = of([]);
+
     fixture = TestBed.createComponent(StoreCheckoutConfirmationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -69,5 +75,16 @@ describe('StoreCheckoutConfirmationComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should fire `confirmed` event when `onClickRequest()` is called', () => {
+    const fakeData = new ExternalPaymentRedirectionData();
+    checkoutServiceSpy.requestTransaction.and.returnValue(of(fakeData));
+    component.confirmed.pipe(
+      take(1),
+      count(),
+      tap(c => expect(c).toBe(1))
+    ).subscribe();
+    component.onClickConfirm();
   });
 });

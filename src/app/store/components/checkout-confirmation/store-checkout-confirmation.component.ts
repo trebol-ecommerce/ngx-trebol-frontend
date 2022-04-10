@@ -6,7 +6,7 @@
  */
 
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { CheckoutRequest } from 'src/models/CheckoutRequest';
 import { ExternalPaymentRedirectionData } from 'src/models/ExternalPaymentRedirectionData';
@@ -21,31 +21,22 @@ import { StoreCheckoutService } from '../../store-checkout.service';
 export class StoreCheckoutConfirmationComponent
   implements OnInit, OnDestroy {
 
-  private checkoutRequestSource = new BehaviorSubject<CheckoutRequest>(null);
   private checkoutButtonPressSub: Subscription;
 
   @Output() confirmed = new EventEmitter<void>();
 
   loading = false;
-  checkoutDetails = new ExternalPaymentRedirectionData();
+  checkoutDetails: ExternalPaymentRedirectionData = null;
 
-  checkoutRequest$ = this.checkoutRequestSource.asObservable();
+  checkoutRequest$: Observable<CheckoutRequest>;
 
   constructor(
     private cartService: StoreCartService,
     private checkoutService: StoreCheckoutService
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void {
-    if (this.cartService.checkoutRequestData) {
-      this.checkoutRequestSource.next(this.cartService.checkoutRequestData);
-    }
-
-    this.checkoutButtonPressSub = this.cartService.checkoutButtonPress.pipe(
-      take(1),
-      tap(() => this.checkoutRequestSource.next(this.cartService.checkoutRequestData))
-    ).subscribe();
+    this.checkoutRequest$ = this.cartService.checkoutRequest$.pipe();
   }
 
   ngOnDestroy(): void {
@@ -53,10 +44,9 @@ export class StoreCheckoutConfirmationComponent
     this.confirmed.complete();
   }
 
-  onClickRequest(): void {
-    this.loading = true;
-    this.getPayment().pipe(
-      switchMap(payment => this.checkoutService.requestPayment(payment.data, payment.cartDetails)),
+  onClickConfirm(): void {
+    this.getCartData().pipe(
+      switchMap(cart => this.checkoutService.requestTransaction(cart.data, cart.details)),
       tap(
         next => {
           this.confirmed.emit();
@@ -69,16 +59,17 @@ export class StoreCheckoutConfirmationComponent
     ).subscribe();
   }
 
-  private getPayment() {
-    return this.cartService.cartDetails$.pipe(
+  // TODO use more appropiate rxjs operators
+  private getCartData() {
+    return this.checkoutRequest$.pipe(
       take(1),
-      switchMap(cartDetails => (
-        this.checkoutRequest$.pipe(
+      switchMap(data => (
+        this.cartService.cartDetails$.pipe(
           take(1),
-          map(data => (
+          map(details => (
             {
               data,
-              cartDetails
+              details
             }
           ))
         )

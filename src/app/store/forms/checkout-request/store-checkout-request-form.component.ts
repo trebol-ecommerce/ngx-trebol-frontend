@@ -8,8 +8,8 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { concat, merge, Subscription } from 'rxjs';
+import { filter, take, tap } from 'rxjs/operators';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_VALIDATION_ERROR_MESSAGE } from 'src/text/messages';
 import { StoreCartService } from '../../store-cart.service';
 
@@ -43,11 +43,10 @@ export class StoreCheckoutRequestFormComponent
   }
 
   ngOnInit(): void {
-    if (this.cartService.checkoutRequestData) {
-      this.formGroup.patchValue(this.cartService.checkoutRequestData, { onlySelf: true, emitEvent: false });
-    }
-    this.checkoutRequestUpdateSub = this.formGroup.valueChanges.pipe(
-      tap(value => { this.cartService.checkoutRequestData = value; })
+    this.cartService.checkoutRequest$.pipe(
+      take(1),
+      filter(checkoutRequestData => !!checkoutRequestData),
+      tap(checkoutRequestData => this.formGroup.patchValue(checkoutRequestData, { onlySelf: true, emitEvent: false }))
     ).subscribe();
   }
 
@@ -56,10 +55,10 @@ export class StoreCheckoutRequestFormComponent
   }
 
   onRequest(): void {
-    this.cartService.checkoutButtonPress.emit();
     if (this.formGroup.invalid) {
       this.snackBarService.open(COMMON_VALIDATION_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
     } else {
+      this.cartService.updateCheckoutRequest(this.formGroup.value);
       this.request.emit();
     }
   }

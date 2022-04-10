@@ -9,6 +9,7 @@ import { NgModule } from '@angular/core';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { StoreCheckoutButtonComponent } from './components/checkout-button/store-checkout-button.component';
+import { StoreCheckoutConfirmationButtonComponent } from './components/checkout-confirmation-button/store-checkout-confirmation-button.component';
 import { StoreCheckoutConfirmationComponent } from './components/checkout-confirmation/store-checkout-confirmation.component';
 import { StoreCheckoutRequestInformationCardComponent } from './components/checkout-request-information-card/store-checkout-request-information-card.component';
 import { StoreFooterComponent } from './components/footer/store-footer.component';
@@ -30,7 +31,7 @@ import { StoreProductDetailsDialogComponent } from './dialogs/product-details/st
 import { StoreRegistrationFormDialogComponent } from './dialogs/registration-form/store-registration-form-dialog.component';
 import { StoreBillingDetailsFormComponent } from './forms/billing-details/store-billing-details-form.component';
 import { StoreCheckoutRequestFormComponent } from './forms/checkout-request/store-checkout-request-form.component';
-import { StoreShippingFormComponent } from './forms/shipping/store-shipping-form.component';
+import { StoreShippingDetailsFormComponent } from './forms/shipping-details/store-shipping-details-form.component';
 import { StoreCartReviewComponent } from './routes/cart-review/store-cart-review.component';
 import { StoreCartReviewGuard } from './routes/cart-review/store-cart-review.guard';
 import { StoreCatalogComponent } from './routes/catalog/store-catalog.component';
@@ -56,6 +57,7 @@ const SNACKBAR_DEFAULTS = {
     StoreCartReviewComponent,
     StoreCheckoutButtonComponent,
     StoreCheckoutConfirmationComponent,
+    StoreCheckoutConfirmationButtonComponent,
     StoreCheckoutRequestInformationCardComponent,
     StoreCheckoutRequestFormComponent,
     StoreLocationComponent,
@@ -69,7 +71,7 @@ const SNACKBAR_DEFAULTS = {
     StoreProductDetailsDialogComponent,
     ProductsLotDisplayComponent,
     StoreProductListContentsDisplayComponent,
-    StoreShippingFormComponent,
+    StoreShippingDetailsFormComponent,
     StoreCompanyDetailsDialogComponent,
     StoreHeaderNavigationComponent,
     StoreHeaderMenuComponent,

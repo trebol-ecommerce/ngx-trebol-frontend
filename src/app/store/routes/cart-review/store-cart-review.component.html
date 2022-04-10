@@ -30,8 +30,10 @@
   </mat-step>
   <mat-step #confirmationStep>
     <ng-template matStepLabel i18n="Title of form step to confirm checkout details">Confirmation</ng-template>
-    <app-store-checkout-confirmation
-      (confirmed)="onConfirmation()">
-    </app-store-checkout-confirmation>
+    <ng-template matStepContent>
+      <app-store-checkout-confirmation
+        (confirmed)="onConfirmation()">
+      </app-store-checkout-confirmation>
+    </ng-template>
   </mat-step>
 </mat-horizontal-stepper>

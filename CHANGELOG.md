@@ -23,6 +23,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Make better use of some shared components to display details of carts/sales
   - `StoreCartContentsTable` superseded by `SellDetailsTable`
 - In the sales management page, a new button triggers the dialog where clerks may view its details
+- Checkout-related components (in the `store` module) split & rewritten against model classes using self-evident nomenclature
+  - `StoreCheckoutRequestFormComponent` has a form that accepts instances of `CheckoutRequest`
+  - `StoreBillingDetails` has a form that accepts instances of `BillingDetails`
+  - And so forth
 
 ### Fixed
 - (UI) User name and details would not always be correct or up-to-date

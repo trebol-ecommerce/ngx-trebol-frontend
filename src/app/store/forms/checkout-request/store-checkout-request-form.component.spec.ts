@@ -11,6 +11,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@a
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { of } from 'rxjs';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreCheckoutRequestFormComponent } from './store-checkout-request-form.component';
 
@@ -39,7 +40,7 @@ class MockPersonFormComponent
 }
 
 @Component({
-  selector: 'app-store-shipping-form',
+  selector: 'app-store-shipping-details-form',
   providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockStoreShippingFormComponent }]
 })
 class MockStoreShippingFormComponent
@@ -61,8 +62,7 @@ describe('StoreCheckoutRequestFormComponent', () => {
       open(m: string, a: string) { return void 0; }
     };
     mockCartService = {
-      checkoutRequestData: null,
-      checkoutButtonPress: new EventEmitter()
+      checkoutRequest$: of(null)
     };
 
     TestBed.configureTestingModule({

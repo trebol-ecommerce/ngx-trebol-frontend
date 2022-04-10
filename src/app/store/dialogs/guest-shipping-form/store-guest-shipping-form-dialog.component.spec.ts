@@ -50,7 +50,7 @@ describe('StoreGuestShippingFormDialogComponent', () => {
       close() { return of(void 0); }
     };
     mockCartService = {
-      checkoutRequestData: new CheckoutRequest()
+      checkoutRequest$: of(new CheckoutRequest())
     };
 
     TestBed.configureTestingModule({

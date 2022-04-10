@@ -22,7 +22,7 @@ export class StoreCheckoutButtonComponent {
   @Input()
   get checkoutDetails() { return this.innerCheckoutDetails; }
   set checkoutDetails(value: ExternalPaymentRedirectionData) {
-    if (value.token && value.url) {
+    if (value) {
       this.disabled = false;
       this.innerCheckoutDetails = value;
     }

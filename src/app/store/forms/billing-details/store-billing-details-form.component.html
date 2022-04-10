@@ -6,10 +6,10 @@
 -->
 
 <fieldset [formGroup]="formGroup">
-  <mat-radio-group formControlName="sellType"
+  <mat-radio-group formControlName="typeName"
     aria-label="Billing type"
     i18n-aria-label="Label for group of choices to select billing type from"
-    (change)="onSellTypeChange($event.value)">
+    (change)="onTypeNameChange($event.value)">
     <mat-radio-button *ngFor="let option of typesOptions"
       [value]="option"
       (blur)="onTouched()">{{ option }}</mat-radio-button>

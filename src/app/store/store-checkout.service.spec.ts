@@ -44,7 +44,7 @@ describe('StoreCheckoutService', () => {
   it('should fail requesting a checkout page when data is not filled', () => {
     const requestData: CheckoutRequest = {
       billing: {
-        sellType: 'Bill'
+        typeName: 'Bill'
       },
       customer: {
         idNumber: '1',
@@ -55,12 +55,12 @@ describe('StoreCheckoutService', () => {
         phone2: ''
       },
       shipping: {
-        requestShipping: false
+        included: false
       }
     };
     const details: SellDetail[] = [];
     const expectedResult = undefined;
-    service.requestPayment(requestData, details).pipe(
+    service.requestTransaction(requestData, details).pipe(
       catchError(err => of(expectedResult))
     ).subscribe(result => {
       expect(result).toBe(expectedResult);
@@ -69,14 +69,14 @@ describe('StoreCheckoutService', () => {
 
   it('should request a checkout page when data has been correctly filled', () => {
     const checkoutRequestData: CheckoutRequest = {
-      billing: { sellType: BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_INDIVIDUAL) },
-      shipping: { requestShipping: false },
+      billing: { typeName: BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_INDIVIDUAL) },
+      shipping: { included: false },
       customer: new Person()
     };
     const details: SellDetail[] = [
       { product: MOCK_PRODUCTS[0], units: 1 }
     ];
-    service.requestPayment(checkoutRequestData, details).pipe(
+    service.requestTransaction(checkoutRequestData, details).pipe(
       finalize(() => {
         expect(apiSubmitCartSpy).toHaveBeenCalled();
       })

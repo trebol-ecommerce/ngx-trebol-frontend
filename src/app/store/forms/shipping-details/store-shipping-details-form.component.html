@@ -6,10 +6,10 @@
 -->
 
 <fieldset [formGroup]="formGroup">
-  <mat-radio-group formControlName="requestShipping"
+  <mat-radio-group formControlName="included"
     aria-label="Choose a delivery option"
     i18n-aria-label="Label to hint user that they must choose a delivery option"
-    (change)="onShippingRequirementChange($event.value)">
+    (change)="onShippingIncludedChange($event.value)">
     <mat-radio-button [value]="true"
       (blur)="onTouched()">
       <span i18n="Label for option to choose delivery to a shipping address">Deliver to address</span>
@@ -25,7 +25,7 @@
         i18n="Shipping address|Label for group of fields related to an address to ship items to">Shipping address</mat-panel-title>
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
-      <app-address-form formControlName="shippingAddress"
+      <app-address-form formControlName="address"
         placeholder="Shipping address"
         i18n-placeholder="Name of field for address to deliver items to">
       </app-address-form>

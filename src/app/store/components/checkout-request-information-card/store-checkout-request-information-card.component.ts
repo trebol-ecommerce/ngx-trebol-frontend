@@ -15,7 +15,7 @@ import { CheckoutRequest } from 'src/models/CheckoutRequest';
 })
 export class StoreCheckoutRequestInformationCardComponent {
 
-  @Input() checkoutRequest = new CheckoutRequest();
+  @Input() checkoutRequest: CheckoutRequest;
 
   constructor() { }
 }

@@ -40,7 +40,7 @@ export class StoreBillingDetailsFormComponent
   readonly typesOptions = [ ...BILLING_TYPE_NAMES_MAP.values() ];
 
   @Input() formGroup: FormGroup;
-  get sellType() { return this.formGroup.get('sellType') as FormControl; }
+  get typeName() { return this.formGroup.get('typeName') as FormControl; }
   get company() { return this.formGroup.get('company') as FormControl; }
   get address() { return this.formGroup.get('address') as FormControl; }
 
@@ -51,7 +51,7 @@ export class StoreBillingDetailsFormComponent
   ngOnInit(): void {
     if (!this.formGroup) {
       this.formGroup = this.formBuilder.group({
-        sellType: [null, Validators.required],
+        typeName: [null, Validators.required],
         company: [{ value: null, disabled: true }, Validators.required],
         address: [{ value: null, disabled: true }, Validators.required]
       });
@@ -70,7 +70,7 @@ export class StoreBillingDetailsFormComponent
   onValidatorChange(): void { }
 
   writeValue(obj: any): void {
-    this.sellType.reset(null, { emitEvent: false });
+    this.typeName.reset(null, { emitEvent: false });
     this.company.reset({ value: null, disabled: true }, { emitEvent: false });
     this.address.reset({ value: null, disabled: true }, { emitEvent: false });
     if (isJavaScriptObject(obj)) {
@@ -105,8 +105,8 @@ export class StoreBillingDetailsFormComponent
 
     const errors = {} as ValidationErrors;
 
-    if (this.sellType.errors) {
-      errors.billingType = this.sellType.errors;
+    if (this.typeName.errors) {
+      errors.billingType = this.typeName.errors;
     }
     if (this.company.errors) {
       errors.billingCompany = this.company.errors;
@@ -122,7 +122,7 @@ export class StoreBillingDetailsFormComponent
     this.onValidatorChange = fn;
   }
 
-  onSellTypeChange(v: string): void {
+  onTypeNameChange(v: string): void {
     if (v === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
       this.company.enable();
       this.address.enable();

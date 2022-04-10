@@ -25,11 +25,11 @@
       </span>
     </ng-template>
   </div>
-  <div class="type" *ngIf="checkoutRequest.billing?.sellType">
+  <div class="type">
     <mat-icon>receipt</mat-icon>&nbsp;
-    <span>{{ checkoutRequest.billing.sellType }}</span>
+    <span>{{ checkoutRequest.billing.typeName }}</span>
   </div>
-  <div class="company" *ngIf="checkoutRequest.billing?.company">
+  <div class="company" *ngIf="checkoutRequest.billing.company">
     <mat-icon>business</mat-icon>&nbsp;
     <span class="details">
       <span class="name">{{ checkoutRequest.billing.company.name }}</span>
@@ -37,9 +37,9 @@
     </span>
   </div>
   <div class="shipping">
-    <ng-container *ngIf="checkoutRequest.shipping?.shippingAddress; else noShipping">
+    <ng-container *ngIf="checkoutRequest.shipping.included; else noShipping">
       <mat-icon>local_shipping</mat-icon>&nbsp;
-      <span>{{ checkoutRequest.shipping.shippingAddress | address }}</span>
+      <span>{{ checkoutRequest.shipping.address | address }}</span>
     </ng-container>
     <ng-template #noShipping>
       <mat-icon>local_shipping</mat-icon>&nbsp;

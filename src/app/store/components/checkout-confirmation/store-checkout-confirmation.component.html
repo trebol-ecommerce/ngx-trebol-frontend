@@ -6,17 +6,13 @@
 -->
 
 <app-store-checkout-request-information-card
-  [checkoutRequest]="checkoutRequest$ | async"></app-store-checkout-request-information-card>
-<p i18n="Label to instruct user that, after having checked correctness of billing/personal/shipping information, they click the action button to request a new transaction">After you've checked your details,
-  you may click on the 'Request transaction' button below:</p>
-<button type="button" class="request"
-  mat-button mat-raised-button
-  color="accent"
-  [disabled]="loading"
-  (click)="onClickRequest()">
-  <span i18n="request transaction|Label for action button to request a new transaction from payment service">Request transaction</span>
-  <mat-icon>point_of_sale</mat-icon>
-</button>
+  [checkoutRequest]="checkoutRequest$ | async">
+</app-store-checkout-request-information-card>
+<p i18n="Label to instruct user that, after having checked correctness of billing/personal/shipping information, they click the action button to request a new transaction">After you've checked your details, you may click on the 'Request transaction' button below:</p>
+<app-store-checkout-confirmation-button
+  [disabled]="!!checkoutDetails"
+  (click)="onClickConfirm()">
+</app-store-checkout-confirmation-button>
 <mat-divider></mat-divider>
 <p i18n="Label to instruct user that, after requesting and waiting for a new transaction, they click the action button to proceed towards payment page">After requesting your transaction,
   you may click on the 'Proceed to checkout' button below:</p>

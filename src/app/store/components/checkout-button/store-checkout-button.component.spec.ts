@@ -28,7 +28,7 @@ describe('StoreCheckoutButtonComponent', () => {
       ]),
     };
     mockCheckoutService = {
-      requestPayment() { return throwError({}); }
+      requestTransaction() { return throwError({}); }
     };
     mockDialogService = {
       open() { return void 0; }

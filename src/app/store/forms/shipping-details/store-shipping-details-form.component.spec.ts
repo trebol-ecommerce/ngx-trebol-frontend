@@ -5,14 +5,13 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreCartService } from '../../store-cart.service';
-import { StoreShippingFormComponent } from './store-shipping-form.component';
+import { StoreShippingDetailsFormComponent } from './store-shipping-details-form.component';
 
 @Component({
   selector: 'app-address-form',
@@ -26,16 +25,11 @@ class MockAddressesEditorFormComponent
   setDisabledState?(isDisabled: boolean): void { }
 }
 
-describe('StoreShippingFormComponent', () => {
-  let component: StoreShippingFormComponent;
-  let fixture: ComponentFixture<StoreShippingFormComponent>;
-  let mockCartService: Partial<StoreCartService>;
+describe('StoreShippingDetailsFormComponent', () => {
+  let component: StoreShippingDetailsFormComponent;
+  let fixture: ComponentFixture<StoreShippingDetailsFormComponent>;
 
   beforeEach(waitForAsync(() => {
-    mockCartService = {
-      checkoutButtonPress: new EventEmitter()
-    };
-
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
@@ -44,18 +38,15 @@ describe('StoreShippingFormComponent', () => {
         MatRadioModule
       ],
       declarations: [
-        StoreShippingFormComponent,
+        StoreShippingDetailsFormComponent,
         MockAddressesEditorFormComponent
-      ],
-      providers: [
-        { provide: StoreCartService, useValue: mockCartService }
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StoreShippingFormComponent);
+    fixture = TestBed.createComponent(StoreShippingDetailsFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

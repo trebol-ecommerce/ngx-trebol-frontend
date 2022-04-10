@@ -5,23 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Address } from './entities/Address';
 import { Person } from './entities/Person';
-import { BillingCompany } from './entities/BillingCompany';
-
-interface Shipping {
-  included: boolean;
-  address?: Address;
-}
-
-interface Billing {
-  typeName: string;
-  company?: BillingCompany;
-  address?: Address;
-}
+import { ShippingDetails } from './ShippingDetails';
+import { BillingDetails } from './BillingDetails';
 
 export class CheckoutRequest {
-  billing: Billing;
-  customer: Person;
-  shipping: Shipping;
+  billing = new BillingDetails();
+  customer = new Person();
+  shipping = new ShippingDetails();
 }
