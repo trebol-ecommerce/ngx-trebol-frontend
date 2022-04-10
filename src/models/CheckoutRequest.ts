@@ -6,14 +6,22 @@
  */
 
 import { Address } from './entities/Address';
-import { BillingDetails } from './BillingDetails';
 import { Person } from './entities/Person';
+import { BillingCompany } from './entities/BillingCompany';
+
+interface Shipping {
+  included: boolean;
+  address?: Address;
+}
+
+interface Billing {
+  typeName: string;
+  company?: BillingCompany;
+  address?: Address;
+}
 
 export class CheckoutRequest {
-  billing: BillingDetails;
+  billing: Billing;
   customer: Person;
-  shipping: {
-    requestShipping: boolean;
-    shippingAddress?: Address;
-  };
+  shipping: Shipping;
 }
