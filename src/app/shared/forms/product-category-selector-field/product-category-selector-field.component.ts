@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { filter, tap } from 'rxjs/operators';
@@ -30,16 +30,22 @@ import { ProductCategoryPickerDialogComponent } from '../../dialogs/product-cate
   ]
 })
 export class ProductCategorySelectorFieldComponent
-  implements ControlValueAccessor, Validator {
+  implements ControlValueAccessor, Validator, OnDestroy {
 
   noCategoryLabel = $localize`:no category chosen|Label to indicate that a product does not have a category associated:No category`;
   productCategory: ProductCategory;
   isDisabled = false;
   placeholder: string;
 
+  @Output() select = new EventEmitter<ProductCategory>();
+
   constructor(
     private dialogService: MatDialog
   ) { }
+
+  ngOnDestroy(): void {
+    this.select.complete();
+  }
 
   onChange(value: any): void { }
   onTouched(): void { }
@@ -71,7 +77,7 @@ export class ProductCategorySelectorFieldComponent
     if (!this.productCategory.code) {
       errors.productCategoryCode = { required: true };
     }
-    if (this.productCategory.name) {
+    if (!this.productCategory.name) {
       errors.productCategoryName = { required: true };
     }
 
@@ -98,6 +104,7 @@ export class ProductCategorySelectorFieldComponent
       tap(next => {
         this.productCategory = { code: next.code, name: next.name };
         this.onChange(next);
+        this.select.emit(next);
       })
     ).subscribe();
   }
