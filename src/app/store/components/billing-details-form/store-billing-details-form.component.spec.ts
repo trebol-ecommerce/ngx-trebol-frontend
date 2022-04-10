@@ -5,13 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreCartService } from '../../store-cart.service';
 import { StoreBillingDetailsFormComponent } from './store-billing-details-form.component';
 
 class MockAbstractFormComponent
@@ -41,13 +40,8 @@ class MockAddressFormComponent
 describe('StoreBillingDetailsFormComponent', () => {
   let component: StoreBillingDetailsFormComponent;
   let fixture: ComponentFixture<StoreBillingDetailsFormComponent>;
-  let mockCartService: Partial<StoreCartService>;
 
   beforeEach(waitForAsync(() => {
-    mockCartService = {
-      checkoutButtonPress: new EventEmitter()
-    };
-
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
@@ -56,12 +50,9 @@ describe('StoreBillingDetailsFormComponent', () => {
         MatRadioModule
       ],
       declarations: [
-        StoreBillingDetailsFormComponent,
         MockCompanyFormComponent,
-        MockAddressFormComponent
-      ],
-      providers: [
-        { provide: StoreCartService, useValue: mockCartService}
+        MockAddressFormComponent,
+        StoreBillingDetailsFormComponent
       ]
     }).compileComponents();
   }));
@@ -75,4 +66,6 @@ describe('StoreBillingDetailsFormComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should accept ')
 });
