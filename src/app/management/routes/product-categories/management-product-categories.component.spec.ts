@@ -17,7 +17,7 @@ import { ManagementProductCategoriesService } from './management-product-categor
 @Component({ selector: 'app-centered-mat-spinner' })
 class MockCenteredMatSpinnerComponent { }
 
-@Component({ selector: 'app-management-data-actions' })
+@Component({ selector: 'app-management-data-actions-button-bar' })
 class MockManagementDataActionsComponent {
   @Output() add = new EventEmitter();
 }

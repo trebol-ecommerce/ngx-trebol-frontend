@@ -72,10 +72,10 @@
   </div>
   <div>
 
-    <app-management-data-actions
+    <app-management-data-actions-button-bar
       *ngIf="canAdd$ | async"
       (add)="onClickAdd()">
-    </app-management-data-actions>
+    </app-management-data-actions-button-bar>
     <mat-paginator
       (page)="onPage($event)"
       [showFirstLastButtons]="true"

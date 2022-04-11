@@ -8,12 +8,13 @@
 import { NgModule } from '@angular/core';
 import { MatSnackBarConfig, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { ManagementDataActionsComponent } from './components/data-actions/management-data-actions.component';
+import { ManagementDataActionsButtonBarComponent } from './components/data-actions-button-bar/management-data-actions-button-bar.component';
 import { ManagementFooterComponent } from './components/footer/management-footer.component';
 import { ManagementHeaderComponent } from './components/header/management-header.component';
 import { ManagementHeaderMenuComponent } from './components/header/menu/management-header-menu.component';
 import { ManagementHeaderSidenavButtonComponent } from './components/header/sidenav-button/management-header-sidenav-button.component';
 import { ManagementSidenavComponent } from './components/sidenav/management-sidenav.component';
+import { ManagementSidenavService } from './components/sidenav/management-sidenav.service';
 import { EntityFormDialogComponent } from './dialogs/entity-form/entity-form-dialog.component';
 import { ImagesArrayDialogComponent } from './dialogs/images-array/images-array-dialog.component';
 import { ProductListContentsDialogComponent } from './dialogs/product-list-contents/product-list-contents-dialog.component';
@@ -27,9 +28,10 @@ import { SalespersonFormComponent } from './forms/salesperson/salesperson-form.c
 import { SellFormComponent } from './forms/sell/sell-form.component';
 import { ShipperFormComponent } from './forms/shipper/shipper-form.component';
 import { UserFormComponent } from './forms/user/user-form.component';
+import { ManagementMaterialModule } from './management-material.module';
 import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementRoutingModule } from './management-routing.module';
-import { ManagementSidenavService } from './components/sidenav/management-sidenav.service';
+import { ManagementRoutingService } from './management-routing.service';
 import { ManagementComponent } from './management.component';
 import { ManagementCustomersComponent } from './routes/customers/management-customers.component';
 import { ManagementCustomersService } from './routes/customers/management-customers.service';
@@ -50,8 +52,6 @@ import { ManagementShippersComponent } from './routes/shippers/management-shippe
 import { ManagementShippersService } from './routes/shippers/management-shippers.service';
 import { ManagementUsersComponent } from './routes/users/management-users.component';
 import { ManagementUsersService } from './routes/users/management-users.service';
-import { ManagementRoutingService } from './management-routing.service';
-import { ManagementMaterialModule } from './management-material.module';
 
 const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
   duration: 5000
@@ -59,25 +59,25 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
 
 @NgModule({
   declarations: [
+    ManagementDataActionsButtonBarComponent,
+    ManagementFooterComponent,
+    ManagementHeaderComponent,
+    ManagementHeaderMenuComponent,
+    ManagementHeaderSidenavButtonComponent,
+    ManagementSidenavComponent,
+    EntityFormDialogComponent,
+    ImagesArrayDialogComponent,
+    ProductListContentsDialogComponent,
+    ProductsArrayDialogComponent,
+    ManagementSellReviewDialogComponent,
     ImageFormComponent,
-    ProductFormComponent,
     ProductCategoryFormComponent,
     ProductListFormComponent,
+    ProductFormComponent,
     SalespersonFormComponent,
     SellFormComponent,
     ShipperFormComponent,
     UserFormComponent,
-    EntityFormDialogComponent,
-    ImagesArrayDialogComponent,
-    ProductsArrayDialogComponent,
-    ManagementDataActionsComponent,
-    ManagementFooterComponent,
-    ManagementHeaderComponent,
-    ManagementHeaderSidenavButtonComponent,
-    ManagementHeaderMenuComponent,
-    ManagementSidenavComponent,
-    ProductListContentsDialogComponent,
-    ManagementSellReviewDialogComponent,
     ManagementComponent,
     ManagementCustomersComponent,
     ManagementDashboardComponent,
