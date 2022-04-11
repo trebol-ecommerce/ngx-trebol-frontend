@@ -7,10 +7,12 @@
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { of, timer } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalProductListContentsDataApiService } from 'src/app/api/transactional-product-list-contents.data.api.iservice';
 import { Product } from 'src/models/entities/Product';
+import { observeIfEventFiresUponCallback } from 'src/test-functions/observeIfEventFiresUponCallback';
 import { StoreCatalogService } from '../../routes/catalog/store-catalog.service';
 import { StoreProductListContentsDisplayComponent } from './store-product-list-contents-display.component';
 
@@ -70,5 +72,15 @@ describe('StoreProductListContentsDisplayComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should fire an `addProductToCart` event', () => {
+    observeIfEventFiresUponCallback(
+      component.addProductToCart,
+      () => component.onAddProductToCart(null),
+      timer(1)
+    ).pipe(
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
+    ).subscribe();
   });
 });

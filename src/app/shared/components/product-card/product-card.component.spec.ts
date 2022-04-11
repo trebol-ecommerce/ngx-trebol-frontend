@@ -9,7 +9,9 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { count, take, tap } from 'rxjs/operators';
+import { timer } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { observeIfEventFiresUponCallback } from 'src/test-functions/observeIfEventFiresUponCallback';
 import { ProductCardComponent } from './product-card.component';
 
 describe('ProductCardComponent', () => {
@@ -37,21 +39,23 @@ describe('ProductCardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should fire `addToCart` when clicking in its add-product button', () => {
-    component.addToCart.pipe(
-      take(1),
-      count(),
-      tap(c => expect(c).toBe(1))
+  it('should fire an `addToCart` event', () => {
+    observeIfEventFiresUponCallback(
+      component.addToCart,
+      () => component.onClickAddProduct(),
+      timer(1)
+    ).pipe(
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();
-    component.onClickAddProduct();
   });
 
-  it('should fire `view` when clicking in its view-product button', () => {
-    component.view.pipe(
-      take(1),
-      count(),
-      tap(c => expect(c).toBe(1))
+  it('should fire a `view` event', () => {
+    observeIfEventFiresUponCallback(
+      component.view,
+      () => component.onClickViewProduct(),
+      timer(1)
+    ).pipe(
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();
-    component.onClickViewProduct();
   });
 });

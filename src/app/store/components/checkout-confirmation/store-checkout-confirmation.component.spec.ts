@@ -10,10 +10,11 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of } from 'rxjs';
-import { count, take, tap } from 'rxjs/operators';
+import { of, timer } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { CheckoutRequest } from 'src/models/CheckoutRequest';
 import { ExternalPaymentRedirectionData } from 'src/models/ExternalPaymentRedirectionData';
+import { observeIfEventFiresUponCallback } from 'src/test-functions/observeIfEventFiresUponCallback';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreCheckoutService } from '../../store-checkout.service';
 import { StoreCheckoutConfirmationComponent } from './store-checkout-confirmation.component';
@@ -80,11 +81,12 @@ describe('StoreCheckoutConfirmationComponent', () => {
   it('should fire `confirmed` event when `onClickRequest()` is called', () => {
     const fakeData = new ExternalPaymentRedirectionData();
     checkoutServiceSpy.requestTransaction.and.returnValue(of(fakeData));
-    component.confirmed.pipe(
-      take(1),
-      count(),
-      tap(c => expect(c).toBe(1))
+    observeIfEventFiresUponCallback(
+      component.confirmed,
+      () => component.onClickConfirm(),
+      timer(1)
+    ).pipe(
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();
-    component.onClickConfirm();
   });
 });

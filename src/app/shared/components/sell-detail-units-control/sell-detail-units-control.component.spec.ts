@@ -8,7 +8,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { finalize, take, tap } from 'rxjs/operators';
+import { timer } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { observeIfEventFiresUponCallback } from 'src/test-functions/observeIfEventFiresUponCallback';
 import { SellDetailUnitsControlComponent } from './sell-detail-units-control.component';
 
 describe('SellDetailUnitsControlComponent', () => {
@@ -36,23 +38,23 @@ describe('SellDetailUnitsControlComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should fire a decrease event', () => {
-    let fired = false;
-    component.decrease.pipe(
-      take(1),
-      tap(() => { fired = true; }),
-      finalize(() => expect(fired).toBeTrue())
+  it('should fire a `decrease` event', () => {
+    observeIfEventFiresUponCallback(
+      component.decrease,
+      () => component.onClickDecrease(),
+      timer(1)
+    ).pipe(
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();
-    component.onClickDecrease();
   });
 
-  it('should fire an increase event', () => {
-    let fired = false;
-    component.increase.pipe(
-      take(1),
-      tap(() => { fired = true; }),
-      finalize(() => expect(fired).toBeTrue())
+  it('should fire an `increase` event', () => {
+    observeIfEventFiresUponCallback(
+      component.increase,
+      () => component.onClickIncrease(),
+      timer(1)
+    ).pipe(
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();
-    component.onClickIncrease();
   });
 });

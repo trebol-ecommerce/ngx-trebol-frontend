@@ -10,7 +10,10 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { timer } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
+import { observeIfEventFiresUponCallback } from 'src/test-functions/observeIfEventFiresUponCallback';
 import { ProductsLotDisplayComponent } from './store-products-lot-display.component';
 
 @Component({ selector: 'app-centered-mat-spinner' })
@@ -49,5 +52,35 @@ describe('ProductsLotDisplayComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should fire a `decrease` event', () => {
+    observeIfEventFiresUponCallback(
+      component.addProductToCart,
+      () => component.onAddProductToCart(null),
+      timer(1)
+    ).pipe(
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
+    ).subscribe();
+  });
+
+  it('should fire a `decrease` event', () => {
+    observeIfEventFiresUponCallback(
+      component.viewProduct,
+      () => component.onViewProduct(null),
+      timer(1)
+    ).pipe(
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
+    ).subscribe();
+  });
+
+  it('should fire a `decrease` event', () => {
+    observeIfEventFiresUponCallback(
+      component.page,
+      () => component.onPage(null),
+      timer(1)
+    ).pipe(
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
+    ).subscribe();
   });
 });

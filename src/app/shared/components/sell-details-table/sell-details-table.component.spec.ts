@@ -10,6 +10,9 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
+import { timer } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { observeIfEventFiresUponCallback } from 'src/test-functions/observeIfEventFiresUponCallback';
 import { SellDetailsTableComponent } from './sell-details-table.component';
 
 @Component({ selector: 'app-sell-detail-units-control' })
@@ -45,5 +48,35 @@ describe('SellDetailsTableComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should fire an `increaseUnitsAtIndex` event', () => {
+    observeIfEventFiresUponCallback(
+      component.increaseUnitsAtIndex,
+      () => component.onClickIncreaseProductQuantity(0),
+      timer(1)
+    ).pipe(
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
+    ).subscribe();
+  });
+
+  it('should fire a `decreaseUnitsAtIndex` event', () => {
+    observeIfEventFiresUponCallback(
+      component.decreaseUnitsAtIndex,
+      () => component.onClickDecreaseProductQuantity(0),
+      timer(1)
+    ).pipe(
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
+    ).subscribe();
+  });
+
+  it('should fire a `removeAtIndex` event', () => {
+    observeIfEventFiresUponCallback(
+      component.removeAtIndex,
+      () => component.onClickRemoveProduct(0),
+      timer(1)
+    ).pipe(
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
+    ).subscribe();
   });
 });

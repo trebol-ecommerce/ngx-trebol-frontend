@@ -7,8 +7,9 @@
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
-import { merge, of, timer } from 'rxjs';
-import { finalize, map, take, takeLast, takeUntil, tap } from 'rxjs/operators';
+import { timer } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { observeIfEventFiresUponCallback } from 'src/test-functions/observeIfEventFiresUponCallback';
 import { ManagementDataActionsButtonBarComponent } from './management-data-actions-button-bar.component';
 
 describe('ManagementDataActionsButtonBarComponent', () => {
@@ -35,34 +36,22 @@ describe('ManagementDataActionsButtonBarComponent', () => {
   });
 
   it('should fire an `add` event', () => {
-    merge(
-      component.add.pipe(
-        takeUntil(timer(50)),
-        take(1),
-        map(() => true)
-      ),
-      of(false).pipe(
-        finalize(() => component.onClickAdd())
-      )
+    observeIfEventFiresUponCallback(
+      component.add,
+      () => component.onClickAdd(),
+      timer(1)
     ).pipe(
-      takeLast(1),
-      tap(fired => expect(fired).toBeTrue())
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();
   });
 
   it('should fire a `delete` event', () => {
-    merge(
-      component.delete.pipe(
-        takeUntil(timer(50)),
-        take(1),
-        map(() => true)
-      ),
-      of(false).pipe(
-        finalize(() => component.onClickDelete())
-      )
+    observeIfEventFiresUponCallback(
+      component.delete,
+      () => component.onClickDelete(),
+      timer(1)
     ).pipe(
-      takeLast(1),
-      tap(fired => expect(fired).toBeTrue())
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();
   });
 });

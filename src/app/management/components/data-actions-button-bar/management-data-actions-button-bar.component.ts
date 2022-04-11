@@ -34,6 +34,6 @@ export class ManagementDataActionsButtonBarComponent {
   }
 
   onClickDelete(): void {
-    this.add.emit();
+    this.delete.emit();
   }
 }

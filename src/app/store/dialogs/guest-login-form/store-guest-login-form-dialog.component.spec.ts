@@ -68,6 +68,8 @@ describe('StoreGuestLoginFormDialogComponent', () => {
     authenticationServiceSpy = TestBed.inject(AuthenticationService) as jasmine.SpyObj<AuthenticationService>;
     dialogRefSpy = TestBed.inject(MatDialogRef) as jasmine.SpyObj<MatDialogRef<any>>;
     cartServiceSpy = TestBed.inject(StoreCartService) as jasmine.SpyObj<StoreCartService>;
+    authenticationServiceSpy.guestLogin.and.returnValue(EMPTY);
+    authenticationServiceSpy.authCancelation$ = EMPTY;
 
     fixture = TestBed.createComponent(StoreGuestLoginFormDialogComponent);
     component = fixture.componentInstance;
@@ -93,7 +95,6 @@ describe('StoreGuestLoginFormDialogComponent', () => {
   });
 
   it('should call its service `guestLogin()` when submitting a valid form', () => {
-    authenticationServiceSpy.guestLogin.and.returnValue(EMPTY);
     component.person.setValue({ foo: 'bar' });
     component.onSubmit();
     expect(authenticationServiceSpy.guestLogin).toHaveBeenCalled();
@@ -106,7 +107,6 @@ describe('StoreGuestLoginFormDialogComponent', () => {
 
   it('should update the customer details in the cart service after a successful guest log-in', () => {
     authenticationServiceSpy.guestLogin.and.returnValue(of(void 0));
-    authenticationServiceSpy.authCancelation$ = EMPTY;
     component.person.setValue({ foo: 'bar' });
     component.onSubmit();
     expect(cartServiceSpy.updateCheckoutRequest).toHaveBeenCalled();

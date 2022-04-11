@@ -10,6 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { timer } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { observeIfEventFiresUponCallback } from 'src/test-functions/observeIfEventFiresUponCallback';
 import { SlideshowComponent } from './slideshow.component';
 
 describe('SlideshowComponent', () => {
@@ -25,8 +28,7 @@ describe('SlideshowComponent', () => {
         RouterTestingModule
       ],
       declarations: [ SlideshowComponent ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -37,5 +39,15 @@ describe('SlideshowComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should fire an `add` event', () => {
+    observeIfEventFiresUponCallback(
+      component.add,
+      () => component.onClickAdd(),
+      timer(1)
+    ).pipe(
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
+    ).subscribe();
   });
 });
