@@ -6,10 +6,12 @@
 -->
 
 <button mat-button mat-raised-button
+  *ngIf="showAdd"
   color="primary"
   (click)="onClickAdd()"
   i18n="create new item|Label for action button to create an item">Create</button>
 <button mat-button mat-raised-button
+  *ngIf="showDelete"
   color="primary"
   (click)="onClickDelete()"
   i18n="delete item|Label for action button to delete an item">Delete</button>
