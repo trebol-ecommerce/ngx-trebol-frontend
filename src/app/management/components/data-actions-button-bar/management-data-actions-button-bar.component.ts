@@ -13,7 +13,7 @@ type DataActions = 'add' | 'delete';
  * Generic action buttons bar. Should be placed below data listing components.
  */
 @Component({
-  selector: 'app-management-data-actions-button-bar-button-bar',
+  selector: 'app-management-data-actions-button-bar',
   templateUrl: './management-data-actions-button-bar.component.html',
   styleUrls: ['./management-data-actions-button-bar.component.css']
 })
