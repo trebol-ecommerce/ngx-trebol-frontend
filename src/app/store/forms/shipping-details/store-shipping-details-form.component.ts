@@ -15,7 +15,7 @@ import { tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 
 @Component({
-  selector: 'app-store-shipping-form',
+  selector: 'app-store-shipping-details-form',
   templateUrl: './store-shipping-details-form.component.html',
   styleUrls: ['./store-shipping-details-form.component.css'],
   providers: [
@@ -35,6 +35,7 @@ export class StoreShippingDetailsFormComponent
   implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
   private valueChangesSub: Subscription;
+  private includeShippingChangesSub: Subscription;
 
   @Input() formGroup: FormGroup;
   get included() { return this.formGroup.get('included') as FormControl; }
@@ -54,10 +55,14 @@ export class StoreShippingDetailsFormComponent
     this.valueChangesSub = this.formGroup.valueChanges.pipe(
       tap(v => this.onChange(v))
     ).subscribe();
+    this.includeShippingChangesSub = this.included.valueChanges.pipe(
+      tap(() => this.updateControlsAfterShippingInclusionChange())
+    ).subscribe();
   }
 
   ngOnDestroy(): void {
     this.valueChangesSub?.unsubscribe();
+    this.includeShippingChangesSub?.unsubscribe();
   }
 
   onChange(value: any): void { }
@@ -69,6 +74,7 @@ export class StoreShippingDetailsFormComponent
     this.address.reset({ value: null, disabled: true }, { emitEvent: false });
     if (isJavaScriptObject(obj)) {
       this.formGroup.patchValue(obj, { emitEvent: false });
+      this.updateControlsAfterShippingInclusionChange({ emitEvent: false });
     }
   }
 
@@ -109,11 +115,12 @@ export class StoreShippingDetailsFormComponent
     this.onValidatorChange = fn;
   }
 
-  onShippingIncludedChange(v: boolean): void {
+  private updateControlsAfterShippingInclusionChange(options?: { emitEvent?: boolean, onlySelf?: boolean }): void {
+    const v = this.included.value;
     if (v) {
-      this.address.enable();
+      this.address.enable(options);
     } else {
-      this.address.reset({ value: null, disabled: true });
+      this.address.reset({ value: null, disabled: true }, options);
     }
   }
 

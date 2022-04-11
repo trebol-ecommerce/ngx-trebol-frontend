@@ -147,7 +147,7 @@ describe('StoreBillingDetailsFormComponent', () => {
   });
 
   it('should treat incomplete instances of BillingDetails as invalid input', () => {
-    const mockFormData: BillingDetails[] = [
+    const incompleteInstances: Partial<BillingDetails>[] = [
       {
         typeName: BILLING_TYPE_COMPANY
       },
@@ -167,7 +167,7 @@ describe('StoreBillingDetailsFormComponent', () => {
         }
       }
     ];
-    mockFormData.forEach(b => {
+    incompleteInstances.forEach(b => {
       containerForm.billing.setValue(b);
       expect(component.formGroup.invalid).toBeTrue();
     });

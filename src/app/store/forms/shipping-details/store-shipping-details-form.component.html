@@ -8,8 +8,7 @@
 <fieldset [formGroup]="formGroup">
   <mat-radio-group formControlName="included"
     aria-label="Choose a delivery option"
-    i18n-aria-label="Label to hint user that they must choose a delivery option"
-    (change)="onShippingIncludedChange($event.value)">
+    i18n-aria-label="Label to hint user that they must choose a delivery option">
     <mat-radio-button [value]="true"
       (blur)="onTouched()">
       <span i18n="Label for option to choose delivery to a shipping address">Deliver to address</span>
