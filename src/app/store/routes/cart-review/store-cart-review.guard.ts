@@ -12,9 +12,9 @@ import { merge, Observable, of, Subscription } from 'rxjs';
 import { filter, map, skip, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/authentication.service';
 import { SessionService } from 'src/app/session.service';
+import { StoreGuestLoginFormDialogComponent } from '../../dialogs/guest-login-form/store-guest-login-form-dialog.component';
 import { StoreGuestPromptDialogComponent } from '../../dialogs/guest-prompt/store-guest-prompt-dialog.component';
 import { StoreGuestPromptDialogOptions } from '../../dialogs/guest-prompt/StoreGuestPromptDialogOptions';
-import { StoreGuestShippingFormDialogComponent } from '../../dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component';
 import { StoreLoginFormDialogComponent } from '../../dialogs/login-form/store-login-form-dialog.component';
 import { StoreRegistrationFormDialogComponent } from '../../dialogs/registration-form/store-registration-form-dialog.component';
 import { StoreCartService } from '../../store-cart.service';
@@ -127,7 +127,7 @@ export class StoreCartReviewGuard
 
   private promptGuestShippingForm() {
     return this.dialogService.open(
-      StoreGuestShippingFormDialogComponent,
+      StoreGuestLoginFormDialogComponent,
       {
         width: '40rem',
         height: '25rem'

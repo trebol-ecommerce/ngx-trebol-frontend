@@ -24,8 +24,8 @@ import { ProductsLotDisplayComponent } from './components/products-display/store
 import { StoreReceiptCardComponent } from './components/receipt-card/store-receipt-card.component';
 import { StoreReceiptDetailsTableComponent } from './components/receipt-details-table/store-receipt-details-table.component';
 import { StoreCompanyDetailsDialogComponent } from './dialogs/about-commerce-details/store-about-commerce-details-dialog.component';
+import { StoreGuestLoginFormDialogComponent } from './dialogs/guest-login-form/store-guest-login-form-dialog.component';
 import { StoreGuestPromptDialogComponent } from './dialogs/guest-prompt/store-guest-prompt-dialog.component';
-import { StoreGuestShippingFormDialogComponent } from './dialogs/guest-shipping-form/store-guest-shipping-form-dialog.component';
 import { StoreLoginFormDialogComponent } from './dialogs/login-form/store-login-form-dialog.component';
 import { StoreProductDetailsDialogComponent } from './dialogs/product-details/store-product-details-dialog.component';
 import { StoreRegistrationFormDialogComponent } from './dialogs/registration-form/store-registration-form-dialog.component';
@@ -66,7 +66,7 @@ const SNACKBAR_DEFAULTS = {
     StoreReceiptDetailsTableComponent,
     StoreLoginFormDialogComponent,
     StoreGuestPromptDialogComponent,
-    StoreGuestShippingFormDialogComponent,
+    StoreGuestLoginFormDialogComponent,
     StoreRegistrationFormDialogComponent,
     StoreProductDetailsDialogComponent,
     ProductsLotDisplayComponent,

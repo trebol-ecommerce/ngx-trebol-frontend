@@ -1,0 +1,26 @@
+<!--
+  Copyright (c) 2022 The Trebol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<h2 mat-dialog-title i18n="Title of dialog prompt to indicate personal info for a guest, temporary login">Continue as guest</h2>
+<p i18n="Label to instruct user to input billing information">Please provide your billing information.</p>
+<p i18n="Label to hint user that their billing information is solely used to secure their transaction">We request this for security purposes, to keep your transaction safe and secure.</p>
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <app-person-form formControlName="person">
+  </app-person-form>
+
+  <div class="actions">
+    <button mat-button mat-raised-button type="submit"
+      [disabled]="submitting$ | async"
+      color="primary">
+      <span i18n="confirm|Label for action button to accept and proceed">Confirm</span>
+    </button>
+    <button mat-button mat-raised-button type="button"
+      (click)="onCancel()">
+      <span i18n="cancel|Label for action button to cancel and/or stop an operation">Cancel</span>
+    </button>
+  </div>
+</form>
