@@ -27,6 +27,7 @@ import { ILoginPublicApiService } from "./login-public-api.iservice";
 import { IProfileAccountApiService } from "./profile-account-api.iservice";
 import { IReceiptPublicApiService } from "./receipt-public-api.iservice";
 import { IRegisterPublicApiService } from "./register-public-api.iservice";
+import { ITransactionalEntityDataApiService } from "./transactional-entity.data-api.iservice";
 
 /**
  * Service tokens for Angular dependency injection pattern
@@ -35,17 +36,17 @@ export const API_INJECTION_TOKENS = {
   access: new InjectionToken<IAccessApiService>('Trebol.IAccessApi'),
   accountProfile: new InjectionToken<IProfileAccountApiService>('Trebol.IProfileAccountApi'),
   dataBillingTypes: new InjectionToken<IEntityDataApiService<BillingType>>('Trebol.IEntityDataApi<BillingType>'),
-  dataCustomers: new InjectionToken<IEntityDataApiService<Customer>>('Trebol.IEntityDataApi<Customer>'),
-  dataImages: new InjectionToken<IEntityDataApiService<Image>>('Trebol.IEntityDataApi<Image>'),
+  dataCustomers: new InjectionToken<ITransactionalEntityDataApiService<Customer>>('Trebol.ITransactionalEntityDataApiService<Customer>'),
+  dataImages: new InjectionToken<ITransactionalEntityDataApiService<Image>>('Trebol.ITransactionalEntityDataApiService<Image>'),
   dataPeople: new InjectionToken<IEntityDataApiService<Person>>('Trebol.IEntityDataApi<Person>'),
-  dataProductCategories: new InjectionToken<IEntityDataApiService<ProductCategory>>('Trebol.IEntityDataApi<ProductCategory>'),
-  dataProductLists: new InjectionToken<IEntityDataApiService<ProductList>>('Trebol.IEntityDataApi<ProductList>'),
-  dataProducts: new InjectionToken<IEntityDataApiService<Product>>('Trebol.IEntityDataApi<Product>'),
-  dataSales: new InjectionToken<IEntityDataApiService<Sell>>('Trebol.IEntityDataApi<Sell>'),
-  dataSalespeople: new InjectionToken<IEntityDataApiService<Salesperson>>('Trebol.IEntityDataApi<Salesperson>'),
-  dataShippers: new InjectionToken<IEntityDataApiService<Shipper>>('Trebol.IEntityDataApi<Shipper>'),
+  dataProductCategories: new InjectionToken<ITransactionalEntityDataApiService<ProductCategory>>('Trebol.ITransactionalEntityDataApiService<ProductCategory>'),
+  dataProductLists: new InjectionToken<ITransactionalEntityDataApiService<ProductList>>('Trebol.ITransactionalEntityDataApiService<ProductList>'),
+  dataProducts: new InjectionToken<ITransactionalEntityDataApiService<Product>>('Trebol.ITransactionalEntityDataApiService<Product>'),
+  dataSales: new InjectionToken<ITransactionalEntityDataApiService<Sell>>('Trebol.ITransactionalEntityDataApiService<Sell>'),
+  dataSalespeople: new InjectionToken<ITransactionalEntityDataApiService<Salesperson>>('Trebol.ITransactionalEntityDataApiService<Salesperson>'),
+  dataShippers: new InjectionToken<ITransactionalEntityDataApiService<Shipper>>('Trebol.ITransactionalEntityDataApiService<Shipper>'),
   dataUserRoles: new InjectionToken<IEntityDataApiService<UserRole>>('Trebol.IEntityDataApi<UserRole>'),
-  dataUsers: new InjectionToken<IEntityDataApiService<User>>('Trebol.IEntityDataApi<User>'),
+  dataUsers: new InjectionToken<ITransactionalEntityDataApiService<User>>('Trebol.ITransactionalEntityDataApiService<User>'),
   about: new InjectionToken<IAboutPublicApiService>('Trebol.IAboutPublicApi'),
   checkout: new InjectionToken<ICheckoutPublicApiService>('Trebol.ICheckoutPublicApi'),
   guest: new InjectionToken<IGuestPublicApiService>('Trebol.IGuestPublicApi'),
