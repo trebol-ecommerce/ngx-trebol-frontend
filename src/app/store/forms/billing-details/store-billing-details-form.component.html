@@ -8,8 +8,7 @@
 <fieldset [formGroup]="formGroup">
   <mat-radio-group formControlName="typeName"
     aria-label="Billing type"
-    i18n-aria-label="Label for group of choices to select billing type from"
-    (change)="onTypeNameChange($event.value)">
+    i18n-aria-label="Label for group of choices to select billing type from">
     <mat-radio-button *ngFor="let option of typesOptions"
       [value]="option"
       (blur)="onTouched()">{{ option }}</mat-radio-button>

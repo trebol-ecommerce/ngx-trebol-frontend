@@ -11,7 +11,7 @@ import {
   NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { debounceTime, tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { BILLING_TYPE_COMPANY, BILLING_TYPE_NAMES_MAP } from 'src/text/billing-type-names';
 
@@ -36,6 +36,7 @@ export class StoreBillingDetailsFormComponent
   implements OnInit, OnDestroy, ControlValueAccessor, Validator {
 
   private valueChangesSub: Subscription;
+  private typeNameChangesSub: Subscription;
 
   readonly typesOptions = [ ...BILLING_TYPE_NAMES_MAP.values() ];
 
@@ -59,10 +60,14 @@ export class StoreBillingDetailsFormComponent
     this.valueChangesSub = this.formGroup.valueChanges.pipe(
       tap(v => this.onChange(v))
     ).subscribe();
+    this.typeNameChangesSub = this.typeName.valueChanges.pipe(
+      tap(() => this.updateControlsAfterTypeNameChange())
+    ).subscribe();
   }
 
   ngOnDestroy(): void {
     this.valueChangesSub?.unsubscribe();
+    this.typeNameChangesSub?.unsubscribe();
   }
 
   onChange(value: any): void { }
@@ -74,11 +79,8 @@ export class StoreBillingDetailsFormComponent
     this.company.reset({ value: null, disabled: true }, { emitEvent: false });
     this.address.reset({ value: null, disabled: true }, { emitEvent: false });
     if (isJavaScriptObject(obj)) {
-      if ('sellType' in obj && obj.sellType === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
-        this.company.enable({ emitEvent: false });
-        this.address.enable({ emitEvent: false });
-      }
       this.formGroup.patchValue(obj, { emitEvent: false });
+      this.updateControlsAfterTypeNameChange({ emitEvent: false });
     }
   }
 
@@ -122,13 +124,14 @@ export class StoreBillingDetailsFormComponent
     this.onValidatorChange = fn;
   }
 
-  onTypeNameChange(v: string): void {
+  private updateControlsAfterTypeNameChange(options?: { emitEvent?: boolean, onlySelf?: boolean }): void {
+    const v = this.typeName.value;
     if (v === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
-      this.company.enable();
-      this.address.enable();
+      this.company.enable(options);
+      this.address.enable(options);
     } else {
-      this.company.reset({ value: null, disabled: true });
-      this.address.reset({ value: null, disabled: true });
+      this.company.reset({ value: null, disabled: true }, options);
+      this.address.reset({ value: null, disabled: true }, options);
     }
   }
 
