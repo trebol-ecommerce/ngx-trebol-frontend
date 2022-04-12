@@ -67,7 +67,7 @@ export class ProductCategoryFormComponent
   writeValue(obj: any): void {
     this.code.reset('', { emitEvent: false });
     this.name.reset('', { emitEvent: false });
-    this.parent.reset({ value: null, disabled: true }, { emitEvent: false });
+    this.parent.reset(null, { emitEvent: false });
     if (isJavaScriptObject(obj)) {
       this.formGroup.patchValue(obj);
     }

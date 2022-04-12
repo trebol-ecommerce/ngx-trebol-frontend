@@ -79,7 +79,7 @@ export class EntityFormGroupFactoryService {
     return this.formBuilder.group({
       code: ['', Validators.required],
       name: ['', Validators.required],
-      parent: [{ value: null, disabled: true }]
+      parent: [null]
     });
   }
 
