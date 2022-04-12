@@ -48,6 +48,7 @@ export class ManagementProductsComponent
   protected createDialogProperties(item: Product): EntityFormDialogConfig<Product> {
     return {
       data: {
+        isNewItem: !item,
         item,
         entityType: 'product',
         apiService: this.service.dataService

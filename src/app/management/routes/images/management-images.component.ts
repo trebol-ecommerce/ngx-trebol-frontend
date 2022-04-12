@@ -47,6 +47,7 @@ export class ManagementImagesComponent
   protected createDialogProperties(item: Image): EntityFormDialogConfig<Image> {
     return {
       data: {
+        isNewItem: !item,
         item,
         entityType: 'image',
         apiService: this.service.dataService

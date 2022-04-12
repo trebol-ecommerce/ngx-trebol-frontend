@@ -62,6 +62,7 @@ export class ManagementShippersComponent
   protected createDialogProperties(item: Shipper): EntityFormDialogConfig<Shipper> {
     return {
       data: {
+        isNewItem: !item,
         item,
         entityType: 'shipper',
         apiService: this.service.dataService
