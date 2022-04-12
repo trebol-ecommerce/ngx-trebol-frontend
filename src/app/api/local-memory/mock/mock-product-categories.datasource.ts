@@ -16,5 +16,17 @@ export const MOCK_PRODUCT_CATEGORIES: ProductCategory[] = [
   { code: 'a263-b16bc6f44d36', name: 'Kids' },
   { code: '9617-52faa7d4a93c', name: 'Sports' },
   { code: 'be44-4e17fa872db1', name: 'Industrial' },
-  { code: '8699-8c71b94916cf', name: 'Shoes '}
+  { code: '8699-8c71b94916cf', name: 'Shoes '},
+  {
+    code: 'asd2', name: 'name2',
+    parent: {
+      code: '90f4-5d9395ed3c75'
+    }
+  },
+  {
+    code: 'asd3', name: 'name3',
+    parent: {
+      code: '8381-f3d0ea2535f5'
+    }
+  }
 ];
