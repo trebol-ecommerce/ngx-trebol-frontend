@@ -25,7 +25,10 @@ export abstract class TransactionalEntityDataLocalMemoryApiService<T>
     return new Observable<void>(
       observer => {
         if (this.itemExists(item)) {
-          observer.error({ status: 400 });
+          observer.error({
+            status: 400,
+            message: `Item '${JSON.stringify(item)}' already exists`
+          });
         }
         this.items.push(item);
         observer.next();
@@ -41,7 +44,10 @@ export abstract class TransactionalEntityDataLocalMemoryApiService<T>
   fetchExisting(itemLike: Partial<T>) {
     return of(this.getIndexOfItem(itemLike)).pipe(
       switchMap(index => (index === -1) ?
-        throwError({ status: 404 }) :
+        throwError({
+          status: 404,
+          message: `Could not find '${JSON.stringify(itemLike)}'`
+        }) :
         of(this.items[index])
       )
     );
@@ -53,7 +59,10 @@ export abstract class TransactionalEntityDataLocalMemoryApiService<T>
       this.getIndexOfItem(d)
     ).pipe(
       switchMap(index => (index === -1) ?
-        throwError({ status: 404 }) :
+        throwError({
+          status: 404,
+          message: `Could not find '${JSON.stringify(original)}'`
+        }) :
         of(void 0).pipe(tap(() => Object.assign(this.items[index], d)))
       )
     );
@@ -62,7 +71,10 @@ export abstract class TransactionalEntityDataLocalMemoryApiService<T>
   delete(item: Partial<T>) {
     return of(this.getIndexOfItem(item)).pipe(
       switchMap(index => (index === -1) ?
-        throwError({ status: 404 }) :
+        throwError({
+          status: 404,
+          message: `Could not find '${JSON.stringify(item)}'`
+        }) :
         of(void 0).pipe(tap(() => this.items.splice(index, 1)))
       )
     );
