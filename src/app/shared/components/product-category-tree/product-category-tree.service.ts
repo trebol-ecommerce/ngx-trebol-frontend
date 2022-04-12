@@ -5,19 +5,20 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, forkJoin, Observable, of, Subscription } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { Inject, Injectable } from '@angular/core';
+import { BehaviorSubject, forkJoin, from, Observable } from 'rxjs';
+import { expand, ignoreElements, map, switchMap, tap, toArray } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
+import { ProductCategoryTreeFlatNode } from './ProductCategoryTreeFlatNode';
 
-@Injectable()
-export class ProductCategoryTreeService
-  implements OnDestroy {
+@Injectable({ providedIn: 'root' })
+export class ProductCategoryTreeService {
 
+  private flatNodeMap = new Map<ProductCategoryTreeFlatNode, ProductCategory>();
+  private nestedNodeMap = new Map<ProductCategory, ProductCategoryTreeFlatNode>();
   private categoriesSource = new BehaviorSubject<ProductCategory[]>([]);
-  private loadingSubscription: Subscription;
 
   categories$ = this.categoriesSource.asObservable();
 
@@ -25,37 +26,34 @@ export class ProductCategoryTreeService
     @Inject(API_INJECTION_TOKENS.dataProductCategories) public apiService: ITransactionalEntityDataApiService<ProductCategory>
   ) { }
 
-  ngOnDestroy(): void {
-    this.loadingSubscription?.unsubscribe();
-  }
-
-  setRootCategories(categories: ProductCategory[]) {
-    this.loadingSubscription?.unsubscribe();
-    if (!categories) {
-      this.categoriesSource.next([]);
-    } else {
-      this.loadingSubscription = this.recursivelyLoadChildren(categories).pipe(
-        tap(() => this.categoriesSource.next(categories))
+  reloadCategories(force = false) {
+    if (force || !this.categoriesSource.value.length) {
+      this.apiService.fetchPage().pipe(
+        switchMap(page => from(page.items)),
+        expand(category => this.loadChildren(category).pipe(
+          switchMap(children => from(children)),
+          ignoreElements()
+        )),
+        toArray(),
+        tap(c => this.categoriesSource.next(c))
       ).subscribe();
     }
   }
 
-  addNode(child: ProductCategory, parent?: ProductCategory) {
-    const target: ProductCategory = {
-      code: child.code,
-      name: child.name
-    };
-    if (parent?.code) { target.parent = { code: parent.code }; }
-    return this.apiService.create(target).pipe(
+  addNode(newNode: ProductCategory) {
+    return this.apiService.create(newNode).pipe(
       tap(() => {
-        if (!parent.children) {
-          parent.children = [target];
-        } else {
-          parent.children.push(target);
+        const parent = newNode.parent;
+        if (parent) {
+          if (parent.children) {
+            parent.children = [newNode];
+          } else {
+            parent.children.push(newNode);
+          }
         }
         this.categoriesSource.next(this.categoriesSource.value);
       }),
-      map(() => target)
+      map(() => newNode)
     );
   }
 
@@ -78,26 +76,30 @@ export class ProductCategoryTreeService
         if (nodeIndex !== -1) {
           rootCategories.splice(nodeIndex, 1);
         }
-        this.setRootCategories(rootCategories);
+        this.categoriesSource.next(rootCategories);
       })
     );
   }
 
-  private recursivelyLoadChildren(categories: ProductCategory[]): Observable<any> {
-    return forkJoin(categories.map(category => {
-      return this.loadChildrenOf(category).pipe(
-        switchMap(children => (children.length > 0) ?
-          this.recursivelyLoadChildren(children) :
-          of(children)
-        )
-      );
-    }));
+  transformNode(node: ProductCategory, level: number) {
+    const existingNode = this.nestedNodeMap.get(node);
+    const flatNode = (existingNode) ? existingNode : new ProductCategoryTreeFlatNode();
+    flatNode.name = node.name;
+    flatNode.level = level;
+    flatNode.expandable = !!(node.children?.length);
+    this.flatNodeMap.set(flatNode, node);
+    this.nestedNodeMap.set(node, flatNode);
+    return flatNode;
   }
 
-  private loadChildrenOf(parent: ProductCategory): Observable<ProductCategory[]> {
+  fetchCategoryFromNode(treeNode: ProductCategoryTreeFlatNode) {
+    return this.flatNodeMap.get(treeNode);
+  }
+
+  private loadChildren(parent: ProductCategory) {
     return this.apiService.fetchPage(0, Number.MAX_SAFE_INTEGER, null, null, { parentCode: parent.code }).pipe(
       map(page => page.items as ProductCategory[]),
-      tap(items => { parent.children = items; })
+      tap(children => { parent.children = children; })
     );
   }
 

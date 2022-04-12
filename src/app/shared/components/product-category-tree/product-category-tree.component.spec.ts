@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTreeModule } from '@angular/material/tree';
 import { of } from 'rxjs';
+import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { SharedDialogService } from '../../dialogs/shared-dialog.service';
 import { ProductCategoryTreeComponent } from './product-category-tree.component';
 import { ProductCategoryTreeService } from './product-category-tree.service';
@@ -19,40 +20,17 @@ import { ProductCategoryTreeService } from './product-category-tree.service';
 describe('ProductCategoryTreeService', () => {
   let component: ProductCategoryTreeComponent;
   let fixture: ComponentFixture<ProductCategoryTreeComponent>;
-  let mockService: Partial<ProductCategoryTreeService>;
-  let mockSnackbarService: Partial<MatSnackBar>;
-  let mockDialogService: Partial<MatDialog>;
-  let mockSharedDialogService: Partial<SharedDialogService>;
+  let serviceSpy: jasmine.SpyObj<ProductCategoryTreeService>;
+  let snackbarServiceSpy: jasmine.SpyObj<MatSnackBar>;
+  let dialogServiceSpy: jasmine.SpyObj<MatDialog>;
+  let sharedDialogServiceSpy: jasmine.SpyObj<SharedDialogService>;
 
   beforeEach(waitForAsync(() => {
-    mockService = {
-      categories$: of([]),
-      setRootCategories() { },
-      addNode() { return of(void 0); },
-      editNode() { return of(void 0); }
-    };
-    mockSnackbarService = {
-      open() { return void 0; }
-    };
-    mockDialogService = {
-      open() {
-        return {
-          afterClosed() { return of(void 0); }
-        } as MatDialogRef<any>;
-      }
-    };
-    mockSharedDialogService = {
-      requestConfirmation() { return of(false); }
-    };
+    const mockService = jasmine.createSpyObj('ProductCategoryTreeService', ['addNode', 'editNode', 'reloadCategories']);
+    const mockSnackbarService = jasmine.createSpyObj('MatSnackBar', ['open']);
+    const mockDialogService = jasmine.createSpyObj('MatDialog', ['open']);
+    const mockSharedDialogService = jasmine.createSpyObj('SharedDialogService', ['requestConfirmation']);
 
-    TestBed.overrideComponent(
-      ProductCategoryTreeComponent,
-      {
-        set: {
-          providers: [ { provide: ProductCategoryTreeService, useValue: mockService } ]
-        }
-      }
-    );
     TestBed.configureTestingModule({
       imports: [
         MatButtonModule,
@@ -61,15 +39,21 @@ describe('ProductCategoryTreeService', () => {
       ],
       declarations: [ProductCategoryTreeComponent],
       providers: [
+        { provide: ProductCategoryTreeService, useValue: mockService },
         { provide: MatSnackBar, useValue: mockSnackbarService },
         { provide: MatDialog, useValue: mockDialogService },
         { provide: SharedDialogService, useValue: mockSharedDialogService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    serviceSpy = TestBed.inject(ProductCategoryTreeService) as jasmine.SpyObj<ProductCategoryTreeService>;
+    snackbarServiceSpy = TestBed.inject(MatSnackBar) as jasmine.SpyObj<MatSnackBar>;
+    dialogServiceSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
+    sharedDialogServiceSpy = TestBed.inject(SharedDialogService) as jasmine.SpyObj<SharedDialogService>;
+    serviceSpy.categories$ = of([]);
+
     fixture = TestBed.createComponent(ProductCategoryTreeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -77,5 +61,28 @@ describe('ProductCategoryTreeService', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  xit('should request details through a dialog', () => {
+    dialogServiceSpy.open.and.returnValue({
+      afterClosed() { return of(new ProductCategory); }
+    } as MatDialogRef<any>);
+  })
+
+  xdescribe('when being used as an interface to pick a category', () => {
+    let fakeCategory = { code: 'some-code', name: 'some-name' };
+    let fakeTreeNode = { code: 'some-code', name: 'some-name' };
+    beforeEach(() => {
+      component.dataSource.data = [fakeCategory];
+      component.selectionEnabled = true;
+    });
+
+    // it('should fire a `selection` event', () => {
+    //   observeIfEventFiresUponCallback(
+    //     component.selection,
+    //     () => component.onClickTreeNode(fakeCategory),
+    //   )
+
+    // });
   });
 });
