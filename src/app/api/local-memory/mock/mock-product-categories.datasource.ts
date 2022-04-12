@@ -12,7 +12,6 @@ export const MOCK_PRODUCT_CATEGORIES: ProductCategory[] = [
   { code: '8381-f3d0ea2535f5', name: 'Computers' },
   { code: 'aa56-96c85823cd86', name: 'Games' },
   { code: 'a460-b3c8d628e2c2', name: 'Beauty' },
-  { code: 'a09d-ac55ac057a47', name: 'Beauty' },
   { code: 'aec2-65b9306fa739', name: 'Garden' },
   { code: 'a263-b16bc6f44d36', name: 'Kids' },
   { code: '9617-52faa7d4a93c', name: 'Sports' },
