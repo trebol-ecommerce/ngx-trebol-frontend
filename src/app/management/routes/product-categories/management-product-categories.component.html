@@ -17,7 +17,7 @@
 
   </div>
   <app-management-data-actions-button-bar
-    *ngIf="canAdd$ | async"
-    (add)="onClickAdd()">
+    [actions]="actions$ | async"
+    (create)="onClickCreate()">
   </app-management-data-actions-button-bar>
 </div>

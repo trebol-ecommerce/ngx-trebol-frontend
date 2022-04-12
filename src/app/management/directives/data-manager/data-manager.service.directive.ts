@@ -7,7 +7,7 @@
 
 import { Directive, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject, Subscription } from 'rxjs';
-import { delay, finalize, map, tap } from 'rxjs/operators';
+import { finalize, map, tap } from 'rxjs/operators';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
 import { DataPage } from 'src/models/DataPage';
@@ -29,9 +29,6 @@ export abstract class DataManagerServiceDirective<T>
 
   items$: Observable<T[]>;
   totalCount$: Observable<number>;
-  canEdit$: Observable<boolean>;
-  canAdd$: Observable<boolean>;
-  canDelete$: Observable<boolean>;
 
   pageIndex: number | undefined;
   pageSize: number | undefined;
@@ -45,9 +42,6 @@ export abstract class DataManagerServiceDirective<T>
   constructor() {
     this.items$ = this.pageSource.asObservable().pipe(map(page => page.items));
     this.totalCount$ = this.pageSource.asObservable().pipe(map(page => page.totalCount));
-    this.canEdit$ = this.authorizedAccessSource.asObservable().pipe(map(a => a?.permissions?.includes('update')));
-    this.canAdd$ = this.authorizedAccessSource.asObservable().pipe(map(a => a?.permissions?.includes('create')));
-    this.canDelete$ = this.authorizedAccessSource.asObservable().pipe(map(a => a?.permissions?.includes('delete')));
   }
 
   // TODO services do not support lifecycle hooks such as this...
@@ -67,14 +61,6 @@ export abstract class DataManagerServiceDirective<T>
       tap(page => { this.pageSource.next(page); }),
       finalize(() => { this.loadingSource.next(false); })
     ).subscribe();
-  }
-
-  /**
-   * Update authorized access
-   * @param authAccess The new value
-   */
-  updateAccess(authAccess: AuthorizedAccess): void {
-    this.authorizedAccessSource.next(authAccess);
   }
 
 

@@ -41,7 +41,7 @@ export class ManagementImagesComponent
   }
 
   ngOnInit(): void {
-    super.init(this.service);
+    super.ngOnInit();
   }
 
   protected createDialogProperties(item: Image): EntityFormDialogConfig<Image> {

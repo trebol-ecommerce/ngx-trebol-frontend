@@ -10,7 +10,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
+import { map, share, take, tap } from 'rxjs/operators';
+import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
 import { DataManagerServiceDirective } from './data-manager.service.directive';
 
 /**
@@ -27,15 +28,16 @@ export abstract class DataManagerComponentDirective<T>
   busy$: Observable<boolean>;
   items$: Observable<any[]>;
   totalCount$: Observable<number>;
-  canEdit$: Observable<boolean>;
-  canAdd$: Observable<boolean>;
+  actions$: Observable<string[]>;
+  canCreate$: Observable<boolean>;
+  canUpdate$: Observable<boolean>;
   canDelete$: Observable<boolean>;
 
   protected abstract service: DataManagerServiceDirective<T>;
   protected abstract route: ActivatedRoute;
 
   ngOnInit() {
-    this.init(this.service);
+    this.init();
   }
 
   onSortChange(event: Sort): void {
@@ -50,21 +52,33 @@ export abstract class DataManagerComponentDirective<T>
     this.service.reloadItems();
   }
 
-  protected init(service: DataManagerServiceDirective<T>): void {
-    this.loading$ = service.loading$.pipe();
-    this.busy$ = service.focusedItems$.pipe(map(items => items?.length > 0));
-    this.items$ = service.items$.pipe();
-    this.totalCount$ = service.totalCount$.pipe();
-    this.canEdit$ = service.canEdit$.pipe();
-    this.canAdd$ = service.canAdd$.pipe();
-    this.canDelete$ = service.canDelete$.pipe();
-    service.pageSize = this.pageSizeOptions[0];
-    this.route.data.pipe(
+  protected init(): void {
+    this.loading$ = this.service.loading$.pipe();
+    this.items$ = this.service.items$.pipe();
+    this.totalCount$ = this.service.totalCount$.pipe();
+
+    this.busy$ = this.service.focusedItems$.pipe(
+      map(items => items?.length > 0)
+    );
+
+    this.actions$ = this.route.data.pipe(
       take(1),
-      tap(data => {
-        this.service.updateAccess(data.access);
-        this.service.reloadItems();
-      })
-    ).subscribe();
+      map(data => data.access as AuthorizedAccess),
+      map(access => (access?.permissions || [])),
+      share()
+    );
+
+    this.canCreate$ = this.actions$.pipe(
+      map(actions => (actions.length > 0 && actions.includes('create')))
+    );
+    this.canUpdate$ = this.actions$.pipe(
+      map(actions => (actions.length > 0 && actions.includes('update')))
+    );
+    this.canDelete$ = this.actions$.pipe(
+      map(actions => (actions.length > 0 && actions.includes('delete')))
+    );
+
+    this.service.pageSize = this.pageSizeOptions[0];
+    this.service.reloadItems();
   }
 }

@@ -19,6 +19,7 @@ class MockCenteredMatSpinnerComponent { }
 
 @Component({ selector: 'app-management-data-actions-button-bar' })
 class MockManagementDataActionsComponent {
+  @Input() actions: string[];
   @Output() add = new EventEmitter();
 }
 
@@ -41,11 +42,7 @@ describe('ManagementProductCategoriesComponent', () => {
       focusedItems$: of([]),
       items$: of([]),
       totalCount$: of(0),
-      canEdit$: of(true),
-      canAdd$: of(true),
-      canDelete$: of(true),
       focusedItems: [],
-      updateAccess() {},
       sortBy: undefined,
       order: undefined,
       pageIndex: undefined,

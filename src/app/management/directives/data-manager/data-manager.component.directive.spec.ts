@@ -38,11 +38,7 @@ describe('DataManagerComponentDirective', () => {
       focusedItems$: of([]),
       items$: of([]),
       totalCount$: of(0),
-      canEdit$: of(false),
-      canAdd$: of(false),
-      canDelete$: of(false),
-      reloadItems() { },
-      updateAccess() { }
+      reloadItems() { }
     };
 
     TestBed.configureTestingModule({

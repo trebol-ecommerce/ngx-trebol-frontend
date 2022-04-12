@@ -69,9 +69,6 @@ describe('TransactionalDataManagerComponentDirective', () => {
     serviceSpy.focusedItems = [];
     serviceSpy.items$ = of([]);
     serviceSpy.totalCount$ = of(0);
-    serviceSpy.canEdit$ = of(false);
-    serviceSpy.canAdd$ = of(false);
-    serviceSpy.canDelete$ = of(false);
     dialogServiceSpy.open.and.returnValue({ afterClosed: () => of(void 0) } as MatDialogRef<any>);
 
     componentFixture = TestBed.createComponent(MockTransactionalDataManagerComponent);
@@ -94,7 +91,7 @@ describe('TransactionalDataManagerComponentDirective', () => {
   });
 
   it('should open a dialog to add new data', () => {
-    component.onClickAdd();
+    component.onClickCreate();
     expect(dialogServiceSpy.open).toHaveBeenCalled();
   });
 

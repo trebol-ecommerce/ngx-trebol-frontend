@@ -41,7 +41,7 @@ export class ManagementSalespeopleComponent
   }
 
   ngOnInit(): void {
-    super.init(this.service);
+    super.ngOnInit();
   }
 
   onClickDelete(e: Salesperson) {

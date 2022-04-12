@@ -27,7 +27,7 @@ export abstract class TransactionalDataManagerComponentDirective<T>
     this.edit(item).subscribe();
   }
 
-  onClickAdd(): void {
+  onClickCreate(): void {
     this.edit(undefined).subscribe();
   }
 

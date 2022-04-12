@@ -41,7 +41,7 @@ export class ManagementShippersComponent
   }
 
   ngOnInit(): void {
-    super.init(this.service);
+    super.ngOnInit();
   }
 
   onClickDelete(shipper: Shipper) {

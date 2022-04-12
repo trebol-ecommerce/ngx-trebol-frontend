@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -25,6 +25,7 @@ class MockCenteredMatSpinnerComponent { }
 
 @Component({ selector: 'app-management-data-actions-button-bar' })
 class MockManagementDataActionsComponent {
+  @Input() actions: string[];
   @Output() add = new EventEmitter();
 }
 
@@ -42,11 +43,7 @@ describe('ManagementImagesComponent', () => {
       focusedItems$: of([]),
       items$: of([]),
       totalCount$: of(0),
-      canEdit$: of(true),
-      canAdd$: of(true),
-      canDelete$: of(true),
       focusedItems: [],
-      updateAccess() {},
       sortBy: undefined,
       order: undefined,
       pageIndex: undefined,

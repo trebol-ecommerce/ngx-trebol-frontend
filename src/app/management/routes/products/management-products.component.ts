@@ -42,7 +42,7 @@ export class ManagementProductsComponent
   }
 
   ngOnInit(): void {
-    super.init(this.service);
+    super.ngOnInit();
   }
 
   protected createDialogProperties(item: Product): EntityFormDialogConfig<Product> {

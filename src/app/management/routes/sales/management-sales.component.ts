@@ -50,7 +50,15 @@ export class ManagementSalesComponent
   }
 
   ngOnInit(): void {
-    this.init(this.service);
+    this.ngOnInit();
+    this.items$ = this.service.items$.pipe(
+      map(items => items.map(item => (
+        {
+          item,
+          focused: false
+        }
+      )))
+    );
   }
 
   onClickDelete(s: Sell) {
@@ -86,31 +94,6 @@ export class ManagementSalesComponent
         finalize(() => { row.focused = false; })
       ).subscribe();
     }
-  }
-
-  protected init(service: DataManagerServiceDirective<Sell>): void {
-    this.loading$ = service.loading$.pipe();
-    this.busy$ = service.focusedItems$.pipe(map(items => items?.length > 0));
-    this.items$ = service.items$.pipe(
-      map(items => items.map(item => (
-        {
-          item,
-          focused: false
-        }
-      )))
-    );
-    this.totalCount$ = service.totalCount$.pipe();
-    this.canEdit$ = service.canEdit$.pipe();
-    this.canAdd$ = service.canAdd$.pipe();
-    this.canDelete$ = service.canDelete$.pipe();
-    service.pageSize = this.pageSizeOptions[0];
-    this.route.data.pipe(
-      take(1),
-      tap(data => {
-        this.service.updateAccess(data.access);
-        this.service.reloadItems();
-      })
-    ).subscribe();
   }
 
   protected createDialogProperties(item: Sell): EntityFormDialogConfig<Sell> {

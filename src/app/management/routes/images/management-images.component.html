@@ -46,10 +46,9 @@
 
   </div>
   <div>
-
     <app-management-data-actions-button-bar
-      *ngIf="canAdd$ | async"
-      (add)="onClickAdd()">
+      [actions]="actions$ | async"
+      (create)="onClickCreate()">
     </app-management-data-actions-button-bar>
     <mat-paginator
       (page)="onPage($event)"
@@ -57,6 +56,5 @@
       [pageSizeOptions]="pageSizeOptions"
       [length]="totalCount$ | async">
     </mat-paginator>
-
   </div>
 </div>

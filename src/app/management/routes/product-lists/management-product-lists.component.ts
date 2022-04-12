@@ -43,7 +43,18 @@ export class ManagementProductListsComponent
   }
 
   ngOnInit(): void {
-    super.init(this.service);
+    super.ngOnInit();
+  }
+
+  protected createDialogProperties(item: ProductList): EntityFormDialogConfig<ProductList> {
+    return {
+      data: {
+        item,
+        entityType: 'productList',
+        apiService: this.service.dataService
+      },
+      width: '40rem'
+    };
   }
 
   onClickViewContents(list: ProductList) {
@@ -69,17 +80,6 @@ export class ManagementProductListsComponent
         this.service.reloadItems();
       })
     ).subscribe();
-  }
-
-  protected createDialogProperties(item: ProductList): EntityFormDialogConfig<ProductList> {
-    return {
-      data: {
-        item,
-        entityType: 'productList',
-        apiService: this.service.dataService
-      },
-      width: '40rem'
-    };
   }
 
 }

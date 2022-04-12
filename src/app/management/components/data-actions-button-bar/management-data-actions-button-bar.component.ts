@@ -7,7 +7,7 @@
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-type DataActions = 'add' | 'delete';
+type DataActions = 'add';
 
 /**
  * Generic action buttons bar. Should be placed below data listing components.
@@ -19,21 +19,15 @@ type DataActions = 'add' | 'delete';
 })
 export class ManagementDataActionsButtonBarComponent {
 
-  @Input() actions: DataActions[] = [];
+  @Input() actions: (DataActions | string)[] = [];
 
-  @Output() add = new EventEmitter<void>();
-  @Output() delete = new EventEmitter<void>();
+  @Output() create = new EventEmitter<void>();
 
-  get showAdd() { return this.actions.includes('add'); }
-  get showDelete() { return this.actions.includes('delete'); }
+  get showCreate() { return this.actions.includes('create'); }
 
   constructor() { }
 
-  onClickAdd(): void {
-    this.add.emit();
-  }
-
-  onClickDelete(): void {
-    this.delete.emit();
+  onClickCreate(): void {
+    this.create.emit();
   }
 }

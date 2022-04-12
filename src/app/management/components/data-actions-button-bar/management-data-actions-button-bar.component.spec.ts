@@ -35,20 +35,10 @@ describe('ManagementDataActionsButtonBarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should fire an `add` event', () => {
+  it('should fire a `create` event', () => {
     observeIfEventFiresUponCallback(
-      component.add,
-      () => component.onClickAdd(),
-      timer(1)
-    ).pipe(
-      tap(didFireEvent => expect(didFireEvent).toBeTrue())
-    ).subscribe();
-  });
-
-  it('should fire a `delete` event', () => {
-    observeIfEventFiresUponCallback(
-      component.delete,
-      () => component.onClickDelete(),
+      component.create,
+      () => component.onClickCreate(),
       timer(1)
     ).pipe(
       tap(didFireEvent => expect(didFireEvent).toBeTrue())

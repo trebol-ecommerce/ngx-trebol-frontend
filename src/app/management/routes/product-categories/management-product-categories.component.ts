@@ -8,7 +8,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AuthorizationService } from 'src/app/authorization.service';
 import { EntityFormDialogConfig } from 'src/app/management/dialogs/entity-form/EntityFormDialogConfig';
+import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager/transactional-data-manager.component.directive';
 import { ManagementProductCategoriesService } from './management-product-categories.service';
@@ -25,18 +29,20 @@ export class ManagementProductCategoriesComponent
   extends TransactionalDataManagerComponentDirective<ProductCategory>
   implements OnInit {
 
+  actions$: Observable<string[]>;
   loading = true;
 
   constructor(
     protected service: ManagementProductCategoriesService,
     protected dialogService: MatDialog,
-    protected route: ActivatedRoute
+    protected route: ActivatedRoute,
+    protected authorizationService: AuthorizationService
   ) {
     super();
   }
 
   ngOnInit(): void {
-    super.init(this.service);
+    super.ngOnInit();
   }
 
   protected createDialogProperties(item: ProductCategory): EntityFormDialogConfig<ProductCategory> {

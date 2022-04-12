@@ -41,7 +41,7 @@ export class ManagementUsersComponent
   }
 
   ngOnInit(): void {
-    super.init(this.service);
+    super.ngOnInit();
   }
 
   onClickDelete(usr: User) {
