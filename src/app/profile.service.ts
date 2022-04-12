@@ -42,11 +42,14 @@ export class ProfileService
         (!!this.userProfileSource.value ?
           this.userProfileSource.asObservable().pipe(take(1)) :
           this.profileApiService.getProfile().pipe(
-            tap(profile => { this.userProfileSource.next(profile); })
+            tap(
+              profile => { this.userProfileSource.next(profile); },
+              err => { this.userProfileSource.next(null); }
+            )
           )
         ) :
-        of(null).pipe(
-          tap(() => { this.userProfileSource.next(null); })
+        of(undefined).pipe(
+          tap(() => { this.userProfileSource.next(undefined); })
         )
       ))
     );
@@ -63,7 +66,15 @@ export class ProfileService
 
   private getUserNameObservable() {
     return this.userProfileSource.asObservable().pipe(
-      map(p => (p?.firstName || '')),
+      map(p => {
+        if (!!p && p?.firstName) {
+          return p.firstName;
+        } else if (p === null) {
+          return $localize`:guest|Label to indicate a guest user:Guest`;
+        } else {
+          return '';
+        }
+      }),
       share()
     );
   }
