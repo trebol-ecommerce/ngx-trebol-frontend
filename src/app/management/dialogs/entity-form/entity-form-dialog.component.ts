@@ -63,10 +63,12 @@ export class EntityFormDialogComponent<T>
       this.formGroup.markAsTouched();
       this.snackBarService.open(COMMON_VALIDATION_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
     } else {
-      const initialValue = this.data.item;
-      const currentValue = this.item.value as T;
       this.busySource.next(true);
-      this.doSubmit(currentValue, initialValue).subscribe();
+      if (this.data.apiService) {
+        this.doSubmit().subscribe();
+      } else {
+        this.dialog.close(this.item.value);
+      }
     }
   }
 
@@ -74,16 +76,16 @@ export class EntityFormDialogComponent<T>
     this.dialog.close();
   }
 
-  private doSubmit(currentValue: T, initialValue: T) {
-    return (!initialValue ?
-      this.data.apiService.create(currentValue) :
-      this.data.apiService.update(currentValue, initialValue)
+  private doSubmit() {
+    return (this.data.isNewItem ?
+      this.data.apiService.create(this.item.value as T) :
+      this.data.apiService.update(this.item.value as T, this.data.item)
     ).pipe(
       tap(
         () => {
-          const message = this.successMessage(currentValue);
+          const message = this.successMessage(this.item.value);
           this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
-          this.dialog.close(currentValue);
+          this.dialog.close();
         },
         err => {
           this.busySource.next(false);
