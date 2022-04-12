@@ -9,10 +9,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { AuthorizationService } from 'src/app/authorization.service';
 import { EntityFormDialogConfig } from 'src/app/management/dialogs/entity-form/EntityFormDialogConfig';
-import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
+import { ProductCategoryTreeService } from 'src/app/shared/components/product-category-tree/product-category-tree.service';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager/transactional-data-manager.component.directive';
 import { ManagementProductCategoriesService } from './management-product-categories.service';
@@ -36,18 +35,22 @@ export class ManagementProductCategoriesComponent
     protected service: ManagementProductCategoriesService,
     protected dialogService: MatDialog,
     protected route: ActivatedRoute,
-    protected authorizationService: AuthorizationService
+    protected authorizationService: AuthorizationService,
+    private categoryTreeService: ProductCategoryTreeService
   ) {
     super();
   }
 
   ngOnInit(): void {
     super.ngOnInit();
+    this.categoryTreeService.reloadCategories();
+
   }
 
   protected createDialogProperties(item: ProductCategory): EntityFormDialogConfig<ProductCategory> {
     return {
       data: {
+        isNewItem: !item,
         item,
         entityType: 'productCategory',
         apiService: this.service.dataService
