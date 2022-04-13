@@ -6,8 +6,8 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { concat, merge, Observable } from 'rxjs';
-import { filter, map, share, switchMap, take, tap } from 'rxjs/operators';
+import { concat, Observable } from 'rxjs';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { AuthorizationService } from 'src/app/authorization.service';
 import { MANAGEMENT_CHILD_ROUTES } from '../../management-routing.module';
 import { ManagementRoutingService } from '../../management-routing.service';
@@ -37,6 +37,7 @@ export class ManagementSidenavComponent
 
   private fetchAuthorizedModules() {
     return this.authorizationService.getAuthorizedAccess().pipe(
+      take(1),
       map(access => MANAGEMENT_CHILD_ROUTES
         .filter(r => (access.routes.includes(r.path) || r.path === 'dashboard'))
         .map(r => ({
