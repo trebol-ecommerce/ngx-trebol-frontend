@@ -29,9 +29,7 @@ export class SessionService
 
   constructor(
     @Inject(API_INJECTION_TOKENS.access) private accessApiService: IAccessApiService
-  ) {
-    this.validateSession().subscribe();
-  }
+  ) { }
 
   // TODO services do not support lifecycle hooks such as this...
   ngOnDestroy(): void {
@@ -39,13 +37,17 @@ export class SessionService
     this.isValidatingSessionSource.complete();
   }
 
-  validateSession(): Observable<boolean> {
+  validateSession(emit = true): Observable<boolean> {
     this.isValidatingSessionSource.next(true);
 
     return this.accessApiService.getAuthorizedAccess().pipe(
       map(() => true),
       catchError(() => of(false)),
-      tap(isValid => { this.userHasActiveSessionSource.next(isValid); }),
+      tap(isValid => {
+        if (emit) {
+          this.userHasActiveSessionSource.next(isValid);
+        }
+      }),
       finalize(() => { this.isValidatingSessionSource.next(false); })
     );
   }
