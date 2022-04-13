@@ -8,7 +8,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivationEnd, Router } from '@angular/router';
 import { concat, interval, merge, Observable, of, Subscription } from 'rxjs';
-import { filter, ignoreElements, mapTo, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { filter, ignoreElements, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { SessionService } from './session.service';
 
@@ -36,7 +36,7 @@ export class AppComponent
       this.router.events.pipe(
         filter(ev => ev instanceof ActivationEnd),
         take(1),
-        mapTo(false)
+        map(() => false)
       )
     );
     this.recurrentSessionCheck = this.periodicallyQueryAuthorizedAccess().subscribe();
