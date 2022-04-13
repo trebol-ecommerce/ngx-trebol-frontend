@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
+import { ProductCategoryTreeService } from 'src/app/shared/components/product-category-tree/product-category-tree.service';
 import { ManagementProductCategoriesComponent } from './management-product-categories.component';
 import { ManagementProductCategoriesService } from './management-product-categories.service';
 
@@ -33,7 +34,8 @@ describe('ManagementProductCategoriesComponent', () => {
   let component: ManagementProductCategoriesComponent;
   let fixture: ComponentFixture<ManagementProductCategoriesComponent>;
   let mockService: Partial<ManagementProductCategoriesService>;
-  let mockDialogService: Partial<MatDialog>;
+  let dialogServiceSpy: jasmine.SpyObj<MatDialog>;
+  let categoryTreeServiceSpy: jasmine.SpyObj<ProductCategoryTreeService>;
 
   beforeEach(waitForAsync(() => {
     mockService = {
@@ -48,9 +50,8 @@ describe('ManagementProductCategoriesComponent', () => {
       pageIndex: undefined,
       pageSize: undefined
     };
-    mockDialogService = {
-      open() { return void 0; }
-    };
+    const mockDialogService = jasmine.createSpyObj('MatDialog', ['open']);
+    const mockCategoryTreeService = jasmine.createSpyObj('ProductCategoryTreeService', ['reloadCategories']);
 
     TestBed.configureTestingModule({
       imports: [
@@ -65,13 +66,16 @@ describe('ManagementProductCategoriesComponent', () => {
       ],
       providers: [
         { provide: ManagementProductCategoriesService, useValue: mockService },
-        { provide: MatDialog, useValue: mockDialogService }
+        { provide: MatDialog, useValue: mockDialogService },
+        { provide: ProductCategoryTreeService, useValue: mockCategoryTreeService },
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    dialogServiceSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
+    categoryTreeServiceSpy = TestBed.inject(ProductCategoryTreeService) as jasmine.SpyObj<ProductCategoryTreeService>;
+
     fixture = TestBed.createComponent(ManagementProductCategoriesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

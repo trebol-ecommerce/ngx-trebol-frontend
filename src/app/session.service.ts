@@ -74,7 +74,10 @@ export class SessionService
             take(1)
           ) :
           this.accessApiService.getAuthorizedAccess().pipe(
-            tap(access => this.authorizedAccessSource.next(access))
+            tap(
+              access => this.authorizedAccessSource.next(access),
+              err => this.userHasActiveSessionSource.next(false)
+            )
           )
         ) :
         of(null).pipe(

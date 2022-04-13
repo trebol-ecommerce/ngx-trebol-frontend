@@ -50,7 +50,7 @@ export class ManagementSalesComponent
   }
 
   ngOnInit(): void {
-    this.ngOnInit();
+    super.ngOnInit();
     this.items$ = this.service.items$.pipe(
       map(items => items.map(item => (
         {

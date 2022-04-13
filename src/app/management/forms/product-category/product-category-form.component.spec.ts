@@ -83,7 +83,8 @@ describe('ProductCategoryFormComponent', () => {
   it('should accept instances of ProductCategory as valid input', () => {
     const mockProductCategory: ProductCategory = {
       name: 'some-name',
-      code: 'some-code'
+      code: 'some-code',
+      parent: null
     };
     containerForm.productCategory.setValue(mockProductCategory);
     expect(component.formGroup.value).toEqual(mockProductCategory);

@@ -12,6 +12,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { ManagementComponent } from './management.component';
 import { ManagementSidenavService } from './components/sidenav/management-sidenav.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { SessionService } from '../session.service';
 
 // eslint-disable-next-line @angular-eslint/component-selector
 @Component({ selector: 'router-outlet' })
@@ -29,15 +31,16 @@ class MockFooterComponent { }
 describe('ManagementComponent', () => {
   let component: ManagementComponent;
   let fixture: ComponentFixture<ManagementComponent>;
+  let mockSessionService: Partial<SessionService>;
   let mockSidenavService: Partial<ManagementSidenavService>;
 
   beforeEach(waitForAsync(() => {
-    mockSidenavService = {
-      isSidenavOpen$: of(true)
-    };
+    mockSessionService = {};
+    mockSidenavService = { };
 
     TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule,
         NoopAnimationsModule,
         MatSidenavModule
       ],
@@ -49,13 +52,16 @@ describe('ManagementComponent', () => {
         MockFooterComponent
       ],
       providers: [
+        { provide: SessionService, useValue: mockSessionService },
         { provide: ManagementSidenavService, useValue: mockSidenavService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    mockSessionService.userHasActiveSession$ = of(true); // TODO should use some form of Subject
+    mockSidenavService.isSidenavOpen$ = of(true);
+
     fixture = TestBed.createComponent(ManagementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

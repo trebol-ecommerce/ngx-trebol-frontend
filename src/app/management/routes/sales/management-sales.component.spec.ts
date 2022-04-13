@@ -33,8 +33,8 @@ describe('ManagementSalesComponent', () => {
   let component: ManagementSalesComponent;
   let fixture: ComponentFixture<ManagementSalesComponent>;
   let mockManagerService: Partial<ManagementSalesService>;
-  let mockDialogService: Partial<MatDialog>;
-  let mockSnackBarService: Partial<MatSnackBar>;
+  let dialogServiceSpy: jasmine.SpyObj<MatDialog>;
+  let snackBarServiceSpy: jasmine.SpyObj<MatSnackBar>;
 
   beforeEach(waitForAsync(() => {
     mockManagerService = {
@@ -49,12 +49,8 @@ describe('ManagementSalesComponent', () => {
       pageIndex: undefined,
       pageSize: undefined
     };
-    mockDialogService = {
-      open() { return void 0; }
-    };
-    mockSnackBarService = {
-      open(m: string, a: string) { return void 0; }
-    };
+    const mockDialogService = jasmine.createSpyObj('MatDialog', ['open']);
+    const mockSnackBarService = jasmine.createSpyObj('MatSnackBar', ['open']);
 
     TestBed.configureTestingModule({
       imports: [
@@ -76,11 +72,13 @@ describe('ManagementSalesComponent', () => {
         { provide: MatDialog, useValue: mockDialogService },
         { provide: MatSnackBar, useValue: mockSnackBarService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    dialogServiceSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
+    snackBarServiceSpy = TestBed.inject(MatSnackBar) as jasmine.SpyObj<MatSnackBar>;
+
     fixture = TestBed.createComponent(ManagementSalesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

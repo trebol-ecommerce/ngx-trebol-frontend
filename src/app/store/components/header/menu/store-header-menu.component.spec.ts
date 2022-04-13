@@ -20,31 +20,18 @@ import { StoreHeaderMenuComponent } from './store-header-menu.component';
 describe('StoreHeaderMenuComponent', () => {
   let component: StoreHeaderMenuComponent;
   let fixture: ComponentFixture<StoreHeaderMenuComponent>;
-  let mockSessionService: Partial<SessionService>;
-  let mockProfileService: Partial<ProfileService>;
-  let mockDialogService: Partial<MatDialog>;
-  let mockSharedDialogService: Partial<SharedDialogService>;
-  let mockSnackBarService: Partial<MatSnackBar>;
+  let sessionServiceSpy: jasmine.SpyObj<SessionService>;
+  let profileServiceSpy: jasmine.SpyObj<ProfileService>;
+  let dialogServiceSpy: jasmine.SpyObj<MatDialog>;
+  let sharedDialogServiceSpy: jasmine.SpyObj<SharedDialogService>;
+  let snackBarServiceSpy: jasmine.SpyObj<MatSnackBar>;
 
   beforeEach(waitForAsync( () => {
-    mockSessionService = {
-      userHasActiveSession$: EMPTY,
-      closeCurrentSession() {},
-      fetchAuthorizedAccess() { return of(void 0); }
-    };
-    mockProfileService = {
-      userName$: of(''),
-      getUserProfile() { return of(null); }
-    };
-    mockDialogService = {
-      open() { return void 0; }
-    };
-    mockSharedDialogService = {
-      requestConfirmation() { return of(true); }
-    };
-    mockSnackBarService = {
-      open() { return void 0; }
-    };
+    const sessionServiceSpy = jasmine.createSpyObj('SessionService', ['closeCurrentSession', 'fetchAuthorizedAccess']);
+    const mockProfileService = jasmine.createSpyObj('ProfileService', ['getUserProfile']);
+    const mockDialogService = jasmine.createSpyObj('MatDialog', ['open']);
+    const mockSharedDialogService = jasmine.createSpyObj('SharedDialogService', ['requestConfirmation']);
+    const mockSnackBarService = jasmine.createSpyObj('MatSnackBar', ['open']);
 
     TestBed.configureTestingModule({
       imports: [
@@ -54,17 +41,24 @@ describe('StoreHeaderMenuComponent', () => {
       ],
       declarations: [ StoreHeaderMenuComponent ],
       providers: [
-        { provide: SessionService, useValue: mockSessionService },
+        { provide: SessionService, useValue: sessionServiceSpy },
         { provide: ProfileService, useValue: mockProfileService },
         { provide: MatDialog, useValue: mockDialogService },
         { provide: SharedDialogService, useValue: mockSharedDialogService },
         { provide: MatSnackBar, useValue: mockSnackBarService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    sessionServiceSpy = TestBed.inject(SessionService) as jasmine.SpyObj<SessionService>;
+    profileServiceSpy = TestBed.inject(ProfileService) as jasmine.SpyObj<ProfileService>;
+    dialogServiceSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
+    sharedDialogServiceSpy = TestBed.inject(SharedDialogService) as jasmine.SpyObj<SharedDialogService>;
+    snackBarServiceSpy = TestBed.inject(MatSnackBar) as jasmine.SpyObj<MatSnackBar>;
+    profileServiceSpy.userName$ = of('');
+    sessionServiceSpy.authorizedAccess$ = of({ routes: [] });
+
     fixture = TestBed.createComponent(StoreHeaderMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -76,40 +70,37 @@ describe('StoreHeaderMenuComponent', () => {
 
   describe('when logged in', () => {
     beforeEach(() => {
-      mockSessionService.userHasActiveSession$ = of(true);
+      sessionServiceSpy.userHasActiveSession$ = of(true);
     });
 
     it('should prompt a confirmation before trying to logout', () => {
-      const confirmationSpy = spyOn(mockSharedDialogService, 'requestConfirmation').and.returnValue(EMPTY);
+      sharedDialogServiceSpy.requestConfirmation.and.returnValue(EMPTY);
       component.onClickLogout();
-      expect(confirmationSpy).toHaveBeenCalled();
+      expect(sharedDialogServiceSpy.requestConfirmation).toHaveBeenCalled();
     });
 
     it('should not logout if not confirmed', () => {
-      spyOn(mockSharedDialogService, 'requestConfirmation').and.returnValue(of(false));
-      const logoutSpy = spyOn(mockSessionService, 'closeCurrentSession');
+      sharedDialogServiceSpy.requestConfirmation.and.returnValue(of(false));
       component.onClickLogout();
-      expect(logoutSpy).not.toHaveBeenCalled();
+      expect(sessionServiceSpy.closeCurrentSession).not.toHaveBeenCalled();
     });
 
     it('should logout only if confirmed', () => {
-      spyOn(mockSharedDialogService, 'requestConfirmation').and.returnValue(of(true));
-      const logoutSpy = spyOn(mockSessionService, 'closeCurrentSession');
+      sharedDialogServiceSpy.requestConfirmation.and.returnValue(of(true));
       component.onClickLogout();
-      expect(logoutSpy).toHaveBeenCalled();
+      expect(sessionServiceSpy.closeCurrentSession).toHaveBeenCalled();
     });
   });
 
   describe('when not logged in', () => {
     beforeEach(() => {
-      mockSessionService.userHasActiveSession$ = of(false);
+      sessionServiceSpy.userHasActiveSession$ = of(false);
     });
 
     it('should never logout', () => {
-      spyOn(mockSharedDialogService, 'requestConfirmation').and.returnValue(of(true));
-      const logoutSpy = spyOn(mockSessionService, 'closeCurrentSession');
+      sharedDialogServiceSpy.requestConfirmation.and.returnValue(of(true));
       component.onClickLogout();
-      expect(logoutSpy).not.toHaveBeenCalled();
+      expect(sessionServiceSpy.closeCurrentSession).not.toHaveBeenCalled();
     });
   });
 });
