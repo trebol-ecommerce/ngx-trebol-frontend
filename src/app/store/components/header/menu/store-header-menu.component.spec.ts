@@ -12,7 +12,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EMPTY, of } from 'rxjs';
-import { AuthorizationService } from 'src/app/authorization.service';
 import { ProfileService } from 'src/app/profile.service';
 import { SessionService } from 'src/app/session.service';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
@@ -21,7 +20,6 @@ import { StoreHeaderMenuComponent } from './store-header-menu.component';
 describe('StoreHeaderMenuComponent', () => {
   let component: StoreHeaderMenuComponent;
   let fixture: ComponentFixture<StoreHeaderMenuComponent>;
-  let mockAuthorizationService: Partial<AuthorizationService>;
   let mockSessionService: Partial<SessionService>;
   let mockProfileService: Partial<ProfileService>;
   let mockDialogService: Partial<MatDialog>;
@@ -29,12 +27,10 @@ describe('StoreHeaderMenuComponent', () => {
   let mockSnackBarService: Partial<MatSnackBar>;
 
   beforeEach(waitForAsync( () => {
-    mockAuthorizationService = {
-      getAuthorizedAccess() { return of(void 0); }
-    };
     mockSessionService = {
       userHasActiveSession$: EMPTY,
-      closeCurrentSession() {}
+      closeCurrentSession() {},
+      fetchAuthorizedAccess() { return of(void 0); }
     };
     mockProfileService = {
       userName$: of(''),
@@ -58,7 +54,6 @@ describe('StoreHeaderMenuComponent', () => {
       ],
       declarations: [ StoreHeaderMenuComponent ],
       providers: [
-        { provide: AuthorizationService, useValue: mockAuthorizationService },
         { provide: SessionService, useValue: mockSessionService },
         { provide: ProfileService, useValue: mockProfileService },
         { provide: MatDialog, useValue: mockDialogService },

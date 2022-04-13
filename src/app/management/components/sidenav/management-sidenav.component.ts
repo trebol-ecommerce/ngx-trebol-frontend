@@ -8,7 +8,7 @@
 import { Component, OnInit } from '@angular/core';
 import { concat, Observable } from 'rxjs';
 import { filter, map, switchMap, take, tap } from 'rxjs/operators';
-import { AuthorizationService } from 'src/app/authorization.service';
+import { SessionService } from 'src/app/session.service';
 import { MANAGEMENT_CHILD_ROUTES } from '../../management-routing.module';
 import { ManagementRoutingService } from '../../management-routing.service';
 import { SidenavModuleItem } from './SidenavModuleItem';
@@ -25,7 +25,7 @@ export class ManagementSidenavComponent
 
   constructor(
     private routingService: ManagementRoutingService,
-    private authorizationService: AuthorizationService
+    private sessionService: SessionService
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +36,7 @@ export class ManagementSidenavComponent
   }
 
   private fetchAuthorizedModules() {
-    return this.authorizationService.getAuthorizedAccess().pipe(
+    return this.sessionService.fetchAuthorizedAccess().pipe(
       take(1),
       map(access => MANAGEMENT_CHILD_ROUTES
         .filter(r => (access.routes.includes(r.path) || r.path === 'dashboard'))

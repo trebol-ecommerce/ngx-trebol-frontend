@@ -9,8 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, of } from 'rxjs';
-import { filter, map, switchMap, take, tap } from 'rxjs/operators';
-import { AuthorizationService } from 'src/app/authorization.service';
+import { debounceTime, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { ProfileService } from 'src/app/profile.service';
 import { SessionService } from 'src/app/session.service';
 import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component';
@@ -29,7 +28,6 @@ export class StoreHeaderMenuComponent
   canNavigateManagement$: Observable<boolean>;
 
   constructor(
-    private authorizationService: AuthorizationService,
     private sessionService: SessionService,
     private profileService: ProfileService,
     private snackBarService: MatSnackBar,
@@ -39,13 +37,8 @@ export class StoreHeaderMenuComponent
 
   ngOnInit(): void {
     this.userName$ = this.profileService.userName$.pipe();
-    this.canNavigateManagement$ = this.sessionService.userHasActiveSession$.pipe(
-      switchMap(hasActiveSession => (!hasActiveSession ?
-        of(false) :
-        this.authorizationService.getAuthorizedAccess().pipe(
-          map(access => (access?.routes?.length > 0))
-        )
-      ))
+    this.canNavigateManagement$ = this.sessionService.authorizedAccess$.pipe(
+      map(access => (access?.routes?.length > 0))
     );
   }
 

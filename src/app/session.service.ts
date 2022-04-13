@@ -6,10 +6,11 @@
  */
 
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, of, ReplaySubject } from 'rxjs';
-import { catchError, finalize, map, tap } from 'rxjs/operators';
+import { BehaviorSubject, forkJoin, Observable, of, ReplaySubject } from 'rxjs';
+import { catchError, finalize, map, switchMap, take, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { environment } from 'src/environments/environment';
+import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
 import { IAccessApiService } from './api/access-api.iservice';
 
 /**
@@ -21,9 +22,11 @@ export class SessionService
 
   private readonly sessionStorageTokenItemName = environment.secrets.sessionStorageTokenItem;
 
+  private authorizedAccessSource = new BehaviorSubject<AuthorizedAccess>(null);
   private userHasActiveSessionSource = new ReplaySubject<boolean>(1);
   private isValidatingSessionSource = new BehaviorSubject(false);
 
+  authorizedAccess$ = this.authorizedAccessSource.asObservable();
   userHasActiveSession$ = this.userHasActiveSessionSource.asObservable();
   isValidatingSession$ = this.isValidatingSessionSource.asObservable();
 
@@ -37,14 +40,14 @@ export class SessionService
     this.isValidatingSessionSource.complete();
   }
 
-  validateSession(emit = true): Observable<boolean> {
+  validateSession(emitIfValid = true): Observable<boolean> {
     this.isValidatingSessionSource.next(true);
 
     return this.accessApiService.getAuthorizedAccess().pipe(
       map(() => true),
       catchError(() => of(false)),
       tap(isValid => {
-        if (emit) {
+        if (!isValid || emitIfValid) {
           this.userHasActiveSessionSource.next(isValid);
         }
       }),
@@ -60,6 +63,29 @@ export class SessionService
   saveToken(token: any) {
     sessionStorage.setItem(this.sessionStorageTokenItemName, token);
     this.userHasActiveSessionSource.next(true);
+  }
+
+  fetchAuthorizedAccess(): Observable<AuthorizedAccess> {
+    return this.userHasActiveSession$.pipe(
+      take(1),
+      switchMap(hasActiveSession => (hasActiveSession ?
+        (!!this.authorizedAccessSource.value ?
+          this.authorizedAccessSource.asObservable().pipe(
+            take(1)
+          ) :
+          this.accessApiService.getAuthorizedAccess().pipe(
+            tap(access => this.authorizedAccessSource.next(access))
+          )
+        ) :
+        of(null).pipe(
+          tap(() => {
+            if (this.authorizedAccessSource.value !== null) {
+              this.authorizedAccessSource.next(null);
+            }
+          })
+        )
+      ))
+    );
   }
 
 }

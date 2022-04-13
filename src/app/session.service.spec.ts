@@ -7,7 +7,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { concat, merge, of, throwError } from 'rxjs';
-import { count, filter, skip, take, tap } from 'rxjs/operators';
+import { count, filter, finalize, skip, take, tap } from 'rxjs/operators';
 import { IAccessApiService } from './api/access-api.iservice';
 import { API_INJECTION_TOKENS } from './api/api-injection-tokens';
 import { SessionService } from './session.service';
@@ -113,6 +113,12 @@ describe('SessionService', () => {
         tap(next => expect(next).toBeFalse())
       ).subscribe();
     });
+
+    it('should emit null authorization data', () => {
+      service.fetchAuthorizedAccess().pipe(
+        tap(access => expect(access).toEqual(null))
+      ).subscribe();
+    });
   });
 
   describe('when the user is authenticated', () => {
@@ -125,6 +131,16 @@ describe('SessionService', () => {
       service.userHasActiveSession$.pipe(
         take(1),
         tap(next => expect(next).toBeTrue())
+      ).subscribe();
+    });
+
+    it('should serve a cached result in subsequent calls to `getAuthorizedAccess()`', () => {
+      concat(
+        service.fetchAuthorizedAccess(),
+        service.fetchAuthorizedAccess(),
+        service.fetchAuthorizedAccess()
+      ).pipe(
+        finalize(() => expect(accessApiServiceSpy.getAuthorizedAccess).toHaveBeenCalledTimes(1))
       ).subscribe();
     });
   });

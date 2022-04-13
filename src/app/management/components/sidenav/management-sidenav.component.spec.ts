@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EMPTY, of } from 'rxjs';
-import { AuthorizationService } from 'src/app/authorization.service';
+import { SessionService } from 'src/app/session.service';
 import { ManagementRoutingService } from '../../management-routing.service';
 import { ManagementSidenavComponent } from './management-sidenav.component';
 
@@ -18,11 +18,11 @@ describe('ManagementSidenavComponent', () => {
   let component: ManagementSidenavComponent;
   let fixture: ComponentFixture<ManagementSidenavComponent>;
   let routingServiceSpy: jasmine.SpyObj<ManagementRoutingService>;
-  let authorizationServiceSpy: jasmine.SpyObj<AuthorizationService>;
+  let sessionServiceSpy: jasmine.SpyObj<SessionService>;
 
   beforeEach(waitForAsync(() => {
     const mockRoutingService = jasmine.createSpyObj('ManagementRoutingService', ['currentRouteSnapshot$']);
-    const mockAuthorizationService = jasmine.createSpyObj('AuthorizationService', ['getAuthorizedAccess'])
+    const mockSessionService = jasmine.createSpyObj('SessionService', ['fetchAuthorizedAccess'])
 
     TestBed.configureTestingModule({
       imports: [
@@ -33,14 +33,14 @@ describe('ManagementSidenavComponent', () => {
       declarations: [ ManagementSidenavComponent ],
       providers: [
         { provide: ManagementRoutingService, useValue: mockRoutingService },
-        { provide: AuthorizationService, useValue: mockAuthorizationService }
+        { provide: SessionService, useValue: mockSessionService }
       ]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     routingServiceSpy = TestBed.inject(ManagementRoutingService) as jasmine.SpyObj<ManagementRoutingService>;
-    authorizationServiceSpy = TestBed.inject(AuthorizationService) as jasmine.SpyObj<AuthorizationService>;
+    sessionServiceSpy = TestBed.inject(SessionService) as jasmine.SpyObj<SessionService>;
 
     fixture = TestBed.createComponent(ManagementSidenavComponent);
     component = fixture.componentInstance;
@@ -49,7 +49,7 @@ describe('ManagementSidenavComponent', () => {
   describe('always', () => {
     beforeEach(() => {
       routingServiceSpy.currentRouteSnapshot$ = EMPTY;
-      authorizationServiceSpy.getAuthorizedAccess.and.returnValue(of({ routes: [] }));
+      sessionServiceSpy.fetchAuthorizedAccess.and.returnValue(of({ routes: [] }));
       fixture.detectChanges();
     });
 
@@ -65,7 +65,7 @@ describe('ManagementSidenavComponent', () => {
 
     beforeEach(() => {
       mockRoutes = ['sales', 'products'];
-      authorizationServiceSpy.getAuthorizedAccess.and.returnValue(of({ routes: mockRoutes }));
+      sessionServiceSpy.fetchAuthorizedAccess.and.returnValue(of({ routes: mockRoutes }));
       fixture.detectChanges();
     });
   });

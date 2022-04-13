@@ -7,9 +7,10 @@
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivationEnd, Router } from '@angular/router';
-import { concat, interval, merge, Observable, of, Subscription } from 'rxjs';
-import { filter, ignoreElements, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { concat, EMPTY, interval, merge, Observable, of, Subscription } from 'rxjs';
+import { catchError, concatMap, filter, map, switchMap, take, takeUntil } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { ProfileService } from './profile.service';
 import { SessionService } from './session.service';
 
 @Component({
@@ -20,13 +21,14 @@ import { SessionService } from './session.service';
 export class AppComponent
   implements OnInit, OnDestroy {
 
-  private recurrentSessionCheck: Subscription;
+  private sessionCheckSub: Subscription;
   readonly authorizationUpdateInterval = environment.constraints.authorizedAccessUpdateInterval;
 
   isLoading$: Observable<boolean>;
 
   constructor(
     private router: Router,
+    private profileService: ProfileService,
     private sessionService: SessionService
   ) { }
 
@@ -39,33 +41,32 @@ export class AppComponent
         map(() => false)
       )
     );
-    this.recurrentSessionCheck = this.periodicallyQueryAuthorizedAccess().subscribe();
+    this.sessionCheckSub = this.periodicallyQueryAuthorizedAccess().subscribe();
   }
 
   ngOnDestroy(): void {
-    this.recurrentSessionCheck?.unsubscribe();
+    this.sessionCheckSub?.unsubscribe();
   }
 
   private periodicallyQueryAuthorizedAccess() {
     return merge(
       this.sessionService.validateSession().pipe(
-        ignoreElements()
+        switchMap(() => this.sessionService.fetchAuthorizedAccess())
       ),
       this.sessionService.userHasActiveSession$.pipe(
         filter(hasActiveSession => hasActiveSession),
-        switchMap(() => interval(this.authorizationUpdateInterval).pipe(
-          takeUntil(this.sessionService.userHasActiveSession$.pipe(
-            filter(hasActiveSession => !hasActiveSession)
-          ))
-        )),
-        switchMap(() => this.sessionService.validateSession(false)),
+        switchMap(() => concat(
+          this.profileService.getUserProfile().pipe(
+            catchError(() => EMPTY)
+          ),
+          interval(this.authorizationUpdateInterval).pipe(
+            takeUntil(this.sessionService.userHasActiveSession$.pipe(
+              filter(hasActiveSession => !hasActiveSession)
+            )),
+            switchMap(() => this.sessionService.validateSession(false))
+          )
+        ))
       )
-    ).pipe(
-      filter(isValid => !isValid),
-      tap(() => {
-        this.sessionService.closeCurrentSession();
-        this.router.navigateByUrl('/');
-      })
     );
   }
 }

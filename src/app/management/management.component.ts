@@ -6,7 +6,10 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { filter, take, tap } from 'rxjs/operators';
+import { SessionService } from '../session.service';
 import { ManagementSidenavService } from './components/sidenav/management-sidenav.service';
 
 @Component({
@@ -17,13 +20,26 @@ import { ManagementSidenavService } from './components/sidenav/management-sidena
 export class ManagementComponent
   implements OnInit {
 
+  private sessionCheckSub: Subscription;
+
   isSidenavOpen$: Observable<boolean>;
 
   constructor(
+    private router: Router,
+    private sessionService: SessionService,
     private sidenavService: ManagementSidenavService
   ) { }
 
   ngOnInit(): void {
     this.isSidenavOpen$ = this.sidenavService.isSidenavOpen$.pipe();
+    this.sessionCheckSub = this.sessionService.userHasActiveSession$.pipe(
+      filter(hasActiveSession => !hasActiveSession),
+      take(1),
+      tap(() => this.whenSessionBecomesInactive())
+    ).subscribe();
+  }
+
+  private whenSessionBecomesInactive() {
+    this.router.navigateByUrl('/');
   }
 }

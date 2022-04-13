@@ -9,7 +9,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthorizationService } from 'src/app/authorization.service';
 import { EntityFormDialogConfig } from 'src/app/management/dialogs/entity-form/EntityFormDialogConfig';
 import { ProductCategoryTreeService } from 'src/app/shared/components/product-category-tree/product-category-tree.service';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
@@ -35,7 +34,6 @@ export class ManagementProductCategoriesComponent
     protected service: ManagementProductCategoriesService,
     protected dialogService: MatDialog,
     protected route: ActivatedRoute,
-    protected authorizationService: AuthorizationService,
     private categoryTreeService: ProductCategoryTreeService
   ) {
     super();
