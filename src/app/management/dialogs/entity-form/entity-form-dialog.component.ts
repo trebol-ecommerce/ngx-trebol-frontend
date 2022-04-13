@@ -77,9 +77,9 @@ export class EntityFormDialogComponent<T>
   }
 
   private doSubmit() {
-    return (this.data.isNewItem ?
-      this.data.apiService.create(this.item.value as T) :
-      this.data.apiService.update(this.item.value as T, this.data.item)
+    return ((!this.data.isNewItem && this.data.item) ?
+      this.data.apiService.update(this.item.value as T, this.data.item) :
+      this.data.apiService.create(this.item.value as T)
     ).pipe(
       tap(
         () => {

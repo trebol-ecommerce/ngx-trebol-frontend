@@ -83,6 +83,23 @@ class MockShipperFormComponent extends MockAbstractForm { }
 })
 class MockUserFormComponent extends MockAbstractForm { }
 
+
+class EntityDescriptor {
+  name: EntityTypeName;
+  formComponentSelector: string;
+}
+const entityDescriptors: EntityDescriptor[] = [
+  { name: 'address', formComponentSelector: 'app-address-form' },
+  { name: 'image', formComponentSelector: 'app-image-form' },
+  { name: 'person', formComponentSelector: 'app-person-form' },
+  { name: 'product', formComponentSelector: 'app-product-form' },
+  { name: 'productCategory', formComponentSelector: 'app-product-category-form' },
+  { name: 'productList', formComponentSelector: 'app-product-list-form' },
+  { name: 'sell', formComponentSelector: 'app-sell-form' },
+  { name: 'shipper', formComponentSelector: 'app-shipper-form' },
+  { name: 'user', formComponentSelector: 'app-user-form' }
+];
+
 describe('EntityFormDialogComponent', () => {
   let component: EntityFormDialogComponent<any>;
   let fixture: ComponentFixture<EntityFormDialogComponent<any>>;
@@ -137,177 +154,99 @@ describe('EntityFormDialogComponent', () => {
     component = fixture.componentInstance;
   });
 
+  it('should close upon cancellation', () => {
+    component.onCancel();
+    expect(dialogRefSpy.close).toHaveBeenCalled();
+  });
+
   describe('when no entity type is passed', () => {
     it('should throw an error', () => {
       expect(() => {
         fixture.detectChanges();
-      }).toThrow();
+      }).toThrowError();
     });
   });
 
-
-  // TODO the following suites could do with smarter refactoring
-  describe('when an entity type is passed', () => {
-
-    describe('without an initial value', () => {
-      let shouldCreateForm: (entityType: EntityTypeName, selector?: string) => void;
-      let shouldSubmitForCreation: () => void;
-
+  entityDescriptors.forEach(eType => {
+    describe(`when the '${eType.name}' entity type is passed`, () => {
       beforeEach(() => {
-        dataApiServiceSpy.create.and.returnValue(of(void 0));
-        shouldCreateForm = (entityType: EntityTypeName, selector?: string) => {
-          if (!selector) {
-            selector = `app-${entityType}-form`;
-          }
-          mockDialogData.entityType = entityType;
+        mockDialogData.entityType = eType.name;
+      });
+
+      it('should create', () => {
+        fixture.detectChanges();
+        expect(component).toBeTruthy();
+      });
+
+      it('should instantiate the appropiate form', () => {
+        fixture.detectChanges();
+        const formElem = fixture.debugElement.nativeElement.querySelector(eType.formComponentSelector);
+        expect(formElem).toBeTruthy();
+      });
+
+      describe('without an initial value', () => {
+        beforeEach(() => {
+          mockDialogData.isNewItem = true;
+          dataApiServiceSpy.create.and.returnValue(of(void 0));
           fixture.detectChanges();
-          expect(component).toBeTruthy();
-          const formElem = fixture.debugElement.nativeElement.querySelector(selector);
-          expect(formElem).toBeTruthy();
-        };
-        shouldSubmitForCreation = () => {
-          expect(component.formGroup.untouched).toBeTrue();
+        });
+
+        it('should be invalid on creation', () => {
           expect(component.formGroup.invalid).toBeTrue();
+        });
+
+        it('should not submit for creation when the form is considered invalid', () => {
           component.onSubmit();
           expect(dataApiServiceSpy.create).not.toHaveBeenCalled();
+        });
 
+        it('should submit for creation when the form is considered valid', () => {
           component.item.setValue('some-value');
           expect(component.formGroup.valid).toBeTrue();
           component.onSubmit();
           expect(dataApiServiceSpy.create).toHaveBeenCalled();
-        };
+        });
       });
 
-      it('should create an Address form', () => {
-        shouldCreateForm('address');
-        shouldSubmitForCreation();
-      });
-
-      it('should create an Image form', () => {
-        shouldCreateForm('image');
-        shouldSubmitForCreation();
-      });
-
-      it('should create a Person form', () => {
-        shouldCreateForm('person');
-        shouldSubmitForCreation();
-      });
-
-      it('should create a Product form', () => {
-        shouldCreateForm('product');
-        shouldSubmitForCreation();
-      });
-
-      it('should create a ProductCategory form', () => {
-        shouldCreateForm('productCategory', 'app-product-category-form');
-        shouldSubmitForCreation();
-      });
-
-      it('should create a ProductList form', () => {
-        shouldCreateForm('productList', 'app-product-list-form');
-        shouldSubmitForCreation();
-      });
-
-      it('should create a Sell form', () => {
-        shouldCreateForm('sell');
-        shouldSubmitForCreation();
-      });
-
-      it('should create a Shipper form', () => {
-        shouldCreateForm('shipper');
-        shouldSubmitForCreation();
-      });
-
-      it('should create a User form', () => {
-        shouldCreateForm('user');
-        shouldSubmitForCreation();
-      });
-    });
-
-    describe('with an initial value', () => {
-      let createSubmittableForm: (entityType: EntityTypeName) => void;
-      let shouldSubmitForUpdate: () => void;
-
-      beforeEach(() => {
-        dataApiServiceSpy.update.and.returnValue(of(void 0));
-        createSubmittableForm = (entityType: EntityTypeName) => {
-          dataApiServiceSpy.create
-          mockDialogData.entityType = entityType;
-          mockDialogData.item = 'somevalue';
+      describe('with an initial value', () => {
+        beforeEach(() => {
+          mockDialogData.item = 'some-initial-value';
           fixture.detectChanges();
-          expect(component).toBeTruthy();
-        };
-        shouldSubmitForUpdate = () => {
-          expect(component.formGroup.valid).toBeTrue();
-          component.onSubmit();
-          expect(dataApiServiceSpy.create).not.toHaveBeenCalled();
-          expect(dataApiServiceSpy.update).toHaveBeenCalled();
-        };
-      });
+        });
 
-      it('should create an Address form', () => {
-        createSubmittableForm('address');
-        shouldSubmitForUpdate();
-      });
+        it('should load value on creation', () => {
+          expect(component.item.value).toBe(mockDialogData.item);
+        });
 
-      it('should create an Image form', () => {
-        createSubmittableForm('image');
-        shouldSubmitForUpdate();
-      });
 
-      it('should create a Person form', () => {
-        createSubmittableForm('person');
-        shouldSubmitForUpdate();
-      });
+        describe('and the editing data is marked as new', () => {
+          beforeEach(() => {
+            dataApiServiceSpy.create.and.returnValue(of(void 0));
+            mockDialogData.isNewItem = true;
+          });
 
-      it('should create a Product form', () => {
-        createSubmittableForm('product');
-        shouldSubmitForUpdate();
-      });
+          it('should be able to submit and create it', () => {
+            component.onSubmit();
+            expect(dataApiServiceSpy.create).toHaveBeenCalled();
+            expect(dataApiServiceSpy.update).not.toHaveBeenCalled();
+          });
+        });
 
-      it('should create a ProductCategory form', () => {
-        createSubmittableForm('productCategory');
-        shouldSubmitForUpdate();
-      });
+        describe('and the editing data is marked as existent', () => {
+          beforeEach(() => {
+            dataApiServiceSpy.update.and.returnValue(of(void 0));
+            mockDialogData.isNewItem = false;
+          });
 
-      it('should create a ProductList form', () => {
-        createSubmittableForm('productList');
-        shouldSubmitForUpdate();
-      });
-
-      it('should create a Sell form', () => {
-        createSubmittableForm('sell');
-        shouldSubmitForUpdate();
-      });
-
-      it('should create a Shipper form', () => {
-        createSubmittableForm('shipper');
-        shouldSubmitForUpdate();
-      });
-
-      it('should create a User form', () => {
-        createSubmittableForm('user');
-        shouldSubmitForUpdate();
+          it('should be able to submit and create it', () => {
+            component.onSubmit();
+            expect(dataApiServiceSpy.create).not.toHaveBeenCalled();
+            expect(dataApiServiceSpy.update).toHaveBeenCalled();
+          });
+        });
       });
     });
-
   });
 
-  describe('always', () => {
-    beforeEach(() => {
-      try {
-        fixture.detectChanges();
-      } catch (err) { }
-    });
-
-    it('should create', () => {
-      expect(component).toBeTruthy();
-    });
-
-    it('should close upon cancellation', () => {
-      component.onCancel();
-      expect(dialogRefSpy.close).toHaveBeenCalled();
-    });
-  });
 
 });
