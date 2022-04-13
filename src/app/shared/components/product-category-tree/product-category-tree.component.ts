@@ -75,16 +75,16 @@ export class ProductCategoryTreeComponent
   deleteNodeLabel = (n: ProductCategoryTreeFlatNode) => ($localize`:Label for action button to delete category of name {{ name }}:Delete category '${n.name}:name:'`);
 
   onClickAddChildNodeTo(parentNode: ProductCategoryTreeFlatNode): void {
-    const category = this.service.fetchCategoryFromNode(parentNode);
-    this.requestCategoryData({
-      item: {
-        parent: {
-          code: category.code,
-          name: category.name
-        }
-      } as ProductCategory,
-      isNewItem: true
-    }).pipe(
+    this.service.fetchCategoryFromNode(parentNode).pipe(
+      switchMap(category => this.requestCategoryData({
+        item: {
+          parent: {
+            code: category.code,
+            name: category.name
+          }
+        } as ProductCategory,
+        isNewItem: true
+      })),
       switchMap(newNode => this.service.addNode(newNode)),
       tap(
         next => {
@@ -101,12 +101,13 @@ export class ProductCategoryTreeComponent
   }
 
   onClickEditNode(treeNode: ProductCategoryTreeFlatNode): void {
-    const category = this.service.fetchCategoryFromNode(treeNode);
-    this.requestCategoryData({
-      item: category,
-      isNewItem: false
-    }).pipe(
-      switchMap(newNode => this.service.editNode(newNode, category)),
+    this.service.fetchCategoryFromNode(treeNode).pipe(
+      switchMap(category => this.requestCategoryData({
+        item: category,
+        isNewItem: false
+      }).pipe(
+        switchMap(newNode => this.service.editNode(newNode, category))
+      )),
       tap(
         (next: ProductCategory) => {
           this.snackbarService.open($localize`:Message of success after renaming category to {{ name }}:Category was renamed to '${next.name}:name:'`, COMMON_DISMISS_BUTTON_LABEL);
@@ -119,13 +120,13 @@ export class ProductCategoryTreeComponent
   }
 
   onClickDeleteNode(treeNode: ProductCategoryTreeFlatNode): void {
-    const category = this.service.fetchCategoryFromNode(treeNode);
     this.sharedDialogService.requestConfirmation({
       title: $localize`:Title of dialog prompt to confirm deletion:Confirm deletion`,
       message: $localize`:Paragraph asking confirmation to delete a category, and explaining that deleting it cascades to its descendants, but not to related products which are detached from the relationship:Are you sure to delete the category? This will include all its descendants. Related products will not be deleted, and instead will be marked as not having a category.`
     }).pipe(
       filter(didConfirm => didConfirm),
-      switchMap(() => this.service.deleteNode(category)),
+      switchMap(() => this.service.fetchCategoryFromNode(treeNode)),
+      switchMap(category => this.service.deleteNode(category)),
       tap(
         next => {
           this.matTree.renderNodeChanges(this.dataSource.data); // TODO optimize this?
@@ -140,8 +141,9 @@ export class ProductCategoryTreeComponent
 
   onClickTreeNode(treeNode: ProductCategoryTreeFlatNode): void {
     if (this.selectionEnabled) {
-      const category = this.service.fetchCategoryFromNode(treeNode);
-      this.selection.emit(category);
+      this.service.fetchCategoryFromNode(treeNode).pipe(
+        tap(category => this.selection.emit(category))
+      ).subscribe();
     }
   }
 

@@ -12,7 +12,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTreeModule } from '@angular/material/tree';
 import { EMPTY, Observable, of } from 'rxjs';
-import { finalize } from 'rxjs/operators';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { observeIfEventFiresUponCallback } from 'src/test-functions/observeIfEventFiresUponCallback';
 import { SharedDialogService } from '../../dialogs/shared-dialog.service';
@@ -72,7 +71,7 @@ describe('ProductCategoryTreeComponent', () => {
     let target: ProductCategory;
 
     beforeEach(() => {
-      serviceSpy.fetchCategoryFromNode.and.callFake((node) => ({
+      serviceSpy.fetchCategoryFromNode.and.callFake((node) => of({
         name: node.name,
         code: 'some-code'
       }));

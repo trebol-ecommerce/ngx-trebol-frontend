@@ -6,7 +6,7 @@
  */
 
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, forkJoin, from, Observable } from 'rxjs';
+import { BehaviorSubject, from, of } from 'rxjs';
 import { expand, ignoreElements, map, switchMap, tap, toArray } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
@@ -93,7 +93,7 @@ export class ProductCategoryTreeService {
   }
 
   fetchCategoryFromNode(treeNode: ProductCategoryTreeFlatNode) {
-    return this.flatNodeMap.get(treeNode);
+    return of(this.flatNodeMap.get(treeNode));
   }
 
   private loadChildren(parent: ProductCategory) {
