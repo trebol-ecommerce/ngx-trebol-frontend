@@ -86,17 +86,18 @@ export class ProductCategoryTreeComponent
       isNewItem: true
     }).pipe(
       switchMap(newNode => this.service.addNode(newNode)),
-      tap(() => this.matTree.renderNodeChanges(this.dataSource.data)), // TODO optimize this?
-      tap(() => this.treeControl.expand(parentNode))
-    ).subscribe(
-      next => {
-        this.snackbarService.open($localize`:Message of success after creating subcategory with name {{ name }}:Subcategory '${next.name}:name:' was created`, COMMON_DISMISS_BUTTON_LABEL);
-      },
-      error => {
-        console.error(error);
-        this.snackbarService.open($localize`:Message of error during creation of subcategory:Subcategory could not be created`, COMMON_DISMISS_BUTTON_LABEL);
-      }
-    );
+      tap(
+        next => {
+          this.matTree.renderNodeChanges(this.dataSource.data); // TODO can this be optimized further?
+          this.treeControl.expand(parentNode);
+          this.snackbarService.open($localize`:Message of success after creating subcategory with name {{ name }}:Subcategory '${next.name}:name:' was created`, COMMON_DISMISS_BUTTON_LABEL);
+        },
+        error => {
+          console.error(error);
+          this.snackbarService.open($localize`:Message of error during creation of subcategory:Subcategory could not be created`, COMMON_DISMISS_BUTTON_LABEL);
+        }
+      )
+    ).subscribe();
   }
 
   onClickEditNode(treeNode: ProductCategoryTreeFlatNode): void {
