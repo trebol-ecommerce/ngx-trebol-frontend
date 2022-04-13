@@ -8,10 +8,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialogRef } from '@angular/material/dialog';
-import { of } from 'rxjs';
-import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
-import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
+import { ProductCategoryTreeService } from '../../components/product-category-tree/product-category-tree.service';
 import { ProductCategoryPickerDialogComponent } from './product-category-picker-dialog.component';
 
 @Component({ selector: 'app-product-category-tree' })
@@ -25,23 +23,11 @@ class MockProductCategoryTreeComponent {
 describe('ProductCategoryPickerDialogComponent', () => {
   let component: ProductCategoryPickerDialogComponent;
   let fixture: ComponentFixture<ProductCategoryPickerDialogComponent>;
-  let mockApiService: Partial<ITransactionalEntityDataApiService<ProductCategory>>;
-  let mockDialog: Partial<MatDialogRef<ProductCategoryPickerDialogComponent>>;
+  let dialogSpy: jasmine.SpyObj<MatDialogRef<any>>;
 
   beforeEach(waitForAsync(() => {
-    mockApiService = {
-      fetchPage() {
-        return of({
-          items: [],
-          totalCount: 0,
-          pageIndex: 0,
-          pageSize: 10
-        });
-      }
-    };
-    mockDialog = {
-      close() { }
-    };
+    const mockDialog = jasmine.createSpyObj('MatDialogRef', ['close']);
+    const mockProductCategoryTreeService = jasmine.createSpyObj('ProductCategoryTreeService', ['reloadCategories']);
 
     TestBed.configureTestingModule({
       declarations: [
@@ -49,14 +35,15 @@ describe('ProductCategoryPickerDialogComponent', () => {
         ProductCategoryPickerDialogComponent
       ],
       providers: [
-        { provide: API_INJECTION_TOKENS.dataProductCategories, useValue: mockApiService },
+        { provide: ProductCategoryTreeService, useValue: mockProductCategoryTreeService },
         { provide: MatDialogRef, useValue: mockDialog }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    dialogSpy = TestBed.inject(MatDialogRef) as jasmine.SpyObj<MatDialogRef<any>>;
+
     fixture = TestBed.createComponent(ProductCategoryPickerDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -64,5 +51,15 @@ describe('ProductCategoryPickerDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should close referencing a category after being selected', () => {
+    const category: ProductCategory = {
+      code: 'some-code',
+      name: 'some-name'
+    };
+    component.onSelect(category);
+    expect(dialogSpy.close).toHaveBeenCalled();
+    expect(dialogSpy.close).toHaveBeenCalledWith(category);
   });
 });
