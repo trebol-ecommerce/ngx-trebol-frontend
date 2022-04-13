@@ -85,7 +85,6 @@ export class ProductCategoryTreeComponent
       } as ProductCategory,
       isNewItem: true
     }).pipe(
-      tap(console.log),
       switchMap(newNode => this.service.addNode(newNode)),
       tap(() => this.matTree.renderNodeChanges(this.dataSource.data)), // TODO optimize this?
       tap(() => this.treeControl.expand(parentNode))
