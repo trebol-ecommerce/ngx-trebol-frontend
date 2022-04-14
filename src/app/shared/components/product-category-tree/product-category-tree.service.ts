@@ -30,7 +30,7 @@ export class ProductCategoryTreeService {
     if (force || !this.categoriesSource.value.length) {
       this.apiService.fetchPage().pipe(
         switchMap(page => from(page.items)),
-        expand(category => this.loadChildren(category).pipe(
+        expand(category => this.loadDescendants(category).pipe(
           switchMap(children => from(children)),
           ignoreElements()
         )),
@@ -40,7 +40,7 @@ export class ProductCategoryTreeService {
     }
   }
 
-  addNode(newNode: ProductCategory) {
+  add(newNode: ProductCategory) {
     return this.apiService.create(newNode).pipe(
       tap(() => {
         const parent = newNode.parent;
@@ -57,7 +57,7 @@ export class ProductCategoryTreeService {
     );
   }
 
-  editNode(newNode: ProductCategory, originalNode: ProductCategory) {
+  edit(newNode: ProductCategory, originalNode: ProductCategory) {
     return this.apiService.update(newNode, originalNode).pipe(
       tap(() => {
         originalNode.code = newNode.code;
@@ -68,7 +68,7 @@ export class ProductCategoryTreeService {
     );
   }
 
-  deleteNode(node: ProductCategory) {
+  remove(node: ProductCategory) {
     return this.apiService.delete({ code: node.code }).pipe(
       tap(() => {
         const rootCategories = this.categoriesSource.value;
@@ -92,11 +92,11 @@ export class ProductCategoryTreeService {
     return flatNode;
   }
 
-  fetchCategoryFromNode(treeNode: ProductCategoryTreeFlatNode) {
+  fetchFromNode(treeNode: ProductCategoryTreeFlatNode) {
     return of(this.flatNodeMap.get(treeNode));
   }
 
-  private loadChildren(parent: ProductCategory) {
+  private loadDescendants(parent: ProductCategory) {
     return this.apiService.fetchPage(0, Number.MAX_SAFE_INTEGER, null, null, { parentCode: parent.code }).pipe(
       map(page => page.items as ProductCategory[]),
       tap(children => { parent.children = children; })

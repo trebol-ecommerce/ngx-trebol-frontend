@@ -28,7 +28,7 @@ describe('ProductCategoryTreeComponent', () => {
   let sharedDialogServiceSpy: jasmine.SpyObj<SharedDialogService>;
 
   beforeEach(waitForAsync(() => {
-    const mockService = jasmine.createSpyObj('ProductCategoryTreeService', ['addNode', 'editNode', 'deleteNode', 'transformIntoNode', 'fetchCategoryFromNode', 'reloadCategories']);
+    const mockService = jasmine.createSpyObj('ProductCategoryTreeService', ['add', 'edit', 'remove', 'transformIntoNode', 'fetchFromNode', 'reloadCategories']);
     const mockSnackbarService = jasmine.createSpyObj('MatSnackBar', ['open']);
     const mockDialogService = jasmine.createSpyObj('MatDialog', ['open']);
     const mockSharedDialogService = jasmine.createSpyObj('SharedDialogService', ['requestConfirmation']);
@@ -92,7 +92,7 @@ describe('ProductCategoryTreeComponent', () => {
     });
 
     beforeEach(() => {
-      serviceSpy.fetchCategoryFromNode.and.callFake(node => of({
+      serviceSpy.fetchFromNode.and.callFake(node => of({
         name: node?.name || 'some-name',
         code: 'some-code'
       }));
@@ -111,16 +111,16 @@ describe('ProductCategoryTreeComponent', () => {
       dialogServiceSpy.open.and.returnValue({
         afterClosed: () => of(target)
       } as MatDialogRef<any>);
-      serviceSpy.addNode.and.returnValue(of(void 0));
+      serviceSpy.add.and.returnValue(of(void 0));
 
       component.onClickAddChildNodeTo(targetNode);
 
-      serviceSpy.addNode.and.returnValue(throwError({ status: 400 }));
+      serviceSpy.add.and.returnValue(throwError({ status: 400 }));
 
       component.onClickAddChildNodeTo(targetNode);
 
-      expect(serviceSpy.addNode).toHaveBeenCalled();
-      expect(serviceSpy.addNode).toHaveBeenCalledWith(target);
+      expect(serviceSpy.add).toHaveBeenCalled();
+      expect(serviceSpy.add).toHaveBeenCalledWith(target);
     });
 
     it('should display a dialog to edit an existing category', () => {
@@ -136,14 +136,14 @@ describe('ProductCategoryTreeComponent', () => {
       dialogServiceSpy.open.and.returnValue({
         afterClosed: () => of(target)
       } as MatDialogRef<any>);
-      serviceSpy.editNode.and.returnValue(of(void 0));
+      serviceSpy.edit.and.returnValue(of(void 0));
       component.onClickEditNode(targetNode);
-      expect(serviceSpy.editNode).toHaveBeenCalled();
+      expect(serviceSpy.edit).toHaveBeenCalled();
 
-      serviceSpy.editNode.and.returnValue(throwError({ status: 400 }));
+      serviceSpy.edit.and.returnValue(throwError({ status: 400 }));
       component.onClickEditNode(targetNode);
 
-      expect(serviceSpy.editNode).toHaveBeenCalledTimes(2);
+      expect(serviceSpy.edit).toHaveBeenCalledTimes(2);
     });
 
     it('should request confirmation before deleting any category', () => {
@@ -155,25 +155,25 @@ describe('ProductCategoryTreeComponent', () => {
     it('should not delete a category if not confirmed', () => {
       sharedDialogServiceSpy.requestConfirmation.and.returnValue(of(false));
       component.onClickDeleteNode(targetNode);
-      expect(serviceSpy.deleteNode).not.toHaveBeenCalled();
+      expect(serviceSpy.remove).not.toHaveBeenCalled();
     });
 
 
     it('should delete a category', () => {
       sharedDialogServiceSpy.requestConfirmation.and.returnValue(of(true));
-      serviceSpy.deleteNode.and.returnValue(of(void 0));
+      serviceSpy.remove.and.returnValue(of(void 0));
       component.onClickDeleteNode(targetNode);
-      expect(serviceSpy.deleteNode).toHaveBeenCalled();
+      expect(serviceSpy.remove).toHaveBeenCalled();
 
-      serviceSpy.deleteNode.and.returnValue(throwError({ status: 404 }));
+      serviceSpy.remove.and.returnValue(throwError({ status: 404 }));
       component.onClickDeleteNode(targetNode);
 
-      expect(serviceSpy.deleteNode).toHaveBeenCalledTimes(2);
+      expect(serviceSpy.remove).toHaveBeenCalledTimes(2);
     });
 
     describe('and is interfaced to pick a category', () => {
       beforeEach(() => {
-        serviceSpy.fetchCategoryFromNode.and.returnValue(of(null));
+        serviceSpy.fetchFromNode.and.returnValue(of(null));
         component.selectionEnabled = true;
       });
 

@@ -75,7 +75,7 @@ export class ProductCategoryTreeComponent
   deleteNodeLabel = (n: ProductCategoryTreeFlatNode) => ($localize`:Label for action button to delete category of name {{ name }}:Delete category '${n.name}:name:'`);
 
   onClickAddChildNodeTo(parentNode: ProductCategoryTreeFlatNode): void {
-    this.service.fetchCategoryFromNode(parentNode).pipe(
+    this.service.fetchFromNode(parentNode).pipe(
       switchMap(category => this.requestCategoryData({
         item: {
           parent: {
@@ -85,7 +85,7 @@ export class ProductCategoryTreeComponent
         } as ProductCategory,
         isNewItem: true
       })),
-      switchMap(newNode => this.service.addNode(newNode)),
+      switchMap(newNode => this.service.add(newNode)),
       tap(
         next => {
           this.matTree.renderNodeChanges(this.dataSource.data); // TODO can this be optimized further?
@@ -100,12 +100,12 @@ export class ProductCategoryTreeComponent
   }
 
   onClickEditNode(treeNode: ProductCategoryTreeFlatNode): void {
-    this.service.fetchCategoryFromNode(treeNode).pipe(
+    this.service.fetchFromNode(treeNode).pipe(
       switchMap(category => this.requestCategoryData({
         item: category,
         isNewItem: false
       }).pipe(
-        switchMap(newNode => this.service.editNode(newNode, category))
+        switchMap(newNode => this.service.edit(newNode, category))
       )),
       tap(
         (next: ProductCategory) => {
@@ -124,8 +124,8 @@ export class ProductCategoryTreeComponent
       message: $localize`:Paragraph asking confirmation to delete a category, and explaining that deleting it cascades to its descendants, but not to related products which are detached from the relationship:Are you sure to delete the category? This will include all its descendants. Related products will not be deleted, and instead will be marked as not having a category.`
     }).pipe(
       filter(didConfirm => didConfirm),
-      switchMap(() => this.service.fetchCategoryFromNode(treeNode)),
-      switchMap(category => this.service.deleteNode(category)),
+      switchMap(() => this.service.fetchFromNode(treeNode)),
+      switchMap(category => this.service.remove(category)),
       tap(
         next => {
           this.matTree.renderNodeChanges(this.dataSource.data); // TODO optimize this?
@@ -140,7 +140,7 @@ export class ProductCategoryTreeComponent
 
   onClickTreeNode(treeNode: ProductCategoryTreeFlatNode): void {
     if (this.selectionEnabled) {
-      this.service.fetchCategoryFromNode(treeNode).pipe(
+      this.service.fetchFromNode(treeNode).pipe(
         tap(category => this.selection.emit(category))
       ).subscribe();
     }
