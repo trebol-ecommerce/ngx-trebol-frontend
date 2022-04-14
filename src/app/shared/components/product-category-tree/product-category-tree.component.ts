@@ -93,7 +93,6 @@ export class ProductCategoryTreeComponent
           this.snackbarService.open($localize`:Message of success after creating subcategory with name {{ name }}:Subcategory '${next.name}:name:' was created`, COMMON_DISMISS_BUTTON_LABEL);
         },
         error => {
-          console.error(error);
           this.snackbarService.open($localize`:Message of error during creation of subcategory:Subcategory could not be created`, COMMON_DISMISS_BUTTON_LABEL);
         }
       )
