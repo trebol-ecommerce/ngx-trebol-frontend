@@ -9,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { catchError, switchMap, tap } from 'rxjs/operators';
+import { catchError, switchMap, take, tap } from 'rxjs/operators';
 import { SessionService } from 'src/app/session.service';
 import { IAccessApiService } from '../api/access-api.iservice';
 import { API_INJECTION_TOKENS } from '../api/api-injection-tokens';
@@ -28,8 +28,14 @@ export class ManagementRoutingGuard
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.sessionService.validateSession().pipe(
-      tap(v => { if (!v) { this.router.navigateByUrl('/'); } }));
+    return this.sessionService.userHasActiveSession$.pipe(
+      take(1),
+      tap(v => {
+        if (!v) {
+          this.router.navigateByUrl('/');
+        }
+      })
+    );
   }
 
   canActivateChild(

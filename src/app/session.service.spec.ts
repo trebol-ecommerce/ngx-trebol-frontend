@@ -7,7 +7,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { concat, EMPTY, merge, of, throwError } from 'rxjs';
-import { count, filter, finalize, ignoreElements, skip, take, tap } from 'rxjs/operators';
+import { finalize, skip, take, takeLast, takeUntil, tap, toArray } from 'rxjs/operators';
 import { IAccessApiService } from './api/access-api.iservice';
 import { API_INJECTION_TOKENS } from './api/api-injection-tokens';
 import { SessionService } from './session.service';
@@ -67,28 +67,39 @@ describe('SessionService', () => {
     it('should have `userHasActiveSession$` emit `false` when logging out', () => {
       merge(
         EMPTY.pipe(
-          finalize(() => service.closeCurrentSession())
+          finalize(() => {
+            service.saveToken('sometoken');
+            service.closeCurrentSession();
+          })
         ),
         service.userHasActiveSession$.pipe(
-          take(1),
+          take(2),
+          takeLast(1),
           tap(next => expect(next).toBeFalse())
         )
       ).subscribe();
     });
 
-    it('should have `userHasActiveSession$` emit an update everytime `validateSession()` is called', () => {
-      const totalChanges = 3;
-      merge(
-        service.userHasActiveSession$.pipe(
-          take(totalChanges)
+    it('should have `userHasActiveSession$` emit an update only when it changes', () => {
+      service.userHasActiveSession$.pipe(
+        skip(1),
+        take(1),
+        takeUntil(
+          concat(
+            service.validateSession(),
+            service.validateSession(),
+            service.validateSession(),
+            of(void 0).pipe(
+              tap(() => service.saveToken('sometoken'))
+            )
+          ).pipe(
+            takeLast(1)
+          )
         ),
-        concat(
-          service.validateSession(),
-          service.validateSession(),
-          service.validateSession()
-        )
-      ).pipe(
-        finalize(() => expect(accessApiServiceSpy.getAuthorizedAccess).toHaveBeenCalledTimes(totalChanges))
+        tap(next => {
+          expect(accessApiServiceSpy.getAuthorizedAccess).toHaveBeenCalledTimes(3);
+          expect(next).toBeTrue();
+        })
       ).subscribe();
     });
   });
@@ -96,16 +107,20 @@ describe('SessionService', () => {
   describe('when the user is unauthenticated', () => {
     beforeEach(() => {
       accessApiServiceSpy.getAuthorizedAccess.and.returnValue(throwError({ status: 403 }));
-      service.validateSession();
+      service.validateSession().subscribe();
     });
 
-    it('should emit null authorization data', () => {
-      concat(
-        service.validateSession(),
-        service.authorizedAccess$.pipe(
-          take(1),
-          tap(access => expect(access).toEqual(null))
-        )
+    it('should have `userHasActiveSession$` emit false', () => {
+      service.userHasActiveSession$.pipe(
+        take(1),
+        tap(next => expect(next).toBeFalse())
+      ).subscribe();
+    });
+
+    it('should have `authorizedAccess$` emit null', () => {
+      service.authorizedAccess$.pipe(
+        take(1),
+        tap(access => expect(access).toEqual(null))
       ).subscribe();
     });
   });
@@ -113,27 +128,20 @@ describe('SessionService', () => {
   describe('when the user is authenticated', () => {
     beforeEach(() => {
       accessApiServiceSpy.getAuthorizedAccess.and.returnValue(of({ routes: [] }));
-      ;
+      service.validateSession().subscribe();
     });
 
     it('should have `userHasActiveSession$` emit true', () => {
-      concat(
-        service.validateSession(),
-        service.userHasActiveSession$.pipe(
-          take(1),
-          tap(next => expect(next).toBeTrue())
-        )
+      service.userHasActiveSession$.pipe(
+        take(1),
+        tap(next => expect(next).toBeTrue())
       ).subscribe();
     });
 
-    it('should serve a cached result in subsequent calls to `fetchAuthorizedAccess()`', () => {
-      concat(
-        service.validateSession(), // once, besides next one
-        service.fetchAuthorizedAccess(), // once
-        service.fetchAuthorizedAccess(),
-        service.fetchAuthorizedAccess()
-      ).pipe(
-        finalize(() => expect(accessApiServiceSpy.getAuthorizedAccess).toHaveBeenCalledTimes(2))
+    it('should have `authorizedAccess$` emit actual data', () => {
+      service.authorizedAccess$.pipe(
+        take(1),
+        tap(access => expect(access).toEqual({ routes: [] }))
       ).subscribe();
     });
   });

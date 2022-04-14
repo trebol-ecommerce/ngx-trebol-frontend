@@ -18,11 +18,13 @@ describe('ManagementSidenavComponent', () => {
   let component: ManagementSidenavComponent;
   let fixture: ComponentFixture<ManagementSidenavComponent>;
   let routingServiceSpy: jasmine.SpyObj<ManagementRoutingService>;
-  let sessionServiceSpy: jasmine.SpyObj<SessionService>;
+  let mockSessionService: Partial<SessionService>;
 
   beforeEach(waitForAsync(() => {
     const mockRoutingService = jasmine.createSpyObj('ManagementRoutingService', ['currentRouteSnapshot$']);
-    const mockSessionService = jasmine.createSpyObj('SessionService', ['fetchAuthorizedAccess'])
+    mockSessionService = {
+      authorizedAccess$: of(null)
+    };
 
     TestBed.configureTestingModule({
       imports: [
@@ -40,7 +42,6 @@ describe('ManagementSidenavComponent', () => {
 
   beforeEach(() => {
     routingServiceSpy = TestBed.inject(ManagementRoutingService) as jasmine.SpyObj<ManagementRoutingService>;
-    sessionServiceSpy = TestBed.inject(SessionService) as jasmine.SpyObj<SessionService>;
 
     fixture = TestBed.createComponent(ManagementSidenavComponent);
     component = fixture.componentInstance;
@@ -49,7 +50,6 @@ describe('ManagementSidenavComponent', () => {
   describe('always', () => {
     beforeEach(() => {
       routingServiceSpy.currentRouteSnapshot$ = EMPTY;
-      sessionServiceSpy.fetchAuthorizedAccess.and.returnValue(of({ routes: [] }));
       fixture.detectChanges();
     });
 
@@ -65,7 +65,6 @@ describe('ManagementSidenavComponent', () => {
 
     beforeEach(() => {
       mockRoutes = ['sales', 'products'];
-      sessionServiceSpy.fetchAuthorizedAccess.and.returnValue(of({ routes: mockRoutes }));
       fixture.detectChanges();
     });
   });

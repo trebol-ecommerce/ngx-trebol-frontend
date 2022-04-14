@@ -5,9 +5,9 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, forkJoin, Observable, of, ReplaySubject } from 'rxjs';
-import { catchError, finalize, map, switchMap, take, tap } from 'rxjs/operators';
+import { Inject, Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { distinctUntilChanged, finalize, ignoreElements, onErrorResumeNext, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { environment } from 'src/environments/environment';
 import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
@@ -17,8 +17,7 @@ import { IAccessApiService } from './api/access-api.iservice';
  * Exposes a few observables and methods to acknowledge & update session state
  */
 @Injectable({ providedIn: 'root' })
-export class SessionService
-  implements OnDestroy {
+export class SessionService {
 
   private readonly sessionStorageTokenItemName = environment.secrets.sessionStorageTokenItem;
 
@@ -26,31 +25,40 @@ export class SessionService
   private userHasActiveSessionSource = new ReplaySubject<boolean>(1);
   private isValidatingSessionSource = new BehaviorSubject(false);
 
-  authorizedAccess$ = this.authorizedAccessSource.asObservable();
-  userHasActiveSession$ = this.userHasActiveSessionSource.asObservable();
-  isValidatingSession$ = this.isValidatingSessionSource.asObservable();
+  authorizedAccess$: Observable<AuthorizedAccess>;
+  userHasActiveSession$: Observable<boolean>;
+  isValidatingSession$: Observable<boolean>;
 
   constructor(
     @Inject(API_INJECTION_TOKENS.access) private accessApiService: IAccessApiService
-  ) { }
-
-  // TODO services do not support lifecycle hooks such as this...
-  ngOnDestroy(): void {
-    this.userHasActiveSessionSource.complete();
-    this.isValidatingSessionSource.complete();
+  ) {
+    this.authorizedAccess$ = this.authorizedAccessSource.asObservable().pipe(
+      distinctUntilChanged()
+    );
+    this.userHasActiveSession$ = this.userHasActiveSessionSource.asObservable().pipe(
+      distinctUntilChanged()
+    );
+    this.isValidatingSession$ = this.isValidatingSessionSource.asObservable().pipe(
+      distinctUntilChanged()
+    );
   }
 
-  validateSession(emitIfValid = true): Observable<boolean> {
+  validateSession() {
     this.isValidatingSessionSource.next(true);
 
     return this.accessApiService.getAuthorizedAccess().pipe(
-      map(() => true),
-      catchError(() => of(false)),
-      tap(isValid => {
-        if (!isValid || emitIfValid) {
-          this.userHasActiveSessionSource.next(isValid);
+      tap(
+        next => {
+          this.authorizedAccessSource.next(next);
+          this.userHasActiveSessionSource.next(true);
+        },
+        err => {
+          this.authorizedAccessSource.next(null);
+          this.closeCurrentSession()
         }
-      }),
+      ),
+      onErrorResumeNext(),
+      ignoreElements(),
       finalize(() => { this.isValidatingSessionSource.next(false); })
     );
   }
@@ -60,35 +68,9 @@ export class SessionService
     this.userHasActiveSessionSource.next(false);
   }
 
-  saveToken(token: any) {
+  saveToken(token: any): void {
     sessionStorage.setItem(this.sessionStorageTokenItemName, token);
-    this.userHasActiveSessionSource.next(true);
-  }
-
-  fetchAuthorizedAccess(): Observable<AuthorizedAccess> {
-    return this.userHasActiveSession$.pipe(
-      take(1),
-      switchMap(hasActiveSession => (hasActiveSession ?
-        (!!this.authorizedAccessSource.value ?
-          this.authorizedAccessSource.asObservable().pipe(
-            take(1)
-          ) :
-          this.accessApiService.getAuthorizedAccess().pipe(
-            tap(
-              access => this.authorizedAccessSource.next(access),
-              err => this.userHasActiveSessionSource.next(false)
-            )
-          )
-        ) :
-        of(null).pipe(
-          tap(() => {
-            if (this.authorizedAccessSource.value !== null) {
-              this.authorizedAccessSource.next(null);
-            }
-          })
-        )
-      ))
-    );
+    this.validateSession().subscribe();
   }
 
 }

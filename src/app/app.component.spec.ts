@@ -33,7 +33,7 @@ describe('AppComponent', () => {
       events: of(new ActivationEnd({} as ActivatedRouteSnapshot))
     } as Partial<Router>;
     const mockProfileService = jasmine.createSpyObj('ProfileService', ['getUserProfile']);
-    const mockSessionService = jasmine.createSpyObj('SessionService', ['validateSession','fetchAuthorizedAccess']);
+    const mockSessionService = jasmine.createSpyObj('SessionService', ['validateSession']);
 
     TestBed.configureTestingModule({
       declarations: [
@@ -53,8 +53,8 @@ describe('AppComponent', () => {
     profileServiceSpy = TestBed.inject(ProfileService) as jasmine.SpyObj<ProfileService>;
     sessionServiceSpy = TestBed.inject(SessionService) as jasmine.SpyObj<SessionService>;
     sessionServiceSpy.validateSession.and.returnValue(EMPTY);
-    sessionServiceSpy.fetchAuthorizedAccess.and.returnValue(EMPTY);
     sessionServiceSpy.userHasActiveSession$ = of(false);
+    profileServiceSpy.getUserProfile.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.debugElement.componentInstance;

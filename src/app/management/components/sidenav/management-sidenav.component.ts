@@ -36,10 +36,10 @@ export class ManagementSidenavComponent
   }
 
   private fetchAuthorizedModules() {
-    return this.sessionService.fetchAuthorizedAccess().pipe(
+    return this.sessionService.authorizedAccess$.pipe(
       take(1),
       map(access => MANAGEMENT_CHILD_ROUTES
-        .filter(r => (access.routes.includes(r.path) || r.path === 'dashboard'))
+        .filter(r => (access?.routes.includes(r.path) || r.path === 'dashboard'))
         .map(r => ({
           path: r.path,
           text: r.data.title,
