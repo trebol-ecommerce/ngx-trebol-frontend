@@ -52,10 +52,10 @@ export class ProductCategoryTreeComponent
       (node: ProductCategoryTreeFlatNode) => node.level,
       (node: ProductCategoryTreeFlatNode) => node.expandable);
     this.treeFlattener = new MatTreeFlattener(
-      (node: ProductCategory, level: number) => this.service.transformNode(node, level),
+      (category: ProductCategory, level: number) => this.service.transformIntoNode(category, level),
       (node: ProductCategoryTreeFlatNode) => node.level,
       (node: ProductCategoryTreeFlatNode) => node.expandable,
-      (node: ProductCategory) => node.children);
+      (category: ProductCategory) => category.children);
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
     this.service.reloadCategories();
     this.dataChangesSubscription = this.service.categories$.pipe(

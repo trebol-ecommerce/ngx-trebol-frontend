@@ -81,7 +81,7 @@ export class ProductCategoryTreeService {
     );
   }
 
-  transformNode(node: ProductCategory, level: number) {
+  transformIntoNode(node: ProductCategory, level: number): ProductCategoryTreeFlatNode {
     const existingNode = this.nestedNodeMap.get(node);
     const flatNode = (existingNode) ? existingNode : new ProductCategoryTreeFlatNode();
     flatNode.name = node.name;
