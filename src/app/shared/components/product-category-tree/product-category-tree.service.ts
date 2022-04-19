@@ -47,6 +47,7 @@ export class ProductCategoryTreeService {
           } else {
             parent.children.push(newNode);
           }
+          delete newNode.parent;
         }
         this.categoriesSource.next(this.categoriesSource.value);
       }),
@@ -59,7 +60,6 @@ export class ProductCategoryTreeService {
       tap(() => {
         originalNode.code = newNode.code;
         originalNode.name = newNode.name;
-        originalNode.parent = newNode.parent;
         this.categoriesSource.next(this.categoriesSource.value);
       })
     );
@@ -67,14 +67,7 @@ export class ProductCategoryTreeService {
 
   remove(node: ProductCategory) {
     return this.apiService.delete({ code: node.code }).pipe(
-      tap(() => {
-        const rootCategories = this.categoriesSource.value;
-        const nodeIndex = rootCategories.findIndex(n => (n.code === node.code));
-        if (nodeIndex !== -1) {
-          rootCategories.splice(nodeIndex, 1);
-        }
-        this.categoriesSource.next(rootCategories);
-      })
+      tap(() => this.reloadCategories(true))
     );
   }
 

@@ -6,20 +6,18 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { EMPTY, merge, of } from 'rxjs';
-import { finalize, skip, take, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
-import { ProductCategoriesDataLocalMemoryApiService } from 'src/app/api/local-memory/data/product-categories-data.local-memory-api.service';
-import { MOCK_PRODUCT_CATEGORIES } from 'src/app/api/local-memory/mock/mock-product-categories.datasource';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { ProductCategoryTreeService } from './product-category-tree.service';
 
 describe('ProductCategoryTreeService', () => {
   let service: ProductCategoryTreeService;
+  let apiServiceSpy: jasmine.SpyObj<ITransactionalEntityDataApiService<ProductCategory>>;
 
   beforeEach(() => {
-    const mockApiService = jasmine.createSpyObj('ITransactionalEntityDataApiService<ProductCategory>', ['fetchPage']);
+    const mockApiService = jasmine.createSpyObj('ITransactionalEntityDataApiService<ProductCategory>', ['fetchPage', 'create', 'update', 'delete']);
 
     TestBed.configureTestingModule({
       providers: [
@@ -28,70 +26,78 @@ describe('ProductCategoryTreeService', () => {
     });
   });
 
-  describe('always', () => {
-    let apiServiceSpy: jasmine.SpyObj<ITransactionalEntityDataApiService<ProductCategory>>;
+  beforeEach(() => {
+    apiServiceSpy = TestBed.inject(API_INJECTION_TOKENS.dataProductCategories) as jasmine.SpyObj<ITransactionalEntityDataApiService<ProductCategory>>;
+    apiServiceSpy.fetchPage.and.returnValue(of({
+      pageIndex: 0,
+      items: [],
+      totalCount: 0,
+      pageSize: 10
+    }));
+    apiServiceSpy.create.and.returnValue(of(void 0));
+    apiServiceSpy.update.and.returnValue(of(void 0));
+    apiServiceSpy.delete.and.returnValue(of(void 0));
 
-    beforeEach(() => {
-      apiServiceSpy = TestBed.inject(API_INJECTION_TOKENS.dataProductCategories) as jasmine.SpyObj<ITransactionalEntityDataApiService<ProductCategory>>;
-      service = TestBed.inject(ProductCategoryTreeService);
-    });
-
-    it('should be created', () => {
-      expect(service).toBeTruthy();
-    });
-
-    it('should fetch the root categories', () => {
-      apiServiceSpy.fetchPage.and.returnValue(of({
-        pageIndex: 0,
-        items: [],
-        totalCount: 0,
-        pageSize: 10
-      }));
-      service.reloadCategories();
-      expect(apiServiceSpy.fetchPage).toHaveBeenCalled();
-    });
+    service = TestBed.inject(ProductCategoryTreeService);
   });
 
-  describe('using a local datastore', () => {
-    let apiService: ITransactionalEntityDataApiService<ProductCategory>;
-
-    beforeEach(() => {
-      TestBed.overrideProvider(API_INJECTION_TOKENS.dataProductCategories,
-        {
-          useValue: new ProductCategoriesDataLocalMemoryApiService()
-        }
-      );
-      apiService = TestBed.inject(API_INJECTION_TOKENS.dataProductCategories);
-      service = TestBed.inject(ProductCategoryTreeService);
-    });
-
-    it('should fetch', () => {
-      apiService.fetchPage().pipe(
-        tap(p => {
-          expect(p).toBeTruthy();
-          expect(p.items).toBeTruthy();
-          expect(Array.isArray(p.items)).toBeTrue();
-          expect(p.items.length > 0).toBeTrue();
-        })
-      ).subscribe();
-    });
-
-    it('should fetch categories recursively and return a tree-like structure', () => {
-      merge(
-        service.categories$.pipe(
-          skip(1),
-          take(1)
-        ),
-        EMPTY.pipe(
-          finalize(() => service.reloadCategories())
-        )
-      ).pipe(
-        // as many roots as in the local memory array
-        // TODO flatten result to compare branches as well
-        tap(categories => expect(categories.length === MOCK_PRODUCT_CATEGORIES.filter(c => !c.parent).length).toBeTrue())
-      ).subscribe();
-    });
+  it('should be created', () => {
+    expect(service).toBeTruthy();
   });
 
+  it('should fetch the root categories', () => {
+    service.reloadCategories();
+    expect(apiServiceSpy.fetchPage).toHaveBeenCalled();
+  });
+
+  it('should fetch descendants of root categories ', () => {
+    // limit recursivity
+    apiServiceSpy.fetchPage.and.callFake((index, size, sortBy, order, filter) => of({
+      pageIndex: 0,
+      items: filter ?
+        [] :
+        [{
+          code: 'some-code',
+          name: 'some-name'
+        }],
+      totalCount: filter ? 0 : 1,
+      pageSize: 10
+    }));
+
+    service.reloadCategories();
+    // the spy could be called infinite times if the check for 'filter' was absent
+    expect(apiServiceSpy.fetchPage).toHaveBeenCalledTimes(2);
+  });
+
+  it('should add categories', () => {
+    const category: ProductCategory = {
+      code: 'some-code',
+      name: 'some-name',
+    };
+    service.add(category).subscribe();
+    expect(apiServiceSpy.create).toHaveBeenCalled();
+  });
+
+  it('should edit categories', () => {
+    const original: ProductCategory = {
+      code: 'some-code',
+      name: 'some-name',
+    };
+    const category2: ProductCategory = {
+      code: 'some-code2',
+      name: 'some-name2',
+    };
+    service.edit(category2, original).subscribe();
+    expect(apiServiceSpy.update).toHaveBeenCalled();
+  });
+
+  it('should remove categories', () => {
+    const category: ProductCategory = {
+      code: 'some-code',
+      name: 'some-name',
+    };
+    service.remove(category).subscribe();
+    expect(apiServiceSpy.delete).toHaveBeenCalled();
+  });
 
 });
