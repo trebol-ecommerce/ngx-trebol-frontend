@@ -1,7 +1,7 @@
 {
   "name": "ngx-trebol-frontend",
   "version": "2.12.0-rc.1",
-  "revision": 16,
+  "revision": 17,
   "license": "MIT",
   "scripts": {
     "ng": "ng",

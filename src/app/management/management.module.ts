@@ -25,7 +25,6 @@ import { ProductCategoryFormComponent } from './forms/product-category/product-c
 import { ProductListFormComponent } from './forms/product-list/product-list-form.component';
 import { ProductFormComponent } from './forms/product/product-form.component';
 import { SalespersonFormComponent } from './forms/salesperson/salesperson-form.component';
-import { SellFormComponent } from './forms/sell/sell-form.component';
 import { ShipperFormComponent } from './forms/shipper/shipper-form.component';
 import { UserFormComponent } from './forms/user/user-form.component';
 import { ManagementMaterialModule } from './management-material.module';
@@ -75,7 +74,6 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ProductListFormComponent,
     ProductFormComponent,
     SalespersonFormComponent,
-    SellFormComponent,
     ShipperFormComponent,
     UserFormComponent,
     ManagementComponent,

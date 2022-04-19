@@ -66,12 +66,6 @@ class MockProductCategoryFormComponent extends MockAbstractForm { }
 class MockProductListFormComponent extends MockAbstractForm { }
 
 @Component({
-  selector: 'app-sell-form',
-  providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockSellFormComponent }]
-})
-class MockSellFormComponent extends MockAbstractForm { }
-
-@Component({
   selector: 'app-shipper-form',
   providers: [{ provide: NG_VALUE_ACCESSOR, multi: true, useExisting: MockShipperFormComponent }]
 })
@@ -95,7 +89,6 @@ const entityDescriptors: EntityDescriptor[] = [
   { name: 'product', formComponentSelector: 'app-product-form' },
   { name: 'productCategory', formComponentSelector: 'app-product-category-form' },
   { name: 'productList', formComponentSelector: 'app-product-list-form' },
-  { name: 'sell', formComponentSelector: 'app-sell-form' },
   { name: 'shipper', formComponentSelector: 'app-shipper-form' },
   { name: 'user', formComponentSelector: 'app-user-form' }
 ];
@@ -131,7 +124,6 @@ describe('EntityFormDialogComponent', () => {
         MockProductFormComponent,
         MockProductCategoryFormComponent,
         MockProductListFormComponent,
-        MockSellFormComponent,
         MockShipperFormComponent,
         MockUserFormComponent,
         EntityFormDialogComponent

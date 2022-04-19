@@ -41,6 +41,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 - Unused components related to file upload (which may be included if the feature ever gets to the external API specification)
+- Sales data cannot be edited from the management module, as the `SellFormComponent` is no longer included
+  - This may be reverted in future versions
 
 ## [v2.12.0-rc.1] - 2022-03-25
 

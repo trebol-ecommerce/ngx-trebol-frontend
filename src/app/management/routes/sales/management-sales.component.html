@@ -51,15 +51,6 @@
             <mat-icon class="material-icons-outlined">info</mat-icon>
           </button>
           <button mat-button mat-icon-button type="button"
-            *ngIf="canUpdate$ | async"
-            color="primary"
-            aria-label="Edit"
-            i18n-aria-label="edit|Label for action button to edit information of an item"
-            [disabled]="busy$ | async"
-            (click)="onClickEdit(row.item)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-button mat-icon-button type="button"
             *ngIf="canDelete$ | async"
             color="warn"
             aria-label="Delete"
