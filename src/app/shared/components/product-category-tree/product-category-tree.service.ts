@@ -6,18 +6,15 @@
  */
 
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, from, of } from 'rxjs';
+import { BehaviorSubject, from } from 'rxjs';
 import { expand, ignoreElements, map, switchMap, tap, toArray } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
-import { ProductCategoryTreeFlatNode } from './ProductCategoryTreeFlatNode';
 
 @Injectable({ providedIn: 'root' })
 export class ProductCategoryTreeService {
 
-  private flatNodeMap = new Map<ProductCategoryTreeFlatNode, ProductCategory>();
-  private nestedNodeMap = new Map<ProductCategory, ProductCategoryTreeFlatNode>();
   private categoriesSource = new BehaviorSubject<ProductCategory[]>([]);
 
   categories$ = this.categoriesSource.asObservable();
@@ -79,21 +76,6 @@ export class ProductCategoryTreeService {
         this.categoriesSource.next(rootCategories);
       })
     );
-  }
-
-  transformIntoNode(node: ProductCategory, level: number): ProductCategoryTreeFlatNode {
-    const existingNode = this.nestedNodeMap.get(node);
-    const flatNode = (existingNode) ? existingNode : new ProductCategoryTreeFlatNode();
-    flatNode.name = node.name;
-    flatNode.level = level;
-    flatNode.expandable = !!(node.children?.length);
-    this.flatNodeMap.set(flatNode, node);
-    this.nestedNodeMap.set(node, flatNode);
-    return flatNode;
-  }
-
-  fetchFromNode(treeNode: ProductCategoryTreeFlatNode) {
-    return of(this.flatNodeMap.get(treeNode));
   }
 
   private loadDescendants(parent: ProductCategory) {
