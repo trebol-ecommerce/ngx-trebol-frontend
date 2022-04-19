@@ -17,13 +17,13 @@ import { SessionService } from 'src/app/session.service';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { ProfileService } from 'src/app/profile.service';
 import { ManagementHeaderMenuComponent } from './management-header-menu.component';
+import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component';
 
 describe('ManagementHeaderMenuComponent', () => {
   let component: ManagementHeaderMenuComponent;
   let fixture: ComponentFixture<ManagementHeaderMenuComponent>;
   let sessionServiceSpy: jasmine.SpyObj<SessionService>;
   let profileServiceSpy: jasmine.SpyObj<ProfileService>;
-  let snackBarServiceSpy: jasmine.SpyObj<MatSnackBar>;
   let dialogServiceSpy: jasmine.SpyObj<MatDialog>;
   let sharedDialogServiceSpy: jasmine.SpyObj<SharedDialogService>;
 
@@ -58,7 +58,6 @@ describe('ManagementHeaderMenuComponent', () => {
   beforeEach(() => {
     sessionServiceSpy = TestBed.inject(SessionService) as jasmine.SpyObj<SessionService>;
     profileServiceSpy = TestBed.inject(ProfileService) as jasmine.SpyObj<ProfileService>;
-    snackBarServiceSpy = TestBed.inject(MatSnackBar) as jasmine.SpyObj<MatSnackBar>;
     dialogServiceSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
     sharedDialogServiceSpy = TestBed.inject(SharedDialogService) as jasmine.SpyObj<SharedDialogService>;
 
@@ -72,5 +71,22 @@ describe('ManagementHeaderMenuComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should open a dialog to edit the user\'s profile info', () => {
+    component.onClickEditProfile();
+    expect(dialogServiceSpy.open).toHaveBeenCalled();
+  });
+
+  it('should request a confirmation before logging out', () => {
+    component.onClickLogout();
+    expect(sharedDialogServiceSpy.requestConfirmation).toHaveBeenCalled();
+    expect(sessionServiceSpy.closeCurrentSession).not.toHaveBeenCalled();
+  });
+
+  it('should log out the user', () => {
+    sharedDialogServiceSpy.requestConfirmation.and.returnValue(of(true));
+    component.onClickLogout();
+    expect(sessionServiceSpy.closeCurrentSession).toHaveBeenCalled();
   });
 });
