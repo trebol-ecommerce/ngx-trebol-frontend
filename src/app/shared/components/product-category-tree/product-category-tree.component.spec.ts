@@ -20,6 +20,22 @@ import { ProductCategoryTreeComponent } from './product-category-tree.component'
 import { ProductCategoryTreeService } from './product-category-tree.service';
 import { ProductCategoryTreeFlatNode } from './ProductCategoryTreeFlatNode';
 
+const MOCK_CATEGORIES: ProductCategory[] = [
+  {
+    code: 'some-code1',
+    name: 'some-name1'
+  },
+  {
+    code: 'some-code2',
+    name: 'some-name2'
+  },
+  {
+    code: 'some-code3',
+    name: 'some-name3',
+    parent: { code: 'some-code2' }
+  }
+];
+
 describe('ProductCategoryTreeComponent', () => {
   let component: ProductCategoryTreeComponent;
   let fixture: ComponentFixture<ProductCategoryTreeComponent>;
@@ -28,7 +44,7 @@ describe('ProductCategoryTreeComponent', () => {
   let sharedDialogServiceSpy: jasmine.SpyObj<SharedDialogService>;
 
   beforeEach(waitForAsync(() => {
-    const mockService = jasmine.createSpyObj('ProductCategoryTreeService', ['add', 'edit', 'remove', 'transformIntoNode', 'fetchFromNode', 'reloadCategories']);
+    const mockService = jasmine.createSpyObj('ProductCategoryTreeService', ['add', 'edit', 'remove', 'reloadCategories']);
     const mockSnackbarService = jasmine.createSpyObj('MatSnackBar', ['open']);
     const mockDialogService = jasmine.createSpyObj('MatDialog', ['open']);
     const mockSharedDialogService = jasmine.createSpyObj('SharedDialogService', ['requestConfirmation']);
@@ -53,127 +69,52 @@ describe('ProductCategoryTreeComponent', () => {
     serviceSpy = TestBed.inject(ProductCategoryTreeService) as jasmine.SpyObj<ProductCategoryTreeService>;
     dialogServiceSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
     sharedDialogServiceSpy = TestBed.inject(SharedDialogService) as jasmine.SpyObj<SharedDialogService>;
-    serviceSpy.transformIntoNode.and.returnValue(null);
     serviceSpy.categories$ = of([]);
 
     fixture = TestBed.createComponent(ProductCategoryTreeComponent);
     component = fixture.componentInstance;
+    // component.editable = false;
+    // component.selectionEnabled = false;
   });
 
   it('should create', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
+    expect(serviceSpy.reloadCategories).toHaveBeenCalled();
   });
 
   describe('when there is initial data', () => {
-    let categories: ProductCategory[];
-    let randomIndex: number;
-    let targetNode: ProductCategoryTreeFlatNode;
     let target: ProductCategory;
+    let targetNode: ProductCategoryTreeFlatNode;
 
     beforeEach(() => {
-      categories = [
-        { code: 'some-code1', name: 'some-name1' },
-        { code: 'some-code2', name: 'some-name2' },
-        { code: 'some-code3', name: 'some-name3', parent: { code: 'some-code2', name: 'some-name2' } }
+      const parentingCategory: ProductCategory = {
+        code: MOCK_CATEGORIES[1].code,
+        name: MOCK_CATEGORIES[1].name,
+        children: [{
+          code: MOCK_CATEGORIES[2].code,
+          name: MOCK_CATEGORIES[2].name
+        }]
+      };
+      const nestedCategories = [
+        MOCK_CATEGORIES[0],
+        parentingCategory
       ];
-      serviceSpy.transformIntoNode.and.callFake((category, level) => ({
-        level,
-        expandable: (level > 0),
-        name: category?.name || 'some-name'
-      }));
-      serviceSpy.categories$ = of(categories);
+      serviceSpy.categories$ = of(nestedCategories);
       fixture.detectChanges();
-
-      const highestDataSourceIndex = component.dataSource.data.length - 1;
-      randomIndex = Math.round(Math.random() * highestDataSourceIndex);
-      targetNode = component.treeControl.dataNodes[randomIndex];
-      target = component.dataSource.data[randomIndex];
+      target = nestedCategories[Math.floor(Math.random() * nestedCategories.length)];
+      targetNode = component.nestedNodeMap.get(target);
     });
 
-    beforeEach(() => {
-      serviceSpy.fetchFromNode.and.callFake(node => of({
-        name: node?.name || 'some-name',
-        code: 'some-code'
-      }));
+    it('should map each existing category to an equivalent flat tree node and viceversa', () => {
+      expect(targetNode).toBeTruthy();
+      const mappedTarget = component.flatNodeMap.get(targetNode);
+      expect(mappedTarget).toBeTruthy();
+      expect(mappedTarget).toEqual(target);
     });
 
-    it('should request details through a dialog in order to add a new subcategory', () => {
-      dialogServiceSpy.open.and.returnValue({
-        afterClosed: () => EMPTY as Observable<any>
-      } as MatDialogRef<any>);
-
-      component.onClickAddChildNodeTo(targetNode);
-      expect(dialogServiceSpy.open).toHaveBeenCalled();
-    });
-
-    it('should add a new subcategory', () => {
-      dialogServiceSpy.open.and.returnValue({
-        afterClosed: () => of(target)
-      } as MatDialogRef<any>);
-      serviceSpy.add.and.returnValue(of(void 0));
-
-      component.onClickAddChildNodeTo(targetNode);
-
-      serviceSpy.add.and.returnValue(throwError({ status: 400 }));
-
-      component.onClickAddChildNodeTo(targetNode);
-
-      expect(serviceSpy.add).toHaveBeenCalled();
-      expect(serviceSpy.add).toHaveBeenCalledWith(target);
-    });
-
-    it('should display a dialog to edit an existing category', () => {
-      dialogServiceSpy.open.and.returnValue({
-        afterClosed: () => EMPTY as Observable<any>
-      } as MatDialogRef<any>);
-
-      component.onClickEditNode(targetNode);
-      expect(dialogServiceSpy.open).toHaveBeenCalled();
-    });
-
-    it('should edit an existing category', () => {
-      dialogServiceSpy.open.and.returnValue({
-        afterClosed: () => of(target)
-      } as MatDialogRef<any>);
-      serviceSpy.edit.and.returnValue(of(void 0));
-      component.onClickEditNode(targetNode);
-      expect(serviceSpy.edit).toHaveBeenCalled();
-
-      serviceSpy.edit.and.returnValue(throwError({ status: 400 }));
-      component.onClickEditNode(targetNode);
-
-      expect(serviceSpy.edit).toHaveBeenCalledTimes(2);
-    });
-
-    it('should request confirmation before deleting any category', () => {
-      sharedDialogServiceSpy.requestConfirmation.and.returnValue(EMPTY);
-      component.onClickDeleteNode(targetNode);
-      expect(sharedDialogServiceSpy.requestConfirmation).toHaveBeenCalled();
-    });
-
-    it('should not delete a category if not confirmed', () => {
-      sharedDialogServiceSpy.requestConfirmation.and.returnValue(of(false));
-      component.onClickDeleteNode(targetNode);
-      expect(serviceSpy.remove).not.toHaveBeenCalled();
-    });
-
-
-    it('should delete a category', () => {
-      sharedDialogServiceSpy.requestConfirmation.and.returnValue(of(true));
-      serviceSpy.remove.and.returnValue(of(void 0));
-      component.onClickDeleteNode(targetNode);
-      expect(serviceSpy.remove).toHaveBeenCalled();
-
-      serviceSpy.remove.and.returnValue(throwError({ status: 404 }));
-      component.onClickDeleteNode(targetNode);
-
-      expect(serviceSpy.remove).toHaveBeenCalledTimes(2);
-    });
-
-    describe('and is interfaced to pick a category', () => {
+    describe('and is configured to pick a category', () => {
       beforeEach(() => {
-        serviceSpy.fetchFromNode.and.returnValue(of(null));
         component.selectionEnabled = true;
       });
 
@@ -185,6 +126,74 @@ describe('ProductCategoryTreeComponent', () => {
         ).pipe(
           tap(didFireEvent => expect(didFireEvent).toBeTrue())
         ).subscribe();
+      });
+    });
+
+    describe('and is configured to manage existing categories', () => {
+      beforeEach(() => {
+        component.editable = true;
+        dialogServiceSpy.open.and.returnValue({
+          afterClosed: () => EMPTY as Observable<any>
+        } as MatDialogRef<any>);
+        serviceSpy.add.and.returnValue(of(target));
+        serviceSpy.edit.and.returnValue(of(target));
+        serviceSpy.remove.and.returnValue(of(void 0));
+        sharedDialogServiceSpy.requestConfirmation.and.returnValue(of(false));
+      });
+
+      it('should open a dialog to fill in data for a new subcategory', () => {
+        component.onClickAddChildNodeTo(targetNode);
+        expect(dialogServiceSpy.open).toHaveBeenCalled();
+      });
+
+      it('should add a new subcategory', () => {
+        dialogServiceSpy.open.and.returnValue({
+          afterClosed: () => of(target)
+        } as MatDialogRef<any>);
+        component.onClickAddChildNodeTo(targetNode);
+        expect(serviceSpy.add).toHaveBeenCalled();
+      });
+
+      it('should open a dialog to edit the data of an existing category', () => {
+        component.onClickEditNode(targetNode);
+        expect(dialogServiceSpy.open).toHaveBeenCalled();
+      });
+
+      it('should edit an existing category', () => {
+        dialogServiceSpy.open.and.returnValue({
+          afterClosed: () => of(target)
+        } as MatDialogRef<any>);
+        component.onClickEditNode(targetNode);
+        expect(serviceSpy.edit).toHaveBeenCalled();
+      });
+
+      it('should request confirmation before deleting any category', () => {
+        component.onClickDeleteNode(targetNode);
+        expect(sharedDialogServiceSpy.requestConfirmation).toHaveBeenCalled();
+        expect(serviceSpy.remove).not.toHaveBeenCalled();
+      });
+
+      it('should delete a category', () => {
+        sharedDialogServiceSpy.requestConfirmation.and.returnValue(of(true));
+        component.onClickDeleteNode(targetNode);
+        expect(serviceSpy.remove).toHaveBeenCalled();
+      });
+    });
+
+    describe('and is used with default configuration (just browse existing categories)', () => {
+      it('should not allow to add subcategories', () => {
+        component.onClickAddChildNodeTo(targetNode);
+        expect(dialogServiceSpy.open).not.toHaveBeenCalled();
+      });
+
+      it('should not allow to edit categories', () => {
+        component.onClickEditNode(targetNode);
+        expect(dialogServiceSpy.open).not.toHaveBeenCalled();
+      });
+
+      it('should not allow to delete categories', () => {
+        component.onClickDeleteNode(targetNode);
+        expect(sharedDialogServiceSpy.requestConfirmation).not.toHaveBeenCalled();
       });
     });
   });
