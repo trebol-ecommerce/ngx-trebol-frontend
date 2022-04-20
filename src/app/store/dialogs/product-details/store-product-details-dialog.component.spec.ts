@@ -20,7 +20,7 @@ import { StoreProductDetailsDialogData } from "./StoreProductDetailsDialogData";
 @Component({ selector: 'app-slideshow' })
 class MockSlideshowComponent {
   @Input() images: any[];
-  @Input() autocycle: boolean;
+  @Input() automaticSlide: boolean;
 }
 
 describe('StoreProductDetailsDialogComponent', () => {

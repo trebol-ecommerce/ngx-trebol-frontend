@@ -21,6 +21,7 @@
         color="warn"
         i18n-aria-label="Label for action button to remove a slide"
         aria-label="Remove"
+        [disabled]="disabled"
         (click)="onClickRemove()">
         <mat-icon>delete</mat-icon>
       </button>
@@ -39,7 +40,7 @@
     color="primary"
     i18n-aria-label="Label for action button to return to previous slide"
     aria-label="See previous"
-    (click)="slideBackwards()">
+    (click)="onClickSlideForwards()">
     <mat-icon>first_page</mat-icon>
   </button>
   <button type="button" class="next-slide"
@@ -47,7 +48,7 @@
     color="primary"
     i18n-aria-label="Label for action button to advance to next slide"
     aria-label="See next"
-    (click)="slideForwards()">
+    (click)="onClickSlideBackwards()">
     <mat-icon>last_page</mat-icon>
   </button>
 </ng-container>
@@ -63,7 +64,7 @@
     <ng-template #notSelected>
       <button type="button" class="slide-selector"
         mat-button mat-icon-button
-        (click)="goToSlide(i)">
+        (click)="onClickSlideSelector(i)">
         <mat-icon>radio_button_unchecked</mat-icon>
       </button>
     </ng-template>
@@ -73,6 +74,7 @@
       mat-button mat-icon-button
       i18n-aria-label="Label for action button to add a slide"
       aria-label="Add"
+      [disabled]="disabled"
       (click)="onClickAdd()">
       <mat-icon>add_circle_outline</mat-icon>
     </button>

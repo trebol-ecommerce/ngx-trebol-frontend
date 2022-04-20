@@ -5,11 +5,11 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BehaviorSubject, interval, merge, Observable, Subscription } from 'rxjs';
-import { debounceTime, delay, map, tap } from 'rxjs/operators';
+import { BehaviorSubject, interval, Subscription, timer } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { fadeInOut } from 'src/animations/fadeInOut';
 import { Image } from 'src/models/entities/Image';
 
@@ -31,37 +31,38 @@ import { Image } from 'src/models/entities/Image';
 export class SlideshowComponent
   implements OnInit, OnDestroy, ControlValueAccessor {
 
-  private currentIndex = 0;
-  private currentIndexSource = new BehaviorSubject(this.currentIndex);
+  private currentIndexSource = new BehaviorSubject(0);
   private autoRotateImagesSubscription: Subscription;
-  private autoRotationInterval = 5000;
 
+  @Input() automaticSlideInterval = 5000;
   @Input() images: Image[] = [];
-  @Input() autocycle = true;
+  @Input() automaticSlide = true;
   @Input() editable = false;
+  @Input() cycle = true;
   @Input() showSlideSelectors = true;
   @Input() showNextPreviousButtons = true;
   @Input() slideWidth = 'auto';
   @Input() slideHeight = 'auto';
   @Output() navigate = new EventEmitter<void>();
   @Output() add = new EventEmitter<void>();
-  @Output() touched = new EventEmitter<void>();
+
   currentIndex$ = this.currentIndexSource.asObservable();
 
-  formControl = new FormControl();
+  disabled = false;
 
   constructor(
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    if (this.autocycle) {
-      this.autoRotateImagesSubscription = this.autoImageRotationObservable().subscribe();
-    }
+    this.startAutoRotation();
   }
 
   ngOnDestroy(): void {
     this.stopAutoRotation();
+    this.currentIndexSource.complete();
+    this.navigate.complete();
+    this.add.complete();
   }
 
   onChange(value: any): void { }
@@ -69,7 +70,6 @@ export class SlideshowComponent
 
   writeValue(obj: any): void {
     if (Array.isArray(obj)) {
-      this.formControl.setValue(obj);
       this.images = obj;
     }
   }
@@ -83,11 +83,7 @@ export class SlideshowComponent
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    if (isDisabled) {
-      this.formControl.disable();
-    } else {
-      this.formControl.enable();
-    }
+    this.disabled = isDisabled;
   }
 
   onClickImage(img: Image) {
@@ -96,67 +92,77 @@ export class SlideshowComponent
     }
   }
 
-  slideForwards(): void {
-    if (this.images.length - 1 > this.currentIndex) {
-      this.currentIndex++;
-    } else {
-      this.currentIndex = 0;
-    }
-    this.navigate.emit();
-    this.currentIndexSource.next(this.currentIndex);
+  onClickAdd() {
+    this.add.emit();
   }
 
-  slideBackwards(): void {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
-    } else {
-      this.currentIndex = this.images.length - 1;
-    }
-    this.navigate.emit();
-    this.currentIndexSource.next(this.currentIndex);
+  onClickRemove() {
+    this.images.splice(this.currentIndexSource.value, 1);
+    this.onClickSlideBackwards(true);
+    this.onChange(this.images);
   }
 
-  goToSlide(index: number): void {
-    if (index >= 0 && this.images.length > index && this.currentIndex !== index) {
-      this.currentIndex = index;
+  onClickSlideForwards() {
+    if (this.images.length > 1) {
+      const v = this.currentIndexSource.value;
+      const isAtLastIndex = ((v + 1) >= this.images.length);
+      const nextIndex = isAtLastIndex ?
+        0 :
+        this.cycle ?
+          (v + 1) :
+          undefined;
+
+      if (nextIndex !== undefined) {
+        this.navigate.emit();
+        this.currentIndexSource.next(nextIndex);
+      }
+    }
+  }
+
+  onClickSlideBackwards(force = false) {
+    if (this.images.length > 0 || force) {
+      const v = this.currentIndexSource.value;
+      const isOnFirstIndex = (v === 0);
+      const nextIndex = !isOnFirstIndex ?
+        (v - 1) :
+        (this.cycle) ?
+          (this.images.length - 1) :
+          undefined;
+
+      if (nextIndex !== undefined) {
+        this.navigate.emit();
+        this.currentIndexSource.next(nextIndex);
+      }
+    }
+  }
+
+  onClickSlideSelector(index: number) {
+    if ((index >= 0) && (this.images.length > index) && (this.currentIndexSource.value !== index)) {
       this.navigate.emit();
-      this.currentIndexSource.next(this.currentIndex);
-      if (this.autocycle) {
-        this.stopAutoRotation();
-        this.autoRotateImagesSubscription = this.autoImageRotationObservable().pipe(
-          delay(1000)
+      this.currentIndexSource.next(index);
+      if (this.automaticSlide) {
+        this.autoRotateImagesSubscription?.unsubscribe();
+        this.autoRotateImagesSubscription = timer(1000).pipe(
+          switchMap(() => this.autoImageRotationObservable())
         ).subscribe();
       }
     }
   }
 
-  stopAutoRotation(): void {
-    if (!!this.autoRotateImagesSubscription) {
-      this.autoRotateImagesSubscription.unsubscribe();
-    }
+  stopAutoRotation() {
+    this.autoRotateImagesSubscription?.unsubscribe();
   }
 
-  startAutoRotation(): void {
+  startAutoRotation() {
     this.stopAutoRotation();
-    if (this.autocycle) {
+    if (this.automaticSlide) {
       this.autoRotateImagesSubscription = this.autoImageRotationObservable().subscribe();
     }
   }
 
-  onClickAdd(): void {
-    this.add.emit();
-  }
-
-  onClickRemove(): void {
-    this.images.splice(this.currentIndex, 1);
-    this.slideBackwards();
-    this.onChange(this.images);
-  }
-
-  private autoImageRotationObservable(): Observable<void> {
-    return interval(this.autoRotationInterval).pipe(
-      tap(() => { this.slideForwards(); }),
-      map(() => void 0)
+  private autoImageRotationObservable() {
+    return interval(this.automaticSlideInterval).pipe(
+      tap(() => this.onClickSlideForwards())
     );
   }
 

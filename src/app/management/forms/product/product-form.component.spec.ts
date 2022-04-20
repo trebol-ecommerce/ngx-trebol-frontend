@@ -37,7 +37,7 @@ class MockHigherOrderFormComponent {
 class MockSlideshowComponent
   implements ControlValueAccessor {
   @Input() images: any[];
-  @Input() autocycle: boolean;
+  @Input() automaticSlide: boolean;
   @Input() editable: boolean;
   @Output() add = new EventEmitter();
   writeValue(obj: any): void { this.images = obj; }
