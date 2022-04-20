@@ -70,7 +70,6 @@ export class SessionService {
 
   saveToken(token: any) {
     sessionStorage.setItem(this.sessionStorageTokenItemName, token);
-    return this.validateSession();
   }
 
 }

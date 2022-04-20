@@ -6,7 +6,7 @@
  */
 
 import { Inject, Injectable } from '@angular/core';
-import { of, Subject } from 'rxjs';
+import { concat, of, Subject } from 'rxjs';
 import { switchMap, take, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ILoginPublicApiService } from 'src/app/api/login-public-api.iservice';
@@ -44,7 +44,11 @@ export class AuthenticationService {
       switchMap(hasActiveSession => (hasActiveSession ?
         of('') :
         this.guestApiService.guestLogin(personDetails).pipe(
-          switchMap(token => this.sessionService.saveToken(token))
+          tap(token => this.sessionService.saveToken(token)),
+          switchMap(token => concat(
+            this.sessionService.validateSession(),
+            of(token)
+          ))
         )
       ))
     );
@@ -58,7 +62,11 @@ export class AuthenticationService {
         name: userDetails.name,
         password: userDetails.password
       })),
-      switchMap(token => this.sessionService.saveToken(token))
+      tap(token => this.sessionService.saveToken(token)),
+      switchMap(token => concat(
+        this.sessionService.validateSession(),
+        of(token)
+      ))
     );
   }
 
@@ -72,7 +80,11 @@ export class AuthenticationService {
       take(1),
       switchMap(hasActiveSession => (!hasActiveSession ?
         this.loginApiService.login(credentials).pipe(
-          switchMap(token => this.sessionService.saveToken(token))
+          tap(token => this.sessionService.saveToken(token)),
+          switchMap(token => concat(
+            this.sessionService.validateSession(),
+            of(token)
+          ))
         ) :
         of('')
       ))
