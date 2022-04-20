@@ -66,7 +66,7 @@ export class StoreProductListContentsDisplayComponent
   }
 
   onViewProduct(product: Product): void {
-    this.catalogService.viewProduct(product);
+    this.catalogService.navigateToProductDetails(product.barcode);
   }
 
   private reloadItems() {

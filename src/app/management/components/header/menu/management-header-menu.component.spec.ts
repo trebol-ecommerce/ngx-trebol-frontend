@@ -13,11 +13,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EMPTY, of } from 'rxjs';
+import { ProfileService } from 'src/app/profile.service';
 import { SessionService } from 'src/app/session.service';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
-import { ProfileService } from 'src/app/profile.service';
 import { ManagementHeaderMenuComponent } from './management-header-menu.component';
-import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component';
 
 describe('ManagementHeaderMenuComponent', () => {
   let component: ManagementHeaderMenuComponent;
@@ -29,7 +28,7 @@ describe('ManagementHeaderMenuComponent', () => {
 
   beforeEach(waitForAsync(() => {
     const mockSessionService = jasmine.createSpyObj('SessionService', ['closeCurrentSession']);
-    const mockProfileService = jasmine.createSpyObj('ProfileService', ['userName$']);
+    const mockProfileService = jasmine.createSpyObj('ProfileService', ['watchUserName']);
     const mockSnackBarService = jasmine.createSpyObj('MatSnackBar', ['open']);
     const mockDialogService = jasmine.createSpyObj('MatDialog', [ 'open' ]);
     const mockSharedDialogService = jasmine.createSpyObj('SharedDialogService', ['requestConfirmation']);
@@ -61,7 +60,7 @@ describe('ManagementHeaderMenuComponent', () => {
     dialogServiceSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
     sharedDialogServiceSpy = TestBed.inject(SharedDialogService) as jasmine.SpyObj<SharedDialogService>;
 
-    profileServiceSpy.userName$ = of('');
+    profileServiceSpy.watchUserName.and.returnValue(of(''));
     sharedDialogServiceSpy.requestConfirmation.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(ManagementHeaderMenuComponent);

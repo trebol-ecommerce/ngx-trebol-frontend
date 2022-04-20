@@ -37,7 +37,7 @@ export class ManagementHeaderMenuComponent
   ) { }
 
   ngOnInit(): void {
-    this.userName$ = this.profileService.userName$.pipe();
+    this.userName$ = this.profileService.watchUserName();
   }
 
   onClickEditProfile(): void {

@@ -5,11 +5,11 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
-import { forkJoin, Observable, of } from 'rxjs';
+import { forkJoin, Observable, of, Subscription } from 'rxjs';
 import { finalize, map, switchMap, tap } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
 import { ProductsArrayDialogComponent } from '../products-array/products-array-dialog.component';
@@ -23,7 +23,9 @@ import { ProductListContentsDialogData } from './ProductListContentsDialogData';
   providers: [ ProductListContentsDialogService ]
 })
 export class ProductListContentsDialogComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
+
+  private loadingSubscription: Subscription;
 
   productTableColumns = ['name', 'barcode', 'price', 'actions'];
   pageSizeOptions = [5, 10, 20, 50, 100];
@@ -47,19 +49,23 @@ export class ProductListContentsDialogComponent
   }
 
   ngOnInit(): void {
-    this.service.reloadItems();
+    this.reload();
+  }
+
+  ngOnDestroy(): void {
+    this.loadingSubscription?.unsubscribe();
   }
 
   onSortChange(sort: Sort): void {
     this.service.sortBy = sort.active;
     this.service.order = sort.direction;
-    this.service.reloadItems();
+    this.reload();
   }
 
   onPage(event: PageEvent): void {
     this.service.pageIndex = event.pageIndex;
     this.service.pageSize = event.pageSize;
-    this.service.reloadItems();
+    this.reload();
   }
 
   onClickAddProducts(): void {
@@ -73,7 +79,7 @@ export class ProductListContentsDialogComponent
         forkJoin(products.map(p => this.service.addProduct(p))) :
         of(void 0)
       ),
-      finalize(() => this.service.reloadItems())
+      finalize(() => this.reload())
     ).subscribe();
   }
 
@@ -88,14 +94,19 @@ export class ProductListContentsDialogComponent
         this.service.replaceProductsWith(products) :
         of(void 0)
       ),
-      finalize(() => this.service.reloadItems())
+      finalize(() => this.reload())
     ).subscribe();
   }
 
   onClickRemoveProduct(p: Product): void {
     this.service.removeProduct(p).pipe(
-      tap(() => this.service.reloadItems())
+      tap(() => this.reload())
     ).subscribe();
+  }
+
+  reload() {
+    this.loadingSubscription?.unsubscribe();
+    this.loadingSubscription = this.service.reloadItems().subscribe();
   }
 
 }

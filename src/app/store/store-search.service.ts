@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Inject, Injectable, OnDestroy } from "@angular/core";
+import { Inject, Injectable } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
 import { ActivatedRoute, Router } from "@angular/router";
 import { BehaviorSubject, from, ReplaySubject } from "rxjs";
@@ -17,8 +17,7 @@ import { API_INJECTION_TOKENS } from "../api/api-injection-tokens";
 import { ITransactionalEntityDataApiService } from "../api/transactional-entity.data-api.iservice";
 
 @Injectable({ providedIn: 'root' })
-export class StoreSearchService
-  implements OnDestroy {
+export class StoreSearchService {
 
   private isLoadingSearchSource = new BehaviorSubject(false);
   private currentPageSource = new ReplaySubject<DataPage<Product>>(1);
@@ -38,11 +37,6 @@ export class StoreSearchService
     private router: Router
   ) {
     this.readQueryParams();
-  }
-
-  ngOnDestroy(): void {
-    this.isLoadingSearchSource.complete();
-    this.currentPageSource.complete();
   }
 
   readQueryParams() {

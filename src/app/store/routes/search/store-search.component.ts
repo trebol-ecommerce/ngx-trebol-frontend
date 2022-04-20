@@ -61,7 +61,7 @@ export class StoreSearchComponent
   }
 
   onViewProduct(product: Product): void {
-    this.catalogService.viewProduct(product);
+    this.catalogService.navigateToProductDetails(product.barcode);
   }
 
 }

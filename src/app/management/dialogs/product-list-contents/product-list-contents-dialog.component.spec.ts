@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { ProductList } from 'src/models/entities/ProductList';
 import { ProductListContentsDialogComponent } from './product-list-contents-dialog.component';
 import { ProductListContentsDialogService } from './product-list-contents-dialog.service';
@@ -40,7 +40,7 @@ describe('ProductListContentsDialogComponent', () => {
         pageSize: 10
       }),
       loading$: of(false),
-      reloadItems() {}
+      reloadItems: () => EMPTY
     };
 
     TestBed.overrideComponent(

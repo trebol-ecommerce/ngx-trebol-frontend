@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,8 +14,7 @@ import { map } from 'rxjs/operators';
  * Keeps track of the latest navigated route
  */
 @Injectable()
-export class ManagementRoutingService
-  implements OnDestroy {
+export class ManagementRoutingService {
 
   private currentRouteSnapshotSource = new ReplaySubject<ActivatedRouteSnapshot>(1);
 
@@ -26,10 +25,6 @@ export class ManagementRoutingService
     this.currentPageName$ = this.currentRouteSnapshot$.pipe(
       map(snapshot => (snapshot.data['title'] || ''))
     );
-  }
-
-  ngOnDestroy(): void {
-    this.currentRouteSnapshotSource.complete();
   }
 
   updateCurrentRoute(route: ActivatedRouteSnapshot) {

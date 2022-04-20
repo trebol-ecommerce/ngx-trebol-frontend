@@ -6,7 +6,7 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { merge, of } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
@@ -63,10 +63,12 @@ describe('ImagesArrayService', () => {
     );
     service = TestBed.inject(ImagesArrayService);
 
-    service.reloadItems();
-    service.imagesPage$.pipe(
-      take(1),
-      tap(nextPage => expect(nextPage).toEqual(mockDataPage))
+    merge(
+      service.reloadItems(),
+      service.imagesPage$.pipe(
+        take(1),
+        tap(nextPage => expect(nextPage).toEqual(mockDataPage))
+      )
     ).subscribe();
   });
 });

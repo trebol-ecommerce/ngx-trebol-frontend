@@ -12,10 +12,8 @@ import { ProfileService } from 'src/app/profile.service';
 import { Person } from 'src/models/entities/Person';
 
 @Injectable({ providedIn: 'root' })
-export class EditProfileFormService
-  implements OnDestroy {
+export class EditProfileFormService {
 
-  // TODO
   private savingSource: Subject<boolean> = new BehaviorSubject(false);
   private confirmCancelSource: Subject<boolean> = new BehaviorSubject(false);
 
@@ -38,11 +36,6 @@ export class EditProfileFormService
         )
       )
     );
-  }
-
-  ngOnDestroy(): void {
-    this.confirmCancelSource.complete();
-    this.savingSource.complete();
   }
 
   loadProfile(): Observable<Person> {

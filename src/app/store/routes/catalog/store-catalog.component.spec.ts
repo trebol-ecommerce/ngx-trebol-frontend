@@ -7,8 +7,10 @@
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
-import { of } from 'rxjs';
+import { RouterTestingModule } from '@angular/router/testing';
+import { EMPTY, of } from 'rxjs';
 import { ProductList } from 'src/models/entities/ProductList';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreCatalogComponent } from './store-catalog.component';
@@ -39,7 +41,7 @@ describe('StoreCatalogComponent', () => {
   let component: StoreCatalogComponent;
   let fixture: ComponentFixture<StoreCatalogComponent>;
   let mockCatalogService: Partial<StoreCatalogService>;
-  let mockCartService: Partial<StoreCartService>;
+  let cartServiceSpy: Partial<StoreCartService>;
 
   beforeEach(waitForAsync(() => {
     mockCatalogService = {
@@ -50,15 +52,16 @@ describe('StoreCatalogComponent', () => {
         pageSize: 10,
         totalCount: 0
       }),
-      reloadItems() {},
-      viewProduct(p) {}
+      reloadItems: () => EMPTY,
+      navigateToProductDetails: () => EMPTY,
+      fetchProductDetails: () => EMPTY
     };
-    mockCartService = {
-      addProductToCart(p) {}
-    };
+    const mockCartService = jasmine.createSpyObj('StoreCartService', ['addProductToCart']);
+    const mockDialogService = jasmine.createSpyObj('MatDialog', ['open']);
 
     TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule,
         MatDividerModule
       ],
       declarations: [
@@ -71,12 +74,14 @@ describe('StoreCatalogComponent', () => {
       providers: [
         { provide: StoreCatalogService, useValue: mockCatalogService },
         { provide: StoreCartService, useValue: mockCartService },
+        { provide: MatDialog, useValue: mockDialogService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    cartServiceSpy = TestBed.inject(StoreCartService) as jasmine.SpyObj<StoreCartService>;
+
     fixture = TestBed.createComponent(StoreCatalogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

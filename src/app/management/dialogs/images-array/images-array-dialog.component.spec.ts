@@ -15,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { ImagesArrayDialogComponent } from './images-array-dialog.component';
 import { ImagesArrayService } from './images-array.service';
 
@@ -41,7 +41,7 @@ describe('ImagesArrayDialogComponent', () => {
         totalCount: 0
       }),
       filter: '',
-      reloadItems() { }
+      reloadItems: () => EMPTY
     };
 
     TestBed.overrideComponent(

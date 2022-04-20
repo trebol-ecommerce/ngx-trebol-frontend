@@ -61,7 +61,7 @@ describe('ProfileService', () => {
     it('should expose an empty string as username', () => {
       concat(
         service.getUserProfile(),
-        service.userName$.pipe(
+        service.watchUserName().pipe(
           take(1),
           tap(userName => expect(userName).toBe(''))
         )
@@ -85,7 +85,7 @@ describe('ProfileService', () => {
     it('should expose the current user\'s name', () => {
       concat(
         service.getUserProfile(),
-        service.userName$.pipe(
+        service.watchUserName().pipe(
           take(1),
           tap(userName => expect(userName).toBe(MOCK_REGISTRATION_DETAILS.profile.firstName))
         )

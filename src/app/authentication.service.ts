@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Inject, Injectable, OnDestroy } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { of, Subject } from 'rxjs';
 import { switchMap, take, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
@@ -21,8 +21,7 @@ import { SessionService } from './session.service';
  * Exposes methods to authenticate the user against the external API, and a simple call to stop any ongoing authentication
  */
 @Injectable({ providedIn: 'root' })
-export class AuthenticationService
-  implements OnDestroy {
+export class AuthenticationService {
 
   private authCancelationSource = new Subject<void>();
 
@@ -34,11 +33,6 @@ export class AuthenticationService
     @Inject(API_INJECTION_TOKENS.register) private registerApiService: IRegisterPublicApiService,
     private sessionService: SessionService
   ) { }
-
-  // TODO services do not support lifecycle hooks such as this...
-  ngOnDestroy(): void {
-    this.authCancelationSource.complete();
-  }
 
   cancelAuthentication(): void {
     this.authCancelationSource.next();

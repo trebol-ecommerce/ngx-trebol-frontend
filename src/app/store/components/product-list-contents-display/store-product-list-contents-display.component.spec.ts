@@ -34,7 +34,7 @@ describe('StoreProductListContentsDisplayComponent', () => {
   let component: StoreProductListContentsDisplayComponent;
   let fixture: ComponentFixture<StoreProductListContentsDisplayComponent>;
   let mockListApiService: Partial<ITransactionalProductListContentsDataApiService>;
-  let mockStoreCatalogService: Partial<StoreCatalogService>;
+  let storeCatalogServiceSpy: jasmine.SpyObj<StoreCatalogService>;
 
   beforeEach(waitForAsync(() => {
     mockListApiService = {
@@ -47,9 +47,7 @@ describe('StoreProductListContentsDisplayComponent', () => {
         });
       }
     };
-    mockStoreCatalogService = {
-      viewProduct() { }
-    };
+    const mockStoreCatalogService = jasmine.createSpyObj('StoreCatalogService', ['navigateToProductDetails'])
 
     TestBed.configureTestingModule({
       declarations: [
@@ -60,11 +58,12 @@ describe('StoreProductListContentsDisplayComponent', () => {
         { provide: API_INJECTION_TOKENS.dataProductLists, useValue: mockListApiService },
         { provide: StoreCatalogService, useValue: mockStoreCatalogService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    storeCatalogServiceSpy = TestBed.inject(StoreCatalogService) as jasmine.SpyObj<StoreCatalogService>;
+
     fixture = TestBed.createComponent(StoreProductListContentsDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

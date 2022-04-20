@@ -82,10 +82,12 @@ describe('StoreCatalogService', () => {
     );
     service = TestBed.inject(StoreCatalogService);
 
-    service.reloadItems();
-    service.listsPage$.pipe(
-      take(1),
-      tap(nextPage => expect(nextPage).toEqual(mockDataPage))
+    merge(
+      service.reloadItems(),
+      service.listsPage$.pipe(
+        take(1),
+        tap(nextPage => expect(nextPage).toEqual(mockDataPage))
+      )
     ).subscribe();
   });
 });

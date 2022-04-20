@@ -33,7 +33,7 @@ describe('StoreSearchComponent', () => {
   let fixture: ComponentFixture<StoreSearchComponent>;
   let mockSearchService: Partial<StoreSearchService>;
   let mockCartService: Partial<StoreCartService>;
-  let mockCatalogService: Partial<StoreCatalogService>;
+  let catalogServiceSpy: jasmine.SpyObj<StoreCatalogService>;
 
   beforeEach(waitForAsync(() => {
     mockSearchService = {
@@ -51,9 +51,7 @@ describe('StoreSearchComponent', () => {
     mockCartService = {
       addProductToCart() { }
     };
-    mockCatalogService = {
-      viewProduct() { }
-    };
+    const mockStoreCatalogService = jasmine.createSpyObj('StoreCatalogService', ['navigateToProductDetails']);
 
     TestBed.configureTestingModule({
       imports: [
@@ -69,13 +67,14 @@ describe('StoreSearchComponent', () => {
       providers: [
         { provide: StoreSearchService, useValue: mockSearchService },
         { provide: StoreCartService, useValue: mockCartService },
-        { provide: StoreCatalogService, useValue: mockCatalogService }
+        { provide: StoreCatalogService, useValue: mockStoreCatalogService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    catalogServiceSpy = TestBed.inject(StoreCatalogService) as jasmine.SpyObj<StoreCatalogService>;
+
     fixture = TestBed.createComponent(StoreSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

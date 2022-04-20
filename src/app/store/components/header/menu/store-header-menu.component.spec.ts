@@ -28,7 +28,7 @@ describe('StoreHeaderMenuComponent', () => {
 
   beforeEach(waitForAsync( () => {
     const sessionServiceSpy = jasmine.createSpyObj('SessionService', ['closeCurrentSession', 'fetchAuthorizedAccess']);
-    const mockProfileService = jasmine.createSpyObj('ProfileService', ['getUserProfile']);
+    const mockProfileService = jasmine.createSpyObj('ProfileService', ['getUserProfile', 'watchUserName']);
     const mockDialogService = jasmine.createSpyObj('MatDialog', ['open']);
     const mockSharedDialogService = jasmine.createSpyObj('SharedDialogService', ['requestConfirmation']);
     const mockSnackBarService = jasmine.createSpyObj('MatSnackBar', ['open']);
@@ -56,7 +56,7 @@ describe('StoreHeaderMenuComponent', () => {
     dialogServiceSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
     sharedDialogServiceSpy = TestBed.inject(SharedDialogService) as jasmine.SpyObj<SharedDialogService>;
     snackBarServiceSpy = TestBed.inject(MatSnackBar) as jasmine.SpyObj<MatSnackBar>;
-    profileServiceSpy.userName$ = of('');
+    profileServiceSpy.watchUserName.and.returnValue(of(''));
     sessionServiceSpy.authorizedAccess$ = of({ routes: [] });
 
     fixture = TestBed.createComponent(StoreHeaderMenuComponent);

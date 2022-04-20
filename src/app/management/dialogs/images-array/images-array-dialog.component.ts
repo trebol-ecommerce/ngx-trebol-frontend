@@ -26,6 +26,7 @@ import { ImagesArrayDialogData } from './ImagesArrayDialogData';
 export class ImagesArrayDialogComponent
   implements OnInit, OnDestroy {
 
+  private fetchingSubscription: Subscription;
   private filterChangesSub: Subscription;
   private filterChangeNotifier = new Subject<void>();
 
@@ -68,16 +69,17 @@ export class ImagesArrayDialogComponent
         tap(filter => {
           this.service.filter = filter;
           this.service.pageIndex = 0;
-          this.service.reloadItems();
+          this.reload();
         })
       )
     ).subscribe();
     this.service.pageSize = this.pageSizeOptions[0];
-    this.service.reloadItems();
+    this.reload();
   }
 
   ngOnDestroy(): void {
-    this.filterChangesSub?.unsubscribe();
+    this.fetchingSubscription?.unsubscribe();
+    this.filterChangesSub.unsubscribe();
     this.filterChangeNotifier.complete();
   }
 
@@ -97,7 +99,12 @@ export class ImagesArrayDialogComponent
   onPage(event: PageEvent) {
     this.service.pageIndex = event.pageIndex;
     this.service.pageSize = event.pageSize;
-    this.service.reloadItems();
+    this.reload();
+  }
+
+  reload() {
+    this.fetchingSubscription?.unsubscribe();
+    this.fetchingSubscription = this.service.reloadItems().subscribe();
   }
 
 }

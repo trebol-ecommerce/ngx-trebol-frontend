@@ -5,11 +5,11 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { merge, Observable, of, Subscription } from 'rxjs';
-import { filter, map, skip, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, skip, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/authentication.service';
 import { SessionService } from 'src/app/session.service';
 import { StoreGuestLoginFormDialogComponent } from '../../dialogs/guest-login-form/store-guest-login-form-dialog.component';
@@ -21,11 +21,9 @@ import { StoreCartService } from '../../store-cart.service';
 
 @Injectable()
 export class StoreCartReviewGuard
-  implements OnDestroy, CanActivate {
+  implements CanActivate {
 
-  private readonly restrictedUrl = '/store/cart';
   private readonly exitUrl = '/store';
-  private restrictingConditionsSub: Subscription;
 
   constructor(
     private cartService: StoreCartService,
@@ -33,13 +31,7 @@ export class StoreCartReviewGuard
     private authenticationService: AuthenticationService,
     private dialogService: MatDialog,
     private router: Router
-  ) {
-    this.restrictingConditionsSub = this.watchRestrictingConditions().subscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.restrictingConditionsSub?.unsubscribe();
-  }
+  ) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -132,20 +124,6 @@ export class StoreCartReviewGuard
         width: '40rem',
         height: '25rem'
       }
-    );
-  }
-
-  private watchRestrictingConditions() {
-    return merge(
-      this.cartService.cartDetails$.pipe(
-        map(details => (details.length === 0))
-      ),
-      this.appService.userHasActiveSession$.pipe(
-        map(hasActiveSession => !hasActiveSession)
-      )
-    ).pipe(
-      filter(restrictingCondition => restrictingCondition && this.router.routerState?.snapshot?.url === this.restrictedUrl),
-      tap(() => this.router.navigateByUrl(this.exitUrl))
     );
   }
 }

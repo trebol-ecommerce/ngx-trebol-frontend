@@ -16,7 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { ProductsArrayDialogComponent } from './products-array-dialog.component';
 import { ProductsArrayDialogService } from './products-array-dialog.service';
 
@@ -42,7 +42,7 @@ describe('ProductsArrayDialogComponent', () => {
       pageIndex: 0,
       pageSize: 10,
       filters: undefined,
-      reloadItems() {},
+      reloadItems: () => EMPTY,
       includeProduct(p) {},
       dropProductByIndex(i) {}
     };

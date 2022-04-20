@@ -9,8 +9,9 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { StoreComponent } from './store.component';
+import { SessionService } from '../session.service';
 import { StoreCartService } from './store-cart.service';
+import { StoreComponent } from './store.component';
 
 // eslint-disable-next-line @angular-eslint/component-selector
 @Component({ selector: 'router-outlet' })
@@ -29,10 +30,14 @@ describe('StoreComponent', () => {
   let component: StoreComponent;
   let fixture: ComponentFixture<StoreComponent>;
   let mockCartService: Partial<StoreCartService>;
+  let mockSessionService: Partial<SessionService>;
 
   beforeEach(waitForAsync(() => {
     mockCartService = {
       cartDetails$: of([])
+    };
+    mockSessionService = {
+      userHasActiveSession$: of(false)
     };
 
     TestBed.configureTestingModule({
@@ -47,10 +52,10 @@ describe('StoreComponent', () => {
         MockWhatsappButtonComponent
       ],
       providers: [
-        { provide: StoreCartService, useValue: mockCartService }
+        { provide: StoreCartService, useValue: mockCartService },
+        { provide: SessionService, useValue: mockSessionService },
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -8,8 +8,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, of } from 'rxjs';
-import { debounceTime, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { ProfileService } from 'src/app/profile.service';
 import { SessionService } from 'src/app/session.service';
 import { EditProfileFormDialogComponent } from 'src/app/shared/dialogs/edit-profile-form/edit-profile-form-dialog.component';
@@ -36,7 +36,7 @@ export class StoreHeaderMenuComponent
   ) { }
 
   ngOnInit(): void {
-    this.userName$ = this.profileService.userName$.pipe();
+    this.userName$ = this.profileService.watchUserName();
     this.canNavigateManagement$ = this.sessionService.authorizedAccess$.pipe(
       map(access => (access?.routes?.length > 0))
     );
