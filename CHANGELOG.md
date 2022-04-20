@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `StoreCheckoutRequestFormComponent` has a form that accepts instances of `CheckoutRequest`
   - `StoreBillingDetails` has a form that accepts instances of `BillingDetails`
   - And so forth
+- Among other minor changes and refactors
 
 ### Fixed
 - (UI) User name and details would not always be correct or up-to-date
@@ -38,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - (UX) Fetching initial sales data into the management page
 - (UX) Keep auth status up-to-date and centralized, without calling the API from multiple sources
 - Using actual instances of `InjectionToken<T>` to provide external API services
+- And several minor bugfixes
 
 ### Removed
 - Unused components related to file upload (which may be included if the feature ever gets to the external API specification)
