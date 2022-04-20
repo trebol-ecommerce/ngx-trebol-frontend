@@ -59,7 +59,7 @@ export class SlideshowComponent
   }
 
   ngOnDestroy(): void {
-    this.stopAutoRotation();
+    this.autoRotateImagesSubscription?.unsubscribe();
     this.currentIndexSource.complete();
     this.navigate.complete();
     this.add.complete();
