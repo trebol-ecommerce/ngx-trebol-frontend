@@ -49,7 +49,9 @@ export class ImagesArrayDialogComponent
 
   ngOnInit(): void {
     this.loading$ = merge(
-      this.filterChangeNotifier.pipe(map(() => true)),
+      this.filterChangeNotifier.pipe(
+        map(() => true)
+      ),
       this.service.loading$.pipe()
     );
     this.options$ = this.service.imagesPage$.pipe(
@@ -59,7 +61,9 @@ export class ImagesArrayDialogComponent
         disabled: false
       })))
     );
-    this.totalCount$ = this.service.imagesPage$.pipe(map(page => page.totalCount));
+    this.totalCount$ = this.service.imagesPage$.pipe(
+      map(page => page.totalCount)
+    );
     this.filterChangesSub = merge(
       this.filterFormControl.valueChanges.pipe(
         throttleTime(500),
@@ -89,7 +93,7 @@ export class ImagesArrayDialogComponent
     this.selectionChangeSub?.unsubscribe();
     this.selectionChangeSub = from(event.options).pipe(
       tap((option) => {
-        const matchingSelectedImageIndex = this.selectedImages.findIndex(image => image.url === option.value.url);
+        const matchingSelectedImageIndex = this.selectedImages.findIndex(image => (image.url === option.value.url));
         if (!option.selected && matchingSelectedImageIndex !== -1) {
           this.selectedImages.splice(matchingSelectedImageIndex, 1);
         } else if (option.selected && matchingSelectedImageIndex === -1) {
