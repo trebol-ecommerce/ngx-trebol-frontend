@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
@@ -18,7 +18,7 @@ import { ProductFilters } from './ProductFilters';
   styleUrls: [ './product-filters-panel.component.css' ]
 })
 export class ProductFiltersPanelComponent
-  implements OnDestroy {
+  implements OnInit, OnDestroy {
 
   private valueChangesSubscription: Subscription;
 
@@ -37,7 +37,9 @@ export class ProductFiltersPanelComponent
       categoryCode: [null],
       nameLike: ['']
     });
+  }
 
+  ngOnInit(): void {
     this.valueChangesSubscription = this.formGroup.valueChanges.pipe(
       debounceTime(this.formChangesDebouncingTimeMs),
       distinctUntilChanged((prev, curr) => (
