@@ -24,6 +24,7 @@ import { StoreCatalogService } from '../../routes/catalog/store-catalog.service'
 export class StoreProductListContentsDisplayComponent
   implements OnInit, OnDestroy {
 
+  private loadingSubscription: Subscription;
   private pageSource = new ReplaySubject<DataPage<Product>>(1);
 
   @Input() list = new ProductList();
@@ -37,7 +38,6 @@ export class StoreProductListContentsDisplayComponent
   loadingProducts = true;
   products$: Observable<Product[]>;
   totalCount$: Observable<number>;
-  loadingSubscription: Subscription;
 
   constructor(
     @Inject(API_INJECTION_TOKENS.dataProductLists) private productListApiService: ITransactionalProductListContentsDataApiService,
