@@ -5,11 +5,11 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { ProfileService } from 'src/app/profile.service';
 import { SessionService } from 'src/app/session.service';
@@ -23,7 +23,9 @@ import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
   styleUrls: ['./management-header-menu.component.css']
 })
 export class ManagementHeaderMenuComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
+
+  private logoutSubscription: Subscription;
 
   userName$: Observable<string>;
 
@@ -40,6 +42,10 @@ export class ManagementHeaderMenuComponent
     this.userName$ = this.profileService.watchUserName();
   }
 
+  ngOnDestroy(): void {
+    this.logoutSubscription?.unsubscribe();
+  }
+
   onClickEditProfile(): void {
     this.dialogService.open(
       EditProfileFormDialogComponent,
@@ -50,7 +56,8 @@ export class ManagementHeaderMenuComponent
   }
 
   onClickLogout(): void {
-    this.sharedDialogService.requestConfirmation({
+    this.logoutSubscription?.unsubscribe();
+    this.logoutSubscription = this.sharedDialogService.requestConfirmation({
       title: $localize`:Title of dialog prompt for logging out:Log out?`,
       message: $localize`:Label to hint user that any undergoing process may be lost when logging out:Any unsaved data may be lost`
     }).pipe(

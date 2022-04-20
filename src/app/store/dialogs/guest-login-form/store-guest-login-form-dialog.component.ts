@@ -8,7 +8,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Subject, throwError } from 'rxjs';
+import { Subject, Subscription, throwError } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/authentication.service';
 import { CheckoutRequest } from 'src/models/CheckoutRequest';
@@ -22,6 +22,7 @@ import { StoreCartService } from '../../store-cart.service';
 export class StoreGuestLoginFormDialogComponent
   implements OnInit, OnDestroy {
 
+  private actionSubscription: Subscription;
   private submittingSource = new Subject<boolean>();
 
   submitting$ = this.submittingSource.asObservable();
@@ -42,13 +43,15 @@ export class StoreGuestLoginFormDialogComponent
   }
 
   ngOnDestroy(): void {
+    this.actionSubscription?.unsubscribe();
     this.submittingSource.complete();
   }
 
   onSubmit(): void {
     if (this.formGroup.valid) {
       this.submittingSource.next(true);
-      this.authenticationService.guestLogin(this.person.value).pipe(
+      this.actionSubscription?.unsubscribe();
+      this.actionSubscription = this.authenticationService.guestLogin(this.person.value).pipe(
         takeUntil(this.authenticationService.authCancelation$),
         tap(
           () => {

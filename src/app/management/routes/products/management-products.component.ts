@@ -5,12 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { of, Subscription } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';
@@ -27,7 +27,9 @@ import { ManagementProductsService } from './management-products.service';
 })
 export class ManagementProductsComponent
   extends TransactionalDataManagerComponentDirective<Product>
-  implements OnInit {
+  implements OnInit, OnDestroy {
+
+  private actionSubscription: Subscription;
 
   tableColumns = [ 'name', 'barcode', 'price', 'actions' ];
   // tableColumns = [ 'name', 'barcode', 'price', 'currentStock', 'criticalStock', 'actions' ];
@@ -45,6 +47,11 @@ export class ManagementProductsComponent
     super.ngOnInit();
   }
 
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.actionSubscription?.unsubscribe();
+  }
+
   protected createDialogProperties(item: Product): EntityFormDialogConfig<Product> {
     return {
       data: {
@@ -59,17 +66,18 @@ export class ManagementProductsComponent
   }
 
   onClickDelete(prod: Product) {
-    this.service.removeItems([prod]).pipe(
-      map(results => results[0]),
-      catchError(error => {
-        this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
-        return of(error);
-      }),
-      tap(() => {
-        const message = $localize`:Message of success after deleting a product with name {{ name }}:Product '${prod.name}:name:' deleted`;
-        this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
-        this.service.reloadItems();
-      })
+    this.actionSubscription?.unsubscribe();
+    this.actionSubscription = this.service.removeItems([prod]).pipe(
+      switchMap(() => this.service.reloadItems()),
+      tap(
+        () => {
+          const message = $localize`:Message of success after deleting a product with name {{ name }}:Product '${prod.name}:name:' deleted`;
+          this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
+        },
+        () => {
+          this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
+        }
+      )
     ).subscribe();
   }
 

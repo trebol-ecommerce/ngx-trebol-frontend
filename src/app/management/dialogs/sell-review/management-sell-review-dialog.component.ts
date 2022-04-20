@@ -73,6 +73,7 @@ export class ManagementSellReviewDialogComponent
       this.salesService.markComplete(this.data.sell),
       $localize`:Message of success after completing an order:Congratulations! Sell is complete`
     ).pipe(
+      switchMap(() => this.salesService.reloadItems()),
       finalize(() => this.busyStatusSource.next(false))
     ).subscribe();
   }
@@ -83,7 +84,6 @@ export class ManagementSellReviewDialogComponent
       tap(
         sell => {
           this.data.sell = sell;
-          this.salesService.reloadItems();
           this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
         },
         err => this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL)

@@ -8,6 +8,7 @@
 import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { ProductCategoryPickerDialogComponent } from '../../dialogs/product-category-picker/product-category-picker-dialog.component';
@@ -32,6 +33,8 @@ import { ProductCategoryPickerDialogComponent } from '../../dialogs/product-cate
 export class ProductCategorySelectorFieldComponent
   implements ControlValueAccessor, Validator, OnDestroy {
 
+  private actionSubscription: Subscription;
+
   noCategoryLabel = $localize`:no category chosen|Label to indicate that a product does not have a category associated:No category`;
   productCategory: ProductCategory;
   isDisabled = false;
@@ -45,6 +48,7 @@ export class ProductCategorySelectorFieldComponent
 
   ngOnDestroy(): void {
     this.select.complete();
+    this.actionSubscription?.unsubscribe();
   }
 
   onChange(value: any): void { }
@@ -94,7 +98,8 @@ export class ProductCategorySelectorFieldComponent
   }
 
   onClickOpenCategoryPicker(): void {
-    this.dialogService.open(
+    this.actionSubscription?.unsubscribe();
+    this.actionSubscription = this.dialogService.open(
       ProductCategoryPickerDialogComponent,
       {
         width: '24rem'

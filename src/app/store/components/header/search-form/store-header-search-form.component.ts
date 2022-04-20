@@ -23,6 +23,7 @@ import { StoreSearchService } from '../../../store-search.service';
 export class StoreHeaderSearchFormComponent
   implements OnInit, OnDestroy {
 
+  private categoryPickerSubscription: Subscription;
   private productSearchChanges: Subscription;
 
   formGroup: FormGroup;
@@ -57,6 +58,7 @@ export class StoreHeaderSearchFormComponent
 
   ngOnDestroy(): void {
     this.productSearchChanges?.unsubscribe();
+    this.categoryPickerSubscription?.unsubscribe();
   }
 
   onTouched(): void {
@@ -66,7 +68,8 @@ export class StoreHeaderSearchFormComponent
   }
 
   onClickOpenCategoryPicker(): void {
-    this.dialogService.open(
+    this.categoryPickerSubscription?.unsubscribe();
+    this.categoryPickerSubscription = this.dialogService.open(
       ProductCategoryPickerDialogComponent,
       {
         width: '24rem'

@@ -5,12 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { of, Subscription } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Salesperson } from 'src/models/entities/Salesperson';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';
@@ -27,7 +27,9 @@ import { ManagementSalespeopleService } from './management-salespeople.service';
 })
 export class ManagementSalespeopleComponent
   extends TransactionalDataManagerComponentDirective<Salesperson>
-  implements OnInit {
+  implements OnInit, OnDestroy {
+
+  private actionSubscription: Subscription;
 
   tableColumns = [ 'name', 'idNumber', 'actions' ];
 
@@ -44,18 +46,24 @@ export class ManagementSalespeopleComponent
     super.ngOnInit();
   }
 
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.actionSubscription?.unsubscribe();
+  }
+
   onClickDelete(e: Salesperson) {
-    this.service.removeItems([e]).pipe(
-      map(results => results[0]),
-      catchError(error => {
-        this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
-        return of(error);
-      }),
-      tap(() => {
-        const successMessage = $localize`:Message of success after deleting a salesperson with first name {{ firstName }} and last name {{ lastName }}:Salesperson ${e.person.firstName}:firstName: ${e.person.lastName}:lastName: deleted`;
-        this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
-        this.service.reloadItems();
-      })
+    this.actionSubscription?.unsubscribe();
+    this.actionSubscription = this.service.removeItems([e]).pipe(
+      switchMap(() => this.service.reloadItems()),
+      tap(
+        () => {
+          const successMessage = $localize`:Message of success after deleting a salesperson with first name {{ firstName }} and last name {{ lastName }}:Salesperson ${e.person.firstName}:firstName: ${e.person.lastName}:lastName: deleted`;
+          this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
+        },
+        () => {
+          this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
+        }
+      )
     ).subscribe();
   }
 

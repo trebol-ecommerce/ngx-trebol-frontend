@@ -21,6 +21,7 @@ import { StoreCheckoutService } from '../../store-checkout.service';
 export class StoreCheckoutConfirmationComponent
   implements OnInit, OnDestroy {
 
+  private actionSubscription: Subscription;
   private checkoutButtonPressSub: Subscription;
 
   @Output() confirmed = new EventEmitter<void>();
@@ -41,11 +42,13 @@ export class StoreCheckoutConfirmationComponent
 
   ngOnDestroy(): void {
     this.checkoutButtonPressSub?.unsubscribe();
+    this.actionSubscription?.unsubscribe();
     this.confirmed.complete();
   }
 
   onClickConfirm(): void {
-    this.getCartData().pipe(
+    this.actionSubscription?.unsubscribe();
+    this.actionSubscription = this.getCartData().pipe(
       switchMap(cart => this.checkoutService.requestTransaction(cart.data, cart.details)),
       tap(
         next => {

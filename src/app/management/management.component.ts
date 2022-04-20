@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { filter, take, tap } from 'rxjs/operators';
@@ -18,7 +18,7 @@ import { ManagementSidenavService } from './components/sidenav/management-sidena
   styleUrls: ['./management.component.css']
 })
 export class ManagementComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
 
   private sessionCheckSub: Subscription;
 
@@ -37,6 +37,10 @@ export class ManagementComponent
       take(1),
       tap(() => this.whenSessionBecomesInactive())
     ).subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.sessionCheckSub?.unsubscribe();
   }
 
   private whenSessionBecomesInactive() {

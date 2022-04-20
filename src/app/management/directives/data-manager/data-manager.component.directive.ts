@@ -5,11 +5,11 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Directive, OnInit } from '@angular/core';
+import { Directive, OnDestroy, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, share, take, tap } from 'rxjs/operators';
 import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
 import { DataManagerServiceDirective } from './data-manager.service.directive';
@@ -20,7 +20,9 @@ import { DataManagerServiceDirective } from './data-manager.service.directive';
  */
 @Directive()
 export abstract class DataManagerComponentDirective<T>
-  implements OnInit {
+  implements OnInit, OnDestroy {
+
+  private loadSubscription: Subscription;
 
   pageSizeOptions = [10, 20, 50, 100];
 
@@ -40,16 +42,22 @@ export abstract class DataManagerComponentDirective<T>
     this.init();
   }
 
+  ngOnDestroy(): void {
+    this.loadSubscription?.unsubscribe();
+  }
+
   onSortChange(event: Sort): void {
     this.service.sortBy = event.active;
     this.service.order = event.direction;
-    this.service.reloadItems();
+    this.loadSubscription?.unsubscribe();
+    this.loadSubscription = this.service.reloadItems().subscribe();
   }
 
   onPage(event: PageEvent): void {
     this.service.pageIndex = event.pageIndex;
     this.service.pageSize = event.pageSize;
-    this.service.reloadItems();
+    this.loadSubscription?.unsubscribe();
+    this.loadSubscription = this.service.reloadItems().subscribe();
   }
 
   protected init(): void {
@@ -79,6 +87,7 @@ export abstract class DataManagerComponentDirective<T>
     );
 
     this.service.pageSize = this.pageSizeOptions[0];
-    this.service.reloadItems();
+    this.loadSubscription?.unsubscribe();
+    this.loadSubscription = this.service.reloadItems().subscribe();
   }
 }

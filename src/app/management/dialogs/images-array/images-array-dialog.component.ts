@@ -26,6 +26,7 @@ import { ImagesArrayDialogData } from './ImagesArrayDialogData';
 export class ImagesArrayDialogComponent
   implements OnInit, OnDestroy {
 
+  private selectionChangeSub: Subscription;
   private fetchingSubscription: Subscription;
   private filterChangesSub: Subscription;
   private filterChangeNotifier = new Subject<void>();
@@ -78,13 +79,15 @@ export class ImagesArrayDialogComponent
   }
 
   ngOnDestroy(): void {
+    this.selectionChangeSub?.unsubscribe();
     this.fetchingSubscription?.unsubscribe();
     this.filterChangesSub.unsubscribe();
     this.filterChangeNotifier.complete();
   }
 
   onSelectionChange(event: MatSelectionListChange) {
-    from(event.options).pipe(
+    this.selectionChangeSub?.unsubscribe();
+    this.selectionChangeSub = from(event.options).pipe(
       tap((option) => {
         const matchingSelectedImageIndex = this.selectedImages.findIndex(image => image.url === option.value.url);
         if (!option.selected && matchingSelectedImageIndex !== -1) {

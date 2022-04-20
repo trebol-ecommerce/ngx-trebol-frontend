@@ -22,7 +22,6 @@ export abstract class DataManagerServiceDirective<T>
   protected pageSource = new ReplaySubject<DataPage<T>>();
   protected loadingSource = new BehaviorSubject(false);
   protected authorizedAccessSource = new ReplaySubject<AuthorizedAccess>();
-  protected fetchingSubscription: Subscription;
 
   focusedItems$ = this.focusedItemsSource.asObservable();
   loading$ = this.loadingSource.asObservable();
@@ -49,18 +48,16 @@ export abstract class DataManagerServiceDirective<T>
     this.focusedItemsSource.complete();
     this.pageSource.complete();
     this.loadingSource.complete();
-    this.fetchingSubscription?.unsubscribe();
   }
 
   /** Empty item selections and fetch data from the external service again. */
-  reloadItems(): void {
-    this.fetchingSubscription?.unsubscribe();
+  reloadItems() {
     this.focusedItemsSource.next([]);
     this.loadingSource.next(true);
-    this.fetchingSubscription = this.dataService.fetchPage(this.pageIndex, this.pageSize, this.sortBy, this.order, this.filters).pipe(
+    return this.dataService.fetchPage(this.pageIndex, this.pageSize, this.sortBy, this.order, this.filters).pipe(
       tap(page => { this.pageSource.next(page); }),
       finalize(() => { this.loadingSource.next(false); })
-    ).subscribe();
+    );
   }
 
 

@@ -8,6 +8,7 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { DataManagerServiceDirective } from './data-manager.service.directive';
 
@@ -51,7 +52,8 @@ describe('DataManagerServiceDirective', () => {
       pageSize: 10,
       totalCount: 0
     }));
-    service.reloadItems();
-    expect(dataServiceSpy.fetchPage).toHaveBeenCalled();
+    service.reloadItems().pipe(
+      tap(() => expect(dataServiceSpy.fetchPage).toHaveBeenCalled())
+    ).subscribe();
   });
 });

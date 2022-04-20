@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { DataManagerComponentDirective } from './data-manager.component.directive';
 import { DataManagerServiceDirective } from './data-manager.service.directive';
 
@@ -38,7 +38,7 @@ describe('DataManagerComponentDirective', () => {
       focusedItems$: of([]),
       items$: of([]),
       totalCount$: of(0),
-      reloadItems() { }
+      reloadItems: () => EMPTY
     };
 
     TestBed.configureTestingModule({

@@ -7,6 +7,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
@@ -46,8 +47,9 @@ describe('ProductCategoryTreeService', () => {
   });
 
   it('should fetch the root categories', () => {
-    service.reloadCategories();
-    expect(apiServiceSpy.fetchPage).toHaveBeenCalled();
+    service.reloadCategories().pipe(
+      tap(() => expect(apiServiceSpy.fetchPage).toHaveBeenCalled())
+    ).subscribe();
   });
 
   it('should fetch descendants of root categories ', () => {
@@ -64,9 +66,10 @@ describe('ProductCategoryTreeService', () => {
       pageSize: 10
     }));
 
-    service.reloadCategories();
-    // the spy could be called infinite times if the check for 'filter' was absent
-    expect(apiServiceSpy.fetchPage).toHaveBeenCalledTimes(2);
+    // the spy could be called infinite times were the check for 'filter' absent
+    service.reloadCategories().pipe(
+      tap(() => expect(apiServiceSpy.fetchPage).toHaveBeenCalledTimes(2))
+    ).subscribe();
   });
 
   it('should add categories', () => {

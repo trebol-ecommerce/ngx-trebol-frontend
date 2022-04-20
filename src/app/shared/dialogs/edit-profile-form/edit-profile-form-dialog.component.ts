@@ -49,6 +49,7 @@ export class EditProfileFormDialogComponent
     });
   }
 
+  // TODO use new ProfileService?
   ngOnInit(): void {
     this.service.loadProfile().subscribe(
       p => {

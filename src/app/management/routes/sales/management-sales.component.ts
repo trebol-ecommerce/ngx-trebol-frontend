@@ -5,12 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { EMPTY, Observable, of } from 'rxjs';
-import { catchError, finalize, map, switchMap, take, tap } from 'rxjs/operators';
+import { EMPTY, Observable, of, Subscription } from 'rxjs';
+import { catchError, finalize, map, onErrorResumeNext, switchMap, take, tap } from 'rxjs/operators';
 import { Sell } from 'src/models/entities/Sell';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';
@@ -34,7 +34,9 @@ export interface SalesTableRow {
 })
 export class ManagementSalesComponent
   extends TransactionalDataManagerComponentDirective<Sell>
-  implements OnInit {
+  implements OnInit, OnDestroy {
+
+  private actionSubscription: Subscription;
 
   tableColumns = ['buyOrder', 'date', 'customer', 'status', 'actions'];
   items$: Observable<SalesTableRow[]>;
@@ -60,26 +62,32 @@ export class ManagementSalesComponent
     );
   }
 
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.actionSubscription?.unsubscribe();
+  }
+
   onClickDelete(s: Sell) {
-    this.service.removeItems([s]).pipe(
-      map(results => results[0]),
-      catchError(error => {
-        this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
-        return of(error);
-      }),
-      tap(() => {
-        const message = $localize`:Message of success after deleting a sell with buy order {{ buyOrder }} on date {{ date }}:Sell N°${s.buyOrder}:buyOrder: (${s.date}:date:) deleted`;
-        this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
-        this.service.reloadItems();
-      })
+    this.actionSubscription?.unsubscribe();
+    this.actionSubscription = this.service.removeItems([s]).pipe(
+      switchMap(() => this.service.reloadItems()),
+      tap(
+        () => {
+          const message = $localize`:Message of success after deleting a sell with buy order {{ buyOrder }} on date {{ date }}:Sell N°${s.buyOrder}:buyOrder: (${s.date}:date:) deleted`;
+          this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
+        },
+        () => {
+          this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
+        }
+      )
     ).subscribe();
   }
 
   onClickView(row: SalesTableRow): void {
     if (!row.focused) {
       row.focused = true;
-      this.service.fetch(row.item).pipe(
-        catchError(() => EMPTY),
+      this.actionSubscription?.unsubscribe();
+      this.actionSubscription = this.service.fetch(row.item).pipe(
         switchMap(sell => {
           const dialogData: ManagementSellReviewDialogData = { sell };
           return this.dialogService.open(
@@ -90,6 +98,7 @@ export class ManagementSalesComponent
             }
           ).afterClosed();
         }),
+        onErrorResumeNext(),
         finalize(() => { row.focused = false; })
       ).subscribe();
     }

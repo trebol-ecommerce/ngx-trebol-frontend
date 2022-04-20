@@ -5,10 +5,9 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { concat, merge, Subscription } from 'rxjs';
 import { filter, take, tap } from 'rxjs/operators';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_VALIDATION_ERROR_MESSAGE } from 'src/text/messages';
 import { StoreCartService } from '../../store-cart.service';
@@ -19,9 +18,7 @@ import { StoreCartService } from '../../store-cart.service';
   styleUrls: ['./store-checkout-request-form.component.css']
 })
 export class StoreCheckoutRequestFormComponent
-  implements OnInit, OnDestroy {
-
-  private checkoutRequestUpdateSub: Subscription;
+  implements OnInit {
 
   @Output() request = new EventEmitter<void>();
 
@@ -48,10 +45,6 @@ export class StoreCheckoutRequestFormComponent
       filter(checkoutRequestData => !!checkoutRequestData),
       tap(checkoutRequestData => this.formGroup.patchValue(checkoutRequestData, { onlySelf: true, emitEvent: false }))
     ).subscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.checkoutRequestUpdateSub?.unsubscribe();
   }
 
   onRequest(): void {

@@ -28,6 +28,8 @@ import { ProductCategoryTreeFlatNode } from './ProductCategoryTreeFlatNode';
 export class ProductCategoryTreeComponent
   implements OnInit, OnDestroy {
 
+  private actionSubscription: Subscription;
+  private dataLoadingSubscription: Subscription;
   private dataChangesSubscription: Subscription;
   private treeFlattener: MatTreeFlattener<ProductCategory, ProductCategoryTreeFlatNode>;
 
@@ -62,7 +64,7 @@ export class ProductCategoryTreeComponent
   }
 
   ngOnInit(): void {
-    this.service.reloadCategories();
+    this.dataLoadingSubscription = this.service.reloadCategories().subscribe();
     this.dataChangesSubscription = this.service.categories$.pipe(
       tap(next => {
         this.nestedNodeMap.clear();
@@ -73,6 +75,8 @@ export class ProductCategoryTreeComponent
   }
 
   ngOnDestroy(): void {
+    this.actionSubscription?.unsubscribe();
+    this.dataLoadingSubscription?.unsubscribe();
     this.dataChangesSubscription?.unsubscribe();
     this.selection.complete();
   }
@@ -88,7 +92,8 @@ export class ProductCategoryTreeComponent
     if (this.editable) {
       const category = this.flatNodeMap.get(parentNode);
       if (category) {
-        this.requestCategoryData({
+        this.actionSubscription?.unsubscribe();
+        this.actionSubscription = this.requestCategoryData({
           item: {
             parent: {
               code: category.code,
@@ -114,7 +119,8 @@ export class ProductCategoryTreeComponent
   onClickEditNode(treeNode: ProductCategoryTreeFlatNode): void {
     if (this.editable) {
       const category = this.flatNodeMap.get(treeNode);
-      this.requestCategoryData({
+      this.actionSubscription?.unsubscribe();
+      this.actionSubscription = this.requestCategoryData({
         item: category,
         isNewItem: false
       }).pipe(
@@ -133,7 +139,8 @@ export class ProductCategoryTreeComponent
 
   onClickDeleteNode(treeNode: ProductCategoryTreeFlatNode): void {
     if (this.editable) {
-      this.sharedDialogService.requestConfirmation({
+      this.actionSubscription?.unsubscribe();
+      this.actionSubscription = this.sharedDialogService.requestConfirmation({
         title: $localize`:Title of dialog prompt to confirm deletion:Confirm deletion`,
         message: $localize`:Paragraph asking confirmation to delete a category, and explaining that deleting it cascades to its descendants, but not to related products which are detached from the relationship:Are you sure to delete the category? This will include all its descendants. Related products will not be deleted, and instead will be marked as not having a category.`
       }).pipe(

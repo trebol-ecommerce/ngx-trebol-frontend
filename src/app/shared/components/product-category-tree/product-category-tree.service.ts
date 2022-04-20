@@ -6,7 +6,7 @@
  */
 
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, from } from 'rxjs';
+import { BehaviorSubject, EMPTY, from, Observable } from 'rxjs';
 import { expand, ignoreElements, map, switchMap, tap, toArray } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
@@ -23,8 +23,8 @@ export class ProductCategoryTreeService {
     @Inject(API_INJECTION_TOKENS.dataProductCategories) public apiService: ITransactionalEntityDataApiService<ProductCategory>
   ) { }
 
-  reloadCategories(force = false) {
-    if (force || !this.categoriesSource.value.length) {
+  reloadCategories(force = false): Observable<ProductCategory[]> {
+    return (force || !this.categoriesSource.value.length) ?
       this.apiService.fetchPage().pipe(
         switchMap(page => from(page.items)),
         expand(category => this.loadDescendants(category).pipe(
@@ -33,8 +33,8 @@ export class ProductCategoryTreeService {
         )),
         toArray(),
         tap(c => this.categoriesSource.next(c))
-      ).subscribe();
-    }
+      ) :
+      EMPTY;
   }
 
   add(newNode: ProductCategory) {
@@ -67,7 +67,7 @@ export class ProductCategoryTreeService {
 
   remove(node: ProductCategory) {
     return this.apiService.delete({ code: node.code }).pipe(
-      tap(() => this.reloadCategories(true))
+      switchMap(() => this.reloadCategories(true))
     );
   }
 

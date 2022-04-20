@@ -44,7 +44,7 @@ export class AuthenticationService {
       switchMap(hasActiveSession => (hasActiveSession ?
         of('') :
         this.guestApiService.guestLogin(personDetails).pipe(
-          tap(token => this.sessionService.saveToken(token))
+          switchMap(token => this.sessionService.saveToken(token))
         )
       ))
     );
@@ -58,7 +58,7 @@ export class AuthenticationService {
         name: userDetails.name,
         password: userDetails.password
       })),
-      tap(token => this.sessionService.saveToken(token))
+      switchMap(token => this.sessionService.saveToken(token))
     );
   }
 
@@ -72,7 +72,7 @@ export class AuthenticationService {
       take(1),
       switchMap(hasActiveSession => (!hasActiveSession ?
         this.loginApiService.login(credentials).pipe(
-          tap(token => this.sessionService.saveToken(token))
+          switchMap(token => this.sessionService.saveToken(token))
         ) :
         of('')
       ))

@@ -26,6 +26,7 @@ export class ProductListContentsDialogComponent
   implements OnInit, OnDestroy {
 
   private loadingSubscription: Subscription;
+  private actionSubscription: Subscription
 
   productTableColumns = ['name', 'barcode', 'price', 'actions'];
   pageSizeOptions = [5, 10, 20, 50, 100];
@@ -54,6 +55,7 @@ export class ProductListContentsDialogComponent
 
   ngOnDestroy(): void {
     this.loadingSubscription?.unsubscribe();
+    this.actionSubscription?.unsubscribe();
   }
 
   onSortChange(sort: Sort): void {
@@ -69,7 +71,8 @@ export class ProductListContentsDialogComponent
   }
 
   onClickAddProducts(): void {
-    this.dialog.open(
+    this.actionSubscription?.unsubscribe();
+    this.actionSubscription = this.dialog.open(
       ProductsArrayDialogComponent,
       {
         maxHeight: '90vh'
@@ -84,7 +87,8 @@ export class ProductListContentsDialogComponent
   }
 
   onClickChooseProducts(): void {
-    this.dialog.open(
+    this.actionSubscription?.unsubscribe();
+    this.actionSubscription = this.dialog.open(
       ProductsArrayDialogComponent,
       {
         maxHeight: '90vh'
@@ -99,7 +103,8 @@ export class ProductListContentsDialogComponent
   }
 
   onClickRemoveProduct(p: Product): void {
-    this.service.removeProduct(p).pipe(
+    this.actionSubscription?.unsubscribe();
+    this.actionSubscription = this.service.removeProduct(p).pipe(
       tap(() => this.reload())
     ).subscribe();
   }

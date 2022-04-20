@@ -9,7 +9,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject, Subscription, throwError } from 'rxjs';
 import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/authentication.service';
 import { ProfileService } from 'src/app/profile.service';
@@ -32,6 +32,7 @@ import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 export class StoreRegistrationFormDialogComponent
   implements OnDestroy {
 
+  private actionSubscription: Subscription;
   private registeringSource = new BehaviorSubject(false);
 
   registering$ = this.registeringSource.asObservable();
@@ -62,6 +63,7 @@ export class StoreRegistrationFormDialogComponent
   }
 
   ngOnDestroy(): void {
+    this.actionSubscription?.unsubscribe();
     this.registeringSource.complete();
   }
 
@@ -73,7 +75,9 @@ export class StoreRegistrationFormDialogComponent
         password: this.pass1.value,
         profile: this.person.value as Person
       };
-      this.authenticationService.register(details).pipe(
+
+      this.actionSubscription?.unsubscribe();
+      this.actionSubscription = this.authenticationService.register(details).pipe(
         takeUntil(this.authenticationService.authCancelation$),
         tap(() => {
           const successMessage = $localize`:Message of success after registration:Registration was succesful. Please remember to keep your password safe, and enjoy shopping!`;

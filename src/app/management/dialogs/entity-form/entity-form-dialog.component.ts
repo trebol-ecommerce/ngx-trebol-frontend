@@ -5,11 +5,11 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE, COMMON_VALIDATION_ERROR_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogData } from './EntityFormDialogData';
@@ -24,8 +24,9 @@ import { EntityFormDialogData } from './EntityFormDialogData';
   styleUrls: [ './entity-form-dialog.component.css' ]
 })
 export class EntityFormDialogComponent<T>
-  implements OnInit {
+  implements OnInit, OnDestroy {
 
+  private formSubmissionSub: Subscription;
   private busySource = new BehaviorSubject(false);
   private successMessage: (item: T) => string;
 
@@ -58,6 +59,10 @@ export class EntityFormDialogComponent<T>
     }
   }
 
+  ngOnDestroy(): void {
+    this.formSubmissionSub?.unsubscribe();
+  }
+
   onSubmit(): void {
     if (this.formGroup.invalid) {
       this.formGroup.markAsTouched();
@@ -65,7 +70,8 @@ export class EntityFormDialogComponent<T>
     } else {
       this.busySource.next(true);
       if (this.data.apiService) {
-        this.doSubmit().subscribe();
+        this.formSubmissionSub?.unsubscribe();
+        this.formSubmissionSub = this.doSubmit().subscribe();
       } else {
         this.dialog.close(this.item.value);
       }

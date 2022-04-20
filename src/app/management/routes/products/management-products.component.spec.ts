@@ -16,7 +16,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { ManagementProductsComponent } from './management-products.component';
 import { ManagementProductsService } from './management-products.service';
 
@@ -39,7 +39,7 @@ describe('ManagementProductsComponent', () => {
   beforeEach(waitForAsync(() => {
     mockManagerService = {
       removeItems() { return of([true]); },
-      reloadItems() {},
+      reloadItems: () => EMPTY,
       loading$: of(false),
       focusedItems$: of([]),
       focusedItems: [],

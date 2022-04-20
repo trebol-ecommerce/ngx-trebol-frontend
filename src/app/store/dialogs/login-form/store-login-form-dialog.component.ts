@@ -5,11 +5,11 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, Observable, Subject, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, Subscription, throwError } from 'rxjs';
 import { catchError, map, takeUntil, tap } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/authentication.service';
 import { DialogSwitcherButtonComponent } from 'src/app/shared/components/dialog-switcher-button/dialog-switcher-button.component';
@@ -23,8 +23,9 @@ import { StoreRegistrationFormDialogComponent } from '../registration-form/store
   styleUrls: ['./store-login-form-dialog.component.css']
 })
 export class StoreLoginFormDialogComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
 
+  private actionSubscription: Subscription;
   private loggingInSource = new Subject();
   private hidePasswordSource = new BehaviorSubject(true);
 
@@ -60,6 +61,10 @@ export class StoreLoginFormDialogComponent
     this.registerButton.targetDialogConfig = { width: '40rem' };
   }
 
+  ngOnDestroy(): void {
+    this.actionSubscription?.unsubscribe();
+  }
+
   showPassword(): void { this.hidePasswordSource.next(false); }
   hidePassword(): void { this.hidePasswordSource.next(true); }
 
@@ -72,7 +77,8 @@ export class StoreLoginFormDialogComponent
         password: this.password.value
       };
 
-      this.authenticationService.login(details).pipe(
+      this.actionSubscription?.unsubscribe();
+      this.actionSubscription = this.authenticationService.login(details).pipe(
         takeUntil(this.authenticationService.authCancelation$),
         tap(() => {
           this.dialog.close();

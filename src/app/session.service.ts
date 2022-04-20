@@ -68,9 +68,9 @@ export class SessionService {
     this.userHasActiveSessionSource.next(false);
   }
 
-  saveToken(token: any): void {
+  saveToken(token: any) {
     sessionStorage.setItem(this.sessionStorageTokenItemName, token);
-    this.validateSession().subscribe();
+    return this.validateSession();
   }
 
 }

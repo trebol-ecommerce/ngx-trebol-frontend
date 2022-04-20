@@ -16,7 +16,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { ManagementImagesComponent } from './management-images.component';
 import { ManagementImagesService } from './management-images.service';
 
@@ -38,7 +38,7 @@ describe('ManagementImagesComponent', () => {
 
   beforeEach(waitForAsync(() => {
     mockService = {
-      reloadItems() {},
+      reloadItems: () => EMPTY,
       loading$: of(false),
       focusedItems$: of([]),
       items$: of([]),

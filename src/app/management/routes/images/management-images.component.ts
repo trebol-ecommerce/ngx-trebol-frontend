@@ -5,12 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { of, Subscription } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { Image } from 'src/models/entities/Image';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';
@@ -27,7 +27,9 @@ import { ManagementImagesService } from './management-images.service';
 })
 export class ManagementImagesComponent
   extends TransactionalDataManagerComponentDirective<Image>
-  implements OnInit {
+  implements OnInit, OnDestroy {
+
+  private actionSubscription: Subscription;
 
   tableColumns = [ 'thumb', 'filename', 'actions' ];
 
@@ -44,6 +46,11 @@ export class ManagementImagesComponent
     super.ngOnInit();
   }
 
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.actionSubscription?.unsubscribe();
+  }
+
   protected createDialogProperties(item: Image): EntityFormDialogConfig<Image> {
     return {
       data: {
@@ -57,16 +64,18 @@ export class ManagementImagesComponent
   }
 
   onClickDelete(img: Image) {
-    this.service.removeItems([img]).pipe(
-      catchError(error => {
-        this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
-        return of(error);
-      }),
-      tap(() => {
-        const deletionSucess = $localize`:Message of success after deleting an image with filename {{ fileName }}:Image '${img.filename}:fileName:' deleted`;
-        this.snackBarService.open(deletionSucess, COMMON_DISMISS_BUTTON_LABEL);
-        this.service.reloadItems();
-      })
+    this.actionSubscription?.unsubscribe();
+    this.actionSubscription = this.service.removeItems([img]).pipe(
+      switchMap(() => this.service.reloadItems()),
+      tap(
+        () => {
+          const deletionSucess = $localize`:Message of success after deleting an image with filename {{ fileName }}:Image '${img.filename}:fileName:' deleted`;
+          this.snackBarService.open(deletionSucess, COMMON_DISMISS_BUTTON_LABEL);
+        },
+        () => {
+          this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
+        }
+      )
     ).subscribe();
   }
 

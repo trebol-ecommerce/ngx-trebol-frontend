@@ -5,10 +5,10 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { ProfileService } from 'src/app/profile.service';
 import { SessionService } from 'src/app/session.service';
@@ -22,7 +22,9 @@ import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
   styleUrls: ['./store-header-menu.component.css']
 })
 export class StoreHeaderMenuComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
+
+  private logoutSubscription: Subscription;
 
   userName$: Observable<string>;
   canNavigateManagement$: Observable<boolean>;
@@ -42,6 +44,10 @@ export class StoreHeaderMenuComponent
     );
   }
 
+  ngOnDestroy(): void {
+    this.logoutSubscription?.unsubscribe();
+  }
+
   onClickEditProfile(): void {
     this.dialogService.open(
       EditProfileFormDialogComponent,
@@ -52,7 +58,8 @@ export class StoreHeaderMenuComponent
   }
 
   onClickLogout(): void {
-    this.sessionService.userHasActiveSession$.pipe(
+    this.logoutSubscription?.unsubscribe();
+    this.logoutSubscription = this.sessionService.userHasActiveSession$.pipe(
       take(1),
       filter(hasActiveSession => hasActiveSession),
       switchMap(() => this.confirmLogout()),

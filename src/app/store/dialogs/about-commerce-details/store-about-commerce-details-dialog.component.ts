@@ -5,9 +5,9 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, Inject, OnInit } from '@angular/core';
-import { ReplaySubject, Subject } from 'rxjs';
-import { map, pluck, startWith } from 'rxjs/operators';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { ReplaySubject, Subject, Subscription } from 'rxjs';
+import { map, pluck, startWith, tap } from 'rxjs/operators';
 import { IAboutPublicApiService } from 'src/app/api/about-public-api.iservice';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { AboutCommerceDetails } from 'src/models/AboutCommerceDetails';
@@ -18,8 +18,9 @@ import { AboutCommerceDetails } from 'src/models/AboutCommerceDetails';
   styleUrls: ['./store-about-commerce-details-dialog.component.css']
 })
 export class StoreCompanyDetailsDialogComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
 
+  private loadingSubscription: Subscription;
   private dataSource: Subject<AboutCommerceDetails> = new ReplaySubject();
 
   // TODO move these observables
@@ -35,9 +36,13 @@ export class StoreCompanyDetailsDialogComponent
   ) { }
 
   ngOnInit(): void {
-    this.aboutApiService.fetchCompanyDetails().subscribe(
-      companyDetails => { this.dataSource.next(companyDetails); }
-    );
+    this.loadingSubscription = this.aboutApiService.fetchCompanyDetails().pipe(
+      tap(next => this.dataSource.next(next))
+    ).subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.loadingSubscription?.unsubscribe();
   }
 
 }
