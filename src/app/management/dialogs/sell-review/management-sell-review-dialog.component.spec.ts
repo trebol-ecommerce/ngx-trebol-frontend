@@ -66,6 +66,7 @@ describe('ManagementSellReviewDialogComponent', () => {
     salesServiceSpy = TestBed.inject(ManagementSalesService) as jasmine.SpyObj<ManagementSalesService>;
     snackBarServiceSpy = TestBed.inject(MatSnackBar) as jasmine.SpyObj<MatSnackBar>;
     salesServiceSpy.fetch.and.returnValue(of(mockDialogData.sell));
+    salesServiceSpy.reloadItems.and.returnValue(of(void 0));
 
     fixture = TestBed.createComponent(ManagementSellReviewDialogComponent);
     component = fixture.componentInstance;

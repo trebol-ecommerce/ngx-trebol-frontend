@@ -22,20 +22,10 @@ class MockCenteredMatSpinnerComponent { }
 describe('ManagementCustomersComponent', () => {
   let component: ManagementCustomersComponent;
   let fixture: ComponentFixture<ManagementCustomersComponent>;
-  let mockService: Partial<ManagementCustomersService>;
+  let serviceSpy: jasmine.SpyObj<ManagementCustomersService>;
 
   beforeEach(waitForAsync(() => {
-    mockService = {
-      reloadItems: () => EMPTY,
-      loading$: of(false),
-      focusedItems$: of([]),
-      items$: of([]),
-      totalCount$: of(0),
-      sortBy: undefined,
-      order: undefined,
-      pageIndex: undefined,
-      pageSize: undefined
-    };
+    const mockService = jasmine.createSpyObj('ManagementCustomersService', ['reloadItems']);
 
     TestBed.configureTestingModule({
       imports: [
@@ -57,6 +47,17 @@ describe('ManagementCustomersComponent', () => {
   }));
 
   beforeEach(() => {
+    serviceSpy = TestBed.inject(ManagementCustomersService) as jasmine.SpyObj<ManagementCustomersService>;
+    serviceSpy.reloadItems.and.returnValue(EMPTY);
+    serviceSpy.loading$ = of(false);
+    serviceSpy.focusedItems$ = of([]);
+    serviceSpy.items$ = of([]);
+    serviceSpy.totalCount$ = of(0);
+    serviceSpy.sortBy = undefined;
+    serviceSpy.order = undefined;
+    serviceSpy.pageIndex = undefined;
+    serviceSpy.pageSize = undefined;
+
     fixture = TestBed.createComponent(ManagementCustomersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

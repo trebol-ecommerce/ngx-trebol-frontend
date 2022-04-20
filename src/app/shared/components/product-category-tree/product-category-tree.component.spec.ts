@@ -69,6 +69,7 @@ describe('ProductCategoryTreeComponent', () => {
     serviceSpy = TestBed.inject(ProductCategoryTreeService) as jasmine.SpyObj<ProductCategoryTreeService>;
     dialogServiceSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
     sharedDialogServiceSpy = TestBed.inject(SharedDialogService) as jasmine.SpyObj<SharedDialogService>;
+    serviceSpy.reloadCategories.and.returnValue(EMPTY);
     serviceSpy.categories$ = of([]);
 
     fixture = TestBed.createComponent(ProductCategoryTreeComponent);

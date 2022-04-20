@@ -32,23 +32,13 @@ class MockManagementDataActionsComponent {
 describe('ManagementImagesComponent', () => {
   let component: ManagementImagesComponent;
   let fixture: ComponentFixture<ManagementImagesComponent>;
-  let mockService: Partial<ManagementImagesService>;
+  let serviceSpy: jasmine.SpyObj<ManagementImagesService>;
   let mockSnackBarService: Partial<MatSnackBar>;
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
-    mockService = {
-      reloadItems: () => EMPTY,
-      loading$: of(false),
-      focusedItems$: of([]),
-      items$: of([]),
-      totalCount$: of(0),
-      focusedItems: [],
-      sortBy: undefined,
-      order: undefined,
-      pageIndex: undefined,
-      pageSize: undefined
-    };
+    const mockService = jasmine.createSpyObj('ManagementImagesService', ['reloadItems', 'removeItems']);
+
     mockSnackBarService = {
       open(m: string, a: string) { return void 0; }
     };
@@ -81,6 +71,18 @@ describe('ManagementImagesComponent', () => {
   }));
 
   beforeEach(() => {
+    serviceSpy = TestBed.inject(ManagementImagesService) as jasmine.SpyObj<ManagementImagesService>;
+    serviceSpy.reloadItems.and.returnValue(EMPTY);
+    serviceSpy.removeItems.and.returnValue(EMPTY);
+    serviceSpy.loading$ = of(false);
+    serviceSpy.focusedItems$ = of([]);
+    serviceSpy.items$ = of([]);
+    serviceSpy.totalCount$ = of(0);
+    serviceSpy.sortBy = undefined;
+    serviceSpy.order = undefined;
+    serviceSpy.pageIndex = undefined;
+    serviceSpy.pageSize = undefined;
+
     fixture = TestBed.createComponent(ManagementImagesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

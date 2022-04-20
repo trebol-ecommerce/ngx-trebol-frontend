@@ -46,7 +46,7 @@ describe('AuthenticationService', () => {
     const mockLoginApiService = jasmine.createSpyObj('ILoginPublicApiService', ['login']);
     const mockGuestApiService = jasmine.createSpyObj('IGuestPublicApiService', ['guestLogin']);
     const mockRegisterApiService = jasmine.createSpyObj('IRegisterPublicApiService', ['register']);
-    const mockSessionService = jasmine.createSpyObj('SessionService', ['saveToken', 'userHasActiveSession$']);
+    const mockSessionService = jasmine.createSpyObj('SessionService', ['saveToken', 'validateSession', 'userHasActiveSession$']);
 
     TestBed.configureTestingModule({
       providers: [
@@ -60,6 +60,8 @@ describe('AuthenticationService', () => {
     guestApiServiceSpy = TestBed.inject(API_INJECTION_TOKENS.guest) as jasmine.SpyObj<IGuestPublicApiService>;
     registerApiServiceSpy = TestBed.inject(API_INJECTION_TOKENS.register) as jasmine.SpyObj<IRegisterPublicApiService>;
     sessionServiceSpy = TestBed.inject(SessionService) as jasmine.SpyObj<SessionService>;
+    sessionServiceSpy.validateSession.and.returnValue(EMPTY);
+
     service = TestBed.inject(AuthenticationService);
   });
 

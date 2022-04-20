@@ -5,10 +5,10 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { EntityFormDialogConfig } from 'src/app/management/dialogs/entity-form/EntityFormDialogConfig';
 import { ProductCategoryTreeService } from 'src/app/shared/components/product-category-tree/product-category-tree.service';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
@@ -25,8 +25,9 @@ import { ManagementProductCategoriesService } from './management-product-categor
 })
 export class ManagementProductCategoriesComponent
   extends TransactionalDataManagerComponentDirective<ProductCategory>
-  implements OnInit {
+  implements OnInit, OnDestroy {
 
+  private loadingSubscription: Subscription;
   actions$: Observable<string[]>;
   loading = true;
 
@@ -41,8 +42,11 @@ export class ManagementProductCategoriesComponent
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.categoryTreeService.reloadCategories();
+    this.loadingSubscription = this.categoryTreeService.reloadCategories().subscribe();
+  }
 
+  ngOnDestroy(): void {
+    this.loadingSubscription?.unsubscribe();
   }
 
   protected createDialogProperties(item: ProductCategory): EntityFormDialogConfig<ProductCategory> {

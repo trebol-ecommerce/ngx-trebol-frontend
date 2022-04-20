@@ -32,23 +32,10 @@ class MockManagementDataActionsComponent {
 describe('ManagementSalesComponent', () => {
   let component: ManagementSalesComponent;
   let fixture: ComponentFixture<ManagementSalesComponent>;
-  let mockManagerService: Partial<ManagementSalesService>;
-  let dialogServiceSpy: jasmine.SpyObj<MatDialog>;
-  let snackBarServiceSpy: jasmine.SpyObj<MatSnackBar>;
+  let serviceSpy: jasmine.SpyObj<ManagementSalesService>;
 
   beforeEach(waitForAsync(() => {
-    mockManagerService = {
-      removeItems() { return of([true]); },
-      reloadItems: () => EMPTY,
-      loading$: of(false),
-      focusedItems$: of([]),
-      items$: of([]),
-      totalCount$: of(0),
-      sortBy: undefined,
-      order: undefined,
-      pageIndex: undefined,
-      pageSize: undefined
-    };
+    const mockService = jasmine.createSpyObj('ManagementSalesService', ['reloadItems', 'removeItems']);
     const mockDialogService = jasmine.createSpyObj('MatDialog', ['open']);
     const mockSnackBarService = jasmine.createSpyObj('MatSnackBar', ['open']);
 
@@ -68,7 +55,7 @@ describe('ManagementSalesComponent', () => {
         ManagementSalesComponent
       ],
       providers: [
-        { provide: ManagementSalesService, useValue: mockManagerService },
+        { provide: ManagementSalesService, useValue: mockService },
         { provide: MatDialog, useValue: mockDialogService },
         { provide: MatSnackBar, useValue: mockSnackBarService }
       ]
@@ -76,8 +63,17 @@ describe('ManagementSalesComponent', () => {
   }));
 
   beforeEach(() => {
-    dialogServiceSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
-    snackBarServiceSpy = TestBed.inject(MatSnackBar) as jasmine.SpyObj<MatSnackBar>;
+    serviceSpy = TestBed.inject(ManagementSalesService) as jasmine.SpyObj<ManagementSalesService>;
+    serviceSpy.reloadItems.and.returnValue(EMPTY);
+    serviceSpy.removeItems.and.returnValue(EMPTY);
+    serviceSpy.loading$ = of(false);
+    serviceSpy.focusedItems$ = of([]);
+    serviceSpy.items$ = of([]);
+    serviceSpy.totalCount$ = of(0);
+    serviceSpy.sortBy = undefined;
+    serviceSpy.order = undefined;
+    serviceSpy.pageIndex = undefined;
+    serviceSpy.pageSize = undefined;
 
     fixture = TestBed.createComponent(ManagementSalesComponent);
     component = fixture.componentInstance;

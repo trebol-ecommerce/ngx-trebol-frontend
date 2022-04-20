@@ -7,8 +7,9 @@
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import { Router, ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EMPTY, of } from 'rxjs';
 import { ProductList } from 'src/models/entities/ProductList';
@@ -40,28 +41,21 @@ class MockStoreLocationComponent {
 describe('StoreCatalogComponent', () => {
   let component: StoreCatalogComponent;
   let fixture: ComponentFixture<StoreCatalogComponent>;
-  let mockCatalogService: Partial<StoreCatalogService>;
-  let cartServiceSpy: Partial<StoreCartService>;
+  let catalogServiceSpy: jasmine.SpyObj<StoreCatalogService>;
+  let dialogServiceSpy: jasmine.SpyObj<MatDialog>;
+  let mockActivatedRoute: Partial<ActivatedRoute>;
 
   beforeEach(waitForAsync(() => {
-    mockCatalogService = {
-      loading$: of(false),
-      listsPage$: of({
-        items: [],
-        pageIndex: 0,
-        pageSize: 10,
-        totalCount: 0
-      }),
-      reloadItems: () => EMPTY,
-      navigateToProductDetails: () => EMPTY,
-      fetchProductDetails: () => EMPTY
-    };
+    const mockCatalogService = jasmine.createSpyObj('StoreCatalogService', ['reloadItems', 'navigateToProductDetails', 'fetchProductDetails']);
     const mockCartService = jasmine.createSpyObj('StoreCartService', ['addProductToCart']);
     const mockDialogService = jasmine.createSpyObj('MatDialog', ['open']);
+    const mockRouter = jasmine.createSpyObj('Router', ['navigate']);
+    mockActivatedRoute = {
+      queryParamMap: EMPTY
+    };
 
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
         MatDividerModule
       ],
       declarations: [
@@ -74,13 +68,29 @@ describe('StoreCatalogComponent', () => {
       providers: [
         { provide: StoreCatalogService, useValue: mockCatalogService },
         { provide: StoreCartService, useValue: mockCartService },
-        { provide: MatDialog, useValue: mockDialogService }
+        { provide: MatDialog, useValue: mockDialogService },
+        { provide: Router, useValue: mockRouter },
+        { provide: ActivatedRoute, useValue: mockActivatedRoute }
       ]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    cartServiceSpy = TestBed.inject(StoreCartService) as jasmine.SpyObj<StoreCartService>;
+    catalogServiceSpy = TestBed.inject(StoreCatalogService) as jasmine.SpyObj<StoreCatalogService>;
+    dialogServiceSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
+    catalogServiceSpy.reloadItems.and.returnValue(EMPTY);
+    catalogServiceSpy.navigateToProductDetails.and.returnValue(EMPTY);
+    catalogServiceSpy.fetchProductDetails.and.returnValue(EMPTY);
+    catalogServiceSpy.loading$ = of(false);
+    catalogServiceSpy.listsPage$ = of({
+      items: [],
+      pageIndex: 0,
+      pageSize: 10,
+      totalCount: 0
+    });
+    dialogServiceSpy.open.and.returnValue({
+      afterClosed: () => of(void 0)
+    } as MatDialogRef<any>);
 
     fixture = TestBed.createComponent(StoreCatalogComponent);
     component = fixture.componentInstance;

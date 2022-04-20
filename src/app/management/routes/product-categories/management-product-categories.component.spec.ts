@@ -33,23 +33,12 @@ class MockProductCategoryTreeComponent {
 describe('ManagementProductCategoriesComponent', () => {
   let component: ManagementProductCategoriesComponent;
   let fixture: ComponentFixture<ManagementProductCategoriesComponent>;
-  let mockService: Partial<ManagementProductCategoriesService>;
+  let serviceSpy: jasmine.SpyObj<ManagementProductCategoriesService>;
   let dialogServiceSpy: jasmine.SpyObj<MatDialog>;
   let categoryTreeServiceSpy: jasmine.SpyObj<ProductCategoryTreeService>;
 
   beforeEach(waitForAsync(() => {
-    mockService = {
-      reloadItems: () => EMPTY,
-      loading$: of(false),
-      focusedItems$: of([]),
-      items$: of([]),
-      totalCount$: of(0),
-      focusedItems: [],
-      sortBy: undefined,
-      order: undefined,
-      pageIndex: undefined,
-      pageSize: undefined
-    };
+    const mockService = jasmine.createSpyObj('ManagementProductCategoriesService', ['reloadItems', 'removeItems']);
     const mockDialogService = jasmine.createSpyObj('MatDialog', ['open']);
     const mockCategoryTreeService = jasmine.createSpyObj('ProductCategoryTreeService', ['reloadCategories']);
 
@@ -73,8 +62,20 @@ describe('ManagementProductCategoriesComponent', () => {
   }));
 
   beforeEach(() => {
+    serviceSpy = TestBed.inject(ManagementProductCategoriesService) as jasmine.SpyObj<ManagementProductCategoriesService>;
     dialogServiceSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
     categoryTreeServiceSpy = TestBed.inject(ProductCategoryTreeService) as jasmine.SpyObj<ProductCategoryTreeService>;
+    serviceSpy.reloadItems.and.returnValue(EMPTY);
+    serviceSpy.removeItems.and.returnValue(EMPTY);
+    serviceSpy.loading$ = of(false);
+    serviceSpy.focusedItems$ = of([]);
+    serviceSpy.items$ = of([]);
+    serviceSpy.totalCount$ = of(0);
+    serviceSpy.sortBy = undefined;
+    serviceSpy.order = undefined;
+    serviceSpy.pageIndex = undefined;
+    serviceSpy.pageSize = undefined;
+    categoryTreeServiceSpy.reloadCategories.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(ManagementProductCategoriesComponent);
     component = fixture.componentInstance;

@@ -11,7 +11,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { EntityFormDialogConfig } from 'src/app/management/dialogs/entity-form/EntityFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from './transactional-data-manager.component.directive';
 import { TransactionalDataManagerServiceDirective } from './transactional-data-manager.service.directive';
@@ -64,6 +64,7 @@ describe('TransactionalDataManagerComponentDirective', () => {
     serviceSpy = TestBed.inject(TransactionalDataManagerServiceDirective) as
       jasmine.SpyObj<TransactionalDataManagerServiceDirective<any>>;
     dialogServiceSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
+    serviceSpy.reloadItems.and.returnValue(EMPTY);
     serviceSpy.loading$ = of(false);
     serviceSpy.focusedItems$ = of([]);
     serviceSpy.focusedItems = [];
