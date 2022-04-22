@@ -7,9 +7,9 @@
 
 import { Inject, Injectable } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
-import { ActivatedRoute, Router } from "@angular/router";
-import { BehaviorSubject, from, ReplaySubject } from "rxjs";
-import { switchMap, tap } from "rxjs/operators";
+import { Params } from "@angular/router";
+import { BehaviorSubject, ReplaySubject } from "rxjs";
+import { finalize, ignoreElements, tap } from "rxjs/operators";
 import { DataPage } from "src/models/DataPage";
 import { Product } from "src/models/entities/Product";
 import { ProductSearchQuery } from "src/models/ProductSearchQuery";
@@ -21,31 +21,30 @@ export class StoreSearchService {
 
   private isLoadingSearchSource = new BehaviorSubject(false);
   private currentPageSource = new ReplaySubject<DataPage<Product>>(1);
+  private searchQuery = new ProductSearchQuery();
 
-  searchQuery = new ProductSearchQuery();
+  currentPage$ = this.currentPageSource.asObservable();
+  isLoadingSearch$ = this.isLoadingSearchSource.asObservable();
+
   pageIndex = 0;
   pageSize = 8;
   sortBy = 'name';
   order = 'asc';
 
-  readonly currentPage$ = this.currentPageSource.asObservable();
-  readonly isLoadingSearch$ = this.isLoadingSearchSource.asObservable();
-
   constructor(
-    @Inject(API_INJECTION_TOKENS.dataProducts) private productsApiService: ITransactionalEntityDataApiService<Product>,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {
-    this.readQueryParams();
-  }
+    @Inject(API_INJECTION_TOKENS.dataProducts) private productsApiService: ITransactionalEntityDataApiService<Product>
+  ) { }
 
-  readQueryParams() {
-    const queryParams = this.route.snapshot.queryParams;
-    if (queryParams.nameLike || queryParams) {
+  updateSearchQuery(queryParams: Params) {
+    if (queryParams?.nameLike || queryParams) {
       this.searchQuery.nameLike = queryParams.nameLike;
+    } else {
+      delete this.searchQuery.nameLike;
     }
-    if (queryParams.categoryCode) {
+    if (queryParams?.categoryCode) {
       this.searchQuery.categoryCode = queryParams.categoryCode;
+    } else {
+      delete this.searchQuery.categoryCode;
     }
   }
 
@@ -56,29 +55,11 @@ export class StoreSearchService {
   }
 
   reload() {
-    const finalFilterObject: Partial<ProductSearchQuery> = {};
-    if (this.searchQuery?.nameLike) {
-      finalFilterObject.nameLike = this.searchQuery.nameLike;
-    } else if (this.route.snapshot.queryParamMap.has('nameLike')) {
-      finalFilterObject.nameLike = undefined;
-    }
-    if (this.searchQuery?.categoryCode) {
-      finalFilterObject.categoryCode = this.searchQuery.categoryCode;
-    }
-    return from(this.router.navigate(
-      [],
-      {
-        relativeTo: this.route,
-        queryParams: finalFilterObject,
-        queryParamsHandling: ""
-      }
-    )).pipe(
-      tap(() => this.isLoadingSearchSource.next(true)),
-      switchMap(() => this.productsApiService.fetchPage(this.pageIndex, this.pageSize, this.sortBy, this.order, finalFilterObject)),
-      tap(page => {
-        this.currentPageSource.next(page);
-        this.isLoadingSearchSource.next(false);
-      })
+    this.isLoadingSearchSource.next(true);
+    return this.productsApiService.fetchPage(this.pageIndex, this.pageSize, this.sortBy, this.order, this.searchQuery).pipe(
+      tap(page => this.currentPageSource.next(page)),
+      ignoreElements(),
+      finalize(() => this.isLoadingSearchSource.next(false))
     );
   }
 }

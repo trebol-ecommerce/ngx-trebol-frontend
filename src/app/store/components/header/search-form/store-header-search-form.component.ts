@@ -9,7 +9,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { from, Subscription } from 'rxjs';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { ProductCategoryPickerDialogComponent } from 'src/app/shared/dialogs/product-category-picker/product-category-picker-dialog.component';
 import { ProductSearchQuery } from 'src/models/ProductSearchQuery';
@@ -25,6 +25,7 @@ export class StoreHeaderSearchFormComponent
 
   private categoryPickerSubscription: Subscription;
   private productSearchChanges: Subscription;
+  private queryParamsSub: Subscription;
 
   formGroup: FormGroup;
 
@@ -37,27 +38,34 @@ export class StoreHeaderSearchFormComponent
     private searchService: StoreSearchService,
     private route: ActivatedRoute,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       nameLike: [''],
       categoryCode: [null]
     });
-  }
-
-  ngOnInit(): void {
-    this.productSearchChanges = this.formGroup.valueChanges.pipe(
+  this.productSearchChanges = this.formGroup.valueChanges.pipe(
       debounceTime(400),
-      tap(value => {
-        if ((value.nameLike as string)?.trim() === '') { value.nameLike = ''; }
-        this.searchService.searchQuery = (value as ProductSearchQuery);
-        this.searchService.pageIndex = 0;
-      }),
+      tap(() => { this.searchService.pageIndex = 0; }),
+      switchMap(value => from(this.router.navigate(
+        [],
+        {
+          relativeTo: this.route,
+          queryParams: value,
+          queryParamsHandling: 'merge'
+        }
+      ))),
       switchMap(() => this.searchService.reload())
+    ).subscribe();
+    this.queryParamsSub = this.route.queryParams.pipe(
+      tap(params => this.searchService.updateSearchQuery(params))
     ).subscribe();
   }
 
   ngOnDestroy(): void {
-    this.productSearchChanges?.unsubscribe();
+    this.productSearchChanges.unsubscribe();
+    this.queryParamsSub.unsubscribe();
     this.categoryPickerSubscription?.unsubscribe();
   }
 
@@ -91,7 +99,6 @@ export class StoreHeaderSearchFormComponent
       nameLike: '',
       categoryCode: null
     });
-    this.searchService.searchQuery = new ProductSearchQuery();
   }
 
 }

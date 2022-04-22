@@ -31,26 +31,13 @@ class MockProductCardComponent {
 describe('StoreSearchComponent', () => {
   let component: StoreSearchComponent;
   let fixture: ComponentFixture<StoreSearchComponent>;
-  let mockSearchService: Partial<StoreSearchService>;
-  let mockCartService: Partial<StoreCartService>;
+  let searchServiceSpy: jasmine.SpyObj<StoreSearchService>;
+  let cartServiceSpy: jasmine.SpyObj<StoreCartService>;
   let catalogServiceSpy: jasmine.SpyObj<StoreCatalogService>;
 
   beforeEach(waitForAsync(() => {
-    mockSearchService = {
-      isLoadingSearch$: of(false),
-      currentPage$: of({
-        items: [],
-        pageIndex: 0,
-        pageSize: 10,
-        totalCount: 0
-      }),
-      readQueryParams() { },
-      reload() { return of(void 0); },
-      paginate() { return of(void 0); }
-    };
-    mockCartService = {
-      addProductToCart() { }
-    };
+    const mockSearchService = jasmine.createSpyObj('StoreSearchService', ['updateSearchQuery', 'reload', 'paginate']);
+    const mockCartService = jasmine.createSpyObj('StoreCartService', ['addProductToCart']);
     const mockStoreCatalogService = jasmine.createSpyObj('StoreCatalogService', ['navigateToProductDetails']);
 
     TestBed.configureTestingModule({
@@ -73,7 +60,16 @@ describe('StoreSearchComponent', () => {
   }));
 
   beforeEach(() => {
+    searchServiceSpy = TestBed.inject(StoreSearchService) as jasmine.SpyObj<StoreSearchService>;
+    cartServiceSpy = TestBed.inject(StoreCartService) as jasmine.SpyObj<StoreCartService>;
     catalogServiceSpy = TestBed.inject(StoreCatalogService) as jasmine.SpyObj<StoreCatalogService>;
+    searchServiceSpy.isLoadingSearch$ = of(false),
+    searchServiceSpy.currentPage$ = of({
+      items: [],
+      pageIndex: 0,
+      pageSize: 10,
+      totalCount: 0
+    });
 
     fixture = TestBed.createComponent(StoreSearchComponent);
     component = fixture.componentInstance;
