@@ -7,7 +7,7 @@
 
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { filter, map, share, switchMap, take, tap } from 'rxjs/operators';
+import { filter, ignoreElements, map, share, switchMap, take, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { Person } from 'src/models/entities/Person';
 import { IProfileAccountApiService } from './api/profile-account-api.iservice';
@@ -26,12 +26,11 @@ export class ProfileService {
     private sessionService: SessionService
   ) { }
 
-  getUserProfile(): Observable<Person> {
+  getUserProfile(force = false): Observable<Person> {
     return this.sessionService.userHasActiveSession$.pipe(
-      take(1),
       switchMap(hasActiveSession => (hasActiveSession ?
-        (!!this.userProfileSource.value ?
-          this.userProfileSource.asObservable().pipe(take(1)) :
+        ((force || !!this.userProfileSource.value) ?
+          this.userProfileSource.asObservable() :
           this.profileApiService.getProfile().pipe(
             tap(
               profile => { this.userProfileSource.next(profile); },
@@ -42,16 +41,17 @@ export class ProfileService {
         of(undefined).pipe(
           tap(() => { this.userProfileSource.next(undefined); })
         )
-      ))
+      )),
+      take(1)
     );
   }
 
   updateUserProfile(details: Person) {
     return this.sessionService.userHasActiveSession$.pipe(
-      take(1),
       filter(hasActiveSession => !!hasActiveSession),
       switchMap(() => this.profileApiService.updateProfile(details)),
-      tap(() => { this.userProfileSource.next(details); })
+      tap(() => { this.userProfileSource.next(details); }),
+      map(() => (void 0))
     );
   }
 

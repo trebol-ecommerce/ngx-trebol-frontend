@@ -6,19 +6,17 @@
 -->
 
 <h2 mat-dialog-title i18n="Title of dialog prompt for editing oneself's profile information">Edit Profile</h2>
-<app-centered-mat-spinner *ngIf="saving$ | async">
-</app-centered-mat-spinner>
 
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-  <app-person-form formControlName="person">
+  <app-person-form formControlName="profile">
   </app-person-form>
 
   <div class="actions">
     <button mat-button mat-raised-button type="submit"
-      i18n="confirm|Label for action button to accept and proceed">Confirm</button>
+      i18n="confirm|Label for action button to accept and proceed"
+      [disabled]="formGroup.pristine">Confirm</button>
     <button mat-button mat-raised-button type="button"
-      [color]="cancelButtonColor$ | async"
-      (click)="onCancel()"
+      mat-dialog-close
       i18n="cancel|Label for action button to cancel and/or stop an operation">Cancel</button>
   </div>
 </form>

@@ -5,15 +5,15 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { map, startWith, tap } from 'rxjs/operators';
+import { ProfileService } from 'src/app/profile.service';
 import { Person } from 'src/models/entities/Person';
-import { COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
-import { EditProfileFormService } from './edit-profile-form.service';
+import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE, COMMON_WARNING_MESSAGE } from 'src/text/messages';
 
 @Component({
   selector: 'app-edit-profile-form-dialog',
@@ -21,74 +21,55 @@ import { EditProfileFormService } from './edit-profile-form.service';
   styleUrls: ['./edit-profile-form-dialog.component.css']
 })
 export class EditProfileFormDialogComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
 
-  private confirmCancel: boolean;
+  private savingSource = new BehaviorSubject(false);
+  private loadFormSub: Subscription;
+  private sendFormSub: Subscription;
 
-  saving$: Observable<boolean>;
+  saving$ = this.savingSource.asObservable();
   cancelButtonColor$: Observable<string>;
-  invalid$: Observable<boolean>;
 
-  formGroup: FormGroup; // TODO turn into FormControl
-
-  get person() { return this.formGroup.get('person') as FormControl; }
+  formGroup: FormGroup;
+  get profile() { return this.formGroup.get('profile') as FormControl; }
 
   constructor(
-    private service: EditProfileFormService,
     private dialog: MatDialogRef<EditProfileFormDialogComponent>,
     private snackBarService: MatSnackBar,
-    private formBuilder: FormBuilder
-  ) {
-    this.saving$ = this.service.saving$.pipe();
-    this.cancelButtonColor$ = this.service.confirmCancel$.pipe(
-      tap(c => { this.confirmCancel = c; }),
-      map(c => (c ? 'warn' : 'default'))
-    );
-    this.formGroup = this.formBuilder.group({
-      person: [new Person()]
+    private profileService: ProfileService
+  ) { }
+
+  ngOnInit(): void {
+    this.formGroup = new FormGroup({
+      profile: new FormControl({ value: null }, Validators.required)
     });
+    this.loadFormSub = this.profileService.getUserProfile().pipe(
+      tap(profile => this.formGroup.setValue({ profile }))
+    ).subscribe();
   }
 
-  // TODO use new ProfileService?
-  ngOnInit(): void {
-    this.service.loadProfile().subscribe(
-      p => {
-        this.person.setValue(p);
-      }
-    );
-
-    this.invalid$ = this.formGroup.statusChanges.pipe(
-      map(status => status !== 'VALID'),
-      startWith(true)
-    );
+  ngOnDestroy(): void {
+    this.savingSource.complete();
+    this.loadFormSub?.unsubscribe();
+    this.sendFormSub?.unsubscribe();
   }
 
   onSubmit(): void {
-    const data = this.person.value as Person;
-    if (data) {
-      this.service.saveProfile(data).subscribe(
-        success => {
-          if (success) {
+    if (this.formGroup.valid) {
+      const formValue = this.profile.value as Person;
+      this.sendFormSub?.unsubscribe();
+      this.sendFormSub = this.profileService.updateUserProfile(formValue).pipe(
+        tap(
+          () => {
             const succesfulSaveMessage = $localize`:succesful profile edit|Message of success after editing profile information:Your profile information has been saved`;
             this.snackBarService.open(succesfulSaveMessage, COMMON_DISMISS_BUTTON_LABEL);
             this.dialog.close();
-          } else {
-            this.snackBarService.open(COMMON_WARNING_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
+          },
+          () => {
+            this.snackBarService.open(COMMON_ERROR_MESSAGE , COMMON_DISMISS_BUTTON_LABEL);
           }
-        },
-        error => {
-          this.snackBarService.open(COMMON_ERROR_MESSAGE , COMMON_DISMISS_BUTTON_LABEL);
-        }
-      );
+        )
+      ).subscribe();
     }
   }
-
-  onCancel(): void {
-    if (!this.confirmCancel) {
-      this.service.confirmCancel();
-    } else {
-      this.dialog.close();
-    }
-  }
-
 }
