@@ -14,7 +14,7 @@ import { DataPage } from 'src/models/DataPage';
 import { Image } from 'src/models/entities/Image';
 
 @Injectable()
-export class ImagesArrayService {
+export class ImagesArrayDialogService {
 
   private loadingSource = new BehaviorSubject(false);
   private pageSource = new ReplaySubject<DataPage<Image>>(1);

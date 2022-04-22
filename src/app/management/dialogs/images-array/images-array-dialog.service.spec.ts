@@ -12,10 +12,10 @@ import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { DataPage } from 'src/models/DataPage';
 import { Image } from 'src/models/entities/Image';
-import { ImagesArrayService } from './images-array.service';
+import { ImagesArrayDialogService } from './images-array-dialog.service';
 
-describe('ImagesArrayService', () => {
-  let service: ImagesArrayService;
+describe('ImagesArrayDialogService', () => {
+  let service: ImagesArrayDialogService;
   let mockApiService: Partial<IEntityDataApiService<Image>>;
 
   beforeEach(() => {
@@ -33,14 +33,14 @@ describe('ImagesArrayService', () => {
     TestBed.configureTestingModule({
       imports: [],
       providers: [
-        ImagesArrayService,
+        ImagesArrayDialogService,
         { provide: API_INJECTION_TOKENS.dataImages, useValue: null }
       ]
     });
   });
 
   it('should be created', () => {
-    service = TestBed.inject(ImagesArrayService);
+    service = TestBed.inject(ImagesArrayDialogService);
     expect(service).toBeTruthy();
   });
 
@@ -61,7 +61,7 @@ describe('ImagesArrayService', () => {
       API_INJECTION_TOKENS.dataImages,
       { useValue: mockApiService }
     );
-    service = TestBed.inject(ImagesArrayService);
+    service = TestBed.inject(ImagesArrayDialogService);
 
     merge(
       service.reloadItems(),

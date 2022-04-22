@@ -14,14 +14,14 @@ import { merge, Observable, Subject, Subscription } from 'rxjs';
 import { debounceTime, map, tap, throttleTime } from 'rxjs/operators';
 import { Image } from 'src/models/entities/Image';
 import { ImageArrayOption } from './ImageArrayOption';
-import { ImagesArrayService } from './images-array.service';
+import { ImagesArrayDialogService } from './images-array-dialog.service';
 import { ImagesArrayDialogData } from './ImagesArrayDialogData';
 
 @Component({
   selector: 'app-images-array-dialog',
   templateUrl: './images-array-dialog.component.html',
   styleUrls: ['./images-array-dialog.component.css'],
-  providers: [ ImagesArrayService ]
+  providers: [ ImagesArrayDialogService ]
 })
 export class ImagesArrayDialogComponent
   implements OnInit, OnDestroy {
@@ -41,7 +41,7 @@ export class ImagesArrayDialogComponent
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: ImagesArrayDialogData,
-    private service: ImagesArrayService
+    private service: ImagesArrayDialogService
   ) { }
 
   ngOnInit(): void {
