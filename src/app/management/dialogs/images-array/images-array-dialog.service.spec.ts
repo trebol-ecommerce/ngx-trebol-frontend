@@ -6,46 +6,37 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { merge, of } from 'rxjs';
+import { concat, of } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { DataPage } from 'src/models/DataPage';
+import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { Image } from 'src/models/entities/Image';
 import { ImagesArrayDialogService } from './images-array-dialog.service';
 
 describe('ImagesArrayDialogService', () => {
   let service: ImagesArrayDialogService;
-  let mockApiService: Partial<IEntityDataApiService<Image>>;
+  let apiServiceSpy: jasmine.SpyObj<IEntityDataApiService<Image>>;
 
   beforeEach(() => {
-    mockApiService = {
-      fetchPage() {
-        return of({
-          items: [ ],
-          pageIndex: 0,
-          pageSize: 10,
-          totalCount: 0
-        });
-      }
-    };
+    const mockApiService = jasmine.createSpyObj('IEntityDataApiService<Image>', ['fetchPage']);
 
     TestBed.configureTestingModule({
-      imports: [],
       providers: [
         ImagesArrayDialogService,
-        { provide: API_INJECTION_TOKENS.dataImages, useValue: null }
+        { provide: API_INJECTION_TOKENS.dataImages, useValue: mockApiService }
       ]
     });
+    apiServiceSpy = TestBed.inject(API_INJECTION_TOKENS.dataImages) as jasmine.SpyObj<ITransactionalEntityDataApiService<Image>>;
+    service = TestBed.inject(ImagesArrayDialogService);
   });
 
   it('should be created', () => {
-    service = TestBed.inject(ImagesArrayDialogService);
     expect(service).toBeTruthy();
   });
 
   it('should expose an observable of images', () => {
-    const mockDataPage: DataPage<Image> = {
+    const mockPage = {
       items: [
         {
           filename: 'test.png',
@@ -56,18 +47,13 @@ describe('ImagesArrayDialogService', () => {
       pageSize: 10,
       totalCount: 1
     };
-    mockApiService.fetchPage = () => of(mockDataPage);
-    TestBed.overrideProvider(
-      API_INJECTION_TOKENS.dataImages,
-      { useValue: mockApiService }
-    );
-    service = TestBed.inject(ImagesArrayDialogService);
+    apiServiceSpy.fetchPage.and.returnValue(of(mockPage));
 
-    merge(
+    concat(
       service.reloadItems(),
       service.page$.pipe(
         take(1),
-        tap(nextPage => expect(nextPage).toEqual(mockDataPage))
+        tap(nextPage => expect(nextPage).toEqual(mockPage))
       )
     ).subscribe();
   });
