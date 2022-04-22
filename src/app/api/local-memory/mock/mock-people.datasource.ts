@@ -12,7 +12,7 @@ export const MOCK_PEOPLE: Person[] = [
     firstName: 'Administrador',
     lastName: 'Prueba',
     idNumber: '4',
-    email: '',
+    email: 'admin@example.com',
     phone1: '',
     phone2: ''
   },
@@ -20,7 +20,7 @@ export const MOCK_PEOPLE: Person[] = [
     firstName: 'Mánager',
     lastName: 'Prueba',
     idNumber: '3',
-    email: '',
+    email: 'manager@example.com',
     phone1: '',
     phone2: ''
   },
@@ -28,7 +28,7 @@ export const MOCK_PEOPLE: Person[] = [
     firstName: 'Vendedor',
     lastName: 'Prueba',
     idNumber: '2',
-    email: '',
+    email: 'salesperson@example.com',
     phone1: '',
     phone2: ''
   },
@@ -36,7 +36,7 @@ export const MOCK_PEOPLE: Person[] = [
     firstName: 'Cliente',
     lastName: 'Prueba',
     idNumber: '1',
-    email: '',
+    email: 'customer@domain.com',
     phone1: '',
     phone2: ''
   },
