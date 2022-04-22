@@ -89,14 +89,14 @@ export class ProductsArrayDialogComponent
     this.reload();
   }
 
-  onClickIncludeProduct(p: Product): void {
+  onClickIncludeProductIntoSelection(p: Product): void {
     this.actionSub?.unsubscribe();
     this.actionSub = this.service.includeProduct(p).subscribe();
   }
 
-  onClickDropProduct(p: Product): void {
+  onClickDropFromSelection(index: number): void {
     this.actionSub?.unsubscribe();
-    this.actionSub = this.service.dropProduct(p).subscribe();
+    this.actionSub = this.service.dropProduct(index).subscribe();
   }
 
   reload() {

@@ -53,14 +53,11 @@ export class ProductsArrayDialogService {
     ));
   }
 
-  dropProduct(prod: Product) {
+  dropProduct(index: number) {
     return this.selectedProducts$.pipe(
       take(1),
       tap(selectedProducts => {
-        const matchingIndex = selectedProducts.findIndex(prod2 => prod.barcode === prod2.barcode)
-        if (matchingIndex !== -1) {
-          selectedProducts.splice(matchingIndex, 1);
-        }
+        selectedProducts.splice(index, 1);
         this.selectedProductsSource.next(selectedProducts);
       }),
       ignoreElements()

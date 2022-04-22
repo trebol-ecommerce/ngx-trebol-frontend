@@ -43,7 +43,7 @@
               color="primary"
               aria-label="Add this product"
               i18n-aria-label="add this product|Label for action button to mark a product for addition to details of a sell"
-              (click)="onClickIncludeProduct(product)">
+              (click)="onClickIncludeProductIntoSelection(product)">
               <mat-icon>add</mat-icon>
             </button>
           </td>
@@ -90,12 +90,12 @@
         </ng-container>
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> </th>
-          <td mat-cell *matCellDef="let product">
+          <td mat-cell *matCellDef="let i=index">
             <button mat-button mat-icon-button type="button"
               color="warn"
               aria-label="Don't add this product"
               i18n-aria-label="dont add this product|Label for action button to unmark a product for addition details of a sell"
-              (click)="onClickDropProduct(product)">
+              (click)="onClickDropFromSelection(i)">
               <mat-icon>remove</mat-icon>
             </button>
           </td>

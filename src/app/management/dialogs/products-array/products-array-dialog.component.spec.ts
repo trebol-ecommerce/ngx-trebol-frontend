@@ -98,22 +98,22 @@ describe('ProductsArrayDialogComponent', () => {
 
   it('should include products into its array', () => {
     expect(component.selectedProducts.length).toBe(0);
-    component.onClickIncludeProduct(MOCK_PRODUCT_EXAMPLE);
+    component.onClickIncludeProductIntoSelection(MOCK_PRODUCT_EXAMPLE);
     expect(component.selectedProducts.length).toBe(1);
     expect(component.selectedProducts[0]).toEqual(MOCK_PRODUCT_EXAMPLE);
   });
 
   it('should not accept duplicate products into its array', () => {
-    component.onClickIncludeProduct(MOCK_PRODUCT_EXAMPLE);
-    component.onClickIncludeProduct(MOCK_PRODUCT_EXAMPLE);
-    component.onClickIncludeProduct(MOCK_PRODUCT_EXAMPLE);
+    component.onClickIncludeProductIntoSelection(MOCK_PRODUCT_EXAMPLE);
+    component.onClickIncludeProductIntoSelection(MOCK_PRODUCT_EXAMPLE);
+    component.onClickIncludeProductIntoSelection(MOCK_PRODUCT_EXAMPLE);
     expect(component.selectedProducts.length).toBe(1);
   });
 
   it('should remove products from its array', () => {
-    component.onClickIncludeProduct(MOCK_PRODUCT_EXAMPLE);
+    component.onClickIncludeProductIntoSelection(MOCK_PRODUCT_EXAMPLE);
     expect(component.selectedProducts.length).toBe(1);
-    component.onClickDropProduct(MOCK_PRODUCT_EXAMPLE);
+    component.onClickDropFromSelection(0);
     expect(component.selectedProducts.length).toBe(0);
   });
 });
