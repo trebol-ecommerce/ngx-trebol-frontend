@@ -9,8 +9,8 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
-import { forkJoin, Observable, of, Subscription } from 'rxjs';
-import { finalize, map, switchMap, tap } from 'rxjs/operators';
+import { EMPTY, forkJoin, from, merge, Observable, of, Subscription } from 'rxjs';
+import { filter, finalize, map, switchMap, tap } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
 import { ProductsArrayDialogComponent } from '../products-array/products-array-dialog.component';
 import { ProductListContentsDialogService } from './product-list-contents-dialog.service';
@@ -40,16 +40,15 @@ export class ProductListContentsDialogComponent
     @Inject(MAT_DIALOG_DATA) public data: ProductListContentsDialogData,
     private service: ProductListContentsDialogService,
     private dialog: MatDialog
-  ) {
+  ) { }
+
+  ngOnInit(): void {
     this.service.list = this.data.list;
     this.service.pageSize = this.pageSizeOptions[0];
     this.loading$ = this.service.loading$.pipe();
     this.products$ = this.service.page$.pipe(map(page => page.items));
     this.totalCount$ = this.service.page$.pipe(map(page => page.totalCount));
     this.isArrayEmpty$ = this.products$.pipe(map(array => (array.length === 0)));
-  }
-
-  ngOnInit(): void {
     this.reload();
   }
 
@@ -78,11 +77,11 @@ export class ProductListContentsDialogComponent
         maxHeight: '90vh'
       }
     ).afterClosed().pipe(
-      switchMap((products?: Product[]) => (!!products && Array.isArray(products)) ?
-        forkJoin(products.map(p => this.service.addProduct(p))) :
-        of(void 0)
-      ),
-      finalize(() => this.reload())
+      filter(products => (products?.length && Array.isArray(products))),
+      switchMap((products: Product[]) => from(products).pipe(
+        switchMap(p => this.service.addProduct(p)),
+        finalize(() => this.reload())
+      ))
     ).subscribe();
   }
 
@@ -94,11 +93,10 @@ export class ProductListContentsDialogComponent
         maxHeight: '90vh'
       }
     ).afterClosed().pipe(
-      switchMap((products?: Product[]) => (!!products && Array.isArray(products)) ?
-        this.service.replaceProductsWith(products) :
-        of(void 0)
-      ),
-      finalize(() => this.reload())
+      filter(products => (products?.length && Array.isArray(products))),
+      switchMap((products: Product[]) => this.service.replaceProductsWith(products).pipe(
+        finalize(() => this.reload())
+      ))
     ).subscribe();
   }
 
