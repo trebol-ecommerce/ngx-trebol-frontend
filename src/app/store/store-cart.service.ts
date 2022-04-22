@@ -6,7 +6,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CheckoutRequest } from 'src/models/CheckoutRequest';
 import { Product } from 'src/models/entities/Product';
@@ -55,15 +55,10 @@ export class StoreCartService {
   decreaseProductUnits(index: number): void {
     if (index !== -1) {
       const matchingDetail = this.cartDetailsSource.value[index];
-      matchingDetail.units--;
-
-      if (matchingDetail.units > 0) {
-        this.cartDetailsSource.next(this.cartDetailsSource.value);
-      } else {
-        this.cartDetailsSource.value.splice(index, 1);
+      if (matchingDetail.units > 1) {
+        matchingDetail.units--;
         this.cartDetailsSource.next(this.cartDetailsSource.value);
       }
-
     }
   }
 
