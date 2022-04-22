@@ -66,7 +66,7 @@
   <div class="selected">
     <h3 i18n="Title of widget displaying products marked for addition to details of a sell">Selected Products</h3>
     <div class="product-table-wrapper">
-      <table mat-table [dataSource]="productsArray$">
+      <table mat-table #selectedProductsTable [dataSource]="selectedProducts">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef
             i18n="product name|Name of table header for name of product">Name</th>
@@ -90,12 +90,12 @@
         </ng-container>
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> </th>
-          <td mat-cell *matCellDef="let i=index">
+          <td mat-cell *matCellDef="let product">
             <button mat-button mat-icon-button type="button"
               color="warn"
               aria-label="Don't add this product"
               i18n-aria-label="dont add this product|Label for action button to unmark a product for addition details of a sell"
-              (click)="onClickDropProduct(i)">
+              (click)="onClickDropProduct(product)">
               <mat-icon>remove</mat-icon>
             </button>
           </td>
@@ -106,14 +106,14 @@
       </table>
     </div>
     <div class="summary">
-      <b i18n="Label to hint users that they have selected a certain number of products">{{ totalProducts$ | async }} products selected</b>
+      <b i18n="Label to hint users that they have selected a certain number of products">{{ selectedProducts.length }} products selected</b>
       <span i18n="Label to hint users that product lists do reject duplicates">Note: product lists omit duplicates</span>
     </div>
     <div class="actions">
       <button mat-button mat-raised-button type="button"
         color="primary"
         [disabled]="isArrayEmpty$ | async"
-        [mat-dialog-close]="productsArray$ | async"
+        [mat-dialog-close]="selectedProducts"
         i18n="confirm|Label for action button to accept and proceed">Confirm</button>
       <button mat-button mat-raised-button type="button"
         mat-dialog-close

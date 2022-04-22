@@ -6,54 +6,64 @@
  */
 
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
-import { finalize, map, tap } from 'rxjs/operators';
+import { BehaviorSubject, EMPTY, ReplaySubject } from 'rxjs';
+import { finalize, ignoreElements, take, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
+import { ProductFilters } from 'src/app/shared/components/product-filters-panel/ProductFilters';
 import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
 
 @Injectable()
 export class ProductsArrayDialogService {
 
-  private loadingSource = new BehaviorSubject(false);
+  private loadingSource = new BehaviorSubject(true);
   private pageSource = new ReplaySubject<DataPage<Product>>(1);
-  private productArraySource = new BehaviorSubject([]);
+  private selectedProductsSource = new BehaviorSubject<Product[]>([]);
 
-  productsArray$ = this.productArraySource.asObservable();
   loading$ = this.loadingSource.asObservable();
+  page$ = this.pageSource.asObservable();
+  selectedProducts$ = this.selectedProductsSource.asObservable();
 
   pageIndex = 0;
   pageSize: number;
   sortBy: string;
   order: string;
-  filters: any;
-
-  availableProducts$: Observable<Product[]>;
-  totalCount$: Observable<number>;
+  filters: Partial<ProductFilters>;
 
   constructor(
     @Inject(API_INJECTION_TOKENS.dataProducts) private productDataService: IEntityDataApiService<Product>,
-  ) {
-    this.availableProducts$ = this.pageSource.asObservable().pipe(map(page => page.items));
-    this.totalCount$ = this.pageSource.asObservable().pipe(map(page => page.totalCount));
-  }
+  ) { }
 
   reloadItems() {
     this.loadingSource.next(true);
     return this.productDataService.fetchPage(this.pageIndex, this.pageSize, this.sortBy, this.order, this.filters).pipe(
       tap(page => this.pageSource.next(page)),
+      ignoreElements(),
       finalize(() => this.loadingSource.next(false))
     );
   }
 
-  includeProduct(prod: Product): void {
-    const productArraySet = new Set([...this.productArraySource.value]).add(prod);
-    this.productArraySource.next([...productArraySet.values()]);
+  includeProduct(prod: Product) {
+    return EMPTY.pipe(
+      finalize(() => {
+        const productArraySet = new Set([...this.selectedProductsSource.value, prod]);
+        this.selectedProductsSource.next([...productArraySet.values()]);
+      }
+    ));
   }
 
-  dropProductByIndex(index: number): void {
-    this.productArraySource.value.splice(index, 1);
-    this.productArraySource.next(this.productArraySource.value);
+  dropProduct(prod: Product) {
+    return this.selectedProducts$.pipe(
+      take(1),
+      tap(selectedProducts => {
+        const matchingIndex = selectedProducts.findIndex(prod2 => prod.barcode === prod2.barcode)
+        if (matchingIndex !== -1) {
+          selectedProducts.splice(matchingIndex, 1);
+        }
+        this.selectedProductsSource.next(selectedProducts);
+      }),
+      ignoreElements()
+    );
   }
 }
