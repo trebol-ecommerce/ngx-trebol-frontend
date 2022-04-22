@@ -6,8 +6,8 @@
  */
 
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, ReplaySubject } from 'rxjs';
-import { finalize, tap } from 'rxjs/operators';
+import { BehaviorSubject, concat, from, of, ReplaySubject } from 'rxjs';
+import { finalize, ignoreElements, map, switchMap, take, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
 import { DataPage } from 'src/models/DataPage';
@@ -17,16 +17,18 @@ import { Image } from 'src/models/entities/Image';
 export class ImagesArrayService {
 
   private loadingSource = new BehaviorSubject(false);
-  private imagesPageSource = new ReplaySubject<DataPage<Image>>(1);
+  private pageSource = new ReplaySubject<DataPage<Image>>(1);
+  private selectedImagesSource = new BehaviorSubject<Image[]>([]);
 
   loading$ = this.loadingSource.asObservable();
-  imagesPage$ = this.imagesPageSource.asObservable();
+  page$ = this.pageSource.asObservable();
+  selectedImages$ = this.selectedImagesSource.asObservable();
 
-  pageIndex: number | undefined;
-  pageSize: number | undefined;
-  sortBy: string | undefined;
-  order: string | undefined;
-  filter: any | undefined;
+  pageIndex = 0;
+  pageSize: number;
+  sortBy: string;
+  order: string;
+  filter: string;
 
   constructor(
     @Inject(API_INJECTION_TOKENS.dataImages) private imageDataService: IEntityDataApiService<Image>
@@ -35,10 +37,31 @@ export class ImagesArrayService {
   /** Empty item selections and fetch data from the external service again. */
   reloadItems() {
     this.loadingSource.next(true);
-    const filters = this.filter ? { filenameLike: this.filter } : undefined;
-    return this.imageDataService.fetchPage(this.pageIndex, this.pageSize, this.sortBy, this.order, filters).pipe(
-      tap(page => { this.imagesPageSource.next(page); }),
-      finalize(() => { this.loadingSource.next(false); })
+    const apiFilters = this.filter ? { filenameLike: this.filter } : undefined;
+    return this.imageDataService.fetchPage(this.pageIndex, this.pageSize, this.sortBy, this.order, apiFilters).pipe(
+      tap(page => this.pageSource.next(page)),
+      ignoreElements(),
+      finalize(() => this.loadingSource.next(false))
+    );
+  }
+
+  updateSelection(options: { selected?: Image[], unselected?: Image[] }) {
+    return this.selectedImages$.pipe(
+      take(1),
+      map(selectedImages => {
+        const productArraySet = new Set([...selectedImages, ...options.selected]);
+        return [...productArraySet.values()];
+      }),
+      switchMap(selectedImages => from(options.unselected || []).pipe(
+        tap(img => {
+          const matchingIndex = selectedImages.findIndex(img2 => img.url === img2.url)
+          if (matchingIndex !== -1) {
+            selectedImages.splice(matchingIndex, 1);
+          }
+        }),
+        ignoreElements(),
+        finalize(() => this.selectedImagesSource.next(selectedImages))
+      )),
     );
   }
 

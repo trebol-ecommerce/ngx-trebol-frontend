@@ -65,7 +65,7 @@ describe('ImagesArrayService', () => {
 
     merge(
       service.reloadItems(),
-      service.imagesPage$.pipe(
+      service.page$.pipe(
         take(1),
         tap(nextPage => expect(nextPage).toEqual(mockDataPage))
       )
