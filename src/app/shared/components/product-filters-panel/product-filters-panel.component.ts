@@ -10,7 +10,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
-import { ProductFilters } from './ProductFilters';
+import { ProductSearchQuery } from 'src/models/ProductSearchQuery';
 
 @Component({
   selector: 'app-product-filters-panel',
@@ -22,7 +22,7 @@ export class ProductFiltersPanelComponent
 
   private valueChangesSubscription: Subscription;
 
-  @Output() filtersChanges = new EventEmitter<ProductFilters>();
+  @Output() filtersChanges = new EventEmitter<ProductSearchQuery>();
 
   formGroup: FormGroup;
   get categoryCode() { return this.formGroup.get('categoryCode') as FormControl; }
@@ -46,14 +46,14 @@ export class ProductFiltersPanelComponent
         JSON.stringify(prev) === JSON.stringify(curr)
       )),
       tap(value => {
-        const filters: Partial<ProductFilters> = {};
+        const filters: Partial<ProductSearchQuery> = {};
         if (value.nameLike) {
           filters.nameLike = value.nameLike;
         }
         if (value.categoryCode) {
           filters.categoryCode = value.categoryCode;
         }
-        this.filtersChanges.emit(filters as ProductFilters);
+        this.filtersChanges.emit(filters as ProductSearchQuery);
       })
     ).subscribe();
   }

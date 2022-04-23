@@ -14,8 +14,8 @@ import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { count, take, tap } from 'rxjs/operators';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
+import { ProductSearchQuery } from 'src/models/ProductSearchQuery';
 import { ProductFiltersPanelComponent } from './product-filters-panel.component';
-import { ProductFilters } from './ProductFilters';
 
 @Component({
   selector: 'app-product-category-selector-field',
@@ -78,8 +78,8 @@ describe('ProductFiltersPanelComponent', () => {
     jasmine.clock().uninstall();
   });
 
-  it('should accept instances of ProductFilters as valid input', () => {
-    const filters: ProductFilters = {
+  it('should accept instances of ProductSearchQuery as valid input', () => {
+    const filters: ProductSearchQuery = {
       nameLike: 'some-na',
       categoryCode: 'some-code'
     };

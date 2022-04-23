@@ -10,9 +10,9 @@ import { BehaviorSubject, EMPTY, ReplaySubject } from 'rxjs';
 import { finalize, ignoreElements, take, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { ProductFilters } from 'src/app/shared/components/product-filters-panel/ProductFilters';
 import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
+import { ProductSearchQuery } from 'src/models/ProductSearchQuery';
 
 @Injectable()
 export class ProductsArrayDialogService {
@@ -29,7 +29,7 @@ export class ProductsArrayDialogService {
   pageSize: number;
   sortBy: string;
   order: string;
-  filters: Partial<ProductFilters>;
+  filters: ProductSearchQuery;
 
   constructor(
     @Inject(API_INJECTION_TOKENS.dataProducts) private productDataService: IEntityDataApiService<Product>,
