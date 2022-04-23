@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { from, Subscription } from 'rxjs';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { ProductCategoryPickerDialogComponent } from 'src/app/shared/dialogs/product-category-picker/product-category-picker-dialog.component';
+import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { ProductSearchQuery } from 'src/models/ProductSearchQuery';
 import { StoreSearchService } from '../../../store-search.service';
 
@@ -26,6 +27,8 @@ export class StoreHeaderSearchFormComponent
   private categoryPickerSubscription: Subscription;
   private productSearchChanges: Subscription;
   private queryParamsSub: Subscription;
+
+  readonly searchFiltersDebounceMs = 400;
 
   formGroup: FormGroup;
   get nameLike() { return this.formGroup.get('nameLike') as FormControl; }
@@ -45,7 +48,7 @@ export class StoreHeaderSearchFormComponent
       categoryCode: [null]
     });
     this.productSearchChanges = this.formGroup.valueChanges.pipe(
-      debounceTime(400),
+      debounceTime(this.searchFiltersDebounceMs),
       tap(() => { this.searchService.pageIndex = 0; }),
       switchMap(value => from(this.router.navigate(
         [],
@@ -54,11 +57,11 @@ export class StoreHeaderSearchFormComponent
           queryParams: value,
           queryParamsHandling: 'merge'
         }
-      ))),
-      switchMap(() => this.searchService.reload())
+      )))
     ).subscribe();
     this.queryParamsSub = this.route.queryParams.pipe(
-      tap(params => this.searchService.updateSearchQuery(params))
+      tap(params => this.searchService.updateSearchQuery(params)),
+      switchMap(() => this.searchService.reload())
     ).subscribe();
   }
 
@@ -82,12 +85,12 @@ export class StoreHeaderSearchFormComponent
         width: '24rem'
       }
     ).afterClosed().pipe(
-      tap(next => {
+      tap((next: ProductCategory | null) => {
         if (next?.code) {
           this.categoryCode.setValue(next.code);
           this.categoryCode.markAsDirty();
         } else if (next === null) {
-          this.categoryCode.reset({ value: null });
+          this.categoryCode.reset(null);
         }
       })
     ).subscribe();
