@@ -14,7 +14,7 @@
     <input formControlName="categoryCode" type="hidden" />
 
     <app-product-category-selector-field
-      (select)="onSelectCategory($event)"
+      (categorySelection)="onSelectCategory($event)"
       placeholder="By Category"
       i18n-placeholder="Name of field for filtering products by selected category">
     </app-product-category-selector-field>

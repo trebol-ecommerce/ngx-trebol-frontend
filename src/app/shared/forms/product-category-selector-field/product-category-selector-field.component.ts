@@ -40,14 +40,14 @@ export class ProductCategorySelectorFieldComponent
   isDisabled = false;
   placeholder: string;
 
-  @Output() select = new EventEmitter<ProductCategory>();
+  @Output() categorySelection = new EventEmitter<ProductCategory>();
 
   constructor(
     private dialogService: MatDialog
   ) { }
 
   ngOnDestroy(): void {
-    this.select.complete();
+    this.categorySelection.complete();
     this.actionSubscription?.unsubscribe();
   }
 
@@ -109,7 +109,7 @@ export class ProductCategorySelectorFieldComponent
       tap(next => {
         this.productCategory = { code: next.code, name: next.name };
         this.onChange(next);
-        this.select.emit(next);
+        this.categorySelection.emit(next);
       })
     ).subscribe();
   }

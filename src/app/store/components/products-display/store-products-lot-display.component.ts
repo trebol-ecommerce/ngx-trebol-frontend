@@ -10,7 +10,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { Product } from 'src/models/entities/Product';
 
 @Component({
-  selector: 'store-products-lot-display',
+  selector: 'app-store-products-lot-display',
   templateUrl: './store-products-lot-display.component.html',
   styleUrls: ['./store-products-lot-display.component.css']
 })

@@ -102,7 +102,7 @@ describe('ProductCategorySelectorFormFieldComponent', () => {
       name: 'some-name'
     };
     dialogServiceSpy.open.and.returnValue({ afterClosed: () => of(fakeCategory) } as MatDialogRef<any>);
-    component.select.pipe(
+    component.categorySelection.pipe(
       take(1),
       tap(selectedCategory => expect(selectedCategory).toEqual(fakeCategory))
     ).subscribe();
