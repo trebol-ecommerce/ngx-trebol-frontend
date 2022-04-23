@@ -8,7 +8,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { EMPTY, Observable, Subscription } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Product } from 'src/models/entities/Product';
@@ -27,6 +27,7 @@ export class StoreCatalogComponent
   implements OnInit, OnDestroy {
 
   private dataLoadingSubscription: Subscription;
+  private detailsViewSub: Subscription;
   private queryParamsSubscription: Subscription;
 
   readonly storeCatalogTopBannerImages = environment.staticImages.topBanners;
@@ -40,8 +41,7 @@ export class StoreCatalogComponent
     private router: Router,
     private route: ActivatedRoute,
     private dialogService: MatDialog
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void {
     this.loading$ = this.catalogService.loading$.pipe();
@@ -53,21 +53,22 @@ export class StoreCatalogComponent
   }
 
   ngOnDestroy(): void {
+    this.queryParamsSubscription?.unsubscribe();
     this.dataLoadingSubscription?.unsubscribe();
-    this.queryParamsSubscription.unsubscribe();
+    this.detailsViewSub?.unsubscribe();
   }
 
   onAddProductToCart(p: Product) {
     this.cartService.addProductToCart(p);
   }
   onViewProduct(p: Product) {
-    this.catalogService.navigateToProductDetails(p.barcode);
+    this.detailsViewSub?.unsubscribe();
+    this.detailsViewSub = this.catalogService.navigateToProductDetails(p.barcode).subscribe();
   }
 
   private checkViewingProductParam(params: ParamMap) {
-    if (params.has('viewingProduct')) {
-      const barcode = params.get('viewingProduct');
-      return this.catalogService.fetchProductDetails(barcode).pipe(
+    return params.has('viewingProduct') ?
+      this.catalogService.fetchProductDetails(params.get('viewingProduct')).pipe(
         switchMap(p => this.promptProductDetails(p)),
         tap(() => this.router.navigate(
           [],
@@ -79,8 +80,8 @@ export class StoreCatalogComponent
             queryParamsHandling: 'merge'
           }
         ))
-      );
-    };
+      ) :
+      EMPTY;
   }
 
 
