@@ -5,8 +5,8 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { SellDetail } from 'src/models/entities/SellDetail';
 import { StoreCartService } from '../../store-cart.service';
 
@@ -16,9 +16,7 @@ import { StoreCartService } from '../../store-cart.service';
   styleUrls: ['./store-cart-review.component.css']
 })
 export class StoreCartReviewComponent
-  implements OnInit, OnDestroy {
-
-  private loginStateChangeSubscription: Subscription;
+  implements OnInit {
 
   cartNetValue$: Observable<number>;
   cartContents$: Observable<SellDetail[]>;
@@ -31,10 +29,6 @@ export class StoreCartReviewComponent
   ngOnInit(): void {
     this.cartNetValue$ = this.cartService.cartNetValue$.pipe();
     this.cartContents$ = this.cartService.cartDetails$.pipe();
-  }
-
-  ngOnDestroy(): void {
-    this.loginStateChangeSubscription?.unsubscribe();
   }
 
   onIncreaseProductQuantityAtIndex(index: number): void {

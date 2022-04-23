@@ -16,7 +16,10 @@ import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { MOCK_PRODUCTS } from 'src/app/api/local-memory/mock/mock-products.datasource';
 import { SessionService } from 'src/app/session.service';
+import { Product } from 'src/models/entities/Product';
 import { SellDetail } from 'src/models/entities/SellDetail';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreCartReviewComponent } from './store-cart-review.component';
@@ -43,20 +46,11 @@ class MockStoreCheckoutConfirmationComponent {
 describe('StoreCartReviewComponent', () => {
   let component: StoreCartReviewComponent;
   let fixture: ComponentFixture<StoreCartReviewComponent>;
-  let mockCartService: Partial<StoreCartService>;
+  let cartServiceSpy: jasmine.SpyObj<StoreCartService>;
   let mockSessionService: Partial<SessionService>;
 
   beforeEach(waitForAsync(() => {
-    mockCartService = {
-      cartDetails$: of([]),
-      cartNetValue$: of(0),
-      increaseProductUnits(i) {},
-      decreaseProductUnits(i) {},
-      removeProductFromCart(i) {}
-    };
-    mockSessionService = {
-      userHasActiveSession$: of(true)
-    };
+    const mockCartService = jasmine.createSpyObj('StoreCartService', ['increaseProductUnits', 'decreaseProductUnits', 'removeProductFromCart']);
 
     TestBed.configureTestingModule({
       imports: [
@@ -81,11 +75,14 @@ describe('StoreCartReviewComponent', () => {
         { provide: StoreCartService, useValue: mockCartService },
         { provide: SessionService, useValue: mockSessionService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    cartServiceSpy = TestBed.inject(StoreCartService) as jasmine.SpyObj<StoreCartService>;
+    cartServiceSpy.cartDetails$ = of([]);
+    cartServiceSpy.cartNetValue$ = of(0);
+
     fixture = TestBed.createComponent(StoreCartReviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -93,5 +90,20 @@ describe('StoreCartReviewComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should add units of a product to the cart', () => {
+    component.onIncreaseProductQuantityAtIndex(0);
+    expect(cartServiceSpy.increaseProductUnits).toHaveBeenCalled();
+  });
+
+  it('should remove units of a product from the cart', () => {
+    component.onDecreaseProductQuantityAtIndex(0);
+    expect(cartServiceSpy.decreaseProductUnits).toHaveBeenCalled();
+  });
+
+  it('should remove all units of a product from the cart', () => {
+    component.onRemoveProductAtIndex(0);
+    expect(cartServiceSpy.removeProductFromCart).toHaveBeenCalled();
   });
 });
