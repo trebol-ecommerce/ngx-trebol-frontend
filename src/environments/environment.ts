@@ -41,9 +41,12 @@ export const environment = {
   },
   staticImages: {
     logo: {
-      // url: 'assets/img/logo.png',
       url: 'https://fakeimg.pl/400x400',
       filename: 'logo.png'
+    },
+    defaultProductImage: {
+      url: 'https://fakeimg.pl/300x300',
+      filename: 'unavailable.png'
     },
     topBanners: [
       {

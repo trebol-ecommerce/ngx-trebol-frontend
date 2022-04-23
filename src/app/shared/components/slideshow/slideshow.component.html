@@ -30,7 +30,7 @@
   <ng-template #noImageAvailable>
     <div class="active slide"
       [ngStyle]="{ width: slideWidth, height: slideHeight }">
-      <img src="assets/img/unavailable.png" alt="Imagen no disponible" />
+      <img [src]="stockImageUrl" alt="Imagen no disponible" />
     </div>
   </ng-template>
 </div>

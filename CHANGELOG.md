@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Environment variable to define the interval in miliseconds to check for current token validity
+- Environment variables
+  - Interval in miliseconds to check for current token validity
+  - Default product image URL
 - Experimental startup loading spinner
 
 ### Changed

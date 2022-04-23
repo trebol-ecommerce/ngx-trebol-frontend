@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, interval, Subscription, timer } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { fadeInOut } from 'src/animations/fadeInOut';
+import { environment } from 'src/environments/environment';
 import { Image } from 'src/models/entities/Image';
 
 @Component({
@@ -46,6 +47,8 @@ export class SlideshowComponent
   @Output() navigate = new EventEmitter<void>();
   @Output() add = new EventEmitter<void>();
 
+
+  readonly stockImageUrl = environment.staticImages.defaultProductImage.url;
   currentIndex$ = this.currentIndexSource.asObservable();
 
   disabled = false;
