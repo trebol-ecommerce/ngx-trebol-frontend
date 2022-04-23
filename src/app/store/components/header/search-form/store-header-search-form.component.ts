@@ -28,7 +28,6 @@ export class StoreHeaderSearchFormComponent
   private queryParamsSub: Subscription;
 
   formGroup: FormGroup;
-
   get nameLike() { return this.formGroup.get('nameLike') as FormControl; }
   get categoryCode() { return this.formGroup.get('categoryCode') as FormControl; }
 
@@ -45,7 +44,7 @@ export class StoreHeaderSearchFormComponent
       nameLike: [''],
       categoryCode: [null]
     });
-  this.productSearchChanges = this.formGroup.valueChanges.pipe(
+    this.productSearchChanges = this.formGroup.valueChanges.pipe(
       debounceTime(400),
       tap(() => { this.searchService.pageIndex = 0; }),
       switchMap(value => from(this.router.navigate(
