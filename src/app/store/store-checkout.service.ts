@@ -44,7 +44,7 @@ export class StoreCheckoutService {
 
     const billing = checkoutRequestData.billing;
     target.billingType = billing.typeName;
-    if (billing.typeName === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
+    if (billing.typeName === BILLING_TYPE_COMPANY) {
       if (billing.company) {
         target.billingCompany = billing.company;
       }

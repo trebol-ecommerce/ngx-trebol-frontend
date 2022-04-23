@@ -5,6 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
+// Used in form values and external API
 export const BILLING_TYPE_INDIVIDUAL = 'Bill';
 export const BILLING_TYPE_COMPANY    = 'Enterprise Invoice';
 

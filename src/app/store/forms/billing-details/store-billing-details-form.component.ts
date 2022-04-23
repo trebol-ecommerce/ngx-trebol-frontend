@@ -38,7 +38,7 @@ export class StoreBillingDetailsFormComponent
   private valueChangesSub: Subscription;
   private typeNameChangesSub: Subscription;
 
-  readonly typesOptions = [ ...BILLING_TYPE_NAMES_MAP.values() ];
+  readonly typesOptions = [ ...BILLING_TYPE_NAMES_MAP.entries() ];
 
   @Input() formGroup: FormGroup;
   get typeName() { return this.formGroup.get('typeName') as FormControl; }
@@ -126,7 +126,7 @@ export class StoreBillingDetailsFormComponent
 
   private updateControlsAfterTypeNameChange(options?: { emitEvent?: boolean, onlySelf?: boolean }): void {
     const v = this.typeName.value;
-    if (v === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
+    if (v === BILLING_TYPE_COMPANY) {
       this.company.enable(options);
       this.address.enable(options);
     } else {
