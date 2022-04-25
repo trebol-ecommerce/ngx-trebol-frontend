@@ -41,7 +41,7 @@ export class StoreRegistrationFormDialogComponent
   get name() { return this.formGroup.get('name') as FormControl; }
   get pass1() { return this.formGroup.get('pass1') as FormControl; }
   get pass2() { return this.formGroup.get('pass2') as FormControl; }
-  get person() { return this.formGroup.get('person') as FormGroup; }
+  get person() { return this.formGroup.get('person') as FormControl; }
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -56,7 +56,7 @@ export class StoreRegistrationFormDialogComponent
         name: ['', Validators.required],
         pass1: ['', Validators.required],
         pass2: ['', Validators.required],
-        person: this.entityFormGroupService.createFormGroupFor('person')
+        person: [null, Validators.required]
       },
       { validators: passwordMatcher }
     );
