@@ -16,10 +16,6 @@ import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { MOCK_PRODUCTS } from 'src/app/api/local-memory/mock/mock-products.datasource';
-import { SessionService } from 'src/app/session.service';
-import { Product } from 'src/models/entities/Product';
 import { SellDetail } from 'src/models/entities/SellDetail';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreCartReviewComponent } from './store-cart-review.component';
@@ -47,7 +43,6 @@ describe('StoreCartReviewComponent', () => {
   let component: StoreCartReviewComponent;
   let fixture: ComponentFixture<StoreCartReviewComponent>;
   let cartServiceSpy: jasmine.SpyObj<StoreCartService>;
-  let mockSessionService: Partial<SessionService>;
 
   beforeEach(waitForAsync(() => {
     const mockCartService = jasmine.createSpyObj('StoreCartService', ['increaseProductUnits', 'decreaseProductUnits', 'removeProductFromCart']);
@@ -72,8 +67,7 @@ describe('StoreCartReviewComponent', () => {
         MockStoreCheckoutConfirmationComponent
       ],
       providers: [
-        { provide: StoreCartService, useValue: mockCartService },
-        { provide: SessionService, useValue: mockSessionService }
+        { provide: StoreCartService, useValue: mockCartService }
       ]
     }).compileComponents();
   }));
