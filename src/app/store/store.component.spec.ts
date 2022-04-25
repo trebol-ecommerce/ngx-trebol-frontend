@@ -33,6 +33,7 @@ describe('StoreComponent', () => {
   let mockSessionService: Partial<SessionService>;
 
   beforeEach(waitForAsync(() => {
+    // TODO use jasmine.SpyObj
     mockCartService = {
       cartDetails$: of([])
     };

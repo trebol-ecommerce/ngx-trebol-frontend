@@ -20,6 +20,7 @@ describe('StoreHeaderNavigationComponent', () => {
   let mockCartService: Partial<StoreCartService>;
 
   beforeEach(waitForAsync(() => {
+    // TODO use jasmine.SpyObj
     mockCartService = {
       cartDetails$: of([]),
       cartItemCount$: of(0),

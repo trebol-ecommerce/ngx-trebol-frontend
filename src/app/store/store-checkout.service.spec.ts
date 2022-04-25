@@ -23,6 +23,7 @@ describe('StoreCheckoutService', () => {
   let apiSubmitCartSpy: jasmine.Spy;
 
   beforeEach(() => {
+    // TODO use jasmine.SpyObj
     mockCheckoutApiService = {
       submitCart() { return of(void 0); }
     };

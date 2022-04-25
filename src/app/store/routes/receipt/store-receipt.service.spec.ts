@@ -17,6 +17,7 @@ describe('StoreReceiptService', () => {
   let mockReceiptApiService: Partial<IReceiptPublicApiService>;
 
   beforeEach(() => {
+    // TODO use jasmine.SpyObj
     mockReceiptApiService = {
       fetchTransactionReceiptByToken() { return EMPTY; }
     };

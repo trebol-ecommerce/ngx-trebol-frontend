@@ -17,6 +17,7 @@ describe('ManagementCustomersService', () => {
   let mockApiService: Partial<IEntityDataApiService<Customer>>;
 
   beforeEach(() => {
+    // TODO use jasmine.SpyObj
     mockApiService = {
       fetchPage() {
         return of({

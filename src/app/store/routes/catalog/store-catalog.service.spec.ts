@@ -25,6 +25,7 @@ describe('StoreCatalogService', () => {
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(() => {
+    // TODO use jasmine.SpyObj
     mockProductListsApiService = {
       fetchPage() {
         return of({

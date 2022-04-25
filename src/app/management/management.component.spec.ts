@@ -35,6 +35,7 @@ describe('ManagementComponent', () => {
   let mockSidenavService: Partial<ManagementSidenavService>;
 
   beforeEach(waitForAsync(() => {
+    // TODO use jasmine.SpyObj
     mockSessionService = {};
     mockSidenavService = { };
 

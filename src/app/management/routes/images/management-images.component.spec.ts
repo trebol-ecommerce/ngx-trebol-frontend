@@ -39,6 +39,7 @@ describe('ManagementImagesComponent', () => {
   beforeEach(waitForAsync(() => {
     const mockService = jasmine.createSpyObj('ManagementImagesService', ['reloadItems', 'removeItems']);
 
+    // TODO use jasmine.SpyObj
     mockSnackBarService = {
       open(m: string, a: string) { return void 0; }
     };

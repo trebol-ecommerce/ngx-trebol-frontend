@@ -30,6 +30,7 @@ describe('StoreProductDetailsDialogComponent', () => {
   let mockDialogData: Partial<StoreProductDetailsDialogData>;
 
   beforeEach(waitForAsync(() => {
+    // TODO use jasmine.SpyObj
     cartService = {
       cartDetails$: of([]),
       increaseProductUnits(i) {},

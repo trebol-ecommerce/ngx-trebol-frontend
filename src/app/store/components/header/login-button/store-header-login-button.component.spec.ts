@@ -17,6 +17,7 @@ describe('StoreHeaderLoginButtonComponent', () => {
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
+    // TODO use jasmine.SpyObj
     mockDialogService = {
       open() { return void 0; }
     };

@@ -28,6 +28,7 @@ describe('StoreReceiptComponent', () => {
   let mockService: Partial<StoreReceiptService>;
 
   beforeEach(waitForAsync(() => {
+    // TODO use jasmine.SpyObj
     mockService = {
       fetchReceipt() { return EMPTY; }
     };

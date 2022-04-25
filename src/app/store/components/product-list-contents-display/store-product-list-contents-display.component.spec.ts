@@ -37,6 +37,7 @@ describe('StoreProductListContentsDisplayComponent', () => {
   let storeCatalogServiceSpy: jasmine.SpyObj<StoreCatalogService>;
 
   beforeEach(waitForAsync(() => {
+    // TODO use jasmine.SpyObj
     mockListApiService = {
       fetchContents() {
         return of({

@@ -17,6 +17,7 @@ describe('StoreCompanyDetailsDialogComponent', () => {
   let mockService: Partial<IAboutPublicApiService>;
 
   beforeEach(waitForAsync(() => {
+    // TODO use jasmine.SpyObj
     mockService = {
       fetchCompanyDetails() {
         return of({

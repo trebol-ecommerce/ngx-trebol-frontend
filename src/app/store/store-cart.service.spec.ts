@@ -21,6 +21,7 @@ describe('StoreCartService', () => {
   const mockProductTwo = MOCK_PRODUCTS[1];
 
   beforeEach(() => {
+    // TODO use jasmine.SpyObj
     mockCheckoutApiService = {
       submitCart() { return of(void 0); }
     };

@@ -58,6 +58,7 @@ describe('StoreCheckoutRequestFormComponent', () => {
   let mockCartService: Partial<StoreCartService>;
 
   beforeEach(waitForAsync(() => {
+    // TODO use jasmine.SpyObj
     mockSnackBarService = {
       open(m: string, a: string) { return void 0; }
     };

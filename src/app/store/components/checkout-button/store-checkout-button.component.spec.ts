@@ -22,6 +22,7 @@ describe('StoreCheckoutButtonComponent', () => {
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
+    // TODO use jasmine.SpyObj
     mockCartService = {
       cartDetails$: of([
         { id: null, product: { barcode: 'test' }, units: 1 }

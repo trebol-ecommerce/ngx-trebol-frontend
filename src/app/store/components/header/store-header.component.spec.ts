@@ -35,6 +35,7 @@ describe('StoreHeaderComponent', () => {
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
+    // TODO use jasmine.SpyObj
     mockSessionService = {
       userHasActiveSession$: of(false)
     };

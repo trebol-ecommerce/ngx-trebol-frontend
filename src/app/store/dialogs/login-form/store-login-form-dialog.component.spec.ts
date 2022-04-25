@@ -40,6 +40,7 @@ describe('StoreLoginFormDialogComponent', () => {
   let mockSnackBarService: Partial<MatSnackBar>;
 
   beforeEach(waitForAsync(() => {
+    // TODO use jasmine.SpyObj
     mockDialog = {
       close() {}
     };

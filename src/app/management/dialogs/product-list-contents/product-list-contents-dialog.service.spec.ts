@@ -17,6 +17,7 @@ describe('ProductListContentsDialogService', () => {
   let mockApiService: Partial<IEntityDataApiService<Product>>;
 
   beforeEach(() => {
+    // TODO use jasmine.SpyObj
     mockApiService = {
       fetchPage() {
         return of({
