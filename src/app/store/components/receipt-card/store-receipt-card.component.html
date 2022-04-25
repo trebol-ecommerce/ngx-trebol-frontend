@@ -9,7 +9,7 @@
   <div class="icon-wrapper" aria-hidden="true">
     <mat-icon>receipt_long</mat-icon>
   </div>
-  <h2 mat-card-title>{{ receipt.status }}</h2>
+  <h2 mat-card-title>{{ transactionStatus }}</h2>
   <p i18n="Label with transaction confirmation date">Confirmed on {{ receipt.date | date:'short' }}</p>
   <p i18n="Label with total count of items in transaction being {{ receipt.totalItems }}">Total items: {{ receipt.totalItems }}</p>
   <p *ngIf="receipt.transportValue" i18n="Label with total price of transport being {{ receipt.transportValue }}">Transport: {{ receipt.transportValue | currency:'CLP' }}</p>
