@@ -30,14 +30,14 @@ module.exports = function (config) {
         { type: 'html' },
         { type: 'text-summary' }
       ],
-      // check: {
-      //   global: {
-      //     statements: 70,
-      //     branches: 70,
-      //     functions: 70,
-      //     lines: 70
-      //   }
-      // }
+      check: {
+        global: {
+          statements: 80,
+          branches: 75,
+          functions: 75,
+          lines: 80
+        }
+      }
     }
   });
 };
