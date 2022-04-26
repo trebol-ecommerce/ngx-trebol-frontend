@@ -60,7 +60,7 @@ Or do `ng test --no-watch --browsers={browser}` to execute them once, inmediatel
 
 ## Internationalization
 
-This project uses [Angular i18n features](https://angular.io/guide/i18n-overview); this means you can build the app using different languages. Currently bundled locales are located in `/src/locales`:
+This project uses [Angular i18n features](https://angular.io/guide/i18n-overview); this means you can build the app using different languages. Currently bundled locales reside in `/src/locales`. There are three:
 
 - `en-US`
 - `es`
@@ -68,15 +68,30 @@ This project uses [Angular i18n features](https://angular.io/guide/i18n-overview
 
 If you wish to translate this frontend to another language, check out [this Angular guide on working with translation files](https://angular.io/guide/i18n-common-translation-files).
 
-## Configuring the build / serve process
+## How to use this application
 
-- The default environment files already exist in `/src/environments/`
+You can "just" preview the whole project with `ng s` (equivalent to visit the live demo), but for any other purposes you should set up your working environment.
+
+### Configure the build / serve process
+
+- Make yourself comfortable with the [official guide on Building and Serving Angular Apps](https://angular.io/guide/build).
+- Default environment files already exist in `/src/environments/`
   - `environment.ts` defines variables
   - `environment-modules.ts` defines module dependencies
-- The `/src/angular.json` file contains two base configuration definitions that you can use: `production` and `localhost`. There's also configurations for each bundled locale mentioned above. Create configuration files as you see fit.
-- Make yourself comfortable with the [official guide on Building and Serving Angular Apps](https://angular.io/guide/build). Basically, you need to create a copy of the environment files, rename them following the pattern for your desired configuration, and call the `serve` or `build` Angular CLI command with the `-c` option in order to target said configuration.
-- Remember you can use define your own build configurations in the `/src/angular.json` file.
-- This project also uses the [angular-cli-ghpages plugin](https://github.com/angular-schule/angular-cli-ghpages#options), you can help yourself automating your deployment with it (make sure to read its documentation!).
+- The `/src/angular.json` file contains some additional configs, I mostly use `staging`, `localhost` and `production`. The latter two require you to define environment files as specified by their `fileReplacements` definitions.
+  - There's also a configuration for each bundled locale other than default `en-US`.
+  - You can use more than one configuration, but some of the definitions will collide. Please do have a look at them before trying to use them.
+- This project also declares the [angular-cli-ghpages plugin](https://github.com/angular-schule/angular-cli-ghpages#options) as devDependency.
+
+
+### Quick start (fewest possible steps)
+
+1. Create a copy of the two environment files and rename them accordingly from your desired configuration e.g. `environment.localhost.ts` and `environment-modules.localhost.ts`.
+2. Call `ng s` or `ng b` Angular CLI command using the `-c` option to target said configuration e.g. `ng b -c production`. You can target more than one, separating them by commas `,`.
+3. If you used `ng b`, serve the files from your preferred webserver. I often do `php -S localhost:80` from the resulting `./dist/ngx-trebol-frontend/` directory. If you use any of the above mentioned locales you'll have to either:
+  A) mind the corresponding subdirectory
+  B) remove, comment or change the value of the `<base>` tag in the generated `index.html`
+
 
 ## Contributing to this repository
 
