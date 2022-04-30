@@ -83,8 +83,7 @@ describe('StoreCheckoutConfirmationComponent', () => {
     checkoutServiceSpy.requestTransaction.and.returnValue(of(fakeData));
     observeIfEventFiresUponCallback(
       component.confirmed,
-      () => component.onClickConfirm(),
-      timer(1)
+      () => component.onClickConfirm()
     ).pipe(
       tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();

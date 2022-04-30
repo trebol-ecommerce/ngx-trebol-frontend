@@ -77,8 +77,7 @@ describe('StoreProductListContentsDisplayComponent', () => {
   it('should fire an `addProductToCart` event', () => {
     observeIfEventFiresUponCallback(
       component.addProductToCart,
-      () => component.onAddProductToCart(null),
-      timer(1)
+      () => component.onAddProductToCart(null)
     ).pipe(
       tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();

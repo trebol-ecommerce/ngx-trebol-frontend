@@ -99,8 +99,7 @@ describe('StoreCheckoutRequestFormComponent', () => {
   it('should not fire a `request` event if the form is invalid', () => {
     observeIfEventFiresUponCallback(
       component.request,
-      () => component.onRequest(),
-      timer(1)
+      () => component.onRequest()
     ).pipe(
       tap(didFireEvent => expect(didFireEvent).toBeFalse())
     ).subscribe();
@@ -143,8 +142,7 @@ describe('StoreCheckoutRequestFormComponent', () => {
     it('should fire a `request` event', () => {
       observeIfEventFiresUponCallback(
         component.request,
-        () => component.onRequest(),
-        timer(1)
+        () => component.onRequest()
       ).pipe(
         tap(didFireEvent => expect(didFireEvent).toBeTrue())
       ).subscribe();

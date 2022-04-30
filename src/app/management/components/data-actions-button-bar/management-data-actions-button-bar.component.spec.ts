@@ -38,8 +38,7 @@ describe('ManagementDataActionsButtonBarComponent', () => {
   it('should fire a `create` event', () => {
     observeIfEventFiresUponCallback(
       component.create,
-      () => component.onClickCreate(),
-      timer(1)
+      () => component.onClickCreate()
     ).pipe(
       tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();

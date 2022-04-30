@@ -57,8 +57,7 @@ describe('ProductsLotDisplayComponent', () => {
   it('should fire a `decrease` event', () => {
     observeIfEventFiresUponCallback(
       component.addProductToCart,
-      () => component.onAddProductToCart(null),
-      timer(1)
+      () => component.onAddProductToCart(null)
     ).pipe(
       tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();
@@ -67,8 +66,7 @@ describe('ProductsLotDisplayComponent', () => {
   it('should fire a `decrease` event', () => {
     observeIfEventFiresUponCallback(
       component.viewProduct,
-      () => component.onViewProduct(null),
-      timer(1)
+      () => component.onViewProduct(null)
     ).pipe(
       tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();
@@ -77,8 +75,7 @@ describe('ProductsLotDisplayComponent', () => {
   it('should fire a `decrease` event', () => {
     observeIfEventFiresUponCallback(
       component.page,
-      () => component.onPage(null),
-      timer(1)
+      () => component.onPage(null)
     ).pipe(
       tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();

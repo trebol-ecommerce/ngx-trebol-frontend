@@ -41,8 +41,7 @@ describe('SellDetailUnitsControlComponent', () => {
   it('should fire a `decrease` event', () => {
     observeIfEventFiresUponCallback(
       component.decrease,
-      () => component.onClickDecrease(),
-      timer(1)
+      () => component.onClickDecrease()
     ).pipe(
       tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();
@@ -51,8 +50,7 @@ describe('SellDetailUnitsControlComponent', () => {
   it('should fire an `increase` event', () => {
     observeIfEventFiresUponCallback(
       component.increase,
-      () => component.onClickIncrease(),
-      timer(1)
+      () => component.onClickIncrease()
     ).pipe(
       tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();

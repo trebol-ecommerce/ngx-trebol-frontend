@@ -17,7 +17,7 @@ import { defaultIfEmpty, finalize, map, take, takeUntil } from "rxjs/operators";
  * @returns An Observable that emits a single boolean value as soon as possible.
  * This observable emits true when the event did emit a value, and false if it did not.
  */
-export function observeIfEventFiresUponCallback(eventEmitter: EventEmitter<any>, callbackFunction: () => void, shortCircuit$ = timer(50)) {
+export function observeIfEventFiresUponCallback(eventEmitter: EventEmitter<any>, callbackFunction: () => void, shortCircuit$ = timer(1)) {
   return merge(
     eventEmitter.pipe(
       map(() => true)

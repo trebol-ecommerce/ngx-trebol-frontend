@@ -42,8 +42,7 @@ describe('ProductCardComponent', () => {
   it('should fire an `addToCart` event', () => {
     observeIfEventFiresUponCallback(
       component.addToCart,
-      () => component.onClickAddProduct(),
-      timer(1)
+      () => component.onClickAddProduct()
     ).pipe(
       tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();
@@ -52,8 +51,7 @@ describe('ProductCardComponent', () => {
   it('should fire a `view` event', () => {
     observeIfEventFiresUponCallback(
       component.view,
-      () => component.onClickViewProduct(),
-      timer(1)
+      () => component.onClickViewProduct()
     ).pipe(
       tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();

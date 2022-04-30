@@ -122,8 +122,7 @@ describe('ProductCategoryTreeComponent', () => {
       it('should fire a `selection` event', () => {
         observeIfEventFiresUponCallback(
           component.selection,
-          () => component.onClickTreeNode(targetNode),
-          timer(1)
+          () => component.onClickTreeNode(targetNode)
         ).pipe(
           tap(didFireEvent => expect(didFireEvent).toBeTrue())
         ).subscribe();

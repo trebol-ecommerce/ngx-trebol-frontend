@@ -53,8 +53,7 @@ describe('SellDetailsTableComponent', () => {
   it('should fire an `increaseUnitsAtIndex` event', () => {
     observeIfEventFiresUponCallback(
       component.increaseUnitsAtIndex,
-      () => component.onClickIncreaseProductQuantity(0),
-      timer(1)
+      () => component.onClickIncreaseProductQuantity(0)
     ).pipe(
       tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();
@@ -63,8 +62,7 @@ describe('SellDetailsTableComponent', () => {
   it('should fire a `decreaseUnitsAtIndex` event', () => {
     observeIfEventFiresUponCallback(
       component.decreaseUnitsAtIndex,
-      () => component.onClickDecreaseProductQuantity(0),
-      timer(1)
+      () => component.onClickDecreaseProductQuantity(0)
     ).pipe(
       tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();
@@ -73,8 +71,7 @@ describe('SellDetailsTableComponent', () => {
   it('should fire a `removeAtIndex` event', () => {
     observeIfEventFiresUponCallback(
       component.removeAtIndex,
-      () => component.onClickRemoveProduct(0),
-      timer(1)
+      () => component.onClickRemoveProduct(0)
     ).pipe(
       tap(didFireEvent => expect(didFireEvent).toBeTrue())
     ).subscribe();

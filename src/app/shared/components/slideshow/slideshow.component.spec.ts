@@ -73,8 +73,7 @@ describe('SlideshowComponent', () => {
         component.onClickSlideSelector(0);
         component.onClickSlideForwards();
         component.onClickSlideBackwards();
-      },
-      timer(1)
+      }
     ).pipe(
       tap(didFireEvent => expect(didFireEvent).toBeFalse())
     ).subscribe();
@@ -120,18 +119,15 @@ describe('SlideshowComponent', () => {
       concat(
         observeIfEventFiresUponCallback(
           component.navigate,
-          () => component.onClickSlideSelector(1),
-          timer(1)
+          () => component.onClickSlideSelector(1)
         ),
         observeIfEventFiresUponCallback(
           component.navigate,
-          () => component.onClickSlideForwards(),
-          timer(1)
+          () => component.onClickSlideForwards()
         ),
         observeIfEventFiresUponCallback(
           component.navigate,
-          () => component.onClickSlideBackwards(),
-          timer(1)
+          () => component.onClickSlideBackwards()
         )
       ).pipe(
         toArray(),
@@ -171,8 +167,7 @@ describe('SlideshowComponent', () => {
     it('should not fire a `navigate` event if clicking the slide that is already active', () => {
       observeIfEventFiresUponCallback(
         component.navigate,
-        () => component.onClickSlideSelector(0),
-        timer(1)
+        () => component.onClickSlideSelector(0)
       ).pipe(
         tap(didFireEvent => expect(didFireEvent).toBeFalse())
       ).subscribe();
@@ -203,8 +198,7 @@ describe('SlideshowComponent', () => {
     it('should fire an `add` event', () => {
       observeIfEventFiresUponCallback(
         component.add,
-        () => component.onClickAdd(),
-        timer(1)
+        () => component.onClickAdd()
       ).pipe(
         tap(didFireEvent => expect(didFireEvent).toBeTrue())
       ).subscribe();
