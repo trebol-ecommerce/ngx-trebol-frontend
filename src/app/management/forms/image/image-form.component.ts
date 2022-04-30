@@ -69,7 +69,7 @@ export class ImageFormComponent
     this.url.reset('', { emitEvent: false });
     this.code.reset('', { emitEvent: false });
     if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj);
+      this.formGroup.patchValue(obj, { emitEvent: false });
     }
   }
 

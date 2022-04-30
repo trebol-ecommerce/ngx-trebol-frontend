@@ -69,7 +69,7 @@ export class ProductCategoryFormComponent
     this.name.reset('', { emitEvent: false });
     this.parent.reset(null, { emitEvent: false });
     if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj);
+      this.formGroup.patchValue(obj, { emitEvent: false });
     }
   }
 

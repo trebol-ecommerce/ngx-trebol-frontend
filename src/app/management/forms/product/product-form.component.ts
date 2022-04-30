@@ -84,7 +84,7 @@ export class ProductFormComponent
     // this.criticalStock.reset('', { emitEvent: false });
     this.description.reset('', { emitEvent: false });
     if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj);
+      this.formGroup.patchValue(obj, { emitEvent: false });
     }
   }
 

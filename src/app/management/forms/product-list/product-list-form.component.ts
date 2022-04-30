@@ -69,7 +69,7 @@ export class ProductListFormComponent
     this.name.reset('', { emitEvent: false });
     this.totalCount.reset(0, { emitEvent: false });
     if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj);
+      this.formGroup.patchValue(obj, { emitEvent: false });
     }
   }
 

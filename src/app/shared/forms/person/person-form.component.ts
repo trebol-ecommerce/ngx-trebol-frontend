@@ -75,7 +75,7 @@ export class PersonFormComponent
     this.phone1.reset('', { emitEvent: false });
     this.phone2.reset('', { emitEvent: false });
     if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj);
+      this.formGroup.patchValue(obj, { emitEvent: false });
     }
   }
 

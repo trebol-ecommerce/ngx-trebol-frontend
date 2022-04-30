@@ -65,7 +65,7 @@ export class ShipperFormComponent
   writeValue(obj: any): void {
     this.name.reset('', { emitEvent: false });
     if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj);
+      this.formGroup.patchValue(obj, { emitEvent: false });
     }
   }
 

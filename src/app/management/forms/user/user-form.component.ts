@@ -82,7 +82,7 @@ export class UserFormComponent
     this.person.reset(null, { emitEvent: false });
     this.role.reset(null, { emitEvent: false });
     if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj);
+      this.formGroup.patchValue(obj, { emitEvent: false });
     }
   }
 
