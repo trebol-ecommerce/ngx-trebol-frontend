@@ -6,7 +6,7 @@
 -->
 
 <form #form method="post" [action]="checkoutDetails.url">
-  <input type="hidden" name="token_ws" [value]="checkoutDetails.token" />
+  <input type="hidden" [name]="innerControlName" [value]="checkoutDetails.token" />
   <button type="submit" class="checkout"
     mat-button mat-raised-button
     color="accent"

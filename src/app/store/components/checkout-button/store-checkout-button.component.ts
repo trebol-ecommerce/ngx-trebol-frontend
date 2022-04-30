@@ -19,6 +19,8 @@ export class StoreCheckoutButtonComponent {
 
   disabled = true;
 
+  @Input() innerControlName = 'token_ws';
+
   @Input()
   get checkoutDetails() { return this.innerCheckoutDetails; }
   set checkoutDetails(value: ExternalPaymentRedirectionData) {
