@@ -96,7 +96,7 @@ describe('ManagementUsersComponent', () => {
   });
 
   it('should refresh the view after deleting an object', () => {
-    serviceSpy.removeItems.and.returnValue(of(void 0));
+    serviceSpy.removeItems.and.returnValue(of([]));
     serviceSpy.reloadItems.and.returnValue(of(void 0));
     const img = MOCK_USERS[0];
     component.onClickDelete(img);
