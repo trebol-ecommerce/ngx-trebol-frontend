@@ -8,7 +8,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,7 +16,11 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { EMPTY, of } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
+import { MOCK_SALESPEOPLE } from 'src/app/api/local-memory/mock/mock-salespeople.datasource';
+import { Salesperson } from 'src/models/entities/Salesperson';
+import { EntityFormDialogComponent } from '../../dialogs/entity-form/entity-form-dialog.component';
+import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';
 import { ManagementSalespeopleComponent } from './management-salespeople.component';
 import { ManagementSalespeopleService } from './management-salespeople.service';
 
@@ -33,6 +37,7 @@ describe('ManagementSalespeopleComponent', () => {
   let component: ManagementSalespeopleComponent;
   let fixture: ComponentFixture<ManagementSalespeopleComponent>;
   let serviceSpy: jasmine.SpyObj<ManagementSalespeopleService>;
+  let mockDialogServiceSpy: jasmine.SpyObj<MatDialog>;
 
   beforeEach(waitForAsync(() => {
     const mockService = jasmine.createSpyObj('ManagementSalespeopleService', ['reloadItems', 'removeItems']);
@@ -63,6 +68,7 @@ describe('ManagementSalespeopleComponent', () => {
   }));
 
   beforeEach(() => {
+    mockDialogServiceSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
     serviceSpy = TestBed.inject(ManagementSalespeopleService) as jasmine.SpyObj<ManagementSalespeopleService>;
     serviceSpy.reloadItems.and.returnValue(EMPTY);
     serviceSpy.removeItems.and.returnValue(EMPTY);
@@ -82,5 +88,38 @@ describe('ManagementSalespeopleComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should delete objects', () => {
+    component.onClickDelete(null);
+    expect(serviceSpy.removeItems).toHaveBeenCalled();
+  });
+
+  it('should refresh the view after deleting an object', () => {
+    serviceSpy.removeItems.and.returnValue(of(void 0));
+    serviceSpy.reloadItems.and.returnValue(of(void 0));
+    const img = MOCK_SALESPEOPLE[0];
+    component.onClickDelete(img);
+    expect(serviceSpy.reloadItems).toHaveBeenCalled();
+  });
+
+  it('should open a dialog to edit items', () => {
+    mockDialogServiceSpy.open.and.returnValue({
+      afterClosed: () => EMPTY as Observable<any>
+    } as MatDialogRef<any>);
+    component.onClickEdit(null);
+    expect(mockDialogServiceSpy.open).toHaveBeenCalled();
+    expect(mockDialogServiceSpy.open).toHaveBeenCalledWith(
+      EntityFormDialogComponent,
+      {
+        data: {
+          isNewItem: true,
+          item: null,
+          entityType: 'person',
+          apiService: serviceSpy.dataService
+        },
+        width: '40rem'
+      } as EntityFormDialogConfig<Salesperson>
+    );
   });
 });
