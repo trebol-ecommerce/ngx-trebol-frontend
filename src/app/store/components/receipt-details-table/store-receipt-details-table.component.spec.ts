@@ -7,6 +7,7 @@
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatTableModule } from '@angular/material/table';
+import { ReceiptDetail } from 'src/models/ReceiptDetail';
 import { StoreReceiptDetailsTableComponent } from './store-receipt-details-table.component';
 
 describe('StoreReceiptDetailsTableComponent', () => {
@@ -19,8 +20,7 @@ describe('StoreReceiptDetailsTableComponent', () => {
         MatTableModule
       ],
       declarations: [ StoreReceiptDetailsTableComponent ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -31,5 +31,17 @@ describe('StoreReceiptDetailsTableComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should update the datasource when receiving a value in its [details] binding', () => {
+    const payload: ReceiptDetail[] = [
+      {
+        product: { barcode: 'some-barcode' },
+        units: 1
+      }
+    ];
+    component.details = payload;
+    expect(component.details).toBe(payload);
+    expect(component.dataSource.data).toBe(payload);
   });
 });
