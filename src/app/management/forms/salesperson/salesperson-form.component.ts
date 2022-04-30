@@ -40,7 +40,15 @@ export class SalespersonFormComponent
   @Input() formGroup: FormGroup;
   get person() { return this.formGroup.get('person') as FormControl; }
 
-  constructor() { }
+  onChange: (value: any) => void;
+  onTouched: () => void;
+  onValidatorChange: () => void;
+
+  constructor() {
+    this.onChange = (v: any) => { };
+    this.onTouched = () => { };
+    this.onValidatorChange = () => { };
+  }
 
   ngOnInit(): void {
     if (!this.formGroup) {
@@ -49,7 +57,6 @@ export class SalespersonFormComponent
       });
     }
     this.valueChangesSub = this.formGroup.valueChanges.pipe(
-      debounceTime(100),
       tap(v => this.onChange(v))
     ).subscribe();
   }
@@ -58,17 +65,12 @@ export class SalespersonFormComponent
     this.valueChangesSub?.unsubscribe();
   }
 
-  onChange(value: any): void { }
-  onTouched(): void { }
-  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
-    this.person.reset('', { emitEvent: false });
-    if (isJavaScriptObject(obj)) {
-      if (obj instanceof Person) {
-        this.person.setValue(obj);
-      } else {
-        this.formGroup.patchValue(obj);
+    if (this.formGroup) {
+      this.person.reset('', { emitEvent: false });
+      if (isJavaScriptObject(obj)) {
+        this.formGroup.patchValue(obj, { emitEvent: false });
       }
     }
   }
@@ -81,15 +83,21 @@ export class SalespersonFormComponent
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    if (isDisabled) {
-      this.formGroup.disable();
-    } else {
-      this.formGroup.enable();
+  setDisabledState(isDisabled: boolean): void {
+    if (this.formGroup) {
+      if (isDisabled) {
+        this.formGroup.disable();
+      } else {
+        this.formGroup.enable();
+      }
     }
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
+    if (!this.formGroup) {
+      return null;
+    }
+
     if (this.formGroup.valid) {
       return null;
     }
