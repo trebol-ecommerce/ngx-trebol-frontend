@@ -6,7 +6,7 @@
  */
 
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter, take, tap } from 'rxjs/operators';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_VALIDATION_ERROR_MESSAGE } from 'src/text/messages';
@@ -33,9 +33,9 @@ export class StoreCheckoutRequestFormComponent
     private cartService: StoreCartService
   ) {
     this.formGroup = this.formBuilder.group({
-      billing: null,
-      customer: null,
-      shipping: null
+      billing: [null, Validators.required],
+      customer: [null, Validators.required],
+      shipping: [null, Validators.required]
     });
   }
 
