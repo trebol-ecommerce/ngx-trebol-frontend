@@ -34,27 +34,15 @@ class MockDialogSwitcherButtonComponent {
 describe('StoreLoginFormDialogComponent', () => {
   let component: StoreLoginFormDialogComponent;
   let fixture: ComponentFixture<StoreLoginFormDialogComponent>;
-  let mockDialog: Partial<MatDialogRef<StoreLoginFormDialogComponent>>;
-  let mockAuthenticationService: Partial<AuthenticationService>;
-  let mockProfileService: Partial<ProfileService>;
-  let mockSnackBarService: Partial<MatSnackBar>;
+  let dialogRefSpy: jasmine.SpyObj<MatDialogRef<StoreLoginFormDialogComponent>>;
+  let authenticationServiceSpy: jasmine.SpyObj<AuthenticationService>;
+  let profileServiceSpy: jasmine.SpyObj<ProfileService>;
 
   beforeEach(waitForAsync(() => {
-    // TODO use jasmine.SpyObj
-    mockDialog = {
-      close() {}
-    };
-    mockAuthenticationService = {
-      login() { return EMPTY; },
-      cancelAuthentication() { },
-      authCancelation$: EMPTY // do not emit
-    };
-    mockProfileService = {
-      getUserProfile() { return of(null); }
-    };
-    mockSnackBarService = {
-      open() { return void 0; }
-    };
+    const mockDialog = jasmine.createSpyObj('MatDialogRef', ['close']);
+    const mockAuthenticationService = jasmine.createSpyObj('', ['login', 'cancelAuthentication']);
+    const mockProfileService = jasmine.createSpyObj('ProfileService', ['getUserProfile']);
+    const mockSnackBarService = jasmine.createSpyObj('MatSnackBar', ['open']);
 
     TestBed.configureTestingModule({
       imports: [
@@ -81,6 +69,13 @@ describe('StoreLoginFormDialogComponent', () => {
   }));
 
   beforeEach(() => {
+    dialogRefSpy = TestBed.inject(MatDialogRef) as jasmine.SpyObj<MatDialogRef<StoreLoginFormDialogComponent>>;
+    authenticationServiceSpy = TestBed.inject(AuthenticationService) as jasmine.SpyObj<AuthenticationService>;
+    profileServiceSpy = TestBed.inject(ProfileService) as jasmine.SpyObj<ProfileService>;
+    authenticationServiceSpy.login.and.returnValue(EMPTY);
+    authenticationServiceSpy.authCancelation$ = EMPTY
+    profileServiceSpy.getUserProfile.and.returnValue(of(null));
+
     fixture = TestBed.createComponent(StoreLoginFormDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -90,27 +85,47 @@ describe('StoreLoginFormDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should not submit incomplete form', () => {
-    const appServiceLoginSpy = spyOn(mockAuthenticationService, 'login');
+  it('its form should be invalid at creation time', () => {
+    expect(component.formGroup.invalid).toBeTrue();
+  });
+
+  it('should not submit its form in invalid state', () => {
     component.onSubmit();
-    expect(appServiceLoginSpy).not.toHaveBeenCalled();
+    expect(authenticationServiceSpy.login).not.toHaveBeenCalled();
 
     component.username.setValue('test');
-    expect(component.formGroup.valid).toBeFalse();
+    expect(component.formGroup.invalid).toBeTrue();
     component.onSubmit();
-    expect(appServiceLoginSpy).not.toHaveBeenCalled();
+    expect(authenticationServiceSpy.login).not.toHaveBeenCalled();
 
     component.formGroup.reset();
     component.password.setValue('test');
-    expect(component.formGroup.valid).toBeFalse();
+    expect(component.formGroup.invalid).toBeTrue();
     component.onSubmit();
-    expect(appServiceLoginSpy).not.toHaveBeenCalled();
+    expect(authenticationServiceSpy.login).not.toHaveBeenCalled();
   });
 
   it('should close upon cancellation', () => {
-    const dialogCloseSpy = spyOn(mockDialog, 'close');
     component.onCancel();
-    expect(dialogCloseSpy).toHaveBeenCalled();
+    expect(dialogRefSpy.close).toHaveBeenCalled();
+  });
+
+  it('should render input elements for an username and a password', () => {
+    const usernameInputElem = fixture.debugElement.nativeElement.querySelector('.username input') as HTMLInputElement;
+    expect(usernameInputElem).toBeTruthy();
+    const passwordInputElem = fixture.debugElement.nativeElement.querySelector('.password input') as HTMLInputElement;
+    expect(passwordInputElem).toBeTruthy();
+  });
+
+  it('should switch between a password input or visible input', () => {
+    const passwordInputElem = fixture.debugElement.nativeElement.querySelector('.password input') as HTMLInputElement;
+    expect(passwordInputElem.type).toBe('password');
+    component.showPassword();
+    fixture.detectChanges();
+    expect(passwordInputElem.type).toBe('text');
+    component.hidePassword();
+    fixture.detectChanges();
+    expect(passwordInputElem.type).toBe('password');
   });
 
   describe('with complete form', () => {
@@ -124,9 +139,9 @@ describe('StoreLoginFormDialogComponent', () => {
     });
 
     it('should be able to submit and log-in', () => {
-      const loginSpy = spyOn(mockAuthenticationService, 'login').and.returnValue(of('sometoken'));
+      authenticationServiceSpy.login.and.returnValue(of('sometoken'));
       component.onSubmit();
-      expect(loginSpy).toHaveBeenCalled();
+      expect(authenticationServiceSpy.login).toHaveBeenCalled();
     });
 
     // TODO please uncomment and fix this unit test ASAP - Second time around
@@ -143,10 +158,9 @@ describe('StoreLoginFormDialogComponent', () => {
     // });
 
     it('should close if logging-in is successful', () => {
-      spyOn(mockAuthenticationService, 'login').and.returnValue(of('sometoken'));
-      const dialogCloseSpy = spyOn(mockDialog, 'close');
+      authenticationServiceSpy.login.and.returnValue(of('sometoken'));
       component.onSubmit();
-      expect(dialogCloseSpy).toHaveBeenCalled();
+      expect(authenticationServiceSpy.login).toHaveBeenCalled();
     });
   });
 
