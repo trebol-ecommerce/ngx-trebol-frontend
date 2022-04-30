@@ -31,13 +31,12 @@ class MockFooterComponent { }
 describe('ManagementComponent', () => {
   let component: ManagementComponent;
   let fixture: ComponentFixture<ManagementComponent>;
-  let mockSessionService: Partial<SessionService>;
-  let mockSidenavService: Partial<ManagementSidenavService>;
+  let sessionServiceSpy: jasmine.SpyObj<SessionService>;
+  let sidenavServiceSpy: jasmine.SpyObj<ManagementSidenavService>;
 
   beforeEach(waitForAsync(() => {
-    // TODO use jasmine.SpyObj
-    mockSessionService = {};
-    mockSidenavService = { };
+    const mockSessionService = {};
+    const mockSidenavService = {};
 
     TestBed.configureTestingModule({
       imports: [
@@ -60,8 +59,10 @@ describe('ManagementComponent', () => {
   }));
 
   beforeEach(() => {
-    mockSessionService.userHasActiveSession$ = of(true); // TODO should use some form of Subject
-    mockSidenavService.isSidenavOpen$ = of(true);
+    sessionServiceSpy = TestBed.inject(SessionService) as jasmine.SpyObj<SessionService>;
+    sidenavServiceSpy = TestBed.inject(ManagementSidenavService) as jasmine.SpyObj<ManagementSidenavService>;
+    sessionServiceSpy.userHasActiveSession$ = of(true); // TODO should use some form of Subject
+    sidenavServiceSpy.isSidenavOpen$ = of(true);
 
     fixture = TestBed.createComponent(ManagementComponent);
     component = fixture.componentInstance;
