@@ -6,7 +6,7 @@
  */
 
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, EMPTY, ReplaySubject } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalProductListContentsDataApiService } from 'src/app/api/transactional-product-list-contents.data.api.iservice';
@@ -42,14 +42,20 @@ export class ProductListContentsDialogService {
   }
 
   addProduct(product: Product) {
-    return this.listApiService.addToContents(this.list, product);
+    return this.list ?
+      this.listApiService.addToContents(this.list, product) :
+      EMPTY;
   }
 
   replaceProductsWith(products: Product[]) {
-    return this.listApiService.updateContents(this.list, products);
+    return this.list ?
+      this.listApiService.updateContents(this.list, products) :
+      EMPTY;
   }
 
   removeProduct(product: Product) {
-    return this.listApiService.deleteFromContents(this.list, product);
+    return this.list ?
+      this.listApiService.deleteFromContents(this.list, product) :
+      EMPTY;
   }
 }
