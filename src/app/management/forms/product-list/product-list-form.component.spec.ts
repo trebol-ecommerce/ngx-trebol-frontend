@@ -11,8 +11,8 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MOCK_PRODUCT_LISTS } from 'src/app/api/local-memory/mock/mock-product-lists.datasource';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
-import { ProductList } from 'src/models/entities/ProductList';
 import { ProductListFormComponent } from './product-list-form.component';
 
 @Component({
@@ -25,6 +25,8 @@ class MockHigherOrderFormComponent {
   formGroup = new FormGroup({ productList: new FormControl(null) });
   get productList() { return this.formGroup.get('productList') as FormControl; }
 }
+
+const mockProductList = MOCK_PRODUCT_LISTS[Math.floor(Math.random() * MOCK_PRODUCT_LISTS.length)];
 
 describe('ProductListFormComponent', () => {
   let containerForm: MockHigherOrderFormComponent;
@@ -61,35 +63,83 @@ describe('ProductListFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should not be valid at creation time', () => {
-    expect(containerForm.formGroup.invalid).toBeTrue();
-    expect(component.formGroup.invalid).toBeTrue();
+  describe('before its first change', () => {
+    it('its ControlValueAccesor stub implementation should not break', () => {
+      expect(() => {
+        component.onChange(null);
+        component.onTouched();
+        component.writeValue(null);
+        component.setDisabledState(false);
+      }).not.toThrowError();
+    });
+
+    it('its Validator stub implementation should not break', () => {
+      expect(() => {
+        component.onValidatorChange();
+        component.validate(null);
+      }).not.toThrowError();
+    });
   });
 
-  it('should accept instances of ProductList as valid input', () => {
-    const mockProductList: ProductList = {
-      code: 'some-code',
-      name: 'some-name',
-      totalCount: 0
-    };
-    containerForm.productList.setValue(mockProductList);
-    expect(component.formGroup.value).toEqual(mockProductList);
-    expect(component.formGroup.valid).toBeTrue();
-  });
+  describe('after its first change', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+      jasmine.clock().install();
+    });
 
-  it('should treat non-ProductList-instances as invalid input', () => {
-    const notAnImage = {
-      foo: 'example',
-      bar: 'test'
-    };
-    containerForm.productList.setValue(notAnImage);
-    expect(component.formGroup.invalid).toBeTrue();
-  });
+    afterEach(() => {
+      jasmine.clock().uninstall();
+    });
 
-  it('should respond to changes in disabled state', () => {
-    containerForm.formGroup.disable();
-    expect(component.formGroup.disabled).toBeTrue();
-    containerForm.formGroup.enable();
-    expect(component.formGroup.enabled).toBeTrue();
+    it('should persist', () => {
+      expect(containerForm).toBeTruthy();
+      expect(component).toBeTruthy();
+    });
+
+    it('should not a have valid form state at creation time', () => {
+      expect(containerForm.formGroup.invalid).toBeTrue();
+      expect(component.formGroup.invalid).toBeTrue();
+    });
+
+    it('should propagate its value to a higher order form', () => {
+      expect(containerForm.productList.value).not.toEqual(mockProductList);
+      component.code.setValue(mockProductList.code);
+      component.name.setValue(mockProductList.name);
+      component.totalCount.setValue(mockProductList.totalCount);
+      jasmine.clock().tick(component.formChangesDebounceTimeMs);
+      expect(containerForm.productList.value).toEqual(mockProductList);
+      component.formGroup.reset({ value: null });
+      jasmine.clock().tick(component.formChangesDebounceTimeMs);
+      expect(containerForm.productList.value).not.toEqual(mockProductList);
+    });
+
+    it('should receive and process values from a higher order form', () => {
+      containerForm.productList.setValue(mockProductList);
+      expect(component.formGroup.value).toEqual(mockProductList);
+      containerForm.productList.setValue(null);
+      expect(component.code.value).toBeFalsy();
+      expect(component.name.value).toBeFalsy();
+    });
+
+    it('should respond to changes in disabled state', () => {
+      containerForm.formGroup.disable();
+      expect(component.formGroup.disabled).toBeTrue();
+      containerForm.formGroup.enable();
+      expect(component.formGroup.enabled).toBeTrue();
+    });
+
+    it('should accept instances of ProductList as valid input', () => {
+      containerForm.productList.setValue(mockProductList);
+      expect(component.formGroup.valid).toBeTrue();
+    });
+
+    it('should treat non-ProductList-instances as invalid input', () => {
+      const notAProductList = {
+        foo: 'example',
+        bar: 'test'
+      };
+      containerForm.productList.setValue(notAProductList);
+      expect(component.formGroup.invalid).toBeTrue();
+    });
   });
 });

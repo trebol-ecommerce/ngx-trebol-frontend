@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { MOCK_PRODUCT_CATEGORIES } from 'src/app/api/local-memory/mock/mock-product-categories.datasource';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { ProductCategorySelectorFieldComponent } from './product-category-selector-field.component';
 
@@ -29,6 +30,8 @@ class MockHigherOrderFormComponent {
   formGroup = new FormGroup({ category: new FormControl(null) });
   get category() { return this.formGroup.get('category') as FormControl; }
 }
+
+const mockCategory = MOCK_PRODUCT_CATEGORIES[Math.floor(Math.random() * MOCK_PRODUCT_CATEGORIES.length)];
 
 describe('ProductCategorySelectorFormFieldComponent', () => {
   let containerForm: MockHigherOrderFormComponent;
@@ -67,45 +70,82 @@ describe('ProductCategorySelectorFormFieldComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  describe('before its first change', () => {
+    it('should create', () => {
+      expect(containerForm).toBeTruthy();
+      expect(component).toBeTruthy();
+    });
+
+    it('should have a safe ControlValueAccesor stub implementation', () => {
+      expect(() => {
+        component.onChange(null);
+        component.onTouched();
+        component.writeValue(null);
+        component.setDisabledState(false);
+      }).not.toThrowError();
+    });
+
+    it('should have a safe Validator stub implementation', () => {
+      expect(() => {
+        component.onValidatorChange();
+        component.validate(null);
+      }).not.toThrowError();
+    });
   });
 
-  it('should accept null as valid input', () => {
-    containerForm.category.setValue(null);
-    expect(component.productCategory).toBe(null);
-    expect(containerForm.category.valid).toBeTrue();
-  });
+  describe('after its first change', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
 
-  it('should accept instances of ProductCategory as valid input', () => {
-    const fakeCategory: ProductCategory = {
-      code: 'some-code',
-      name: 'some-name'
-    };
-    containerForm.category.setValue(fakeCategory);
-    expect(component.productCategory).toEqual(fakeCategory);
-    expect(containerForm.category.valid).toBeTrue();
-  });
+    it('should propagate its value to a higher order form', () => {
+      expect(containerForm.category.value).not.toEqual(mockCategory);
+      component.productCategory = mockCategory;
+      component.onChange(mockCategory);
+      expect(containerForm.category.value).toEqual(mockCategory);
+      component.productCategory = null;
+      component.onChange(null);
+      expect(containerForm.category.value).not.toEqual(mockCategory);
+    });
 
-  it('should treat non-ProductCategory-instances as invalid input', () => {
-    const notACategory = {
-      foo: 'example',
-      bar: 'test'
-    };
-    containerForm.category.setValue(notACategory);
-    expect(containerForm.category.invalid).toBeTrue();
-  });
+    it('should receive and process values from a higher order form', () => {
+      containerForm.category.setValue(mockCategory);
+      expect(component.productCategory).toEqual(mockCategory);
+      containerForm.category.setValue(null);
+      expect(component.productCategory).toBeNull();
+    });
 
-  it('should fire the `select` event when picking a category', () => {
-    const fakeCategory: ProductCategory = {
-      code: 'some-code',
-      name: 'some-name'
-    };
-    dialogServiceSpy.open.and.returnValue({ afterClosed: () => of(fakeCategory) } as MatDialogRef<any>);
-    component.categorySelection.pipe(
-      take(1),
-      tap(selectedCategory => expect(selectedCategory).toEqual(fakeCategory))
-    ).subscribe();
-    component.onClickOpenCategoryPicker();
+    it('should accept null as valid input', () => {
+      containerForm.category.setValue(null);
+      expect(containerForm.category.valid).toBeTrue();
+    });
+
+    it('should accept instances of ProductCategory as valid input', () => {
+      containerForm.category.setValue(mockCategory);
+      expect(component.productCategory).toEqual(mockCategory);
+      expect(containerForm.category.valid).toBeTrue();
+    });
+
+    it('should treat non-ProductCategory-instances as invalid input', () => {
+      const notACategory = {
+        foo: 'example',
+        bar: 'test'
+      };
+      containerForm.category.setValue(notACategory);
+      expect(containerForm.category.invalid).toBeTrue();
+    });
+
+    it('should fire the `select` event when picking a category', () => {
+      const fakeCategory: ProductCategory = {
+        code: 'some-code',
+        name: 'some-name'
+      };
+      dialogServiceSpy.open.and.returnValue({ afterClosed: () => of(fakeCategory) } as MatDialogRef<any>);
+      component.categorySelection.pipe(
+        take(1),
+        tap(selectedCategory => expect(selectedCategory).toEqual(fakeCategory))
+      ).subscribe();
+      component.onClickOpenCategoryPicker();
+    });
   });
 });

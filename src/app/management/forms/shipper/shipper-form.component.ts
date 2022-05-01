@@ -37,19 +37,29 @@ export class ShipperFormComponent
 
   private valueChangesSub: Subscription;
 
+  readonly formChangesDebounceTimeMs = 50;
+
   @Input() formGroup: FormGroup;
   get name() { return this.formGroup.get('name') as FormControl; }
 
+  onChange: (value: any) => void;
+  onTouched: () => void;
+  onValidatorChange: () => void;
+
   constructor(
     private formGroupService: EntityFormGroupFactoryService
-  ) { }
+  ) {
+    this.onChange = (v) => { };
+    this.onTouched = () => { };
+    this.onValidatorChange = () => { };
+  }
 
   ngOnInit(): void {
     if (!this.formGroup) {
       this.formGroup = this.formGroupService.createFormGroupFor('shipper');
     }
     this.valueChangesSub = this.formGroup.valueChanges.pipe(
-      debounceTime(100),
+      debounceTime(this.formChangesDebounceTimeMs),
       tap(v => this.onChange(v))
     ).subscribe();
   }
@@ -58,14 +68,12 @@ export class ShipperFormComponent
     this.valueChangesSub?.unsubscribe();
   }
 
-  onChange(value: any): void { }
-  onTouched(): void { }
-  onValidatorChange(): void { }
-
   writeValue(obj: any): void {
-    this.name.reset('', { emitEvent: false });
-    if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj, { emitEvent: false });
+    if (this.formGroup) {
+      this.name.reset('', { emitEvent: false });
+      if (isJavaScriptObject(obj)) {
+        this.formGroup.patchValue(obj, { emitEvent: false });
+      }
     }
   }
 
@@ -77,16 +85,18 @@ export class ShipperFormComponent
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    if (isDisabled) {
-      this.formGroup.disable({ emitEvent: false });
-    } else {
-      this.formGroup.enable({ emitEvent: false });
+  setDisabledState(isDisabled: boolean): void {
+    if (this.formGroup) {
+      if (isDisabled) {
+        this.formGroup.disable({ emitEvent: false });
+      } else {
+        this.formGroup.enable({ emitEvent: false });
+      }
     }
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    if (this.formGroup.valid) {
+    if (!this.formGroup || this.formGroup.valid) {
       return null;
     }
 

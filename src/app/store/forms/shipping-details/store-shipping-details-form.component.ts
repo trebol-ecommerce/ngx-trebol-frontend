@@ -41,9 +41,17 @@ export class StoreShippingDetailsFormComponent
   get included() { return this.formGroup.get('included') as FormControl; }
   get address() { return this.formGroup.get('address') as FormControl; }
 
+  onChange: (value: any) => void;
+  onTouched: () => void;
+  onValidatorChange: () => void;
+
   constructor(
     private formBuilder: FormBuilder
-  ) { }
+  ) {
+    this.onChange = (v) => { };
+    this.onTouched = () => { };
+    this.onValidatorChange = () => { };
+  }
 
   ngOnInit(): void {
     if (!this.formGroup) {
@@ -65,16 +73,14 @@ export class StoreShippingDetailsFormComponent
     this.includeShippingChangesSub?.unsubscribe();
   }
 
-  onChange(value: any): void { }
-  onTouched(): void { }
-  onValidatorChange(): void { }
-
   writeValue(obj: any): void {
-    this.included.reset(null, { emitEvent: false });
-    this.address.reset({ value: null, disabled: true }, { emitEvent: false });
-    if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj, { emitEvent: false });
-      this.updateControlsAfterShippingInclusionChange({ emitEvent: false });
+    if (this.formGroup) {
+      this.included.reset(null, { emitEvent: false });
+      this.address.reset({ value: null, disabled: true }, { emitEvent: false });
+      if (isJavaScriptObject(obj)) {
+        this.formGroup.patchValue(obj, { emitEvent: false });
+        this.updateControlsAfterShippingInclusionChange({ emitEvent: false });
+      }
     }
   }
 
@@ -86,16 +92,18 @@ export class StoreShippingDetailsFormComponent
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    if (isDisabled) {
-      this.formGroup.disable({ emitEvent: false });
-    } else {
-      this.formGroup.enable({ emitEvent: false });
+  setDisabledState(isDisabled: boolean): void {
+    if (this.formGroup) {
+      if (isDisabled) {
+        this.formGroup.disable({ emitEvent: false });
+      } else {
+        this.formGroup.enable({ emitEvent: false });
+      }
     }
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    if (this.formGroup.valid) {
+    if (!this.formGroup || this.formGroup.valid) {
       return null;
     }
 

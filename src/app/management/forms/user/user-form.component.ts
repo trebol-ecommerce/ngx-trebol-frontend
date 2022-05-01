@@ -41,6 +41,8 @@ export class UserFormComponent
 
   private valueChangesSub: Subscription;
 
+  readonly formChangesDebounceTimeMs = 50;
+
   people$: Observable<Person[]>;
   roles$: Observable<UserRole[]>;
 
@@ -50,18 +52,26 @@ export class UserFormComponent
   get person() { return this.formGroup.get('person') as FormControl; }
   get role() { return this.formGroup.get('role') as FormControl; }
 
+  onChange: (value: any) => void;
+  onTouched: () => void;
+  onValidatorChange: () => void;
+
   constructor(
     @Inject(API_INJECTION_TOKENS.dataPeople) protected peopleDataApiService: IEntityDataApiService<Person>,
     @Inject(API_INJECTION_TOKENS.dataUserRoles) protected userRolesDataApiService: IEntityDataApiService<UserRole>,
     private formGroupService: EntityFormGroupFactoryService
-  ) { }
+  ) {
+    this.onChange = (v) => { };
+    this.onTouched = () => { };
+    this.onValidatorChange = () => { };
+  }
 
   ngOnInit(): void {
     if (!this.formGroup) {
       this.formGroup = this.formGroupService.createFormGroupFor('user');
     }
     this.valueChangesSub = this.formGroup.valueChanges.pipe(
-      debounceTime(100),
+      debounceTime(this.formChangesDebounceTimeMs),
       tap(v => this.onChange(v))
     ).subscribe();
     this.people$ = this.peopleDataApiService.fetchPage().pipe(map(page => page.items));
@@ -72,17 +82,15 @@ export class UserFormComponent
     this.valueChangesSub?.unsubscribe();
   }
 
-  onChange(value: any): void { }
-  onTouched(): void { }
-  onValidatorChange(): void { }
-
   writeValue(obj: any): void {
-    this.name.reset('', { emitEvent: false });
-    this.password.reset('', { emitEvent: false });
-    this.person.reset(null, { emitEvent: false });
-    this.role.reset(null, { emitEvent: false });
-    if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj, { emitEvent: false });
+    if (this.formGroup) {
+      this.name.reset('', { emitEvent: false });
+      this.password.reset('', { emitEvent: false });
+      this.person.reset(null, { emitEvent: false });
+      this.role.reset(null, { emitEvent: false });
+      if (isJavaScriptObject(obj)) {
+        this.formGroup.patchValue(obj, { emitEvent: false });
+      }
     }
   }
 
@@ -94,16 +102,18 @@ export class UserFormComponent
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    if (isDisabled) {
-      this.formGroup.disable({ emitEvent: false });
-    } else {
-      this.formGroup.enable({ emitEvent: false });
+  setDisabledState(isDisabled: boolean): void {
+    if (this.formGroup) {
+      if (isDisabled) {
+        this.formGroup.disable({ emitEvent: false });
+      } else {
+        this.formGroup.enable({ emitEvent: false });
+      }
     }
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    if (this.formGroup.valid) {
+    if (!this.formGroup || this.formGroup.valid) {
       return null;
     }
 

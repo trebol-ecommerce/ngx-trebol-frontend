@@ -41,6 +41,8 @@ export class ProductFormComponent
 
   private valueChangesSub: Subscription;
 
+  readonly formChangesDebounceTimeMs = 50;
+
   @Input() formGroup: FormGroup;
   get images() { return this.formGroup.get('images') as FormControl; }
   get barcode() { return this.formGroup.get('barcode') as FormControl; }
@@ -51,17 +53,25 @@ export class ProductFormComponent
   // get criticalStock() { return this.formGroup.get('criticalStock') as FormControl; }
   get description() { return this.formGroup.get('description') as FormControl; }
 
+  onChange: (value: any) => void;
+  onTouched: () => void;
+  onValidatorChange: () => void;
+
   constructor(
     private formGroupService: EntityFormGroupFactoryService,
     private dialogService: MatDialog
-  ) { }
+  ) {
+    this.onChange = (v) => { };
+    this.onTouched = () => { };
+    this.onValidatorChange = () => { };
+  }
 
   ngOnInit(): void {
     if (!this.formGroup) {
       this.formGroup = this.formGroupService.createFormGroupFor('product');
     }
     this.valueChangesSub = this.formGroup.valueChanges.pipe(
-      debounceTime(100),
+      debounceTime(this.formChangesDebounceTimeMs),
       tap(v => this.onChange(v))
     ).subscribe();
   }
@@ -70,21 +80,19 @@ export class ProductFormComponent
     this.valueChangesSub?.unsubscribe();
   }
 
-  onChange(value: any): void { }
-  onTouched(): void { }
-  onValidatorChange(): void { }
-
   writeValue(obj: any): void {
-    this.images.reset([], { emitEvent: false });
-    this.barcode.reset('', { emitEvent: false });
-    this.name.reset('', { emitEvent: false });
-    this.category.reset(null, { emitEvent: false });
-    this.price.reset('', { emitEvent: false });
-    // this.stock.reset('', { emitEvent: false });
-    // this.criticalStock.reset('', { emitEvent: false });
-    this.description.reset('', { emitEvent: false });
-    if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj, { emitEvent: false });
+    if (this.formGroup) {
+      this.images.reset([], { emitEvent: false });
+      this.barcode.reset('', { emitEvent: false });
+      this.name.reset('', { emitEvent: false });
+      this.category.reset(null, { emitEvent: false });
+      this.price.reset('', { emitEvent: false });
+      // this.stock.reset('', { emitEvent: false });
+      // this.criticalStock.reset('', { emitEvent: false });
+      this.description.reset('', { emitEvent: false });
+      if (isJavaScriptObject(obj)) {
+        this.formGroup.patchValue(obj, { emitEvent: false });
+      }
     }
   }
 
@@ -96,16 +104,18 @@ export class ProductFormComponent
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    if (isDisabled) {
-      this.formGroup.disable({ emitEvent: false });
-    } else {
-      this.formGroup.enable({ emitEvent: false });
+  setDisabledState(isDisabled: boolean): void {
+    if (this.formGroup) {
+      if (isDisabled) {
+        this.formGroup.disable({ emitEvent: false });
+      } else {
+        this.formGroup.enable({ emitEvent: false });
+      }
     }
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    if (this.formGroup.valid) {
+    if (!this.formGroup || this.formGroup.valid) {
       return null;
     }
 

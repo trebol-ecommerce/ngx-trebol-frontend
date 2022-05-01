@@ -53,45 +53,109 @@ describe('AddressFormComponent', () => {
     fixture = TestBed.createComponent(MockHigherOrderFormComponent);
     containerForm = fixture.componentInstance;
     component = containerForm.addressFormComponent;
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(containerForm).toBeTruthy();
-    expect(component).toBeTruthy();
+  describe('before its first change', () => {
+    it('should create', () => {
+      expect(containerForm).toBeTruthy();
+      expect(component).toBeTruthy();
+    });
+
+    it('should have a safe ControlValueAccesor stub implementation', () => {
+      expect(() => {
+        component.onChange(null);
+        component.onTouched();
+        component.writeValue(null);
+        component.setDisabledState(false);
+      }).not.toThrowError();
+    });
+
+    it('should have a safe Validator stub implementation', () => {
+      expect(() => {
+        component.onValidatorChange();
+        component.validate(null);
+      }).not.toThrowError();
+    });
   });
 
-  it('should not be valid at creation time', () => {
-    expect(containerForm.formGroup.invalid).toBeTrue();
-    expect(component.formGroup.invalid).toBeTrue();
-  });
+  describe('after its first change', () => {
+    let mockAddress: Address;
+    beforeEach(() => {
+      // TODO outsource this from a mock data array like with Products
+      mockAddress = {
+        firstLine: 'first line',
+        municipality: 'municipality name',
+        city: 'city name',
+        secondLine: '',
+        notes: ''
+      };
 
-  it('should accept instances of Address as valid input', () => {
-    const mockAddress: Address = {
-      firstLine: 'first line',
-      municipality: 'municipality name',
-      city: 'city name',
-      secondLine: '',
-      notes: ''
-    };
-    containerForm.address.setValue(mockAddress);
-    expect(component.formGroup.value).toEqual(mockAddress);
-    expect(component.formGroup.valid).toBeTrue();
-  });
+      fixture.detectChanges();
+      jasmine.clock().install();
+    });
 
-  it('should treat non-Address-instances as invalid input', () => {
-    const notAnAddress = {
-      foo: 'example',
-      bar: 'test'
-    };
-    containerForm.address.setValue(notAnAddress);
-    expect(component.formGroup.invalid).toBeTrue();
-  });
+    afterEach(() => {
+      jasmine.clock().uninstall();
+    });
 
-  it('should respond to changes in disabled state', () => {
-    containerForm.formGroup.disable();
-    expect(component.formGroup.disabled).toBeTrue();
-    containerForm.formGroup.enable();
-    expect(component.formGroup.enabled).toBeTrue();
+    it('should persist', () => {
+      expect(containerForm).toBeTruthy();
+      expect(component).toBeTruthy();
+    });
+
+    it('should not a have valid form state at creation time', () => {
+      expect(containerForm.formGroup.invalid).toBeTrue();
+      expect(component.formGroup.invalid).toBeTrue();
+    });
+
+    it('should propagate its value to a higher order form', () => {
+      expect(containerForm.address.value).not.toEqual(mockAddress);
+      component.firstLine.setValue(mockAddress.firstLine);
+      component.municipality.setValue(mockAddress.municipality);
+      component.city.setValue(mockAddress.city);
+      component.secondLine.setValue(mockAddress.secondLine);
+      component.notes.setValue(mockAddress.notes);
+      jasmine.clock().tick(component.formChangesDebounceTimeMs);
+      expect(containerForm.address.value).toEqual(mockAddress);
+      component.formGroup.reset({ value: null });
+      jasmine.clock().tick(component.formChangesDebounceTimeMs);
+      expect(containerForm.address.value).not.toEqual(mockAddress);
+    });
+
+    it('should receive and process values from a higher order form', () => {
+      containerForm.address.setValue(mockAddress);
+      expect(component.firstLine.value).toEqual(mockAddress.firstLine);
+      expect(component.municipality.value).toEqual(mockAddress.municipality);
+      expect(component.city.value).toEqual(mockAddress.city);
+      expect(component.secondLine.value).toEqual(mockAddress.secondLine);
+      expect(component.notes.value).toEqual(mockAddress.notes);
+      containerForm.address.setValue(null);
+      expect(component.firstLine.value).toBeFalsy();
+      expect(component.municipality.value).toBeFalsy();
+      expect(component.city.value).toBeFalsy();
+      expect(component.secondLine.value).toBeFalsy();
+      expect(component.notes.value).toBeFalsy();
+    });
+
+    it('should respond to changes in disabled state', () => {
+      containerForm.formGroup.disable();
+      expect(component.formGroup.disabled).toBeTrue();
+      containerForm.formGroup.enable();
+      expect(component.formGroup.enabled).toBeTrue();
+    });
+
+    it('should accept instances of Address as valid input', () => {
+      containerForm.address.setValue(mockAddress);
+      expect(component.formGroup.valid).toBeTrue();
+    });
+
+    it('should treat non-Address-instances as invalid input', () => {
+      const notAnAddress = {
+        foo: 'example',
+        bar: 'test'
+      };
+      containerForm.address.setValue(notAnAddress);
+      expect(component.formGroup.invalid).toBeTrue();
+    });
   });
 });

@@ -36,13 +36,23 @@ export class CompanyFormComponent
 
   private valueChangesSub: Subscription;
 
+  readonly formChangesDebounceTimeMs = 50;
+
   @Input() formGroup: FormGroup;
   get idNumber() { return this.formGroup.get('idNumber') as FormControl; }
   get name() { return this.formGroup.get('name') as FormControl; }
 
+  onChange: (value: any) => void;
+  onTouched: () => void;
+  onValidatorChange: () => void;
+
   constructor(
     private formBuilder: FormBuilder
-  ) { }
+  ) {
+    this.onChange = (v) => { };
+    this.onTouched = () => { };
+    this.onValidatorChange = () => { };
+  }
 
   ngOnInit(): void {
     if (!this.formGroup) {
@@ -52,7 +62,7 @@ export class CompanyFormComponent
       });
     }
     this.valueChangesSub = this.formGroup.valueChanges.pipe(
-      debounceTime(100),
+      debounceTime(this.formChangesDebounceTimeMs),
       tap(v => this.onChange(v))
     ).subscribe();
   }
@@ -61,15 +71,13 @@ export class CompanyFormComponent
     this.valueChangesSub?.unsubscribe();
   }
 
-  onChange(value: any): void { }
-  onTouched(): void { }
-  onValidatorChange(): void { }
-
   writeValue(obj: any): void {
-    this.idNumber.reset('', { emitEvent: false });
-    this.name.reset('', { emitEvent: false });
-    if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj, { emitEvent: false });
+    if (this.formGroup) {
+      this.idNumber.reset('', { emitEvent: false });
+      this.name.reset('', { emitEvent: false });
+      if (isJavaScriptObject(obj)) {
+        this.formGroup.patchValue(obj, { emitEvent: false });
+      }
     }
   }
 
@@ -81,16 +89,18 @@ export class CompanyFormComponent
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    if (isDisabled) {
-      this.formGroup.disable();
-    } else {
-      this.formGroup.enable();
+  setDisabledState(isDisabled: boolean): void {
+    if (this.formGroup) {
+      if (isDisabled) {
+        this.formGroup.disable();
+      } else {
+        this.formGroup.enable();
+      }
     }
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    if (this.formGroup.valid) {
+    if (!this.formGroup || this.formGroup.valid) {
       return null;
     }
 

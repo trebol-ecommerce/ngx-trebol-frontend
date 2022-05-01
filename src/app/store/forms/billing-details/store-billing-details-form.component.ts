@@ -11,7 +11,7 @@ import {
   NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { debounceTime, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { isJavaScriptObject } from 'src/functions/isJavaScriptObject';
 import { BILLING_TYPE_COMPANY, BILLING_TYPE_NAMES_MAP } from 'src/text/billing-type-names';
 
@@ -45,9 +45,17 @@ export class StoreBillingDetailsFormComponent
   get company() { return this.formGroup.get('company') as FormControl; }
   get address() { return this.formGroup.get('address') as FormControl; }
 
+  onChange: (value: any) => void;
+  onTouched: () => void;
+  onValidatorChange: () => void;
+
   constructor(
     private formBuilder: FormBuilder
-  ) { }
+  ) {
+    this.onChange = (v) => { };
+    this.onTouched = () => { };
+    this.onValidatorChange = () => { };
+  }
 
   ngOnInit(): void {
     if (!this.formGroup) {
@@ -70,17 +78,15 @@ export class StoreBillingDetailsFormComponent
     this.typeNameChangesSub?.unsubscribe();
   }
 
-  onChange(value: any): void { }
-  onTouched(): void { }
-  onValidatorChange(): void { }
-
   writeValue(obj: any): void {
-    this.typeName.reset(null, { emitEvent: false });
-    this.company.reset({ value: null, disabled: true }, { emitEvent: false });
-    this.address.reset({ value: null, disabled: true }, { emitEvent: false });
-    if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj, { emitEvent: false });
-      this.updateControlsAfterTypeNameChange({ emitEvent: false });
+    if (this.formGroup) {
+      this.typeName.reset(null, { emitEvent: false });
+      this.company.reset({ value: null, disabled: true }, { emitEvent: false });
+      this.address.reset({ value: null, disabled: true }, { emitEvent: false });
+      if (isJavaScriptObject(obj)) {
+        this.formGroup.patchValue(obj, { emitEvent: false });
+        this.updateControlsAfterTypeNameChange({ emitEvent: false });
+      }
     }
   }
 
@@ -93,15 +99,17 @@ export class StoreBillingDetailsFormComponent
   }
 
   setDisabledState?(isDisabled: boolean): void {
-    if (isDisabled) {
-      this.formGroup.disable();
-    } else {
-      this.formGroup.enable();
+    if (this.formGroup) {
+      if (isDisabled) {
+        this.formGroup.disable();
+      } else {
+        this.formGroup.enable();
+      }
     }
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    if (this.formGroup.valid) {
+    if (!this.formGroup || this.formGroup.valid) {
       return null;
     }
 

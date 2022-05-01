@@ -37,6 +37,15 @@ class MockHigherOrderFormComponent {
   get shipping() { return this.formGroup.get('shipping') as FormControl; }
 }
 
+const mockFormData: ShippingDetails = {
+  included: true,
+  address: {
+    city: 'some-city',
+    municipality: 'some-municipality',
+    firstLine: 'some-line'
+  }
+};
+
 describe('StoreShippingDetailsFormComponent', () => {
   let containerForm: MockHigherOrderFormComponent;
   let fixture: ComponentFixture<MockHigherOrderFormComponent>;
@@ -62,80 +71,119 @@ describe('StoreShippingDetailsFormComponent', () => {
     fixture = TestBed.createComponent(MockHigherOrderFormComponent);
     containerForm = fixture.componentInstance;
     component = containerForm.shippingFormComponent;
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  describe('before its first change', () => {
+    it('should create', () => {
+      expect(containerForm).toBeTruthy();
+      expect(component).toBeTruthy();
+    });
 
-  it('should not be valid at creation time', () => {
-    expect(containerForm.formGroup.invalid).toBeTrue();
-    expect(component.formGroup.invalid).toBeTrue();
-  });
+    it('should have a safe ControlValueAccesor stub implementation', () => {
+      expect(() => {
+        component.onChange(null);
+        component.onTouched();
+        component.writeValue(null);
+        component.setDisabledState(false);
+      }).not.toThrowError();
+    });
 
-  it('should accept instances of ShippingDetails as valid input', () => {
-    const instances: ShippingDetails[] = [
-      {
-        included: false
-      },
-      {
-        included: true,
-        address: {
-          city: 'some-city',
-          municipality: 'some-municipality',
-          firstLine: 'some-line'
-        }
-      }
-    ];
-    instances.forEach(d => {
-      containerForm.shipping.setValue(d);
-      expect(component.formGroup.value).toEqual(d);
-      expect(component.formGroup.valid).toBeTrue();
+    it('should have a safe Validator stub implementation', () => {
+      expect(() => {
+        component.onValidatorChange();
+        component.validate(null);
+      }).not.toThrowError();
     });
   });
 
-  it('should treat non-ShippingDetails-instances as invalid input', () => {
-    const notShippingDetails = {
-      foo: 'example',
-      bar: 'test'
-    };
-    containerForm.shipping.setValue(notShippingDetails);
-    expect(component.formGroup.invalid).toBeTrue();
-  });
+  describe('after its first change', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
 
-  it('should respond to changes in disabled state', () => {
-    containerForm.formGroup.disable();
-    expect(component.formGroup.disabled).toBeTrue();
-    containerForm.formGroup.enable();
-    expect(component.formGroup.enabled).toBeTrue();
-  });
+    it('should persist', () => {
+      expect(containerForm).toBeTruthy();
+      expect(component).toBeTruthy();
+    });
 
-  it('should have its address field disabled by default', () => {
-    expect(component.address.disabled).toBeTrue();
-  });
+    it('should not a have valid form state at creation time', () => {
+      expect(containerForm.formGroup.invalid).toBeTrue();
+      expect(component.formGroup.invalid).toBeTrue();
+    });
 
-  it('should have its address field disabled when choosing not to include shipping', () => {
-    const mockFormData: ShippingDetails = {
-      included: false
-    };
-    containerForm.shipping.setValue(mockFormData);
-    expect(component.address.disabled).toBeTrue();
-  });
+    it('should propagate its value to a higher order form', () => {
+      expect(containerForm.shipping.value).not.toEqual(mockFormData);
+      component.included.setValue(mockFormData.included);
+      component.address.setValue(mockFormData.address);
+      expect(containerForm.shipping.value).toEqual(mockFormData);
+      component.formGroup.reset({ value: null });
+      expect(containerForm.shipping.value).not.toEqual(mockFormData);
+    });
 
-  it('should have its address field enabled when choosing to include shipping', () => {
-    const mockFormData: ShippingDetails = {
-      included: true
-    };
-    containerForm.shipping.setValue(mockFormData);
-    expect(component.address.enabled).toBeTrue();
-  });
+    it('should receive and process values from a higher order form', () => {
+      containerForm.shipping.setValue(mockFormData);
+      expect(component.included.value).toEqual(mockFormData.included);
+      expect(component.address.value).toEqual(mockFormData.address);
+      containerForm.shipping.setValue(null);
+      expect(component.included.value).toBeFalsy();
+      expect(component.address.value).toBeFalsy();
+    });
 
-  it('should treat an incomplete instance of ShippingDetails as invalid input', () => {
-    const incompleteInstance: Partial<ShippingDetails> = {
-      included: true
-    };
-    containerForm.shipping.setValue(incompleteInstance);
-    expect(component.formGroup.invalid).toBeTrue();
+    it('should respond to changes in disabled state', () => {
+      containerForm.formGroup.disable();
+      expect(component.formGroup.disabled).toBeTrue();
+      containerForm.formGroup.enable();
+      expect(component.formGroup.enabled).toBeTrue();
+    });
+
+    it('should accept instances of ShippingDetails as valid input', () => {
+      const instances: ShippingDetails[] = [
+        {
+          included: false
+        },
+        mockFormData
+      ];
+      instances.forEach(d => {
+        containerForm.shipping.setValue(d);
+        expect(component.formGroup.valid).toBeTrue();
+      });
+    });
+
+    it('should treat non-ShippingDetails-instances as invalid input', () => {
+      const notShippingDetails = {
+        foo: 'example',
+        bar: 'test'
+      };
+      containerForm.shipping.setValue(notShippingDetails);
+      expect(component.formGroup.invalid).toBeTrue();
+    });
+
+    it('should have its address field disabled by default', () => {
+      expect(component.address.disabled).toBeTrue();
+    });
+
+    it('should have its address field disabled when choosing not to include shipping', () => {
+      const mockFormData: ShippingDetails = {
+        included: false
+      };
+      containerForm.shipping.setValue(mockFormData);
+      expect(component.address.disabled).toBeTrue();
+    });
+
+    it('should have its address field enabled when choosing to include shipping', () => {
+      const mockFormData: ShippingDetails = {
+        included: true
+      };
+      containerForm.shipping.setValue(mockFormData);
+      expect(component.address.enabled).toBeTrue();
+    });
+
+    it('should treat an incomplete instance of ShippingDetails as invalid input', () => {
+      const incompleteInstance: Partial<ShippingDetails> = {
+        included: true
+      };
+      containerForm.shipping.setValue(incompleteInstance);
+      expect(component.formGroup.invalid).toBeTrue();
+    });
   });
 });

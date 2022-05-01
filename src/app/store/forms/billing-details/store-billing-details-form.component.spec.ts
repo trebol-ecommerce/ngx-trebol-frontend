@@ -17,12 +17,10 @@ import { StoreBillingDetailsFormComponent } from './store-billing-details-form.c
 
 class MockAbstractFormComponent
   implements ControlValueAccessor {
-  onchange = (v: any) => { }
-  ontouched = () => { }
   writeValue(obj: any): void { }
   setDisabledState?(isDisabled: boolean): void { }
-  registerOnChange(fn: (v: any) => any): void { this.onchange = fn; }
-  registerOnTouched(fn: () => any): void { this.ontouched = fn; }
+  registerOnChange(fn: (v: any) => any): void { }
+  registerOnTouched(fn: () => any): void { }
 }
 
 @Component({
@@ -49,6 +47,19 @@ class MockHigherOrderFormComponent {
   formGroup = new FormGroup({ billing: new FormControl(null) });
   get billing() { return this.formGroup.get('billing') as FormControl; }
 }
+
+const mockFormData: BillingDetails = {
+  typeName: BILLING_TYPE_COMPANY,
+  company: {
+    idNumber: 'some-id-number',
+    name: 'some-name'
+  },
+  address: {
+    city: 'some-city',
+    municipality: 'some-muni',
+    firstLine: 'some-addr'
+  }
+};
 
 describe('StoreBillingDetailsFormComponent', () => {
   let containerForm: MockHigherOrderFormComponent;
@@ -79,97 +90,135 @@ describe('StoreBillingDetailsFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  describe('before its first change', () => {
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should have a safe ControlValueAccesor stub implementation', () => {
+      expect(() => {
+        component.onChange(null);
+        component.onTouched();
+        component.writeValue(null);
+        component.setDisabledState(false);
+      }).not.toThrowError();
+    });
+
+    it('should have a safe Validator stub implementation', () => {
+      expect(() => {
+        component.onValidatorChange();
+        component.validate(null);
+      }).not.toThrowError();
+    });
   });
 
-  it('should not be valid at creation time', () => {
-    expect(containerForm.formGroup.invalid).toBeTrue();
-    expect(component.formGroup.invalid).toBeTrue();
-  });
+  describe('after its first change', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
 
-  it('should accept instances of BillingDetails as valid input', () => {
-    const mockFormData: BillingDetails = {
-      typeName: BILLING_TYPE_COMPANY,
-      company: {
-        idNumber: 'some-id-number',
-        name: 'some-name'
-      },
-      address: {
-        city: 'some-city',
-        municipality: 'some-muni',
-        firstLine: 'some-addr'
-      }
-    };
-    containerForm.billing.setValue(mockFormData);
-    expect(component.formGroup.value).toEqual(mockFormData);
-    expect(component.formGroup.valid).toBeTrue();
+    it('should persist', () => {
+      expect(containerForm).toBeTruthy();
+      expect(component).toBeTruthy();
+    });
 
-    const mockPerson2: BillingDetails = {
-      typeName: BILLING_TYPE_INDIVIDUAL
-    };
-    containerForm.billing.setValue(mockPerson2);
-    expect(component.formGroup.value).toEqual(mockPerson2);
-    expect(component.formGroup.valid).toBeTrue();
-  });
-
-  it('should treat non-BillingDetails-instances as invalid input', () => {
-    const notBillingDetails = {
-      foo: 'example',
-      bar: 'test'
-    };
-    containerForm.billing.setValue(notBillingDetails);
-    expect(component.formGroup.invalid).toBeTrue();
-  });
-
-  it('should respond to changes in disabled state', () => {
-    containerForm.formGroup.disable();
-    expect(component.formGroup.disabled).toBeTrue();
-    containerForm.formGroup.enable();
-    expect(component.formGroup.enabled).toBeTrue();
-  });
-
-  it('should have its company and address fields disabled by default', () => {
-    expect(component.address.disabled).toBeTrue();
-    expect(component.company.disabled).toBeTrue();
-  });
-
-  it('should have its company and address fields disabled when choosing to be billed as an individual', () => {
-    containerForm.billing.setValue({ typeName: BILLING_TYPE_INDIVIDUAL });
-    expect(component.address.disabled).toBeTrue();
-    expect(component.company.disabled).toBeTrue();
-  });
-
-  it('should have its company and address fields enabled when choosing to be billed as a company', () => {
-    containerForm.billing.setValue({ typeName: BILLING_TYPE_COMPANY });
-    expect(component.address.enabled).toBeTrue();
-    expect(component.company.enabled).toBeTrue();
-  });
-
-  it('should treat incomplete instances of BillingDetails as invalid input', () => {
-    const incompleteInstances: Partial<BillingDetails>[] = [
-      {
-        typeName: BILLING_TYPE_COMPANY
-      },
-      {
-        typeName: BILLING_TYPE_COMPANY,
-        company: {
-          idNumber: 'some-id-number',
-          name: 'some-name'
-        }
-      },
-      {
-        typeName: BILLING_TYPE_COMPANY,
-        address: {
-          city: 'some-city',
-          municipality: 'some-muni',
-          firstLine: 'some-addr'
-        }
-      }
-    ];
-    incompleteInstances.forEach(b => {
-      containerForm.billing.setValue(b);
+    it('should not a have valid form state at creation time', () => {
+      expect(containerForm.formGroup.invalid).toBeTrue();
       expect(component.formGroup.invalid).toBeTrue();
+    });
+
+    it('should propagate its value to a higher order form', () => {
+      expect(containerForm.billing.value).not.toEqual(mockFormData);
+      component.typeName.setValue(mockFormData.typeName);
+      component.company.setValue(mockFormData.company);
+      component.address.setValue(mockFormData.address);
+      expect(containerForm.billing.value).toEqual(mockFormData);
+      component.formGroup.reset({ value: null });
+      expect(containerForm.billing.value).not.toEqual(mockFormData);
+    });
+
+    it('should receive and process values from a higher order form', () => {
+      containerForm.billing.setValue(mockFormData);
+      expect(component.typeName.value).toEqual(mockFormData.typeName);
+      expect(component.company.value).toEqual(mockFormData.company);
+      expect(component.address.value).toEqual(mockFormData.address);
+      containerForm.billing.setValue(null);
+      expect(component.typeName.value).toBeFalsy();
+      expect(component.company.value).toBeFalsy();
+      expect(component.address.value).toBeFalsy();
+    });
+
+    it('should respond to changes in disabled state', () => {
+      containerForm.billing.disable();
+      expect(component.formGroup.disabled).toBeTrue();
+      containerForm.billing.enable();
+      expect(component.formGroup.enabled).toBeTrue();
+    });
+
+    it('should accept instances of BillingDetails as valid input', () => {
+      const instances: BillingDetails[] = [
+        {
+          typeName: BILLING_TYPE_INDIVIDUAL
+        },
+        mockFormData
+      ];
+      instances.forEach(d => {
+        containerForm.billing.setValue(d);
+        expect(component.formGroup.valid).toBeTrue();
+      });
+    });
+
+    it('should treat non-BillingDetails-instances as invalid input', () => {
+      const notBillingDetails = {
+        foo: 'example',
+        bar: 'test'
+      };
+      containerForm.billing.setValue(notBillingDetails);
+      expect(component.formGroup.invalid).toBeTrue();
+    });
+
+    it('should have its company and address fields disabled by default', () => {
+      expect(component.address.disabled).toBeTrue();
+      expect(component.company.disabled).toBeTrue();
+    });
+
+    it('should have its company and address fields disabled when choosing to be billed as an individual', () => {
+      containerForm.billing.setValue({ typeName: BILLING_TYPE_INDIVIDUAL });
+      expect(component.address.disabled).toBeTrue();
+      expect(component.company.disabled).toBeTrue();
+    });
+
+    it('should have its company and address fields enabled when choosing to be billed as a company', () => {
+      containerForm.billing.setValue({ typeName: BILLING_TYPE_COMPANY });
+      expect(component.address.enabled).toBeTrue();
+      expect(component.company.enabled).toBeTrue();
+    });
+
+    it('should treat incomplete instances of BillingDetails as invalid input', () => {
+      const incompleteInstances: Partial<BillingDetails>[] = [
+        {
+          typeName: BILLING_TYPE_COMPANY
+        },
+        {
+          typeName: BILLING_TYPE_COMPANY,
+          company: {
+            idNumber: 'some-id-number',
+            name: 'some-name'
+          }
+        },
+        {
+          typeName: BILLING_TYPE_COMPANY,
+          address: {
+            city: 'some-city',
+            municipality: 'some-muni',
+            firstLine: 'some-addr'
+          }
+        }
+      ];
+      incompleteInstances.forEach(b => {
+        containerForm.billing.setValue(b);
+        expect(component.formGroup.invalid).toBeTrue();
+      });
     });
   });
 });

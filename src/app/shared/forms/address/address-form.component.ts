@@ -37,6 +37,8 @@ export class AddressFormComponent
 
   private valueChangesSub: Subscription;
 
+  readonly formChangesDebounceTimeMs = 50;
+
   @Input() formGroup: FormGroup;
   get city() { return this.formGroup.get('city') as FormControl; }
   get municipality() { return this.formGroup.get('municipality') as FormControl; }
@@ -44,16 +46,24 @@ export class AddressFormComponent
   get secondLine() { return this.formGroup.get('secondLine') as FormControl; }
   get notes() { return this.formGroup.get('notes') as FormControl; }
 
+  onChange: (value: any) => void;
+  onTouched: () => void;
+  onValidatorChange: () => void;
+
   constructor(
     private formGroupService: EntityFormGroupFactoryService
-  ) { }
+  ) {
+    this.onChange = (v) => { };
+    this.onTouched = () => { };
+    this.onValidatorChange = () => { };
+  }
 
   ngOnInit(): void {
     if (!this.formGroup) {
       this.formGroup = this.formGroupService.createFormGroupFor('address');
     }
     this.valueChangesSub = this.formGroup.valueChanges.pipe(
-      debounceTime(100),
+      debounceTime(this.formChangesDebounceTimeMs),
       tap(v => this.onChange(v))
     ).subscribe();
   }
@@ -62,18 +72,16 @@ export class AddressFormComponent
     this.valueChangesSub?.unsubscribe();
   }
 
-  onChange(value: any): void { }
-  onTouched(): void { }
-  onValidatorChange(): void { }
-
   writeValue(obj: any): void {
-    this.city.reset(null, { emitEvent: false });
-    this.municipality.reset(null, { emitEvent: false });
-    this.firstLine.reset(null, { emitEvent: false });
-    this.secondLine.reset(null, { emitEvent: false });
-    this.notes.reset(null, { emitEvent: false });
-    if (isJavaScriptObject(obj)) {
-      this.formGroup.patchValue(obj, { emitEvent: false });
+    if (this.formGroup) {
+      this.city.reset(null, { emitEvent: false });
+      this.municipality.reset(null, { emitEvent: false });
+      this.firstLine.reset(null, { emitEvent: false });
+      this.secondLine.reset(null, { emitEvent: false });
+      this.notes.reset(null, { emitEvent: false });
+      if (isJavaScriptObject(obj)) {
+        this.formGroup.patchValue(obj, { emitEvent: false });
+      }
     }
   }
 
@@ -85,16 +93,18 @@ export class AddressFormComponent
     this.onTouched = fn;
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    if (isDisabled) {
-      this.formGroup.disable({ emitEvent: false });
-    } else {
-      this.formGroup.enable({ emitEvent: false });
+  setDisabledState(isDisabled: boolean): void {
+    if (this.formGroup) {
+      if (isDisabled) {
+        this.formGroup.disable({ emitEvent: false });
+      } else {
+        this.formGroup.enable({ emitEvent: false });
+      }
     }
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    if (this.formGroup.valid) {
+    if (!this.formGroup || this.formGroup.valid) {
       return null;
     }
 

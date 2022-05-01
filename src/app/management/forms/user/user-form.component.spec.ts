@@ -15,9 +15,9 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { EMPTY, of } from 'rxjs';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
+import { MOCK_USERS } from 'src/app/api/local-memory/mock/mock-users.datasource';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { Person } from 'src/models/entities/Person';
-import { User } from 'src/models/entities/User';
 import { UserRole } from 'src/models/entities/UserRole';
 import { UserFormComponent } from './user-form.component';
 
@@ -31,6 +31,8 @@ class MockHigherOrderFormComponent {
   formGroup = new FormGroup({ user: new FormControl(null) });
   get user() { return this.formGroup.get('user') as FormControl; }
 }
+
+const mockUser = MOCK_USERS[Math.floor(Math.random() * MOCK_USERS.length)];
 
 describe('UserFormComponent', () => {
   let containerForm: MockHigherOrderFormComponent;
@@ -66,43 +68,92 @@ describe('UserFormComponent', () => {
   beforeEach(() => {
     peopleDataApiServiceSpy = TestBed.inject(API_INJECTION_TOKENS.dataPeople) as jasmine.SpyObj<IEntityDataApiService<Person>>;
     userRolesDataApiServiceSpy = TestBed.inject(API_INJECTION_TOKENS.dataUserRoles) as jasmine.SpyObj<IEntityDataApiService<UserRole>>;;
+    peopleDataApiServiceSpy.fetchPage.and.returnValue(EMPTY);
+    userRolesDataApiServiceSpy.fetchPage.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(MockHigherOrderFormComponent);
     containerForm = fixture.componentInstance;
     component = containerForm.userFormComponent;
   });
 
-  describe('always', () => {
-    beforeEach(() => {
-      peopleDataApiServiceSpy.fetchPage.and.returnValue(EMPTY);
-      userRolesDataApiServiceSpy.fetchPage.and.returnValue(EMPTY);
-      fixture.detectChanges();
-    });
-
+  describe('before its first change', () => {
     it('should create', () => {
       expect(containerForm).toBeTruthy();
       expect(component).toBeTruthy();
     });
 
-    it('should not be valid at creation time', () => {
+    it('should have a safe ControlValueAccesor stub implementation', () => {
+      expect(() => {
+        component.onChange(null);
+        component.onTouched();
+        component.writeValue(null);
+        component.setDisabledState(false);
+      }).not.toThrowError();
+    });
+
+    it('should have a safe Validator stub implementation', () => {
+      expect(() => {
+        component.onValidatorChange();
+        component.validate(null);
+      }).not.toThrowError();
+    });
+  });
+
+  describe('after its first change', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+      jasmine.clock().install();
+    });
+
+    afterEach(() => {
+      jasmine.clock().uninstall();
+    });
+
+    it('should persist', () => {
+      expect(containerForm).toBeTruthy();
+      expect(component).toBeTruthy();
+    });
+
+    it('should not a have valid form state at creation time', () => {
       expect(containerForm.formGroup.invalid).toBeTrue();
       expect(component.formGroup.invalid).toBeTrue();
     });
 
-    it('should accept instances of User as valid input', () => {
-      const mockUser: User = {
-        name: 'some-name',
-        password: 'some-password',
-        role: 'some-role',
-        person: {
-          idNumber: 'some-id-number',
-          firstName: 'some-first-name',
-          lastName: 'some-last-name',
-          email: 'some-email'
-        }
-      };
+    it('should propagate its value to a higher order form', () => {
+      expect(containerForm.user.value).not.toEqual(mockUser);
+      component.name.setValue(mockUser.name);
+      component.password.setValue(mockUser.password);
+      component.person.setValue(mockUser.person);
+      component.role.setValue(mockUser.role);
+      jasmine.clock().tick(component.formChangesDebounceTimeMs);
+      expect(containerForm.user.value).toEqual(mockUser);
+      component.formGroup.reset({ value: null });
+      jasmine.clock().tick(component.formChangesDebounceTimeMs);
+      expect(containerForm.user.value).not.toEqual(mockUser);
+    });
+
+    it('should receive and process values from a higher order form', () => {
       containerForm.user.setValue(mockUser);
-      expect(component.formGroup.value).toEqual(mockUser);
+      expect(component.name.value).toEqual(mockUser.name);
+      expect(component.password.value).toEqual(mockUser.password);
+      expect(component.person.value).toEqual(mockUser.person);
+      expect(component.role.value).toEqual(mockUser.role);
+      containerForm.user.setValue(null);
+      expect(component.name.value).toBeFalsy();
+      expect(component.password.value).toBeFalsy();
+      expect(component.person.value).toBeFalsy();
+      expect(component.role.value).toBeFalsy();
+    });
+
+    it('should respond to changes in disabled state', () => {
+      containerForm.formGroup.disable();
+      expect(component.formGroup.disabled).toBeTrue();
+      containerForm.formGroup.enable();
+      expect(component.formGroup.enabled).toBeTrue();
+    });
+
+    it('should accept instances of User as valid input', () => {
+      containerForm.user.setValue(mockUser);
       expect(component.formGroup.valid).toBeTrue();
     });
 
@@ -113,13 +164,6 @@ describe('UserFormComponent', () => {
       };
       containerForm.user.setValue(notAnUser);
       expect(component.formGroup.invalid).toBeTrue();
-    });
-
-    it('should respond to changes in disabled state', () => {
-      containerForm.formGroup.disable();
-      expect(component.formGroup.disabled).toBeTrue();
-      containerForm.formGroup.enable();
-      expect(component.formGroup.enabled).toBeTrue();
     });
   });
 

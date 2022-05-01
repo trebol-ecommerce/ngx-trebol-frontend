@@ -45,7 +45,7 @@ export class SalespersonFormComponent
   onValidatorChange: () => void;
 
   constructor() {
-    this.onChange = (v: any) => { };
+    this.onChange = (v) => { };
     this.onTouched = () => { };
     this.onValidatorChange = () => { };
   }
@@ -94,11 +94,7 @@ export class SalespersonFormComponent
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    if (!this.formGroup) {
-      return null;
-    }
-
-    if (this.formGroup.valid) {
+    if (!this.formGroup || this.formGroup.valid) {
       return null;
     }
 

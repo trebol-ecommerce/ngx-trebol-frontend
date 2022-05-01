@@ -42,18 +42,22 @@ export class ProductCategorySelectorFieldComponent
 
   @Output() categorySelection = new EventEmitter<ProductCategory>();
 
+  onChange: (value: any) => void;
+  onTouched: () => void;
+  onValidatorChange: () => void;
+
   constructor(
     private dialogService: MatDialog
-  ) { }
+  ) {
+    this.onChange = (v) => { };
+    this.onTouched = () => { };
+    this.onValidatorChange = () => { };
+  }
 
   ngOnDestroy(): void {
     this.categorySelection.complete();
     this.actionSubscription?.unsubscribe();
   }
-
-  onChange(value: any): void { }
-  onTouched(): void { }
-  onValidatorChange(): void { }
 
   writeValue(obj: any): void {
     this.productCategory = obj;
@@ -106,7 +110,7 @@ export class ProductCategorySelectorFieldComponent
       }
     ).afterClosed().pipe(
       filter(next => !!next),
-      tap(next => {
+      tap((next: ProductCategory) => {
         this.productCategory = { code: next.code, name: next.name };
         this.onChange(next);
         this.categorySelection.emit(next);

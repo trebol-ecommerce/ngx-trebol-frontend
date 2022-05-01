@@ -55,13 +55,13 @@ describe('SalespersonFormComponent', () => {
     component = containerForm.salespersonFormComponent;
   });
 
-  it('should create', () => {
-    expect(containerForm).toBeTruthy();
-    expect(component).toBeTruthy();
-  });
-
   describe('before its first change', () => {
-    it('its ControlValueAccesor stub implementation should not break', () => {
+    it('should create', () => {
+      expect(containerForm).toBeTruthy();
+      expect(component).toBeTruthy();
+    });
+
+    it('should have a safe ControlValueAccesor stub implementation', () => {
       expect(() => {
         component.onChange(null);
         component.onTouched();
@@ -70,7 +70,7 @@ describe('SalespersonFormComponent', () => {
       }).not.toThrowError();
     });
 
-    it('its Validator stub implementation should not break', () => {
+    it('should have a safe Validator stub implementation', () => {
       expect(() => {
         component.onValidatorChange();
         component.validate(null);
@@ -93,9 +93,19 @@ describe('SalespersonFormComponent', () => {
       expect(component.formGroup.invalid).toBeTrue();
     });
 
-    it('should integrate into an higher order form', () => {
+    it('should propagate its value to a higher order form', () => {
+      expect(containerForm.salesperson.value).not.toEqual(mockSalesperson);
       component.person.setValue(mockSalesperson.person);
       expect(containerForm.salesperson.value).toEqual(mockSalesperson);
+      component.formGroup.reset({ value: null });
+      expect(containerForm.salesperson.value).not.toEqual(mockSalesperson);
+    });
+
+    it('should receive and process values from a higher order form', () => {
+      containerForm.salesperson.setValue(mockSalesperson);
+      expect(component.person.value).toEqual(mockSalesperson.person);
+      containerForm.salesperson.setValue(null);
+      expect(component.person.value).toBeFalsy();
     });
 
     it('should respond to changes in disabled state', () => {
