@@ -74,24 +74,28 @@ describe('StoreHeaderSearchFormComponent', () => {
     fixture.detectChanges();
   });
 
+  beforeEach(() => {
+    jasmine.clock().install();
+  });
+
+  afterEach(() => {
+    jasmine.clock().uninstall();
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
   it('should sync the service against the query parameters', () => {
-    jasmine.clock().install();
     jasmine.clock().tick(5);
     expect(searchServiceSpy.updateSearchQuery).toHaveBeenCalled();
     expect(searchServiceSpy.reload).toHaveBeenCalled();
-    jasmine.clock().uninstall();
   });
 
   it('should change the query parameters when the filters change', () => {
-    jasmine.clock().install();
     component.nameLike.setValue('some-name');
-    jasmine.clock().tick(component.searchFiltersDebounceMs + 5);
+    jasmine.clock().tick(component.searchFiltersDebounceMs);
     expect(routerSpy.navigate).toHaveBeenCalled();
-    jasmine.clock().uninstall();
   });
 
   it('should open dialog for picking a category', () => {

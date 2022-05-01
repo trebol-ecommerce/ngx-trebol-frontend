@@ -56,13 +56,19 @@ describe('ProductFiltersPanelComponent', () => {
     fixture.detectChanges();
   });
 
+  beforeEach(() => {
+    jasmine.clock().install();
+  });
+
+  afterEach(() => {
+    jasmine.clock().uninstall();
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
   it('should fire the `filtersChanges` event when any input value changes', () => {
-    jasmine.clock().install();
-    let cooldownInterval = component.formChangesDebouncingTimeMs;
     let expectedEmissions = 3;
     component.filtersChanges.pipe(
       take(expectedEmissions),
@@ -70,12 +76,11 @@ describe('ProductFiltersPanelComponent', () => {
       tap(c => expect(c).toBe(expectedEmissions))
     ).subscribe();
     component.categoryCode.setValue('some-code');
-    jasmine.clock().tick(cooldownInterval);
+    jasmine.clock().tick(component.formChangesDebouncingTimeMs);
     component.nameLike.setValue('some-name');
-    jasmine.clock().tick(cooldownInterval);
+    jasmine.clock().tick(component.formChangesDebouncingTimeMs);
     component.categoryCode.setValue(null);
-    jasmine.clock().tick(cooldownInterval);
-    jasmine.clock().uninstall();
+    jasmine.clock().tick(component.formChangesDebouncingTimeMs);
   });
 
   it('should accept instances of ProductSearchQuery as valid input', () => {
@@ -103,14 +108,12 @@ describe('ProductFiltersPanelComponent', () => {
     });
 
     it('should fire the `filtersChanges` event', () => {
-      jasmine.clock().install();
       component.filtersChanges.pipe(
         take(1),
         tap(f => expect(f.categoryCode).toBe(fakeCategory.code))
       ).subscribe();
       component.onSelectCategory(fakeCategory);
       jasmine.clock().tick(component.formChangesDebouncingTimeMs);
-      jasmine.clock().uninstall();
     });
   });
 });

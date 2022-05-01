@@ -226,8 +226,15 @@ describe('SlideshowComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should switch slides over time', () => {
+    beforeEach(() => {
       jasmine.clock().install();
+    });
+
+    afterEach(() => {
+      jasmine.clock().uninstall();
+    });
+
+    it('should switch slides over time', () => {
       component.currentIndex$.pipe(
         take(3),
         tap(() => fixture.detectChanges()),
@@ -243,7 +250,6 @@ describe('SlideshowComponent', () => {
         })
       ).subscribe();
       jasmine.clock().tick(component.automaticSlideInterval * 3);
-      jasmine.clock().uninstall();
     });
   });
 });
