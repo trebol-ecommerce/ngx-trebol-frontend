@@ -11,7 +11,7 @@ import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { CheckoutRequest } from 'src/models/CheckoutRequest';
 import { SellDetail } from 'src/models/entities/SellDetail';
 import { ExternalPaymentRedirectionData } from 'src/models/ExternalPaymentRedirectionData';
-import { BILLING_TYPE_COMPANY, BILLING_TYPE_NAMES_MAP } from 'src/text/billing-type-names';
+import { BILLING_TYPE_COMPANY } from 'src/text/billing-type-names';
 import { Sell } from '../../models/entities/Sell';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
 
