@@ -5,10 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 import { EntityFormDialogConfig } from 'src/app/management/dialogs/entity-form/EntityFormDialogConfig';
+import { ProductCategoryTreeService } from 'src/app/shared/components/product-category-tree/product-category-tree.service';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager/transactional-data-manager.component.directive';
 import { ManagementProductCategoriesService } from './management-product-categories.service';
@@ -23,25 +25,34 @@ import { ManagementProductCategoriesService } from './management-product-categor
 })
 export class ManagementProductCategoriesComponent
   extends TransactionalDataManagerComponentDirective<ProductCategory>
-  implements OnInit {
+  implements OnInit, OnDestroy {
 
+  private loadingSubscription: Subscription;
+  actions$: Observable<string[]>;
   loading = true;
 
   constructor(
     protected service: ManagementProductCategoriesService,
     protected dialogService: MatDialog,
-    protected route: ActivatedRoute
+    protected route: ActivatedRoute,
+    private categoryTreeService: ProductCategoryTreeService
   ) {
     super();
   }
 
   ngOnInit(): void {
-    super.init(this.service);
+    super.ngOnInit();
+    this.loadingSubscription = this.categoryTreeService.reloadCategories().subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.loadingSubscription?.unsubscribe();
   }
 
   protected createDialogProperties(item: ProductCategory): EntityFormDialogConfig<ProductCategory> {
     return {
       data: {
+        isNewItem: !item,
         item,
         entityType: 'productCategory',
         apiService: this.service.dataService

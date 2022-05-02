@@ -7,8 +7,8 @@
 
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { map, startWith, switchMap, take, tap } from 'rxjs/operators';
+import { merge, Observable, of, Subject, Subscription } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreProductDetailsDialogData } from './StoreProductDetailsDialogData';
 
@@ -21,7 +21,7 @@ export class StoreProductDetailsDialogComponent
   implements OnInit, OnDestroy {
 
   private selfChangeTrigger = new Subject<void>();
-  private matchingCartIndex: number;
+  private matchingCartIndex = NaN;
   private cartDetailsSub: Subscription;
 
   productNotInCart$: Observable<boolean>;
@@ -33,11 +33,17 @@ export class StoreProductDetailsDialogComponent
   ) { }
 
   ngOnInit(): void {
-    this.productUnitsInCart$ = this.selfChangeTrigger.pipe(
-      startWith(void 0),
-      switchMap(() => this.cartService.cartDetails$.pipe(take(1))),
-      map(details => details[this.matchingCartIndex]),
-      map(d => (d ? d.units : 0))
+    this.productUnitsInCart$ = merge(
+      of(void 0),
+      this.selfChangeTrigger.asObservable()
+    ).pipe(
+      switchMap(() => !Number.isNaN(this.matchingCartIndex) ?
+        this.cartService.cartDetails$.pipe(
+          take(1),
+          map(details => (details[this.matchingCartIndex]?.units || 0))
+        ) :
+        of(0)
+      )
     );
 
     this.cartDetailsSub = this.cartService.cartDetails$.pipe(

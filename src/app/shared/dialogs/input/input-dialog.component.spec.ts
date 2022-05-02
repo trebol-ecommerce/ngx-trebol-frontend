@@ -6,7 +6,7 @@
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,7 +30,6 @@ describe('InputDialogComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
-        FormsModule,
         ReactiveFormsModule,
         MatButtonModule,
         MatDialogModule,

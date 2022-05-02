@@ -5,7 +5,6 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,6 +20,7 @@ describe('StoreHeaderNavigationComponent', () => {
   let mockCartService: Partial<StoreCartService>;
 
   beforeEach(waitForAsync(() => {
+    // TODO use jasmine.SpyObj
     mockCartService = {
       cartDetails$: of([]),
       cartItemCount$: of(0),
@@ -29,7 +29,6 @@ describe('StoreHeaderNavigationComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
         RouterTestingModule,
         MatBadgeModule,
         MatButtonModule,

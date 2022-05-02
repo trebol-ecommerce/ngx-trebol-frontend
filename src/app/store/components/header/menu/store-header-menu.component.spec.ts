@@ -5,63 +5,60 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { of } from 'rxjs';
-import { AppService } from 'src/app/app.service';
+import { EMPTY, of } from 'rxjs';
+import { ProfileService } from 'src/app/profile.service';
+import { SessionService } from 'src/app/session.service';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { StoreHeaderMenuComponent } from './store-header-menu.component';
 
 describe('StoreHeaderMenuComponent', () => {
   let component: StoreHeaderMenuComponent;
   let fixture: ComponentFixture<StoreHeaderMenuComponent>;
-  let mockAppService: Partial<AppService>;
-  let mockDialogService: Partial<MatDialog>;
-  let mockSharedDialogService: Partial<SharedDialogService>;
-  let mockSnackBarService: Partial<MatSnackBar>;
+  let sessionServiceSpy: jasmine.SpyObj<SessionService>;
+  let profileServiceSpy: jasmine.SpyObj<ProfileService>;
+  let dialogServiceSpy: jasmine.SpyObj<MatDialog>;
+  let sharedDialogServiceSpy: jasmine.SpyObj<SharedDialogService>;
+  let snackBarServiceSpy: jasmine.SpyObj<MatSnackBar>;
 
   beforeEach(waitForAsync( () => {
-    mockAppService = {
-      userName$: of(''),
-      isLoggedIn() { return false; },
-      isLoggedInChanges$: of(false),
-      closeCurrentSession() {},
-      getUserProfile() { return of(null); }
-    };
-    mockDialogService = {
-      open() { return void 0; }
-    };
-    mockSharedDialogService = {
-      requestConfirmation() { return of(false); }
-    };
-    mockSnackBarService = {
-      open() { return void 0; }
-    };
+    const sessionServiceSpy = jasmine.createSpyObj('SessionService', ['closeCurrentSession', 'fetchAuthorizedAccess']);
+    const mockProfileService = jasmine.createSpyObj('ProfileService', ['getUserProfile', 'watchUserName']);
+    const mockDialogService = jasmine.createSpyObj('MatDialog', ['open']);
+    const mockSharedDialogService = jasmine.createSpyObj('SharedDialogService', ['requestConfirmation']);
+    const mockSnackBarService = jasmine.createSpyObj('MatSnackBar', ['open']);
 
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
         MatButtonModule,
         MatIconModule,
         MatMenuModule
       ],
       declarations: [ StoreHeaderMenuComponent ],
       providers: [
-        { provide: AppService, useValue: mockAppService },
+        { provide: SessionService, useValue: sessionServiceSpy },
+        { provide: ProfileService, useValue: mockProfileService },
         { provide: MatDialog, useValue: mockDialogService },
         { provide: SharedDialogService, useValue: mockSharedDialogService },
         { provide: MatSnackBar, useValue: mockSnackBarService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    sessionServiceSpy = TestBed.inject(SessionService) as jasmine.SpyObj<SessionService>;
+    profileServiceSpy = TestBed.inject(ProfileService) as jasmine.SpyObj<ProfileService>;
+    dialogServiceSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
+    sharedDialogServiceSpy = TestBed.inject(SharedDialogService) as jasmine.SpyObj<SharedDialogService>;
+    snackBarServiceSpy = TestBed.inject(MatSnackBar) as jasmine.SpyObj<MatSnackBar>;
+    profileServiceSpy.watchUserName.and.returnValue(of(''));
+    sessionServiceSpy.authorizedAccess$ = of({ routes: [] });
+
     fixture = TestBed.createComponent(StoreHeaderMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -71,18 +68,39 @@ describe('StoreHeaderMenuComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should do nothing when clicking in the logout option while not logged in', () => {
-    const confirmationSpy = spyOn(mockSharedDialogService, 'requestConfirmation').and.callThrough();
-    // isLoggedIn is false here
-    component.onClickLogout();
-    expect(confirmationSpy).not.toHaveBeenCalled();
+  describe('when logged in', () => {
+    beforeEach(() => {
+      sessionServiceSpy.userHasActiveSession$ = of(true);
+    });
+
+    it('should prompt a confirmation before trying to logout', () => {
+      sharedDialogServiceSpy.requestConfirmation.and.returnValue(EMPTY);
+      component.onClickLogout();
+      expect(sharedDialogServiceSpy.requestConfirmation).toHaveBeenCalled();
+    });
+
+    it('should not logout if not confirmed', () => {
+      sharedDialogServiceSpy.requestConfirmation.and.returnValue(of(false));
+      component.onClickLogout();
+      expect(sessionServiceSpy.closeCurrentSession).not.toHaveBeenCalled();
+    });
+
+    it('should logout only if confirmed', () => {
+      sharedDialogServiceSpy.requestConfirmation.and.returnValue(of(true));
+      component.onClickLogout();
+      expect(sessionServiceSpy.closeCurrentSession).toHaveBeenCalled();
+    });
   });
 
-  it('should prompt a confirmation when clicking in the logout option while logged in', () => {
-    const confirmationSpy = spyOn(mockSharedDialogService, 'requestConfirmation').and.callThrough();
-    mockAppService.isLoggedInChanges$ = of(true);
-    mockAppService.isLoggedIn = (() => true);
-    component.onClickLogout();
-    expect(confirmationSpy).toHaveBeenCalled();
+  describe('when not logged in', () => {
+    beforeEach(() => {
+      sessionServiceSpy.userHasActiveSession$ = of(false);
+    });
+
+    it('should never logout', () => {
+      sharedDialogServiceSpy.requestConfirmation.and.returnValue(of(true));
+      component.onClickLogout();
+      expect(sessionServiceSpy.closeCurrentSession).not.toHaveBeenCalled();
+    });
   });
 });

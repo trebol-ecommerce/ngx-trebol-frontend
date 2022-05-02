@@ -5,14 +5,13 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE, COMMON_VALIDATION_ERROR_MESSAGE } from 'src/text/messages';
-import { EntityFormGroupFactoryService } from '../../../shared/entity-form-group-factory.service';
 import { EntityFormDialogData } from './EntityFormDialogData';
 
 /**
@@ -25,33 +24,43 @@ import { EntityFormDialogData } from './EntityFormDialogData';
   styleUrls: [ './entity-form-dialog.component.css' ]
 })
 export class EntityFormDialogComponent<T>
-  implements OnInit {
+  implements OnInit, OnDestroy {
 
+  private formSubmissionSub: Subscription;
   private busySource = new BehaviorSubject(false);
+  private successMessage: (item: T) => string;
 
   busy$ = this.busySource.asObservable();
-  dialogTitle = $localize`:Title of dialog used to view and edit some data:Element data`;
+
+  dialogTitle: string;
+
   formGroup: FormGroup;
-  get innerFormGroup() { return this.formGroup?.get('item') as FormGroup; }
+  get item() { return this.formGroup?.get('item') as FormControl; }
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Partial<EntityFormDialogData<T>>,
-    private formGroupService: EntityFormGroupFactoryService,
     private dialog: MatDialogRef<EntityFormDialogComponent<T>>,
     private snackBarService: MatSnackBar
   ) { }
 
   ngOnInit(): void {
-    if (this.data.dialogTitle) {
-      this.dialogTitle = this.data.dialogTitle;
+    this.dialogTitle = this.data.dialogTitle ?
+      this.data.dialogTitle :
+      $localize`:Title of dialog used to view and edit some data:Element data`;
+
+    this.successMessage = this.data.successMessage ?
+      this.data.successMessage :
+      () => $localize`:Message of success after saving some data:Data saved successfully`;
+
+    if (this.data.entityType) {
+      this.formGroup = new FormGroup({
+        item: new FormControl(this.data.item || null, Validators.required)
+      });
     }
-    if (this.data.successMessage) {
-      this.successMessage = this.data.successMessage;
-    }
-    this.formGroup = this.setupFormGroup();
-    if (this.data.item) {
-      this.innerFormGroup.patchValue(this.data.item);
-    }
+  }
+
+  ngOnDestroy(): void {
+    this.formSubmissionSub?.unsubscribe();
   }
 
   onSubmit(): void {
@@ -59,26 +68,12 @@ export class EntityFormDialogComponent<T>
       this.formGroup.markAsTouched();
       this.snackBarService.open(COMMON_VALIDATION_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
     } else {
-      const initialValue = this.data.item;
-      const currentValue = this.formGroup.value.item;
-      if (!this.data.apiService) {
-        this.dialog.close(currentValue);
+      this.busySource.next(true);
+      if (this.data.apiService) {
+        this.formSubmissionSub?.unsubscribe();
+        this.formSubmissionSub = this.doSubmit().subscribe();
       } else {
-        (
-          (!initialValue) ?
-            this.data.apiService.create(currentValue) :
-            this.data.apiService.update(currentValue, initialValue)
-        ).pipe(
-          tap(() => {
-            const message = this.successMessage(currentValue);
-            this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
-            this.dialog.close(currentValue);
-          }),
-          catchError(err => {
-            this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
-            return throwError(err)
-          })
-        ).subscribe();
+        this.dialog.close(this.item.value);
       }
     }
   }
@@ -87,15 +82,23 @@ export class EntityFormDialogComponent<T>
     this.dialog.close();
   }
 
-  private successMessage(item: T) {
-    return $localize `:Message of success after saving some data:Data saved successfully`;
-  }
-
-  private setupFormGroup(): FormGroup | null {
-    const innerFormGroup = this.formGroupService.createFormGroupFor(this.data.entityType);
-    if (innerFormGroup != null) {
-      return new FormGroup({ item: innerFormGroup });
-    }
+  private doSubmit() {
+    return ((!this.data.isNewItem && this.data.item) ?
+      this.data.apiService.update(this.item.value as T, this.data.item) :
+      this.data.apiService.create(this.item.value as T)
+    ).pipe(
+      tap(
+        () => {
+          const message = this.successMessage(this.item.value);
+          this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
+          this.dialog.close();
+        },
+        err => {
+          this.busySource.next(false);
+          this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
+        }
+      )
+    );
   }
 
 }

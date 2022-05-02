@@ -10,7 +10,8 @@ import { EntityTypeName } from "src/models/EntityTypeNames";
 
 export interface EntityFormDialogData<T> {
   item?: T;
-  apiService: ITransactionalEntityDataApiService<T>;
+  isNewItem: boolean;
+  apiService?: ITransactionalEntityDataApiService<T>;
   dialogTitle?: string;
   entityType: EntityTypeName;
   successMessage?: (item: T) => string;

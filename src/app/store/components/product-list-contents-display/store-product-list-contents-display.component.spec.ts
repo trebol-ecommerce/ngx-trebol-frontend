@@ -7,15 +7,17 @@
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { of } from 'rxjs';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { of, timer } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalProductListContentsDataApiService } from 'src/app/api/transactional-product-list-contents.data.api.iservice';
 import { Product } from 'src/models/entities/Product';
+import { observeIfEventFiresUponCallback } from 'src/test-functions/observeIfEventFiresUponCallback';
 import { StoreCatalogService } from '../../routes/catalog/store-catalog.service';
 import { StoreProductListContentsDisplayComponent } from './store-product-list-contents-display.component';
 
 
-@Component({ selector: 'app-products-display' })
+@Component({ selector: 'app-store-products-lot-display' })
 class MockProductsDisplayComponent {
   @Input() loading: boolean;
   @Input() products: Product[];
@@ -32,9 +34,10 @@ describe('StoreProductListContentsDisplayComponent', () => {
   let component: StoreProductListContentsDisplayComponent;
   let fixture: ComponentFixture<StoreProductListContentsDisplayComponent>;
   let mockListApiService: Partial<ITransactionalProductListContentsDataApiService>;
-  let mockStoreCatalogService: Partial<StoreCatalogService>;
+  let storeCatalogServiceSpy: jasmine.SpyObj<StoreCatalogService>;
 
   beforeEach(waitForAsync(() => {
+    // TODO use jasmine.SpyObj
     mockListApiService = {
       fetchContents() {
         return of({
@@ -45,9 +48,7 @@ describe('StoreProductListContentsDisplayComponent', () => {
         });
       }
     };
-    mockStoreCatalogService = {
-      viewProduct() { }
-    };
+    const mockStoreCatalogService = jasmine.createSpyObj('StoreCatalogService', ['navigateToProductDetails'])
 
     TestBed.configureTestingModule({
       declarations: [
@@ -55,14 +56,15 @@ describe('StoreProductListContentsDisplayComponent', () => {
         MockProductsDisplayComponent
       ],
       providers: [
-        { provide: API_SERVICE_INJECTION_TOKENS.dataProductLists, useValue: mockListApiService },
+        { provide: API_INJECTION_TOKENS.dataProductLists, useValue: mockListApiService },
         { provide: StoreCatalogService, useValue: mockStoreCatalogService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    storeCatalogServiceSpy = TestBed.inject(StoreCatalogService) as jasmine.SpyObj<StoreCatalogService>;
+
     fixture = TestBed.createComponent(StoreProductListContentsDisplayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -70,5 +72,14 @@ describe('StoreProductListContentsDisplayComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should fire an `addProductToCart` event', () => {
+    observeIfEventFiresUponCallback(
+      component.addProductToCart,
+      () => component.onAddProductToCart(null)
+    ).pipe(
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
+    ).subscribe();
   });
 });

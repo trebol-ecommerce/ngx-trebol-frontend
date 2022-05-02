@@ -9,7 +9,7 @@ import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IAccessApiService } from 'src/app/api/access-api.iservice';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
 
 @Injectable({ providedIn: 'root' })
@@ -17,7 +17,7 @@ export class ManagementRoutingAccessResolver
   implements Resolve<AuthorizedAccess> {
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.access) private apiAccessService: IAccessApiService
+    @Inject(API_INJECTION_TOKENS.access) private apiAccessService: IAccessApiService
   ) { }
 
   resolve(

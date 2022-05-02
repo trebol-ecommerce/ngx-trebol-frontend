@@ -11,13 +11,12 @@
   <div class="table-wrapper">
 
     <app-product-category-tree
-      [categories]="items$ | async"
       [editable]="true">
     </app-product-category-tree>
 
   </div>
-  <app-management-data-actions
-    *ngIf="canAdd$ | async"
-    (add)="onClickAdd()">-
-  </app-management-data-actions>
+  <app-management-data-actions-button-bar
+    [actions]="actions$ | async"
+    (create)="onClickCreate()">
+  </app-management-data-actions-button-bar>
 </div>

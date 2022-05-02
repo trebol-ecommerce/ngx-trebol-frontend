@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { DataManagerComponentDirective } from './data-manager.component.directive';
 import { DataManagerServiceDirective } from './data-manager.service.directive';
 
@@ -19,6 +19,7 @@ import { DataManagerServiceDirective } from './data-manager.service.directive';
 })
 class MockDataManagerComponent
   extends DataManagerComponentDirective<any> {
+
   constructor(
     protected service: DataManagerServiceDirective<any>,
     protected route: ActivatedRoute
@@ -30,20 +31,10 @@ class MockDataManagerComponent
 describe('DataManagerComponentDirective', () => {
   let component: MockDataManagerComponent;
   let componentFixture: ComponentFixture<MockDataManagerComponent>;
-  let mockService: Partial<DataManagerServiceDirective<any>>;
+  let serviceSpy: jasmine.SpyObj<DataManagerServiceDirective<any>>;
 
   beforeEach(waitForAsync(() => {
-    mockService = {
-      loading$: of(false),
-      focusedItems$: of([]),
-      items$: of([]),
-      totalCount$: of(0),
-      canEdit$: of(false),
-      canAdd$: of(false),
-      canDelete$: of(false),
-      reloadItems() { },
-      updateAccess() { }
-    };
+    const mockService = jasmine.createSpyObj('DataManagerServiceDirective<any>', ['reloadItems']);
 
     TestBed.configureTestingModule({
       imports: [
@@ -55,11 +46,17 @@ describe('DataManagerComponentDirective', () => {
       providers: [
         { provide: DataManagerServiceDirective, useValue: mockService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    serviceSpy = TestBed.inject(DataManagerServiceDirective) as jasmine.SpyObj<DataManagerServiceDirective<any>>;
+    serviceSpy.reloadItems.and.returnValue(EMPTY);
+    serviceSpy.loading$ = of(false);
+    serviceSpy.focusedItems$ = of([]);
+    serviceSpy.items$ = of([]);
+    serviceSpy.totalCount$ = of(0);
+
     componentFixture = TestBed.createComponent(MockDataManagerComponent);
     component = componentFixture.componentInstance;
     componentFixture.detectChanges();

@@ -5,19 +5,16 @@
  * https://opensource.org/licenses/MIT
  */
 
-.data-manager, .loading {
-  width: 100%;
+:host {
+  display: block;
   height: 100%;
-  display: flex;
-  overflow: hidden;
 }
 
 .data-manager {
+  width: 100%;
+  height: 100%;
+  display: flex;
   flex-flow: column nowrap;
-}
-.loading {
-  align-content: center;
-  justify-content: center;
 }
 
 .table-wrapper {
@@ -37,6 +34,6 @@ table {
   width: 6rem;
 }
 
-app-management-data-actions {
+app-management-data-actions-button-bar {
   flex: 0 0 auto;
 }

@@ -6,49 +6,23 @@
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { of, throwError } from 'rxjs';
-import { StoreCheckoutService } from 'src/app/store/store-checkout.service';
-import { StoreCartService } from '../../store-cart.service';
 import { StoreCheckoutButtonComponent } from './store-checkout-button.component';
 
 describe('StoreCheckoutButtonComponent', () => {
   let component: StoreCheckoutButtonComponent;
   let fixture: ComponentFixture<StoreCheckoutButtonComponent>;
-  let mockCartService: Partial<StoreCartService>;
-  let mockCheckoutService: Partial<StoreCheckoutService>;
-  let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
-    mockCartService = {
-      cartDetails$: of([
-        { id: null, product: { barcode: 'test' }, units: 1 }
-      ]),
-    };
-    mockCheckoutService = {
-      requestPayment() { return throwError({}); }
-    };
-    mockDialogService = {
-      open() { return void 0; }
-    };
 
     TestBed.configureTestingModule({
       imports: [
-        FormsModule,
         MatButtonModule,
         MatIconModule
       ],
-      declarations: [ StoreCheckoutButtonComponent ],
-      providers: [
-        { provide: StoreCartService, useValue: mockCartService },
-        { provide: mockCheckoutService, useValue: mockCheckoutService },
-        { provide: MatDialog, useValue: mockDialogService }
-      ]
-    })
-    .compileComponents();
+      declarations: [ StoreCheckoutButtonComponent ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -59,5 +33,35 @@ describe('StoreCheckoutButtonComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should remain disabled when just created', () => {
+    expect(component.disabled).toBeTrue();
+  });
+
+  it('should accept values in its [checkoutDetails] binding', () => {
+    const payload = {
+      token: 'some-token',
+      url: 'some-url'
+    };
+    component.checkoutDetails = payload;
+    expect(component.checkoutDetails).toEqual(payload);
+  });
+
+  it('should remain enabled after accepting a value in its [checkoutDetails] binding', () => {
+    component.checkoutDetails = {
+      token: 'some-token',
+      url: 'some-url'
+    };
+    expect(component.disabled).toBeFalse();
+  });
+
+  it('should render a form with a single token control and a submit button', () => {
+    const formElem = fixture.debugElement.nativeElement.querySelector('form') as HTMLFormElement;
+    expect(formElem).toBeTruthy();
+    const inputElem = formElem.querySelector(`input[name=${component.innerControlName}]`) as HTMLInputElement;
+    expect(inputElem).toBeTruthy();
+    const submitButtonElem = formElem.querySelector('button[type="submit"]') as HTMLButtonElement;
+    expect(submitButtonElem).toBeTruthy();
   });
 });

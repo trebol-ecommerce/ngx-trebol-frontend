@@ -5,12 +5,13 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Directive, OnInit } from '@angular/core';
+import { Directive, OnDestroy, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { map, share, take, tap } from 'rxjs/operators';
+import { AuthorizedAccess } from 'src/models/AuthorizedAccess';
 import { DataManagerServiceDirective } from './data-manager.service.directive';
 
 /**
@@ -19,7 +20,9 @@ import { DataManagerServiceDirective } from './data-manager.service.directive';
  */
 @Directive()
 export abstract class DataManagerComponentDirective<T>
-  implements OnInit {
+  implements OnInit, OnDestroy {
+
+  private loadSubscription: Subscription;
 
   pageSizeOptions = [10, 20, 50, 100];
 
@@ -27,44 +30,64 @@ export abstract class DataManagerComponentDirective<T>
   busy$: Observable<boolean>;
   items$: Observable<any[]>;
   totalCount$: Observable<number>;
-  canEdit$: Observable<boolean>;
-  canAdd$: Observable<boolean>;
+  actions$: Observable<string[]>;
+  canCreate$: Observable<boolean>;
+  canUpdate$: Observable<boolean>;
   canDelete$: Observable<boolean>;
 
   protected abstract service: DataManagerServiceDirective<T>;
   protected abstract route: ActivatedRoute;
 
   ngOnInit() {
-    this.init(this.service);
+    this.init();
+  }
+
+  ngOnDestroy(): void {
+    this.loadSubscription?.unsubscribe();
   }
 
   onSortChange(event: Sort): void {
     this.service.sortBy = event.active;
     this.service.order = event.direction;
-    this.service.reloadItems();
+    this.loadSubscription?.unsubscribe();
+    this.loadSubscription = this.service.reloadItems().subscribe();
   }
 
   onPage(event: PageEvent): void {
     this.service.pageIndex = event.pageIndex;
     this.service.pageSize = event.pageSize;
-    this.service.reloadItems();
+    this.loadSubscription?.unsubscribe();
+    this.loadSubscription = this.service.reloadItems().subscribe();
   }
 
-  protected init(service: DataManagerServiceDirective<T>): void {
-    this.loading$ = service.loading$.pipe();
-    this.busy$ = service.focusedItems$.pipe(map(items => items?.length > 0));
-    this.items$ = service.items$.pipe();
-    this.totalCount$ = service.totalCount$.pipe();
-    this.canEdit$ = service.canEdit$.pipe();
-    this.canAdd$ = service.canAdd$.pipe();
-    this.canDelete$ = service.canDelete$.pipe();
-    service.pageSize = this.pageSizeOptions[0];
-    this.route.data.pipe(
+  protected init(): void {
+    this.loading$ = this.service.loading$.pipe();
+    this.items$ = this.service.items$.pipe();
+    this.totalCount$ = this.service.totalCount$.pipe();
+
+    this.busy$ = this.service.focusedItems$.pipe(
+      map(items => items?.length > 0)
+    );
+
+    this.actions$ = this.route.data.pipe(
       take(1),
-      tap(data => {
-        this.service.updateAccess(data.access);
-        this.service.reloadItems();
-      })
-    ).subscribe();
+      map(data => data.access as AuthorizedAccess),
+      map(access => (access?.permissions || [])),
+      share()
+    );
+
+    this.canCreate$ = this.actions$.pipe(
+      map(actions => (actions.length > 0 && actions.includes('create')))
+    );
+    this.canUpdate$ = this.actions$.pipe(
+      map(actions => (actions.length > 0 && actions.includes('update')))
+    );
+    this.canDelete$ = this.actions$.pipe(
+      map(actions => (actions.length > 0 && actions.includes('delete')))
+    );
+
+    this.service.pageSize = this.pageSizeOptions[0];
+    this.loadSubscription?.unsubscribe();
+    this.loadSubscription = this.service.reloadItems().subscribe();
   }
 }

@@ -5,13 +5,15 @@
  * https://opensource.org/licenses/MIT
  */
 
-form {
+fieldset {
   display: flex;
   align-items: stretch;
+  gap: unset;
+  grid-template-columns: none;
 }
 
-.searchFilter {
-  margin: 0.5rem;
+fieldset > mat-form-field {
+  width: 100%;
 }
 
 .mat-form-field-flex {

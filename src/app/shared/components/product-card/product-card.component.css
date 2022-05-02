@@ -76,6 +76,7 @@ mat-card {
 
 @media(min-width: 641px) {
   mat-card {
+    width: 14rem;
     height: 24rem;
   }
 

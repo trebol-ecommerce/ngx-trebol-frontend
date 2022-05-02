@@ -8,7 +8,10 @@
 <h1>{{ dialogTitle }}</h1>
 <app-sell-information [sell]="data.sell"></app-sell-information>
 <mat-divider></mat-divider>
-<app-sell-details-table [sell]="data.sell"></app-sell-details-table>
+<app-sell-details-table [editable]="false"
+  [sellDetails]="data.sell.details"
+  [tableColumns]="detailsTableColumns">
+</app-sell-details-table>
 <div class="actions">
   <button type="button" class="reject"
     mat-button mat-raised-button

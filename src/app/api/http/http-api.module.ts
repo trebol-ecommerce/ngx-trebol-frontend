@@ -7,7 +7,7 @@
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { AccessHttpApiService } from './access/access.http-api.service';
 import { ProfileAccountHttpApiService } from './account/profile-account.http-api.service';
 import { BillingTypesDataHttpApiService } from './data/billing-types-data.http-api.service';
@@ -42,83 +42,83 @@ import { SessionHttpApiInterceptor } from './session.http-api.interceptor';
   ],
   providers: [
     {
-      provide: API_SERVICE_INJECTION_TOKENS.access,
+      provide: API_INJECTION_TOKENS.access,
       useClass: AccessHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.accountProfile,
+      provide: API_INJECTION_TOKENS.accountProfile,
       useClass: ProfileAccountHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataBillingTypes,
+      provide: API_INJECTION_TOKENS.dataBillingTypes,
       useClass: BillingTypesDataHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataCustomers,
+      provide: API_INJECTION_TOKENS.dataCustomers,
       useClass: CustomersDataHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataImages,
+      provide: API_INJECTION_TOKENS.dataImages,
       useClass: ImagesDataHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataPeople,
+      provide: API_INJECTION_TOKENS.dataPeople,
       useClass: PeopleDataHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataProductCategories,
+      provide: API_INJECTION_TOKENS.dataProductCategories,
       useClass: ProductCategoriesDataHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataProductLists,
+      provide: API_INJECTION_TOKENS.dataProductLists,
       useClass: ProductListsDataHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataProducts,
+      provide: API_INJECTION_TOKENS.dataProducts,
       useClass: ProductsDataHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataSales,
+      provide: API_INJECTION_TOKENS.dataSales,
       useClass: SalesDataHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataSalespeople,
+      provide: API_INJECTION_TOKENS.dataSalespeople,
       useClass: SalespeopleDataHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataShippers,
+      provide: API_INJECTION_TOKENS.dataShippers,
       useClass: ShippersDataHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataUserRoles,
+      provide: API_INJECTION_TOKENS.dataUserRoles,
       useClass: UserRolesDataHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.dataUsers,
+      provide: API_INJECTION_TOKENS.dataUsers,
       useClass: UsersDataHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.about,
+      provide: API_INJECTION_TOKENS.about,
       useClass: AboutPublicHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.checkout,
+      provide: API_INJECTION_TOKENS.checkout,
       useClass: CheckoutPublicHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.guest,
+      provide: API_INJECTION_TOKENS.guest,
       useClass: GuestPublicHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.login,
+      provide: API_INJECTION_TOKENS.login,
       useClass: LoginPublicHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.receipt,
+      provide: API_INJECTION_TOKENS.receipt,
       useClass: ReceiptPublicHttpApiService
     },
     {
-      provide: API_SERVICE_INJECTION_TOKENS.register,
+      provide: API_INJECTION_TOKENS.register,
       useClass: RegisterPublicHttpApiService
     },
     { provide: HTTP_INTERCEPTORS, useClass: SessionHttpApiInterceptor, multi: true }

@@ -5,13 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRouteSnapshot } from '@angular/router';
-import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
-import { AppService } from 'src/app/app.service';
-import { MANAGEMENT_CHILD_ROUTES } from 'src/app/management/management-routing.module';
-import { ManagementChildRoute } from "src/app/management/ManagementChildRoute";
-import { ManagementService } from 'src/app/management/management.service';
+import { Component, OnInit } from '@angular/core';
+import { concat, Observable } from 'rxjs';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { SessionService } from 'src/app/session.service';
+import { MANAGEMENT_CHILD_ROUTES } from '../../management-routing.module';
+import { ManagementRoutingService } from '../../management-routing.service';
 import { SidenavModuleItem } from './SidenavModuleItem';
 
 @Component({
@@ -20,53 +19,54 @@ import { SidenavModuleItem } from './SidenavModuleItem';
   styleUrls: ['./management-sidenav.component.css']
 })
 export class ManagementSidenavComponent
-  implements OnInit, OnDestroy {
+  implements OnInit {
 
-  private modules: SidenavModuleItem[] = [];
-  private modulesSource: Subject<SidenavModuleItem[]> = new BehaviorSubject(this.modules);
-  private activeRouteSubscription: Subscription;
-
-  modules$: Observable<SidenavModuleItem[]> = this.modulesSource.asObservable();
-  readonly baseModule = '/management';
+  modules$: Observable<SidenavModuleItem[]>;
 
   constructor(
-    private service: ManagementService,
-    private appService: AppService
+    private routingService: ManagementRoutingService,
+    private sessionService: SessionService
   ) { }
 
   ngOnInit(): void {
-    this.appService.getAuthorizedAccess().subscribe(
-      access => {
-        this.modules = MANAGEMENT_CHILD_ROUTES
-          .filter(r => access.routes.includes(r.path) || r.path === 'dashboard')
-          .map(this.routeToListItem);
-        this.modulesSource.next(this.modules);
-      }
-    );
-
-    this.activeRouteSubscription = this.service.activeRouteSnapshot$.subscribe(
-      (route: ActivatedRouteSnapshot) => {
-        const mIndex = this.modules.findIndex(v => v.path === route?.url[0]?.path);
-        if (mIndex !== -1) {
-          for (const m of this.modules) { m.active = false; }
-          this.modules[mIndex].active = true;
-          this.modulesSource.next(this.modules);
-        }
-      }
+    this.modules$ = concat(
+      this.fetchAuthorizedModules(),
+      this.reflectChangesOnActiveRoute()
     );
   }
 
-  ngOnDestroy(): void {
-    this.activeRouteSubscription.unsubscribe();
+  private fetchAuthorizedModules() {
+    return this.sessionService.authorizedAccess$.pipe(
+      take(1),
+      map(access => MANAGEMENT_CHILD_ROUTES
+        .filter(r => (access?.routes.includes(r.path) || r.path === 'dashboard'))
+        .map(r => ({
+          path: r.path,
+          text: r.data.title,
+          icon: r.data.matIcon,
+          active: false
+        }))
+      )
+    );
   }
 
-  private routeToListItem(r: ManagementChildRoute): SidenavModuleItem {
-    return {
-      path: r.path,
-      text: r.data.title,
-      icon: r.data.matIcon,
-      active: false
-    };
+  private reflectChangesOnActiveRoute() {
+    return this.watchNavigatedRoutePath().pipe(
+      switchMap(latestRoutePath => this.modules$.pipe(
+        take(1),
+        tap(arr => {
+          arr.forEach(m => { m.active = false; });
+          arr.find(someModule => (someModule.path === latestRoutePath)).active = true;
+        })
+      ))
+    );
+  }
+
+  private watchNavigatedRoutePath() {
+    return this.routingService.currentRouteSnapshot$.pipe(
+      map(routeSnapshot => routeSnapshot?.url[0]?.path),
+      filter(routePath => !!routePath)
+    );
   }
 
 }

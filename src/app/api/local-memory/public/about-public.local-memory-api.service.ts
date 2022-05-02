@@ -7,9 +7,9 @@
 
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { CompanyDetails } from 'src/models/CompanyDetails';
+import { AboutCommerceDetails } from 'src/models/AboutCommerceDetails';
 import { IAboutPublicApiService } from '../../about-public-api.iservice';
-import { MOCK_COMPANY_DETAILS } from '../mock/mock-company-details.examples';
+import { MOCK_ABOUT_COMMERCE_DETAILS } from '../mock/mock-about-commerce-details.examples';
 
 @Injectable()
 export class AboutPublicLocalMemoryApiService
@@ -17,7 +17,7 @@ export class AboutPublicLocalMemoryApiService
 
   constructor() { }
 
-  fetchCompanyDetails(): Observable<CompanyDetails> {
-    return of(MOCK_COMPANY_DETAILS);
+  fetchCompanyDetails(): Observable<AboutCommerceDetails> {
+    return of(MOCK_ABOUT_COMMERCE_DETAILS);
   }
 }

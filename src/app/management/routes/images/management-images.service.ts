@@ -6,7 +6,7 @@
  */
 
 import { Inject, Injectable } from '@angular/core';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { Image } from 'src/models/entities/Image';
@@ -18,7 +18,7 @@ export class ManagementImagesService
 
   constructor(
     sharedDialogService: SharedDialogService,
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataImages) public dataService: ITransactionalEntityDataApiService<Image>
+    @Inject(API_INJECTION_TOKENS.dataImages) public dataService: ITransactionalEntityDataApiService<Image>
   ) {
     super(sharedDialogService);
   }

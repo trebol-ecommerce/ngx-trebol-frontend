@@ -6,6 +6,7 @@
  */
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Product } from 'src/models/entities/Product';
 
 @Component({
@@ -14,6 +15,8 @@ import { Product } from 'src/models/entities/Product';
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent {
+
+  readonly stockImageUrl = environment.staticImages.defaultProductImage.url;
 
   @Input() product = new Product();
   @Input() showAddToCartButton = false;

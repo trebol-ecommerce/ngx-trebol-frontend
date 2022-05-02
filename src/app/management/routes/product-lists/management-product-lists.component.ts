@@ -5,12 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { ProductList } from 'src/models/entities/ProductList';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';
@@ -29,7 +29,9 @@ import { ManagementProductListsService } from './management-product-lists.servic
 })
 export class ManagementProductListsComponent
   extends TransactionalDataManagerComponentDirective<ProductList>
-  implements OnInit {
+  implements OnInit, OnDestroy {
+
+  private actionSubscription: Subscription;
 
   tableColumns = [ 'code', 'name', 'totalCount', 'actions' ];
 
@@ -43,7 +45,24 @@ export class ManagementProductListsComponent
   }
 
   ngOnInit(): void {
-    super.init(this.service);
+    super.ngOnInit();
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.actionSubscription?.unsubscribe();
+  }
+
+  protected createDialogProperties(item: ProductList): EntityFormDialogConfig<ProductList> {
+    return {
+      data: {
+        isNewItem: !item,
+        item,
+        entityType: 'productList',
+        apiService: this.service.dataService
+      },
+      width: '40rem'
+    };
   }
 
   onClickViewContents(list: ProductList) {
@@ -57,29 +76,19 @@ export class ManagementProductListsComponent
   }
 
   onClickDelete(list: ProductList) {
-    this.service.removeItems([list]).pipe(
-      map(results => results[0]),
-      catchError(error => {
-        this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
-        return of(error);
-      }),
-      tap(() => {
-        const successMessage = $localize`:Message of success after deleting a product list with name {{ name }}:Product list '${list.name}:name:' deleted`;
-        this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
-        this.service.reloadItems();
-      })
+    this.actionSubscription?.unsubscribe();
+    this.actionSubscription = this.service.removeItems([list]).pipe(
+      switchMap(() => this.service.reloadItems()),
+      tap(
+        () => {
+          const successMessage = $localize`:Message of success after deleting a product list with name {{ name }}:Product list '${list.name}:name:' deleted`;
+          this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
+        },
+        () => {
+          this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
+        }
+      )
     ).subscribe();
-  }
-
-  protected createDialogProperties(item: ProductList): EntityFormDialogConfig<ProductList> {
-    return {
-      data: {
-        item,
-        entityType: 'productList',
-        apiService: this.service.dataService
-      },
-      width: '40rem'
-    };
   }
 
 }

@@ -5,12 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Sort } from '@angular/material/sort';
-import { forkJoin, Observable, of } from 'rxjs';
-import { finalize, map, switchMap, tap } from 'rxjs/operators';
+import { EMPTY, forkJoin, from, merge, Observable, of, Subscription } from 'rxjs';
+import { filter, finalize, map, switchMap, tap } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
 import { ProductsArrayDialogComponent } from '../products-array/products-array-dialog.component';
 import { ProductListContentsDialogService } from './product-list-contents-dialog.service';
@@ -23,7 +23,10 @@ import { ProductListContentsDialogData } from './ProductListContentsDialogData';
   providers: [ ProductListContentsDialogService ]
 })
 export class ProductListContentsDialogComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
+
+  private loadingSubscription: Subscription;
+  private actionSubscription: Subscription
 
   productTableColumns = ['name', 'barcode', 'price', 'actions'];
   pageSizeOptions = [5, 10, 20, 50, 100];
@@ -37,65 +40,76 @@ export class ProductListContentsDialogComponent
     @Inject(MAT_DIALOG_DATA) public data: ProductListContentsDialogData,
     private service: ProductListContentsDialogService,
     private dialog: MatDialog
-  ) {
+  ) { }
+
+  ngOnInit(): void {
     this.service.list = this.data.list;
     this.service.pageSize = this.pageSizeOptions[0];
     this.loading$ = this.service.loading$.pipe();
     this.products$ = this.service.page$.pipe(map(page => page.items));
     this.totalCount$ = this.service.page$.pipe(map(page => page.totalCount));
     this.isArrayEmpty$ = this.products$.pipe(map(array => (array.length === 0)));
+    this.reload();
   }
 
-  ngOnInit(): void {
-    this.service.reloadItems();
+  ngOnDestroy(): void {
+    this.loadingSubscription?.unsubscribe();
+    this.actionSubscription?.unsubscribe();
   }
 
   onSortChange(sort: Sort): void {
     this.service.sortBy = sort.active;
     this.service.order = sort.direction;
-    this.service.reloadItems();
+    this.reload();
   }
 
   onPage(event: PageEvent): void {
     this.service.pageIndex = event.pageIndex;
     this.service.pageSize = event.pageSize;
-    this.service.reloadItems();
+    this.reload();
   }
 
   onClickAddProducts(): void {
-    this.dialog.open(
+    this.actionSubscription?.unsubscribe();
+    this.actionSubscription = this.dialog.open(
       ProductsArrayDialogComponent,
       {
         maxHeight: '90vh'
       }
     ).afterClosed().pipe(
-      switchMap((products?: Product[]) => (!!products && Array.isArray(products)) ?
-        forkJoin(products.map(p => this.service.addProduct(p))) :
-        of(void 0)
-      ),
-      finalize(() => this.service.reloadItems())
+      filter(products => (products?.length && Array.isArray(products))),
+      switchMap((products: Product[]) => from(products).pipe(
+        switchMap(p => this.service.addProduct(p)),
+        finalize(() => this.reload())
+      ))
     ).subscribe();
   }
 
   onClickChooseProducts(): void {
-    this.dialog.open(
+    this.actionSubscription?.unsubscribe();
+    this.actionSubscription = this.dialog.open(
       ProductsArrayDialogComponent,
       {
         maxHeight: '90vh'
       }
     ).afterClosed().pipe(
-      switchMap((products?: Product[]) => (!!products && Array.isArray(products)) ?
-        this.service.replaceProductsWith(products) :
-        of(void 0)
-      ),
-      finalize(() => this.service.reloadItems())
+      filter(products => (products?.length && Array.isArray(products))),
+      switchMap((products: Product[]) => this.service.replaceProductsWith(products).pipe(
+        finalize(() => this.reload())
+      ))
     ).subscribe();
   }
 
   onClickRemoveProduct(p: Product): void {
-    this.service.removeProduct(p).pipe(
-      tap(() => this.service.reloadItems())
+    this.actionSubscription?.unsubscribe();
+    this.actionSubscription = this.service.removeProduct(p).pipe(
+      tap(() => this.reload())
     ).subscribe();
+  }
+
+  reload() {
+    this.loadingSubscription?.unsubscribe();
+    this.loadingSubscription = this.service.reloadItems().subscribe();
   }
 
 }

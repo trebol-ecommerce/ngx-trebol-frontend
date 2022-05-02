@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EntityTypeName } from 'src/models/EntityTypeNames';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class EntityFormGroupFactoryService {
 
   constructor(
@@ -53,13 +53,12 @@ export class EntityFormGroupFactoryService {
 
   private createPersonFormGroup() {
     return this.formBuilder.group({
-      id: [undefined],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       idNumber: ['', Validators.required],
       email: ['', Validators.required],
-      phone1: [undefined],
-      phone2: [undefined]
+      phone1: [''],
+      phone2: ['']
     });
   }
 
@@ -80,7 +79,7 @@ export class EntityFormGroupFactoryService {
     return this.formBuilder.group({
       code: ['', Validators.required],
       name: ['', Validators.required],
-      parent: [{ value: null, disabled: true }]
+      parent: [null]
     });
   }
 

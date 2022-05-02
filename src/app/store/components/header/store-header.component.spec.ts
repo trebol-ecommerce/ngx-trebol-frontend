@@ -5,17 +5,16 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { AppService } from 'src/app/app.service';
+import { SessionService } from 'src/app/session.service';
 import { StoreHeaderComponent } from './store-header.component';
 
-@Component({ selector: 'app-store-header-brand' })
-class MockStoreHeaderBrandComponent { }
+@Component({ selector: 'app-header-brand' })
+class MockHeaderBrandComponent { }
 
 @Component({ selector: 'app-store-header-navigation' })
 class MockStoreHeaderNavigationComponent { }
@@ -32,13 +31,13 @@ class MockStoreHeaderLoginButtonComponent { }
 describe('StoreHeaderComponent', () => {
   let component: StoreHeaderComponent;
   let fixture: ComponentFixture<StoreHeaderComponent>;
-  let mockAppService: Partial<AppService>;
+  let mockSessionService: Partial<SessionService>;
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(waitForAsync(() => {
-    mockAppService = {
-      isLoggedIn() { return false; },
-      isLoggedInChanges$: of(false)
+    // TODO use jasmine.SpyObj
+    mockSessionService = {
+      userHasActiveSession$: of(false)
     };
     mockDialogService = {
       open() { return void 0; }
@@ -46,19 +45,18 @@ describe('StoreHeaderComponent', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
         RouterTestingModule,
       ],
       declarations: [
         StoreHeaderComponent,
-        MockStoreHeaderBrandComponent,
+        MockHeaderBrandComponent,
         MockStoreHeaderNavigationComponent,
         MockStoreHeaderSearchFormComponent,
         MockStoreHeaderMenuComponent,
         MockStoreHeaderLoginButtonComponent
       ],
       providers: [
-        { provide: AppService, useValue: mockAppService },
+        { provide: SessionService, useValue: mockSessionService },
         { provide: MatDialog, useValue: mockDialogService }
       ]
     })

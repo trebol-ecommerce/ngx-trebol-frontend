@@ -33,19 +33,19 @@ export class SalesDataLocalMemoryApiService
 
   markAsConfirmed(sell: Sell): Observable<any> {
     return this.fetchExisting(sell).pipe(
-      tap(s => s.status = SELL_STATUS_NAMES_MAP.get(4))
+      tap(s => { s.status = SELL_STATUS_NAMES_MAP.get(4); })
     );
   }
 
   markAsRejected(sell: Sell): Observable<any> {
     return this.fetchExisting(sell).pipe(
-      tap(s => s.status = SELL_STATUS_NAMES_MAP.get(4))
+      tap(s => { s.status = SELL_STATUS_NAMES_MAP.get(4); })
     );
   }
 
   markAsCompleted(sell: Sell): Observable<any> {
     return this.fetchExisting(sell).pipe(
-      tap(s => s.status = SELL_STATUS_NAMES_MAP.get(4))
+      tap(s => { s.status = SELL_STATUS_NAMES_MAP.get(4); })
     );
   }
 

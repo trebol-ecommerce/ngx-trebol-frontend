@@ -7,8 +7,9 @@
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Product } from 'src/models/entities/Product';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreSearchService } from '../../store-search.service';
@@ -23,6 +24,7 @@ export class StoreSearchComponent
   implements OnInit, OnDestroy {
 
   private reloadSub: Subscription;
+  private queryParamsSub: Subscription;
 
   isLoadingSearch$: Observable<boolean>;
   searchResults$: Observable<Product[]>;
@@ -31,8 +33,11 @@ export class StoreSearchComponent
   constructor(
     private searchService: StoreSearchService,
     private cartService: StoreCartService,
-    private catalogService: StoreCatalogService
-  ) {
+    private catalogService: StoreCatalogService,
+    private route: ActivatedRoute
+  ) { }
+
+  ngOnInit(): void {
     this.isLoadingSearch$ = this.searchService.isLoadingSearch$.pipe();
     this.searchResults$ = this.searchService.currentPage$.pipe(
       map(page => (page.items as Product[]))
@@ -40,14 +45,14 @@ export class StoreSearchComponent
     this.totalCount$ = this.searchService.currentPage$.pipe(
       map(page => page.totalCount)
     );
-    this.searchService.readQueryParams();
-  }
-
-  ngOnInit(): void {
+    this.queryParamsSub = this.route.queryParams.pipe(
+      tap(params => this.searchService.updateSearchQuery(params))
+    ).subscribe();
     this.reloadSub = this.searchService.reload().subscribe();
   }
 
   ngOnDestroy(): void {
+    this.queryParamsSub.unsubscribe();
     this.reloadSub?.unsubscribe();
   }
 
@@ -61,7 +66,7 @@ export class StoreSearchComponent
   }
 
   onViewProduct(product: Product): void {
-    this.catalogService.viewProduct(product);
+    this.catalogService.navigateToProductDetails(product.barcode);
   }
 
 }

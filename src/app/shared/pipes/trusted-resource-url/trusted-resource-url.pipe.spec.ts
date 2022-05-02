@@ -13,6 +13,7 @@ describe('TrustedResourceUrlPipe', () => {
   let mockDomSanitizer: Partial<DomSanitizer>;
 
   beforeEach(waitForAsync(() => {
+    // TODO use jasmine.SpyObj
     mockDomSanitizer = {
       bypassSecurityTrustResourceUrl() { return void 0; }
     };

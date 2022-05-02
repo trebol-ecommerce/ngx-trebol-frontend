@@ -9,7 +9,7 @@ import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } fro
 import { PageEvent } from '@angular/material/paginator';
 import { Observable, ReplaySubject, Subscription } from 'rxjs';
 import { finalize, map, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalProductListContentsDataApiService } from 'src/app/api/transactional-product-list-contents.data.api.iservice';
 import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
@@ -24,6 +24,7 @@ import { StoreCatalogService } from '../../routes/catalog/store-catalog.service'
 export class StoreProductListContentsDisplayComponent
   implements OnInit, OnDestroy {
 
+  private loadingSubscription: Subscription;
   private pageSource = new ReplaySubject<DataPage<Product>>(1);
 
   @Input() list = new ProductList();
@@ -37,10 +38,9 @@ export class StoreProductListContentsDisplayComponent
   loadingProducts = true;
   products$: Observable<Product[]>;
   totalCount$: Observable<number>;
-  loadingSubscription: Subscription;
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductLists) private productListApiService: ITransactionalProductListContentsDataApiService,
+    @Inject(API_INJECTION_TOKENS.dataProductLists) private productListApiService: ITransactionalProductListContentsDataApiService,
     private catalogService: StoreCatalogService
   ) {
     this.products$ = this.page$.pipe(map(page => page.items));
@@ -66,7 +66,7 @@ export class StoreProductListContentsDisplayComponent
   }
 
   onViewProduct(product: Product): void {
-    this.catalogService.viewProduct(product);
+    this.catalogService.navigateToProductDetails(product.barcode);
   }
 
   private reloadItems() {
@@ -75,7 +75,7 @@ export class StoreProductListContentsDisplayComponent
 
     this.loadingSubscription = this.productListApiService.fetchContents(this.list, this.pageIndex, this.pageSize).pipe(
       tap(page => this.pageSource.next(page)),
-      finalize(() => (this.loadingProducts = false))
+      finalize(() => { this.loadingProducts = false; })
     ).subscribe();
   }
 

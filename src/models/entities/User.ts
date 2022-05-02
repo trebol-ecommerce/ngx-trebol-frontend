@@ -12,6 +12,6 @@ export class User
   implements Partial<Login> {
   name: string;
   password?: string;
-  person?: Partial<Person>;
-  role?: string;
+  person: Partial<Person>;
+  role: string;
 }

@@ -6,7 +6,7 @@
 -->
 
 <h3>{{ list.name }}</h3>
-<app-products-display
+<app-store-products-lot-display
   [loading]="loadingProducts"
   [products]="products$ | async"
   [totalCount]="totalCount$ | async"
@@ -16,4 +16,4 @@
   (page)="onPage($event)"
   (addProductToCart)="onAddProductToCart($event)"
   (viewProduct)="onViewProduct($event)">
-</app-products-display>
+</app-store-products-lot-display>

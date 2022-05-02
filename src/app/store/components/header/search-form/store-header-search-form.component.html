@@ -5,7 +5,7 @@
   https://opensource.org/licenses/MIT
 -->
 
-<form [formGroup]="formGroup">
+<fieldset [formGroup]="formGroup">
   <mat-form-field appearance="fill" (click)="onTouched()">
     <mat-label i18n="Label to hint users to type in a search term">What are you looking for?</mat-label>
     <input matInput type="text" formControlName="nameLike" />
@@ -27,4 +27,4 @@
     <mat-hint i18n="Label to hint users that search is triggered upon use of the search field or clicking a button to select a category">Just type something, or click on the right 'burger' button, and we will match your search terms</mat-hint>
   </mat-form-field>
   <input type="hidden" formControlName="categoryCode" />
-</form>
+</fieldset>

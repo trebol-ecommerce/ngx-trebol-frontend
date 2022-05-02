@@ -119,7 +119,6 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
         canActivateChild: [ManagementRoutingGuard]
       }
     ])
-  ],
-  exports: [RouterModule]
+  ]
 })
 export class ManagementRoutingModule { }

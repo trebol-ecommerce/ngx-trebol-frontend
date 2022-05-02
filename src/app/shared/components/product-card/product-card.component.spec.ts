@@ -5,11 +5,13 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { timer } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { observeIfEventFiresUponCallback } from 'src/test-functions/observeIfEventFiresUponCallback';
 import { ProductCardComponent } from './product-card.component';
 
 describe('ProductCardComponent', () => {
@@ -19,14 +21,12 @@ describe('ProductCardComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
         MatButtonModule,
         MatCardModule,
         MatIconModule
       ],
       declarations: [ ProductCardComponent ],
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -37,5 +37,23 @@ describe('ProductCardComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should fire an `addToCart` event', () => {
+    observeIfEventFiresUponCallback(
+      component.addToCart,
+      () => component.onClickAddProduct()
+    ).pipe(
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
+    ).subscribe();
+  });
+
+  it('should fire a `view` event', () => {
+    observeIfEventFiresUponCallback(
+      component.view,
+      () => component.onClickViewProduct()
+    ).pipe(
+      tap(didFireEvent => expect(didFireEvent).toBeTrue())
+    ).subscribe();
   });
 });

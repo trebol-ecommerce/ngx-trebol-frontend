@@ -9,8 +9,10 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { BehaviorSubject } from 'rxjs';
-import { AppService } from 'src/app/app.service';
+import { BehaviorSubject, Subscription, throwError } from 'rxjs';
+import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { AuthenticationService } from 'src/app/authentication.service';
+import { ProfileService } from 'src/app/profile.service';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { passwordMatcher } from 'src/functions/passwordMatcher';
 import { Person } from 'src/models/entities/Person';
@@ -30,6 +32,7 @@ import { COMMON_DISMISS_BUTTON_LABEL } from 'src/text/messages';
 export class StoreRegistrationFormDialogComponent
   implements OnDestroy {
 
+  private actionSubscription: Subscription;
   private registeringSource = new BehaviorSubject(false);
 
   registering$ = this.registeringSource.asObservable();
@@ -38,10 +41,11 @@ export class StoreRegistrationFormDialogComponent
   get name() { return this.formGroup.get('name') as FormControl; }
   get pass1() { return this.formGroup.get('pass1') as FormControl; }
   get pass2() { return this.formGroup.get('pass2') as FormControl; }
-  get person() { return this.formGroup.get('person') as FormGroup; }
+  get person() { return this.formGroup.get('person') as FormControl; }
 
   constructor(
-    private appService: AppService,
+    private authenticationService: AuthenticationService,
+    private profileService: ProfileService,
     private formBuilder: FormBuilder,
     private dialog: MatDialogRef<StoreRegistrationFormDialogComponent>,
     private snackBarService: MatSnackBar,
@@ -52,13 +56,14 @@ export class StoreRegistrationFormDialogComponent
         name: ['', Validators.required],
         pass1: ['', Validators.required],
         pass2: ['', Validators.required],
-        person: this.entityFormGroupService.createFormGroupFor('person')
+        person: [null, Validators.required]
       },
       { validators: passwordMatcher }
     );
   }
 
   ngOnDestroy(): void {
+    this.actionSubscription?.unsubscribe();
     this.registeringSource.complete();
   }
 
@@ -70,25 +75,28 @@ export class StoreRegistrationFormDialogComponent
         password: this.pass1.value,
         profile: this.person.value as Person
       };
-      this.appService.register(details).subscribe(
-        s => {
-          if (s) {
-            const successMessage = $localize`:Message of success after registration:Registration was succesful. Please remember to keep your password safe, and enjoy shopping!`;
-            this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
-            this.registeringSource.complete();
-            this.dialog.close(true);
-          } else {
-            const errorMessage = $localize`:Message of error during registration, hint user to try again:There was an error during registration. Please try again.`;
-            this.snackBarService.open(errorMessage, COMMON_DISMISS_BUTTON_LABEL);
-            this.registeringSource.next(false);
-          }
-        }
-      );
+
+      this.actionSubscription?.unsubscribe();
+      this.actionSubscription = this.authenticationService.register(details).pipe(
+        takeUntil(this.authenticationService.authCancelation$),
+        tap(() => {
+          const successMessage = $localize`:Message of success after registration:Registration was succesful. Please remember to keep your password safe, and enjoy shopping!`;
+          this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
+          this.dialog.close(true);
+        }),
+        catchError(err => {
+          const errorMessage = $localize`:Message of error during registration, hint user to try again:There was an error during registration. Please try again.`;
+          this.snackBarService.open(errorMessage, COMMON_DISMISS_BUTTON_LABEL);
+          this.registeringSource.next(false);
+          return throwError(err);
+        }),
+        switchMap(() => this.profileService.getUserProfile())
+      ).subscribe();
     }
   }
 
   onCancel(): void {
-    this.appService.cancelAuthentication();
+    this.authenticationService.cancelAuthentication();
     this.dialog.close();
   }
 }

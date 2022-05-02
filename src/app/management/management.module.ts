@@ -8,27 +8,30 @@
 import { NgModule } from '@angular/core';
 import { MatSnackBarConfig, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { ManagementDataActionsComponent } from './components/data-actions/management-data-actions.component';
+import { ManagementDataActionsButtonBarComponent } from './components/data-actions-button-bar/management-data-actions-button-bar.component';
 import { ManagementFooterComponent } from './components/footer/management-footer.component';
 import { ManagementHeaderComponent } from './components/header/management-header.component';
-import { ImageFormComponent } from './components/image-form/image-form.component';
-import { ProductCategoryFormComponent } from './components/product-category-form/product-category-form.component';
-import { ProductFormComponent } from './components/product-form/product-form.component';
-import { ProductListFormComponent } from './components/product-list-form/product-list-form.component';
-import { SalespersonFormComponent } from './components/salesperson-form/salesperson-form.component';
-import { SellFormComponent } from './components/sell-form/sell-form.component';
-import { ShipperFormComponent } from './components/shipper-form/shipper-form.component';
+import { ManagementHeaderMenuComponent } from './components/header/menu/management-header-menu.component';
+import { ManagementHeaderSidenavButtonComponent } from './components/header/sidenav-button/management-header-sidenav-button.component';
 import { ManagementSidenavComponent } from './components/sidenav/management-sidenav.component';
-import { UserFormComponent } from './components/user-form/user-form.component';
+import { ManagementSidenavService } from './components/sidenav/management-sidenav.service';
 import { EntityFormDialogComponent } from './dialogs/entity-form/entity-form-dialog.component';
 import { ImagesArrayDialogComponent } from './dialogs/images-array/images-array-dialog.component';
 import { ProductListContentsDialogComponent } from './dialogs/product-list-contents/product-list-contents-dialog.component';
 import { ProductsArrayDialogComponent } from './dialogs/products-array/products-array-dialog.component';
 import { ManagementSellReviewDialogComponent } from './dialogs/sell-review/management-sell-review-dialog.component';
+import { ImageFormComponent } from './forms/image/image-form.component';
+import { ProductCategoryFormComponent } from './forms/product-category/product-category-form.component';
+import { ProductListFormComponent } from './forms/product-list/product-list-form.component';
+import { ProductFormComponent } from './forms/product/product-form.component';
+import { SalespersonFormComponent } from './forms/salesperson/salesperson-form.component';
+import { ShipperFormComponent } from './forms/shipper/shipper-form.component';
+import { UserFormComponent } from './forms/user/user-form.component';
+import { ManagementMaterialModule } from './management-material.module';
 import { ManagementRoutingGuard } from './management-routing.guard';
 import { ManagementRoutingModule } from './management-routing.module';
+import { ManagementRoutingService } from './management-routing.service';
 import { ManagementComponent } from './management.component';
-import { ManagementService } from './management.service';
 import { ManagementCustomersComponent } from './routes/customers/management-customers.component';
 import { ManagementCustomersService } from './routes/customers/management-customers.service';
 import { ManagementDashboardComponent } from './routes/dashboard/management-dashboard.component';
@@ -55,23 +58,24 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
 
 @NgModule({
   declarations: [
-    ImageFormComponent,
-    ProductFormComponent,
-    ProductCategoryFormComponent,
-    ProductListFormComponent,
-    SalespersonFormComponent,
-    SellFormComponent,
-    ShipperFormComponent,
-    UserFormComponent,
-    EntityFormDialogComponent,
-    ImagesArrayDialogComponent,
-    ProductsArrayDialogComponent,
-    ManagementDataActionsComponent,
+    ManagementDataActionsButtonBarComponent,
     ManagementFooterComponent,
     ManagementHeaderComponent,
+    ManagementHeaderMenuComponent,
+    ManagementHeaderSidenavButtonComponent,
     ManagementSidenavComponent,
+    EntityFormDialogComponent,
+    ImagesArrayDialogComponent,
     ProductListContentsDialogComponent,
+    ProductsArrayDialogComponent,
     ManagementSellReviewDialogComponent,
+    ImageFormComponent,
+    ProductCategoryFormComponent,
+    ProductListFormComponent,
+    ProductFormComponent,
+    SalespersonFormComponent,
+    ShipperFormComponent,
+    UserFormComponent,
     ManagementComponent,
     ManagementCustomersComponent,
     ManagementDashboardComponent,
@@ -86,12 +90,14 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
   ],
   imports: [
     SharedModule,
+    ManagementMaterialModule,
     ManagementRoutingModule
   ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: SNACKBAR_DEFAULTS },
     ManagementRoutingGuard,
-    ManagementService,
+    ManagementRoutingService,
+    ManagementSidenavService,
     ManagementCustomersService,
     ManagementImagesService,
     ManagementProductCategoriesService,

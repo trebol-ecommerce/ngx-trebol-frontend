@@ -6,14 +6,14 @@
  */
 
 :host {
-  position: relative;
   display: flex;
   flex-flow: row nowrap;
   align-items: stretch;
 }
 
-app-store-header-brand {
+app-header-brand {
   flex: 0 0 auto;
+  height: 7rem;
 }
 
 app-store-header-navigation {

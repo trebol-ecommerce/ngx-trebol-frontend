@@ -1,0 +1,13 @@
+<!--
+  Copyright (c) 2022 The Trebol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<ng-container *ngIf="(isLoading$ | async); else routerOutlet">
+  <app-centered-mat-spinner></app-centered-mat-spinner>
+</ng-container>
+<ng-template #routerOutlet>
+  <router-outlet></router-outlet>
+</ng-template>

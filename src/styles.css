@@ -6,12 +6,8 @@
   font-family: Roboto, sans-serif;
 }
 
-body, app-root {
-  width: 100vw;
-  height: 100vh;
+body {
   margin: 0;
-  padding: 0;
-  overflow: hidden;
 }
 
 table,
@@ -19,4 +15,16 @@ form>mat-form-field,
 form>mat-select,
 input {
   width: 100%;
+}
+
+form,
+fieldset {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
 }

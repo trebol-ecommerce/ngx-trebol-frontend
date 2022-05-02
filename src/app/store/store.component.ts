@@ -6,10 +6,11 @@
  */
 
 import { Component, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { merge, Subscription } from 'rxjs';
+import { map, filter, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { SessionService } from '../session.service';
 import { StoreCartService } from './store-cart.service';
 
 @Component({
@@ -20,30 +21,35 @@ import { StoreCartService } from './store-cart.service';
 export class StoreComponent
   implements OnDestroy {
 
-  private cartIsEmptySubscription: Subscription;
+  private readonly restrictedUrl = '/store/cart';
+  private readonly exitUrl = '/store';
+  private restrictingConditionsSub: Subscription;
 
   readonly whatsapp = environment.whatsapp;
 
-  cartIsEmpty = true;
-
   constructor(
     private cartService: StoreCartService,
-    private router: Router,
-    private route: ActivatedRoute
+    private sessionService: SessionService,
+    private router: Router
   ) {
-    this.cartIsEmptySubscription = this.cartService.cartDetails$.pipe(
-      map(details => (details.length === 0)),
-      filter(isNowEmpty => (this.cartIsEmpty === undefined || isNowEmpty !== this.cartIsEmpty)),
-      tap(isNowEmpty => { this.cartIsEmpty = isNowEmpty; }),
-      tap(isNowEmpty => {
-        if (isNowEmpty && this.route?.firstChild?.routeConfig.path === 'cart') {
-          this.router.navigateByUrl('/');
-        }
-      })
-    ).subscribe();
+    this.restrictingConditionsSub = this.watchRestrictingConditions().subscribe();
   }
 
   ngOnDestroy(): void {
-    this.cartIsEmptySubscription?.unsubscribe();
+    this.restrictingConditionsSub.unsubscribe();
+  }
+
+  private watchRestrictingConditions() {
+    return merge(
+      this.cartService.cartDetails$.pipe(
+        map(details => (details.length === 0))
+      ),
+      this.sessionService.userHasActiveSession$.pipe(
+        map(hasActiveSession => !hasActiveSession)
+      )
+    ).pipe(
+      filter(restrictingCondition => restrictingCondition && this.router.routerState?.snapshot?.url === this.restrictedUrl),
+      tap(() => this.router.navigateByUrl(this.exitUrl))
+    );
   }
 }

@@ -1,0 +1,26 @@
+<!--
+  Copyright (c) 2022 The Trebol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<fieldset [formGroup]="formGroup">
+  <mat-form-field class="filename">
+    <input matInput formControlName="filename"
+      placeholder="Filename"
+      i18n-placeholder="Name of field for image filename" />
+  </mat-form-field>
+
+  <mat-form-field class="url">
+    <input matInput formControlName="url"
+      placeholder="Url"
+      i18n-placeholder="Name of field for image url" />
+  </mat-form-field>
+
+  <mat-form-field class="code">
+    <input matInput formControlName="code"
+      placeholder="Code"
+      i18n-placeholder="Name of field for image code" />
+  </mat-form-field>
+</fieldset>

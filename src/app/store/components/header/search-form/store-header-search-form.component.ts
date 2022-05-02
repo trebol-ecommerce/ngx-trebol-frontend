@@ -9,9 +9,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { from, Subscription } from 'rxjs';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { ProductCategoryPickerDialogComponent } from 'src/app/shared/dialogs/product-category-picker/product-category-picker-dialog.component';
+import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { ProductSearchQuery } from 'src/models/ProductSearchQuery';
 import { StoreSearchService } from '../../../store-search.service';
 
@@ -23,10 +24,13 @@ import { StoreSearchService } from '../../../store-search.service';
 export class StoreHeaderSearchFormComponent
   implements OnInit, OnDestroy {
 
+  private categoryPickerSubscription: Subscription;
   private productSearchChanges: Subscription;
+  private queryParamsSub: Subscription;
+
+  readonly searchFiltersDebounceMs = 400;
 
   formGroup: FormGroup;
-
   get nameLike() { return this.formGroup.get('nameLike') as FormControl; }
   get categoryCode() { return this.formGroup.get('categoryCode') as FormControl; }
 
@@ -36,27 +40,35 @@ export class StoreHeaderSearchFormComponent
     private searchService: StoreSearchService,
     private route: ActivatedRoute,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
       nameLike: [''],
       categoryCode: [null]
     });
-  }
-
-  ngOnInit(): void {
     this.productSearchChanges = this.formGroup.valueChanges.pipe(
-      debounceTime(400),
-      tap(value => {
-        if ((value.nameLike as string)?.trim() === '') { value.nameLike = ''; }
-        this.searchService.searchQuery = (value as ProductSearchQuery);
-        this.searchService.pageIndex = 0;
-      }),
+      debounceTime(this.searchFiltersDebounceMs),
+      tap(() => { this.searchService.pageIndex = 0; }),
+      switchMap(value => from(this.router.navigate(
+        [],
+        {
+          relativeTo: this.route,
+          queryParams: value,
+          queryParamsHandling: 'merge'
+        }
+      )))
+    ).subscribe();
+    this.queryParamsSub = this.route.queryParams.pipe(
+      tap(params => this.searchService.updateSearchQuery(params)),
       switchMap(() => this.searchService.reload())
     ).subscribe();
   }
 
   ngOnDestroy(): void {
-    this.productSearchChanges?.unsubscribe();
+    this.productSearchChanges.unsubscribe();
+    this.queryParamsSub.unsubscribe();
+    this.categoryPickerSubscription?.unsubscribe();
   }
 
   onTouched(): void {
@@ -66,18 +78,19 @@ export class StoreHeaderSearchFormComponent
   }
 
   onClickOpenCategoryPicker(): void {
-    this.dialogService.open(
+    this.categoryPickerSubscription?.unsubscribe();
+    this.categoryPickerSubscription = this.dialogService.open(
       ProductCategoryPickerDialogComponent,
       {
         width: '24rem'
       }
     ).afterClosed().pipe(
-      tap(next => {
+      tap((next: ProductCategory | null) => {
         if (next?.code) {
           this.categoryCode.setValue(next.code);
           this.categoryCode.markAsDirty();
         } else if (next === null) {
-          this.categoryCode.reset({ value: null });
+          this.categoryCode.reset(null);
         }
       })
     ).subscribe();
@@ -88,7 +101,6 @@ export class StoreHeaderSearchFormComponent
       nameLike: '',
       categoryCode: null
     });
-    this.searchService.searchQuery = new ProductSearchQuery();
   }
 
 }

@@ -5,75 +5,61 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
-import { EMPTY, of } from 'rxjs';
-import { AppService } from 'src/app/app.service';
-import { ManagementService } from 'src/app/management/management.service';
-import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
+import { of } from 'rxjs';
+import { ManagementRoutingService } from '../../management-routing.service';
 import { ManagementHeaderComponent } from './management-header.component';
+
+@Component({ selector: 'app-management-header-sidenav-button' })
+class MockManagementHeaderSidenavButtonComponent { }
+
+@Component({ selector: 'app-header-brand' })
+class MockHeaderBrandComponent { }
+
+@Component({ selector: 'app-management-header-menu' })
+class MockManagementHeaderMenuComponent { }
 
 describe('ManagementHeaderComponent', () => {
   let component: ManagementHeaderComponent;
   let fixture: ComponentFixture<ManagementHeaderComponent>;
-  let mockManagementService: Partial<ManagementService>;
-  let mockAppService: Partial<AppService>;
-  let mockSnackBarService: Partial<MatSnackBar>;
-  let mockDialogService: Partial<MatDialog>;
-  let mockSharedDialogService: Partial<SharedDialogService>;
+  let routingServiceSpy: jasmine.SpyObj<ManagementRoutingService>;
 
   beforeEach(waitForAsync(() => {
-    mockManagementService = {
-      switchSidenav() {},
-      currentPageName$: of('')
-    };
-    mockAppService = {
-      userName$: of(''),
-      closeCurrentSession() {}
-    };
-    mockSnackBarService = {
-      open(m: string, a: string) { return void 0; }
-    };
-    mockDialogService = {
-      open() { return void 0; }
-    };
-    mockSharedDialogService = {
-      requestConfirmation() { return EMPTY; }
-    };
+    const mockRoutingService = jasmine.createSpyObj('ManagementRoutingService', ['currentPageName$']);
 
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
         RouterTestingModule,
         MatButtonModule,
         MatIconModule,
         MatMenuModule
       ],
-      declarations: [ ManagementHeaderComponent ],
+      declarations: [
+        MockManagementHeaderSidenavButtonComponent,
+        MockHeaderBrandComponent,
+        MockManagementHeaderMenuComponent,
+        ManagementHeaderComponent
+      ],
       providers: [
-        { provide: ManagementService, useValue: mockManagementService },
-        { provide: AppService, useValue: mockAppService },
-        { provide: MatSnackBar, useValue: mockSnackBarService },
-        { provide: MatDialog, useValue: mockDialogService },
-        { provide: SharedDialogService, useValue: mockSharedDialogService }
+        { provide: ManagementRoutingService, useValue: mockRoutingService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    routingServiceSpy = TestBed.inject(ManagementRoutingService) as jasmine.SpyObj<ManagementRoutingService>;
     fixture = TestBed.createComponent(ManagementHeaderComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
+    routingServiceSpy.currentPageName$ = of('');
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 });

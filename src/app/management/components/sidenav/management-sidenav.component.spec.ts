@@ -5,55 +5,69 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
-import { AppService } from 'src/app/app.service';
-import { ManagementService } from 'src/app/management/management.service';
+import { EMPTY, of } from 'rxjs';
+import { SessionService } from 'src/app/session.service';
+import { ManagementRoutingService } from '../../management-routing.service';
 import { ManagementSidenavComponent } from './management-sidenav.component';
 
 describe('ManagementSidenavComponent', () => {
   let component: ManagementSidenavComponent;
   let fixture: ComponentFixture<ManagementSidenavComponent>;
-  let managementService: Partial<ManagementService>;
-  let appService: Partial<AppService>;
+  let routingServiceSpy: jasmine.SpyObj<ManagementRoutingService>;
+  let mockSessionService: Partial<SessionService>;
 
   beforeEach(waitForAsync(() => {
-    managementService = {
-      activeRouteSnapshot$: of(null)
-    };
-    appService = {
-      getAuthorizedAccess() { return of({
-        routes: []
-      }); }
+    const mockRoutingService = jasmine.createSpyObj('ManagementRoutingService', ['currentRouteSnapshot$']);
+    mockSessionService = {
+      authorizedAccess$: of(null)
     };
 
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
         RouterTestingModule,
         MatIconModule,
         MatListModule
       ],
       declarations: [ ManagementSidenavComponent ],
       providers: [
-        { provide: ManagementService, useValue: managementService },
-        { provide: AppService, useValue: appService }
+        { provide: ManagementRoutingService, useValue: mockRoutingService },
+        { provide: SessionService, useValue: mockSessionService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    routingServiceSpy = TestBed.inject(ManagementRoutingService) as jasmine.SpyObj<ManagementRoutingService>;
+
     fixture = TestBed.createComponent(ManagementSidenavComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  describe('always', () => {
+    beforeEach(() => {
+      routingServiceSpy.currentRouteSnapshot$ = EMPTY;
+      fixture.detectChanges();
+    });
+
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
   });
+
+  // TODO finish writing this sub-suite
+  xdescribe('normally', () => {
+    let mockRoutes: string[]
+
+    beforeEach(() => {
+      mockRoutes = ['sales', 'products'];
+      fixture.detectChanges();
+    });
+  });
+
+
 });

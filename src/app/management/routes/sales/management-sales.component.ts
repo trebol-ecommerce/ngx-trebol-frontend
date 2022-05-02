@@ -5,19 +5,17 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { EMPTY, Observable, of } from 'rxjs';
-import { catchError, finalize, map, switchMap, tap } from 'rxjs/operators';
-import { SellFormComponent } from 'src/app/management/components/sell-form/sell-form.component';
+import { Observable, Subscription } from 'rxjs';
+import { finalize, map, onErrorResumeNext, switchMap, tap } from 'rxjs/operators';
 import { Sell } from 'src/models/entities/Sell';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';
 import { ManagementSellReviewDialogComponent } from '../../dialogs/sell-review/management-sell-review-dialog.component';
 import { ManagementSellReviewDialogData } from '../../dialogs/sell-review/ManagementSellReviewDialogData';
-import { DataManagerServiceDirective } from '../../directives/data-manager/data-manager.service.directive';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager/transactional-data-manager.component.directive';
 import { ManagementSalesService } from './management-sales.service';
 
@@ -36,7 +34,9 @@ export interface SalesTableRow {
 })
 export class ManagementSalesComponent
   extends TransactionalDataManagerComponentDirective<Sell>
-  implements OnInit {
+  implements OnInit, OnDestroy {
+
+  private actionSubscription: Subscription;
 
   tableColumns = ['buyOrder', 'date', 'customer', 'status', 'actions'];
   items$: Observable<SalesTableRow[]>;
@@ -51,29 +51,43 @@ export class ManagementSalesComponent
   }
 
   ngOnInit(): void {
-    this.init(this.service);
+    super.ngOnInit();
+    this.items$ = this.service.items$.pipe(
+      map(items => items.map(item => (
+        {
+          item,
+          focused: false
+        }
+      )))
+    );
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.actionSubscription?.unsubscribe();
   }
 
   onClickDelete(s: Sell) {
-    this.service.removeItems([s]).pipe(
-      map(results => results[0]),
-      catchError(error => {
-        this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
-        return of(error);
-      }),
-      tap(() => {
-        const message = $localize`:Message of success after deleting a sell with buy order {{ buyOrder }} on date {{ date }}:Sell N°${s.buyOrder}:buyOrder: (${s.date}:date:) deleted`;
-        this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
-        this.service.reloadItems();
-      })
+    this.actionSubscription?.unsubscribe();
+    this.actionSubscription = this.service.removeItems([s]).pipe(
+      switchMap(() => this.service.reloadItems()),
+      tap(
+        () => {
+          const message = $localize`:Message of success after deleting a sell with buy order {{ buyOrder }} on date {{ date }}:Sell N°${s.buyOrder}:buyOrder: (${s.date}:date:) deleted`;
+          this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
+        },
+        () => {
+          this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL);
+        }
+      )
     ).subscribe();
   }
 
   onClickView(row: SalesTableRow): void {
     if (!row.focused) {
       row.focused = true;
-      this.service.fetch(row.item).pipe(
-        catchError(() => EMPTY),
+      this.actionSubscription?.unsubscribe();
+      this.actionSubscription = this.service.fetch(row.item).pipe(
         switchMap(sell => {
           const dialogData: ManagementSellReviewDialogData = { sell };
           return this.dialogService.open(
@@ -84,32 +98,16 @@ export class ManagementSalesComponent
             }
           ).afterClosed();
         }),
-        finalize(() => (row.focused = false))
+        onErrorResumeNext(),
+        finalize(() => { row.focused = false; })
       ).subscribe();
     }
-  }
-
-  protected init(service: DataManagerServiceDirective<Sell>): void {
-    this.loading$ = service.loading$.pipe();
-    this.busy$ = service.focusedItems$.pipe(map(items => items?.length > 0));
-    this.items$ = service.items$.pipe(
-      map(items => items.map(item => (
-        {
-          item,
-          focused: false
-        }
-      )))
-    );
-    this.totalCount$ = service.totalCount$.pipe();
-    this.canEdit$ = service.canEdit$.pipe();
-    this.canAdd$ = service.canAdd$.pipe();
-    this.canDelete$ = service.canDelete$.pipe();
-    service.pageSize = this.pageSizeOptions[0];
   }
 
   protected createDialogProperties(item: Sell): EntityFormDialogConfig<Sell> {
     return {
       data: {
+        isNewItem: !item,
         item,
         entityType: 'sell',
         apiService: this.service.dataService

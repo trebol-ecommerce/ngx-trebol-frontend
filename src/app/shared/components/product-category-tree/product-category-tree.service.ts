@@ -5,99 +5,76 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, forkJoin, Observable, of, Subscription } from 'rxjs';
-import { map, mapTo, switchMap, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { Inject, Injectable } from '@angular/core';
+import { BehaviorSubject, EMPTY, from, Observable } from 'rxjs';
+import { expand, ignoreElements, map, switchMap, tap, toArray } from 'rxjs/operators';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 
-@Injectable()
-export class ProductCategoryTreeService
-  implements OnDestroy {
+@Injectable({ providedIn: 'root' })
+export class ProductCategoryTreeService {
 
   private categoriesSource = new BehaviorSubject<ProductCategory[]>([]);
-  private loadingSubscription: Subscription;
 
   categories$ = this.categoriesSource.asObservable();
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductCategories) public apiService: ITransactionalEntityDataApiService<ProductCategory>
+    @Inject(API_INJECTION_TOKENS.dataProductCategories) public apiService: ITransactionalEntityDataApiService<ProductCategory>
   ) { }
 
-  ngOnDestroy(): void {
-    this.loadingSubscription?.unsubscribe();
+  reloadCategories(force = false): Observable<ProductCategory[]> {
+    return (force || !this.categoriesSource.value.length) ?
+      this.apiService.fetchPage().pipe(
+        switchMap(page => from(page.items)),
+        expand(category => this.loadDescendants(category).pipe(
+          switchMap(children => from(children)),
+          ignoreElements()
+        )),
+        toArray(),
+        tap(c => this.categoriesSource.next(c))
+      ) :
+      EMPTY;
   }
 
-  setRootCategories(categories: ProductCategory[]) {
-    this.loadingSubscription?.unsubscribe();
-    if (!categories) {
-      this.categoriesSource.next([]);
-    } else {
-      this.loadingSubscription = this.recursivelyLoadChildren(categories).pipe(
-        tap(() => this.categoriesSource.next(categories))
-      ).subscribe();
-    }
-  }
-
-  addNode(child: ProductCategory, parent?: ProductCategory) {
-    const target: ProductCategory = {
-      code: child.code,
-      name: child.name
-    };
-    if (parent?.code) { target.parent = { code: parent.code }; }
-    return this.apiService.create(target).pipe(
+  add(newNode: ProductCategory) {
+    return this.apiService.create(newNode).pipe(
       tap(() => {
-        if (!parent.children) {
-          parent.children = [target];
-        } else {
-          parent.children.push(target);
+        const parent = newNode.parent;
+        if (parent) {
+          if (parent.children) {
+            parent.children = [newNode];
+          } else {
+            parent.children.push(newNode);
+          }
+          delete newNode.parent;
         }
         this.categoriesSource.next(this.categoriesSource.value);
       }),
-      mapTo(target)
+      map(() => newNode)
     );
   }
 
-  editNode(newNode: ProductCategory, originalNode: ProductCategory) {
+  edit(newNode: ProductCategory, originalNode: ProductCategory) {
     return this.apiService.update(newNode, originalNode).pipe(
       tap(() => {
         originalNode.code = newNode.code;
         originalNode.name = newNode.name;
-        originalNode.parent = newNode.parent;
         this.categoriesSource.next(this.categoriesSource.value);
       })
     );
   }
 
-  deleteNode(node: ProductCategory) {
+  remove(node: ProductCategory) {
     return this.apiService.delete({ code: node.code }).pipe(
-      tap(() => {
-        const rootCategories = this.categoriesSource.value;
-        const nodeIndex = rootCategories.findIndex(n => (n.code === node.code));
-        if (nodeIndex !== -1) {
-          rootCategories.splice(nodeIndex, 1);
-        }
-        this.setRootCategories(rootCategories);
-      })
+      switchMap(() => this.reloadCategories(true))
     );
   }
 
-  private recursivelyLoadChildren(categories: ProductCategory[]): Observable<any> {
-    return forkJoin(categories.map(category => {
-      return this.loadChildrenOf(category).pipe(
-        switchMap(children => (children.length > 0) ?
-          this.recursivelyLoadChildren(children) :
-          of(children)
-        )
-      );
-    }));
-  }
-
-  private loadChildrenOf(parent: ProductCategory): Observable<ProductCategory[]> {
+  private loadDescendants(parent: ProductCategory) {
     return this.apiService.fetchPage(0, Number.MAX_SAFE_INTEGER, null, null, { parentCode: parent.code }).pipe(
       map(page => page.items as ProductCategory[]),
-      tap(items => (parent.children = items))
+      tap(children => { parent.children = children; })
     );
   }
 

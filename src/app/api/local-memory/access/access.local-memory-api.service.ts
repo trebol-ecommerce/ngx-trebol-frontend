@@ -21,7 +21,7 @@ export class AccessLocalMemoryApiService
     return new Observable(
       (observer) => {
         if (sessionStorage.getItem(this.sessionStorageTokenItemName) === null) {
-          observer.error();
+          observer.error({ status: 403 });
         } else {
           observer.next(obj);
         }

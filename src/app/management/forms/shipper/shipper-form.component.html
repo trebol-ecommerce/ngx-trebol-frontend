@@ -1,0 +1,15 @@
+<!--
+  Copyright (c) 2022 The Trebol eCommerce Project
+
+  This software is released under the MIT License.
+  https://opensource.org/licenses/MIT
+-->
+
+<fieldset [formGroup]="formGroup">
+  <mat-form-field class="name">
+    <input matInput formControlName="name"
+      placeholder="Name"
+      i18n-placeholder="Name of field for the identifiying name of a shipper or shipping service"
+      (blur)="onTouched()" />
+  </mat-form-field>
+</fieldset>

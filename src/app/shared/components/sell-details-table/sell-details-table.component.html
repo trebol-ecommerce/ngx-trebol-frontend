@@ -5,47 +5,65 @@
   https://opensource.org/licenses/MIT
 -->
 
-<table mat-table *ngIf="sell" [dataSource]="sell.details">
+<table mat-table [dataSource]="sellDetails$">
   <ng-container matColumnDef="product">
     <th mat-header-cell *matHeaderCellDef>
       <span i18n="product|Name of table header for name and code of product">Product</span>
     </th>
     <td mat-cell *matCellDef="let detail">
-      <span>
-        <span class="image-wrapper">
-          <img *ngIf="detail.product.imagesURL"
-            [src]="detail.product.imagesURL[0]" alt="" />
-        </span>
-        <span class="identifier">
-          <span class="name">{{ detail.product.name }}</span><br/>
-          <span class="barcode">{{ detail.product.barcode }}</span>
-        </span>
+      <span class="image-wrapper">
+        <img *ngIf="detail.product.imagesURL"
+          [src]="detail.product.imagesURL[0]" alt="" />
       </span>
-    </td>
-    <td mat-footer-cell *matFooterCellDef>
-      <span i18n="Label for total value worth of a sell">Total</span>
+      <span class="identifier">
+        <span class="name">{{ detail.product.name }}</span><br/>
+        <span class="barcode">{{ detail.product.barcode }}</span>
+      </span>
     </td>
   </ng-container>
   <ng-container matColumnDef="price">
-    <th mat-header-cell *matHeaderCellDef class="center">
-      <span i18n="Name of table header for price per product unit">Price per Unit</span>
+    <th mat-header-cell *matHeaderCellDef>
+      <span i18n="Name of table header for price per product unit">Price</span>
     </th>
-    <td mat-cell *matCellDef="let detail" class="center">
-      <span>{{ detail.unitValue | currency }}</span>
+    <td mat-cell *matCellDef="let detail">
+      <span>{{ detail.product.price | currency }}</span>
     </td>
-    <td mat-footer-cell *matFooterCellDef colspan="2">{{ sell.totalValue | currency }}</td>
   </ng-container>
   <ng-container matColumnDef="quantity">
-    <th mat-header-cell *matHeaderCellDef class="center">
-      <span i18n="Name of table header for product units in cart">Units</span>
-    </th>
-    <td mat-cell *matCellDef="let detail" class="center">
-      <span>{{ detail.units }}</span>
+    <th mat-header-cell *matHeaderCellDef
+      i18n="Name of table header for product units in cart">Units</th>
+    <td mat-cell *matCellDef="let detail; let i = index">
+      <app-sell-detail-units-control *ngIf="editable; else showUnits"
+        [units]="detail.units"
+        (increase)="onClickIncreaseProductQuantity(i)"
+        (decrease)="onClickDecreaseProductQuantity(i)">
+      </app-sell-detail-units-control>
+      <ng-template #showUnits>{{ detail.units }}</ng-template>
     </td>
-    <td mat-footer-cell *matFooterCellDef hidden></td>
+  </ng-container>
+  <ng-container matColumnDef="total">
+    <th mat-header-cell *matHeaderCellDef>
+      <span i18n="Name of table header for the value of product price x units in cart">Subtotal</span>
+    </th>
+    <td mat-cell *matCellDef="let detail">
+      <span>{{ (detail.product.price * detail.units) | currency }}</span>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let detail; let i = index">
+      <button type="button" class="remove"
+        mat-button mat-icon-button
+        aria-label="Remove"
+        i18n-aria-label="remove all product units|Label for action button to remove all units of product in cart"
+        color="warn"
+        [disabled]="!editable"
+        (click)="onClickRemoveProduct(i)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
-  <tr mat-footer-row *matFooterRowDef="tableColumns"></tr>
 </table>

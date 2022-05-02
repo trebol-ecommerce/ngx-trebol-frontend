@@ -33,7 +33,7 @@ export class CheckoutPublicHttpApiService
     payload.customer = this.shrinkCustomerModel(sell.customer);
     payload.paymentType = "WebPay Plus"; // TODO parameterize this value
 
-    if (sell.billingType === BILLING_TYPE_NAMES_MAP.get(BILLING_TYPE_COMPANY)) {
+    if (sell.billingType === BILLING_TYPE_COMPANY) {
       payload.billingAddress = sell.billingAddress;
       payload.billingCompany = sell.billingCompany;
     }

@@ -7,8 +7,8 @@
 
 import { Directive } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { EntityFormDialogComponent } from '../../dialogs/entity-form/entity-form-dialog.component';
 import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';
 import { DataManagerComponentDirective } from '../data-manager/data-manager.component.directive';
@@ -27,7 +27,7 @@ export abstract class TransactionalDataManagerComponentDirective<T>
     this.edit(item).subscribe();
   }
 
-  onClickAdd(): void {
+  onClickCreate(): void {
     this.edit(undefined).subscribe();
   }
 
@@ -39,12 +39,11 @@ export abstract class TransactionalDataManagerComponentDirective<T>
       EntityFormDialogComponent,
       this.createDialogProperties(item)
     ).afterClosed().pipe(
-      tap(result => {
-        this.service.focusedItems = [];
-        if (!!result) { // truthy
-          this.service.reloadItems();
-        }
-      })
+      tap(() => { this.service.focusedItems = [] }),
+      switchMap(result => (!!result) ? // truthy
+        this.service.reloadItems() :
+        of(void 0)
+      )
     );
   }
 

@@ -5,47 +5,25 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { EventEmitter, Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { CheckoutRequest } from 'src/models/CheckoutRequest';
 import { Product } from 'src/models/entities/Product';
 import { SellDetail } from 'src/models/entities/SellDetail';
-import { CheckoutRequest } from '../../models/CheckoutRequest';
 
 @Injectable({ providedIn: 'root' })
-export class StoreCartService
-  implements OnDestroy {
+export class StoreCartService {
 
   private cartDetailsSource = new BehaviorSubject<SellDetail[]>([]);
+  private checkoutRequestSource = new BehaviorSubject<CheckoutRequest>(null);
 
   cartDetails$ = this.cartDetailsSource.asObservable();
-  checkoutButtonPress = new EventEmitter<void>();
-  checkoutRequestData = null;
+  checkoutRequest$ = this.checkoutRequestSource.asObservable();
+  cartItemCount$ = this.calculateItemCount();
+  cartNetValue$ = this.calculateNetValue();
 
-  cartItemCount$: Observable<number>;
-  cartNetValue$: Observable<number>;
-
-  constructor() {
-    this.cartItemCount$ = this.cartDetails$.pipe(
-      map(array => (array.length === 0) ?
-        0 :
-        array.map(detail => detail.units)
-             .reduce((a, b) => (a + b))
-      )
-    );
-
-    this.cartNetValue$ = this.cartDetails$.pipe(
-      map(array => (array.length === 0) ?
-        0 :
-        array.map(p => p.product.price * p.units)
-             .reduce((a, b) => a + b)
-      )
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.cartDetailsSource.complete();
-  }
+  constructor() { }
 
   reset(): void {
     this.cartDetailsSource.next([]);
@@ -77,15 +55,10 @@ export class StoreCartService
   decreaseProductUnits(index: number): void {
     if (index !== -1) {
       const matchingDetail = this.cartDetailsSource.value[index];
-      matchingDetail.units--;
-
-      if (matchingDetail.units > 0) {
-        this.cartDetailsSource.next(this.cartDetailsSource.value);
-      } else {
-        this.cartDetailsSource.value.splice(index, 1);
+      if (matchingDetail.units > 1) {
+        matchingDetail.units--;
         this.cartDetailsSource.next(this.cartDetailsSource.value);
       }
-
     }
   }
 
@@ -96,7 +69,31 @@ export class StoreCartService
     }
   }
 
+  updateCheckoutRequest(info: CheckoutRequest): void {
+    this.checkoutRequestSource.next(info);
+  }
+
   private findSellDetailsIndexByProductBarcode(barcode: string): number {
     return this.cartDetailsSource.value.findIndex(d => (d.product?.barcode === barcode));
+  }
+
+  private calculateItemCount(): Observable<number> {
+    return this.cartDetails$.pipe(
+      map(array => (array.length === 0) ?
+        0 :
+        array.map(detail => detail.units)
+          .reduce((a, b) => (a + b))
+      )
+    );
+  }
+
+  private calculateNetValue(): Observable<number> {
+    return this.cartDetails$.pipe(
+      map(array => (array.length === 0) ?
+        0 :
+        array.map(p => p.product.price * p.units)
+          .reduce((a, b) => a + b)
+      )
+    );
   }
 }

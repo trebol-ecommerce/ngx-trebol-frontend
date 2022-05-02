@@ -11,7 +11,7 @@ __If you have any questions, don't hesitate to contact [@bglamadrid (me)](https:
 - [Try the live demo](https://trebol-ecommerce.github.io/ngx-trebol-frontend/), see if you have any suggestions or find anything wrong with it
 - Improve existing documentation
   - Suggest or submit better contribution guidelines
-  - This codebase is basically documented through JSDoc comments (and I've yet to polish them a little)
+  - This codebase is basically documented through JSDoc comments and test units
 - See the _Issues_ section to find technical work that needs doing. Most of these are tasks are either to:
   - Write code to comply with newer REST API
     - Compare [the current frontend version](https://github.com/trebol-ecommerce/ngx-trebol-frontend/blob/main/package.json#L3) against [the current API version](https://github.com/trebol-ecommerce/ngx-trebol-frontend/blob/main/package.json#L3) and their respective changelogs

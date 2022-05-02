@@ -5,11 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { ProductFilters } from './ProductFilters';
+import { ProductCategory } from 'src/models/entities/ProductCategory';
+import { ProductSearchQuery } from 'src/models/ProductSearchQuery';
 
 @Component({
   selector: 'app-product-filters-panel',
@@ -17,45 +18,52 @@ import { ProductFilters } from './ProductFilters';
   styleUrls: [ './product-filters-panel.component.css' ]
 })
 export class ProductFiltersPanelComponent
-  implements OnDestroy {
+  implements OnInit, OnDestroy {
 
   private valueChangesSubscription: Subscription;
 
-  @Output() filtersChanges = new EventEmitter<ProductFilters>();
+  @Output() filtersChanges = new EventEmitter<ProductSearchQuery>();
 
   formGroup: FormGroup;
-
-  get category() { return this.formGroup.get('category') as FormControl; }
+  get categoryCode() { return this.formGroup.get('categoryCode') as FormControl; }
   get nameLike() { return this.formGroup.get('nameLike') as FormControl; }
+
+  readonly formChangesDebouncingTimeMs = 300;
 
   constructor(
     protected formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
-      category: [null],
+      categoryCode: [null],
       nameLike: ['']
     });
+  }
 
+  ngOnInit(): void {
     this.valueChangesSubscription = this.formGroup.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
+      debounceTime(this.formChangesDebouncingTimeMs),
+      distinctUntilChanged((prev, curr) => (
+        JSON.stringify(prev) === JSON.stringify(curr)
+      )),
       tap(value => {
-        const filters: Partial<ProductFilters> = {};
+        const filters: Partial<ProductSearchQuery> = {};
         if (value.nameLike) {
           filters.nameLike = value.nameLike;
         }
-        if (value.category) {
-          filters.categoryCode = value.category.code;
-        } else if (value.category === null) {
-          filters.categoryCode = null;
+        if (value.categoryCode) {
+          filters.categoryCode = value.categoryCode;
         }
-        this.filtersChanges.emit(filters as ProductFilters);
+        this.filtersChanges.emit(filters as ProductSearchQuery);
       })
     ).subscribe();
   }
 
   ngOnDestroy(): void {
     this.valueChangesSubscription?.unsubscribe();
+  }
+
+  onSelectCategory(category: ProductCategory) {
+    this.categoryCode.setValue(category.code);
   }
 
 }

@@ -11,13 +11,13 @@
 
 <div [hidden]="loggingIn$ | async">
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-    <mat-form-field>
+    <mat-form-field class="username">
       <input matInput formControlName="username"
         placeholder="User name"
         i18n-placeholder="login username|Name of field for username to log in with" />
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field class="password">
       <input matInput [type]="passwordInputType$ | async" formControlName="password"
         placeholder="Password"
         i18n-placeholder="login password|Name of field for password to log in with" />

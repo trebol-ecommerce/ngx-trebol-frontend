@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { merge, of, throwError, timer } from 'rxjs';
 import { tap, take } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { ITransactionalProductListContentsDataApiService } from 'src/app/api/transactional-product-list-contents.data.api.iservice';
 import { DataPage } from 'src/models/DataPage';
@@ -25,6 +25,7 @@ describe('StoreCatalogService', () => {
   let mockDialogService: Partial<MatDialog>;
 
   beforeEach(() => {
+    // TODO use jasmine.SpyObj
     mockProductListsApiService = {
       fetchPage() {
         return of({
@@ -50,8 +51,8 @@ describe('StoreCatalogService', () => {
       ],
       providers: [
         StoreCatalogService,
-        { provide: API_SERVICE_INJECTION_TOKENS.dataProductLists, useValue: mockProductListsApiService },
-        { provide: API_SERVICE_INJECTION_TOKENS.dataProducts, useValue: mockProductsApiService },
+        { provide: API_INJECTION_TOKENS.dataProductLists, useValue: mockProductListsApiService },
+        { provide: API_INJECTION_TOKENS.dataProducts, useValue: mockProductsApiService },
         { provide: MatDialog, useValue: mockDialogService }
       ]
     });
@@ -77,15 +78,17 @@ describe('StoreCatalogService', () => {
     };
     mockProductListsApiService.fetchPage = () => of(mockDataPage);
     TestBed.overrideProvider(
-      API_SERVICE_INJECTION_TOKENS.dataProductLists,
+      API_INJECTION_TOKENS.dataProductLists,
       { useValue: mockProductListsApiService }
     );
     service = TestBed.inject(StoreCatalogService);
 
-    service.reloadItems();
-    service.listsPage$.pipe(
-      take(1),
-      tap(nextPage => expect(nextPage).toEqual(mockDataPage))
+    merge(
+      service.reloadItems(),
+      service.listsPage$.pipe(
+        take(1),
+        tap(nextPage => expect(nextPage).toEqual(mockDataPage))
+      )
     ).subscribe();
   });
 });

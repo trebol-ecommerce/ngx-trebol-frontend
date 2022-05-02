@@ -42,13 +42,17 @@
             "namedChunks": true
           },
           "configurations": {
+            "es": {
+              "localize": ["es"]
+            },
+            "es-CL": {
+              "localize": ["es-CL"]
+            },
             "demo": {
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
+              "vendorChunk": true,
               "buildOptimizer": true,
               "budgets": [
                 {
@@ -72,7 +76,16 @@
                   "replace": "src/environments/environment-modules.ts",
                   "with": "src/environments/environment-modules.localhost.ts"
                 }
-              ]
+              ],
+              "outputHashing": "none"
+            },
+            "staging": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": false,
+              "buildOptimizer": true
             },
             "production": {
               "fileReplacements": [
@@ -85,13 +98,6 @@
                   "with": "src/environments/environment-modules.prod.ts"
                 }
               ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -102,33 +108,14 @@
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb"
                 }
-              ]
-            },
-            "es": {
-              "localize": ["es"]
-            },
-            "es-CL": {
-              "localize": ["es-CL"]
-            },
-            "localhost-staging": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.localhost.ts"
-                },
-                {
-                  "replace": "src/environments/environment-modules.ts",
-                  "with": "src/environments/environment-modules.prod.ts"
-                }
               ],
-              "localize": ["es-CL"],
-              "optimization": false,
-              "outputHashing": "none",
+              "optimization": true,
+              "outputHashing": "all",
               "sourceMap": false,
               "namedChunks": false,
-              "extractLicenses": false,
+              "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": false
+              "buildOptimizer": true
             }
           },
           "defaultConfiguration": ""
@@ -139,20 +126,26 @@
             "browserTarget": "ngx-trebol-frontend:build"
           },
           "configurations": {
-            "localhost": {
-              "browserTarget": "ngx-trebol-frontend:build:localhost"
-            },
-            "production": {
-              "browserTarget": "ngx-trebol-frontend:build:production"
-            },
             "es": {
               "browserTarget": "ngx-trebol-frontend:build:es"
             },
             "es-CL": {
               "browserTarget": "ngx-trebol-frontend:build:es-CL"
             },
+            "localhost": {
+              "browserTarget": "ngx-trebol-frontend:build:localhost"
+            },
+            "localhost-es": {
+              "browserTarget": "ngx-trebol-frontend:build:localhost,es"
+            },
+            "localhost-es-CL": {
+              "browserTarget": "ngx-trebol-frontend:build:localhost,es-CL"
+            },
             "localhost-staging": {
-              "browserTarget": "ngx-trebol-frontend:build:localhost-staging"
+              "browserTarget": "ngx-trebol-frontend:build:localhost,staging"
+            },
+            "production": {
+              "browserTarget": "ngx-trebol-frontend:build:production"
             }
           }
         },

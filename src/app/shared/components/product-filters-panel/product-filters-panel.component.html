@@ -10,18 +10,19 @@
     <mat-panel-title
       i18n="Title of panel to select conditions to filter products by">Filter Products...</mat-panel-title>
   </mat-expansion-panel-header>
-  <form [formGroup]="formGroup">
+  <fieldset [formGroup]="formGroup">
+    <input formControlName="categoryCode" type="hidden" />
 
-    <app-product-category-selector-form-field
-      formControlName="category"
+    <app-product-category-selector-field
+      (categorySelection)="onSelectCategory($event)"
       placeholder="By Category"
       i18n-placeholder="Name of field for filtering products by selected category">
-    </app-product-category-selector-form-field>
+    </app-product-category-selector-field>
 
     <mat-form-field>
       <input matInput formControlName="nameLike"
         placeholder="By Product name"
         i18n-placeholder="Name of field for filtering products by partial name" />
     </mat-form-field>
-  </form>
+  </fieldset>
 </mat-expansion-panel>

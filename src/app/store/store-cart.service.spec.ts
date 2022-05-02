@@ -6,32 +6,45 @@
  */
 
 import { TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { of, Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { SellDetail } from 'src/models/entities/SellDetail';
-import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from '../api/api-injection-tokens';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
 import { MOCK_PRODUCTS } from '../api/local-memory/mock/mock-products.datasource';
 import { StoreCartService } from './store-cart.service';
 
 describe('StoreCartService', () => {
   let service: StoreCartService;
-  let mockCheckoutApiService: Partial<ICheckoutPublicApiService>;
+  let checkoutApiServiceSpy: jasmine.SpyObj<ICheckoutPublicApiService>;
+  let cartDetails: SellDetail[];
+  let updateArraySub: Subscription;
   const mockProduct = MOCK_PRODUCTS[0];
   const mockProductTwo = MOCK_PRODUCTS[1];
 
   beforeEach(() => {
-    mockCheckoutApiService = {
-      submitCart() { return of(void 0); }
-    };
+    const mockCheckoutApiService = jasmine.createSpyObj('ICheckoutPublicApiService', ['submitCart']);
 
     TestBed.configureTestingModule({
       providers: [
         StoreCartService,
-        { provide: API_SERVICE_INJECTION_TOKENS.checkout, useValue: mockCheckoutApiService }
+        { provide: API_INJECTION_TOKENS.checkout, useValue: mockCheckoutApiService }
       ]
     });
+    checkoutApiServiceSpy = TestBed.inject(API_INJECTION_TOKENS.checkout) as jasmine.SpyObj<ICheckoutPublicApiService>;
+    checkoutApiServiceSpy.submitCart.and.returnValue(of(void 0));
+
     service = TestBed.inject(StoreCartService);
+  });
+
+  beforeEach(() => {
+    updateArraySub = service.cartDetails$.pipe(
+      tap(s => { cartDetails = s; })
+    ).subscribe();
+  })
+
+  afterEach(() => {
+    updateArraySub.unsubscribe();
   });
 
   it('should be created', () => {
@@ -41,35 +54,25 @@ describe('StoreCartService', () => {
   it('should store items in the cart', () => {
     service.addProductToCart(mockProduct);
     service.addProductToCart(mockProductTwo);
-    service.cartDetails$.pipe(take(1)).subscribe(
-      (sellDetails: SellDetail[]) => {
-        expect(sellDetails.length).toBe(2);
-        expect(sellDetails[0].product).toEqual(mockProduct);
-        expect(sellDetails[0].units).toBe(1);
-        expect(sellDetails[1].product).toEqual(mockProductTwo);
-        expect(sellDetails[1].units).toBe(1);
-      }
-    );
+    expect(cartDetails.length).toBe(2);
+    expect(cartDetails[0].product).toEqual(mockProduct);
+    expect(cartDetails[0].units).toBe(1);
+    expect(cartDetails[1].product).toEqual(mockProductTwo);
+    expect(cartDetails[1].units).toBe(1);
   });
 
   it('should delete items from the cart', () => {
     service.addProductToCart(mockProduct);
     service.addProductToCart(mockProductTwo);
     service.removeProductFromCart(1);
-    service.cartDetails$.pipe(take(1)).subscribe(
-      (sellDetails: SellDetail[]) => {
-        expect(sellDetails.length).toBe(1);
-        expect(sellDetails[0].product).toEqual(mockProduct);
-      }
-    );
-
+    expect(cartDetails.length).toBe(1);
+    expect(cartDetails[0].product).toEqual(mockProduct);
+    expect(() => cartDetails[1].product).toThrowError();
     service.addProductToCart(mockProduct);
     service.reset();
-    service.cartDetails$.pipe(take(1)).subscribe(
-      (sellDetails: SellDetail[]) => {
-        expect(sellDetails.length).toBe(0);
-      }
-    );
+    expect(cartDetails.length).toBe(0),
+    expect(() => cartDetails[0].product).toThrowError();
+    updateArraySub.unsubscribe();
   });
 
   it('should increase and decrease units of an individual item in the cart', () => {
@@ -77,23 +80,17 @@ describe('StoreCartService', () => {
     service.addProductToCart(mockProductTwo);
     service.increaseProductUnits(1);
     service.increaseProductUnits(1);
-    service.cartDetails$.pipe(take(1)).subscribe(
-      (sellDetails: SellDetail[]) => {
-        expect(sellDetails[1].units).toBe(3);
-      }
-    );
-
+    expect(cartDetails[1].units).toBe(3);
     service.decreaseProductUnits(1);
-    service.cartDetails$.pipe(take(1)).subscribe(
-      (sellDetails: SellDetail[]) => {
-        expect(sellDetails[1].units).toBe(2);
-      }
-    );
+    expect(cartDetails[1].units).toBe(2);
+    updateArraySub.unsubscribe();
   });
 
   it('should update items quantity as the items in the cart vary', () => {
     let cartItemCount: number;
-    const sub = service.cartItemCount$.subscribe(q => { cartItemCount = q; });
+    const updateItemCountSub = service.cartItemCount$.pipe(
+      tap(q => { cartItemCount = q; })
+    ).subscribe();
     expect(cartItemCount).toBe(0);
     service.addProductToCart(mockProduct);
     expect(cartItemCount).toBe(1);
@@ -110,19 +107,15 @@ describe('StoreCartService', () => {
     expect(cartItemCount).toBe(1);
     service.reset();
     expect(cartItemCount).toBe(0);
-    sub.unsubscribe();
+    updateItemCountSub.unsubscribe();
   });
 
-  it('should not store items with duplicate ids, but increase the current quantity', () => {
+  it('should not store items with duplicate ids, but add to the amount', () => {
     service.addProductToCart(mockProduct);
     service.addProductToCart(mockProduct);
-    service.cartDetails$.pipe(take(1)).subscribe(
-      (sellDetails: SellDetail[]) => {
-        expect(sellDetails.length).toBe(1);
-        expect(sellDetails[0].product).toEqual(mockProduct);
-        expect(sellDetails[0].units).toBe(2);
-      }
-    );
+    expect(cartDetails.length).toBe(1);
+    expect(cartDetails[0].product).toEqual(mockProduct);
+    expect(cartDetails[0].units).toBe(2);
   });
 
 });

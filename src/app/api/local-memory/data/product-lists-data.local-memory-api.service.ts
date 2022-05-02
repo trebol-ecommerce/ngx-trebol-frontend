@@ -7,12 +7,12 @@
 
 import { Inject, Injectable } from '@angular/core';
 import { from, Observable, of, throwError } from 'rxjs';
-import { mapTo, switchMap, tap, toArray } from 'rxjs/operators';
+import { map, switchMap, tap, toArray } from 'rxjs/operators';
 import { paginateItems } from 'src/functions/paginateItems';
 import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
 import { ProductList } from 'src/models/entities/ProductList';
-import { API_SERVICE_INJECTION_TOKENS } from '../../api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from '../../api-injection-tokens';
 import { ITransactionalEntityDataApiService } from '../../transactional-entity.data-api.iservice';
 import { ITransactionalProductListContentsDataApiService } from '../../transactional-product-list-contents.data.api.iservice';
 import {
@@ -30,7 +30,7 @@ export class ProductListsDataLocalMemoryApiService
   protected itemContentsMap = new Map([...MOCK_PRODUCT_LIST_CONTENTS_MAP.entries()]);
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProducts) private productsApiService: ITransactionalEntityDataApiService<Product>
+    @Inject(API_INJECTION_TOKENS.dataProducts) private productsApiService: ITransactionalEntityDataApiService<Product>
   ) {
     super();
   }
@@ -96,7 +96,7 @@ export class ProductListsDataLocalMemoryApiService
           fullListContents.add(p);
           list.totalCount = fullListContents.size;
         }),
-        mapTo(void 0)
+        map(() => void 0)
       );
     }
   }
@@ -125,7 +125,7 @@ export class ProductListsDataLocalMemoryApiService
           this.itemContentsMap.set(list.code, new Set(products));
           list.totalCount = products.length;
         }),
-        mapTo(void 0)
+        map(() => void 0)
       );
     }
   }

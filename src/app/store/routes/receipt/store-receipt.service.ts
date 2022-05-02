@@ -6,14 +6,13 @@
  */
 
 import { Inject, Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, from, throwError } from 'rxjs';
-import { catchError, map, pluck, startWith, switchMap, take, tap } from 'rxjs/operators';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { BehaviorSubject } from 'rxjs';
+import { map, pluck, startWith } from 'rxjs/operators';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IReceiptPublicApiService } from 'src/app/api/receipt-public-api.iservice';
 import { Receipt } from 'src/models/Receipt';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class StoreReceiptService {
 
   private receiptSource = new BehaviorSubject<Receipt>(null);
@@ -24,7 +23,7 @@ export class StoreReceiptService {
   date$ = this.receipt$.pipe(pluck('date'));
 
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.receipt) private receiptApiService: IReceiptPublicApiService
+    @Inject(API_INJECTION_TOKENS.receipt) private receiptApiService: IReceiptPublicApiService
   ) { }
 
   /**

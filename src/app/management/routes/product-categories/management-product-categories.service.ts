@@ -6,7 +6,8 @@
  */
 
 import { Inject, Injectable } from '@angular/core';
-import { API_SERVICE_INJECTION_TOKENS } from 'src/app/api/api-service-injection-tokens';
+import { EMPTY } from 'rxjs';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
@@ -18,8 +19,12 @@ export class ManagementProductCategoriesService
 
   constructor(
     sharedDialogService: SharedDialogService,
-    @Inject(API_SERVICE_INJECTION_TOKENS.dataProductCategories) public dataService: ITransactionalEntityDataApiService<ProductCategory>
+    @Inject(API_INJECTION_TOKENS.dataProductCategories) public dataService: ITransactionalEntityDataApiService<ProductCategory>
   ) {
     super(sharedDialogService);
+  }
+
+  reloadItems() {
+    return EMPTY;
   }
 }

@@ -19,6 +19,7 @@ describe('StoreGuestPromptDialogComponent', () => {
   let closeSpy: jasmine.Spy;
 
   beforeEach(waitForAsync(() => {
+    // TODO use jasmine.SpyObj
     mockDialogRef = {
       close() {}
     };

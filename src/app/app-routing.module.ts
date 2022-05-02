@@ -7,12 +7,13 @@
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SelectivePreloadingStrategyService } from './selective-preloading-strategy.service';
 
 const ROOT_ROUTES: Routes = [
   {
     path: 'store',
     loadChildren: () => import('./store/store.module').then(m => m.StoreModule),
-    data: { preload: true }
+    data: { preload: false }
   },
   {
     path: 'management',
@@ -29,7 +30,8 @@ const ROOT_ROUTES: Routes = [
         {
           path: '', pathMatch: 'full', redirectTo: '/store/catalog'
         }
-      ]
+      ],
+      { preloadingStrategy: SelectivePreloadingStrategyService }
     )
   ],
   exports: [RouterModule]

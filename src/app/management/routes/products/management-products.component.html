@@ -56,7 +56,7 @@
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let product">
           <button mat-button mat-icon-button type="button"
-            *ngIf="canEdit$ | async"
+            *ngIf="canUpdate$ | async"
             color="primary"
             aria-label="Edit"
             i18n-aria-label="edit|Label for action button to edit information of an item"
@@ -83,10 +83,10 @@
   </div>
   <div>
 
-    <app-management-data-actions
-      *ngIf="canAdd$ | async"
-      (add)="onClickAdd()">
-    </app-management-data-actions>
+    <app-management-data-actions-button-bar
+      [actions]="actions$ | async"
+      (create)="onClickCreate()">
+    </app-management-data-actions-button-bar>
     <mat-paginator
       (page)="onPage($event)"
       [showFirstLastButtons]="true"

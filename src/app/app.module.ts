@@ -6,11 +6,13 @@
  */
 
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { environmentModules } from 'src/environments/environment-modules';
+import { AppMaterialModule } from './app-material.module';
 import { AppComponent } from './app.component';
 
 const DEBUG_ROUTES = false;
@@ -22,6 +24,8 @@ const DEBUG_ROUTES = false;
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
+    AppMaterialModule,
     AppRoutingModule,
     environmentModules
   ],

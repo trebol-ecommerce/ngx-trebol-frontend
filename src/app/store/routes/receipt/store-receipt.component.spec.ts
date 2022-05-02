@@ -5,7 +5,6 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,13 +28,13 @@ describe('StoreReceiptComponent', () => {
   let mockService: Partial<StoreReceiptService>;
 
   beforeEach(waitForAsync(() => {
+    // TODO use jasmine.SpyObj
     mockService = {
       fetchReceipt() { return EMPTY; }
     };
 
     TestBed.configureTestingModule({
       imports: [
-        CommonModule,
         NoopAnimationsModule,
         RouterTestingModule
       ],

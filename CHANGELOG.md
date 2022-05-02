@@ -4,6 +4,50 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- Environment variables
+  - Interval in miliseconds to check for current token validity
+  - Default product image URL
+- Experimental startup loading spinner
+
+### Changed
+- `AppService` is replaced by four smaller, more specialized services
+  - `SessionService` - knows (but does not tell) where to save session tokens; knows whether the user has an active one; and allows to fetch (and cache) authorization details
+  - `AuthenticationService` - allows to login as user (or guest) and register, and to cancel any ongoing instance of these processes
+  - `ProfileService` - allows to fetch (and cache) the current user's profile data, and to update it as well
+- `ManagementHeaderComponent` refactored down to simpler components
+  - Introduced a common `HeaderBrandComponent` used in both store and management pages
+- Reorganized most form components into accordingly named `forms/` directories
+- Frontpage lists show a paginator only when they have more than one page
+- Make better use of some shared components to display details of carts/sales
+  - `StoreCartContentsTable` superseded by `SellDetailsTable`
+- In the sales management page, a new button triggers the dialog where clerks may view its details
+- Checkout-related components (in the `store` module) split & rewritten against model classes using self-evident nomenclature
+  - `StoreCheckoutRequestFormComponent` has a form that accepts instances of `CheckoutRequest`
+  - `StoreBillingDetails` has a form that accepts instances of `BillingDetails`
+  - And so forth
+- Among other minor changes and refactors
+
+### Fixed
+- (UI) User name and details would not always be correct or up-to-date
+  - (Performance) Make better use of existing auth HTTP APIs
+- (UI) Contents of cart would be editable after confirmation
+- (UX) After registration (and automatic login), the user would not retain profile info (namely their username)
+- (UI) Readjusted spacing of product cards in frontpage catalog
+- (UI) Set defined height for registration and guest login dialogs (for better use in mobile devices, where usually a virtual keyboard blocks the view)
+- (UX) Allow mobile devices to "tab" correctly in nested forms (when pressing 'Next')
+- (UX) Fetching initial sales data into the management page
+- (UX) Keep auth status up-to-date and centralized, without calling the API from multiple sources
+- Using actual instances of `InjectionToken<T>` to provide external API services
+- And several minor bugfixes
+
+### Removed
+- Unused components related to file upload (which may be included if the feature ever gets to the external API specification)
+- Sales data cannot be edited from the management module, as the `SellFormComponent` is no longer included
+  - This may be reverted in future versions
+
 ## [v2.12.0-rc.1] - 2022-03-25
 
 ### Added

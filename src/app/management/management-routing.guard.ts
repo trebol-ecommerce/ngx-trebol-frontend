@@ -9,31 +9,33 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { catchError, switchMap, tap } from 'rxjs/operators';
-import { AppService } from 'src/app/app.service';
+import { catchError, switchMap, take, tap } from 'rxjs/operators';
+import { SessionService } from 'src/app/session.service';
 import { IAccessApiService } from '../api/access-api.iservice';
-import { API_SERVICE_INJECTION_TOKENS } from '../api/api-service-injection-tokens';
+import { API_INJECTION_TOKENS } from '../api/api-injection-tokens';
 
 @Injectable()
 export class ManagementRoutingGuard
   implements CanActivate, CanActivateChild {
 
-  path: ActivatedRouteSnapshot[];
-  route: ActivatedRouteSnapshot;
-
   constructor(
-    @Inject(API_SERVICE_INJECTION_TOKENS.access) private apiAccessService: IAccessApiService,
+    @Inject(API_INJECTION_TOKENS.access) private apiAccessService: IAccessApiService,
     private router: Router,
-    private appService: AppService
-  ) {
-  }
+    private sessionService: SessionService
+  ) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.appService.validateSession().pipe(
-      tap(v => { if (!v) { this.router.navigateByUrl('/'); } }));
+    return this.sessionService.userHasActiveSession$.pipe(
+      take(1),
+      tap(v => {
+        if (!v) {
+          this.router.navigateByUrl('/');
+        }
+      })
+    );
   }
 
   canActivateChild(

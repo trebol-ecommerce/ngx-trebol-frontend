@@ -5,59 +5,40 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatListModule } from '@angular/material/list';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatListModule, MatListOption, MatSelectionListChange } from '@angular/material/list';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
+import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
+import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
+import { MOCK_IMAGES } from 'src/app/api/local-memory/mock/mock-images.datasource';
+import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
+import { Image } from 'src/models/entities/Image';
 import { ImagesArrayDialogComponent } from './images-array-dialog.component';
-import { ImagesArrayService } from './images-array.service';
 
 @Component({ selector: 'app-centered-mat-spinner' })
 class MockCenteredMatSpinnerComponent { }
 
+const MOCK_IMAGE_EXAMPLE = MOCK_IMAGES[Math.floor(Math.random() * MOCK_IMAGES.length)];
+
 describe('ImagesArrayDialogComponent', () => {
   let component: ImagesArrayDialogComponent;
   let fixture: ComponentFixture<ImagesArrayDialogComponent>;
-  let mockDialogRef: Partial<MatDialogRef<ImagesArrayDialogComponent>>;
-  let mockService: Partial<ImagesArrayService>;
+  let apiServiceSpy: jasmine.SpyObj<IEntityDataApiService<Image>>;
 
   beforeEach(waitForAsync(() => {
-    mockDialogRef = {
-      close() {}
-    };
-    mockService = {
-      loading$: of(false),
-      imagesPage$: of({
-        items: [ ],
-        pageIndex: 0,
-        pageSize: 10,
-        totalCount: 0
-      }),
-      filter: '',
-      reloadItems() { }
-    };
+    const mockApiService = jasmine.createSpyObj('IEntityDataApiService<Image>', ['fetchPage']);
 
-    TestBed.overrideComponent(
-      ImagesArrayDialogComponent,
-      {
-        set: {
-          providers: [{ provide: ImagesArrayService, useValue: mockService }]
-        }
-      }
-    );
     TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
-        CommonModule,
-        FormsModule,
         ReactiveFormsModule,
         MatButtonModule,
         MatDialogModule,
@@ -72,13 +53,22 @@ describe('ImagesArrayDialogComponent', () => {
       ],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: null },
-        { provide: MatDialogRef, useValue: mockDialogRef }
+        { provide: API_INJECTION_TOKENS.dataImages, useValue: mockApiService }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
+    apiServiceSpy = TestBed.inject(API_INJECTION_TOKENS.dataImages) as jasmine.SpyObj<ITransactionalEntityDataApiService<Image>>;
+    apiServiceSpy.fetchPage.and.returnValue(of({
+      items: [
+        MOCK_IMAGE_EXAMPLE
+      ],
+      pageIndex: 0,
+      pageSize: 10,
+      totalCount: 1
+    }));
+
     fixture = TestBed.createComponent(ImagesArrayDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -86,5 +76,24 @@ describe('ImagesArrayDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should reload data', () => {
+    component.reload();
+    expect(apiServiceSpy.fetchPage).toHaveBeenCalled();
+  });
+
+  it('should reload data when a page event is fired', () => {
+    const ev: PageEvent = { length: 10, pageIndex: 1, pageSize: 5 };
+    component.onPage(ev);
+    expect(apiServiceSpy.fetchPage).toHaveBeenCalled();
+  });
+
+  it('should update its inner selection model when firing a selection event', () => {
+    const ev: Partial<MatSelectionListChange> = {
+      options: [{ value: MOCK_IMAGE_EXAMPLE, selected: true }] as MatListOption[]
+    };
+    component.onSelectionChange(ev as MatSelectionListChange);
+    expect(component.selectedImages[0]).toEqual(MOCK_IMAGE_EXAMPLE);
   });
 });
