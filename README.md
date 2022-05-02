@@ -11,12 +11,15 @@ A single-page web application designed and developed over Angular v13.3, RxJS an
 
 ## Current status
 
-Supporting the unreleased Trébol API versioned 1.3.0
-- `POST /data/sales/confirmation`
-- `POST /data/sales/rejection`
-- `POST /data/sales/completion`
+Supporting the unreleased Trébol API versioned 1.5.0
 
-All of these accept `Sell` objects as input, allowing for a straightforward handling of these operations. Fake API implementation is included to preview this functionality as well.
+Besides some model changes, the real difference is that this API has three new paths that can be called to publish changes in status for existing sales:
+
+- `POST /data/sales/confirmation` - When the payment is accepted, and the contents are ready to be delivered to the customer
+- `POST /data/sales/rejection` - When any problem is found, the contents cannot be delivered and the customer must be refunded
+- `POST /data/sales/completion` - When the contents were delivered to the customer, indicating the sell was successful
+
+Fake API implementation is included to preview this functionality as well.
 
 ## Live Demo
 
