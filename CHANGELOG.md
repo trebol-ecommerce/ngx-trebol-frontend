@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Experimental startup loading spinner
 
 ### Changed
-- `AppService` is replaced by four smaller, more specialized services
+- `AppService` is replaced by three smaller, more specialized services
   - `SessionService` - knows (but does not tell) where to save session tokens; knows whether the user has an active one; and allows to fetch (and cache) authorization details
   - `AuthenticationService` - allows to login as user (or guest) and register, and to cancel any ongoing instance of these processes
   - `ProfileService` - allows to fetch (and cache) the current user's profile data, and to update it as well
