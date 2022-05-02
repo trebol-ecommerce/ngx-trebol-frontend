@@ -1773,7 +1773,7 @@
         <source>Ha iniciado sesión correctamente</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/login-form/store-login-form-dialog.component.ts</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">96</context>
         </context-group>
         <note priority="1" from="description">Message of success after login</note>
       </trans-unit>
@@ -1781,7 +1781,7 @@
         <source>Sus credenciales son incorrectas</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/store/dialogs/login-form/store-login-form-dialog.component.ts</context>
-          <context context-type="linenumber">90</context>
+          <context context-type="linenumber">101</context>
         </context-group>
         <note priority="1" from="description">Message of error due to bad/erroneous credentials</note>
       </trans-unit>
@@ -1988,7 +1988,7 @@
         <source>Persona Individual</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/text/billing-type-names.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">13</context>
         </context-group>
         <note priority="1" from="description">Form of billing commonly requested by most people; a simple statement with details of goods and services</note>
       </trans-unit>
@@ -1996,7 +1996,7 @@
         <source>Factura</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/text/billing-type-names.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">14</context>
         </context-group>
         <note priority="1" from="description">Form of billing requested by companies or their representatives; in addition to goods and services, some additional notes or charges (like taxes) may be included</note>
       </trans-unit>
@@ -2039,6 +2039,10 @@
           <context context-type="sourcefile">src/text/sell-status-names.ts</context>
           <context context-type="linenumber">9</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
         <note priority="1" from="description">Description of status of a sell after its contents have been delivered to the customer</note>
       </trans-unit>
       <trans-unit id="945086919382619829" datatype="html">
@@ -2046,6 +2050,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/text/sell-status-names.ts</context>
           <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <note priority="1" from="description">Description of status of a sell after it has been shipped</note>
       </trans-unit>
@@ -2055,6 +2063,10 @@
           <context context-type="sourcefile">src/text/sell-status-names.ts</context>
           <context context-type="linenumber">11</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
         <note priority="1" from="description">Description of status of a sell after being acknowledged and confirmed by a salesperson, store clerk, or the next responsible individual</note>
       </trans-unit>
       <trans-unit id="813244575473708025" datatype="html">
@@ -2062,6 +2074,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/text/sell-status-names.ts</context>
           <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">27</context>
         </context-group>
         <note priority="1" from="description">Description of status of a sell once payment has been processed, and needs confirmation from the store</note>
       </trans-unit>
@@ -2071,6 +2087,10 @@
           <context context-type="sourcefile">src/text/sell-status-names.ts</context>
           <context context-type="linenumber">13</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
         <note priority="1" from="description">Description of status of a sell once payment is requested; the customer must proceed to execute their transaction</note>
       </trans-unit>
       <trans-unit id="4416413576346763682" datatype="html">
@@ -2078,6 +2098,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/text/sell-status-names.ts</context>
           <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">29</context>
         </context-group>
         <note priority="1" from="description">Description of status of a sell right before requesting payment; customers may never see this state</note>
       </trans-unit>
@@ -2087,6 +2111,10 @@
           <context context-type="sourcefile">src/text/sell-status-names.ts</context>
           <context context-type="linenumber">15</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
         <note priority="1" from="description">Description of a failed sell due to the transaction being aborted</note>
       </trans-unit>
       <trans-unit id="8105540508362589812" datatype="html">
@@ -2094,6 +2122,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/text/sell-status-names.ts</context>
           <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">31</context>
         </context-group>
         <note priority="1" from="description">Description of a failed sell due to an uncertain transaction error</note>
       </trans-unit>
@@ -2103,6 +2135,10 @@
           <context context-type="sourcefile">src/text/sell-status-names.ts</context>
           <context context-type="linenumber">17</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
         <note priority="1" from="description">Description of a failed sell due to rejection of transaction (most likely, the card was declined)</note>
       </trans-unit>
       <trans-unit id="5501791863262140347" datatype="html">
@@ -2110,6 +2146,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/text/sell-status-names.ts</context>
           <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">33</context>
         </context-group>
         <note priority="1" from="description">Description of a failed sell due to abortion of the delivery process</note>
       </trans-unit>
@@ -2119,6 +2159,10 @@
           <context context-type="sourcefile">src/text/sell-status-names.ts</context>
           <context context-type="linenumber">19</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
         <note priority="1" from="description">Description of a failed sell due to a failure in the delivery process</note>
       </trans-unit>
       <trans-unit id="1102912391897633655" datatype="html">
@@ -2126,6 +2170,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/text/sell-status-names.ts</context>
           <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="linenumber">35</context>
         </context-group>
         <note priority="1" from="description">Description of a failed sell due to its contents being returned</note>
       </trans-unit>
