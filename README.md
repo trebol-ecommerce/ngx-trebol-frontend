@@ -11,9 +11,9 @@ A single-page web application designed and developed over Angular v13.3, RxJS an
 
 ## Current status
 
-Supporting the unreleased Trébol API versioned 1.5.0
+Supporting [Trébol API v1.5.0](https://github.com/trebol-ecommerce/api/releases/tag/v1.5.0).
 
-Besides some model changes, the real difference is that this API has three new paths that can be called to publish changes in status for existing sales:
+Important features in this version of the API include three new paths that can be called to announce status changes for sales:
 
 - `POST /data/sales/confirmation` - When the payment is accepted, and the contents are ready to be delivered to the customer
 - `POST /data/sales/rejection` - When any problem is found, the contents cannot be delivered and the customer must be refunded
@@ -21,21 +21,23 @@ Besides some model changes, the real difference is that this API has three new p
 
 Fake API implementation is included to preview this functionality as well.
 
-## Live Demo
+## Features
+
+### Live Demo
 
 [Visit the application live demo in this link](https://trebol-ecommerce.github.io/ngx-trebol-frontend/).
 
 To access all the features, click on the button with an user icon in the top right corner of the screen. Then type `admin` for both the username and password fields. This will trigger a session state change, affecting the aforementioned button, and allowing you to see an user menu where you can navigate to the management module.
 
-### Mock data
+#### Mock data
 
 This demo is powered by a feature module that provides data stored in hard-coded JS arrays; this means that your browser's working memory acts as a fake and volatile persistence layer. You can try all CRUD-related functionalities as you'd expect, but if you force a reload or leave the application, all changes in data will be lost.
 
 At scale, I interchangeably call this the "fake API" and the "local-memory module". In both cases I mean the same thing.
 
-All this mock data was created using [Mockaroo](https://mockaroo.com/).
+All (most of the) mock data was created using [Mockaroo](https://mockaroo.com/).
 
-## Infrastructure
+### Infrastructure
 
 The application itself is divided into modules in the `/src/app/` directory, and its structure is as follows:
 
@@ -48,20 +50,7 @@ The application itself is divided into modules in the `/src/app/` directory, and
 
 The `api` module is [imported through an environment file](#configuring-the-build--serve-process) to easily switch between implementations.
 
-## Requirements
-
-- An [Angular CLI](https://cli.angular.io/) 13-compatible [Node.js/NPM](https://nodejs.org/) installation.
-
-## Getting started
-
-`git clone` this repo, then do `npm install` in the root directory.
-
-## Testing
-
-Unit test suites runs using Jasmine. Do `ng test` to start the Karma server, then connect to its listening address and press the `DEBUG` button to initiate the test suites.
-Or do `ng test --no-watch --browsers={browser}` to execute them once, inmediately.
-
-## Internationalization
+### Internationalization
 
 This project uses [Angular i18n features](https://angular.io/guide/i18n-overview); this means you can build the app using different languages. Currently bundled locales reside in `/src/locales`. There are three:
 
@@ -71,23 +60,42 @@ This project uses [Angular i18n features](https://angular.io/guide/i18n-overview
 
 If you wish to translate this frontend to another language, check out [this Angular guide on working with translation files](https://angular.io/guide/i18n-common-translation-files).
 
-## How to use this application
+## Getting started
 
-You can "just" preview the whole project with `ng s` (equivalent to visit the live demo), but for any other purposes you should set up your working environment.
+### Requirements
 
-### Configure the build / serve process
+- [Angular CLI](https://cli.angular.io/) v13 or higher, and a compatible [Node.JS](https://nodejs.org/) installation.
+
+### How to use
+
+1. Clone this repo, using `git clone` or your preferred GUI tool for Git
+2. Execute `npm ci` in the root directory (where `package.json` resides)
+3. Execute `ng s` or `ng serve` in the root directory to preview-run the application. This is equivalent to visiting the live demo linked above.
+4. To work with a backend, you should set up your working environment.
+
+#### Testing
+
+Unit test suites run using Jasmine. The steps to make them run are simple:
+Execute `ng t --no-watch --browsers={browser}` in the root directory to test the entire application inmediately, only once.
+
+When developing/hacking though, you might find it better to have the app run tests whenever you change any part of the code (like `ng serve` does). To do that instead:
+1. Execute `ng t` or `ng test` in the root directory to simply start the Karma server.
+2. Connect to its listening address (e.g. `localhost:9876`) with your browser.
+3. In the root directory, under a different process, execute `karma run`. OR you can press the `DEBUG` button in the browser window, to initiate the test suites in debug mode.
+
+#### Configure the build / serve process
 
 - Make yourself comfortable with the [official guide on Building and Serving Angular Apps](https://angular.io/guide/build).
 - Default environment files already exist in `/src/environments/`
   - `environment.ts` defines variables
   - `environment-modules.ts` defines module dependencies
-- The `/src/angular.json` file contains some additional configs, I mostly use `staging`, `localhost` and `production`. The latter two require you to define environment files as specified by their `fileReplacements` definitions.
+- The `/src/angular.json` file contains some additional configs; I mostly use `staging`, `localhost` and `production`. The latter two require you to define environment files as specified by their `fileReplacements` definitions.
   - There's also a configuration for each bundled locale other than default `en-US`.
   - You can use more than one configuration, but some of the definitions will collide. Please do have a look at them before trying to use them.
-- This project also declares the [angular-cli-ghpages plugin](https://github.com/angular-schule/angular-cli-ghpages#options) as devDependency.
+- This project also declares the [angular-cli-ghpages plugin](https://github.com/angular-schule/angular-cli-ghpages#options) as a devDependency, which you may find useful to deploy to a GitHub Pages environment like in the live demo.
 
 
-### Quick start (fewest possible steps)
+#### Quick configuration steps
 
 1. Create a copy of the two environment files and rename them accordingly from your desired configuration e.g. `environment.localhost.ts` and `environment-modules.localhost.ts`.
 2. Call `ng s` or `ng b` Angular CLI command using the `-c` option to target said configuration e.g. `ng b -c production`. You can target more than one, separating them by commas `,`.
