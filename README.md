@@ -2,7 +2,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-[![NPM Package](https://img.shields.io/npm/v/ngx-trebol-frontend)](https://www.npmjs.com/package/ngx-trebol-frontend)
+[![NPM Package](https://img.shields.io/github/v/release/trebol-ecommerce/ngx-trebol-frontend?include_prereleases)](https://github.com/trebol-ecommerce/ngx-trebol-frontend/tags)
 [![Build Status](https://app.travis-ci.com/trebol-ecommerce/ngx-trebol-frontend.svg?branch=main)](https://travis-ci.com/github/trebol-ecommerce/ngx-trebol-frontend)
 
 # Trébol e-Commerce Angular Frontend
