@@ -1,4 +1,7 @@
+<!-- markdownlint-disable-file MD024 -->
+
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
@@ -7,17 +10,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [v2.12.1-rc.3] - 2022-08-02
 
 ### Changed
+
 - Update dependencies
 
 ## [v2.12.0-rc.2] - 2022-05-02
 
 ### Added
+
 - Environment variables
   - Interval in miliseconds to check for current token validity
   - Default product image URL
 - Experimental startup loading spinner
 
 ### Changed
+
 - `AppService` is replaced by three smaller, more specialized services
   - `SessionService` - knows (but does not tell) where to save session tokens; knows whether the user has an active one; and allows to fetch (and cache) authorization details
   - `AuthenticationService` - allows to login as user (or guest) and register, and to cancel any ongoing instance of these processes
@@ -36,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Among other minor changes and refactors
 
 ### Fixed
+
 - (UI) User name and details would not always be correct or up-to-date
   - (Performance) Make better use of existing auth HTTP APIs
 - (UI) Contents of cart would be editable after confirmation
@@ -49,6 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - And several minor bugfixes
 
 ### Removed
+
 - Unused components related to file upload (which may be included if the feature ever gets to the external API specification)
 - Sales data cannot be edited from the management module, as the `SellFormComponent` is no longer included
   - This may be reverted in future versions
@@ -56,6 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [v2.12.0-rc.1] - 2022-03-25
 
 ### Added
+
 - Service interface methods specific to sales data API
   - `markAsConfirmed` - To acknowledge an order/sell and notify the customer - HTTP `/data/sales/confirmation`
   - `markAsRejected` - To prevent an order/sell to be delivered due to issues and/or refund the customer - HTTP  `/data/sales/rejection`
@@ -85,6 +94,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Slideshows images now may be able to hold links to redirect users to
 
 ### Changed
+
 - Bump Angular to v13.3
 - Refactored architecture for inserting and updating data within the management module
   - Removed `FormGroupOwner` pseudo-interface
@@ -107,6 +117,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `SlideshowComponent` now integrates with Angular forms
 
 ### Fixed
+
 - Modules/chunks are now effectively lazy-loaded, decreasing app loading times enormously!
 - Individual item fetching in HTTP API (used when editing any data)
 - Change property type of `token` in `Sell` model to `string`
@@ -133,54 +144,65 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated localization files
 
 ### Removed
+
 - All references to deprecated APIs `/public/products` and `/public/categories`
 - Some placeholder images
 
 ## [v2.0.0] - 2022-01-18
 
 ### Changed
+
 - Bumped Angular to v13 [BREAKING CHANGE]
   - IE11 is no longer supported
 
 ## [v1.2.2] - 2022-01-12
 
 ### Added
+
 - Request confirmation from user before trying to delete any data in the management section
 
 ### Fixed
+
 - Image selection dialog issues
   - Filter not working
   - Data not being paginated
 
 ### Changed
+
 - Updated localization files
 
 ## [v1.2.1] - 2021-12-30
 
 ### Fixed
+
 - Issue when trying to add products to cart
 
 ## [v1.2.0] - 2021-12-29
 
 ### Added
+
 - Support for Product Lists [API v1.2]
   - Include API model, API service, management page and UI form
 
 ### Changed
+
 - Frontpage displays existing Product Lists and their contents - instead of fetching 'all' products in existence
 - Updated localization files
 
 ## [v1.1.2] - 2021-12-26
 
 ### Added
+
 - Support for sort pagination parameters [API v1.1.2]
 - Support for sorting and pagination in datatables in the management page
 
 ### Changed
+
 - Prices and currency values displayed with Angular currency pipe instead of adding a prefix
 - Updated localization files
 
 ### Fixed
+
 - Creation and general use of categories within local-memory api (such as in, the demo link)
 - Issue updating categories due to calling API with wrong query parameters
 - Issue opening sales data for edition due to bad template binding
@@ -188,6 +210,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [v1.1.1] - 2021-12-18
 
 ### Added
+
 - Angular i18n support
   - Include localization package
   - Mark text for translation - __Now it's possible to generate translation files using the command `ng extract-i18n`__
@@ -206,6 +229,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - This tree works on the assumption that categories are identified by a string property named `code`
 
 ### Changed
+
 - API models
   - `Image` - add `code` property [API v1.0.4]
   - `Person` - split `name` property into two: `lastName` and `firstName` [API v1.1.0]
@@ -225,16 +249,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - e.g. `/data/products/1` would now be called as `/data/products?id=1`
 
 ### Fixed
+
 - Footer remains stuck at the bottom of the page, instead of the viewport
 - Interface to upload images in management module not creating any data
   - There is no available API for uploading images; use a plain-text form as fallback
 
 ### Removed
+
 - Old `localhost.proxy.conf.json` used to bypass CORS e.g. for servers running in localhost
   - Angular still guides users on how to create these, but it's not a good practice
-  - Servers should always have CORS enabled and configured so that JavaScript apps can access them (see https://enable-cors.org/)
+  - Servers should always have CORS enabled and configured so that JavaScript apps can access them (see <https://enable-cors.org/>)
 
 ### Other
+
 - Testing
   - Included Edge browser launcher for Karma tests
   - Fixed all warnings raised during unit tests
@@ -242,6 +269,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.1] - 2021-10-21
 
 ### Fixed
+
 - Login status not refreshing when using local memory (mock) api module
   - Fix related unit tests
 
