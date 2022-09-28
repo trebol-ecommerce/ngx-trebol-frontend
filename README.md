@@ -1,19 +1,25 @@
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+<h1 align="center">Trébol eCommerce Angular Frontend</h1>
 
-[![NPM Package](https://img.shields.io/github/v/release/trebol-ecommerce/ngx-trebol-frontend?include_prereleases)](https://github.com/trebol-ecommerce/ngx-trebol-frontend/tags)
-[![Build Status](https://app.travis-ci.com/trebol-ecommerce/ngx-trebol-frontend.svg?branch=main)](https://travis-ci.com/github/trebol-ecommerce/ngx-trebol-frontend)
+<div align="center">
 
-# Trébol e-Commerce Angular Frontend
+  <a href="https://angular.io">
+    <img src="https://angular.io/assets/images/logos/angular/angular.svg"
+    height="120" alt="Angular Logo">
+  </a>
 
-A single-page web application designed and developed over Angular v13.3, RxJS and Material Design.
+  <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+  [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+  <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-## Current status
+  [![Supported Angular Version](https://img.shields.io/github/package-json/dependency-version/trebol-ecommerce/ngx-trebol-frontend/@angular/core?color=d90036)](https://github.com/trebol-ecommerce/ngx-trebol-frontend/blob/main/package.json)
+  [![Latest GitHub Release](https://img.shields.io/github/v/release/trebol-ecommerce/ngx-trebol-frontend?include_prereleases)](https://github.com/trebol-ecommerce/ngx-trebol-frontend/tags)
+  [![Travis Build Status](https://app.travis-ci.com/trebol-ecommerce/ngx-trebol-frontend.svg?branch=main)](https://travis-ci.com/github/trebol-ecommerce/ngx-trebol-frontend)
 
-Supporting [Trébol API v1.5.0](https://github.com/trebol-ecommerce/api/releases/tag/v1.5.0).
+</div>
 
-Important features in this version of the API include three new paths that can be called to announce status changes for sales:
+## Current status 📓
+
+Aligned against [Trébol API v1.5.0](https://github.com/trebol-ecommerce/api/releases/tag/v1.5.0). Important features in this version of the API include endpoints that trigger events for changing state of orders:
 
 - `POST /data/sales/confirmation` - When the payment is accepted, and the contents are ready to be delivered to the customer
 - `POST /data/sales/rejection` - When any problem is found, the contents cannot be delivered and the customer must be refunded
@@ -21,13 +27,15 @@ Important features in this version of the API include three new paths that can b
 
 Fake API implementation is included to preview this functionality as well.
 
-## Features
+Please see [CHANGELOG.md](CHANGELOG.md) for a detailed overview of the latest changes & additions to the codebase.
+
+## Features 🚀
 
 ### Live Demo
 
 [Visit the application live demo in this link](https://trebol-ecommerce.github.io/ngx-trebol-frontend/).
 
-To access all the features, click on the button with an user icon in the top right corner of the screen. Then type `admin` for both the username and password fields. This will trigger a session state change, affecting the aforementioned button, and allowing you to see an user menu where you can navigate to the management module.
+To access the administrative/management section and all its features, click on the button with an user icon in the top right corner of the screen. It should greet you with the login dialog. Then type `admin` as both username and password in it. And then, the aforementioned button should have a menu with the option to navigate to the admin panel.
 
 #### Mock data
 
@@ -35,20 +43,20 @@ This demo is powered by a feature module that provides data stored in hard-coded
 
 At scale, I interchangeably call this the "fake API" and the "local-memory module". In both cases I mean the same thing.
 
-All (most of the) mock data was created using [Mockaroo](https://mockaroo.com/).
+Most, if not all of the mock data was created using [Mockaroo](https://mockaroo.com/).
 
 ### Infrastructure
 
 The application itself is divided into modules in the `/src/app/` directory, and its structure is as follows:
 
-- `store/` most of the public-facing components; there's the frontpage aka the product catalog, the checkout page, and the receipt page
+- `store/` most of the public-facing components; there's the frontpage (aka the product catalog), the checkout page, and the receipt page
 - `management/` the administrative area of the app: there you register, update and categorize products; create users; list customers; upload images, etcetera
-- `shared/` exports components, directives, and other stuff that is used by other modules, and the application as a whole
+- `shared/` exports Angular components, directives, and general elements that are used by other modules, and the application as a whole
 - `api/` contains interfaces, modules, and dependency injection tokens to interact with [the backend REST API](https://github.com/trebol-ecommerce/api)
   - `local-memory/` serves a fake API basically running in the browser itself; it's the default option to build and serve with; and the demo uses it too
-  - `http/` serves the API with HTTP calls; these require a real, running backend with an exposed REST API compliant to the specification linked above
+  - `http/` serves an access to a real API through HTTP calls; these require a real, running backend with an exposed REST API compliant to the specification linked above
 
-The `api` module is [imported through an environment file](#configuring-the-build--serve-process) to easily switch between implementations.
+The `api` module is [imported through an environment file](#configure-the-build--serve-process) which makes it painless to switch between implementations.
 
 ### Internationalization
 
@@ -60,7 +68,7 @@ This project uses [Angular i18n features](https://angular.io/guide/i18n-overview
 
 If you wish to translate this frontend to another language, check out [this Angular guide on working with translation files](https://angular.io/guide/i18n-common-translation-files).
 
-## Getting started
+## Getting started 👍
 
 ### Requirements
 
@@ -79,6 +87,7 @@ Unit test suites run using Jasmine. The steps to make them run are simple:
 Execute `ng t --no-watch --browsers={browser}` in the root directory to test the entire application inmediately, only once.
 
 When developing/hacking though, you might find it better to have the app run tests whenever you change any part of the code (like `ng serve` does). To do that instead:
+
 1. Execute `ng t` or `ng test` in the root directory to simply start the Karma server.
 2. Connect to its listening address (e.g. `localhost:9876`) with your browser.
 3. In the root directory, under a different process, execute `karma run`. OR you can press the `DEBUG` button in the browser window, to initiate the test suites in debug mode.
@@ -94,7 +103,6 @@ When developing/hacking though, you might find it better to have the app run tes
   - You can use more than one configuration, but some of the definitions will collide. Please do have a look at them before trying to use them.
 - This project also declares the [angular-cli-ghpages plugin](https://github.com/angular-schule/angular-cli-ghpages#options) as a devDependency, which you may find useful to deploy to a GitHub Pages environment like in the live demo.
 
-
 #### Quick configuration steps
 
 1. Create a copy of the two environment files and rename them accordingly from your desired configuration e.g. `environment.localhost.ts` and `environment-modules.localhost.ts`.
@@ -103,8 +111,7 @@ When developing/hacking though, you might find it better to have the app run tes
   A) mind the corresponding subdirectory
   B) remove, comment or change the value of the `<base>` tag in the generated `index.html`
 
-
-## Contributing to this repository
+## Contributing to this repository 😍
 
 I accept all kinds of contributions! However, please review the [contribution guidelines](https://github.com/trebol-ecommerce/ngx-trebol-frontend/blob/main/CONTRIBUTING.md) before proceeding.
 
