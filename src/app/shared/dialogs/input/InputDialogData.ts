@@ -5,10 +5,10 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 export interface InputDialogData {
   title: string;
   hint: string;
-  formControl: FormControl;
+  formControl: UntypedFormControl;
 }

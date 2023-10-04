@@ -6,7 +6,7 @@
  */
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { from, Subscription } from 'rxjs';
@@ -30,12 +30,12 @@ export class StoreHeaderSearchFormComponent
 
   readonly searchFiltersDebounceMs = 400;
 
-  formGroup: FormGroup;
-  get nameLike() { return this.formGroup.get('nameLike') as FormControl; }
-  get categoryCode() { return this.formGroup.get('categoryCode') as FormControl; }
+  formGroup: UntypedFormGroup;
+  get nameLike() { return this.formGroup.get('nameLike') as UntypedFormControl; }
+  get categoryCode() { return this.formGroup.get('categoryCode') as UntypedFormControl; }
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private dialogService: MatDialog,
     private searchService: StoreSearchService,
     private route: ActivatedRoute,

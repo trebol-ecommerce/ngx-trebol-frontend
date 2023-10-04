@@ -7,7 +7,7 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,8 +21,8 @@ import { CompanyFormComponent } from './company-form.component';
 class MockHigherOrderFormComponent {
   @ViewChild(CompanyFormComponent, { static: true }) companyFormComponent: CompanyFormComponent;
 
-  formGroup = new FormGroup({ company: new FormControl(null) });
-  get company() { return this.formGroup.get('company') as FormControl; }
+  formGroup = new UntypedFormGroup({ company: new UntypedFormControl(null) });
+  get company() { return this.formGroup.get('company') as UntypedFormControl; }
 }
 
 describe('CompanyFormComponent', () => {

@@ -7,7 +7,7 @@
 
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS,
+  AbstractControl, ControlValueAccessor, UntypedFormControl, UntypedFormGroup, NG_VALIDATORS,
   NG_VALUE_ACCESSOR, ValidationErrors, Validator
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -43,15 +43,15 @@ export class ProductFormComponent
 
   readonly formChangesDebounceTimeMs = 50;
 
-  @Input() formGroup: FormGroup;
-  get images() { return this.formGroup.get('images') as FormControl; }
-  get barcode() { return this.formGroup.get('barcode') as FormControl; }
-  get name() { return this.formGroup.get('name') as FormControl; }
-  get category() { return this.formGroup.get('category') as FormControl; }
-  get price() { return this.formGroup.get('price') as FormControl; }
+  @Input() formGroup: UntypedFormGroup;
+  get images() { return this.formGroup.get('images') as UntypedFormControl; }
+  get barcode() { return this.formGroup.get('barcode') as UntypedFormControl; }
+  get name() { return this.formGroup.get('name') as UntypedFormControl; }
+  get category() { return this.formGroup.get('category') as UntypedFormControl; }
+  get price() { return this.formGroup.get('price') as UntypedFormControl; }
   // get stock() { return this.formGroup.get('stock') as FormControl; }
   // get criticalStock() { return this.formGroup.get('criticalStock') as FormControl; }
-  get description() { return this.formGroup.get('description') as FormControl; }
+  get description() { return this.formGroup.get('description') as UntypedFormControl; }
 
   onChange: (value: any) => void;
   onTouched: () => void;

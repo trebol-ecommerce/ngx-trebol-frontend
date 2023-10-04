@@ -7,7 +7,7 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormControl, UntypedFormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -44,8 +44,8 @@ class MockAddressFormComponent
 class MockHigherOrderFormComponent {
   @ViewChild(StoreBillingDetailsFormComponent, { static: true }) billingFormComponent: StoreBillingDetailsFormComponent;
 
-  formGroup = new FormGroup({ billing: new FormControl(null) });
-  get billing() { return this.formGroup.get('billing') as FormControl; }
+  formGroup = new UntypedFormGroup({ billing: new UntypedFormControl(null) });
+  get billing() { return this.formGroup.get('billing') as UntypedFormControl; }
 }
 
 const mockFormData: BillingDetails = {

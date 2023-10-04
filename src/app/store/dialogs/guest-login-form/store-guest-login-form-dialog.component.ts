@@ -6,7 +6,7 @@
  */
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Subject, Subscription, throwError } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
@@ -27,8 +27,8 @@ export class StoreGuestLoginFormDialogComponent
 
   submitting$ = this.submittingSource.asObservable();
 
-  formGroup: FormGroup;
-  get person() { return this.formGroup.get('person') as FormControl; }
+  formGroup: UntypedFormGroup;
+  get person() { return this.formGroup.get('person') as UntypedFormControl; }
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -37,8 +37,8 @@ export class StoreGuestLoginFormDialogComponent
   ) { }
 
   ngOnInit(): void {
-    this.formGroup = new FormGroup({
-      person: new FormControl(null, Validators.required)
+    this.formGroup = new UntypedFormGroup({
+      person: new UntypedFormControl(null, Validators.required)
     });
   }
 

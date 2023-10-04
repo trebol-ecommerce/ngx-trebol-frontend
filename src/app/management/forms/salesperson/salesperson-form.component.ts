@@ -7,7 +7,7 @@
 
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
+  AbstractControl, ControlValueAccessor, UntypedFormControl, UntypedFormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
   ValidationErrors, Validator, Validators
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -37,8 +37,8 @@ export class SalespersonFormComponent
 
   private valueChangesSub: Subscription;
 
-  @Input() formGroup: FormGroup;
-  get person() { return this.formGroup.get('person') as FormControl; }
+  @Input() formGroup: UntypedFormGroup;
+  get person() { return this.formGroup.get('person') as UntypedFormControl; }
 
   onChange: (value: any) => void;
   onTouched: () => void;
@@ -52,8 +52,8 @@ export class SalespersonFormComponent
 
   ngOnInit(): void {
     if (!this.formGroup) {
-      this.formGroup = new FormGroup({
-        person: new FormControl('', Validators.required)
+      this.formGroup = new UntypedFormGroup({
+        person: new UntypedFormControl('', Validators.required)
       });
     }
     this.valueChangesSub = this.formGroup.valueChanges.pipe(

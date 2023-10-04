@@ -7,7 +7,7 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,8 +22,8 @@ import { AddressFormComponent } from './address-form.component';
 class MockHigherOrderFormComponent {
   @ViewChild(AddressFormComponent, { static: true }) addressFormComponent: AddressFormComponent;
 
-  formGroup = new FormGroup({ address: new FormControl(null) });
-  get address() { return this.formGroup.get('address') as FormControl; }
+  formGroup = new UntypedFormGroup({ address: new UntypedFormControl(null) });
+  get address() { return this.formGroup.get('address') as UntypedFormControl; }
 }
 
 describe('AddressFormComponent', () => {

@@ -7,7 +7,7 @@
 
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
+  AbstractControl, ControlValueAccessor, UntypedFormControl, UntypedFormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
   ValidationErrors, Validator
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -39,13 +39,13 @@ export class PersonFormComponent
 
   readonly formChangesDebounceTimeMs = 50;
 
-  @Input() formGroup: FormGroup;
-  get firstName() { return this.formGroup.get('firstName') as FormControl; }
-  get lastName() { return this.formGroup.get('lastName') as FormControl; }
-  get idNumber() { return this.formGroup.get('idNumber') as FormControl; }
-  get email() { return this.formGroup.get('email') as FormControl; }
-  get phone1() { return this.formGroup.get('phone1') as FormControl; }
-  get phone2() { return this.formGroup.get('phone2') as FormControl; }
+  @Input() formGroup: UntypedFormGroup;
+  get firstName() { return this.formGroup.get('firstName') as UntypedFormControl; }
+  get lastName() { return this.formGroup.get('lastName') as UntypedFormControl; }
+  get idNumber() { return this.formGroup.get('idNumber') as UntypedFormControl; }
+  get email() { return this.formGroup.get('email') as UntypedFormControl; }
+  get phone1() { return this.formGroup.get('phone1') as UntypedFormControl; }
+  get phone2() { return this.formGroup.get('phone2') as UntypedFormControl; }
 
   onChange: (value: any) => void;
   onTouched: () => void;

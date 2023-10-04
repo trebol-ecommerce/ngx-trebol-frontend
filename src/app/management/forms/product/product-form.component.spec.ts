@@ -7,7 +7,7 @@
 
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormControl, UntypedFormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -26,8 +26,8 @@ import { ProductFormComponent } from './product-form.component';
 class MockHigherOrderFormComponent {
   @ViewChild(ProductFormComponent, { static: true }) productFormComponent: ProductFormComponent;
 
-  formGroup = new FormGroup({ product: new FormControl(null) });
-  get product() { return this.formGroup.get('product') as FormControl; }
+  formGroup = new UntypedFormGroup({ product: new UntypedFormControl(null) });
+  get product() { return this.formGroup.get('product') as UntypedFormControl; }
 }
 
 const mockProduct = MOCK_PRODUCTS[Math.floor(Math.random() * MOCK_PRODUCTS.length)];

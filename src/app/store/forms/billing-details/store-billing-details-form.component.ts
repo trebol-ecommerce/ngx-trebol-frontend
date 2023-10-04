@@ -7,7 +7,7 @@
 
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS,
+  AbstractControl, ControlValueAccessor, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, NG_VALIDATORS,
   NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -40,17 +40,17 @@ export class StoreBillingDetailsFormComponent
 
   readonly typesOptions = [ ...BILLING_TYPE_NAMES_MAP.entries() ];
 
-  @Input() formGroup: FormGroup;
-  get typeName() { return this.formGroup.get('typeName') as FormControl; }
-  get company() { return this.formGroup.get('company') as FormControl; }
-  get address() { return this.formGroup.get('address') as FormControl; }
+  @Input() formGroup: UntypedFormGroup;
+  get typeName() { return this.formGroup.get('typeName') as UntypedFormControl; }
+  get company() { return this.formGroup.get('company') as UntypedFormControl; }
+  get address() { return this.formGroup.get('address') as UntypedFormControl; }
 
   onChange: (value: any) => void;
   onTouched: () => void;
   onValidatorChange: () => void;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: UntypedFormBuilder
   ) {
     this.onChange = (v) => { };
     this.onTouched = () => { };

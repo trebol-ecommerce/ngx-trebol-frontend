@@ -6,7 +6,7 @@
  */
 
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter, take, tap } from 'rxjs/operators';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_VALIDATION_ERROR_MESSAGE } from 'src/text/messages';
@@ -22,13 +22,13 @@ export class StoreCheckoutRequestFormComponent
 
   @Output() request = new EventEmitter<void>();
 
-  formGroup: FormGroup;
-  get billing() { return this.formGroup.get('billing') as FormControl; }
-  get customer() { return this.formGroup.get('customer') as FormControl; }
-  get shipping() { return this.formGroup.get('shipping') as FormControl; }
+  formGroup: UntypedFormGroup;
+  get billing() { return this.formGroup.get('billing') as UntypedFormControl; }
+  get customer() { return this.formGroup.get('customer') as UntypedFormControl; }
+  get shipping() { return this.formGroup.get('shipping') as UntypedFormControl; }
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private snackBarService: MatSnackBar,
     private cartService: StoreCartService
   ) {

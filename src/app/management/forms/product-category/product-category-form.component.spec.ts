@@ -7,7 +7,7 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormControl, UntypedFormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,8 +22,8 @@ import { ProductCategoryFormComponent } from './product-category-form.component'
 class MockHigherOrderFormComponent {
   @ViewChild(ProductCategoryFormComponent, { static: true }) productCategoryFormComponent: ProductCategoryFormComponent;
 
-  formGroup = new FormGroup({ productCategory: new FormControl(null) });
-  get productCategory() { return this.formGroup.get('productCategory') as FormControl; }
+  formGroup = new UntypedFormGroup({ productCategory: new UntypedFormControl(null) });
+  get productCategory() { return this.formGroup.get('productCategory') as UntypedFormControl; }
 }
 
 @Component({

@@ -6,7 +6,7 @@
  */
 
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -34,8 +34,8 @@ export class EntityFormDialogComponent<T>
 
   dialogTitle: string;
 
-  formGroup: FormGroup;
-  get item() { return this.formGroup?.get('item') as FormControl; }
+  formGroup: UntypedFormGroup;
+  get item() { return this.formGroup?.get('item') as UntypedFormControl; }
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Partial<EntityFormDialogData<T>>,
@@ -53,8 +53,8 @@ export class EntityFormDialogComponent<T>
       () => $localize`:Message of success after saving some data:Data saved successfully`;
 
     if (this.data.entityType) {
-      this.formGroup = new FormGroup({
-        item: new FormControl(this.data.item || null, Validators.required)
+      this.formGroup = new UntypedFormGroup({
+        item: new UntypedFormControl(this.data.item || null, Validators.required)
       });
     }
   }

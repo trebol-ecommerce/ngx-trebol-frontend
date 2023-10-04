@@ -6,18 +6,18 @@
  */
 
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { EntityTypeName } from 'src/models/EntityTypeNames';
 
 @Injectable({ providedIn: 'root' })
 export class EntityFormGroupFactoryService {
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: UntypedFormBuilder
   ) { }
 
   // TODO support setting initial value for every one of these forms
-  createFormGroupFor(typeName: EntityTypeName): FormGroup | null {
+  createFormGroupFor(typeName: EntityTypeName): UntypedFormGroup | null {
     switch (typeName) {
       case 'address': return this.createAddressFormGroup();
       case 'image': return this.createImageFormGroup();

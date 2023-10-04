@@ -7,7 +7,7 @@
 
 import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALIDATORS,
+  AbstractControl, ControlValueAccessor, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, NG_VALIDATORS,
   NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -38,16 +38,16 @@ export class CompanyFormComponent
 
   readonly formChangesDebounceTimeMs = 50;
 
-  @Input() formGroup: FormGroup;
-  get idNumber() { return this.formGroup.get('idNumber') as FormControl; }
-  get name() { return this.formGroup.get('name') as FormControl; }
+  @Input() formGroup: UntypedFormGroup;
+  get idNumber() { return this.formGroup.get('idNumber') as UntypedFormControl; }
+  get name() { return this.formGroup.get('name') as UntypedFormControl; }
 
   onChange: (value: any) => void;
   onTouched: () => void;
   onValidatorChange: () => void;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: UntypedFormBuilder
   ) {
     this.onChange = (v) => { };
     this.onTouched = () => { };

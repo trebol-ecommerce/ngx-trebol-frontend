@@ -7,7 +7,7 @@
 
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS,
+  AbstractControl, ControlValueAccessor, UntypedFormControl, UntypedFormGroup, NG_VALIDATORS,
   NG_VALUE_ACCESSOR, ValidationErrors, Validator
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -39,8 +39,8 @@ export class ShipperFormComponent
 
   readonly formChangesDebounceTimeMs = 50;
 
-  @Input() formGroup: FormGroup;
-  get name() { return this.formGroup.get('name') as FormControl; }
+  @Input() formGroup: UntypedFormGroup;
+  get name() { return this.formGroup.get('name') as UntypedFormControl; }
 
   onChange: (value: any) => void;
   onTouched: () => void;

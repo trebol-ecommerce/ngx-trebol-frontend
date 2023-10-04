@@ -7,7 +7,7 @@
 
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
+  AbstractControl, ControlValueAccessor, UntypedFormControl, UntypedFormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
   ValidationErrors, Validator
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -39,10 +39,10 @@ export class ProductCategoryFormComponent
 
   readonly formChangesDebounceTimeMs = 50;
 
-  @Input() formGroup: FormGroup;
-  get code() { return this.formGroup.get('code') as FormControl; }
-  get name() { return this.formGroup.get('name') as FormControl; }
-  get parent() { return this.formGroup.get('parent') as FormControl; }
+  @Input() formGroup: UntypedFormGroup;
+  get code() { return this.formGroup.get('code') as UntypedFormControl; }
+  get name() { return this.formGroup.get('name') as UntypedFormControl; }
+  get parent() { return this.formGroup.get('parent') as UntypedFormControl; }
 
   onChange: (value: any) => void;
   onTouched: () => void;

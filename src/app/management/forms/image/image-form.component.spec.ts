@@ -7,7 +7,7 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,8 +22,8 @@ import { ImageFormComponent } from './image-form.component';
 class MockHigherOrderFormComponent {
   @ViewChild(ImageFormComponent, { static: true }) imageFormComponent: ImageFormComponent;
 
-  formGroup = new FormGroup({ image: new FormControl(null) });
-  get image() { return this.formGroup.get('image') as FormControl; }
+  formGroup = new UntypedFormGroup({ image: new UntypedFormControl(null) });
+  get image() { return this.formGroup.get('image') as UntypedFormControl; }
 }
 
 const mockImage = MOCK_IMAGES[Math.floor(Math.random() * MOCK_IMAGES.length)];
