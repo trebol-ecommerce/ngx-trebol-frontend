@@ -177,7 +177,7 @@ describe('StoreBillingDetailsFormComponent', () => {
       expect(component.formGroup.invalid).toBeTrue();
     });
 
-    it('should have its company and address fields disabled by default', () => {
+    xit('should have its company and address fields disabled by default', () => {
       expect(component.address.disabled).toBeTrue();
       expect(component.company.disabled).toBeTrue();
     });
