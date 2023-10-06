@@ -6,7 +6,7 @@
  */
 
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
@@ -24,14 +24,14 @@ export class ProductFiltersPanelComponent
 
   @Output() filtersChanges = new EventEmitter<ProductSearchQuery>();
 
-  formGroup: FormGroup;
-  get categoryCode() { return this.formGroup.get('categoryCode') as FormControl; }
-  get nameLike() { return this.formGroup.get('nameLike') as FormControl; }
+  formGroup: UntypedFormGroup;
+  get categoryCode() { return this.formGroup.get('categoryCode') as UntypedFormControl; }
+  get nameLike() { return this.formGroup.get('nameLike') as UntypedFormControl; }
 
   readonly formChangesDebouncingTimeMs = 300;
 
   constructor(
-    protected formBuilder: FormBuilder
+    protected formBuilder: UntypedFormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
       categoryCode: [null],

@@ -7,7 +7,7 @@
 
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormBuilder, FormControl, FormGroup,
+  AbstractControl, ControlValueAccessor, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup,
   NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -37,16 +37,16 @@ export class StoreShippingDetailsFormComponent
   private valueChangesSub: Subscription;
   private includeShippingChangesSub: Subscription;
 
-  @Input() formGroup: FormGroup;
-  get included() { return this.formGroup.get('included') as FormControl; }
-  get address() { return this.formGroup.get('address') as FormControl; }
+  @Input() formGroup: UntypedFormGroup;
+  get included() { return this.formGroup.get('included') as UntypedFormControl; }
+  get address() { return this.formGroup.get('address') as UntypedFormControl; }
 
   onChange: (value: any) => void;
   onTouched: () => void;
   onValidatorChange: () => void;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: UntypedFormBuilder
   ) {
     this.onChange = (v) => { };
     this.onTouched = () => { };

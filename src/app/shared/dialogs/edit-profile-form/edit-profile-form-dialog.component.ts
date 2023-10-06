@@ -6,7 +6,7 @@
  */
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
@@ -30,8 +30,8 @@ export class EditProfileFormDialogComponent
   saving$ = this.savingSource.asObservable();
   cancelButtonColor$: Observable<string>;
 
-  formGroup: FormGroup;
-  get profile() { return this.formGroup.get('profile') as FormControl; }
+  formGroup: UntypedFormGroup;
+  get profile() { return this.formGroup.get('profile') as UntypedFormControl; }
 
   constructor(
     private dialog: MatDialogRef<EditProfileFormDialogComponent>,
@@ -40,8 +40,8 @@ export class EditProfileFormDialogComponent
   ) { }
 
   ngOnInit(): void {
-    this.formGroup = new FormGroup({
-      profile: new FormControl({ value: null }, Validators.required)
+    this.formGroup = new UntypedFormGroup({
+      profile: new UntypedFormControl({ value: null }, Validators.required)
     });
     this.loadFormSub = this.profileService.getUserProfile().pipe(
       tap(profile => this.formGroup.setValue({ profile }))

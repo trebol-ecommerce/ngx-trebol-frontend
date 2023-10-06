@@ -7,7 +7,7 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,8 +25,8 @@ import { SlideshowComponent } from './slideshow.component';
 class MockHigherOrderFormComponent {
   @ViewChild(SlideshowComponent, { static: true }) slideshowComponent: SlideshowComponent;
 
-  formGroup = new FormGroup({ images: new FormControl(null) });
-  get images() { return this.formGroup.get('images') as FormControl; }
+  formGroup = new UntypedFormGroup({ images: new UntypedFormControl(null) });
+  get images() { return this.formGroup.get('images') as UntypedFormControl; }
 }
 
 describe('SlideshowComponent', () => {

@@ -7,7 +7,7 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,8 +22,8 @@ import { ShipperFormComponent } from './shipper-form.component';
 class MockHigherOrderFormComponent {
   @ViewChild(ShipperFormComponent, { static: true }) shipperFormComponent: ShipperFormComponent;
 
-  formGroup = new FormGroup({ shipper: new FormControl(null) });
-  get shipper() { return this.formGroup.get('shipper') as FormControl; }
+  formGroup = new UntypedFormGroup({ shipper: new UntypedFormControl(null) });
+  get shipper() { return this.formGroup.get('shipper') as UntypedFormControl; }
 }
 
 const mockShipper = MOCK_SHIPPERS[Math.floor(Math.random() * MOCK_SHIPPERS.length)];

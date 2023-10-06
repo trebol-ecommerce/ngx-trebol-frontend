@@ -7,7 +7,7 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,8 +27,8 @@ import { ProductCategorySelectorFieldComponent } from './product-category-select
 class MockHigherOrderFormComponent {
   @ViewChild(ProductCategorySelectorFieldComponent, { static: true }) personFormComponent: ProductCategorySelectorFieldComponent;
 
-  formGroup = new FormGroup({ category: new FormControl(null) });
-  get category() { return this.formGroup.get('category') as FormControl; }
+  formGroup = new UntypedFormGroup({ category: new UntypedFormControl(null) });
+  get category() { return this.formGroup.get('category') as UntypedFormControl; }
 }
 
 const mockCategory = MOCK_PRODUCT_CATEGORIES[Math.floor(Math.random() * MOCK_PRODUCT_CATEGORIES.length)];

@@ -7,7 +7,7 @@
 
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
+  AbstractControl, ControlValueAccessor, UntypedFormControl, UntypedFormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
   ValidationErrors, Validator
 } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
@@ -46,11 +46,11 @@ export class UserFormComponent
   people$: Observable<Person[]>;
   roles$: Observable<UserRole[]>;
 
-  @Input() formGroup: FormGroup;
-  get name() { return this.formGroup.get('name') as FormControl; }
-  get password() { return this.formGroup.get('password') as FormControl; }
-  get person() { return this.formGroup.get('person') as FormControl; }
-  get role() { return this.formGroup.get('role') as FormControl; }
+  @Input() formGroup: UntypedFormGroup;
+  get name() { return this.formGroup.get('name') as UntypedFormControl; }
+  get password() { return this.formGroup.get('password') as UntypedFormControl; }
+  get person() { return this.formGroup.get('person') as UntypedFormControl; }
+  get role() { return this.formGroup.get('role') as UntypedFormControl; }
 
   onChange: (value: any) => void;
   onTouched: () => void;

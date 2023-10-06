@@ -7,7 +7,7 @@
 
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS,
+  AbstractControl, ControlValueAccessor, UntypedFormControl, UntypedFormGroup, NG_VALIDATORS,
   NG_VALUE_ACCESSOR, ValidationErrors, Validator
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -39,12 +39,12 @@ export class AddressFormComponent
 
   readonly formChangesDebounceTimeMs = 50;
 
-  @Input() formGroup: FormGroup;
-  get city() { return this.formGroup.get('city') as FormControl; }
-  get municipality() { return this.formGroup.get('municipality') as FormControl; }
-  get firstLine() { return this.formGroup.get('firstLine') as FormControl; }
-  get secondLine() { return this.formGroup.get('secondLine') as FormControl; }
-  get notes() { return this.formGroup.get('notes') as FormControl; }
+  @Input() formGroup: UntypedFormGroup;
+  get city() { return this.formGroup.get('city') as UntypedFormControl; }
+  get municipality() { return this.formGroup.get('municipality') as UntypedFormControl; }
+  get firstLine() { return this.formGroup.get('firstLine') as UntypedFormControl; }
+  get secondLine() { return this.formGroup.get('secondLine') as UntypedFormControl; }
+  get notes() { return this.formGroup.get('notes') as UntypedFormControl; }
 
   onChange: (value: any) => void;
   onTouched: () => void;

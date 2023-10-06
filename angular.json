@@ -222,9 +222,10 @@
       }
     }
   },
-  "defaultProject": "ngx-trebol-frontend",
   "cli": {
     "analytics": "83e020b2-8b28-4f70-a356-9f0dd5cec7e9",
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

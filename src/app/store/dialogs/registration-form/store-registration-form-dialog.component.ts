@@ -6,7 +6,7 @@
  */
 
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, Subscription, throwError } from 'rxjs';
@@ -37,16 +37,16 @@ export class StoreRegistrationFormDialogComponent
 
   registering$ = this.registeringSource.asObservable();
 
-  formGroup: FormGroup;
-  get name() { return this.formGroup.get('name') as FormControl; }
-  get pass1() { return this.formGroup.get('pass1') as FormControl; }
-  get pass2() { return this.formGroup.get('pass2') as FormControl; }
-  get person() { return this.formGroup.get('person') as FormControl; }
+  formGroup: UntypedFormGroup;
+  get name() { return this.formGroup.get('name') as UntypedFormControl; }
+  get pass1() { return this.formGroup.get('pass1') as UntypedFormControl; }
+  get pass2() { return this.formGroup.get('pass2') as UntypedFormControl; }
+  get person() { return this.formGroup.get('person') as UntypedFormControl; }
 
   constructor(
     private authenticationService: AuthenticationService,
     private profileService: ProfileService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private dialog: MatDialogRef<StoreRegistrationFormDialogComponent>,
     private snackBarService: MatSnackBar,
     private entityFormGroupService: EntityFormGroupFactoryService

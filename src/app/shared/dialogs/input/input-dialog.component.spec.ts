@@ -6,7 +6,7 @@
  */
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,7 +24,7 @@ describe('InputDialogComponent', () => {
     mockDialogData = {
       title: '',
       hint: '',
-      formControl: new FormControl()
+      formControl: new UntypedFormControl()
     };
 
     TestBed.configureTestingModule({

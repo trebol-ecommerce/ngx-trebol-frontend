@@ -7,7 +7,7 @@
 
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import {
-  AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
+  AbstractControl, ControlValueAccessor, UntypedFormControl, UntypedFormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR,
   ValidationErrors, Validator
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -39,10 +39,10 @@ export class ImageFormComponent
 
   readonly formChangesDebounceTimeMs = 50;
 
-  @Input() formGroup: FormGroup;
-  get filename() { return this.formGroup.get('filename') as FormControl; }
-  get url() { return this.formGroup.get('url') as FormControl; }
-  get code() { return this.formGroup.get('code') as FormControl; }
+  @Input() formGroup: UntypedFormGroup;
+  get filename() { return this.formGroup.get('filename') as UntypedFormControl; }
+  get url() { return this.formGroup.get('url') as UntypedFormControl; }
+  get code() { return this.formGroup.get('code') as UntypedFormControl; }
 
   onChange: (value: any) => void;
   onTouched: () => void;

@@ -7,7 +7,7 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,8 +22,8 @@ import { PersonFormComponent } from './person-form.component';
 class MockHigherOrderFormComponent {
   @ViewChild(PersonFormComponent, { static: true }) personFormComponent: PersonFormComponent;
 
-  formGroup = new FormGroup({ person: new FormControl(null) });
-  get person() { return this.formGroup.get('person') as FormControl; }
+  formGroup = new UntypedFormGroup({ person: new UntypedFormControl(null) });
+  get person() { return this.formGroup.get('person') as UntypedFormControl; }
 }
 
 const mockPerson = MOCK_PEOPLE[Math.floor(Math.random() * MOCK_PEOPLE.length)];

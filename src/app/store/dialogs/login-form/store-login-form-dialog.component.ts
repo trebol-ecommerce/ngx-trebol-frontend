@@ -6,7 +6,7 @@
  */
 
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
@@ -34,15 +34,15 @@ export class StoreLoginFormDialogComponent
   togglePasswordIcon$: Observable<string>;
   passwordInputType$: Observable<string>;
 
-  formGroup: FormGroup;
-  get username() { return this.formGroup.get('username') as FormControl; }
-  get password() { return this.formGroup.get('password') as FormControl; }
+  formGroup: UntypedFormGroup;
+  get username() { return this.formGroup.get('username') as UntypedFormControl; }
+  get password() { return this.formGroup.get('password') as UntypedFormControl; }
 
   @ViewChild('registerButton', { static: true }) registerButton: DialogSwitcherButtonComponent;
 
   constructor(
     private dialog: MatDialogRef<StoreLoginFormDialogComponent>,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private snackBarService: MatSnackBar,
     private authenticationService: AuthenticationService
   ) { }

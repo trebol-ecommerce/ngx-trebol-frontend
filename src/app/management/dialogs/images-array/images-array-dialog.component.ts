@@ -6,7 +6,7 @@
  */
 
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSelectionListChange } from '@angular/material/list';
 import { PageEvent } from '@angular/material/paginator';
@@ -33,7 +33,7 @@ export class ImagesArrayDialogComponent
   private filterChangeNotifier = new Subject<void>();
 
   selectedImages: Image[];
-  filterFormControl = new FormControl();
+  filterFormControl = new UntypedFormControl();
   pageSizeOptions = [10, 20, 50];
   loading$: Observable<boolean>;
   options$: Observable<ImageArrayOption[]>;

@@ -6,7 +6,7 @@
  */
 
 import { Component, Inject } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { InputDialogData } from './InputDialogData';
 
@@ -17,7 +17,7 @@ import { InputDialogData } from './InputDialogData';
 })
 export class InputDialogComponent {
 
-  formControl = new FormControl();
+  formControl = new UntypedFormControl();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: InputDialogData
