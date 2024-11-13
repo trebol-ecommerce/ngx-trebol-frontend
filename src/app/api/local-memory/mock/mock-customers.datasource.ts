@@ -5,20 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Customer } from 'src/models/entities/Customer';
 import { MOCK_PEOPLE } from './mock-people.datasource';
+import { Person } from 'src/models/entities/Person';
 
-export const MOCK_CUSTOMERS: Customer[] = [
-  {
-    person: MOCK_PEOPLE[9]
-  },
-  {
-    person: MOCK_PEOPLE[10]
-  },
-  {
-    person: MOCK_PEOPLE[11]
-  },
-  {
-    person: MOCK_PEOPLE[12]
-  }
+export const MOCK_CUSTOMERS: Person[] = [
+  MOCK_PEOPLE[9],
+  MOCK_PEOPLE[10],
+  MOCK_PEOPLE[11],
+  MOCK_PEOPLE[12]
 ];

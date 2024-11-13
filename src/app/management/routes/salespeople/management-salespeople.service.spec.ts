@@ -10,12 +10,12 @@ import { of } from 'rxjs';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { SharedDialogService } from 'src/app/shared/dialogs/shared-dialog.service';
-import { Salesperson } from 'src/models/entities/Salesperson';
+import { Person } from 'src/models/entities/Person';
 import { ManagementSalespeopleService } from './management-salespeople.service';
 
 describe('ManagementSalespeopleService', () => {
   let service: ManagementSalespeopleService;
-  let mockApiService: Partial<ITransactionalEntityDataApiService<Salesperson>>;
+  let mockApiService: Partial<ITransactionalEntityDataApiService<Person>>;
   let mockSharedDialogService: Partial<SharedDialogService>;
 
   beforeEach(() => {

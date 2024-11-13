@@ -31,7 +31,7 @@ export abstract class TransactionalDataManagerServiceDirective<T>
       title: $localize`:Title of dialog prompt to confirm deletion:Confirm deletion`,
       message: $localize`:Paragraph asking confirmation to delete a portion of data, reminding that it cannot be undone:Are you sure you want to delete this item?`
     }).pipe(
-      filter(didConfirm => didConfirm),
+      filter(didConfirm => !!didConfirm),
       switchMap(() => forkJoin(items.map(item => (
         this.dataService.delete(item).pipe(
           map(() => true),

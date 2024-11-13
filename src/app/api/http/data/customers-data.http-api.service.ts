@@ -9,23 +9,23 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { DataPage } from 'src/models/DataPage';
-import { Customer } from 'src/models/entities/Customer';
 import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
+import { Person } from 'src/models/entities/Person';
 
 @Injectable()
 export class CustomersDataHttpApiService
-  extends TransactionalEntityDataHttpApiService<Customer> {
+  extends TransactionalEntityDataHttpApiService<Person> {
 
   constructor(http: HttpClient) {
     super(http, '/customers');
   }
 
-  fetchExisting(customer: Customer) {
-    return this.http.get<DataPage<Customer>>(
+  fetchExisting(customer: Person) {
+    return this.http.get<DataPage<Person>>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
-          idNumber: String(customer.person.idNumber)
+          idNumber: String(customer.idNumber)
         } })
       }
     ).pipe(
@@ -33,24 +33,24 @@ export class CustomersDataHttpApiService
     );
   }
 
-  update(customer: Customer) {
+  update(customer: Person) {
     return this.http.put(
       this.baseUrl,
       customer,
       {
         params: new HttpParams({ fromObject: {
-          idNumber: String(customer.person.idNumber)
+          idNumber: String(customer.idNumber)
         } })
       }
     );
   }
 
-  delete(customer: Customer) {
+  delete(customer: Person) {
     return this.http.delete(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
-          idNumber: String(customer.person.idNumber)
+          idNumber: String(customer.idNumber)
         } })
       }
     );

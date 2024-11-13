@@ -7,14 +7,14 @@
 
 import { Injectable } from '@angular/core';
 import { compareObjectsForSort } from 'src/functions/compareObjectsForSort';
-import { Customer } from 'src/models/entities/Customer';
+import { Person } from 'src/models/entities/Person';
 import { matchesStringProperty, matchesNumberProperty } from '../entity-data.local-memory-api.functions';
 import { MOCK_CUSTOMERS } from '../mock/mock-customers.datasource';
 import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
 
 @Injectable()
 export class CustomersDataLocalMemoryApiService
-  extends TransactionalEntityDataLocalMemoryApiService<Customer> {
+  extends TransactionalEntityDataLocalMemoryApiService<Person> {
 
   protected items = MOCK_CUSTOMERS.slice();
 
@@ -26,17 +26,17 @@ export class CustomersDataLocalMemoryApiService
    * Iterates each key-value property pair in the provided object,
    * filters all items matching the same properties.
    */
-  protected filterItems(filter: any): Customer[] {
+  protected filterItems(filter: any): Person[] {
     let matchingItems = this.items;
     for (const propName in filter) {
       if (filter.hasOwnProperty(propName) && propName !== 'id') {
         const propValue = filter[propName];
         if (typeof propValue === 'string') {
-          matchingItems = matchingItems.filter(it => matchesStringProperty(it.person, propName, propValue));
+          matchingItems = matchingItems.filter(it => matchesStringProperty(it, propName, propValue));
         } else if (typeof propValue === 'number') {
-          matchingItems = matchingItems.filter(it => matchesNumberProperty(it.person, propName, propValue));
+          matchingItems = matchingItems.filter(it => matchesNumberProperty(it, propName, propValue));
         } else if (propValue === null) {
-          matchingItems = matchingItems.filter(it => (it.person[propName] === null));
+          matchingItems = matchingItems.filter(it => (it[propName] === null));
         }
       }
     }
@@ -44,18 +44,18 @@ export class CustomersDataLocalMemoryApiService
     return matchingItems;
   }
 
-  protected sortItems(a: Customer, b: Customer, sortBy: string, order = 'asc'): number {
+  protected sortItems(a: Person, b: Person, sortBy: string, order = 'asc'): number {
     const objectSortProperty =
       (sortBy === 'name') ? 'lastName' :
       sortBy;
-    return compareObjectsForSort(a.person, b.person, objectSortProperty, order);
+    return compareObjectsForSort(a, b, objectSortProperty, order);
   }
 
-  protected itemExists(customer: Partial<Customer>) {
-    return this.items.some(customer2 => (customer.person.idNumber === customer2.person.idNumber));
+  protected itemExists(customer: Partial<Person>) {
+    return this.items.some(customer2 => (customer.idNumber === customer2.idNumber));
   }
 
-  protected getIndexOfItem(customer: Partial<Customer>) {
-    return this.items.findIndex(customer2 => (customer.person.idNumber === customer2.person.idNumber));
+  protected getIndexOfItem(customer: Partial<Person>) {
+    return this.items.findIndex(customer2 => (customer.idNumber === customer2.idNumber));
   }
 }

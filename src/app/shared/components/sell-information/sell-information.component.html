@@ -9,9 +9,9 @@
   <ng-container *ngIf="sell.customer; else noCustomer">
     <mat-icon>person</mat-icon>
     <span class="details">
-      <span class="name">{{ sell.customer.person.firstName + " " + sell.customer.person.lastName }}</span>
-      <b class="idCard">RUT {{ sell.customer.person.idNumber }}</b>
-      <i class="email">{{ sell.customer.person.email }}</i>
+      <span class="name">{{ sell.customer.firstName + " " + sell.customer.lastName }}</span>
+      <b class="idCard">RUT {{ sell.customer.idNumber }}</b>
+      <i class="email">{{ sell.customer.email }}</i>
     </span>
   </ng-container>
   <ng-template #noCustomer>

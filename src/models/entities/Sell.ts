@@ -7,8 +7,7 @@
 
 import { Address } from './Address';
 import { BillingCompany } from './BillingCompany';
-import { Customer } from './Customer';
-import { Salesperson } from './Salesperson';
+import { Person } from './Person';
 import { SellDetail } from './SellDetail';
 import { Shipper } from './Shipper';
 
@@ -17,12 +16,12 @@ export class Sell {
   billingCompany?: BillingCompany;
   billingType: string;
   buyOrder?: number;
-  customer: Customer;
+  customer: Person;
   date?: Date;
   details: SellDetail[];
   netValue?: number;
   paymentType: string;
-  salesperson?: Salesperson;
+  salesperson?: Person;
   shipper?: Shipper;
   shippingAddress?: Address;
   status?: string;

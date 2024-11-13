@@ -36,9 +36,7 @@ export class StoreCheckoutService {
 
   private createCheckoutRequest(checkoutRequestData: CheckoutRequest, cartDetails: SellDetail[]): Sell {
     const target: Partial<Sell> = {
-      customer: {
-        person: checkoutRequestData.customer
-      },
+      customer: checkoutRequestData.customer,
       details: cartDetails
     };
 

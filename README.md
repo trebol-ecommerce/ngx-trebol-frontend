@@ -17,35 +17,30 @@
 
 </div>
 
-## Current status 📓
+A single-page application that acts as the main frontend for the Trébol eCommerce project.
+Originally written using [Angular 9](https://v9.angular.io/docs), and over the years migrated up to [Angular 15](https://v15.angular.io/docs).
 
-Aligned against [Trébol API v1.5.0](https://github.com/trebol-ecommerce/api/releases/tag/v1.5.0). Important features in this version of the API include endpoints that trigger events for changing state of orders:
+## Current status
 
-- `POST /data/sales/confirmation` - When the payment is accepted, and the contents are ready to be delivered to the customer
-- `POST /data/sales/rejection` - When any problem is found, the contents cannot be delivered and the customer must be refunded
-- `POST /data/sales/completion` - When the contents were delivered to the customer, indicating the sell was successful
-
-Fake API implementation is included to preview this functionality as well.
+Working towards alignment with [Trébol API v3.0](https://github.com/trebol-ecommerce/api/blob/v3.0.0/src/trebol-api.json).
 
 Please see [CHANGELOG.md](CHANGELOG.md) for a detailed overview of the latest changes & additions to the codebase.
 
-## Features 🚀
-
-### Live Demo
+## Live Demo
 
 [Visit the application live demo in this link](https://trebol-ecommerce.github.io/ngx-trebol-frontend/).
 
 To access the administrative/management section and all its features, click on the button with an user icon in the top right corner of the screen. It should greet you with the login dialog. Then type `admin` as both username and password in it. And then, the aforementioned button should have a menu with the option to navigate to the admin panel.
 
-#### Mock data
+### Mock data
 
 This demo is powered by a feature module that provides data stored in hard-coded JS arrays; this means that your browser's working memory acts as a fake and volatile persistence layer. You can try all CRUD-related functionalities as you'd expect, but if you force a reload or leave the application, all changes in data will be lost.
 
 At scale, I interchangeably call this the "fake API" and the "local-memory module". In both cases I mean the same thing.
 
-Most, if not all of the mock data was created using [Mockaroo](https://mockaroo.com/).
+Most of the data itself was generated using [Mockaroo](https://mockaroo.com/).
 
-### Infrastructure
+## Features
 
 The application itself is divided into modules in the `/src/app/` directory, and its structure is as follows:
 
@@ -53,10 +48,25 @@ The application itself is divided into modules in the `/src/app/` directory, and
 - `management/` the administrative area of the app: there you register, update and categorize products; create users; list customers; upload images, etcetera
 - `shared/` exports Angular components, directives, and general elements that are used by other modules, and the application as a whole
 - `api/` contains interfaces, modules, and dependency injection tokens to interact with [the backend REST API](https://github.com/trebol-ecommerce/api)
-  - `local-memory/` serves a fake API basically running in the browser itself; it's the default option to build and serve with; and the demo uses it too
-  - `http/` serves an access to a real API through HTTP calls; these require a real, running backend with an exposed REST API compliant to the specification linked above
+  - `local-memory/` serves a fake API basically running in the browser itself; it's the default option to build and serve with; and the live demo (see above) uses it too.
+  - `http/` serves an access to a real API through HTTP calls; these require a real, running backend with an exposed REST API compliant to the specification linked above.
 
 The `api` module is [imported through an environment file](#configure-the-build--serve-process) which makes it painless to switch between implementations.
+
+### Testing
+
+Unit tests use Jasmine and run on top of Karma.
+
+#### Running unit tests once
+
+Execute `ng t --no-watch --browsers={browser}` in the root directory to test the entire application immediately, only once.
+Supported browsers are `chrome`, `edge`, `firefox`, `safari`, and you can add more to the `karma.conf.js` file.
+
+#### Live unit testing
+
+1. Execute `ng t` or `ng test` in the root directory to _simply start the Karma server_.
+2. Connect to its listening address (e.g. `localhost:9876`) with the browser(s) of your preference to prepare them for parallel testing.
+3. In the root directory, under a different terminal process, trigger the tests anytime by executing `karma run`. Alternatively, in the browser window, you can press the `DEBUG` button, to initiate the test suites in debug mode.
 
 ### Internationalization
 
@@ -68,33 +78,31 @@ This project uses [Angular i18n features](https://angular.io/guide/i18n-overview
 
 If you wish to translate this frontend to another language, check out [this Angular guide on working with translation files](https://angular.io/guide/i18n-common-translation-files).
 
-## Getting started 👍
+## Usage
 
 ### Requirements
 
-- [Angular CLI](https://cli.angular.io/) v13 or higher, and a compatible [Node.JS](https://nodejs.org/) installation.
+- A compatible [Node.JS](https://nodejs.org/) installation.
+- [Angular CLI](https://cli.angular.io/) v15 or higher (view [v15 docs here](https://v15.angular.io/cli)).
 
-### How to use
+### Quick setup
 
-1. Clone this repo, using `git clone` or your preferred GUI tool for Git
-2. Execute `npm ci` in the root directory (where `package.json` resides)
+1. Clone this repo.
+2. Execute `npm ci` in the root directory (where `package.json` resides).
 3. Execute `ng s` or `ng serve` in the root directory to preview-run the application. This is equivalent to visiting the live demo linked above.
-4. To work with a backend, you should set up your working environment.
+4. To work with a backend, you should set up your working environment. See `Quick setup` below.
 
-#### Testing
+### Using a backend
 
-Unit test suites run using Jasmine. The steps to make them run are simple:
-Execute `ng t --no-watch --browsers={browser}` in the root directory to test the entire application inmediately, only once.
+1. Create a copy of the two environment files and rename them accordingly from your desired configuration e.g. `environment.localhost.ts` and `environment-modules.localhost.ts`.
+2. Call `ng s` or `ng b` Angular CLI command using the `-c` option to target said configuration e.g. `ng b -c production`. You can target more than one, separating them by commas `,`.
+3. If you used `ng b`, serve the files from your preferred webserver. I often do `php -S localhost:80` from the resulting `./dist/ngx-trebol-frontend/` directory. If you use any of the above mentioned locales you'll have to either:
+  A) mind the corresponding subdirectory
+  B) remove, comment or change the value of the `<base>` tag in the generated `index.html`
 
-When developing/hacking though, you might find it better to have the app run tests whenever you change any part of the code (like `ng serve` does). To do that instead:
+### On the configuration, build, and serve processes
 
-1. Execute `ng t` or `ng test` in the root directory to simply start the Karma server.
-2. Connect to its listening address (e.g. `localhost:9876`) with your browser.
-3. In the root directory, under a different process, execute `karma run`. OR you can press the `DEBUG` button in the browser window, to initiate the test suites in debug mode.
-
-#### Configure the build / serve process
-
-- Make yourself comfortable with the [official guide on Building and Serving Angular Apps](https://angular.io/guide/build).
+- Make yourself comfortable with the [official guide on Building and Serving Angular Apps](https://v15.angular.io/guide/build).
 - Default environment files already exist in `/src/environments/`
   - `environment.ts` defines variables
   - `environment-modules.ts` defines module dependencies
@@ -103,15 +111,7 @@ When developing/hacking though, you might find it better to have the app run tes
   - You can use more than one configuration, but some of the definitions will collide. Please do have a look at them before trying to use them.
 - This project also declares the [angular-cli-ghpages plugin](https://github.com/angular-schule/angular-cli-ghpages#options) as a devDependency, which you may find useful to deploy to a GitHub Pages environment like in the live demo.
 
-#### Quick configuration steps
-
-1. Create a copy of the two environment files and rename them accordingly from your desired configuration e.g. `environment.localhost.ts` and `environment-modules.localhost.ts`.
-2. Call `ng s` or `ng b` Angular CLI command using the `-c` option to target said configuration e.g. `ng b -c production`. You can target more than one, separating them by commas `,`.
-3. If you used `ng b`, serve the files from your preferred webserver. I often do `php -S localhost:80` from the resulting `./dist/ngx-trebol-frontend/` directory. If you use any of the above mentioned locales you'll have to either:
-  A) mind the corresponding subdirectory
-  B) remove, comment or change the value of the `<base>` tag in the generated `index.html`
-
-## Contributing to this repository 😍
+## Contributing to this repository
 
 I accept all kinds of contributions! However, please review the [contribution guidelines](https://github.com/trebol-ecommerce/ngx-trebol-frontend/blob/main/CONTRIBUTING.md) before proceeding.
 

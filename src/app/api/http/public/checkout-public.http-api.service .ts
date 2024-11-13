@@ -8,12 +8,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
-import { Customer } from 'src/models/entities/Customer';
 import { Sell } from 'src/models/entities/Sell';
 import { ExternalPaymentRedirectionData } from 'src/models/ExternalPaymentRedirectionData';
 import { environment } from 'src/environments/environment';
 import { BILLING_TYPE_COMPANY, BILLING_TYPE_NAMES_MAP } from 'src/text/billing-type-names';
 import { ICheckoutPublicApiService } from '../../checkout-public-api.iservice';
+import { Person } from 'src/models/entities/Person';
 
 @Injectable()
 export class CheckoutPublicHttpApiService
@@ -52,17 +52,17 @@ export class CheckoutPublicHttpApiService
     );
   }
 
-  private shrinkCustomerModel(source: Customer): Partial<Customer> {
-    const target = { person: { } } as any;
-    target.person.idNumber = source.person.idNumber;
-    target.person.firstName = source.person.firstName;
-    target.person.lastName = source.person.lastName;
-    target.person.email = source.person.email;
-    if (source.person.phone1) {
-      target.person.phone1 = source.person.phone1;
+  private shrinkCustomerModel(source: Person): Person {
+    const target = { } as any;
+    target.idNumber = source.idNumber;
+    target.firstName = source.firstName;
+    target.lastName = source.lastName;
+    target.email = source.email;
+    if (source.phone1) {
+      target.phone1 = source.phone1;
     }
-    if (source.person.phone2) {
-      target.person.phone2 = source.person.phone2;
+    if (source.phone2) {
+      target.phone2 = source.phone2;
     }
     return target;
   }
