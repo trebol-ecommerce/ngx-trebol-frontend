@@ -20,6 +20,7 @@ import {
 } from '../local-memory-api.functions';
 import { MOCK_PRODUCT_LISTS, MOCK_PRODUCT_LIST_CONTENTS_MAP } from '../mock-data/mock-product-lists.datasource';
 import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
+import { ApiDataPageQuerySpec } from 'src/models/ApiDataPageQuerySpec';
 
 @Injectable()
 export class ProductListsDataLocalMemoryApiService
@@ -70,18 +71,18 @@ export class ProductListsDataLocalMemoryApiService
     );
   }
 
-  fetchContents(list: ProductList, pageIndex?: number, pageSize?: number, sortBy?: string, order?: string): Observable<DataPage<Product>> {
+  fetchContents(list: ProductList, p: ApiDataPageQuerySpec): Observable<DataPage<Product>> {
     if (!this.itemContentsMap.has(list.code)) {
       return throwError({ status: 404 });
     } else {
       const fullListContents = [...this.itemContentsMap.get(list.code).values()];
       const totalCount = fullListContents.length;
-      const items = paginateItems(fullListContents, pageIndex, pageSize);
+      const items = paginateItems(fullListContents, p.pageIndex, p.pageSize);
       return of<DataPage<Product>>({
         items,
         totalCount,
-        pageIndex,
-        pageSize
+        pageIndex: p.pageIndex,
+        pageSize: p.pageSize
       });
     }
   }

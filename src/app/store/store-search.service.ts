@@ -56,7 +56,13 @@ export class StoreSearchService {
 
   reload() {
     this.isLoadingSearchSource.next(true);
-    return this.productsApiService.fetchPage(this.pageIndex, this.pageSize, this.sortBy, this.order, this.searchQuery).pipe(
+    return this.productsApiService.fetchPage({
+      pageIndex: this.pageIndex,
+      pageSize: this.pageSize,
+      sortBy: this.sortBy,
+      order: this.order,
+      filters: this.searchQuery
+    }).pipe(
       tap(page => this.currentPageSource.next(page)),
       ignoreElements(),
       finalize(() => this.isLoadingSearchSource.next(false))

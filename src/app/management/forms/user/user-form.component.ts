@@ -74,8 +74,10 @@ export class UserFormComponent
       debounceTime(this.formChangesDebounceTimeMs),
       tap(v => this.onChange(v))
     ).subscribe();
-    this.people$ = this.peopleDataApiService.fetchPage().pipe(map(page => page.items));
-    this.roles$ = this.userRolesDataApiService.fetchPage().pipe(map(page => page.items));
+    this.people$ = this.peopleDataApiService.fetchPage({ pageIndex: 0, pageSize: 0 })
+                                            .pipe(map(page => page.items));
+    this.roles$ = this.userRolesDataApiService.fetchPage({ pageIndex: 0, pageSize: 0 })
+                                              .pipe(map(page => page.items));
   }
 
   ngOnDestroy(): void {

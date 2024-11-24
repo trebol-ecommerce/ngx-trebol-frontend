@@ -11,14 +11,35 @@ import { map } from 'rxjs/operators';
 import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
 import { ProductSearchQuery } from 'src/models/ProductSearchQuery';
-import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
+import { environment } from 'src/environments/environment';
+import { ITransactionalEntityDataApiService } from '../../transactional-entity.data-api.iservice';
+import { makeFetchHttpParams } from '../http-api.functions';
+import { ApiDataPageQuerySpec } from 'src/models/ApiDataPageQuerySpec';
 
 @Injectable()
 export class ProductsDataHttpApiService
-  extends TransactionalEntityDataHttpApiService<Product> {
+  implements ITransactionalEntityDataApiService<Product> {
 
-  constructor(http: HttpClient) {
-    super(http, '/products');
+  private readonly baseUrl = `${environment.apiUrls.data}/products`;
+
+  constructor(private http: HttpClient) { }
+
+  create(product: Product) {
+    if (!product.category) {
+      product.category = null;
+    }
+    return this.http.post<void>(
+      this.baseUrl,
+      product
+    );
+  }
+
+  fetchPage(p: ApiDataPageQuerySpec) {
+    const params = this.makeProductFetchHttpParams(p);
+    return this.http.get<DataPage<Product>>(
+      this.baseUrl,
+      { params }
+    );
   }
 
   fetchExisting(product: Partial<Product>) {
@@ -34,21 +55,11 @@ export class ProductsDataHttpApiService
     );
   }
 
-  create(product: Product) {
-    if (!product.category) {
-      product.category = null;
-    }
-    return this.http.post<any>(
-      this.baseUrl,
-      product
-    );
-  }
-
   update(product: Partial<Product>) {
     if (!product.category) {
       product.category = null;
     }
-    return this.http.put(
+    return this.http.put<void>(
       this.baseUrl,
       product,
       {
@@ -60,7 +71,7 @@ export class ProductsDataHttpApiService
   }
 
   delete(product: Partial<Product>) {
-    return this.http.delete(
+    return this.http.delete<void>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
@@ -70,16 +81,14 @@ export class ProductsDataHttpApiService
     );
   }
 
-  protected makeHttpParams(pageIndex: number, pageSize: number, sortBy?: string, order?: string, filters?: Partial<ProductSearchQuery>) {
-    let params = super.makeHttpParams(pageIndex, pageSize, sortBy, order, filters);
-
-    if (params.has('nameLike') && !filters.nameLike) {
+  private makeProductFetchHttpParams(p: ApiDataPageQuerySpec) {
+    let params = makeFetchHttpParams(p);
+    if (params.has('nameLike') && !p.filters.nameLike) {
       params = params.delete('nameLike');
     }
-    if (params.has('categoryCode') && !filters.categoryCode) {
+    if (params.has('categoryCode') && !p.filters.categoryCode) {
       params = params.delete('categoryCode');
     }
-
     return params;
   }
 }

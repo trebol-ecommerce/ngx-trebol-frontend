@@ -10,14 +10,32 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { DataPage } from 'src/models/DataPage';
 import { Shipper } from 'src/models/entities/Shipper';
-import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
+import { ITransactionalEntityDataApiService } from '../../transactional-entity.data-api.iservice';
+import { environment } from 'src/environments/environment';
+import { makeFetchHttpParams } from '../http-api.functions';
+import { ApiDataPageQuerySpec } from 'src/models/ApiDataPageQuerySpec';
 
 @Injectable()
 export class ShippersDataHttpApiService
-  extends TransactionalEntityDataHttpApiService<Shipper> {
+  implements ITransactionalEntityDataApiService<Shipper> {
 
-  constructor(http: HttpClient) {
-    super(http, '/shippers');
+  private readonly baseUrl = `${environment.apiUrls.data}/shippers`;
+
+  constructor(private http: HttpClient) { }
+
+  create(product: Shipper) {
+    return this.http.post<void>(
+      this.baseUrl,
+      product
+    );
+  }
+
+  fetchPage(p: ApiDataPageQuerySpec) {
+    const params = makeFetchHttpParams(p);
+    return this.http.get<DataPage<Shipper>>(
+      this.baseUrl,
+      { params }
+    );
   }
 
   fetchExisting(shipper: Shipper) {
@@ -34,7 +52,7 @@ export class ShippersDataHttpApiService
   }
 
   update(shipper: Shipper, originalShipper?: Shipper) {
-    return this.http.put(
+    return this.http.put<void>(
       this.baseUrl,
       shipper,
       {
@@ -46,7 +64,7 @@ export class ShippersDataHttpApiService
   }
 
   delete(shipper: Shipper) {
-    return this.http.delete(
+    return this.http.delete<void>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {

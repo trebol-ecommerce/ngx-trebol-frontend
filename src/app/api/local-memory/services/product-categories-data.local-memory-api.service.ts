@@ -12,6 +12,7 @@ import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { matchesDateProperty, matchesIdProperty, matchesNumberProperty, matchesStringProperty } from '../local-memory-api.functions';
 import { MOCK_PRODUCT_CATEGORIES } from '../mock-data/mock-product-categories.datasource';
 import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
+import { ApiDataPageQuerySpec } from 'src/models/ApiDataPageQuerySpec';
 
 @Injectable()
 export class ProductCategoriesDataLocalMemoryApiService
@@ -23,9 +24,10 @@ export class ProductCategoriesDataLocalMemoryApiService
     super();
   }
 
-  fetchPage(pageIndex = 0, pageSize = 10, sortBy?: string, order?: string, filters?: any) {
-    const theseFilters = (!filters || JSON.stringify(filters) === '{}') ? { parentCode: null } : filters;
-    return super.fetchPage(pageIndex, pageSize, sortBy, order, theseFilters);
+  fetchPage(p: ApiDataPageQuerySpec) {
+    const theseFilters = (!p.filters || JSON.stringify(p.filters) === '{}') ? { parentCode: null } : p.filters;
+
+    return super.fetchPage({ ...p, filters: theseFilters });
   }
 
   create(item: ProductCategory) {

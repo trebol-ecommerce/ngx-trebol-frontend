@@ -7,7 +7,6 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
 import { Person } from 'src/models/entities/Person';
 import { environment } from 'src/environments/environment';
 import { IGuestPublicApiService } from '../../guest-public-api.iservice';
@@ -15,16 +14,12 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class GuestPublicHttpApiService
-  extends HttpApiService
   implements IGuestPublicApiService {
 
   private readonly authorizationHeader = environment.secrets.tokenHttpHeader;
+  private readonly baseUrl = `${environment.apiUrls.public}/guest`;
 
-  baseUrl = `${environment.apiUrls.public}/guest`;
-
-  constructor(http: HttpClient) {
-    super(http);
-  }
+  constructor(private http: HttpClient) { }
 
   guestLogin(personDetails: Person) {
     return this.http.post(

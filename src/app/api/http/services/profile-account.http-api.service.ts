@@ -7,21 +7,17 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
 import { Person } from 'src/models/entities/Person';
 import { environment } from 'src/environments/environment';
 import { IProfileAccountApiService } from '../../profile-account-api.iservice';
 
 @Injectable()
 export class ProfileAccountHttpApiService
-  extends HttpApiService
   implements IProfileAccountApiService {
 
-  baseUrl = `${environment.apiUrls.account}/profile`;
+  private readonly baseUrl = `${environment.apiUrls.account}/profile`;
 
-  constructor(http: HttpClient) {
-    super(http);
-  }
+  constructor(private http: HttpClient) { }
 
   getProfile() {
     return this.http.get<Person>(

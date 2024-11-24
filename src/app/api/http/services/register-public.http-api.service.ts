@@ -7,7 +7,6 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
 import { Person } from 'src/models/entities/Person';
 import { Registration } from 'src/models/Registration';
 import { environment } from 'src/environments/environment';
@@ -15,14 +14,11 @@ import { IRegisterPublicApiService } from '../../register-public-api.iservice';
 
 @Injectable()
 export class RegisterPublicHttpApiService
-  extends HttpApiService
   implements IRegisterPublicApiService {
 
-  baseUrl = `${environment.apiUrls.public}/register`;
+  private readonly baseUrl = `${environment.apiUrls.public}/register`;
 
-  constructor(http: HttpClient) {
-    super(http);
-  }
+  constructor(private http: HttpClient) { }
 
   register(registration: Registration) {
     const payload = {} as any;

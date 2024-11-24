@@ -10,14 +10,32 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { DataPage } from 'src/models/DataPage';
 import { Image } from 'src/models/entities/Image';
-import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
+import { ITransactionalEntityDataApiService } from '../../transactional-entity.data-api.iservice';
+import { environment } from 'src/environments/environment';
+import { makeFetchHttpParams } from '../http-api.functions';
+import { ApiDataPageQuerySpec } from 'src/models/ApiDataPageQuerySpec';
 
 @Injectable()
 export class ImagesDataHttpApiService
-  extends TransactionalEntityDataHttpApiService<Image> {
+  implements ITransactionalEntityDataApiService<Image> {
 
-  constructor(http: HttpClient) {
-    super(http, '/images');
+  private readonly baseUrl = `${environment.apiUrls.data}/images`;
+
+  constructor(private http: HttpClient) { }
+
+  create(item: Image) {
+    return this.http.post<void>(
+      this.baseUrl,
+      item
+    );
+  }
+
+  fetchPage(p: ApiDataPageQuerySpec) {
+    const params = makeFetchHttpParams(p);
+    return this.http.get<DataPage<Image>>(
+      this.baseUrl,
+      { params }
+    );
   }
 
   fetchExisting(image: Partial<Image>) {
@@ -34,7 +52,7 @@ export class ImagesDataHttpApiService
   }
 
   update(image: Partial<Image>) {
-    return this.http.put(
+    return this.http.put<void>(
       this.baseUrl,
       image,
       {
@@ -46,7 +64,7 @@ export class ImagesDataHttpApiService
   }
 
   delete(image: Partial<Image>) {
-    return this.http.delete(
+    return this.http.delete<void>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {

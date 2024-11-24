@@ -9,15 +9,34 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { DataPage } from 'src/models/DataPage';
-import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
 import { Person } from 'src/models/entities/Person';
+import { makeFetchHttpParams } from '../http-api.functions';
+import { environment } from 'src/environments/environment';
+import { ITransactionalEntityDataApiService } from '../../transactional-entity.data-api.iservice';
+import { ApiDataPageQuerySpec } from 'src/models/ApiDataPageQuerySpec';
 
 @Injectable()
 export class CustomersDataHttpApiService
-  extends TransactionalEntityDataHttpApiService<Person> {
+  implements ITransactionalEntityDataApiService<Person> {
 
-  constructor(http: HttpClient) {
-    super(http, '/customers');
+  private readonly baseUrl = `${environment.apiUrls.data}/customers`
+
+  constructor(private http: HttpClient) { }
+
+  create(item: Person) {
+    return this.http.post<void>(
+      this.baseUrl,
+      item
+    );
+  }
+
+  fetchPage(p: ApiDataPageQuerySpec) {
+    const params = makeFetchHttpParams(p);
+
+    return this.http.get<DataPage<Person>>(
+      this.baseUrl,
+      { params }
+    );
   }
 
   fetchExisting(customer: Person) {
@@ -34,7 +53,7 @@ export class CustomersDataHttpApiService
   }
 
   update(customer: Person) {
-    return this.http.put(
+    return this.http.put<void>(
       this.baseUrl,
       customer,
       {
@@ -46,7 +65,7 @@ export class CustomersDataHttpApiService
   }
 
   delete(customer: Person) {
-    return this.http.delete(
+    return this.http.delete<void>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {

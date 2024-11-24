@@ -7,22 +7,38 @@
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
 import { DataPage } from 'src/models/DataPage';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
-import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
+import { ITransactionalEntityDataApiService } from '../../transactional-entity.data-api.iservice';
+import { environment } from 'src/environments/environment';
+import { ApiDataPageQuerySpec } from 'src/models/ApiDataPageQuerySpec';
+import { makeFetchHttpParams } from '../http-api.functions';
 
 @Injectable()
 export class ProductCategoriesDataHttpApiService
-  extends TransactionalEntityDataHttpApiService<ProductCategory> {
+  implements ITransactionalEntityDataApiService<ProductCategory> {
 
-  constructor(http: HttpClient) {
-    super(http, '/product_categories');
+  private readonly baseUrl = `${environment.apiUrls.data}/product_categories`;
+
+  constructor(private http: HttpClient) { }
+
+  create(item: ProductCategory) {
+    return this.http.post<void>(
+      this.baseUrl,
+      item
+    );
   }
 
-  fetchExisting(category: Partial<ProductCategory>): Observable<ProductCategory> {
+  fetchPage(p: ApiDataPageQuerySpec) {
+    const params = makeFetchHttpParams(p);
+    return this.http.get<DataPage<ProductCategory>>(
+      this.baseUrl,
+      { params }
+    );
+  }
+
+  fetchExisting(category: Partial<ProductCategory>) {
     return this.http.get<DataPage<ProductCategory>>(
       this.baseUrl,
       {
@@ -35,8 +51,8 @@ export class ProductCategoriesDataHttpApiService
     );
   }
 
-  update(category: Partial<ProductCategory>, originalItem?: ProductCategory): Observable<any> {
-    return this.http.put(
+  update(category: Partial<ProductCategory>, originalItem?: ProductCategory) {
+    return this.http.put<void>(
       this.baseUrl,
       category,
       {
@@ -47,8 +63,8 @@ export class ProductCategoriesDataHttpApiService
     );
   }
 
-  delete(category: Partial<ProductCategory>): Observable<any> {
-    return this.http.delete(
+  delete(category: Partial<ProductCategory>) {
+    return this.http.delete<void>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
@@ -56,19 +72,5 @@ export class ProductCategoriesDataHttpApiService
         } })
       }
     );
-  }
-
-  protected makeHttpParams(pageIndex?: number, pageSize?: number, sortBy?: string, order?: string, filters?: any) {
-    let params = (!!filters) ?
-      new HttpParams({ fromObject: filters }) :
-      new HttpParams();
-
-    if (!!sortBy) {
-      params = params.append('sortBy', sortBy);
-    }
-    if (!!order) {
-      params = params.append('order', order);
-    }
-    return params;
   }
 }

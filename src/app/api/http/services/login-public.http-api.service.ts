@@ -5,26 +5,20 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
 import { environment } from 'src/environments/environment';
 import { ILoginPublicApiService } from '../../login-public-api.iservice';
 
 @Injectable()
 export class LoginPublicHttpApiService
-  extends HttpApiService
   implements ILoginPublicApiService {
 
   private readonly authorizationHeader = environment.secrets.tokenHttpHeader;
+  private readonly baseUrl = `${environment.apiUrls.public}/login`;
 
-  baseUrl = `${environment.apiUrls.public}/login`;
-
-  constructor(http: HttpClient, private router: Router) {
-    super(http);
-  }
+  constructor(private http: HttpClient) { }
 
   login(details: any) {
     return this.http.post(
@@ -35,7 +29,7 @@ export class LoginPublicHttpApiService
         responseType: 'text'
       }
     ).pipe(
-      map(response => {
+      map((response: HttpResponse<string>) => {
         if (response.headers.has(this.authorizationHeader)) {
           return response.headers.get(this.authorizationHeader);
         } else if (response.body) {

@@ -8,13 +8,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserRole } from 'src/models/entities/UserRole';
-import { EntityDataHttpApiService } from '../entity-data.http-api.abstract.service';
+import { environment } from 'src/environments/environment';
+import { IEntityDataApiService } from '../../entity.data-api.iservice';
+import { makeFetchHttpParams } from '../http-api.functions';
+import { DataPage } from 'src/models/DataPage';
+import { ApiDataPageQuerySpec } from 'src/models/ApiDataPageQuerySpec';
 
 @Injectable()
 export class UserRolesDataHttpApiService
-  extends EntityDataHttpApiService<UserRole> {
+  implements IEntityDataApiService<UserRole> {
 
-  constructor(http: HttpClient) {
-    super(http, '/user_roles');
+  private readonly baseUrl = `${environment.apiUrls.data}/user_role`;
+
+  constructor(private http: HttpClient) { }
+
+  fetchPage(p: ApiDataPageQuerySpec) {
+    const params = makeFetchHttpParams(p);
+    return this.http.get<DataPage<UserRole>>(
+      this.baseUrl,
+      { params }
+    );
   }
 }

@@ -12,15 +12,31 @@ import { map } from 'rxjs/operators';
 import { DataPage } from 'src/models/DataPage';
 import { Sell } from 'src/models/entities/Sell';
 import { ISalesDataApiService } from '../../sales.data.api.iservice';
-import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
+import { environment } from 'src/environments/environment';
+import { makeFetchHttpParams } from '../http-api.functions';
+import { ApiDataPageQuerySpec } from 'src/models/ApiDataPageQuerySpec';
 
 @Injectable()
 export class SalesDataHttpApiService
-  extends TransactionalEntityDataHttpApiService<Sell>
   implements ISalesDataApiService {
 
-  constructor(http: HttpClient) {
-    super(http, '/sales');
+  private readonly baseUrl = `${environment.apiUrls.data}/sales`;
+
+  constructor(private http: HttpClient) { }
+
+  create(product: Sell) {
+    return this.http.post<void>(
+      this.baseUrl,
+      product
+    );
+  }
+
+  fetchPage(p: ApiDataPageQuerySpec) {
+    const params = makeFetchHttpParams(p);
+    return this.http.get<DataPage<Sell>>(
+      this.baseUrl,
+      { params }
+    );
   }
 
   fetchExisting(sell: Partial<Sell>) {
@@ -43,7 +59,7 @@ export class SalesDataHttpApiService
   }
 
   update(sell: Partial<Sell>) {
-    return this.http.put(
+    return this.http.put<void>(
       this.baseUrl,
       sell,
       {
@@ -55,7 +71,7 @@ export class SalesDataHttpApiService
   }
 
   delete(sell: Partial<Sell>) {
-    return this.http.delete(
+    return this.http.delete<void>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {

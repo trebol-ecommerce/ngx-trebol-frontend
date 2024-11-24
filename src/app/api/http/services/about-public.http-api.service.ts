@@ -7,21 +7,17 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
 import { AboutCommerceDetails } from 'src/models/AboutCommerceDetails';
 import { environment } from 'src/environments/environment';
 import { IAboutPublicApiService } from '../../about-public-api.iservice';
 
 @Injectable()
 export class AboutPublicHttpApiService
-  extends HttpApiService
   implements IAboutPublicApiService {
 
-  protected baseUrl = `${environment.apiUrls.public}/about`;
+  private readonly baseUrl = `${environment.apiUrls.public}/about`;
 
-  constructor(http: HttpClient) {
-    super(http);
-  }
+  constructor(private http: HttpClient) { }
 
   fetchCompanyDetails() {
     return this.http.get<AboutCommerceDetails>(

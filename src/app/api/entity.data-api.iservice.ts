@@ -6,6 +6,7 @@
  */
 
 import { Observable } from 'rxjs';
+import { ApiDataPageQuerySpec } from 'src/models/ApiDataPageQuerySpec';
 import { DataPage } from 'src/models/DataPage';
 
 /**
@@ -15,11 +16,7 @@ export interface IEntityDataApiService<T> {
 
   /**
    * Requests a paginated collection of elements
-   * @param pageIndex 0-based index of page
-   * @param pageSize Number of elements expected in the page
-   * @param sortBy Name of parameter or metadata field to sort elements by
-   * @param order Direction of sorting (ascending/descending)
-   * @param filters Parameters to filter results by
+   * @param querySpec The parameters for the data request
    */
-  fetchPage(pageIndex?: number, pageSize?: number, sortBy?: string, order?: string, filters?: any): Observable<DataPage<T>>;
+  fetchPage(querySpec: ApiDataPageQuerySpec): Observable<DataPage<T>>;
 }

@@ -7,21 +7,17 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
 import { Receipt } from 'src/models/Receipt';
 import { environment } from 'src/environments/environment';
 import { IReceiptPublicApiService } from '../../receipt-public-api.iservice';
 
 @Injectable()
 export class ReceiptPublicHttpApiService
-  extends HttpApiService
   implements IReceiptPublicApiService {
 
-  protected baseUrl = `${environment.apiUrls.public}/receipt`;
+  private readonly baseUrl = `${environment.apiUrls.public}/receipt`;
 
-  constructor(http: HttpClient) {
-    super(http);
-  }
+  constructor(private http: HttpClient) { }
 
   fetchTransactionReceiptByToken(token: string) {
     return this.http.get<Receipt>(

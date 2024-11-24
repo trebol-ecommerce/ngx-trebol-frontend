@@ -7,24 +7,20 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpApiService } from 'src/app/api/http/http-api.abstract.service';
 import { Sell } from 'src/models/entities/Sell';
 import { ExternalPaymentRedirectionData } from 'src/models/ExternalPaymentRedirectionData';
 import { environment } from 'src/environments/environment';
-import { BILLING_TYPE_COMPANY, BILLING_TYPE_NAMES_MAP } from 'src/text/billing-type-names';
+import { BILLING_TYPE_COMPANY } from 'src/text/billing-type-names';
 import { ICheckoutPublicApiService } from '../../checkout-public-api.iservice';
 import { Person } from 'src/models/entities/Person';
 
 @Injectable()
 export class CheckoutPublicHttpApiService
-  extends HttpApiService
   implements ICheckoutPublicApiService {
 
-  protected baseUrl = `${environment.apiUrls.public}/checkout`;
+  private readonly baseUrl = `${environment.apiUrls.public}/checkout`;
 
-  constructor(http: HttpClient) {
-    super(http);
-  }
+  constructor(private http: HttpClient) { }
 
   submitCart(sell: Sell) {
     const payload = {} as any;

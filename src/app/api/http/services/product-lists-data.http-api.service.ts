@@ -14,17 +14,31 @@ import { DataPage } from 'src/models/DataPage';
 import { Product } from 'src/models/entities/Product';
 import { ProductList } from 'src/models/entities/ProductList';
 import { ITransactionalProductListContentsDataApiService } from '../../transactional-product-list-contents.data.api.iservice';
-import { TransactionalEntityDataHttpApiService } from '../transactional-entity-data.http-api.abstract.service';
+import { makeFetchHttpParams } from '../http-api.functions';
+import { ApiDataPageQuerySpec } from 'src/models/ApiDataPageQuerySpec';
 
 @Injectable()
 export class ProductListsDataHttpApiService
-  extends TransactionalEntityDataHttpApiService<ProductList>
   implements ITransactionalProductListContentsDataApiService {
 
-  contentsBaseUrl = `${environment.apiUrls.data}/product_list_contents`;
+  private readonly baseUrl = `${environment.apiUrls.data}/product_lists`;
+  private readonly contentsBaseUrl = `${environment.apiUrls.data}/product_list_contents`;
 
-  constructor(http: HttpClient) {
-    super(http, '/product_lists');
+  constructor(private http: HttpClient) { }
+
+  create(item: ProductList) {
+    return this.http.post<void>(
+      this.baseUrl,
+      item
+    );
+  }
+
+  fetchPage(p: ApiDataPageQuerySpec) {
+    const params = makeFetchHttpParams(p);
+    return this.http.get<DataPage<ProductList>>(
+      this.baseUrl,
+      { params }
+    );
   }
 
   fetchExisting(list: Partial<ProductList>): Observable<ProductList> {
@@ -40,8 +54,8 @@ export class ProductListsDataHttpApiService
     );
   }
 
-  update(list: Partial<ProductList>, originalItem?: ProductList): Observable<any> {
-    return this.http.put(
+  update(list: Partial<ProductList>, originalItem?: ProductList) {
+    return this.http.put<void>(
       this.baseUrl,
       list,
       {
@@ -52,8 +66,8 @@ export class ProductListsDataHttpApiService
     );
   }
 
-  delete(list: Partial<ProductList>): Observable<any> {
-    return this.http.delete(
+  delete(list: Partial<ProductList>) {
+    return this.http.delete<void>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
@@ -63,8 +77,8 @@ export class ProductListsDataHttpApiService
     );
   }
 
-  fetchContents(list: ProductList, pageIndex?: number, pageSize?: number, sortBy?: string, order?: string): Observable<DataPage<Product>> {
-    const params = this.makeHttpParams(pageIndex, pageSize, sortBy, order).append('listCode', list.code);
+  fetchContents(list: ProductList, p: ApiDataPageQuerySpec) {
+    const params = makeFetchHttpParams(p).append('listCode', list.code);
 
     return this.http.get<DataPage<Product>>(
       this.contentsBaseUrl,
@@ -72,8 +86,8 @@ export class ProductListsDataHttpApiService
     );
   }
 
-  addToContents(list: ProductList, productLike: Partial<Product>): Observable<any> {
-    return this.http.post(
+  addToContents(list: ProductList, productLike: Partial<Product>) {
+    return this.http.post<void>(
       this.contentsBaseUrl,
       productLike,
       {
@@ -84,8 +98,8 @@ export class ProductListsDataHttpApiService
     );
   }
 
-  deleteFromContents(list: ProductList, productLike?: Partial<Product>): Observable<any> {
-    return this.http.delete(
+  deleteFromContents(list: ProductList, productLike?: Partial<Product>) {
+    return this.http.delete<void>(
       this.contentsBaseUrl,
       {
         params: new HttpParams({ fromObject: {
@@ -96,8 +110,8 @@ export class ProductListsDataHttpApiService
     );
   }
 
-  updateContents(list: ProductList, products: Partial<Product>[]): Observable<any> {
-    return this.http.put(
+  updateContents(list: ProductList, products: Partial<Product>[]) {
+    return this.http.put<void>(
       this.contentsBaseUrl,
       products,
       {
