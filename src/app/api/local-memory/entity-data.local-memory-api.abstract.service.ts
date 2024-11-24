@@ -12,7 +12,7 @@ import { paginateItems } from '../../../functions/paginateItems';
 import { IEntityDataApiService } from '../entity.data-api.iservice';
 import {
   matchesDateProperty, matchesIdProperty, matchesNumberProperty, matchesStringProperty
-} from './entity-data.local-memory-api.functions';
+} from './local-memory-api.functions';
 
 /**
  * Base class for a service that can fetch data from the local (client) memory.

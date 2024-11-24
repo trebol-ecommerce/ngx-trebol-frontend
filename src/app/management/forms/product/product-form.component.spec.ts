@@ -14,7 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { MOCK_PRODUCTS } from 'src/app/api/local-memory/mock/mock-products.datasource';
+import { MOCK_PRODUCTS } from 'src/app/api/local-memory/mock-data/mock-products.datasource';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { Image } from 'src/models/entities/Image';
 import { ProductFormComponent } from './product-form.component';

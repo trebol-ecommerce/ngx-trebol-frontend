@@ -11,7 +11,7 @@ import { UntypedFormControl, UntypedFormGroup, ReactiveFormsModule } from '@angu
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MOCK_IMAGES } from 'src/app/api/local-memory/mock/mock-images.datasource';
+import { MOCK_IMAGES } from 'src/app/api/local-memory/mock-data/mock-images.datasource';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { ImageFormComponent } from './image-form.component';
 

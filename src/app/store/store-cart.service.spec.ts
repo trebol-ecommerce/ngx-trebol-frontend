@@ -11,7 +11,7 @@ import { tap } from 'rxjs/operators';
 import { SellDetail } from 'src/models/entities/SellDetail';
 import { API_INJECTION_TOKENS } from '../api/api-injection-tokens';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
-import { MOCK_PRODUCTS } from '../api/local-memory/mock/mock-products.datasource';
+import { MOCK_PRODUCTS } from '../api/local-memory/mock-data/mock-products.datasource';
 import { StoreCartService } from './store-cart.service';
 
 describe('StoreCartService', () => {

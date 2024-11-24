@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { AboutCommerceDetails } from 'src/models/AboutCommerceDetails';
 import { IAboutPublicApiService } from '../../about-public-api.iservice';
-import { MOCK_ABOUT_COMMERCE_DETAILS } from '../mock/mock-about-commerce-details.examples';
+import { MOCK_ABOUT_COMMERCE_DETAILS } from '../mock-data/mock-about-commerce-details.examples';
 
 @Injectable()
 export class AboutPublicLocalMemoryApiService

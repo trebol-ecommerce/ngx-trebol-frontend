@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { MOCK_PRODUCT_CATEGORIES } from 'src/app/api/local-memory/mock/mock-product-categories.datasource';
+import { MOCK_PRODUCT_CATEGORIES } from 'src/app/api/local-memory/mock-data/mock-product-categories.datasource';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { ProductCategorySelectorFieldComponent } from './product-category-selector-field.component';
 

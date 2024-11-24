@@ -11,7 +11,7 @@ import { UntypedFormControl, UntypedFormGroup, ReactiveFormsModule } from '@angu
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MOCK_PRODUCT_LISTS } from 'src/app/api/local-memory/mock/mock-product-lists.datasource';
+import { MOCK_PRODUCT_LISTS } from 'src/app/api/local-memory/mock-data/mock-product-lists.datasource';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { ProductListFormComponent } from './product-list-form.component';
 

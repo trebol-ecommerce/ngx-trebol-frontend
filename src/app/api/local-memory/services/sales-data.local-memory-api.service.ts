@@ -11,7 +11,7 @@ import { map, tap } from 'rxjs/operators';
 import { Sell } from 'src/models/entities/Sell';
 import { SELL_STATUS_NAMES_MAP } from 'src/text/sell-status-names';
 import { ISalesDataApiService } from '../../sales.data.api.iservice';
-import { MOCK_SALES } from '../mock/mock-sales.datasource';
+import { MOCK_SALES } from '../mock-data/mock-sales.datasource';
 import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
 
 @Injectable()

@@ -12,7 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ActivatedRoute, convertToParamMap, Params, Router } from '@angular/router';
 import { concat, EMPTY, of, timer } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
-import { MOCK_PRODUCTS } from 'src/app/api/local-memory/mock/mock-products.datasource';
+import { MOCK_PRODUCTS } from 'src/app/api/local-memory/mock-data/mock-products.datasource';
 import { ProductList } from 'src/models/entities/ProductList';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreCatalogComponent } from './store-catalog.component';

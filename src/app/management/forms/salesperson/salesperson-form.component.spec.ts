@@ -11,7 +11,7 @@ import { UntypedFormControl, UntypedFormGroup, ReactiveFormsModule } from '@angu
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MOCK_SALESPEOPLE } from 'src/app/api/local-memory/mock/mock-salespeople.datasource';
+import { MOCK_SALESPEOPLE } from 'src/app/api/local-memory/mock-data/mock-salespeople.datasource';
 import { PersonFormComponent } from 'src/app/shared/forms/person/person-form.component';
 import { SalespersonFormComponent } from './salesperson-form.component';
 

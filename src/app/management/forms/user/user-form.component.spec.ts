@@ -15,7 +15,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { EMPTY, of } from 'rxjs';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { MOCK_USERS } from 'src/app/api/local-memory/mock/mock-users.datasource';
+import { MOCK_USERS } from 'src/app/api/local-memory/mock-data/mock-users.datasource';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { Person } from 'src/models/entities/Person';
 import { UserRole } from 'src/models/entities/UserRole';

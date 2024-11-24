@@ -19,7 +19,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { MOCK_PRODUCTS } from 'src/app/api/local-memory/mock/mock-products.datasource';
+import { MOCK_PRODUCTS } from 'src/app/api/local-memory/mock-data/mock-products.datasource';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { Product } from 'src/models/entities/Product';
 import { ProductsArrayDialogComponent } from './products-array-dialog.component';

@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { Person } from 'src/models/entities/Person';
 import { environment } from 'src/environments/environment';
 import { IProfileAccountApiService } from '../../profile-account-api.iservice';
-import { MOCK_PEOPLE } from '../mock/mock-people.datasource';
+import { MOCK_PEOPLE } from '../mock-data/mock-people.datasource';
 
 @Injectable()
 export class ProfileAccountLocalMemoryApiService

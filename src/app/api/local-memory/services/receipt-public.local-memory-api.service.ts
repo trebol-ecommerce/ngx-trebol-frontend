@@ -10,7 +10,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { Receipt } from 'src/models/Receipt';
 import { IReceiptPublicApiService } from '../../receipt-public-api.iservice';
-import { MOCK_RECEIPTS } from '../mock/mock-receipts.datasource';
+import { MOCK_RECEIPTS } from '../mock-data/mock-receipts.datasource';
 
 @Injectable()
 export class ReceiptPublicLocalMemoryApiService

@@ -8,7 +8,7 @@
 import { Injectable } from '@angular/core';
 import { BillingType } from 'src/models/entities/BillingType';
 import { EntityDataLocalMemoryApiService } from '../entity-data.local-memory-api.abstract.service';
-import { MOCK_BILLING_TYPES } from '../mock/mock-billing-types.datasource';
+import { MOCK_BILLING_TYPES } from '../mock-data/mock-billing-types.datasource';
 
 @Injectable()
 export class BillingTypesDataLocalMemoryApiService

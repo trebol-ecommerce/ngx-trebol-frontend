@@ -8,15 +8,15 @@
 import { Injectable } from '@angular/core';
 import { compareObjectsForSort } from 'src/functions/compareObjectsForSort';
 import { Person } from 'src/models/entities/Person';
-import { matchesStringProperty, matchesNumberProperty } from '../entity-data.local-memory-api.functions';
-import { MOCK_CUSTOMERS } from '../mock/mock-customers.datasource';
+import { matchesStringProperty, matchesNumberProperty } from '../local-memory-api.functions';
+import { MOCK_SALESPEOPLE } from '../mock-data/mock-salespeople.datasource';
 import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
 
 @Injectable()
-export class CustomersDataLocalMemoryApiService
+export class SalespeopleDataLocalMemoryApiService
   extends TransactionalEntityDataLocalMemoryApiService<Person> {
 
-  protected items = MOCK_CUSTOMERS.slice();
+  protected items = MOCK_SALESPEOPLE.slice();
 
   constructor() {
     super();
@@ -51,11 +51,11 @@ export class CustomersDataLocalMemoryApiService
     return compareObjectsForSort(a, b, objectSortProperty, order);
   }
 
-  protected itemExists(customer: Partial<Person>) {
-    return this.items.some(customer2 => (customer.idNumber === customer2.idNumber));
+  protected itemExists(salesperson: Partial<Person>) {
+    return this.items.some(salesperson2 => (salesperson.idNumber === salesperson2.idNumber));
   }
 
   protected getIndexOfItem(customer: Partial<Person>) {
-    return this.items.findIndex(customer2 => (customer.idNumber === customer2.idNumber));
+    return this.items.findIndex(salesperson2 => (customer.idNumber === salesperson2.idNumber));
   }
 }

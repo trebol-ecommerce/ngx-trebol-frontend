@@ -9,8 +9,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
-import { matchesDateProperty, matchesIdProperty, matchesNumberProperty, matchesStringProperty } from '../entity-data.local-memory-api.functions';
-import { MOCK_PRODUCT_CATEGORIES } from '../mock/mock-product-categories.datasource';
+import { matchesDateProperty, matchesIdProperty, matchesNumberProperty, matchesStringProperty } from '../local-memory-api.functions';
+import { MOCK_PRODUCT_CATEGORIES } from '../mock-data/mock-product-categories.datasource';
 import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
 
 @Injectable()

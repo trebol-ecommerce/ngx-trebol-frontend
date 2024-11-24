@@ -13,7 +13,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { MOCK_PEOPLE } from 'src/app/api/local-memory/mock/mock-people.datasource';
+import { MOCK_PEOPLE } from 'src/app/api/local-memory/mock-data/mock-people.datasource';
 import { ProfileService } from 'src/app/profile.service';
 import { EditProfileFormDialogComponent } from './edit-profile-form-dialog.component';
 

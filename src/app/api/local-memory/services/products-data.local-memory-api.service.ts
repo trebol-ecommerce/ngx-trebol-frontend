@@ -7,8 +7,8 @@
 
 import { Injectable } from '@angular/core';
 import { Product } from 'src/models/entities/Product';
-import { matchesDateProperty, matchesIdProperty, matchesNumberProperty, matchesStringProperty } from '../entity-data.local-memory-api.functions';
-import { MOCK_PRODUCTS } from '../mock/mock-products.datasource';
+import { matchesDateProperty, matchesIdProperty, matchesNumberProperty, matchesStringProperty } from '../local-memory-api.functions';
+import { MOCK_PRODUCTS } from '../mock-data/mock-products.datasource';
 import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
 
 @Injectable()

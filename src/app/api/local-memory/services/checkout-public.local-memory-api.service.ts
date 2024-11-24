@@ -8,7 +8,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ExternalPaymentRedirectionData } from 'src/models/ExternalPaymentRedirectionData';
-import { MOCK_EXTERNAL_PAYMENT_REDIRECT_DATA } from '../mock/mock-external-payment-redirect-data.examples';
+import { MOCK_EXTERNAL_PAYMENT_REDIRECT_DATA } from '../mock-data/mock-external-payment-redirect-data.examples';
 import { ICheckoutPublicApiService } from '../../checkout-public-api.iservice';
 
 @Injectable()

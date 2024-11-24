@@ -8,27 +8,27 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
-import { AccessHttpApiService } from './access/access.http-api.service';
-import { ProfileAccountHttpApiService } from './account/profile-account.http-api.service';
-import { BillingTypesDataHttpApiService } from './data/billing-types-data.http-api.service';
-import { CustomersDataHttpApiService } from './data/customers-data.http-api.service';
-import { ImagesDataHttpApiService } from './data/images-data.http-api.service';
-import { PeopleDataHttpApiService } from './data/people-data.http-api.service';
-import { ProductCategoriesDataHttpApiService } from './data/product-categories-data.http-api.service';
-import { ProductListsDataHttpApiService } from './data/product-lists-data.http-api.service';
-import { ProductsDataHttpApiService } from './data/products-data.http-api.service';
-import { SalesDataHttpApiService } from './data/sales-data.http-api.service';
-import { SalespeopleDataHttpApiService } from './data/salespeople-data.http-api.service';
-import { ShippersDataHttpApiService } from './data/shippers-data.http-api.service';
-import { UserRolesDataHttpApiService } from './data/user-roles-data.http-api.service';
-import { UsersDataHttpApiService } from './data/users-data.http-api.service';
-import { AboutPublicHttpApiService } from './public/about-public.http-api.service';
-import { CheckoutPublicHttpApiService } from './public/checkout-public.http-api.service ';
-import { GuestPublicHttpApiService } from './public/guest-public.http-api.service';
-import { LoginPublicHttpApiService } from './public/login-public.http-api.service';
-import { ReceiptPublicHttpApiService } from './public/receipt-public.http-api.service';
-import { RegisterPublicHttpApiService } from './public/register-public.http-api.service';
-import { SessionHttpApiInterceptor } from './session.http-api.interceptor';
+import { AccessHttpApiService } from './services/access.http-api.service';
+import { ProfileAccountHttpApiService } from './services/profile-account.http-api.service';
+import { BillingTypesDataHttpApiService } from './services/billing-types-data.http-api.service';
+import { CustomersDataHttpApiService } from './services/customers-data.http-api.service';
+import { ImagesDataHttpApiService } from './services/images-data.http-api.service';
+import { PeopleDataHttpApiService } from './services/people-data.http-api.service';
+import { ProductCategoriesDataHttpApiService } from './services/product-categories-data.http-api.service';
+import { ProductListsDataHttpApiService } from './services/product-lists-data.http-api.service';
+import { ProductsDataHttpApiService } from './services/products-data.http-api.service';
+import { SalesDataHttpApiService } from './services/sales-data.http-api.service';
+import { SalespeopleDataHttpApiService } from './services/salespeople-data.http-api.service';
+import { ShippersDataHttpApiService } from './services/shippers-data.http-api.service';
+import { UserRolesDataHttpApiService } from './services/user-roles-data.http-api.service';
+import { UsersDataHttpApiService } from './services/users-data.http-api.service';
+import { AboutPublicHttpApiService } from './services/about-public.http-api.service';
+import { CheckoutPublicHttpApiService } from './services/checkout-public.http-api.service ';
+import { GuestPublicHttpApiService } from './services/guest-public.http-api.service';
+import { LoginPublicHttpApiService } from './services/login-public.http-api.service';
+import { ReceiptPublicHttpApiService } from './services/receipt-public.http-api.service';
+import { RegisterPublicHttpApiService } from './services/register-public.http-api.service';
+import { SessionHttpApiInterceptor } from './interceptors/session.http-api.interceptor';
 
 /**
  * Provides services that read and write data using an external HTTP server (defined in the environment files)

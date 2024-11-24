@@ -17,7 +17,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { EMPTY, Observable, of } from 'rxjs';
 import { skip, take, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
-import { MOCK_PRODUCTS } from 'src/app/api/local-memory/mock/mock-products.datasource';
+import { MOCK_PRODUCTS } from 'src/app/api/local-memory/mock-data/mock-products.datasource';
 import { ITransactionalProductListContentsDataApiService } from 'src/app/api/transactional-product-list-contents.data.api.iservice';
 import { ProductList } from 'src/models/entities/ProductList';
 import { ProductListContentsDialogComponent } from './product-list-contents-dialog.component';

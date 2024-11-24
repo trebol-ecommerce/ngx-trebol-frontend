@@ -8,7 +8,7 @@
 import { TestBed } from '@angular/core/testing';
 import { EMPTY, of } from 'rxjs';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
-import { MOCK_PRODUCTS } from 'src/app/api/local-memory/mock/mock-products.datasource';
+import { MOCK_PRODUCTS } from 'src/app/api/local-memory/mock-data/mock-products.datasource';
 import { ITransactionalProductListContentsDataApiService } from 'src/app/api/transactional-product-list-contents.data.api.iservice';
 import { ProductList } from 'src/models/entities/ProductList';
 import { ProductListContentsDialogService } from './product-list-contents-dialog.service';

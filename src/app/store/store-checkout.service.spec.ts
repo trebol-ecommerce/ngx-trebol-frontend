@@ -14,7 +14,7 @@ import { BILLING_TYPE_INDIVIDUAL, BILLING_TYPE_NAMES_MAP } from 'src/text/billin
 import { CheckoutRequest } from '../../models/CheckoutRequest';
 import { API_INJECTION_TOKENS } from '../api/api-injection-tokens';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
-import { MOCK_PRODUCTS } from '../api/local-memory/mock/mock-products.datasource';
+import { MOCK_PRODUCTS } from '../api/local-memory/mock-data/mock-products.datasource';
 import { StoreCheckoutService } from './store-checkout.service';
 
 describe('StoreCheckoutService', () => {

@@ -17,8 +17,8 @@ import { ITransactionalEntityDataApiService } from '../../transactional-entity.d
 import { ITransactionalProductListContentsDataApiService } from '../../transactional-product-list-contents.data.api.iservice';
 import {
   matchesDateProperty, matchesIdProperty, matchesNumberProperty, matchesStringProperty
-} from '../entity-data.local-memory-api.functions';
-import { MOCK_PRODUCT_LISTS, MOCK_PRODUCT_LIST_CONTENTS_MAP } from '../mock/mock-product-lists.datasource';
+} from '../local-memory-api.functions';
+import { MOCK_PRODUCT_LISTS, MOCK_PRODUCT_LIST_CONTENTS_MAP } from '../mock-data/mock-product-lists.datasource';
 import { TransactionalEntityDataLocalMemoryApiService } from '../transactional-entity-data.local-memory-api.abstract.service';
 
 @Injectable()
