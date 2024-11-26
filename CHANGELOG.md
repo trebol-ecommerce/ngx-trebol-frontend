@@ -15,6 +15,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Remove classes `Customer` and `Salesperson` in favor of `Person`
     - As a result, in both cases, reference tokens to personal information are shorter
       - `customer.person.firstName` -> `customer.firstName`
+- API architecture
+  - Within their respective modules, API service classes were put together
+    instead of being grouped "by aspect"
+  - The `IEntityDataApiService.fetchPage` method signature was altered, and its 5 parameters
+    were combined into a single separate interface type.
+  - The HTTP implementation of the API also had another method with a similar signature,
+    `makeHttpParams`. It was refactored as a separate function.
+  - In the HTTP module were also several abstract classes to save writing boilerplate code.
+    These were removed because calling HTTP APIs in itself is pretty straightforward and
+    doesn't warrant the need for inheritance like this.
 
 ## [v2.12.1-rc.3] - 2022-08-02
 
