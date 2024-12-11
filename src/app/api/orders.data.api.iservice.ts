@@ -17,17 +17,17 @@ export interface IOrdersDataApiService
    * Update status of a order to CONFIRMED
    * @param order The targetted order
    */
-  markAsConfirmed(order: Order): Observable<any>;
+  markAsConfirmed(order: Order): Observable<void>;
 
   /**
    * Update status of a order to REJECTED
    * @param order The targetted order
    */
-  markAsRejected(order: Order): Observable<any>;
+  markAsRejected(order: Order): Observable<void>;
 
   /**
    * Update status of a order to COMPLETE
    * @param order The targetted order
    */
-  markAsCompleted(order: Order): Observable<any>;
+  markAsCompleted(order: Order): Observable<void>;
 }

@@ -81,28 +81,28 @@ export class OrdersDataHttpApiService
     );
   }
 
-  markAsConfirmed(order: Order): Observable<any> {
+  markAsConfirmed(order: Order) {
     const payload: Partial<Order> = {};
     payload.buyOrder = order.buyOrder;
-    return this.http.post(
+    return this.http.post<void>(
       `${this.baseUrl}/confirmation`,
       payload
     );
   }
 
-  markAsRejected(order: Order): Observable<any> {
+  markAsRejected(order: Order) {
     const payload: Partial<Order> = {};
     payload.buyOrder = order.buyOrder;
-    return this.http.post(
+    return this.http.post<void>(
       `${this.baseUrl}/rejection`,
       payload
     );
   }
 
-  markAsCompleted(order: Order): Observable<any> {
+  markAsCompleted(order: Order) {
     const payload: Partial<Order> = {};
     payload.buyOrder = order.buyOrder;
-    return this.http.post(
+    return this.http.post<void>(
       `${this.baseUrl}/completion`,
       payload
     );

@@ -32,6 +32,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
       - `/sales/rejection` -> `/orders/rejection`
       - `/sales/completion` -> `/orders/completion`
     - `SellDetail` to `OrderDetail` as well
+  - Change Observable return types to `void` in API services for requesting with `POST`, `PUT` and `DELETE` verbs
+    (which will return no response body with `201` and `204` codes)
+    - NOTE: Should `PATCH` methods be supported, the same should apply!
 - API architecture
   - Within their respective modules, API service classes were put together
     instead of being grouped "by aspect"
