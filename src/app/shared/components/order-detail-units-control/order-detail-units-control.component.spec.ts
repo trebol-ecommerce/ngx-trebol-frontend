@@ -11,11 +11,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { observeIfEventFiresUponCallback } from 'src/test-functions/observeIfEventFiresUponCallback';
-import { SellDetailUnitsControlComponent } from './sell-detail-units-control.component';
+import { OrderDetailUnitsControlComponent } from './order-detail-units-control.component';
 
-describe('SellDetailUnitsControlComponent', () => {
-  let component: SellDetailUnitsControlComponent;
-  let fixture: ComponentFixture<SellDetailUnitsControlComponent>;
+describe('OrderDetailUnitsControlComponent', () => {
+  let component: OrderDetailUnitsControlComponent;
+  let fixture: ComponentFixture<OrderDetailUnitsControlComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -23,13 +23,13 @@ describe('SellDetailUnitsControlComponent', () => {
         MatButtonModule,
         MatIconModule
       ],
-      declarations: [ SellDetailUnitsControlComponent ]
+      declarations: [ OrderDetailUnitsControlComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SellDetailUnitsControlComponent);
+    fixture = TestBed.createComponent(OrderDetailUnitsControlComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

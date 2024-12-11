@@ -25,7 +25,7 @@ export class EntityFormGroupFactoryService {
       case 'product': return this.createProductFormGroup();
       case 'productCategory': return this.createProductCategoryFormGroup();
       case 'productList': return this.createProductListFormGroup();
-      case 'sell': return this.createSellFormGroup();
+      case 'order': return this.createOrderFormGroup();
       case 'shipper': return this.createShipperFormGroup();
       case 'user': return this.createUserFormGroup();
     }
@@ -91,7 +91,7 @@ export class EntityFormGroupFactoryService {
     });
   }
 
-  private createSellFormGroup() {
+  private createOrderFormGroup() {
     return this.formBuilder.group({
       date: [{ value: new Date(), disabled: true }],
       billingType: ['', Validators.required],

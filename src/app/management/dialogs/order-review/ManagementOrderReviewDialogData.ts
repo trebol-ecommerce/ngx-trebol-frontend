@@ -5,10 +5,8 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Product } from './Product';
+import { Order } from 'src/models/entities/Order';
 
-export class SellDetail {
-  product: Partial<Product>;
-  units: number;
-  unitValue?: number;
+export interface ManagementOrderReviewDialogData {
+  order: Order;
 }

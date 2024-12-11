@@ -6,12 +6,12 @@
 -->
 
 <h1>{{ dialogTitle }}</h1>
-<app-sell-information [sell]="data.sell"></app-sell-information>
+<app-order-information [order]="data.order"></app-order-information>
 <mat-divider></mat-divider>
-<app-sell-details-table [editable]="false"
-  [sellDetails]="data.sell.details"
+<app-order-details-table [editable]="false"
+  [orderDetails]="data.order.details"
   [tableColumns]="detailsTableColumns">
-</app-sell-details-table>
+</app-order-details-table>
 <div class="actions">
   <button type="button" class="reject"
     mat-button mat-raised-button

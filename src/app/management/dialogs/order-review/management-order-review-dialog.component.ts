@@ -11,16 +11,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { finalize, switchMap, tap } from 'rxjs/operators';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
-import { SELL_STATUS_NAMES_MAP } from 'src/text/sell-status-names';
-import { ManagementSalesService } from '../../routes/sales/management-sales.service';
-import { ManagementSellReviewDialogData } from './ManagementSellReviewDialogData';
+import { ORDER_STATUS_NAMES_MAP } from 'src/text/order-status-names';
+import { ManagementOrdersService } from '../../routes/orders/management-orders.service';
+import { ManagementOrderReviewDialogData } from './ManagementOrderReviewDialogData';
 
 @Component({
-  selector: 'app-management-sell-review-dialog',
-  templateUrl: './management-sell-review-dialog.component.html',
-  styleUrls: ['./management-sell-review-dialog.component.css']
+  selector: 'app-management-order-review-dialog',
+  templateUrl: './management-order-review-dialog.component.html',
+  styleUrls: ['./management-order-review-dialog.component.css']
 })
-export class ManagementSellReviewDialogComponent
+export class ManagementOrderReviewDialogComponent
   implements OnDestroy {
 
   private busyStatusSource = new BehaviorSubject(false);
@@ -29,13 +29,13 @@ export class ManagementSellReviewDialogComponent
   isBusy$ = this.busyStatusSource.asObservable().pipe();
   detailsTableColumns = ['product', 'price', 'quantity'];
 
-  get dialogTitle() { return $localize`:Title of dialog used to view details of one sell:Details of sell #${ this.data.sell.buyOrder }:buyOrder:`; }
-  get isNotPaid() { return this.data.sell?.status !== SELL_STATUS_NAMES_MAP.get(3); }
-  get isNotConfirmed() { return this.data.sell?.status !== SELL_STATUS_NAMES_MAP.get(4); }
+  get dialogTitle() { return $localize`:Title of dialog used to view details of one order:Details of order #${ this.data.order.buyOrder }:buyOrder:`; }
+  get isNotPaid() { return this.data.order?.status !== ORDER_STATUS_NAMES_MAP.get(3); }
+  get isNotConfirmed() { return this.data.order?.status !== ORDER_STATUS_NAMES_MAP.get(4); }
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: ManagementSellReviewDialogData,
-    private salesService: ManagementSalesService,
+    @Inject(MAT_DIALOG_DATA) public data: ManagementOrderReviewDialogData,
+    private salesService: ManagementOrdersService,
     private snackBarService: MatSnackBar
   ) { }
 
@@ -47,9 +47,9 @@ export class ManagementSellReviewDialogComponent
   onClickReject(): void {
     this.operationSub?.unsubscribe();
     this.busyStatusSource.next(true);
-    this.operationSub = this.updateSellDataAfter(
-      this.salesService.markRejected(this.data.sell),
-      $localize`:Message of success after rejecting an order:Sell was rejected`
+    this.operationSub = this.updateOrderDataAfter(
+      this.salesService.markRejected(this.data.order),
+      $localize`:Message of success after rejecting an order:Order was rejected`
     ).pipe(
       finalize(() => this.busyStatusSource.next(false))
     ).subscribe();
@@ -58,9 +58,9 @@ export class ManagementSellReviewDialogComponent
   onClickConfirm(): void {
     this.operationSub?.unsubscribe();
     this.busyStatusSource.next(true);
-    this.operationSub = this.updateSellDataAfter(
-      this.salesService.markConfirmed(this.data.sell),
-      $localize`:Message of success after confirming an order:Sell was confirmed`
+    this.operationSub = this.updateOrderDataAfter(
+      this.salesService.markConfirmed(this.data.order),
+      $localize`:Message of success after confirming an order:Order was confirmed`
     ).pipe(
       finalize(() => this.busyStatusSource.next(false))
     ).subscribe();
@@ -69,21 +69,21 @@ export class ManagementSellReviewDialogComponent
   onClickComplete(): void {
     this.operationSub?.unsubscribe();
     this.busyStatusSource.next(true);
-    this.operationSub = this.updateSellDataAfter(
-      this.salesService.markComplete(this.data.sell),
-      $localize`:Message of success after completing an order:Congratulations! Sell is complete`
+    this.operationSub = this.updateOrderDataAfter(
+      this.salesService.markComplete(this.data.order),
+      $localize`:Message of success after completing an order:Congratulations! Order is complete`
     ).pipe(
       switchMap(() => this.salesService.reloadItems()),
       finalize(() => this.busyStatusSource.next(false))
     ).subscribe();
   }
 
-  private updateSellDataAfter(observable: Observable<any>, successMessage: string) {
+  private updateOrderDataAfter(observable: Observable<any>, successMessage: string) {
     return observable.pipe(
-      switchMap(() => this.salesService.fetch(this.data.sell)),
+      switchMap(() => this.salesService.fetch(this.data.order)),
       tap(
-        sell => {
-          this.data.sell = sell;
+        order => {
+          this.data.order = order;
           this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
         },
         err => this.snackBarService.open(COMMON_ERROR_MESSAGE, COMMON_DISMISS_BUTTON_LABEL)

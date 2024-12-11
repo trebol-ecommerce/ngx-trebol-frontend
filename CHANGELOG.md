@@ -15,6 +15,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Remove classes `Customer` and `Salesperson` in favor of `Person`
     - As a result, in both cases, reference tokens to personal information are shorter
       - `customer.person.firstName` -> `customer.firstName`
+  - Rename all instances of the word `Sell` to `Order`
+    - Angular components
+      - `SellDetailsTableComponent` -> `OrderDetailsTableComponent`
+      - `SellInformationComponent` -> `OrderInformationComponent`
+      - `SellDetailUnitsControlComponent` -> `OrderDetailUnitsControlComponent`
+      - `ManagementSalesComponent` -> `ManagementOrdersComponent`
+      - `ManagementSellReviewDialogComponent` -> `ManagementOrderReviewDialogComponent`
+    - Angular services
+      - `ManagementSalesService` -> `ManagementOrdersService`
+      - API services for sales data in both `http` and `local-memory` modules
+    - File, class, property, function, constant and variable names
+    - Endpoints
+      - `/sales` -> `/orders`
+      - `/sales/confirmation` -> `/orders/confirmation`
+      - `/sales/rejection` -> `/orders/rejection`
+      - `/sales/completion` -> `/orders/completion`
+    - `SellDetail` to `OrderDetail` as well
 - API architecture
   - Within their respective modules, API service classes were put together
     instead of being grouped "by aspect"

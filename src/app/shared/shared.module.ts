@@ -16,9 +16,9 @@ import { HeaderBrandComponent } from './components/header-brand/header-brand.com
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductCategoryTreeComponent } from './components/product-category-tree/product-category-tree.component';
 import { ProductFiltersPanelComponent } from './components/product-filters-panel/product-filters-panel.component';
-import { SellDetailUnitsControlComponent } from './components/sell-detail-units-control/sell-detail-units-control.component';
-import { SellDetailsTableComponent } from './components/sell-details-table/sell-details-table.component';
-import { SellInformationComponent } from './components/sell-information/sell-information.component';
+import { OrderDetailUnitsControlComponent } from './components/order-detail-units-control/order-detail-units-control.component';
+import { OrderDetailsTableComponent } from './components/order-details-table/order-details-table.component';
+import { OrderInformationComponent } from './components/order-information/order-information.component';
 import { SlideshowComponent } from './components/slideshow/slideshow.component';
 import { WhatsappButtonComponent } from './components/whatsapp-button/whatsapp-button.component';
 import { ConfirmationDialogComponent } from './dialogs/confirmation/confirmation-dialog.component';
@@ -47,9 +47,9 @@ const SHARED_DECLARATIONS = [
   ProductCategorySelectorFieldComponent,
   ProductCategoryTreeComponent,
   ProductFiltersPanelComponent,
-  SellDetailUnitsControlComponent,
-  SellDetailsTableComponent,
-  SellInformationComponent,
+  OrderDetailUnitsControlComponent,
+  OrderDetailsTableComponent,
+  OrderInformationComponent,
   SlideshowComponent,
   WhatsappButtonComponent,
   ConfirmationDialogComponent,

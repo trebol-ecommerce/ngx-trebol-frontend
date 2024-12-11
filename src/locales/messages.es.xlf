@@ -269,7 +269,7 @@
           <context context-type="linenumber">30</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/sell-details-table/sell-details-table.component.html</context>
+          <context context-type="sourcefile">src/app/shared/components/order-details-table/order-details-table.component.html</context>
           <context context-type="linenumber">26</context>
         </context-group>
         <context-group purpose="location">
@@ -320,7 +320,7 @@
           <context context-type="sourcefile">src/app/management/dialogs/products-array/products-array-dialog.component.html</context>
           <context context-type="linenumber">8</context>
         </context-group>
-        <note priority="1" from="description">Title of dialog prompt to add products into details of a sell</note>
+        <note priority="1" from="description">Title of dialog prompt to add products into details of a order</note>
       </trans-unit>
       <trans-unit id="1247144792047923763" datatype="html">
         <source>Productos disponibles</source>
@@ -328,7 +328,7 @@
           <context context-type="sourcefile">src/app/management/dialogs/products-array/products-array-dialog.component.html</context>
           <context context-type="linenumber">11</context>
         </context-group>
-        <note priority="1" from="description">Title of widget displaying available products for addition to details of a sell</note>
+        <note priority="1" from="description">Title of widget displaying available products for addition to details of a order</note>
       </trans-unit>
       <trans-unit id="2714724285313665688" datatype="html">
         <source>Agregar este producto</source>
@@ -336,7 +336,7 @@
           <context context-type="sourcefile">src/app/management/dialogs/products-array/products-array-dialog.component.html</context>
           <context context-type="linenumber">44</context>
         </context-group>
-        <note priority="1" from="description">Label for action button to mark a product for addition to details of a sell</note>
+        <note priority="1" from="description">Label for action button to mark a product for addition to details of a order</note>
         <note priority="1" from="meaning">add this product</note>
       </trans-unit>
       <trans-unit id="4186558932365555160" datatype="html">
@@ -345,7 +345,7 @@
           <context context-type="sourcefile">src/app/management/dialogs/products-array/products-array-dialog.component.html</context>
           <context context-type="linenumber">67</context>
         </context-group>
-        <note priority="1" from="description">Title of widget displaying products marked for addition to details of a sell</note>
+        <note priority="1" from="description">Title of widget displaying products marked for addition to details of a order</note>
       </trans-unit>
       <trans-unit id="8060934497736825751" datatype="html">
         <source>No agregar este producto</source>
@@ -353,7 +353,7 @@
           <context context-type="sourcefile">src/app/management/dialogs/products-array/products-array-dialog.component.html</context>
           <context context-type="linenumber">96</context>
         </context-group>
-        <note priority="1" from="description">Label for action button to unmark a product for addition details of a sell</note>
+        <note priority="1" from="description">Label for action button to unmark a product for addition details of a order</note>
         <note priority="1" from="meaning">dont add this product</note>
       </trans-unit>
       <trans-unit id="3657517537479617256" datatype="html">
@@ -375,7 +375,7 @@
       <trans-unit id="7378878529334768232" datatype="html">
         <source>Rechazar</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/dialogs/sell-review/management-sell-review-dialog.component.html</context>
+          <context context-type="sourcefile">src/app/management/dialogs/order-review/management-order-review-dialog.component.html</context>
           <context context-type="linenumber">22</context>
         </context-group>
         <note priority="1" from="description">Label for action button to trigger rejection of an order</note>
@@ -383,7 +383,7 @@
       <trans-unit id="9178182467454450952" datatype="html">
         <source>Aprobar</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/dialogs/sell-review/management-sell-review-dialog.component.html</context>
+          <context context-type="sourcefile">src/app/management/dialogs/order-review/management-order-review-dialog.component.html</context>
           <context context-type="linenumber">29</context>
         </context-group>
         <note priority="1" from="description">Label for action to trigger confirmation/marking an order as reviewed</note>
@@ -391,23 +391,23 @@
       <trans-unit id="8384225360105280028" datatype="html">
         <source>Completar</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/dialogs/sell-review/management-sell-review-dialog.component.html</context>
+          <context context-type="sourcefile">src/app/management/dialogs/order-review/management-order-review-dialog.component.html</context>
           <context context-type="linenumber">37</context>
         </context-group>
         <note priority="1" from="description">Label for action to trigger marking an order as completed</note>
       </trans-unit>
       <trans-unit id="757991788990040494" datatype="html">
-        <source>Detalles de la venta #<x id="buyOrder" equiv-text="this.data.sell.buyOrder"/></source>
+        <source>Detalles de la venta #<x id="buyOrder" equiv-text="this.data.order.buyOrder"/></source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/dialogs/sell-review/management-sell-review-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/management/dialogs/order-review/management-order-review-dialog.component.ts</context>
           <context context-type="linenumber">32</context>
         </context-group>
-        <note priority="1" from="description">Title of dialog used to view details of one sell</note>
+        <note priority="1" from="description">Title of dialog used to view details of one order</note>
       </trans-unit>
       <trans-unit id="7768838549244200754" datatype="html">
         <source>Venta rechazada</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/dialogs/sell-review/management-sell-review-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/management/dialogs/order-review/management-order-review-dialog.component.ts</context>
           <context context-type="linenumber">52</context>
         </context-group>
         <note priority="1" from="description">Message of success after rejecting an order</note>
@@ -415,7 +415,7 @@
       <trans-unit id="5599152866782134939" datatype="html">
         <source>Venta aprobada</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/dialogs/sell-review/management-sell-review-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/management/dialogs/order-review/management-order-review-dialog.component.ts</context>
           <context context-type="linenumber">63</context>
         </context-group>
         <note priority="1" from="description">Message of success after confirming an order</note>
@@ -423,7 +423,7 @@
       <trans-unit id="4808153250003561708" datatype="html">
         <source>Venta completada. ¡Felicidades!</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/dialogs/sell-review/management-sell-review-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/management/dialogs/order-review/management-order-review-dialog.component.ts</context>
           <context context-type="linenumber">74</context>
         </context-group>
         <note priority="1" from="description">Message of success after completing an order</note>
@@ -582,7 +582,7 @@
           <context context-type="sourcefile">src/app/management/management-routing.module.ts</context>
           <context context-type="linenumber">37</context>
         </context-group>
-        <note priority="1" from="description">Title of page for management of sales</note>
+        <note priority="1" from="description">Title of page for management of orders</note>
       </trans-unit>
       <trans-unit id="8756167649220050929" datatype="html">
         <source>Listados</source>
@@ -622,7 +622,7 @@
           <context context-type="sourcefile">src/app/management/management-routing.module.ts</context>
           <context context-type="linenumber">77</context>
         </context-group>
-        <note priority="1" from="description">Title of page for management of salespeople</note>
+        <note priority="1" from="description">Title of page for management of orderspeople</note>
       </trans-unit>
       <trans-unit id="4555457172864212828" datatype="html">
         <source>Usuarios</source>
@@ -707,7 +707,7 @@
           <context context-type="linenumber">70</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/routes/sales/management-sales.component.html</context>
+          <context context-type="sourcefile">src/app/management/routes/orders/management-orders.component.html</context>
           <context context-type="linenumber">56</context>
         </context-group>
         <context-group purpose="location">
@@ -821,23 +821,23 @@
       <trans-unit id="6419204764693021375" datatype="html">
         <source>Número</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/routes/sales/management-sales.component.html</context>
+          <context context-type="sourcefile">src/app/management/routes/orders/management-orders.component.html</context>
           <context context-type="linenumber">16</context>
         </context-group>
-        <note priority="1" from="description">Name of table header for buy order of sell</note>
+        <note priority="1" from="description">Name of table header for buy order of order</note>
       </trans-unit>
       <trans-unit id="3153802600204818440" datatype="html">
         <source>Fecha / Hora</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/routes/sales/management-sales.component.html</context>
+          <context context-type="sourcefile">src/app/management/routes/orders/management-orders.component.html</context>
           <context context-type="linenumber">23</context>
         </context-group>
-        <note priority="1" from="description">Name of table header for date and time of sell</note>
+        <note priority="1" from="description">Name of table header for date and time of order</note>
       </trans-unit>
       <trans-unit id="7289969845157591215" datatype="html">
         <source>Cliente</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/routes/sales/management-sales.component.html</context>
+          <context context-type="sourcefile">src/app/management/routes/orders/management-orders.component.html</context>
           <context context-type="linenumber">30</context>
         </context-group>
         <note priority="1" from="description">Name of table header for name of customer</note>
@@ -846,16 +846,16 @@
       <trans-unit id="231552715226931061" datatype="html">
         <source>Estado</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/routes/sales/management-sales.component.html</context>
+          <context context-type="sourcefile">src/app/management/routes/orders/management-orders.component.html</context>
           <context context-type="linenumber">37</context>
         </context-group>
-        <note priority="1" from="description">Name of table header for status of sell</note>
+        <note priority="1" from="description">Name of table header for status of order</note>
         <note priority="1" from="meaning">transaction status</note>
       </trans-unit>
       <trans-unit id="5809988187724770739" datatype="html">
         <source>Ver detalles</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/routes/sales/management-sales.component.html</context>
+          <context context-type="sourcefile">src/app/management/routes/orders/management-orders.component.html</context>
           <context context-type="linenumber">47</context>
         </context-group>
         <note priority="1" from="description">Label for action button to view and manage details of a complex item</note>
@@ -864,23 +864,23 @@
       <trans-unit id="6754922470648979186" datatype="html">
         <source>Venta N°<x id="buyOrder" equiv-text="s.buyOrder"/> (<x id="date" equiv-text="s.date"/>) eliminada</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/routes/sales/management-sales.component.ts</context>
+          <context context-type="sourcefile">src/app/management/routes/orders/management-orders.component.ts</context>
           <context context-type="linenumber">76</context>
         </context-group>
-        <note priority="1" from="description">Message of success after deleting a sell with buy order {{ buyOrder }} on date {{ date }}</note>
+        <note priority="1" from="description">Message of success after deleting a order with buy order {{ buyOrder }} on date {{ date }}</note>
       </trans-unit>
       <trans-unit id="316691784795579856" datatype="html">
         <source>Confirmación requerida</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/routes/sales/management-sales.service.ts</context>
+          <context context-type="sourcefile">src/app/management/routes/orders/management-orders.service.ts</context>
           <context context-type="linenumber">29</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/routes/sales/management-sales.service.ts</context>
+          <context context-type="sourcefile">src/app/management/routes/orders/management-orders.service.ts</context>
           <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/routes/sales/management-sales.service.ts</context>
+          <context context-type="sourcefile">src/app/management/routes/orders/management-orders.service.ts</context>
           <context context-type="linenumber">49</context>
         </context-group>
         <note priority="1" from="description">Title of generic confirmation dialog</note>
@@ -888,7 +888,7 @@
       <trans-unit id="8400616718875943428" datatype="html">
         <source>La venta no se podrá editar de nuevo, y cualquier reembolso se deberá ejecutar manualmente. Esta operación no se puede deshacer. ¿Estás segur@ de rechazar esta orden?</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/routes/sales/management-sales.service.ts</context>
+          <context context-type="sourcefile">src/app/management/routes/orders/management-orders.service.ts</context>
           <context context-type="linenumber">30</context>
         </context-group>
         <note priority="1" from="description">Label to hint user that rejections cannot be undone, and they do not trigger automatic refunds</note>
@@ -896,7 +896,7 @@
       <trans-unit id="5942346343917585645" datatype="html">
         <source>El cliente será notificado por e-mail junto a una copia del recibo de esta orden. Esta operación no se puede deshacer. ¿Estás segur@ de confirmar esta orden?</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/routes/sales/management-sales.service.ts</context>
+          <context context-type="sourcefile">src/app/management/routes/orders/management-orders.service.ts</context>
           <context context-type="linenumber">40</context>
         </context-group>
         <note priority="1" from="description">Label to hint user that confirmations cannot be undone, and they trigger an automatic mail to the customer</note>
@@ -904,7 +904,7 @@
       <trans-unit id="4406299629079880428" datatype="html">
         <source>La venta no se podrá editar de nuevo. Esta operación no se puede deshacer. ¿Estás segur@ de marcar esta orden como completada?</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/management/routes/sales/management-sales.service.ts</context>
+          <context context-type="sourcefile">src/app/management/routes/orders/management-orders.service.ts</context>
           <context context-type="linenumber">50</context>
         </context-group>
         <note priority="1" from="description">Label to hint user that completions cannot be undone</note>
@@ -915,7 +915,7 @@
           <context context-type="sourcefile">src/app/management/routes/salespeople/management-salespeople.component.ts</context>
           <context context-type="linenumber">60</context>
         </context-group>
-        <note priority="1" from="description">Message of success after deleting a salesperson with first name {{ firstName }} and last name {{ lastName }}</note>
+        <note priority="1" from="description">Message of success after deleting a ordersperson with first name {{ firstName }} and last name {{ lastName }}</note>
       </trans-unit>
       <trans-unit id="6640434553916554122" datatype="html">
         <source>Repartidor</source>
@@ -1074,7 +1074,7 @@
       <trans-unit id="5715315175934018026" datatype="html">
         <source>Agregar unidad</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/sell-detail-units-control/sell-detail-units-control.component.html</context>
+          <context context-type="sourcefile">src/app/shared/components/order-detail-units-control/order-detail-units-control.component.html</context>
           <context context-type="linenumber">9</context>
         </context-group>
         <note priority="1" from="description">Label for action button to include one (1) more unit of a product in the shopping cart</note>
@@ -1083,7 +1083,7 @@
       <trans-unit id="2141038813180645167" datatype="html">
         <source>Quitar unidad</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/sell-detail-units-control/sell-detail-units-control.component.html</context>
+          <context context-type="sourcefile">src/app/shared/components/order-detail-units-control/order-detail-units-control.component.html</context>
           <context context-type="linenumber">18</context>
         </context-group>
         <note priority="1" from="description">Label for action button to take one (1) unit of a product away from the shopping cart</note>
@@ -1092,7 +1092,7 @@
       <trans-unit id="6786954508842428290" datatype="html">
         <source>Producto</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/sell-details-table/sell-details-table.component.html</context>
+          <context context-type="sourcefile">src/app/shared/components/order-details-table/order-details-table.component.html</context>
           <context context-type="linenumber">11</context>
         </context-group>
         <context-group purpose="location">
@@ -1105,7 +1105,7 @@
       <trans-unit id="9074327260054432941" datatype="html">
         <source>Unidades</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/sell-details-table/sell-details-table.component.html</context>
+          <context context-type="sourcefile">src/app/shared/components/order-details-table/order-details-table.component.html</context>
           <context context-type="linenumber">34</context>
         </context-group>
         <context-group purpose="location">
@@ -1117,7 +1117,7 @@
       <trans-unit id="870418232806327600" datatype="html">
         <source>Subtotal</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/sell-details-table/sell-details-table.component.html</context>
+          <context context-type="sourcefile">src/app/shared/components/order-details-table/order-details-table.component.html</context>
           <context context-type="linenumber">46</context>
         </context-group>
         <context-group purpose="location">
@@ -1129,7 +1129,7 @@
       <trans-unit id="8364521452977083449" datatype="html">
         <source>Quitar</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/sell-details-table/sell-details-table.component.html</context>
+          <context context-type="sourcefile">src/app/shared/components/order-details-table/order-details-table.component.html</context>
           <context context-type="linenumber">57</context>
         </context-group>
         <note priority="1" from="description">Label for action button to remove all units of product in cart</note>
@@ -1138,10 +1138,10 @@
       <trans-unit id="8911252899177889714" datatype="html">
         <source>Ver recibo</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/sell-information/sell-information.component.html</context>
+          <context context-type="sourcefile">src/app/shared/components/order-information/order-information.component.html</context>
           <context context-type="linenumber">30</context>
         </context-group>
-        <note priority="1" from="description">Label for action to review the receipt details of a sell</note>
+        <note priority="1" from="description">Label for action to review the receipt details of a order</note>
       </trans-unit>
       <trans-unit id="4814285799071780083" datatype="html">
         <source>Quitar</source>
@@ -1950,7 +1950,7 @@
           <context context-type="linenumber">18</context>
         </context-group>
         <note priority="1" from="description">Label with cart subtotal value (products only)</note>
-        <note priority="1" from="meaning">subtotal sell value</note>
+        <note priority="1" from="meaning">subtotal order value</note>
       </trans-unit>
       <trans-unit id="1185922478310890334" datatype="html">
         <source>Datos para el pedido</source>
@@ -2036,146 +2036,146 @@
       <trans-unit id="3814505654507027228" datatype="html">
         <source>Envío Completado</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">9</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">24</context>
         </context-group>
-        <note priority="1" from="description">Description of status of a sell after its contents have been delivered to the customer</note>
+        <note priority="1" from="description">Description of status of a order after its contents have been delivered to the customer</note>
       </trans-unit>
       <trans-unit id="945086919382619829" datatype="html">
         <source>Envío en Camino</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">25</context>
         </context-group>
-        <note priority="1" from="description">Description of status of a sell after it has been shipped</note>
+        <note priority="1" from="description">Description of status of a order after it has been shipped</note>
       </trans-unit>
       <trans-unit id="4341485281404939936" datatype="html">
         <source>Pagada y Confirmada</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">11</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">26</context>
         </context-group>
-        <note priority="1" from="description">Description of status of a sell after being acknowledged and confirmed by a salesperson, store clerk, or the next responsible individual</note>
+        <note priority="1" from="description">Description of status of a order after being acknowledged and confirmed by a ordersperson, store clerk, or the next responsible individual</note>
       </trans-unit>
       <trans-unit id="813244575473708025" datatype="html">
         <source>Pagada, por Confirmar</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">12</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">27</context>
         </context-group>
-        <note priority="1" from="description">Description of status of a sell once payment has been processed, and needs confirmation from the store</note>
+        <note priority="1" from="description">Description of status of a order once payment has been processed, and needs confirmation from the store</note>
       </trans-unit>
       <trans-unit id="261729095639909855" datatype="html">
         <source>Iniciada</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">28</context>
         </context-group>
-        <note priority="1" from="description">Description of status of a sell once payment is requested; the customer must proceed to execute their transaction</note>
+        <note priority="1" from="description">Description of status of a order once payment is requested; the customer must proceed to execute their transaction</note>
       </trans-unit>
       <trans-unit id="4416413576346763682" datatype="html">
         <source>Pendiente</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">29</context>
         </context-group>
-        <note priority="1" from="description">Description of status of a sell right before requesting payment; customers may never see this state</note>
+        <note priority="1" from="description">Description of status of a order right before requesting payment; customers may never see this state</note>
       </trans-unit>
       <trans-unit id="371956944363479367" datatype="html">
         <source>Pago Abortado</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">15</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">30</context>
         </context-group>
-        <note priority="1" from="description">Description of a failed sell due to the transaction being aborted</note>
+        <note priority="1" from="description">Description of a failed order due to the transaction being aborted</note>
       </trans-unit>
       <trans-unit id="8105540508362589812" datatype="html">
         <source>Pago Fallido</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">31</context>
         </context-group>
-        <note priority="1" from="description">Description of a failed sell due to an uncertain transaction error</note>
+        <note priority="1" from="description">Description of a failed order due to an uncertain transaction error</note>
       </trans-unit>
       <trans-unit id="6395733352391706880" datatype="html">
         <source>Pago Rechazado</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">32</context>
         </context-group>
-        <note priority="1" from="description">Description of a failed sell due to rejection of transaction (most likely, the card was declined)</note>
+        <note priority="1" from="description">Description of a failed order due to rejection of transaction (most likely, the card was declined)</note>
       </trans-unit>
       <trans-unit id="5501791863262140347" datatype="html">
         <source>Envío Cancelado</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">33</context>
         </context-group>
-        <note priority="1" from="description">Description of a failed sell due to abortion of the delivery process</note>
+        <note priority="1" from="description">Description of a failed order due to abortion of the delivery process</note>
       </trans-unit>
       <trans-unit id="6861171261641207722" datatype="html">
         <source>Envío Fallido</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">34</context>
         </context-group>
-        <note priority="1" from="description">Description of a failed sell due to a failure in the delivery process</note>
+        <note priority="1" from="description">Description of a failed order due to a failure in the delivery process</note>
       </trans-unit>
       <trans-unit id="1102912391897633655" datatype="html">
         <source>Devuelta</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/text/sell-status-names.ts</context>
+          <context context-type="sourcefile">src/text/order-status-names.ts</context>
           <context context-type="linenumber">35</context>
         </context-group>
-        <note priority="1" from="description">Description of a failed sell due to its contents being returned</note>
+        <note priority="1" from="description">Description of a failed order due to its contents being returned</note>
       </trans-unit>
     </body>
   </file>

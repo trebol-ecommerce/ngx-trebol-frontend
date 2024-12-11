@@ -9,10 +9,10 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { CheckoutRequest } from 'src/models/CheckoutRequest';
-import { SellDetail } from 'src/models/entities/SellDetail';
+import { OrderDetail } from 'src/models/entities/OrderDetail';
 import { ExternalPaymentRedirectionData } from 'src/models/ExternalPaymentRedirectionData';
 import { BILLING_TYPE_COMPANY } from 'src/text/billing-type-names';
-import { Sell } from '../../models/entities/Sell';
+import { Order } from '../../models/entities/Order';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
 
 @Injectable({ providedIn: 'root' })
@@ -29,13 +29,13 @@ export class StoreCheckoutService {
    * @param customerData An object containg information about the customer
    * @param checkoutDetails An array of product/service details about this transaction
    */
-  requestTransaction(data: CheckoutRequest, cartDetails: SellDetail[]): Observable<ExternalPaymentRedirectionData> {
-    const sell = this.createCheckoutRequest(data, cartDetails);
-    return this.checkoutApiService.submitCart(sell);
+  requestTransaction(data: CheckoutRequest, cartDetails: OrderDetail[]): Observable<ExternalPaymentRedirectionData> {
+    const order = this.createCheckoutRequest(data, cartDetails);
+    return this.checkoutApiService.submitCart(order);
   }
 
-  private createCheckoutRequest(checkoutRequestData: CheckoutRequest, cartDetails: SellDetail[]): Sell {
-    const target: Partial<Sell> = {
+  private createCheckoutRequest(checkoutRequestData: CheckoutRequest, cartDetails: OrderDetail[]): Order {
+    const target: Partial<Order> = {
       customer: checkoutRequestData.customer,
       details: cartDetails
     };
@@ -56,6 +56,6 @@ export class StoreCheckoutService {
       target.shippingAddress = shipping.address;
     }
 
-    return target as Sell;
+    return target as Order;
   }
 }

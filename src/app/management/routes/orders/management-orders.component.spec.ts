@@ -17,9 +17,9 @@ import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EMPTY, of } from 'rxjs';
-import { Sell } from 'src/models/entities/Sell';
-import { ManagementSalesComponent } from './management-sales.component';
-import { ManagementSalesService } from './management-sales.service';
+import { Order } from 'src/models/entities/Order';
+import { ManagementOrdersComponent } from './management-orders.component';
+import { ManagementOrdersService } from './management-orders.service';
 
 @Component({ selector: 'app-centered-mat-spinner' })
 class MockCenteredMatSpinnerComponent { }
@@ -30,14 +30,14 @@ class MockManagementDataActionsComponent {
   @Output() add = new EventEmitter();
 }
 
-describe('ManagementSalesComponent', () => {
-  let component: ManagementSalesComponent;
-  let fixture: ComponentFixture<ManagementSalesComponent>;
-  let serviceSpy: jasmine.SpyObj<ManagementSalesService>;
+describe('ManagementOrdersComponent', () => {
+  let component: ManagementOrdersComponent;
+  let fixture: ComponentFixture<ManagementOrdersComponent>;
+  let serviceSpy: jasmine.SpyObj<ManagementOrdersService>;
   let dialogServiceSpy: jasmine.SpyObj<MatDialog>;
 
   beforeEach(waitForAsync(() => {
-    const mockService = jasmine.createSpyObj('ManagementSalesService', ['reloadItems', 'removeItems', 'fetch',]);
+    const mockService = jasmine.createSpyObj('ManagementOrdersService', ['reloadItems', 'removeItems', 'fetch',]);
     const mockDialogService = jasmine.createSpyObj('MatDialog', ['open']);
     const mockSnackBarService = jasmine.createSpyObj('MatSnackBar', ['open']);
 
@@ -54,10 +54,10 @@ describe('ManagementSalesComponent', () => {
       declarations: [
         MockCenteredMatSpinnerComponent,
         MockManagementDataActionsComponent,
-        ManagementSalesComponent
+        ManagementOrdersComponent
       ],
       providers: [
-        { provide: ManagementSalesService, useValue: mockService },
+        { provide: ManagementOrdersService, useValue: mockService },
         { provide: MatDialog, useValue: mockDialogService },
         { provide: MatSnackBar, useValue: mockSnackBarService }
       ]
@@ -65,7 +65,7 @@ describe('ManagementSalesComponent', () => {
   }));
 
   beforeEach(() => {
-    serviceSpy = TestBed.inject(ManagementSalesService) as jasmine.SpyObj<ManagementSalesService>;
+    serviceSpy = TestBed.inject(ManagementOrdersService) as jasmine.SpyObj<ManagementOrdersService>;
     dialogServiceSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
     serviceSpy.fetch.and.returnValue(EMPTY);
     serviceSpy.reloadItems.and.returnValue(of(void 0));
@@ -79,7 +79,7 @@ describe('ManagementSalesComponent', () => {
     serviceSpy.pageIndex = undefined;
     serviceSpy.pageSize = undefined;
 
-    fixture = TestBed.createComponent(ManagementSalesComponent);
+    fixture = TestBed.createComponent(ManagementOrdersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -89,22 +89,22 @@ describe('ManagementSalesComponent', () => {
   });
 
   it('should delete items', () => {
-    component.onClickDelete({ buyOrder: 1 } as Sell);
+    component.onClickDelete({ buyOrder: 1 } as Order);
     expect(serviceSpy.removeItems).toHaveBeenCalled();
   });
 
   it('should refresh after deleting items', () => {
-    component.onClickDelete({ buyOrder: 1 } as Sell);
+    component.onClickDelete({ buyOrder: 1 } as Order);
     expect(serviceSpy.reloadItems).toHaveBeenCalled();
   });
 
-  it('should fetch details of individual sales', () => {
+  it('should fetch details of individual orders', () => {
     component.onClickView({ item: { buyOrder: 1 }, focused: false });
     expect(serviceSpy.fetch).toHaveBeenCalled();
   });
 
-  it('should open details of individual sales in a dialog', () => {
-    serviceSpy.fetch.and.returnValue(of({ buyOrder: 1 } as Sell));
+  it('should open details of individual orders in a dialog', () => {
+    serviceSpy.fetch.and.returnValue(of({ buyOrder: 1 } as Order));
     dialogServiceSpy.open.and.returnValue({ afterClosed: () => of(void 0) } as MatDialogRef<any>);
 
     component.onClickView({ item: { buyOrder: 1 }, focused: false });

@@ -10,41 +10,41 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DataPage } from 'src/models/DataPage';
-import { Sell } from 'src/models/entities/Sell';
-import { ISalesDataApiService } from '../../sales.data.api.iservice';
+import { Order } from 'src/models/entities/Order';
+import { IOrdersDataApiService } from '../../orders.data.api.iservice';
 import { environment } from 'src/environments/environment';
 import { makeFetchHttpParams } from '../http-api.functions';
 import { ApiDataPageQuerySpec } from 'src/models/ApiDataPageQuerySpec';
 
 @Injectable()
-export class SalesDataHttpApiService
-  implements ISalesDataApiService {
+export class OrdersDataHttpApiService
+  implements IOrdersDataApiService {
 
-  private readonly baseUrl = `${environment.apiUrls.data}/sales`;
+  private readonly baseUrl = `${environment.apiUrls.data}/orders`;
 
   constructor(private http: HttpClient) { }
 
-  create(product: Sell) {
+  create(order: Order) {
     return this.http.post<void>(
       this.baseUrl,
-      product
+      order
     );
   }
 
   fetchPage(p: ApiDataPageQuerySpec) {
     const params = makeFetchHttpParams(p);
-    return this.http.get<DataPage<Sell>>(
+    return this.http.get<DataPage<Order>>(
       this.baseUrl,
       { params }
     );
   }
 
-  fetchExisting(sell: Partial<Sell>) {
-    return this.http.get<DataPage<Sell>>(
+  fetchExisting(order: Partial<Order>) {
+    return this.http.get<DataPage<Order>>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
-          buyOrder: String(sell.buyOrder)
+          buyOrder: String(order.buyOrder)
         } })
       }
     ).pipe(
@@ -52,56 +52,56 @@ export class SalesDataHttpApiService
     );
   }
 
-  fetchInnerDataFrom(item: Sell) {
-    return this.fetchExisting(item).pipe(
+  fetchInnerDataFrom(order: Order) {
+    return this.fetchExisting(order).pipe(
       map(s => s.details)
     );
   }
 
-  update(sell: Partial<Sell>) {
+  update(order: Partial<Order>) {
     return this.http.put<void>(
       this.baseUrl,
-      sell,
+      order,
       {
         params: new HttpParams({ fromObject: {
-          buyOrder: String(sell.buyOrder)
+          buyOrder: String(order.buyOrder)
         } })
       }
     );
   }
 
-  delete(sell: Partial<Sell>) {
+  delete(order: Partial<Order>) {
     return this.http.delete<void>(
       this.baseUrl,
       {
         params: new HttpParams({ fromObject: {
-          buyOrder: String(sell.buyOrder)
+          buyOrder: String(order.buyOrder)
         } })
       }
     );
   }
 
-  markAsConfirmed(sell: Sell): Observable<any> {
-    const payload: Partial<Sell> = {};
-    payload.buyOrder = sell.buyOrder;
+  markAsConfirmed(order: Order): Observable<any> {
+    const payload: Partial<Order> = {};
+    payload.buyOrder = order.buyOrder;
     return this.http.post(
       `${this.baseUrl}/confirmation`,
       payload
     );
   }
 
-  markAsRejected(sell: Sell): Observable<any> {
-    const payload: Partial<Sell> = {};
-    payload.buyOrder = sell.buyOrder;
+  markAsRejected(order: Order): Observable<any> {
+    const payload: Partial<Order> = {};
+    payload.buyOrder = order.buyOrder;
     return this.http.post(
       `${this.baseUrl}/rejection`,
       payload
     );
   }
 
-  markAsCompleted(sell: Sell): Observable<any> {
-    const payload: Partial<Sell> = {};
-    payload.buyOrder = sell.buyOrder;
+  markAsCompleted(order: Order): Observable<any> {
+    const payload: Partial<Order> = {};
+    payload.buyOrder = order.buyOrder;
     return this.http.post(
       `${this.baseUrl}/completion`,
       payload

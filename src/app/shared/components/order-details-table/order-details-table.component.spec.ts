@@ -13,18 +13,18 @@ import { MatTableModule } from '@angular/material/table';
 import { timer } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { observeIfEventFiresUponCallback } from 'src/test-functions/observeIfEventFiresUponCallback';
-import { SellDetailsTableComponent } from './sell-details-table.component';
+import { OrderDetailsTableComponent } from './order-details-table.component';
 
-@Component({ selector: 'app-sell-detail-units-control' })
-class MockSellDetailUnitsControlComponent {
+@Component({ selector: 'app-order-detail-units-control' })
+class MockOrderDetailUnitsControlComponent {
   @Input() units: number;
   @Output() increase = new EventEmitter();
   @Output() decrease = new EventEmitter();
 }
 
-describe('SellDetailsTableComponent', () => {
-  let component: SellDetailsTableComponent;
-  let fixture: ComponentFixture<SellDetailsTableComponent>;
+describe('OrderDetailsTableComponent', () => {
+  let component: OrderDetailsTableComponent;
+  let fixture: ComponentFixture<OrderDetailsTableComponent>;
 
   beforeEach(waitForAsync( () => {
     TestBed.configureTestingModule({
@@ -34,14 +34,14 @@ describe('SellDetailsTableComponent', () => {
         MatTableModule
       ],
       declarations: [
-        MockSellDetailUnitsControlComponent,
-        SellDetailsTableComponent
+        MockOrderDetailUnitsControlComponent,
+        OrderDetailsTableComponent
       ]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SellDetailsTableComponent);
+    fixture = TestBed.createComponent(OrderDetailsTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

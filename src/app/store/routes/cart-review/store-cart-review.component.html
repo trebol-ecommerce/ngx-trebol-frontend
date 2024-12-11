@@ -7,15 +7,15 @@
 
 <div class="cart">
   <h3 i18n="cart contents review|Title of widget displaying contents of cart">Cart Review</h3>
-  <app-sell-details-table [editable]="inputEditable"
-    [sellDetails]="cartContents$ | async"
+  <app-order-details-table [editable]="inputEditable"
+    [orderDetails]="cartContents$ | async"
     (increaseUnitsAtIndex)="onIncreaseProductQuantityAtIndex($event)"
     (decreaseUnitsAtIndex)="onDecreaseProductQuantityAtIndex($event)"
     (removeAtIndex)="onRemoveProductAtIndex($event)">
-  </app-sell-details-table>
+  </app-order-details-table>
   <mat-divider></mat-divider>
   <div class="subtotal">
-    <span class="label" i18n="subtotal sell value|Label with cart subtotal value (products only)">Subtotal</span>
+    <span class="label" i18n="subtotal order value|Label with cart subtotal value (products only)">Subtotal</span>
     <span class="value">{{ (cartNetValue$ | async) | currency }}</span>
   </div>
 </div>

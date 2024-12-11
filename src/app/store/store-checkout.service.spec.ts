@@ -9,7 +9,7 @@ import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { finalize, onErrorResumeNext, tap } from 'rxjs/operators';
 import { Person } from 'src/models/entities/Person';
-import { SellDetail } from 'src/models/entities/SellDetail';
+import { OrderDetail } from 'src/models/entities/OrderDetail';
 import { BILLING_TYPE_INDIVIDUAL, BILLING_TYPE_NAMES_MAP } from 'src/text/billing-type-names';
 import { CheckoutRequest } from '../../models/CheckoutRequest';
 import { API_INJECTION_TOKENS } from '../api/api-injection-tokens';
@@ -58,7 +58,7 @@ describe('StoreCheckoutService', () => {
         included: false
       }
     };
-    const details: SellDetail[] = [];
+    const details: OrderDetail[] = [];
     service.requestTransaction(requestData, details).pipe(
       tap(
         () => fail('the API should have thrown an error'),
@@ -74,7 +74,7 @@ describe('StoreCheckoutService', () => {
       shipping: { included: false },
       customer: new Person()
     };
-    const details: SellDetail[] = [
+    const details: OrderDetail[] = [
       { product: MOCK_PRODUCTS[0], units: 1 }
     ];
     service.requestTransaction(checkoutRequestData, details).pipe(

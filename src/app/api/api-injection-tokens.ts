@@ -12,7 +12,7 @@ import { Person } from "src/models/entities/Person";
 import { Product } from "src/models/entities/Product";
 import { ProductCategory } from "src/models/entities/ProductCategory";
 import { ProductList } from "src/models/entities/ProductList";
-import { Sell } from "src/models/entities/Sell";
+import { Order } from "src/models/entities/Order";
 import { Shipper } from "src/models/entities/Shipper";
 import { User } from "src/models/entities/User";
 import { UserRole } from "src/models/entities/UserRole";
@@ -40,7 +40,7 @@ export const API_INJECTION_TOKENS = {
   dataProductCategories: new InjectionToken<ITransactionalEntityDataApiService<ProductCategory>>('Trebol.ITransactionalEntityDataApiService<ProductCategory>'),
   dataProductLists: new InjectionToken<ITransactionalEntityDataApiService<ProductList>>('Trebol.ITransactionalEntityDataApiService<ProductList>'),
   dataProducts: new InjectionToken<ITransactionalEntityDataApiService<Product>>('Trebol.ITransactionalEntityDataApiService<Product>'),
-  dataSales: new InjectionToken<ITransactionalEntityDataApiService<Sell>>('Trebol.ITransactionalEntityDataApiService<Sell>'),
+  dataOrders: new InjectionToken<ITransactionalEntityDataApiService<Order>>('Trebol.ITransactionalEntityDataApiService<Order>'),
   dataSalespeople: new InjectionToken<ITransactionalEntityDataApiService<Person>>('Trebol.ITransactionalEntityDataApiService<Salesperson>'),
   dataShippers: new InjectionToken<ITransactionalEntityDataApiService<Shipper>>('Trebol.ITransactionalEntityDataApiService<Shipper>'),
   dataUserRoles: new InjectionToken<IEntityDataApiService<UserRole>>('Trebol.IEntityDataApi<UserRole>'),

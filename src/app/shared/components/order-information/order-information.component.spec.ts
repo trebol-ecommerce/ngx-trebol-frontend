@@ -8,13 +8,13 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Sell } from 'src/models/entities/Sell';
+import { Order } from 'src/models/entities/Order';
 import { AddressPipe } from '../../pipes/address/address.pipe';
-import { SellInformationComponent } from './sell-information.component';
+import { OrderInformationComponent } from './order-information.component';
 
-describe('SellInformationComponent', () => {
-  let component: SellInformationComponent;
-  let fixture: ComponentFixture<SellInformationComponent>;
+describe('OrderInformationComponent', () => {
+  let component: OrderInformationComponent;
+  let fixture: ComponentFixture<OrderInformationComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -23,7 +23,7 @@ describe('SellInformationComponent', () => {
         MatIconModule
       ],
       declarations: [
-        SellInformationComponent,
+        OrderInformationComponent,
         AddressPipe
       ]
     })
@@ -31,9 +31,9 @@ describe('SellInformationComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SellInformationComponent);
+    fixture = TestBed.createComponent(OrderInformationComponent);
     component = fixture.componentInstance;
-    component.sell = new Sell();
+    component.order = new Order();
     fixture.detectChanges();
   });
 

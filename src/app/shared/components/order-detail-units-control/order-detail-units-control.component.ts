@@ -8,11 +8,11 @@
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-sell-detail-units-control',
-  templateUrl: './sell-detail-units-control.component.html',
-  styleUrls: ['./sell-detail-units-control.component.css']
+  selector: 'app-order-detail-units-control',
+  templateUrl: './order-detail-units-control.component.html',
+  styleUrls: ['./order-detail-units-control.component.css']
 })
-export class SellDetailUnitsControlComponent
+export class OrderDetailUnitsControlComponent
   implements OnDestroy {
 
   @Input() units = 0;

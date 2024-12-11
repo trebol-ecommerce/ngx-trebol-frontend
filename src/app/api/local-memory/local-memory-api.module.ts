@@ -16,7 +16,7 @@ import { PeopleDataLocalMemoryApiService } from './services/people-data.local-me
 import { ProductCategoriesDataLocalMemoryApiService } from './services/product-categories-data.local-memory-api.service';
 import { ProductListsDataLocalMemoryApiService } from './services/product-lists-data.local-memory-api.service';
 import { ProductsDataLocalMemoryApiService } from './services/products-data.local-memory-api.service';
-import { SalesDataLocalMemoryApiService } from './services/sales-data.local-memory-api.service';
+import { OrdersDataLocalMemoryApiService } from './services/orders-data.local-memory-api.service';
 import { SalespeopleDataLocalMemoryApiService } from './services/salespeople-data.local-memory-api.service';
 import { ShippersDataLocalMemoryApiService } from './services/shippers-data.local-memory-api.service';
 import { UserRolesDataLocalMemoryApiService } from './services/user-roles-data.local-memory-api.service';
@@ -70,8 +70,8 @@ import { RegisterPublicLocalMemoryApiService } from './services/register-public.
       useClass: ProductsDataLocalMemoryApiService
     },
     {
-      provide: API_INJECTION_TOKENS.dataSales,
-      useClass: SalesDataLocalMemoryApiService
+      provide: API_INJECTION_TOKENS.dataOrders,
+      useClass: OrdersDataLocalMemoryApiService
     },
     {
       provide: API_INJECTION_TOKENS.dataSalespeople,

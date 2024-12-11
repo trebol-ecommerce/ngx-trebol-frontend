@@ -11,29 +11,29 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { finalize, map, onErrorResumeNext, switchMap, tap } from 'rxjs/operators';
-import { Sell } from 'src/models/entities/Sell';
+import { Order } from 'src/models/entities/Order';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';
-import { ManagementSellReviewDialogComponent } from '../../dialogs/sell-review/management-sell-review-dialog.component';
-import { ManagementSellReviewDialogData } from '../../dialogs/sell-review/ManagementSellReviewDialogData';
+import { ManagementOrderReviewDialogComponent } from '../../dialogs/order-review/management-order-review-dialog.component';
+import { ManagementOrderReviewDialogData } from '../../dialogs/order-review/ManagementOrderReviewDialogData';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager/transactional-data-manager.component.directive';
-import { ManagementSalesService } from './management-sales.service';
+import { ManagementOrdersService } from './management-orders.service';
 
 export interface SalesTableRow {
-  item: Partial<Sell>;
+  item: Partial<Order>;
   focused: boolean;
 }
 
 @Component({
-  selector: 'app-management-sales',
-  templateUrl: './management-sales.component.html',
+  selector: 'app-management-orders',
+  templateUrl: './management-orders.component.html',
   styleUrls: [
     '../data-manager.styles.css',
-    './management-sales.component.css'
+    './management-orders.component.css'
   ]
 })
-export class ManagementSalesComponent
-  extends TransactionalDataManagerComponentDirective<Sell>
+export class ManagementOrdersComponent
+  extends TransactionalDataManagerComponentDirective<Order>
   implements OnInit, OnDestroy {
 
   private actionSubscription: Subscription;
@@ -42,7 +42,7 @@ export class ManagementSalesComponent
   items$: Observable<SalesTableRow[]>;
 
   constructor(
-    protected service: ManagementSalesService,
+    protected service: ManagementOrdersService,
     protected dialogService: MatDialog,
     protected route: ActivatedRoute,
     private snackBarService: MatSnackBar
@@ -67,13 +67,13 @@ export class ManagementSalesComponent
     this.actionSubscription?.unsubscribe();
   }
 
-  onClickDelete(s: Sell) {
+  onClickDelete(o: Order) {
     this.actionSubscription?.unsubscribe();
-    this.actionSubscription = this.service.removeItems([s]).pipe(
+    this.actionSubscription = this.service.removeItems([o]).pipe(
       switchMap(() => this.service.reloadItems()),
       tap(
         () => {
-          const message = $localize`:Message of success after deleting a sell with buy order {{ buyOrder }} on date {{ date }}:Sell N°${s.buyOrder}:buyOrder: (${s.date}:date:) deleted`;
+          const message = $localize`:Message of success after deleting a order with buy order {{ buyOrder }} on date {{ date }}:Order N°${o.buyOrder}:buyOrder: (${o.date}:date:) deleted`;
           this.snackBarService.open(message, COMMON_DISMISS_BUTTON_LABEL);
         },
         () => {
@@ -88,10 +88,10 @@ export class ManagementSalesComponent
       row.focused = true;
       this.actionSubscription?.unsubscribe();
       this.actionSubscription = this.service.fetch(row.item).pipe(
-        switchMap(sell => {
-          const dialogData: ManagementSellReviewDialogData = { sell };
+        switchMap(order => {
+          const dialogData: ManagementOrderReviewDialogData = { order };
           return this.dialogService.open(
-            ManagementSellReviewDialogComponent,
+            ManagementOrderReviewDialogComponent,
             {
               width: '50rem',
               data: dialogData
@@ -104,12 +104,12 @@ export class ManagementSalesComponent
     }
   }
 
-  protected createDialogProperties(item: Sell): EntityFormDialogConfig<Sell> {
+  protected createDialogProperties(item: Order): EntityFormDialogConfig<Order> {
     return {
       data: {
         isNewItem: !item,
         item,
-        entityType: 'sell',
+        entityType: 'order',
         apiService: this.service.dataService
       },
       width: '80rem'

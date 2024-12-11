@@ -7,25 +7,25 @@
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { SellDetail } from 'src/models/entities/SellDetail';
+import { OrderDetail } from 'src/models/entities/OrderDetail';
 
 @Component({
-  selector: 'app-sell-details-table',
-  templateUrl: './sell-details-table.component.html',
-  styleUrls: ['./sell-details-table.component.css']
+  selector: 'app-order-details-table',
+  templateUrl: './order-details-table.component.html',
+  styleUrls: ['./order-details-table.component.css']
 })
-export class SellDetailsTableComponent {
+export class OrderDetailsTableComponent {
 
-  private sellDetailsSource = new BehaviorSubject<SellDetail[]>([]);
+  private orderDetailsSource = new BehaviorSubject<OrderDetail[]>([]);
 
   @Input() editable!: boolean;
   @Input() tableColumns = ['product', 'price', 'quantity', 'total', 'actions'];
-  @Input() set sellDetails(v: SellDetail[]) { this.sellDetailsSource.next(v); }
+  @Input() set orderDetails(v: OrderDetail[]) { this.orderDetailsSource.next(v); }
   @Output() increaseUnitsAtIndex = new EventEmitter<number>();
   @Output() decreaseUnitsAtIndex = new EventEmitter<number>();
   @Output() removeAtIndex = new EventEmitter<number>();
 
-  sellDetails$ = this.sellDetailsSource.asObservable();
+  orderDetails$ = this.orderDetailsSource.asObservable();
 
   constructor() { }
 

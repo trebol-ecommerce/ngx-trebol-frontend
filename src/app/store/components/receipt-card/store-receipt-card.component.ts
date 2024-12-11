@@ -7,7 +7,7 @@
 
 import { Component, Input } from '@angular/core';
 import { Receipt } from 'src/models/Receipt';
-import { SELL_STATUS_LOCALIZED_MAP, SELL_STATUS_NAMES_MAP } from 'src/text/sell-status-names';
+import { ORDER_STATUS_LOCALIZED_MAP, ORDER_STATUS_NAMES_MAP } from 'src/text/order-status-names';
 
 @Component({
   selector: 'app-store-receipt-card',
@@ -19,7 +19,7 @@ export class StoreReceiptCardComponent {
   @Input() receipt: Receipt | null;
 
   // TODO use a more elegant approach
-  get transactionStatus() { return this.receipt?.status ? SELL_STATUS_LOCALIZED_MAP.get(this.receipt.status) : ''; }
+  get transactionStatus() { return this.receipt?.status ? ORDER_STATUS_LOCALIZED_MAP.get(this.receipt.status) : ''; }
 
   constructor() { }
 }

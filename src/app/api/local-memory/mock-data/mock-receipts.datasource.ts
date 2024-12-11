@@ -7,7 +7,7 @@
 
 import { Receipt } from "src/models/Receipt";
 import { MOCK_PRODUCTS } from "./mock-products.datasource";
-import { MOCK_SELL_STATUSES } from "./mock-sell-statuses.datasource";
+import { MOCK_ORDER_STATUSES } from "./mock-order-statuses.datasource";
 
 export const MOCK_RECEIPTS: Receipt[] = [
   {
@@ -19,7 +19,7 @@ export const MOCK_RECEIPTS: Receipt[] = [
     ],
     taxValue: 12000,
     transportValue: 5000,
-    status: MOCK_SELL_STATUSES.delivered,
+    status: MOCK_ORDER_STATUSES.delivered,
     totalItems: 5,
     totalValue: ( 5000 + 12000 +
       (MOCK_PRODUCTS[0].price * 4) +
@@ -35,7 +35,7 @@ export const MOCK_RECEIPTS: Receipt[] = [
     ],
     taxValue: 8000,
     transportValue: 3000,
-    status: MOCK_SELL_STATUSES.delivered,
+    status: MOCK_ORDER_STATUSES.delivered,
     totalItems: 2,
     totalValue: ( 3000 + 8000 +
       (MOCK_PRODUCTS[0].price * 2)
@@ -50,7 +50,7 @@ export const MOCK_RECEIPTS: Receipt[] = [
     ],
     taxValue: 6000,
     transportValue: 3000,
-    status: MOCK_SELL_STATUSES.deliveryCancelled,
+    status: MOCK_ORDER_STATUSES.deliveryCancelled,
     totalItems: 1,
     totalValue: ( 3000 + 6000 +
       MOCK_PRODUCTS[1].price
@@ -65,7 +65,7 @@ export const MOCK_RECEIPTS: Receipt[] = [
     ],
     taxValue: 6000,
     transportValue: 3000,
-    status: MOCK_SELL_STATUSES.unpaid,
+    status: MOCK_ORDER_STATUSES.unpaid,
     totalItems: 2,
     totalValue: ( 3000 + 6000 +
       (MOCK_PRODUCTS[0].price * 2)
@@ -81,7 +81,7 @@ export const MOCK_RECEIPTS: Receipt[] = [
     ],
     taxValue: 6000,
     transportValue: 3000,
-    status: MOCK_SELL_STATUSES.failed,
+    status: MOCK_ORDER_STATUSES.failed,
     totalItems: 2,
     totalValue: ( 3000 + 6000 +
       MOCK_PRODUCTS[0].price +

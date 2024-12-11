@@ -17,7 +17,7 @@ import { PeopleDataHttpApiService } from './services/people-data.http-api.servic
 import { ProductCategoriesDataHttpApiService } from './services/product-categories-data.http-api.service';
 import { ProductListsDataHttpApiService } from './services/product-lists-data.http-api.service';
 import { ProductsDataHttpApiService } from './services/products-data.http-api.service';
-import { SalesDataHttpApiService } from './services/sales-data.http-api.service';
+import { OrdersDataHttpApiService } from './services/orders-data.http-api.service';
 import { SalespeopleDataHttpApiService } from './services/salespeople-data.http-api.service';
 import { ShippersDataHttpApiService } from './services/shippers-data.http-api.service';
 import { UserRolesDataHttpApiService } from './services/user-roles-data.http-api.service';
@@ -78,8 +78,8 @@ import { SessionHttpApiInterceptor } from './interceptors/session.http-api.inter
       useClass: ProductsDataHttpApiService
     },
     {
-      provide: API_INJECTION_TOKENS.dataSales,
-      useClass: SalesDataHttpApiService
+      provide: API_INJECTION_TOKENS.dataOrders,
+      useClass: OrdersDataHttpApiService
     },
     {
       provide: API_INJECTION_TOKENS.dataSalespeople,

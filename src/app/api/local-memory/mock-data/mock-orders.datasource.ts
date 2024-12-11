@@ -5,14 +5,14 @@
  * https://opensource.org/licenses/MIT
  */
 
-import { Sell } from 'src/models/entities/Sell';
+import { Order } from 'src/models/entities/Order';
 import { BILLING_TYPE_INDIVIDUAL } from 'src/text/billing-type-names';
 import { MOCK_CUSTOMERS } from './mock-customers.datasource';
 import { MOCK_PRODUCTS } from './mock-products.datasource';
 import { MOCK_SALESPEOPLE } from './mock-salespeople.datasource';
-import { MOCK_SELL_STATUSES } from './mock-sell-statuses.datasource';
+import { MOCK_ORDER_STATUSES } from './mock-order-statuses.datasource';
 
-export const MOCK_SALES: Sell[] = [
+export const MOCK_ORDERS: Order[] = [
   {
     buyOrder: 1,
     date: new Date('2021-06-16'),
@@ -24,7 +24,7 @@ export const MOCK_SALES: Sell[] = [
     customer: MOCK_CUSTOMERS[1],
     paymentType: 'WebPay Plus',
     billingType: BILLING_TYPE_INDIVIDUAL,
-    status: MOCK_SELL_STATUSES.delivered,
+    status: MOCK_ORDER_STATUSES.delivered,
     totalItems: 5,
     totalValue: ( 5000 + 12000 +
       (MOCK_PRODUCTS[0].price * 4) +
@@ -41,7 +41,7 @@ export const MOCK_SALES: Sell[] = [
     customer: MOCK_CUSTOMERS[2],
     paymentType: 'WebPay Plus',
     billingType: BILLING_TYPE_INDIVIDUAL,
-    status: MOCK_SELL_STATUSES.delivered,
+    status: MOCK_ORDER_STATUSES.delivered,
     totalItems: 2,
     totalValue: ( 3000 + 8000 +
       (MOCK_PRODUCTS[0].price * 2)
@@ -58,7 +58,7 @@ export const MOCK_SALES: Sell[] = [
     customer: MOCK_CUSTOMERS[0],
     paymentType: 'WebPay Plus',
     billingType: BILLING_TYPE_INDIVIDUAL,
-    status: MOCK_SELL_STATUSES.deliveryCancelled,
+    status: MOCK_ORDER_STATUSES.deliveryCancelled,
     totalItems: 1,
     totalValue: ( 3000 + 6000 +
       MOCK_PRODUCTS[1].price
@@ -75,7 +75,7 @@ export const MOCK_SALES: Sell[] = [
     customer: MOCK_CUSTOMERS[3],
     paymentType: 'WebPay Plus',
     billingType: BILLING_TYPE_INDIVIDUAL,
-    status: MOCK_SELL_STATUSES.unpaid,
+    status: MOCK_ORDER_STATUSES.unpaid,
     totalItems: 2,
     totalValue: ( 3000 + 6000 +
       (MOCK_PRODUCTS[0].price * 2)
@@ -92,7 +92,7 @@ export const MOCK_SALES: Sell[] = [
     customer: MOCK_CUSTOMERS[3],
     paymentType: 'WebPay Plus',
     billingType: BILLING_TYPE_INDIVIDUAL,
-    status: MOCK_SELL_STATUSES.failed,
+    status: MOCK_ORDER_STATUSES.failed,
     totalItems: 2,
     totalValue: ( 3000 + 6000 +
       MOCK_PRODUCTS[0].price +

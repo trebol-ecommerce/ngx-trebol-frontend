@@ -7,7 +7,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SellDetail } from 'src/models/entities/SellDetail';
+import { OrderDetail } from 'src/models/entities/OrderDetail';
 import { StoreCartService } from '../../store-cart.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class StoreCartReviewComponent
   implements OnInit {
 
   cartNetValue$: Observable<number>;
-  cartContents$: Observable<SellDetail[]>;
+  cartContents$: Observable<OrderDetail[]>;
   inputEditable = true;
 
   constructor(
