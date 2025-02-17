@@ -82,7 +82,7 @@ If you wish to translate this frontend to another language, check out [this Angu
 
 ### Requirements
 
-- A compatible [Node.JS](https://nodejs.org/) installation.
+- A [v15-compatible installation](https://github.com/angular/angular-cli/releases/tag/15.0.0) for [Node.JS](https://nodejs.org/).
 - [Angular CLI](https://cli.angular.io/) v15 or higher (view [v15 docs here](https://v15.angular.io/cli)).
 
 ### Quick setup
