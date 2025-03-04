@@ -17,11 +17,15 @@ jobs:
         with:
           node-version: 22.x
           cache: 'npm'
-      - run: npm i --global @angular/cli
-      - run: npm ci
-      - run: ng lint
-      - name: Test
+      - name: Install project dependencies
+        run: npm ci
+      - name: Install Angular CLI
+        run: npm i --global @angular/cli
+      - name: Lint code
+        run: ng lint
+      - name: Run unit tests
         uses: ianwalter/playwright-container@v3.0.0
         with:
           args: npm run test-headless
-      - run: ng build
+      - name: Build the webapp
+        run: ng build
