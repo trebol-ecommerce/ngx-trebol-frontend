@@ -1,0 +1,27 @@
+name: Build
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: 'npm'
+      - run: npm i --global @angular/cli
+      - run: npm ci
+      - run: ng lint
+      - name: Test
+        uses: ianwalter/playwright-container@3.0.0
+        with:
+          args: npm run test-headless
+      - run: ng build
