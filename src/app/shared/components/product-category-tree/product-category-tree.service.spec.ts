@@ -12,13 +12,14 @@ import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { ProductCategory } from 'src/models/entities/ProductCategory';
 import { ProductCategoryTreeService } from './product-category-tree.service';
+import { ApiDataPageQuerySpec } from 'src/models/ApiDataPageQuerySpec';
 
 describe('ProductCategoryTreeService', () => {
   let service: ProductCategoryTreeService;
   let apiServiceSpy: jasmine.SpyObj<ITransactionalEntityDataApiService<ProductCategory>>;
 
   beforeEach(() => {
-    const mockApiService = jasmine.createSpyObj('ITransactionalEntityDataApiService<ProductCategory>', ['fetchPage', 'create', 'update', 'delete']);
+    const mockApiService = jasmine.createSpyObj('ITransactionalEntityDataApiService<ProductCategory>', ['fetchPage', 'fetchExisting', 'create', 'update', 'delete']);
 
     TestBed.configureTestingModule({
       providers: [
@@ -35,6 +36,7 @@ describe('ProductCategoryTreeService', () => {
       totalCount: 0,
       pageSize: 10
     }));
+    apiServiceSpy.fetchExisting.and.returnValue(of({} as ProductCategory));
     apiServiceSpy.create.and.returnValue(of(void 0));
     apiServiceSpy.update.and.returnValue(of(void 0));
     apiServiceSpy.delete.and.returnValue(of(void 0));
@@ -54,15 +56,14 @@ describe('ProductCategoryTreeService', () => {
 
   it('should fetch descendants of root categories ', () => {
     // limit recursivity
-    apiServiceSpy.fetchPage.and.callFake((index, size, sortBy, order, filter) => of({
+    const querySpec = {} as ApiDataPageQuerySpec;
+    apiServiceSpy.fetchPage.and.callFake((querySpec) => of({
       pageIndex: 0,
-      items: filter ?
-        [] :
-        [{
+      items: [{
           code: 'some-code',
           name: 'some-name'
         }],
-      totalCount: filter ? 0 : 1,
+      totalCount: 1,
       pageSize: 10
     }));
 
