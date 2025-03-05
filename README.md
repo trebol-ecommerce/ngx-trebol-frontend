@@ -109,7 +109,7 @@ such as [the one setup here](.github/workflows/build.yml).
 ### Language support
 
 This project uses
-[Angular i18n features](https://angular.io/guide/i18n-overview);
+[Angular i18n features](https://v15.angular.io/guide/i18n-overview);
 this means you can build the app using different languages.
 Currently bundled locales reside in [`/src/locales`](src/locales/).
 There are three:
@@ -120,7 +120,7 @@ There are three:
 
 If you wish to translate this frontend to another language,
 check out this Angular guide on
-[working with translation files](https://angular.io/guide/i18n-common-translation-files).
+[working with translation files](https://v15.angular.io/guide/localizing-angular).
 
 ## Usage
 
