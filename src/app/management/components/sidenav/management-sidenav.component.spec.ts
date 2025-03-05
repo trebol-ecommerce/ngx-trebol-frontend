@@ -64,7 +64,7 @@ describe('ManagementSidenavComponent', () => {
     let mockRoutes: string[]
 
     beforeEach(() => {
-      mockRoutes = ['sales', 'products'];
+      mockRoutes = ['orders', 'products'];
       fixture.detectChanges();
     });
   });

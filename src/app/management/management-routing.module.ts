@@ -17,7 +17,7 @@ import { ManagementImagesComponent } from './routes/images/management-images.com
 import { ManagementProductCategoriesComponent } from './routes/product-categories/management-product-categories.component';
 import { ManagementProductListsComponent } from './routes/product-lists/management-product-lists.component';
 import { ManagementProductsComponent } from './routes/products/management-products.component';
-import { ManagementSalesComponent } from './routes/sales/management-sales.component';
+import { ManagementOrdersComponent } from './routes/orders/management-orders.component';
 import { ManagementSalespeopleComponent } from './routes/salespeople/management-salespeople.component';
 import { ManagementShippersComponent } from './routes/shippers/management-shippers.component';
 import { ManagementUsersComponent } from './routes/users/management-users.component';
@@ -31,10 +31,10 @@ export const MANAGEMENT_CHILD_ROUTES: ManagementChildRoute[] = [
     }
   },
   {
-    path: 'sales', component: ManagementSalesComponent,
+    path: 'orders', component: ManagementOrdersComponent,
     data: {
       matIcon: 'loyalty',
-      title: $localize`:Title of page for management of sales:Sales`
+      title: $localize`:Title of page for management of orders:Orders`
     },
     resolve: { access: ManagementRoutingAccessResolver }
   },

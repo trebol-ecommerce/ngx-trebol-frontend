@@ -7,7 +7,7 @@
     height="120" alt="Angular Logo">
   </a>
 
-  <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
@@ -17,105 +17,178 @@
 
 </div>
 
-## Current status 📓
+A single-page web application that acts as the main frontend for the Trébol
+eCommerce software project.
 
-Aligned against [Trébol API v1.5.0](https://github.com/trebol-ecommerce/api/releases/tag/v1.5.0). Important features in this version of the API include endpoints that trigger events for changing state of orders:
+Originally written using [Angular 9](https://v9.angular.io/docs),
+and over the years migrated up to [Angular 15](https://v15.angular.io/docs).
 
-- `POST /data/sales/confirmation` - When the payment is accepted, and the contents are ready to be delivered to the customer
-- `POST /data/sales/rejection` - When any problem is found, the contents cannot be delivered and the customer must be refunded
-- `POST /data/sales/completion` - When the contents were delivered to the customer, indicating the sell was successful
+Please see [CHANGELOG.md](CHANGELOG.md) for a detailed overview of the latest
+changes & additions to the codebase.
 
-Fake API implementation is included to preview this functionality as well.
+## Live Demo
 
-Please see [CHANGELOG.md](CHANGELOG.md) for a detailed overview of the latest changes & additions to the codebase.
+Visit the application live demo
+[in this link](https://trebol-ecommerce.github.io/ngx-trebol-frontend/).
 
-## Features 🚀
+To access the administration panel, access the login dialog by click
+on the button with an user icon in the top right corner of the screen.
 
-### Live Demo
+With the login dialog open, type `admin` as both username and password in it.
+The dialog will close itself, and the aforementioned button should
+become a dropdown menu with an option to navigate to the admin panel.
 
-[Visit the application live demo in this link](https://trebol-ecommerce.github.io/ngx-trebol-frontend/).
+### Mock data
 
-To access the administrative/management section and all its features, click on the button with an user icon in the top right corner of the screen. It should greet you with the login dialog. Then type `admin` as both username and password in it. And then, the aforementioned button should have a menu with the option to navigate to the admin panel.
+This demo feeds on a feature module that provides data stored in hard-coded
+JS arrays; thus, your browser's working memory acts as a fake persistence
+layer. You can try all the CRUD-related functionality, but once you force a
+reload or leave the web application, all changes in the data will be lost.
 
-#### Mock data
+This is interchangeably called the "fake API" as well the "local-memory module".
+In this project they mean the same thing.
 
-This demo is powered by a feature module that provides data stored in hard-coded JS arrays; this means that your browser's working memory acts as a fake and volatile persistence layer. You can try all CRUD-related functionalities as you'd expect, but if you force a reload or leave the application, all changes in data will be lost.
+Most of the data itself was generated using [Mockaroo](https://mockaroo.com/).
 
-At scale, I interchangeably call this the "fake API" and the "local-memory module". In both cases I mean the same thing.
+Placeholder images are served from [Fake Images Please](https://fakeimg.pl/).
 
-Most, if not all of the mock data was created using [Mockaroo](https://mockaroo.com/).
+## Features
 
-### Infrastructure
+The application itself is divided into modules in the `/src/app/` directory,
+and its structure is as follows:
 
-The application itself is divided into modules in the `/src/app/` directory, and its structure is as follows:
+- [`store/`](src/app/store/) -
+  The eCommerce components and pages, such as the frontpage,
+  the product catalog, the checkout wizard page, and the receipt page.
+- [`management/`](src/app/management/) -
+  The administration (PoS) area of the app. Authorized users may be able to
+  review all the sales; query all products and their categories;
+  create accounts for other users; list customers; upload images for products,
+  among other things.
+- [`shared/`](src/app/shared/) -
+  Exports Angular components, directives, and general elements that are used
+  by other modules and/or the application as a whole.
+- [`api/`](src/app/api/) -
+  Contains interfaces, modules, and dependency injection tokens to interact
+  with [the backend REST API](https://github.com/trebol-ecommerce/api).
+  - [`local-memory/`](src/app/api/local-memory/) -
+    Serves a fake API [as explained above](#mock-data).
+    It's the default option to build and serve the webapp with.
+  - [`http/`](src/app/api/http/) -
+    Serves access to a real, running backend server with an exposed REST API
+    compliant to the specification linked above.
+    The Spring Boot [monolith](https://github.com/trebol-ecommerce/trebol-backend-monolith)
+    is exactly that.
 
-- `store/` most of the public-facing components; there's the frontpage (aka the product catalog), the checkout page, and the receipt page
-- `management/` the administrative area of the app: there you register, update and categorize products; create users; list customers; upload images, etcetera
-- `shared/` exports Angular components, directives, and general elements that are used by other modules, and the application as a whole
-- `api/` contains interfaces, modules, and dependency injection tokens to interact with [the backend REST API](https://github.com/trebol-ecommerce/api)
-  - `local-memory/` serves a fake API basically running in the browser itself; it's the default option to build and serve with; and the demo uses it too
-  - `http/` serves an access to a real API through HTTP calls; these require a real, running backend with an exposed REST API compliant to the specification linked above
+The `api` module is [imported through](#configure-the-build--serve-process)
+an environment file which makes it painless to switch between implementations.
 
-The `api` module is [imported through an environment file](#configure-the-build--serve-process) which makes it painless to switch between implementations.
+### Testing
 
-### Internationalization
+Unit tests use Jasmine and run on top of Karma.
 
-This project uses [Angular i18n features](https://angular.io/guide/i18n-overview); this means you can build the app using different languages. Currently bundled locales reside in `/src/locales`. There are three:
+#### Running unit tests once
+
+Execute `ng t --no-watch --browsers={browser}` in the root directory
+to test the entire application immediately, only once.
+Supported browsers are `Chrome`, `Edge`, `Firefox`, `Safari`,
+and you can add more to the [`karma.conf.js`](src/karma.conf.js) file.
+There's also `ChromeHeadless` which is useful for CI pipelines
+such as [the one setup here](.github/workflows/build.yml).
+
+#### Live unit testing
+
+1. Execute `ng t` or `ng test` in the root directory to start the Karma server.
+2. Connect to its listening address (e.g. `localhost:9876`) with the browser(s)
+   of your preference to prepare them for parallel testing.
+3. In the root directory, under a different terminal process, trigger the tests
+   anytime by executing `karma run`.
+   Alternatively, in the browser window, you can press the `DEBUG` button, to
+   initiate the test suites in debug mode.
+
+### Language support
+
+This project uses
+[Angular i18n features](https://angular.io/guide/i18n-overview);
+this means you can build the app using different languages.
+Currently bundled locales reside in [`/src/locales`](src/locales/).
+There are three:
 
 - `en-US`
 - `es`
 - `es-CL`
 
-If you wish to translate this frontend to another language, check out [this Angular guide on working with translation files](https://angular.io/guide/i18n-common-translation-files).
+If you wish to translate this frontend to another language,
+check out this Angular guide on
+[working with translation files](https://angular.io/guide/i18n-common-translation-files).
 
-## Getting started 👍
+## Usage
 
 ### Requirements
 
-- [Angular CLI](https://cli.angular.io/) v13 or higher, and a compatible [Node.JS](https://nodejs.org/) installation.
+- [v15-compatible](https://github.com/angular/angular-cli/releases/tag/15.0.0)
+  installation for [Node.JS](https://nodejs.org/).
+- [Angular CLI](https://cli.angular.io/) v15 or higher
+  (view [v15 docs here](https://v15.angular.io/cli)).
 
-### How to use
+### Quick setup
 
-1. Clone this repo, using `git clone` or your preferred GUI tool for Git
-2. Execute `npm ci` in the root directory (where `package.json` resides)
-3. Execute `ng s` or `ng serve` in the root directory to preview-run the application. This is equivalent to visiting the live demo linked above.
+1. Clone this repo.
+2. Execute `npm ci` in the root directory (where the `package.json` file is).
+3. Execute `ng s` or `ng serve` in the root directory
+   to preview-run the application.
+   This is equivalent to visiting the live demo linked above.
 4. To work with a backend, you should set up your working environment.
+   See `Quick setup` below.
 
-#### Testing
+### On the configuration, build, and serve processes
 
-Unit test suites run using Jasmine. The steps to make them run are simple:
-Execute `ng t --no-watch --browsers={browser}` in the root directory to test the entire application inmediately, only once.
+- Make yourself comfortable with the official Angular guide on
+  [Building and Serving Apps](https://v15.angular.io/guide/build).
+- Default environment files already exist in
+  [`/src/environments/`](src/environments/)
+  - [`environment.ts`](src/environments/environment.ts)
+    defines application-wide constants.
+  - [`environment-modules.ts`](src/environments/environment-modules.ts)
+    defines module dependencies.
+- The [`/angular.json`](angular.json) file contains some additional configs;
+  I mostly use `staging`, `localhost` and `production`.
+  The latter two require you to define environment files
+  as specified by their `fileReplacements` definitions.
+  - There's also a configuration for
+    each bundled locale other than default `en-US`.
+  - While Angular supports using more than one configuration at the same time,
+    things may break. Only try this when you know what you're doing.
+- This project also declares the plugin for
+  [angular-cli-ghpages](https://github.com/angular-schule/angular-cli-ghpages#options)
+  as a devDependency, which you may find useful
+  to deploy to a GitHub Pages environment, like the live demo here does.
 
-When developing/hacking though, you might find it better to have the app run tests whenever you change any part of the code (like `ng serve` does). To do that instead:
+### Using a backend server
 
-1. Execute `ng t` or `ng test` in the root directory to simply start the Karma server.
-2. Connect to its listening address (e.g. `localhost:9876`) with your browser.
-3. In the root directory, under a different process, execute `karma run`. OR you can press the `DEBUG` button in the browser window, to initiate the test suites in debug mode.
+1. Create a copy of the two environment files
+   and rename them accordingly from your desired configuration
+   e.g. `environment.localhost.ts` and `environment-modules.localhost.ts`.
+2. Call `ng s` or `ng b` Angular CLI command using the `-c` option
+   to target said configuration e.g. `ng b -c production`.
+   You can target more than one, separating them by commas `,`.
+3. If you used `ng b`, serve the files from your preferred webserver.
+   I used to run `php -S localhost:80` from the resulting
+   `./dist/ngx-trebol-frontend/` directory.
+   To use any of the [locales mentioned above](#language-support)
+   you'll have to either:
 
-#### Configure the build / serve process
+    1) Mind the corresponding locale subdirectory, or
+    2) Remove, comment or change the value of the `<base>` tag
+       in the generated `index.html` file.
 
-- Make yourself comfortable with the [official guide on Building and Serving Angular Apps](https://angular.io/guide/build).
-- Default environment files already exist in `/src/environments/`
-  - `environment.ts` defines variables
-  - `environment-modules.ts` defines module dependencies
-- The `/src/angular.json` file contains some additional configs; I mostly use `staging`, `localhost` and `production`. The latter two require you to define environment files as specified by their `fileReplacements` definitions.
-  - There's also a configuration for each bundled locale other than default `en-US`.
-  - You can use more than one configuration, but some of the definitions will collide. Please do have a look at them before trying to use them.
-- This project also declares the [angular-cli-ghpages plugin](https://github.com/angular-schule/angular-cli-ghpages#options) as a devDependency, which you may find useful to deploy to a GitHub Pages environment like in the live demo.
+## Contributing to this repository
 
-#### Quick configuration steps
+I accept all kinds of contributions! However, please review the
+[contribution guidelines](https://github.com/trebol-ecommerce/ngx-trebol-frontend/blob/main/CONTRIBUTING.md)
+before proceeding.
 
-1. Create a copy of the two environment files and rename them accordingly from your desired configuration e.g. `environment.localhost.ts` and `environment-modules.localhost.ts`.
-2. Call `ng s` or `ng b` Angular CLI command using the `-c` option to target said configuration e.g. `ng b -c production`. You can target more than one, separating them by commas `,`.
-3. If you used `ng b`, serve the files from your preferred webserver. I often do `php -S localhost:80` from the resulting `./dist/ngx-trebol-frontend/` directory. If you use any of the above mentioned locales you'll have to either:
-  A) mind the corresponding subdirectory
-  B) remove, comment or change the value of the `<base>` tag in the generated `index.html`
-
-## Contributing to this repository 😍
-
-I accept all kinds of contributions! However, please review the [contribution guidelines](https://github.com/trebol-ecommerce/ngx-trebol-frontend/blob/main/CONTRIBUTING.md) before proceeding.
-
-*I also accept help writing better contribution guidelines.*
+*I also accept help writing better contribution guidelines, wink wink.*
 
 ## Contributors ✨
 

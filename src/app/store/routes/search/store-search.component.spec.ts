@@ -12,7 +12,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { EMPTY, of } from 'rxjs';
-import { MOCK_PRODUCTS } from 'src/app/api/local-memory/mock/mock-products.datasource';
+import { MOCK_PRODUCTS } from 'src/app/api/local-memory/mock-data/mock-products.datasource';
 import { Product } from 'src/models/entities/Product';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreSearchService } from '../../store-search.service';

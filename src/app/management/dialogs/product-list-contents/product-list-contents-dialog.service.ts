@@ -35,7 +35,15 @@ export class ProductListContentsDialogService {
 
   reloadItems() {
     this.loadingSource.next(true);
-    return this.listApiService.fetchContents(this.list, this.pageIndex, this.pageSize, this.sortBy, this.order).pipe(
+    return this.listApiService.fetchContents(
+      this.list,
+      {
+        pageIndex: this.pageIndex,
+        pageSize: this.pageSize,
+        sortBy: this.sortBy,
+        order: this.order
+      }
+    ).pipe(
       tap(page => this.pageSource.next(page)),
       finalize(() => this.loadingSource.next(false))
     );

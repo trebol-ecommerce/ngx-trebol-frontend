@@ -25,7 +25,10 @@ export class ProductCategoryTreeService {
 
   reloadCategories(force = false): Observable<ProductCategory[]> {
     return (force || !this.categoriesSource.value.length) ?
-      this.apiService.fetchPage().pipe(
+      this.apiService.fetchPage({
+        pageIndex: 0,
+        pageSize: 100
+      }).pipe(
         switchMap(page => from(page.items)),
         expand(category => this.loadDescendants(category).pipe(
           switchMap(children => from(children)),
@@ -57,6 +60,7 @@ export class ProductCategoryTreeService {
 
   edit(newNode: ProductCategory, originalNode: ProductCategory) {
     return this.apiService.update(newNode, originalNode).pipe(
+      switchMap(() => this.apiService.fetchExisting(newNode)),
       tap(() => {
         originalNode.code = newNode.code;
         originalNode.name = newNode.name;
@@ -72,7 +76,11 @@ export class ProductCategoryTreeService {
   }
 
   private loadDescendants(parent: ProductCategory) {
-    return this.apiService.fetchPage(0, Number.MAX_SAFE_INTEGER, null, null, { parentCode: parent.code }).pipe(
+    return this.apiService.fetchPage({
+      pageIndex: 0,
+      pageSize: Number.MAX_SAFE_INTEGER,
+      filters: { parentCode: parent.code }
+    }).pipe(
       map(page => page.items as ProductCategory[]),
       tap(children => { parent.children = children; })
     );

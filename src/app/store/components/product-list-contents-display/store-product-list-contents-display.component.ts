@@ -72,10 +72,15 @@ export class StoreProductListContentsDisplayComponent
   private reloadItems() {
     this.loadingProducts = true;
     this.loadingSubscription?.unsubscribe();
-
-    this.loadingSubscription = this.productListApiService.fetchContents(this.list, this.pageIndex, this.pageSize).pipe(
-      tap(page => this.pageSource.next(page)),
-      finalize(() => { this.loadingProducts = false; })
+    this.loadingSubscription = this.productListApiService.fetchContents(
+      this.list,
+      {
+        pageIndex: this.pageIndex,
+        pageSize: this.pageSize
+      }
+    ).pipe(
+        tap(page => this.pageSource.next(page)),
+        finalize(() => { this.loadingProducts = false; })
     ).subscribe();
   }
 

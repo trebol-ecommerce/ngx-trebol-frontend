@@ -1,0 +1,78 @@
+/**
+ * Copyright (c) 2022 The Trebol eCommerce Project
+ *
+ * This software is released under the MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
+:host {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 1rem;
+}
+
+:host > * {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  text-align: left;
+}
+
+:host > .customer > .details,
+:host > .company > .details {
+  display: inline-flex;
+  flex-flow: column nowrap;
+}
+
+:host > .customer > .details > .name,
+:host > .company > .details > .name {
+  white-space: break-spaces;
+}
+
+:host > .type,
+:host > .date,
+:host > .status,
+:host > .shipping {
+  margin-top: 0.5rem;
+}
+
+app-store-order-details-table {
+  flex: 1 0 auto;
+}
+
+@media(min-width: 1008px) {
+  :host {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+    justify-items: center;
+  }
+  :host > * {
+    text-align: initial;
+  }
+  :host > .customer {
+    grid-row: 1;
+    grid-column: span 6;
+    justify-self: start;
+  }
+  :host > .type {
+    grid-row: 1;
+    grid-column: span 1;
+  }
+  :host > .company {
+    grid-row: 1;
+    grid-column: span 5;
+  }
+  :host > .date {
+    grid-row: 2;
+    grid-column: span 6;
+  }
+  :host > .status {
+    grid-row: 2;
+    grid-column: span 6;
+  }
+  :host > .shipping {
+    grid-row: 3;
+    grid-column: span 12;
+  }
+}

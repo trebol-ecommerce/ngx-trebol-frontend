@@ -12,7 +12,8 @@ import { paginateItems } from '../../../functions/paginateItems';
 import { IEntityDataApiService } from '../entity.data-api.iservice';
 import {
   matchesDateProperty, matchesIdProperty, matchesNumberProperty, matchesStringProperty
-} from './entity-data.local-memory-api.functions';
+} from './local-memory-api.functions';
+import { ApiDataPageQuerySpec } from 'src/models/ApiDataPageQuerySpec';
 
 /**
  * Base class for a service that can fetch data from the local (client) memory.
@@ -24,22 +25,22 @@ export abstract class EntityDataLocalMemoryApiService<T>
   protected abstract itemExists(itemLike: Partial<T>): boolean;
   protected abstract getIndexOfItem(itemLike: Partial<T>): number;
 
-  fetchPage(pageIndex = 0, pageSize = 10, sortBy?: string, order?: string, filters?: any) {
+  fetchPage(p: ApiDataPageQuerySpec) {
 
-    const filteredItems = !!filters ? this.filterItems(filters) : this.items.slice();
+    const filteredItems = !!p.filters ? this.filterItems(p.filters) : this.items.slice();
     const totalCount = filteredItems.length;
 
-    const sortedItems = (!!sortBy) ?
-      filteredItems.sort((a, b) => this.sortItems(a, b, sortBy, order)) :
+    const sortedItems = (!!p.sortBy) ?
+      filteredItems.sort((a, b) => this.sortItems(a, b, p.sortBy, p.order)) :
       filteredItems;
 
-    const items = paginateItems<T>(sortedItems, pageIndex, pageSize);
+    const items = paginateItems<T>(sortedItems, p.pageIndex, p.pageSize);
 
     return of<DataPage<T>>({
       items,
       totalCount,
-      pageIndex,
-      pageSize
+      pageIndex: p.pageIndex,
+      pageSize: p.pageSize
     });
   }
 

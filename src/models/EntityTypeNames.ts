@@ -5,4 +5,4 @@
  * https://opensource.org/licenses/MIT
  */
 
-export type EntityTypeName = 'address' | 'image' | 'person' | 'product' | 'productCategory' | 'productList' | 'sell' | 'shipper' | 'user';
+export type EntityTypeName = 'address' | 'image' | 'person' | 'product' | 'productCategory' | 'productList' | 'order' | 'shipper' | 'user';

@@ -16,13 +16,13 @@ import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { SellDetail } from 'src/models/entities/SellDetail';
+import { OrderDetail } from 'src/models/entities/OrderDetail';
 import { StoreCartService } from '../../store-cart.service';
 import { StoreCartReviewComponent } from './store-cart-review.component';
 
-@Component({ selector: 'app-sell-details-table' })
+@Component({ selector: 'app-order-details-table' })
 class MockStoreCartContenstTableComponent {
-  @Input() sellDetails: SellDetail[];
+  @Input() orderDetails: OrderDetail[];
   @Input() editable: boolean;
   @Output() increaseUnitsAtIndex = new EventEmitter<number>();
   @Output() decreaseUnitsAtIndex = new EventEmitter<number>();

@@ -17,7 +17,7 @@ import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EMPTY, Observable, of } from 'rxjs';
-import { MOCK_PRODUCT_LISTS } from 'src/app/api/local-memory/mock/mock-product-lists.datasource';
+import { MOCK_PRODUCT_LISTS } from 'src/app/api/local-memory/mock-data/mock-product-lists.datasource';
 import { ProductList } from 'src/models/entities/ProductList';
 import { EntityFormDialogComponent } from '../../dialogs/entity-form/entity-form-dialog.component';
 import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';

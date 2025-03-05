@@ -10,12 +10,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CheckoutRequest } from 'src/models/CheckoutRequest';
 import { Product } from 'src/models/entities/Product';
-import { SellDetail } from 'src/models/entities/SellDetail';
+import { OrderDetail } from 'src/models/entities/OrderDetail';
 
 @Injectable({ providedIn: 'root' })
 export class StoreCartService {
 
-  private cartDetailsSource = new BehaviorSubject<SellDetail[]>([]);
+  private cartDetailsSource = new BehaviorSubject<OrderDetail[]>([]);
   private checkoutRequestSource = new BehaviorSubject<CheckoutRequest>(null);
 
   cartDetails$ = this.cartDetailsSource.asObservable();
@@ -30,16 +30,16 @@ export class StoreCartService {
   }
 
   addProductToCart(product: Product): void {
-    const index: number = this.findSellDetailsIndexByProductBarcode(product.barcode);
+    const index: number = this.findOrderDetailIndexByProductBarcode(product.barcode);
 
     if (index !== -1) {
       this.cartDetailsSource.value[index].units++;
     } else {
-      const newSellDetail: SellDetail = {
+      const newOrderDetail: OrderDetail = {
         product,
         units: 1
       };
-      this.cartDetailsSource.value.push(newSellDetail);
+      this.cartDetailsSource.value.push(newOrderDetail);
     }
 
     this.cartDetailsSource.next(this.cartDetailsSource.value);
@@ -73,7 +73,7 @@ export class StoreCartService {
     this.checkoutRequestSource.next(info);
   }
 
-  private findSellDetailsIndexByProductBarcode(barcode: string): number {
+  private findOrderDetailIndexByProductBarcode(barcode: string): number {
     return this.cartDetailsSource.value.findIndex(d => (d.product?.barcode === barcode));
   }
 

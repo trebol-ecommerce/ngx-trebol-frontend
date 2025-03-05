@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { of, Subscription } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
-import { Salesperson } from 'src/models/entities/Salesperson';
+import { Person } from 'src/models/entities/Person';
 import { COMMON_DISMISS_BUTTON_LABEL, COMMON_ERROR_MESSAGE } from 'src/text/messages';
 import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';
 import { TransactionalDataManagerComponentDirective } from '../../directives/transactional-data-manager/transactional-data-manager.component.directive';
@@ -26,7 +26,7 @@ import { ManagementSalespeopleService } from './management-salespeople.service';
   ]
 })
 export class ManagementSalespeopleComponent
-  extends TransactionalDataManagerComponentDirective<Salesperson>
+  extends TransactionalDataManagerComponentDirective<Person>
   implements OnInit, OnDestroy {
 
   private actionSubscription: Subscription;
@@ -51,13 +51,13 @@ export class ManagementSalespeopleComponent
     this.actionSubscription?.unsubscribe();
   }
 
-  onClickDelete(e: Salesperson) {
+  onClickDelete(e: Person) {
     this.actionSubscription?.unsubscribe();
     this.actionSubscription = this.service.removeItems([e]).pipe(
       switchMap(() => this.service.reloadItems()),
       tap(
         () => {
-          const successMessage = $localize`:Message of success after deleting a salesperson with first name {{ firstName }} and last name {{ lastName }}:Salesperson ${e.person.firstName}:firstName: ${e.person.lastName}:lastName: deleted`;
+          const successMessage = $localize`:Message of success after deleting a salesperson with first name {{ firstName }} and last name {{ lastName }}:Salesperson ${e.firstName}:firstName: ${e.lastName}:lastName: deleted`;
           this.snackBarService.open(successMessage, COMMON_DISMISS_BUTTON_LABEL);
         },
         () => {
@@ -67,7 +67,7 @@ export class ManagementSalespeopleComponent
     ).subscribe();
   }
 
-  protected createDialogProperties(item: Salesperson): EntityFormDialogConfig<Salesperson> {
+  protected createDialogProperties(item: Person): EntityFormDialogConfig<Person> {
     return {
       data: {
         isNewItem: !item,

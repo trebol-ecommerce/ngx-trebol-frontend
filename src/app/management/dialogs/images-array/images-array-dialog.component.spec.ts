@@ -18,7 +18,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { MOCK_IMAGES } from 'src/app/api/local-memory/mock/mock-images.datasource';
+import { MOCK_IMAGES } from 'src/app/api/local-memory/mock-data/mock-images.datasource';
 import { ITransactionalEntityDataApiService } from 'src/app/api/transactional-entity.data-api.iservice';
 import { Image } from 'src/models/entities/Image';
 import { ImagesArrayDialogComponent } from './images-array-dialog.component';

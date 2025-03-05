@@ -7,6 +7,45 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- Adapting to Trebol API v3
+  - Remove classes `Customer` and `Salesperson` in favor of `Person`
+    - As a result, in both cases, reference tokens to personal information are shorter
+      - `customer.person.firstName` -> `customer.firstName`
+  - Rename all instances of the word `Sell` to `Order`
+    - Angular components
+      - `SellDetailsTableComponent` -> `OrderDetailsTableComponent`
+      - `SellInformationComponent` -> `OrderInformationComponent`
+      - `SellDetailUnitsControlComponent` -> `OrderDetailUnitsControlComponent`
+      - `ManagementSalesComponent` -> `ManagementOrdersComponent`
+      - `ManagementSellReviewDialogComponent` -> `ManagementOrderReviewDialogComponent`
+    - Angular services
+      - `ManagementSalesService` -> `ManagementOrdersService`
+      - API services for sales data in both `http` and `local-memory` modules
+    - File, class, property, function, constant and variable names
+    - Endpoints
+      - `/sales` -> `/orders`
+      - `/sales/confirmation` -> `/orders/confirmation`
+      - `/sales/rejection` -> `/orders/rejection`
+      - `/sales/completion` -> `/orders/completion`
+    - `SellDetail` to `OrderDetail` as well
+  - Change Observable return types to `void` in API services for requesting with `POST`, `PUT` and `DELETE` verbs
+    (which will return no response body with `201` and `204` codes)
+    - NOTE: Should `PATCH` methods be supported, the same should apply!
+- API architecture
+  - Within their respective modules, API service classes were put together
+    instead of being grouped "by aspect"
+  - The `IEntityDataApiService.fetchPage` method signature was altered, and its 5 parameters
+    were combined into a single separate interface type.
+  - The HTTP implementation of the API also had another method with a similar signature,
+    `makeHttpParams`. It was refactored as a separate function.
+  - In the HTTP module were also several abstract classes to save writing boilerplate code.
+    These were removed because calling HTTP APIs in itself is pretty straightforward and
+    doesn't warrant the need for inheritance like this.
+
 ## [v2.12.1-rc.3] - 2022-08-02
 
 ### Changed

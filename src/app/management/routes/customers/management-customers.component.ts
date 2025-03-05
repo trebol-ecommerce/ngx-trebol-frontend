@@ -7,7 +7,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Customer } from 'src/models/entities/Customer';
+import { Person } from 'src/models/entities/Person';
 import { DataManagerComponentDirective } from '../../directives/data-manager/data-manager.component.directive';
 import { ManagementCustomersService } from './management-customers.service';
 
@@ -20,7 +20,7 @@ import { ManagementCustomersService } from './management-customers.service';
   ]
 })
 export class ManagementCustomersComponent
-  extends DataManagerComponentDirective<Customer>
+  extends DataManagerComponentDirective<Person>
   implements OnInit {
 
   tableColumns = ['name', 'idNumber'];

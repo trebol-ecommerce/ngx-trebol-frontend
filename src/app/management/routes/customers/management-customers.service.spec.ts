@@ -9,12 +9,12 @@ import { TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
-import { Customer } from 'src/models/entities/Customer';
+import { Person } from 'src/models/entities/Person';
 import { ManagementCustomersService } from './management-customers.service';
 
 describe('ManagementCustomersService', () => {
   let service: ManagementCustomersService;
-  let mockApiService: Partial<IEntityDataApiService<Customer>>;
+  let mockApiService: Partial<IEntityDataApiService<Person>>;
 
   beforeEach(() => {
     // TODO use jasmine.SpyObj

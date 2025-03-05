@@ -10,6 +10,7 @@ import { BehaviorSubject, concat, from, of, ReplaySubject } from 'rxjs';
 import { finalize, ignoreElements, map, switchMap, take, tap } from 'rxjs/operators';
 import { API_INJECTION_TOKENS } from 'src/app/api/api-injection-tokens';
 import { IEntityDataApiService } from 'src/app/api/entity.data-api.iservice';
+import { ApiDataPageQuerySpec } from 'src/models/ApiDataPageQuerySpec';
 import { DataPage } from 'src/models/DataPage';
 import { Image } from 'src/models/entities/Image';
 
@@ -37,8 +38,16 @@ export class ImagesArrayDialogService {
   /** Empty item selections and fetch data from the external service again. */
   reloadItems() {
     this.loadingSource.next(true);
-    const apiFilters = this.filter ? { filenameLike: this.filter } : undefined;
-    return this.imageDataService.fetchPage(this.pageIndex, this.pageSize, this.sortBy, this.order, apiFilters).pipe(
+    const params: ApiDataPageQuerySpec = {
+      pageIndex: this.pageIndex,
+      pageSize: this.pageSize,
+      sortBy: this.sortBy,
+      order: this.order
+    };
+    if (!!this.filter) {
+      params.filters = { filenameLike: this.filter };
+    };
+    return this.imageDataService.fetchPage(params).pipe(
       tap(page => this.pageSource.next(page)),
       ignoreElements(),
       finalize(() => this.loadingSource.next(false))

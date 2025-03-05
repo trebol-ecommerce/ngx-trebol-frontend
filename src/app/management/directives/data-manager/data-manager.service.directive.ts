@@ -54,7 +54,13 @@ export abstract class DataManagerServiceDirective<T>
   reloadItems() {
     this.focusedItemsSource.next([]);
     this.loadingSource.next(true);
-    return this.dataService.fetchPage(this.pageIndex, this.pageSize, this.sortBy, this.order, this.filters).pipe(
+    return this.dataService.fetchPage({
+      pageIndex: this.pageIndex,
+      pageSize: this.pageSize,
+      sortBy: this.sortBy,
+      order: this.order,
+      filters: this.filters
+    }).pipe(
       tap(page => { this.pageSource.next(page); }),
       finalize(() => { this.loadingSource.next(false); })
     );

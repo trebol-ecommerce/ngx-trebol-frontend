@@ -8,16 +8,16 @@
 import { TestBed } from '@angular/core/testing';
 import { of, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { SellDetail } from 'src/models/entities/SellDetail';
+import { OrderDetail } from 'src/models/entities/OrderDetail';
 import { API_INJECTION_TOKENS } from '../api/api-injection-tokens';
 import { ICheckoutPublicApiService } from '../api/checkout-public-api.iservice';
-import { MOCK_PRODUCTS } from '../api/local-memory/mock/mock-products.datasource';
+import { MOCK_PRODUCTS } from '../api/local-memory/mock-data/mock-products.datasource';
 import { StoreCartService } from './store-cart.service';
 
 describe('StoreCartService', () => {
   let service: StoreCartService;
   let checkoutApiServiceSpy: jasmine.SpyObj<ICheckoutPublicApiService>;
-  let cartDetails: SellDetail[];
+  let cartDetails: OrderDetail[];
   let updateArraySub: Subscription;
   const mockProduct = MOCK_PRODUCTS[0];
   const mockProductTwo = MOCK_PRODUCTS[1];

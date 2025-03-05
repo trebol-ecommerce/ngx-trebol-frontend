@@ -19,6 +19,7 @@ export const environment = {
     facebook: 'any-facebook-id'
   },
   apiUrls: {
+    base: '/',
     access: '',
     account: '',
     data: '',

@@ -19,12 +19,11 @@ import { EntityFormDialogComponent } from './dialogs/entity-form/entity-form-dia
 import { ImagesArrayDialogComponent } from './dialogs/images-array/images-array-dialog.component';
 import { ProductListContentsDialogComponent } from './dialogs/product-list-contents/product-list-contents-dialog.component';
 import { ProductsArrayDialogComponent } from './dialogs/products-array/products-array-dialog.component';
-import { ManagementSellReviewDialogComponent } from './dialogs/sell-review/management-sell-review-dialog.component';
+import { ManagementOrderReviewDialogComponent } from './dialogs/order-review/management-order-review-dialog.component';
 import { ImageFormComponent } from './forms/image/image-form.component';
 import { ProductCategoryFormComponent } from './forms/product-category/product-category-form.component';
 import { ProductListFormComponent } from './forms/product-list/product-list-form.component';
 import { ProductFormComponent } from './forms/product/product-form.component';
-import { SalespersonFormComponent } from './forms/salesperson/salesperson-form.component';
 import { ShipperFormComponent } from './forms/shipper/shipper-form.component';
 import { UserFormComponent } from './forms/user/user-form.component';
 import { ManagementMaterialModule } from './management-material.module';
@@ -43,8 +42,8 @@ import { ManagementProductListsComponent } from './routes/product-lists/manageme
 import { ManagementProductListsService } from './routes/product-lists/management-product-lists.service';
 import { ManagementProductsComponent } from './routes/products/management-products.component';
 import { ManagementProductsService } from './routes/products/management-products.service';
-import { ManagementSalesComponent } from './routes/sales/management-sales.component';
-import { ManagementSalesService } from './routes/sales/management-sales.service';
+import { ManagementOrdersComponent } from './routes/orders/management-orders.component';
+import { ManagementOrdersService } from './routes/orders/management-orders.service';
 import { ManagementSalespeopleComponent } from './routes/salespeople/management-salespeople.component';
 import { ManagementSalespeopleService } from './routes/salespeople/management-salespeople.service';
 import { ManagementShippersComponent } from './routes/shippers/management-shippers.component';
@@ -68,12 +67,11 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ImagesArrayDialogComponent,
     ProductListContentsDialogComponent,
     ProductsArrayDialogComponent,
-    ManagementSellReviewDialogComponent,
+    ManagementOrderReviewDialogComponent,
     ImageFormComponent,
     ProductCategoryFormComponent,
     ProductListFormComponent,
     ProductFormComponent,
-    SalespersonFormComponent,
     ShipperFormComponent,
     UserFormComponent,
     ManagementComponent,
@@ -83,7 +81,7 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ManagementProductCategoriesComponent,
     ManagementProductListsComponent,
     ManagementProductsComponent,
-    ManagementSalesComponent,
+    ManagementOrdersComponent,
     ManagementSalespeopleComponent,
     ManagementShippersComponent,
     ManagementUsersComponent
@@ -103,7 +101,7 @@ const SNACKBAR_DEFAULTS: MatSnackBarConfig = {
     ManagementProductCategoriesService,
     ManagementProductListsService,
     ManagementProductsService,
-    ManagementSalesService,
+    ManagementOrdersService,
     ManagementSalespeopleService,
     ManagementShippersService,
     ManagementUsersService

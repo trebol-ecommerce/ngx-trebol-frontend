@@ -11,7 +11,7 @@ import { ControlValueAccessor, UntypedFormControl, UntypedFormGroup, NG_VALUE_AC
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MOCK_PRODUCT_CATEGORIES } from 'src/app/api/local-memory/mock/mock-product-categories.datasource';
+import { MOCK_PRODUCT_CATEGORIES } from 'src/app/api/local-memory/mock-data/mock-product-categories.datasource';
 import { EntityFormGroupFactoryService } from 'src/app/shared/entity-form-group-factory.service';
 import { ProductCategoryFormComponent } from './product-category-form.component';
 

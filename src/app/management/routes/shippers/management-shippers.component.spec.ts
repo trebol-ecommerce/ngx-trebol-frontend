@@ -17,7 +17,7 @@ import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { EMPTY, Observable, of } from 'rxjs';
-import { MOCK_SHIPPERS } from 'src/app/api/local-memory/mock/mock-shippers.datasource';
+import { MOCK_SHIPPERS } from 'src/app/api/local-memory/mock-data/mock-shippers.datasource';
 import { Shipper } from 'src/models/entities/Shipper';
 import { EntityFormDialogComponent } from '../../dialogs/entity-form/entity-form-dialog.component';
 import { EntityFormDialogConfig } from '../../dialogs/entity-form/EntityFormDialogConfig';

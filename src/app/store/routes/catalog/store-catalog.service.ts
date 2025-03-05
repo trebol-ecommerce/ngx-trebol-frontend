@@ -36,8 +36,10 @@ export class StoreCatalogService {
 
   reloadItems() {
     this.loadingSource.next(true);
-
-    return this.productListApiService.fetchPage(this.listIndex).pipe(
+    return this.productListApiService.fetchPage({
+      pageIndex: this.listIndex,
+      pageSize: 4
+    }).pipe(
       tap(page => this.listsPageSource.next(page)),
       finalize(() => this.loadingSource.next(false))
     );
