@@ -23,9 +23,9 @@ jobs:
         run: npm i --global @angular/cli
       - name: Lint code
         run: ng lint
+      - name: Use Chrome
+        uses: browser-actions/setup-chrome@v1
       - name: Run unit tests
-        uses: ianwalter/playwright-container@v3.0.0
-        with:
-          args: npm run test-headless
+        run: npm run test-headless
       - name: Build the webapp
         run: ng build
